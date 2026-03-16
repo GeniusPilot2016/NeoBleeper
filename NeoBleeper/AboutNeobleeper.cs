@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using NeoBleeper.Properties;
 using System.Reflection;
 using static UIHelper;
 
@@ -159,7 +160,7 @@ namespace NeoBleeper
 
         private void button_explore_and_star_on_github_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("https://github.com/GeniusPilot2016/NeoBleeper") { UseShellExecute = true });
+            LinkHelper.OpenLink("https://github.com/GeniusPilot2016/NeoBleeper", this);
         }
 
         private void about_neobleeper_SystemColorsChanged(object sender, EventArgs e)
@@ -188,17 +189,14 @@ namespace NeoBleeper
                         case 0: // GeniusPilot2016 (the main developer of NeoBleeper)
                             url = "https://www.github.com/GeniusPilot2016";
                             break;
-                        case 1: // Robbi-985 (aka SomethingUnreal) (the original developer of Bleeper Music Maker, the predecessor of NeoBleeper with VB6)
-                            url = "https://www.youtube.com/@SomethingUnreal";
+                        case 1: // Robbi-985 (aka SomethingUnreal) (the original developer of Bleeper Music Maker, the predecessor of NeoBleeper that written in VB6)
+                            url = "https://www.youtube.com/@SomethingUnreal"; // SomethingUnreal's YouTube channel where he's famous with his music that made using Windows XP and 98 sounds.
                             break;
                         case 2: // M084MM3D (the user who reported the system speaker issue in some chipsets and completed missing data about can computers that have system speaker, but doesn't listed as PNP0800 device)
                             url = "https://www.youtube.com/@M084MM3D";
                             break;
                     }
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
-                    }
+                    LinkHelper.OpenLink(url, this); // Open the corresponding URL based on the selected contributor in the list view
                 }
             }
         }

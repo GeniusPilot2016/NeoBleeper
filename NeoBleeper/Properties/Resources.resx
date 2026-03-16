@@ -1123,13 +1123,25 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>No Notes Generated</value>
   </data>
-  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
-    <value>You must be at least 18 years old to use this feature.</value>
-  </data>
   <data name="ErrorLineIsEmpty" xml:space="preserve">
     <value>The line list is empty. Please add notes before starting playback.</value>
   </data>
   <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
     <value>The music is already playing. Please stop playback before starting waiting.</value>
+  </data>
+  <data name="icons8-success-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-success-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageFailedToCopy" xml:space="preserve">
+    <value>Failed to copy to clipboard.</value>
+  </data>
+  <data name="MessageFailedToPaste" xml:space="preserve">
+    <value>Failed to paste from clipboard.</value>
+  </data>
+  <data name="MessageFailedToCut" xml:space="preserve">
+    <value>Failed to cut to clipboard.</value>
+  </data>
+  <data name="MessageFailedToOpenLink" xml:space="preserve">
+    <value>Failed to open the link. The URL might be invalid or there might be an issue with the default web browser.</value>
   </data>
 </root>

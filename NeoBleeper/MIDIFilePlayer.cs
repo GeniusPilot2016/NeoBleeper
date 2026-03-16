@@ -1,6 +1,6 @@
 ﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
 // Copyright (C) 2023 GeniusPilot2016
-//p
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@ using static UIHelper;
 namespace NeoBleeper
 {
     /* The MIDI file player of NeoBleeper application, which plays MIDI files using system speaker
-    and can show lyrics overlay if the MIDI file contains lyrics.*/
+        and can show lyrics overlay if the MIDI file contains lyrics.*/
 
     /* Note: Notes are alternated like telephone ringing or playing one of notes if multiple notes are held
     and it may cause crackling sound in some systems that uses piezo buzzer for system speaker.
@@ -44,6 +44,7 @@ namespace NeoBleeper
         private MidiFile _midiFile;
         private Stopwatch _playbackStopwatch;
         private LyricsOverlay lyricsOverlay;
+        private readonly object _playbackRestartTimerLock = new object();
         public MIDIFilePlayer(string filename, Form owner)
         {
             InitializeComponent();
@@ -215,7 +216,7 @@ namespace NeoBleeper
                         MainWindow.lastOpenedMIDIFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
                         textBox1.Text = openFileDialog.FileName;
                         await LoadMIDI(openFileDialog.FileName);
-                    };  
+                    };
                     MainWindow.DoActionIfFileIsExist(openFileDialog.FileName, this, action);
                 }
                 else
@@ -567,8 +568,27 @@ namespace NeoBleeper
             try
             {
                 _isPlaying = true;
+
+                // Improve CTS management: cancel/wait/dispose existing before creating new one
+                if (_cancellationTokenSource != null)
+                {
+                    try
+                    {
+                        _cancellationTokenSource.Cancel();
+                        if (_playbackTask != null && !_playbackTask.IsCompleted)
+                        {
+                            await Task.WhenAny(_playbackTask, Task.Delay(1000));
+                        }
+                    }
+                    catch { }
+                    finally
+                    {
+                        try { _cancellationTokenSource.Dispose(); } catch { }
+                        _cancellationTokenSource = null;
+                    }
+                }
+
                 // Reinitialize the cancellation token source
-                _cancellationTokenSource?.Dispose();
                 _cancellationTokenSource = new CancellationTokenSource();
 
                 if (_currentFrameIndex < _frames.Count)
@@ -651,7 +671,7 @@ namespace NeoBleeper
             finally
             {
                 _isStopping = false;
-                _cancellationTokenSource?.Dispose();
+                try { _cancellationTokenSource?.Dispose(); } catch { }
                 _cancellationTokenSource = null;
             }
         }
@@ -673,46 +693,35 @@ namespace NeoBleeper
             if (_frames == null || _frames.Count == 0)
                 return;
 
-            // Store playing state before any changes
+            if (positionPercent < 0.0) positionPercent = 0.0;
+            if (positionPercent > 100.0) positionPercent = 100.0;
+
+            // Store playing state
             if (!_wasPlayingBeforeScroll)
-            {
                 _wasPlayingBeforeScroll = _isPlaying;
-            }
 
             // Stop current playback if any
             if (_isPlaying)
             {
                 Stop();
 
-                // Wait for the previous task to complete
                 if (_playbackTask != null && !_playbackTask.IsCompleted)
                 {
-                    try
-                    {
-                        await Task.WhenAny(_playbackTask, Task.Delay(1000));
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Log($"Error waiting for playback task: {ex.Message}", Logger.LogTypes.Error);
-                    }
+                    try { await Task.WhenAny(_playbackTask, Task.Delay(1000)); }
+                    catch (Exception ex) { Logger.Log($"Error waiting for playback task: {ex.Message}", Logger.LogTypes.Error); }
                 }
             }
 
-            // Calculate new position
-            _currentFrameIndex = (int)(positionPercent * _frames.Count / 100.0);
+            // Map percent [0..100] -> frame index [0..count-1] with rounding
+            int maxIndex = Math.Max(0, _frames.Count - 1);
+            _currentFrameIndex = (int)Math.Round((positionPercent / 100.0) * maxIndex);
             _currentFrameIndex = Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1));
 
-            // Reset the playback offset
-            if (_currentFrameIndex < _frames.Count)
-            {
-                _playbackStartOffsetMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
-            }
-            else
-            {
-                _playbackStartOffsetMs = 0;
-            }
+            // Reset the playback offset to exact frame time
+            _playbackStartOffsetMs = (_currentFrameIndex < _frames.Count)
+                ? TicksToMilliseconds(_frames[_currentFrameIndex].Time)
+                : 0;
 
-            // Reset the stopwatch
             _playbackStopwatch?.Reset();
 
             Logger.Log($"Position set to {positionPercent:0.00}% (frame {_currentFrameIndex} of {_frames.Count}, offset: {_playbackStartOffsetMs:0.00}ms)", Logger.LogTypes.Info);
@@ -751,7 +760,14 @@ namespace NeoBleeper
                 else
                 {
                     if (label.Visible) label.Visible = false;
-                    if (label.BackColor != _originalLabelColors[label]) label.BackColor = _originalLabelColors[label];
+                    if (_originalLabelColors.TryGetValue(label, out var orig))
+                    {
+                        if (label.BackColor != orig) label.BackColor = orig;
+                    }
+                    else
+                    {
+                        // fallback: don't throw
+                    }
                     if (!string.IsNullOrEmpty(label.Text)) label.Text = "";
                 }
                 if (sortedNotes.Count > _noteLabels.Length)
@@ -774,12 +790,19 @@ namespace NeoBleeper
 
             if (_isPlaying)
             {
-                double currentPositionPercent = (double)_currentFrameIndex / _frames.Count * 100;
-                bool wasPlaying = _isPlaying;
-                await SetPosition(currentPositionPercent);
-                if (wasPlaying && !_isPlaying)
+                if (_frames == null || _frames.Count == 0)
                 {
-                    Play();
+                    Logger.Log("No frames available while changing channels.", Logger.LogTypes.Warning);
+                }
+                else
+                {
+                    double currentPositionPercent = ((double)_currentFrameIndex / _frames.Count) * 100.0;
+                    bool wasPlaying = _isPlaying;
+                    await SetPosition(currentPositionPercent);
+                    if (wasPlaying && !_isPlaying)
+                    {
+                        Play();
+                    }
                 }
             }
             Logger.Log("Channel checkboxes changed", Logger.LogTypes.Info);
@@ -917,7 +940,7 @@ namespace NeoBleeper
                 return;
             }
 
-            if (noteIndex >= 0 && noteIndex < _noteLabels.Length)
+            if (_noteLabels != null && noteIndex >= 0 && noteIndex < _noteLabels.Length)
             {
                 Label label = _noteLabels[noteIndex];
                 label.BackColor = _highlightColor;
@@ -938,10 +961,13 @@ namespace NeoBleeper
                 return;
             }
 
-            if (noteIndex >= 0 && noteIndex < _noteLabels.Length)
+            if (_noteLabels != null && noteIndex >= 0 && noteIndex < _noteLabels.Length)
             {
                 Label label = _noteLabels[noteIndex];
-                label.BackColor = _originalLabelColors[label];
+                if (_originalLabelColors.TryGetValue(label, out var orig))
+                {
+                    label.BackColor = orig;
+                }
             }
         }
 
@@ -955,7 +981,7 @@ namespace NeoBleeper
         /// <returns>The frequency in hertz corresponding to the specified MIDI note number, rounded to the nearest integer.</returns>
         private int NoteToFrequency(int noteNumber)
         {
-            // MIDI note number to frequency conversion
+            // MIDI note number to frequency conversion (intentional for system speaker)
             return (int)(880.0 * Math.Pow(2.0, (noteNumber - 69) / 12.0));
         }
 
@@ -975,14 +1001,16 @@ namespace NeoBleeper
             long lastTick = _midiFile.Events
                 .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
                 .Max();
-            double totalDurationMs = TicksToMilliseconds(lastTick);
 
             double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
-            double percent = ((double)_currentFrameIndex + 1 / _frames.Count) * 100.0;
+
+            // Use consistent denominator for percent display
+            int denom = Math.Max(1, _frames.Count - 1);
+            double percent = ((double)frameIndex / denom) * 100.0;
 
             string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
-
             string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
+
             if (label_percentage.InvokeRequired)
             {
                 label_percentage.BeginInvoke(new Action(() =>
@@ -1013,7 +1041,7 @@ namespace NeoBleeper
             trackBar1.Value = 0;
             int positionPercent = trackBar1.Value / 10;
             await SetPosition(positionPercent);
-            UpdateTimeAndPercentPosition(positionPercent);
+            UpdateTimeAndPercentPosition(_currentFrameIndex);
             driftMs = 0; // Reset drifts
             ResetLabelsAndTrackBar();
             if (_wasPlayingBeforeScroll)
@@ -1040,7 +1068,7 @@ namespace NeoBleeper
             int octave = (noteNumber / 12) - 1;
 
             // Calculate the note name index (0-11) within the octave
-            int noteIndex = noteNumber % 12;
+            int noteIndex = ((noteNumber % 12) + 12) % 12;
 
             // Format the note name with its octave
             return $"{noteNames[noteIndex]}{octave + 1}";
@@ -1064,8 +1092,16 @@ namespace NeoBleeper
                 var sortedNotes = activeNotes.OrderBy(note => note).ToList();
                 Action updateAction = () =>
                 { // Reset all labels
-                    foreach (var label in _noteLabels)
-                    { label.Visible = false; label.BackColor = _originalLabelColors[label]; }
+                    if (_noteLabels != null)
+                    {
+                        foreach (var label in _noteLabels)
+                        {
+                            if (label == null) continue;
+                            label.Visible = false;
+                            if (_originalLabelColors.TryGetValue(label, out var c))
+                                label.BackColor = c;
+                        }
+                    }
                     // Process active notes with better mapping
                     for (int i = 0; i < Math.Min(sortedNotes.Count, _noteLabels.Length); i++)
                     {
@@ -1096,7 +1132,7 @@ namespace NeoBleeper
                 };
 
                 // Ensure UI update happens on the UI thread
-                if (_noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
+                if (_noteLabels != null && _noteLabels.Length > 0 && _noteLabels[0].InvokeRequired)
                     _noteLabels[0].BeginInvoke(updateAction);
                 else
                     updateAction();
@@ -1131,9 +1167,13 @@ namespace NeoBleeper
             try
             {
                 Stop();
-                _playbackRestartTimer?.Stop();
-                _playbackRestartTimer?.Dispose();
-                lyricsOverlay?.Dispose();
+                lock (_playbackRestartTimerLock)
+                {
+                    _playbackRestartTimer?.Stop();
+                    _playbackRestartTimer?.Dispose();
+                    _playbackRestartTimer = null;
+                }
+                try { lyricsOverlay?.Dispose(); } catch { }
             }
             catch (Exception ex)
             {
@@ -1184,7 +1224,7 @@ namespace NeoBleeper
             double positionPercent = (double)trackBar1.Value / trackBar1.Maximum * 100.0;
 
             // Cancel any existing debounce task
-            _scrollDebounceCts?.Cancel();
+            try { _scrollDebounceCts?.Cancel(); } catch { }
             _scrollDebounceCts = new CancellationTokenSource();
             _pendingPositionPercent = positionPercent;
 
@@ -1197,20 +1237,27 @@ namespace NeoBleeper
                 {
                     await Task.Delay(100, token); // Debounce delay
 
-                    // Invoke on UI thread
-                    this.BeginInvoke(async () =>
+                    // Invoke on UI thread - perform synchronous UI updates there and start SetPosition task safely
+                    this.BeginInvoke(new Action(() =>
                     {
                         try
                         {
-                            // Set new position and wait for it to complete
-                            await SetPosition(_pendingPositionPercent);
-
-                            // Update the UI labels
-                            int frameIndex = (int)(_pendingPositionPercent * _frames.Count / 100.0);
-                            frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
-
-                            if (_frames.Count > 0)
+                            // Start SetPosition but do not block UI; observe errors
+                            var setTask = SetPosition(_pendingPositionPercent);
+                            setTask.ContinueWith(t =>
                             {
+                                if (t.IsFaulted)
+                                {
+                                    Logger.Log($"Error in SetPosition (debounced): {t.Exception?.GetBaseException().Message}", Logger.LogTypes.Error);
+                                }
+                            }, TaskScheduler.Default);
+
+                            // Update the UI labels (guard frames)
+                            if (_frames != null && _frames.Count > 0)
+                            {
+                                int frameIndex = (int)(_pendingPositionPercent * _frames.Count / 100.0);
+                                frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
+
                                 long frameTick = _frames[frameIndex].Time;
                                 double currentTimeMs = TicksToMilliseconds(frameTick);
                                 string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
@@ -1222,19 +1269,26 @@ namespace NeoBleeper
                         }
                         catch (Exception ex)
                         {
-                            Logger.Log($"Error in debounced trackBar1_Scroll: {ex.Message}", Logger.LogTypes.Error);
+                            Logger.Log($"Error in debounced trackBar1_Scroll UI update: {ex.Message}", Logger.LogTypes.Error);
                         }
 
-                        // Start the playback restart timer
-                        _playbackRestartTimer?.Stop();
-                        _playbackRestartTimer?.Dispose();
-                        _playbackRestartTimer = new System.Timers.Timer(300);
-                        _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
-                        _playbackRestartTimer.AutoReset = false;
-                        _playbackRestartTimer.Start();
+                        // Start the playback restart timer in a thread-safe manner
+                        lock (_playbackRestartTimerLock)
+                        {
+                            try
+                            {
+                                _playbackRestartTimer?.Stop();
+                                _playbackRestartTimer?.Dispose();
+                            }
+                            catch { }
+                            _playbackRestartTimer = new System.Timers.Timer(300);
+                            _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
+                            _playbackRestartTimer.AutoReset = false;
+                            _playbackRestartTimer.Start();
+                        }
 
                         _isUserScrolling = false;
-                    });
+                    }));
                 }
                 catch (OperationCanceledException)
                 {
@@ -1253,11 +1307,18 @@ namespace NeoBleeper
         /// <param name="e">An ElapsedEventArgs object that contains the event data.</param>
         private async void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
         {
-            _playbackRestartTimer?.Stop();
-            _playbackRestartTimer?.Dispose();
-            _playbackRestartTimer = null;
+            lock (_playbackRestartTimerLock)
+            {
+                try
+                {
+                    _playbackRestartTimer?.Stop();
+                    _playbackRestartTimer?.Dispose();
+                }
+                catch { }
+                _playbackRestartTimer = null;
+            }
 
-            this.BeginInvoke(async () =>
+            this.BeginInvoke(new Action(() =>
             {
                 _isTrackBarBeingDragged = false;
                 _isUserScrolling = false;
@@ -1272,7 +1333,7 @@ namespace NeoBleeper
                 {
                     _wasPlayingBeforeScroll = false; // Reset in any condition
                 }
-            });
+            }));
         }
 
         private Label[] _noteLabels;
@@ -1293,27 +1354,37 @@ namespace NeoBleeper
             _noteLabels = new Label[32];
             for (int i = 1; i <= 32; i++)
             {
-                _noteLabels[i - 1] = (Label)this.Controls.Find($"label_note{i}", true)[0];
+                var found = this.Controls.Find($"label_note{i}", true).FirstOrDefault() as Label;
+                if (found == null)
+                {
+                    Logger.Log($"Label 'label_note{i}' not found during initialization.", Logger.LogTypes.Warning);
+                    found = new Label() { Visible = false, BackColor = SetInactiveNoteColor.GetInactiveNoteColor(Settings1.Default.note_indicator_color) };
+                    this.Controls.Add(found);
+                }
+                _noteLabels[i - 1] = found;
                 _noteLabels[i - 1].BackColor = SetInactiveNoteColor.GetInactiveNoteColor(Settings1.Default.note_indicator_color);
                 _noteLabels[i - 1].ForeColor = SetTextColor.GetTextColor(Settings1.Default.note_indicator_color);
                 _noteLabels[i - 1].Visible = false; // Initially hide all labels
 
-                // Store the original color
-                _originalLabelColors[_noteLabels[i - 1]] = _noteLabels[i - 1].BackColor;
+                // Store the original color safely
+                if (!_originalLabelColors.ContainsKey(_noteLabels[i - 1]))
+                    _originalLabelColors[_noteLabels[i - 1]] = _noteLabels[i - 1].BackColor;
             }
             foreach (var label in _noteLabels)
             {
+                if (label == null) continue;
                 typeof(Label).InvokeMember("DoubleBuffered",
                     BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
                     null, label, new object[] { true });
             }
             // Create a mapping from MIDI note numbers to label indices
-            // This mapping assumes MIDI notes 0-128 correspond to labels 1-32
+            // Map notes centered so middle of grid corresponds to a reasonable range
             _noteToLabelMap = new Dictionary<int, int>();
-            // Maps MIDI notes 0-128 to labels 1-32
             for (int i = 0; i <= 128; i++)
             {
-                _noteToLabelMap[i] = i - 60;
+                int mapped = i - 36; // shift so middle C near center
+                mapped = Math.Clamp(mapped, 0, _noteLabels.Length - 1);
+                _noteToLabelMap[i] = mapped;
             }
         }
         private void MIDI_file_player_Load(object sender, EventArgs e)
@@ -1368,6 +1439,12 @@ namespace NeoBleeper
         /// changes that may have occurred up to the given tick position.</returns>
         private double TicksToMilliseconds(long ticks)
         {
+            if (_precomputedTempoTimes == null || _precomputedTempoTimes.Count == 0)
+            {
+                // No precomputed tempos - use default tempo
+                return (double)ticks * 500000 / _ticksPerQuarterNote / 1000.0;
+            }
+
             // Find tempo events in right order
             int index = _precomputedTempoTimes.BinarySearch((ticks, 0), Comparer<(long, double)>.Create((x, y) => x.Item1.CompareTo(y.Item1)));
             if (index < 0)
@@ -1375,7 +1452,7 @@ namespace NeoBleeper
                 index = ~index - 1;
             }
 
-            // Use default tempo (120 BPM)
+            // Use default tempo (120 BPM) if before first
             if (index < 0)
             {
                 return (double)ticks * 500000 / _ticksPerQuarterNote / 1000.0;
@@ -1385,6 +1462,7 @@ namespace NeoBleeper
             double cumulativeMs = lastTempoEvent.cumulativeMs;
             long lastTicks = lastTempoEvent.time;
             int lastTempo = _tempoEvents.FirstOrDefault(e => e.time == lastTicks).tempo;
+            if (lastTempo == 0) lastTempo = 500000;
 
             // More precise calculation
             cumulativeMs += (double)(ticks - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
@@ -1426,6 +1504,7 @@ namespace NeoBleeper
                 var currentTempoEvent = _tempoEvents[i];
                 var nextTempoEvent = _tempoEvents[i + 1];
                 int tempoForSegment = currentTempoEvent.tempo;
+                if (tempoForSegment == 0) tempoForSegment = 500000;
 
                 cumulativeMs += (double)(nextTempoEvent.time - lastTicks) * tempoForSegment / _ticksPerQuarterNote / 1000.0;
                 _precomputedTempoTimes.Add((nextTempoEvent.time, cumulativeMs));
@@ -1439,7 +1518,6 @@ namespace NeoBleeper
                 return;
 
             // --- UI Update Block ---
-            // Update the UI periodically on the UI thread if needed
             if (IsHandleCreated && Visible)
             {
                 var currentFrameIndexForUI = _currentFrameIndex;
@@ -1456,7 +1534,8 @@ namespace NeoBleeper
                 }
             }
 
-            if (_currentFrameIndex >= _frames.Count - 1)
+            // Change: only consider playback complete when index >= _frames.Count (all frames processed)
+            if (_currentFrameIndex >= _frames.Count)
             {
                 HandlePlaybackComplete();
                 return;
@@ -1887,23 +1966,27 @@ namespace NeoBleeper
                 return;
             }
 
+            if (_frames == null || _frames.Count == 0)
+                return;
+
             // Prevent the conflict during trackBar update
             if (!_isTrackBarBeingDragged)
             {
-                // Update the position of trackBar
-                if (_frames.Count > 0)
+                int denom = Math.Max(1, _frames.Count - 1);
+                int trackbarValue = (int)Math.Round((double)trackBar1.Maximum * frameIndex / denom);
+                trackbarValue = Math.Clamp(trackbarValue, 0, trackBar1.Maximum);
+
+                if (trackbarValue != trackBar1.Value)
                 {
-                    int trackbarValue = (int)(1000.0 * frameIndex / _frames.Count);
-                    if (trackbarValue <= trackBar1.Maximum && trackbarValue != trackBar1.Value)
-                    {
-                        _isUserScrolling = false; // State that it's a program update
-                        trackBar1.Value = trackbarValue;
-                    }
+                    _isUserScrolling = false; // State that it's a program update
+                    trackBar1.Value = trackbarValue;
                 }
             }
 
-            // Update the percentage label
-            string percentagestr = Resources.TextPercent.Replace("{number}", ((double)frameIndex / _frames.Count * 100).ToString("0.00", CultureInfo.CurrentCulture));
+            // Update the percentage label using consistent denominator
+            int denomForPercent = Math.Max(1, _frames.Count - 1);
+            double percent = ((double)frameIndex / denomForPercent) * 100.0;
+            string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
             label_percentage.Text = percentagestr;
 
             // Update the position label
@@ -1911,11 +1994,9 @@ namespace NeoBleeper
 
             if (!checkBox_dont_update_grid.Checked)
             {
-                // Update note labels
                 UpdateNoteLabelsSync(filteredNotes);
             }
 
-            // Update the label of notes that being held on
             holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} ({filteredNotes.Count})";
         }
 
@@ -1931,24 +2012,10 @@ namespace NeoBleeper
         {
             if (!_isPlaying) return;
 
-            // Playback time based on stopwatch
+            // Prefer stopwatch-based song time as authoritative for playback
             double songTimeMs = _playbackStartOffsetMs + _playbackStopwatch.ElapsedMilliseconds;
 
-            // Frame time based on current frame
-            double frameTimeMs = 0;
-            if (_frames != null && _frames.Count > 0 && _currentFrameIndex < _frames.Count)
-            {
-                frameTimeMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
-            }
-            else
-            {
-                frameTimeMs = songTimeMs;
-            }
-
-            // Use average or frame time for more accuracy
-            double accurateMs = (songTimeMs + frameTimeMs) / 2.0;
-
-            TimeSpan timeSpan = TimeSpan.FromMilliseconds(accurateMs);
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(songTimeMs);
             int minutes = timeSpan.Minutes;
             int seconds = timeSpan.Seconds;
             int milliseconds = timeSpan.Milliseconds / 10;
@@ -1981,8 +2048,42 @@ namespace NeoBleeper
         {
             try
             {
-                // Process the completion of playback if the player is still playing
                 if (!_isPlaying) return;
+
+                // Ensure UI shows final position (100%)
+                try
+                {
+                    if (this.InvokeRequired)
+                    {
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            try
+                            {
+                                trackBar1.Value = trackBar1.Maximum;
+                                label_percentage.Text = Resources.TextPercent.Replace("{number}", (100.0).ToString("0.00", CultureInfo.CurrentCulture));
+                                long lastTick = _midiFile.Events.SelectMany(t => t).Max(ev => ev.AbsoluteTime);
+                                double totalMs = TicksToMilliseconds(lastTick);
+                                string timeStr = TimeSpan.FromMilliseconds(totalMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
+                                label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
+                            }
+                            catch { }
+                        }));
+                    }
+                    else
+                    {
+                        try
+                        {
+                            trackBar1.Value = trackBar1.Maximum;
+                            label_percentage.Text = Resources.TextPercent.Replace("{number}", (100.0).ToString("0.00", CultureInfo.CurrentCulture));
+                            long lastTick = _midiFile.Events.SelectMany(t => t).Max(ev => ev.AbsoluteTime);
+                            double totalMs = TicksToMilliseconds(lastTick);
+                            string timeStr = TimeSpan.FromMilliseconds(totalMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
+                            label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
+                        }
+                        catch { }
+                    }
+                }
+                catch { /* UI best-effort, ignore UI exceptions */ }
 
                 playbackTimer.Stop();
                 _wasPlayingBeforeScroll = false;
@@ -1990,7 +2091,6 @@ namespace NeoBleeper
                 {
                     Logger.Log("Playback loop enabled. Rewinding.", Logger.LogTypes.Info);
                     await Rewind();
-                    // Restart playback if looping is enabled
                     Play();
                 }
                 else
@@ -2003,7 +2103,6 @@ namespace NeoBleeper
             catch (Exception ex)
             {
                 Logger.Log($"An error occurred in HandlePlaybackComplete: {ex.Message}", Logger.LogTypes.Error);
-                // Stop playback if an error occurs
                 Stop();
             }
             finally
@@ -2059,7 +2158,29 @@ namespace NeoBleeper
         /// <param name="lyrics">The lyrics text to display. Cannot be null.</param>
         private void PrintLyrics(string lyrics)
         {
-            lyricsOverlay.PrintLyrics(lyrics);
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => PrintLyrics(lyrics)));
+                return;
+            }
+
+            if (lyricsOverlay == null || lyricsOverlay.IsDisposed)
+            {
+                if (checkBox_show_lyrics_or_text_events != null && checkBox_show_lyrics_or_text_events.Checked)
+                {
+                    lyricsOverlay = new LyricsOverlay();
+                    lyricsOverlay.Owner = this;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
+            {
+                try { lyricsOverlay.PrintLyrics(lyrics); } catch (Exception ex) { Logger.Log($"PrintLyrics error: {ex.Message}", Logger.LogTypes.Error); }
+            }
         }
 
         /// <summary>
@@ -2070,7 +2191,7 @@ namespace NeoBleeper
             lyricRow = string.Empty;
             if (lyricsOverlay != null && !lyricsOverlay.IsDisposed && !lyricsOverlay.Disposing)
             {
-                lyricsOverlay.ClearLyrics();
+                try { lyricsOverlay.ClearLyrics(); } catch { }
             }
         }
 
@@ -2081,6 +2202,12 @@ namespace NeoBleeper
         /// instance is created and shown. The overlay is brought to the foreground when displayed.</remarks>
         private void ShowLyricsOverlay()
         {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => ShowLyricsOverlay()));
+                return;
+            }
+
             if (lyricsOverlay == null || lyricsOverlay.IsDisposed)
             {
                 lyricsOverlay = new LyricsOverlay();
@@ -2092,7 +2219,7 @@ namespace NeoBleeper
                 lyricsOverlay.Show(this);
             }
 
-            BeginInvoke((Action)(() => this.Activate()));
+            try { BeginInvoke((Action)(() => this.Activate())); } catch { }
         }
 
         /// <summary>
@@ -2100,6 +2227,12 @@ namespace NeoBleeper
         /// </summary>
         private void HideLyricsOverlay()
         {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action(() => HideLyricsOverlay()));
+                return;
+            }
+
             if (lyricsOverlay != null && !lyricsOverlay.IsDisposed)
             {
                 lyricsOverlay.Hide();

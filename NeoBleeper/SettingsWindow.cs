@@ -1889,7 +1889,7 @@ namespace NeoBleeper
                     link = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/TROUBLESHOOTING.md#2-system-speaker-detection--compatibility";
                     break;
             }
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(link) { UseShellExecute = true });
+            LinkHelper.OpenLink(link, this);
         }
 
         private void numericUpDownLyricsSize_ValueChanged(object sender, EventArgs e)

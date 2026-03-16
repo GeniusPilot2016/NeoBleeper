@@ -349,6 +349,10 @@ namespace NeoBleeper
                 int midiNote = 27 + i;
                 if (midiNote <= 93) // MIDI percussion notes range from 27 to 93
                 {
+                    if (PercussionKeyToolTipLabels.ContainsKey(midiNote))
+                    {
+                        break; // Avoid overwriting existing entries if this method is called multiple times
+                    }
                     PercussionKeyToolTipLabels.Add(midiNote, lines[i]);
                 }
             }
@@ -1119,41 +1123,17 @@ namespace NeoBleeper
         /// <returns>The MIDI note number corresponding to the specified note name, or -1 if the input is invalid.</returns>
         private int NoteNameToMIDINumber(string noteName)
         {
-            // Define the base MIDI numbers for each note
-            Dictionary<string, int> baseMidiNumbers = new Dictionary<string, int>
-    {
-        { "C", 0 }, { "C#", 1 }, { "D", 2 }, { "D#", 3 },
-        { "E", 4 }, { "F", 5 }, { "F#", 6 }, { "G", 7 },
-        { "G#", 8 }, { "A", 9 }, { "A#", 10 }, { "B", 11 }
-    };
-
-            if (string.IsNullOrWhiteSpace(noteName) || noteName.Length < 2)
-            {
-                return -1;
-            }
-
-            string note = noteName.Substring(0, noteName.Length - 1).ToUpper();
-            string octaveString = noteName.Substring(noteName.Length - 1);
-            int octave;
-
-            if (!int.TryParse(octaveString, out octave))
-            {
-                return -1;
-            }
-
-            if (!baseMidiNumbers.ContainsKey(note))
-            {
-                return -1;
-            }
-
+            if (string.IsNullOrWhiteSpace(noteName)) return -1;
             var m = Regex.Match(noteName.ToUpperInvariant(), @"^([A-G])(#?)(\d+)$");
             if (!m.Success) return -1;
-            string noteValue = m.Groups[1].Value + (m.Groups[2].Value == "#" ? "#" : "");
+            string noteKey = m.Groups[1].Value + (m.Groups[2].Value == "#" ? "#" : "");
             int octaveValue = int.Parse(m.Groups[3].Value);
-            int baseMidiNumber = baseMidiNumbers[note];
-            int midiNumber = (octave + 1) * 12 + baseMidiNumber;
-
-            return midiNumber;
+            var baseMidiNumbers = new Dictionary<string, int>
+            {
+                {"C",0},{"C#",1},{"D",2},{"D#",3},{"E",4},{"F",5},{"F#",6},{"G",7},{"G#",8},{"A",9},{"A#",10},{"B",11}
+            };
+            if (!baseMidiNumbers.TryGetValue(noteKey, out int baseMidi)) return -1;
+            return (octaveValue + 1) * 12 + baseMidi; // C4 -> 60
         }
 
         /// <summary>
@@ -1183,7 +1163,7 @@ namespace NeoBleeper
         /// <param name="length">The duration, in milliseconds, for which each note should be played.</param>
         private async void PlayMidiNotesFromLineAsync(int index, bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length)
         {
-
+            if (index < 0 || index >= listViewNotes.Items.Count) return;
             String note1 = listViewNotes.Items[index].SubItems[1].Text;
             String note2 = listViewNotes.Items[index].SubItems[2].Text;
             String note3 = listViewNotes.Items[index].SubItems[3].Text;
@@ -1212,10 +1192,24 @@ namespace NeoBleeper
         /// <returns>A NeoBleeperProjectFile object deserialized from the specified XML string.</returns>
         private static NBPMLFile.NeoBleeperProjectFile DeserializeXMLFromString(string xmlContent)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
-            using (StringReader reader = new StringReader(xmlContent))
+            try
             {
-                return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(reader);
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+                using (var sr = new StringReader(xmlContent ?? string.Empty))
+                using (var xr = XmlReader.Create(sr, settings))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
+                    return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(xr);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"DeserializeXMLFromString failed: {ex.Message}", Logger.LogTypes.Error);
+                return null;
             }
         }
 
@@ -1243,144 +1237,110 @@ namespace NeoBleeper
             try
             {
                 saveToolStripMenuItem.Enabled = true;
-                NBPMLFile.NeoBleeperProjectFile projectFile = DeserializeXMLFromString(createdMusic);
+                var projectFile = DeserializeXMLFromString(createdMusic);
                 if (projectFile != null)
                 {
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
+                    // Safe parse helpers
+                    static int SafeInt(string s, int defaultVal) =>
+                        int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var v) ? v : defaultVal;
+                    static double SafeDoubleFromPercentString(string s, double defaultVal)
                     {
-                        Variables.octave = 4; // Default value
+                        if (int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var p))
+                            return Math.Max(0.0, Math.Min(1.0, p / 100.0));
+                        if (double.TryParse(s, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var d))
+                            return Math.Max(0.0, Math.Min(1.0, d));
+                        return defaultVal;
+                    }
+
+                    var rs = projectFile.Settings?.RandomSettings;
+                    var ps = projectFile.Settings?.PlaybackSettings;
+                    var cps = projectFile.Settings?.ClickPlayNotes;
+                    var pns = projectFile.Settings?.PlayNotes;
+
+                    // Keyboard octave
+                    if (string.IsNullOrWhiteSpace(rs?.KeyboardOctave))
+                    {
+                        Variables.octave = 4;
                         Logger.Log("Keyboard octave not found, defaulting to 4", Logger.LogTypes.Info);
                     }
                     else
                     {
-                        Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                        Variables.octave = SafeInt(rs.KeyboardOctave, 4);
                     }
-                    Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
-                    numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
-                    Variables.timeSignature = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
-                    trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
-                    lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
-                    Variables.noteSilenceRatio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
-                    trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                    lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                    comboBox_note_length.SelectedIndex = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteLength);
-                    Variables.alternatingNoteLength = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
-                    numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
-                    checkbox_play_note.Checked = projectFile.Settings.PlaybackSettings.NoteClickPlay == "True";
-                    checkBox_add_note_to_list.Checked = projectFile.Settings.PlaybackSettings.NoteClickAdd == "True";
-                    add_as_note1.Checked = projectFile.Settings.PlaybackSettings.AddNote1 == "True";
-                    add_as_note2.Checked = projectFile.Settings.PlaybackSettings.AddNote2 == "True";
-                    add_as_note3.Checked = projectFile.Settings.PlaybackSettings.AddNote3 == "True";
-                    add_as_note4.Checked = projectFile.Settings.PlaybackSettings.AddNote4 == "True";
-                    checkBox_replace.Checked = projectFile.Settings.PlaybackSettings.NoteReplace == "True";
-                    checkBox_replace_length.Checked = projectFile.Settings.PlaybackSettings.NoteLengthReplace == "True";
-                    checkBox_play_note1_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote1 == "True";
-                    checkBox_play_note2_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote2 == "True";
-                    checkBox_play_note3_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote3 == "True";
-                    checkBox_play_note4_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote4 == "True";
-                    checkBox_play_note1_played.Checked = projectFile.Settings.PlayNotes.PlayNote1 == "True";
-                    checkBox_play_note2_played.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
-                    checkBox_play_note3_played.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
-                    checkBox_play_note4_played.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
-                    // Assign default values if none of the radiobuttons are checked
-                    if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
-                    {
+
+                    // BPM
+                    Variables.bpm = SafeInt(rs?.BPM, 140);
+                    numericUpDown_bpm.Value = Math.Max(numericUpDown_bpm.Minimum, Math.Min(numericUpDown_bpm.Maximum, Convert.ToDecimal(Variables.bpm)));
+
+                    // Time signature
+                    Variables.timeSignature = SafeInt(rs?.TimeSignature, 4);
+                    trackBar_time_signature.Value = Math.Max((int)trackBar_time_signature.Minimum, Math.Min((int)trackBar_time_signature.Maximum, Variables.timeSignature));
+                    lbl_time_signature.Text = Variables.timeSignature.ToString();
+
+                    // Note silence ratio (percent or decimal)
+                    Variables.noteSilenceRatio = SafeDoubleFromPercentString(rs?.NoteSilenceRatio, 0.5);
+                    trackBar_note_silence_ratio.Value = Math.Max(trackBar_note_silence_ratio.Minimum, Math.Min(trackBar_note_silence_ratio.Maximum, (int)(Variables.noteSilenceRatio * 100)));
+                    lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
+
+                    // Note length index
+                    comboBox_note_length.SelectedIndex = Math.Max(0, Math.Min(comboBox_note_length.Items.Count - 1, SafeInt(rs?.NoteLength, 3)));
+
+                    // Alternating note length
+                    Variables.alternatingNoteLength = SafeInt(rs?.AlternateTime, 30);
+                    numericUpDown_alternating_notes.Value = Math.Max(numericUpDown_alternating_notes.Minimum, Math.Min(numericUpDown_alternating_notes.Maximum, Convert.ToDecimal(Variables.alternatingNoteLength)));
+
+                    // Playback toggles (safe True/False parsing)
+                    bool SafeBool(string s, bool defaultVal) =>
+                        string.Equals(s, "True", StringComparison.OrdinalIgnoreCase) || string.Equals(s, "1", StringComparison.OrdinalIgnoreCase) ? true :
+                        string.Equals(s, "False", StringComparison.OrdinalIgnoreCase) || string.Equals(s, "0", StringComparison.OrdinalIgnoreCase) ? false : defaultVal;
+
+                    checkbox_play_note.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.NoteClickPlay, true);
+                    checkBox_add_note_to_list.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.NoteClickAdd, true);
+                    add_as_note1.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.AddNote1, true);
+                    add_as_note2.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.AddNote2, false);
+                    add_as_note3.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.AddNote3, false);
+                    add_as_note4.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.AddNote4, false);
+                    checkBox_replace.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.NoteReplace, false);
+                    checkBox_replace_length.Checked = SafeBool(projectFile.Settings?.PlaybackSettings?.NoteLengthReplace, false);
+
+                    checkBox_play_note1_clicked.Checked = SafeBool(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote1, true);
+                    checkBox_play_note2_clicked.Checked = SafeBool(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote2, true);
+                    checkBox_play_note3_clicked.Checked = SafeBool(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote3, true);
+                    checkBox_play_note4_clicked.Checked = SafeBool(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote4, true);
+
+                    checkBox_play_note1_played.Checked = SafeBool(projectFile.Settings?.PlayNotes?.PlayNote1, true);
+                    checkBox_play_note2_played.Checked = SafeBool(projectFile.Settings?.PlayNotes?.PlayNote2, true);
+                    checkBox_play_note3_played.Checked = SafeBool(projectFile.Settings?.PlayNotes?.PlayNote3, true);
+                    checkBox_play_note4_played.Checked = SafeBool(projectFile.Settings?.PlayNotes?.PlayNote4, true);
+
+                    // Defaults for radiobuttons if none checked
+                    if (!add_as_note1.Checked && !add_as_note2.Checked && !add_as_note3.Checked && !add_as_note4.Checked)
                         add_as_note1.Checked = true;
-                    }
-                    // Assign default values if no time signature is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.TimeSignature))
+
+                    // Time signature default check
+                    if (string.IsNullOrWhiteSpace(rs?.TimeSignature))
                     {
-                        trackBar_time_signature.Value = 4; // Default value
+                        trackBar_time_signature.Value = 4;
                         Variables.timeSignature = 4;
                         lbl_time_signature.Text = "4";
                         Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                     }
-                    // Assign default values if no note silence ratio is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteSilenceRatio))
+
+                    // Note silence ratio default check
+                    if (string.IsNullOrWhiteSpace(rs?.NoteSilenceRatio))
                     {
-                        Variables.noteSilenceRatio = 0.5; // Default value
+                        Variables.noteSilenceRatio = 0.5;
                         lbl_note_silence_ratio.Text = "50%";
                         Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                     }
-                    // Assign default values if no note length is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
+
+                    // Note length default check
+                    if (string.IsNullOrWhiteSpace(rs?.NoteLength))
                     {
-                        comboBox_note_length.SelectedIndex = 3; // Default value
+                        comboBox_note_length.SelectedIndex = 3;
                         Logger.Log("Note length not found, defaulting to 1/8", Logger.LogTypes.Info);
                     }
-                    // Assign default values if no alternating note length is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
-                    {
-                        Variables.alternatingNoteLength = 30; // Default value
-                        numericUpDown_alternating_notes.Value = 30;
-                        Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
-                    }
-                    // Assign default values if no note click play is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickPlay))
-                    {
-                        checkbox_play_note.Checked = true; // Default value
-                        Logger.Log("Note click play not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    // Assign default values if no note click add is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickAdd))
-                    {
-                        checkBox_add_note_to_list.Checked = true; // Default value
-                        Logger.Log("Note click add not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    // Assign default values if no note replace is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteReplace))
-                    {
-                        checkBox_replace.Checked = false; // Default value
-                        Logger.Log("Note replace not found, defaulting to false", Logger.LogTypes.Info);
-                    }
-                    // Assign default values if no note length replace is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
-                    {
-                        checkBox_replace_length.Checked = false; // Default value
-                        Logger.Log("Note length replace not found, defaulting to false", Logger.LogTypes.Info);
-                    }
-                    // Assign default values if no click play note is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
-                    {
-                        checkBox_play_note1_clicked.Checked = true; // Default value
-                        Logger.Log("Click play note 1 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
-                    {
-                        checkBox_play_note2_clicked.Checked = true; // Default value
-                        Logger.Log("Click play note 2 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
-                    {
-                        checkBox_play_note3_clicked.Checked = true; // Default value
-                        Logger.Log("Click play note 3 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
-                    {
-                        checkBox_play_note4_clicked.Checked = true; // Default value
-                        Logger.Log("Click play note 4 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    // Assign default values if no play note is found
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote1))
-                    {
-                        checkBox_play_note1_played.Checked = true; // Default value
-                        Logger.Log("Play note 1 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote2))
-                    {
-                        checkBox_play_note2_played.Checked = true; // Default value
-                        Logger.Log("Play note 2 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote3))
-                    {
-                        checkBox_play_note3_played.Checked = true; // Default value
-                        Logger.Log("Play note 3 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
-                    if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote4))
-                    {
-                        checkBox_play_note4_played.Checked = true; // Default value
-                        Logger.Log("Play note 4 not found, defaulting to true", Logger.LogTypes.Info);
-                    }
+
                     UpdateNoteLabels();
                     if (Variables.octave == 9)
                     {
@@ -1389,17 +1349,21 @@ namespace NeoBleeper
                     this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic;
                     listViewNotes.Items.Clear();
 
-                    foreach (var line in projectFile.LineList.Lines)
+                    if (projectFile.LineList?.Lines != null)
                     {
-                        ListViewItem item = new ListViewItem(ConvertNoteLengthIntoLocalized(line.Length));
-                        item.SubItems.Add(line.Note1);
-                        item.SubItems.Add(line.Note2);
-                        item.SubItems.Add(line.Note3);
-                        item.SubItems.Add(line.Note4);
-                        item.SubItems.Add(ConvertModifiersIntoLocalized(line.Mod));
-                        item.SubItems.Add(ConvertArticulationsIntoLocalized(line.Art));
-                        listViewNotes.Items.Add(item);
+                        foreach (var line in projectFile.LineList.Lines)
+                        {
+                            ListViewItem item = new ListViewItem(ConvertNoteLengthIntoLocalized(line.Length));
+                            item.SubItems.Add(line.Note1 ?? string.Empty);
+                            item.SubItems.Add(line.Note2 ?? string.Empty);
+                            item.SubItems.Add(line.Note3 ?? string.Empty);
+                            item.SubItems.Add(line.Note4 ?? string.Empty);
+                            item.SubItems.Add(ConvertModifiersIntoLocalized(line.Mod ?? string.Empty));
+                            item.SubItems.Add(ConvertArticulationsIntoLocalized(line.Art ?? string.Empty));
+                            listViewNotes.Items.Add(item);
+                        }
                     }
+
                     isModified = false;
                     UpdateFormTitle();
                 }
@@ -1407,7 +1371,7 @@ namespace NeoBleeper
                 initialMemento = originator.CreateMemento(); // Save the initial state
                 commandManager.ClearHistory(); // Reset the history
                 Logger.Log("File is successfully created by AI", Logger.LogTypes.Info);
-                NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleAIMusicCreated, Resources.NotificationMessageAIMusicCreated, ToolTipIcon.Info, 3000); // Show notification if the window is obscured
+                NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleAIMusicCreated, Resources.NotificationMessageAIMusicCreated, ToolTipIcon.Info, 3000);
             }
             catch (Exception ex)
             {
@@ -1504,10 +1468,37 @@ namespace NeoBleeper
             lbl_beat_value.Text = "0.0";
             lbl_beat_traditional_value.Text = "1";
             lbl_beat_traditional_value.ForeColor = Color.Green;
-            string firstLine = File.ReadLines(filename).First().Trim();
+
+            string fileContent;
+            try
+            {
+                fileContent = File.ReadAllText(filename);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Error reading file '{filename}': {ex.Message}", Logger.LogTypes.Error);
+                MessageForm.Show(this, Resources.MessageInvalidOrCorruptedMusicFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string cleanedContent = RemoveImpuritiesFromFileContent(fileContent); // Remove any unexpected characters or formatting issues that could interfere with parsing, while preserving the original content for potential future use if needed.
+            string firstLine = cleanedContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()?.Trim() ?? string.Empty;
+
+            // Safe parsing helpers
+            static int SafeInt(string s, int defaultVal) =>
+                int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var v) ? v : defaultVal;
+            static double SafeDoubleFromPercentString(string s, double defaultVal)
+            {
+                if (int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var p))
+                    return Math.Max(0.0, Math.Min(1.0, p / 100.0));
+                if (double.TryParse(s, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var d))
+                    return Math.Max(0.0, Math.Min(1.0, d));
+                return defaultVal;
+            }
+
             switch (firstLine)
             {
-                case "Bleeper Music Maker by Robbi-985 file format": // Legacy Bleeper Music Maker file format by Robbi-985
+                case "Bleeper Music Maker by Robbi-985 file format":
                     {
                         try
                         {
@@ -1516,223 +1507,150 @@ namespace NeoBleeper
                             saveAsToolStripMenuItem.Enabled = false;
                             string[] lines = File.ReadAllLines(filename);
 
-                            int noteListStartIndex = Array.IndexOf(lines, "MUSICLISTSTART") + 1;
+                            int noteListStartIndex = Array.IndexOf(lines, "MUSICLISTSTART");
+                            if (noteListStartIndex < 0) noteListStartIndex = lines.Length; // fallback
 
-                            for (int i = 1; i < noteListStartIndex; i++)
+                            // Parse header lines safely
+                            for (int i = 1; i < Math.Min(lines.Length, noteListStartIndex); i++)
                             {
-                                if (lines[i].StartsWith("//") || lines[i] == string.Empty)
+                                string line = lines[i].Trim();
+                                if (string.IsNullOrEmpty(line) || line.StartsWith("//")) continue;
+                                var parts = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                if (parts.Length < 2) continue;
+
+                                string key = parts[0];
+                                string value = string.Join(" ", parts.Skip(1));
+
+                                switch (key)
                                 {
-                                    continue;
-                                }
-                                else
-                                {
-                                    string[] parts = lines[i].Split(' ');
-                                    switch (parts[0])
-                                    {
-                                        case "KeyboardOctave":
-                                            Variables.octave = Convert.ToInt32(parts[1]);
-                                            break;
-                                        case "BPM":
-                                            Variables.bpm = Convert.ToInt32(parts[1]);
-                                            numericUpDown_bpm.Value = Convert.ToDecimal(parts[1]);
-                                            break;
-                                        case "TimeSig":
-                                            trackBar_time_signature.Value = Convert.ToInt32(parts[1]);
-                                            Variables.timeSignature = Convert.ToInt32(parts[1]);
-                                            lbl_time_signature.Text = parts[1].ToString();
-                                            break;
-                                        case "NoteSilenceRatio":
-                                            Variables.noteSilenceRatio = Convert.ToDouble(Convert.ToDouble(parts[1]) / 100);
-                                            trackBar_note_silence_ratio.Value = Convert.ToInt32(parts[1]);
-                                            lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", parts[1].ToString());
-                                            break;
-                                        case "NoteLength":
-                                            comboBox_note_length.SelectedIndex = Convert.ToInt32(parts[1]);
-                                            break;
-                                        case "AlternateTime":
-                                            Variables.alternatingNoteLength = Convert.ToInt32(parts[1]);
-                                            numericUpDown_alternating_notes.Value = Convert.ToDecimal(parts[1]);
-                                            break;
-                                        case "NoteClickPlay":
-                                            checkbox_play_note.Checked = parts[1] == "1";
-                                            break;
-                                        case "NoteClickAdd":
-                                            checkBox_add_note_to_list.Checked = parts[1] == "1";
-                                            break;
-                                        case "AddNote1":
-                                            add_as_note1.Checked = parts[1] == "True";
-                                            break;
-                                        case "AddNote2":
-                                            add_as_note2.Checked = parts[1] == "True";
-                                            break;
-                                        case "NoteReplace":
-                                            checkBox_replace.Checked = parts[1] == "1";
-                                            break;
-                                        case "NoteLengthReplace":
-                                            checkBox_replace_length.Checked = parts[1] == "1";
-                                            break;
-                                        case "ClickPlayNote1":
-                                            checkBox_play_note1_clicked.Checked = parts[1] == "1";
-                                            break;
-                                        case "ClickPlayNote2":
-                                            checkBox_play_note2_clicked.Checked = parts[1] == "1";
-                                            break;
-                                        case "PlayNote1":
-                                            checkBox_play_note1_played.Checked = parts[1] == "1";
-                                            break;
-                                        case "PlayNote2":
-                                            checkBox_play_note2_played.Checked = parts[1] == "1";
-                                            break;
-                                        default:
-                                            continue;
-                                    }
+                                    case "KeyboardOctave":
+                                        Variables.octave = SafeInt(value, 4);
+                                        break;
+                                    case "BPM":
+                                        Variables.bpm = SafeInt(value, 140);
+                                        numericUpDown_bpm.Value = Math.Max(numericUpDown_bpm.Minimum, Math.Min(numericUpDown_bpm.Maximum, Convert.ToDecimal(Variables.bpm)));
+                                        break;
+                                    case "TimeSig":
+                                        Variables.timeSignature = SafeInt(value, 4);
+                                        trackBar_time_signature.Value = Math.Max(trackBar_time_signature.Minimum, Math.Min(trackBar_time_signature.Maximum, Variables.timeSignature));
+                                        lbl_time_signature.Text = Variables.timeSignature.ToString();
+                                        break;
+                                    case "NoteSilenceRatio":
+                                        Variables.noteSilenceRatio = SafeDoubleFromPercentString(value, 0.5);
+                                        trackBar_note_silence_ratio.Value = Math.Max(trackBar_note_silence_ratio.Minimum, Math.Min(trackBar_note_silence_ratio.Maximum, (int)(Variables.noteSilenceRatio * 100)));
+                                        lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
+                                        break;
+                                    case "NoteLength":
+                                        comboBox_note_length.SelectedIndex = Math.Max(0, Math.Min(comboBox_note_length.Items.Count - 1, SafeInt(value, 3)));
+                                        break;
+                                    case "AlternateTime":
+                                        Variables.alternatingNoteLength = SafeInt(value, 30);
+                                        numericUpDown_alternating_notes.Value = Math.Max(numericUpDown_alternating_notes.Minimum, Math.Min(numericUpDown_alternating_notes.Maximum, Convert.ToDecimal(Variables.alternatingNoteLength)));
+                                        break;
+                                    case "NoteClickPlay":
+                                        checkbox_play_note.Checked = value == "1";
+                                        break;
+                                    case "NoteClickAdd":
+                                        checkBox_add_note_to_list.Checked = value == "1";
+                                        break;
+                                    case "AddNote1":
+                                        add_as_note1.Checked = string.Equals(value, "True", StringComparison.OrdinalIgnoreCase);
+                                        break;
+                                    case "AddNote2":
+                                        add_as_note2.Checked = string.Equals(value, "True", StringComparison.OrdinalIgnoreCase);
+                                        break;
+                                    case "NoteReplace":
+                                        checkBox_replace.Checked = value == "1";
+                                        break;
+                                    case "NoteLengthReplace":
+                                        checkBox_replace_length.Checked = value == "1";
+                                        break;
+                                    case "ClickPlayNote1":
+                                        checkBox_play_note1_clicked.Checked = value == "1";
+                                        break;
+                                    case "ClickPlayNote2":
+                                        checkBox_play_note2_clicked.Checked = value == "1";
+                                        break;
+                                    case "PlayNote1":
+                                        checkBox_play_note1_played.Checked = value == "1";
+                                        break;
+                                    case "PlayNote2":
+                                        checkBox_play_note2_played.Checked = value == "1";
+                                        break;
+                                    default:
+                                        continue;
                                 }
                             }
+
+                            // Ensure sensible defaults
                             if (!lines.Any(line => line.StartsWith("KeyboardOctave")))
                             {
-                                Variables.octave = 4; // Default value
+                                Variables.octave = 4;
                                 Logger.Log("Keyboard octave not found, defaulting to 4", Logger.LogTypes.Info);
                             }
-                            // Assign default values if none of the radiobuttons are checked
-                            if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
-                            {
-                                add_as_note1.Checked = true;
-                                Logger.Log("No note type selected, defaulting to Note 1", Logger.LogTypes.Info);
-                            }
-                            // Assign default values if no time signature is found
                             if (!lines.Any(line => line.StartsWith("TimeSig")))
                             {
-                                trackBar_time_signature.Value = 4; // Default value
+                                trackBar_time_signature.Value = 4;
                                 Variables.timeSignature = 4;
                                 lbl_time_signature.Text = "4";
                                 Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                             }
-                            // Assign default values if no note silence ratio is found
                             if (!lines.Any(line => line.StartsWith("NoteSilenceRatio")))
                             {
-                                Variables.noteSilenceRatio = 0.5; // Default value
+                                Variables.noteSilenceRatio = 0.5;
                                 lbl_note_silence_ratio.Text = "50%";
                                 Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                             }
-                            // Assign default values if no note length is found
                             if (!lines.Any(line => line.StartsWith("NoteLength")))
                             {
-                                comboBox_note_length.SelectedIndex = 3; // Default value
+                                comboBox_note_length.SelectedIndex = 3;
                                 Logger.Log("Note length not found, defaulting to 1/8", Logger.LogTypes.Info);
                             }
-                            // Assign default values if no alternating note length is found
                             if (!lines.Any(line => line.StartsWith("AlternateTime")))
                             {
-                                Variables.alternatingNoteLength = 30; // Default value
+                                Variables.alternatingNoteLength = 30;
                                 numericUpDown_alternating_notes.Value = 30;
                                 Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
                             }
-                            // Assign default values if no note click play is found
-                            if (!lines.Any(line => line.StartsWith("NoteClickPlay")))
-                            {
-                                checkbox_play_note.Checked = true; // Default value
-                                Logger.Log("Note click play not found, defaulting to true", Logger.LogTypes.Info);
-                            }
-                            // Assign default values if no note click add is found
-                            if (!lines.Any(line => line.StartsWith("NoteClickAdd")))
-                            {
-                                checkBox_add_note_to_list.Checked = true; // Default value
-                                Logger.Log("Note click add not found, defaulting to true", Logger.LogTypes.Info);
-                            }
-                            // Assign default values if no note replace is found
-                            if (!lines.Any(line => line.StartsWith("NoteReplace")))
-                            {
-                                checkBox_replace.Checked = false; // Default value
-                                Logger.Log("Note replace not found, defaulting to false", Logger.LogTypes.Info);
-                            }
-                            // Assign default values if no note length replace is found
-                            if (!lines.Any(line => line.StartsWith("NoteLengthReplace")))
-                            {
-                                checkBox_replace_length.Checked = false; // Default value
-                                Logger.Log("Note length replace not found, defaulting to false", Logger.LogTypes.Info);
-                            }
-                            // Assign default values if no click play note is found
-                            if (!lines.Any(line => line.StartsWith("ClickPlayNote1")))
-                            {
-                                checkBox_play_note1_clicked.Checked = true; // Default value
-                                Logger.Log("Click play note 1 not found, defaulting to true", Logger.LogTypes.Info);
-                            }
-                            if (!lines.Any(line => line.StartsWith("ClickPlayNote2")))
-                            {
-                                checkBox_play_note2_clicked.Checked = true; // Default value
-                                Logger.Log("Click play note 2 not found, defaulting to true", Logger.LogTypes.Info);
-                            }
-                            // Assign default values if no play note is found
-                            if (!lines.Any(line => line.StartsWith("PlayNote1")))
-                            {
-                                checkBox_play_note1_played.Checked = true; // Default value
-                                Logger.Log("Play note 1 not found, defaulting to true", Logger.LogTypes.Info);
-                            }
-                            if (!lines.Any(line => line.StartsWith("PlayNote2")))
-                            {
-                                checkBox_play_note2_played.Checked = true; // Default value
-                                Logger.Log("Play note 2 not found, defaulting to true", Logger.LogTypes.Info);
-                            }
+
                             UpdateNoteLabels();
-                            if (Variables.octave == 9)
-                            {
-                                ShiftNoteLabelsToRightForOctave9();
-                            }
+                            if (Variables.octave == 9) ShiftNoteLabelsToRightForOctave9();
                             listViewNotes.Items.Clear();
 
-                            for (int i = noteListStartIndex; i < lines.Length; i++)
+                            // Parse MUSICLISTSTART block if present
+                            if (noteListStartIndex >= 0 && noteListStartIndex < lines.Length)
                             {
-                                if (lines[i].StartsWith("//") || lines[i] == string.Empty)
+                                for (int i = noteListStartIndex + 1; i < lines.Length; i++)
                                 {
-                                    continue;
-                                }
-                                else
-                                {
-                                    string[] noteData = lines[i].Split(' ');
+                                    string ln = lines[i].Trim();
+                                    if (string.IsNullOrEmpty(ln) || ln.StartsWith("//")) continue;
+                                    string[] noteData = ln.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                                    ListViewItem item = new ListViewItem(ConvertNoteLengthIntoLocalized(noteData[0])); // Note length
-                                    if (noteData[1] != "-")
-                                    {
-                                        item.SubItems.Add(noteData[1]); // Note 1
-                                    }
-                                    else
-                                    {
-                                        item.SubItems.Add(string.Empty);
-                                    }
-                                    if (noteData[2] != "-")
-                                    {
-                                        item.SubItems.Add(noteData[2]); // Note 2
-                                    }
-                                    else
-                                    {
-                                        item.SubItems.Add(string.Empty);
-                                    }
-                                    if (noteData.Length == 4)
-                                    {
-                                        if (noteData[3] != "-") // Modifier
-                                        {
-                                            for (int j = 0; j < 2; j++)
-                                            {
-                                                item.SubItems.Add(string.Empty);
-                                            }
-                                            item.SubItems.Add(ConvertModifiersIntoLocalized(noteData[3]));
-                                        }
-                                        else
-                                        {
-                                            for (int j = 0; j < 3; j++)
-                                            {
-                                                item.SubItems.Add(string.Empty);
-                                            }
-                                        }
-                                        item.SubItems.Add(string.Empty);
-                                    }
-                                    else
-                                    {
-                                        for (int j = 0; j < 4; j++)
-                                        {
-                                            item.SubItems.Add(string.Empty);
-                                        }
-                                    }
+                                    // Legacy Bleeper Music Maker format columns:
+                                    // [0] Length, [1] Note1, [2] Note2, [3] Modifier
+                                    // NeoBleeper ListView expects:
+                                    // [0] Length, [1] Note1, [2] Note2, [3] Note3, [4] Note4, [5] Modifier, [6] Articulation
+
+                                    string legacyLength = noteData.ElementAtOrDefault(0) ?? string.Empty;
+                                    string legacyNote1 = noteData.ElementAtOrDefault(1) ?? string.Empty;
+                                    string legacyNote2 = noteData.ElementAtOrDefault(2) ?? string.Empty;
+                                    string legacyModifier = noteData.ElementAtOrDefault(3) ?? string.Empty;
+                                    string legacyArticulation = noteData.ElementAtOrDefault(4) ?? string.Empty;
+
+                                    // Legacy format uses "-" to mean empty
+                                    if (legacyNote1 == "-") legacyNote1 = string.Empty;
+                                    if (legacyNote2 == "-") legacyNote2 = string.Empty;
+                                    if (legacyModifier == "-") legacyModifier = string.Empty;
+                                    if (legacyArticulation == "-") legacyArticulation = string.Empty;
+
+                                    var item = new ListViewItem(ConvertNoteLengthIntoLocalized(legacyLength));
+                                    item.SubItems.Add(legacyNote1);       // Note1
+                                    item.SubItems.Add(legacyNote2);       // Note2
+                                    item.SubItems.Add(string.Empty);      // Note3 (not present in legacy format)
+                                    item.SubItems.Add(string.Empty);      // Note4 (not present in legacy format)
+                                    item.SubItems.Add(ConvertModifiersIntoLocalized(legacyModifier));           // Modifier
+                                    item.SubItems.Add(ConvertArticulationsIntoLocalized(legacyArticulation));   // Articulation
+
                                     listViewNotes.Items.Add(item);
                                 }
                             }
@@ -1759,155 +1677,109 @@ namespace NeoBleeper
                         }
                         break;
                     }
-                case "<NeoBleeperProjectFile>": // Modern NeoBleeper Project File format
+                case "<NeoBleeperProjectFile>":
                     {
                         try
                         {
                             isFileValid = true;
                             saveToolStripMenuItem.Enabled = true;
                             saveAsToolStripMenuItem.Enabled = true;
-                            NBPMLFile.NeoBleeperProjectFile projectFile = DeserializeXML(filename); if (projectFile != null)
+                            var projectFile = DeserializeXML(filename);
+                            if (projectFile != null)
                             {
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.KeyboardOctave))
+                                // Use same safe-parsing approach as AI loader
+                                static int SafeIntLocal(string s, int defaultVal) =>
+                                    int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var v) ? v : defaultVal;
+                                static double SafeDoubleFromPercentLocal(string s, double defaultVal)
                                 {
-                                    Variables.octave = 4; // Default value
+                                    if (int.TryParse(s, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out var p))
+                                        return Math.Max(0.0, Math.Min(1.0, p / 100.0));
+                                    if (double.TryParse(s, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var d))
+                                        return Math.Max(0.0, Math.Min(1.0, d));
+                                    return defaultVal;
+                                }
+
+                                var rs = projectFile.Settings?.RandomSettings;
+                                var ps = projectFile.Settings?.PlaybackSettings;
+
+                                if (string.IsNullOrWhiteSpace(rs?.KeyboardOctave))
+                                {
+                                    Variables.octave = 4;
                                     Logger.Log("Keyboard octave not found, defaulting to 4", Logger.LogTypes.Info);
                                 }
                                 else
                                 {
-                                    Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave); Variables.octave = Convert.ToInt32(projectFile.Settings.RandomSettings.KeyboardOctave);
+                                    Variables.octave = SafeIntLocal(rs.KeyboardOctave, 4);
                                 }
-                                Variables.bpm = Convert.ToInt32(projectFile.Settings.RandomSettings.BPM);
-                                numericUpDown_bpm.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.BPM);
-                                Variables.timeSignature = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
-                                trackBar_time_signature.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.TimeSignature);
-                                lbl_time_signature.Text = projectFile.Settings.RandomSettings.TimeSignature;
-                                Variables.noteSilenceRatio = Convert.ToDouble(Convert.ToDouble(Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio)) / 100);
-                                trackBar_note_silence_ratio.Value = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                                lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", projectFile.Settings.RandomSettings.NoteSilenceRatio);
-                                comboBox_note_length.SelectedIndex = Convert.ToInt32(projectFile.Settings.RandomSettings.NoteLength);
-                                Variables.alternatingNoteLength = Convert.ToInt32(projectFile.Settings.RandomSettings.AlternateTime);
-                                numericUpDown_alternating_notes.Value = Convert.ToDecimal(projectFile.Settings.RandomSettings.AlternateTime);
-                                checkbox_play_note.Checked = projectFile.Settings.PlaybackSettings.NoteClickPlay == "True";
-                                checkBox_add_note_to_list.Checked = projectFile.Settings.PlaybackSettings.NoteClickAdd == "True";
-                                add_as_note1.Checked = projectFile.Settings.PlaybackSettings.AddNote1 == "True";
-                                add_as_note2.Checked = projectFile.Settings.PlaybackSettings.AddNote2 == "True";
-                                add_as_note3.Checked = projectFile.Settings.PlaybackSettings.AddNote3 == "True";
-                                add_as_note4.Checked = projectFile.Settings.PlaybackSettings.AddNote4 == "True";
-                                checkBox_replace.Checked = projectFile.Settings.PlaybackSettings.NoteReplace == "True";
-                                checkBox_replace_length.Checked = projectFile.Settings.PlaybackSettings.NoteLengthReplace == "True";
-                                checkBox_play_note1_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote1 == "True";
-                                checkBox_play_note2_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote2 == "True";
-                                checkBox_play_note3_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote3 == "True";
-                                checkBox_play_note4_clicked.Checked = projectFile.Settings.ClickPlayNotes.ClickPlayNote4 == "True";
-                                checkBox_play_note1_played.Checked = projectFile.Settings.PlayNotes.PlayNote1 == "True";
-                                checkBox_play_note2_played.Checked = projectFile.Settings.PlayNotes.PlayNote2 == "True";
-                                checkBox_play_note3_played.Checked = projectFile.Settings.PlayNotes.PlayNote3 == "True";
-                                checkBox_play_note4_played.Checked = projectFile.Settings.PlayNotes.PlayNote4 == "True";
-                                // Assign default values if none of the radiobuttons are checked
-                                if (add_as_note1.Checked != true && add_as_note2.Checked != true && add_as_note3.Checked != true && add_as_note4.Checked != true)
-                                {
+
+                                Variables.bpm = SafeIntLocal(rs?.BPM, 140);
+                                numericUpDown_bpm.Value = Math.Max(numericUpDown_bpm.Minimum, Math.Min(numericUpDown_bpm.Maximum, Convert.ToDecimal(Variables.bpm)));
+
+                                Variables.timeSignature = SafeIntLocal(rs?.TimeSignature, 4);
+                                trackBar_time_signature.Value = Math.Max(trackBar_time_signature.Minimum, Math.Min(trackBar_time_signature.Maximum, Variables.timeSignature));
+                                lbl_time_signature.Text = Variables.timeSignature.ToString();
+
+                                Variables.noteSilenceRatio = SafeDoubleFromPercentLocal(rs?.NoteSilenceRatio, 0.5);
+                                trackBar_note_silence_ratio.Value = Math.Max(trackBar_note_silence_ratio.Minimum, Math.Min(trackBar_note_silence_ratio.Maximum, (int)(Variables.noteSilenceRatio * 100)));
+                                lbl_note_silence_ratio.Text = Resources.TextPercent.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
+
+                                comboBox_note_length.SelectedIndex = Math.Max(0, Math.Min(comboBox_note_length.Items.Count - 1, SafeIntLocal(rs?.NoteLength, 3)));
+
+                                Variables.alternatingNoteLength = SafeIntLocal(rs?.AlternateTime, 30);
+                                numericUpDown_alternating_notes.Value = Math.Max(numericUpDown_alternating_notes.Minimum, Math.Min(numericUpDown_alternating_notes.Maximum, Convert.ToDecimal(Variables.alternatingNoteLength)));
+
+                                checkbox_play_note.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.NoteClickPlay, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_add_note_to_list.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.NoteClickAdd, "True", StringComparison.OrdinalIgnoreCase);
+                                add_as_note1.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.AddNote1, "True", StringComparison.OrdinalIgnoreCase);
+                                add_as_note2.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.AddNote2, "True", StringComparison.OrdinalIgnoreCase);
+                                add_as_note3.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.AddNote3, "True", StringComparison.OrdinalIgnoreCase);
+                                add_as_note4.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.AddNote4, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_replace.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.NoteReplace, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_replace_length.Checked = string.Equals(projectFile.Settings?.PlaybackSettings?.NoteLengthReplace, "True", StringComparison.OrdinalIgnoreCase);
+
+                                checkBox_play_note1_clicked.Checked = string.Equals(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote1, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_play_note2_clicked.Checked = string.Equals(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote2, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_play_note3_clicked.Checked = string.Equals(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote3, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_play_note4_clicked.Checked = string.Equals(projectFile.Settings?.ClickPlayNotes?.ClickPlayNote4, "True", StringComparison.OrdinalIgnoreCase);
+
+                                checkBox_play_note1_played.Checked = string.Equals(projectFile.Settings?.PlayNotes?.PlayNote1, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_play_note2_played.Checked = string.Equals(projectFile.Settings?.PlayNotes?.PlayNote2, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_play_note3_played.Checked = string.Equals(projectFile.Settings?.PlayNotes?.PlayNote3, "True", StringComparison.OrdinalIgnoreCase);
+                                checkBox_play_note4_played.Checked = string.Equals(projectFile.Settings?.PlayNotes?.PlayNote4, "True", StringComparison.OrdinalIgnoreCase);
+
+                                if (!add_as_note1.Checked && !add_as_note2.Checked && !add_as_note3.Checked && !add_as_note4.Checked)
                                     add_as_note1.Checked = true;
-                                }
-                                // Assign default values if no time signature is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.TimeSignature))
+
+                                if (string.IsNullOrWhiteSpace(rs?.TimeSignature))
                                 {
-                                    trackBar_time_signature.Value = 4; // Default value
+                                    trackBar_time_signature.Value = 4;
                                     Variables.timeSignature = 4;
                                     lbl_time_signature.Text = "4";
                                     Logger.Log("Time signature not found, defaulting to 4", Logger.LogTypes.Info);
                                 }
-                                // Assign default values if no note silence ratio is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteSilenceRatio))
+
+                                if (string.IsNullOrWhiteSpace(rs?.NoteSilenceRatio))
                                 {
-                                    Variables.noteSilenceRatio = 0.5; // Default value
+                                    Variables.noteSilenceRatio = 0.5;
                                     lbl_note_silence_ratio.Text = "50%";
                                     Logger.Log("Note silence ratio not found, defaulting to 50%", Logger.LogTypes.Info);
                                 }
-                                // Assign default values if no note length is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.NoteLength))
+
+                                if (string.IsNullOrWhiteSpace(rs?.NoteLength))
                                 {
-                                    comboBox_note_length.SelectedIndex = 3; // Default value
+                                    comboBox_note_length.SelectedIndex = 3;
                                     Logger.Log("Note length not found, defaulting to 1/8", Logger.LogTypes.Info);
                                 }
-                                // Assign default values if no alternating note length is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.RandomSettings.AlternateTime))
+
+                                if (string.IsNullOrWhiteSpace(rs?.AlternateTime))
                                 {
-                                    Variables.alternatingNoteLength = 30; // Default value
+                                    Variables.alternatingNoteLength = 30;
                                     numericUpDown_alternating_notes.Value = 30;
                                     Logger.Log("Alternating note length not found, defaulting to 30 ms", Logger.LogTypes.Info);
                                 }
-                                // Assign default values if no note click play is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickPlay))
-                                {
-                                    checkbox_play_note.Checked = true; // Default value
-                                    Logger.Log("Note click play not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                // Assign default values if no note click add is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteClickAdd))
-                                {
-                                    checkBox_add_note_to_list.Checked = true; // Default value
-                                    Logger.Log("Note click add not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                // Assign default values if no note replace is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteReplace))
-                                {
-                                    checkBox_replace.Checked = false; // Default value
-                                    Logger.Log("Note replace not found, defaulting to false", Logger.LogTypes.Info);
-                                }
-                                // Assign default values if no note length replace is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlaybackSettings.NoteLengthReplace))
-                                {
-                                    checkBox_replace_length.Checked = false; // Default value
-                                    Logger.Log("Note length replace not found, defaulting to false", Logger.LogTypes.Info);
-                                }
-                                // Assign default values if no click play note is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote1))
-                                {
-                                    checkBox_play_note1_clicked.Checked = true; // Default value
-                                    Logger.Log("Click play note 1 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote2))
-                                {
-                                    checkBox_play_note2_clicked.Checked = true; // Default value
-                                    Logger.Log("Click play note 2 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote3))
-                                {
-                                    checkBox_play_note3_clicked.Checked = true; // Default value
-                                    Logger.Log("Click play note 3 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.ClickPlayNotes.ClickPlayNote4))
-                                {
-                                    checkBox_play_note4_clicked.Checked = true; // Default value
-                                    Logger.Log("Click play note 4 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                // Assign default values if no play note is found
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote1))
-                                {
-                                    checkBox_play_note1_played.Checked = true; // Default value
-                                    Logger.Log("Play note 1 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote2))
-                                {
-                                    checkBox_play_note2_played.Checked = true; // Default value
-                                    Logger.Log("Play note 2 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote3))
-                                {
-                                    checkBox_play_note3_played.Checked = true; // Default value
-                                    Logger.Log("Play note 3 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
-                                if (string.IsNullOrWhiteSpace(projectFile.Settings.PlayNotes.PlayNote4))
-                                {
-                                    checkBox_play_note4_played.Checked = true; // Default value
-                                    Logger.Log("Play note 4 not found, defaulting to true", Logger.LogTypes.Info);
-                                }
+
                                 UpdateNoteLabels();
-                                if (Variables.octave == 9)
-                                {
-                                    ShiftNoteLabelsToRightForOctave9();
-                                }
+                                if (Variables.octave == 9) ShiftNoteLabelsToRightForOctave9();
                                 listViewNotes.Items.Clear();
 
                                 if (projectFile.LineList?.Lines != null && projectFile.LineList.Lines.Length > 0)
@@ -1915,16 +1787,15 @@ namespace NeoBleeper
                                     foreach (var line in projectFile.LineList.Lines)
                                     {
                                         ListViewItem item = new ListViewItem(ConvertNoteLengthIntoLocalized(line.Length));
-                                        item.SubItems.Add(line.Note1);
-                                        item.SubItems.Add(line.Note2);
-                                        item.SubItems.Add(line.Note3);
-                                        item.SubItems.Add(line.Note4);
-                                        item.SubItems.Add(ConvertModifiersIntoLocalized(line.Mod));
-                                        item.SubItems.Add(ConvertArticulationsIntoLocalized(line.Art));
+                                        item.SubItems.Add(line.Note1 ?? string.Empty);
+                                        item.SubItems.Add(line.Note2 ?? string.Empty);
+                                        item.SubItems.Add(line.Note3 ?? string.Empty);
+                                        item.SubItems.Add(line.Note4 ?? string.Empty);
+                                        item.SubItems.Add(ConvertModifiersIntoLocalized(line.Mod ?? string.Empty));
+                                        item.SubItems.Add(ConvertArticulationsIntoLocalized(line.Art ?? string.Empty));
                                         listViewNotes.Items.Add(item);
                                     }
                                 }
-                                // Leave empty if no lines are found
                             }
                             Logger.Log("NeoBleeper file opened successfully", Logger.LogTypes.Info);
                         }
@@ -1959,14 +1830,14 @@ namespace NeoBleeper
                         break;
                     }
             }
+
+            // finalize
             initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternatingNoteLength,
-    Variables.noteSilenceRatio, Variables.timeSignature); // Save the initial state
+                Variables.noteSilenceRatio, Variables.timeSignature); // Save the initial state
             commandManager.ClearHistory(); // Reset the history
-                                           // Add the file to the recent files list
-            if (isFileValid == true)
+
+            if (isFileValid)
             {
-                initialMemento = originator.CreateSavedStateMemento(Variables.bpm, Variables.alternatingNoteLength,
-    Variables.noteSilenceRatio, Variables.timeSignature);
                 isModified = false;
                 UpdateFormTitle();
                 AddFileToRecentFilesMenu(filename);
@@ -2001,10 +1872,24 @@ namespace NeoBleeper
         /// <returns>A NeoBleeperProjectFile object representing the data contained in the specified XML file.</returns>
         public static NBPMLFile.NeoBleeperProjectFile DeserializeXML(string filePath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
-            using (StreamReader reader = new StreamReader(filePath))
+            try
             {
-                return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(reader);
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+                using (var sr = new StreamReader(filePath))
+                using (var xr = XmlReader.Create(sr, settings))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
+                    return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(xr);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"DeserializeXML failed for '{filePath}': {ex.Message}", Logger.LogTypes.Error);
+                return null;
             }
         }
 
@@ -2462,6 +2347,10 @@ namespace NeoBleeper
             {
                 Line.mod = string.Empty;
             }
+            if(listViewNotes.Items.Count < 1)
+            {
+                return;
+            }
             for (int i = 0; i < listViewNotes.Items.Count; i++)
             {
                 if (listViewNotes.Items[i].Selected)
@@ -2484,6 +2373,10 @@ namespace NeoBleeper
             else
             {
                 Line.mod = string.Empty;
+            }
+            if (listViewNotes.Items.Count < 1)
+            {
+                return;
             }
             for (int i = 0; i < listViewNotes.Items.Count; i++)
             {
@@ -2512,6 +2405,10 @@ namespace NeoBleeper
             {
                 Line.art = string.Empty;
             }
+            if (listViewNotes.Items.Count < 1)
+            {
+                return;
+            }
             for (int i = 0; i < listViewNotes.Items.Count; i++)
             {
                 if (listViewNotes.Items[i].Selected)
@@ -2539,6 +2436,10 @@ namespace NeoBleeper
             {
                 Line.art = string.Empty;
             }
+            if (listViewNotes.Items.Count < 1)
+            {
+                return;
+            }
             for (int i = 0; i < listViewNotes.Items.Count; i++)
             {
                 if (listViewNotes.Items[i].Selected)
@@ -2564,6 +2465,10 @@ namespace NeoBleeper
             else
             {
                 Line.art = string.Empty;
+            }
+            if (listViewNotes.Items.Count < 1)
+            {
+                return;
             }
             for (int i = 0; i < listViewNotes.Items.Count; i++)
             {
@@ -3204,7 +3109,7 @@ namespace NeoBleeper
                                     break;
                                 }
                             }
-                            UpdateListViewSelection(currentNoteIndex);
+                            await UpdateListViewSelection(currentNoteIndex);
                             drift -= noteDuration;
                             totalElapsedNoteDuration += noteDuration;
                             continue; // Skip to the next note if drift exceeds note duration
@@ -3274,31 +3179,40 @@ namespace NeoBleeper
         /// selection is made.</remarks>
         /// <param name="index">The zero-based index of the item to select. Must be greater than or equal to 0 and less than the total
         /// number of items in the ListView.</param>
-        private void UpdateListViewSelection(int index)
+        private Task UpdateListViewSelection(int index)
         {
-            if (listViewNotes.InvokeRequired)
+            if (index < 0 || index >= listViewNotes.Items.Count)
+                return Task.CompletedTask;
+
+            if (this.InvokeRequired)
             {
-                listViewNotes.Invoke(new Action(() =>
+                var tcs = new TaskCompletionSource<bool>();
+                this.BeginInvoke(new Action(() =>
                 {
-                    if (index >= 0 && index < listViewNotes.Items.Count)
+                    try
                     {
-                        listViewNotes.SelectedItems.Clear();
-                        listViewNotes.Items[index].Selected = true;
+                        if (index >= 0 && index < listViewNotes.Items.Count)
+                        {
+                            listViewNotes.SelectedItems.Clear();
+                            listViewNotes.Items[index].Selected = true;
+                            listViewNotes.EnsureVisible(index);
+                        }
+                        tcs.SetResult(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        tcs.SetException(ex);
                     }
                 }));
+                return tcs.Task;
             }
             else
             {
-                ;
-                if (index >= 0 && index < listViewNotes.Items.Count)
-                {
-                    listViewNotes.SelectedItems.Clear();
-                    listViewNotes.Items[index].Selected = true;
-                }
-            }
-            if (index >= 0 && index < listViewNotes.Items.Count)
-            {
-                EnsureSpecificIndexVisible(index);
+                // Return early if index is out of range, even on the UI thread
+                listViewNotes.SelectedItems.Clear();
+                listViewNotes.Items[index].Selected = true;
+                listViewNotes.EnsureVisible(index);
+                return Task.CompletedTask;
             }
         }
 
@@ -3309,11 +3223,11 @@ namespace NeoBleeper
         /// the UI thread to ensure thread safety.</remarks>
         /// <param name="index">The zero-based index of the item to make visible in the list view. Must be within the valid range of item
         /// indices.</param>
-        private void EnsureSpecificIndexVisible(int index)
+        private async void EnsureSpecificIndexVisible(int index)
         {
-            if (listViewNotes.InvokeRequired)
+            if (this.InvokeRequired)
             {
-                listViewNotes.Invoke(new Action(() =>
+                this.Invoke(new Action(() =>
                 {
                     listViewNotes.EnsureVisible(index);
                 }));
@@ -3399,7 +3313,7 @@ namespace NeoBleeper
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => EnableDisableCommonControls(enable)));
+                this.BeginInvoke(new Action(() => EnableDisableCommonControls(enable)));
                 return;
             }
             keyboard_panel.Enabled = enable;
@@ -3551,7 +3465,7 @@ namespace NeoBleeper
                 {
                     if (this.InvokeRequired)
                     {
-                        this.Invoke(() =>
+                        this.BeginInvoke(() =>
                         {
                             label_beep.SuspendLayout();
                             label_beep.Visible = visible;
@@ -4220,24 +4134,31 @@ namespace NeoBleeper
             {
                 notes = new string[] { note1, note3, note2, note4 };
             }
-            notes = notes.Where(n => !string.IsNullOrWhiteSpace(n)).Distinct().ToArray(); // Remove empty notes and duplicates
+
+            // Normalize: trim, remove empties, dedupe case-insensitive
+            notes = notes
+                .Where(n => !string.IsNullOrWhiteSpace(n))
+                .Select(n => n.Trim())
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
             if (notes.Length == 1)
             {
-                if (notes[0].Contains(note1) && !string.IsNullOrWhiteSpace(note1))
+                string single = notes[0];
+                int durationToPlay = Math.Max(1, length); // Ensure minimum 1ms
+
+                if (!string.IsNullOrWhiteSpace(note1) && string.Equals(single, note1.Trim(), StringComparison.OrdinalIgnoreCase))
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note1Frequency), durationToPlay, nonStopping);
+                else if (!string.IsNullOrWhiteSpace(note2) && string.Equals(single, note2.Trim(), StringComparison.OrdinalIgnoreCase))
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note2Frequency), durationToPlay, nonStopping);
+                else if (!string.IsNullOrWhiteSpace(note3) && string.Equals(single, note3.Trim(), StringComparison.OrdinalIgnoreCase))
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note3Frequency), durationToPlay, nonStopping);
+                else if (!string.IsNullOrWhiteSpace(note4) && string.Equals(single, note4.Trim(), StringComparison.OrdinalIgnoreCase))
+                    await PlayBeepWithLabelAsync(Convert.ToInt32(note4Frequency), durationToPlay, nonStopping);
+                else
                 {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note1Frequency), length, nonStopping);
-                }
-                else if (notes[0].Contains(note2) && !string.IsNullOrWhiteSpace(note2))
-                {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note2Frequency), length, nonStopping);
-                }
-                else if (notes[0].Contains(note3) && !string.IsNullOrWhiteSpace(note3))
-                {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note3Frequency), length, nonStopping);
-                }
-                else if (notes[0].Contains(note4) && (!string.IsNullOrWhiteSpace(note4)))
-                {
-                    await PlayBeepWithLabelAsync(Convert.ToInt32(note4Frequency), length, nonStopping);
+                    int freq = Convert.ToInt32(NoteFrequencies.GetFrequencyFromNoteName(single));
+                    await PlayBeepWithLabelAsync(freq, durationToPlay, nonStopping);
                 }
             }
             else if (notes.Length > 1)
@@ -4415,14 +4336,13 @@ namespace NeoBleeper
                 double beatNumber = 1;
                 if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    for (int i = 1; i <= Line; i++)
+                    for (int i = 0; i < Line; i++)
                     {
                         beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
                         if (beat >= Variables.timeSignature)
                         {
                             measure++;
                             beat = 0;
-
                         }
                     }
                 }
@@ -4431,7 +4351,7 @@ namespace NeoBleeper
                 {
                     if (position_table.InvokeRequired)
                     {
-                        position_table.Invoke(new Action(() =>
+                        position_table.BeginInvoke(new Action(() =>
                         {
                             position_table.SuspendLayout();
                             lbl_measure_value.Text = measure.ToString();
@@ -4593,6 +4513,11 @@ namespace NeoBleeper
 
             numerator /= gcd;
             denominator /= gcd;
+
+            if(numerator < 0 || denominator <= 0)
+            {
+                return $"1 {Properties.Resources.TextBeatError}"; // Handle invalid cases where numerator is negative or denominator is zero or negative
+            }
 
             if (numerator == denominator)
             {
@@ -4879,7 +4804,7 @@ namespace NeoBleeper
                 }
             }
             checkBox_metronome.Checked = false;
-            cancellationTokenSource.Cancel();
+            cancellationTokenSource?.Cancel();
             isClosing = true;
             StopAllSoundsBeforeClosing();
         }
@@ -4888,9 +4813,17 @@ namespace NeoBleeper
         {
             StopPlaying();
             checkBox_metronome.Checked = false;
-            cancellationTokenSource.Cancel();
+            cancellationTokenSource?.Cancel();
+            cancellationTokenSource?.Dispose();
+            portamentoCts?.Cancel();
+            portamentoCts?.Dispose();
+            metronomeTimer?.Stop();
+            metronomeTimer?.Dispose();
+            MIDIIOUtils._midiIn?.Stop();
+            MIDIIOUtils._midiIn?.Dispose();
             isClosing = true;
             StopAllSoundsBeforeClosing();
+            ThemeManager.ThemeChanged -= ThemeManager_ThemeChanged;
         }
         private void rewindToSavedVersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -4960,7 +4893,7 @@ namespace NeoBleeper
             {
                 if (entry.Key.InvokeRequired)
                 {
-                    entry.Key.Invoke(new Action(() => entry.Key.Text = entry.Value));
+                    entry.Key.BeginInvoke(new Action(() => entry.Key.Text = entry.Value));
                 }
                 else
                 {
@@ -4984,7 +4917,7 @@ namespace NeoBleeper
                 {
                     if (entry.Key.InvokeRequired)
                     {
-                        entry.Key.Invoke(new Action(() => entry.Key.Text = string.Empty));
+                        entry.Key.BeginInvoke(new Action(() => entry.Key.Text = string.Empty));
                     }
                     else
                     {
@@ -5026,6 +4959,7 @@ namespace NeoBleeper
             {
                 EnableDisableTabStop(control);
             }
+            form.MaximizeBox = false;
         }
 
         /// <summary>
@@ -5098,38 +5032,43 @@ namespace NeoBleeper
         {
             try
             {
-                string firstLine = File.ReadLines(fileName).First();
                 if (MIDIFileValidator.IsMidiFile(fileName))
                 {
                     OpenMIDIFilePlayer(fileName);
                 }
-                else if (firstLine == "Bleeper Music Maker by Robbi-985 file format" ||
-                    firstLine == "<NeoBleeperProjectFile>")
-                {
-                    switch (fileOpenMode)
-                    {
-                        case FileOpenMode.DragAndDrop:
-                            Logger.Log($"Opening the file you dragged: {fileName}", Logger.LogTypes.Info);
-                            AskForSavingIfModified(new Action(() => FileParser(fileName)));
-                            break;
-                        case FileOpenMode.OpenedAsArg:
-                            Logger.Log($"Opening the file you opened: {fileName}", Logger.LogTypes.Info);
-                            FileParser(fileName);
-                            break;
-                    }
-                }
                 else
                 {
-                    switch (fileOpenMode)
+                    string fileContent = File.ReadAllText(fileName);
+                    string cleanedContent = RemoveImpuritiesFromFileContent(fileContent); // Remove impurities such as BOM (byte order mark) or other non-printable characters
+                    string firstLine = cleanedContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).FirstOrDefault()?.Trim() ?? string.Empty;
+                    if (firstLine == "Bleeper Music Maker by Robbi-985 file format" ||
+                    firstLine == "<NeoBleeperProjectFile>")
                     {
-                        case FileOpenMode.DragAndDrop:
-                            Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                            MessageForm.Show(this, Resources.MessageNonSupportedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                        case FileOpenMode.OpenedAsArg:
-                            Logger.Log("The file you opened is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
-                            MessageForm.Show(this, Resources.MessageNonSupportedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
+                        switch (fileOpenMode)
+                        {
+                            case FileOpenMode.DragAndDrop:
+                                Logger.Log($"Opening the file you dragged: {fileName}", Logger.LogTypes.Info);
+                                AskForSavingIfModified(new Action(() => FileParser(fileName)));
+                                break;
+                            case FileOpenMode.OpenedAsArg:
+                                Logger.Log($"Opening the file you opened: {fileName}", Logger.LogTypes.Info);
+                                FileParser(fileName);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (fileOpenMode)
+                        {
+                            case FileOpenMode.DragAndDrop:
+                                Logger.Log("The file you dragged is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
+                                MessageForm.Show(this, Resources.MessageNonSupportedDraggedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            case FileOpenMode.OpenedAsArg:
+                                Logger.Log("The file you opened is not supported by NeoBleeper or is corrupted.", Logger.LogTypes.Error);
+                                MessageForm.Show(this, Resources.MessageNonSupportedOpenedFile, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                        }
                     }
                 }
             }
@@ -5150,6 +5089,23 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Removes non-printable and special Unicode characters from the beginning and end of the specified file
+        /// content string.
+        /// </summary>
+        /// <remarks>This method is useful for sanitizing file content before further processing or
+        /// parsing, especially when files may contain invisible Unicode characters that can interfere with text
+        /// handling.</remarks>
+        /// <param name="fileContent">The file content to be cleaned. May include unwanted characters such as Byte Order Mark (BOM) or other
+        /// non-printable Unicode characters.</param>
+        /// <returns>A string containing the cleaned file content with leading and trailing impurities removed.</returns>
+        private string RemoveImpuritiesFromFileContent(string fileContent)
+        {
+            // Remove unwanted characters such as BOM (Byte Order Mark) or any other non-printable characters that may cause issues during parsing
+            string cleanedContent = fileContent.Trim('\uFEFF', '\u200B', '\u200C', '\u200D', '\u200E', '\u200F');
+            return cleanedContent;
+        }
+
+        /// <summary>
         /// Opens a MIDI file in the MIDI file player dialog if playback is not muted and MIDI output is enabled.
         /// </summary>
         /// <remarks>If the specified file is not a valid MIDI file or is inaccessible, an error message
@@ -5162,7 +5118,7 @@ namespace NeoBleeper
             {
                 if (MIDIFileValidator.IsMidiFile(fileName))
                 {
-                    lastOpenedMIDIFileName = System.IO.Path.GetFileName(openFileDialog.FileName);
+                    lastOpenedMIDIFileName = System.IO.Path.GetFileName(fileName);
                     MIDIFilePlayer MidiFilePlayer = new MIDIFilePlayer(fileName, this);
                     MidiFilePlayer.ShowDialog();
                     Logger.Log("MIDI file is opened.", Logger.LogTypes.Info);
@@ -5353,9 +5309,17 @@ namespace NeoBleeper
 
                 // Copy to clipboard
                 string standardizedText = StandardizeLocalizedLengthModsAndArticulations(clipboardText.ToString());
-                Clipboard.SetText(standardizedText);
-                Toast.ShowToast(this, Resources.ToastMessageNotesCopy, 2000);
-                Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
+                try 
+                { 
+                    Clipboard.SetText(standardizedText);
+                    Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
+                    Toast.ShowToast(this, Resources.ToastMessageNotesCopy, 2000, Toast.ToastIcon.Success);
+                }
+                catch (Exception ex) 
+                { 
+                    Logger.Log($"Clipboard write failed: {ex.Message}", Logger.LogTypes.Error); 
+                    Toast.ShowToast(this, Resources.MessageFailedToCopy, 2000, Toast.ToastIcon.Error);
+                } 
             }
         }
 
@@ -5402,51 +5366,59 @@ namespace NeoBleeper
         /// the list.</remarks>
         private void PasteFromClipboard()
         {
-            if (!Clipboard.ContainsText()) return;
-
-            string clipboardText = LocalizeLengthModsAndArticulations(Clipboard.GetText());
-            string[] lines = clipboardText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-            int insertIndex = -1;
-            if (listViewNotes.SelectedItems.Count > 0)
+            try
             {
-                insertIndex = listViewNotes.SelectedIndices[0];
-            }
+                if (!Clipboard.ContainsText()) return;
 
-            List<ListViewItem> itemsToAdd = new List<ListViewItem>();
+                string clipboardText = LocalizeLengthModsAndArticulations(Clipboard.GetText());
+                string[] lines = clipboardText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (string line in lines)
-            {
-                string[] subItems = line.Split('\t');
-
-                if (subItems.Length >= 7)
+                int insertIndex = -1;
+                if (listViewNotes.SelectedItems.Count > 0)
                 {
-                    ListViewItem newItem = new ListViewItem(subItems[0]);
-                    for (int i = 1; i < subItems.Length; i++)
+                    insertIndex = listViewNotes.SelectedIndices[0];
+                }
+
+                List<ListViewItem> itemsToAdd = new List<ListViewItem>();
+
+                foreach (string line in lines)
+                {
+                    string[] subItems = line.Split('\t');
+
+                    if (subItems.Length >= 7)
                     {
-                        newItem.SubItems.Add(subItems[i]);
+                        ListViewItem newItem = new ListViewItem(subItems[0]);
+                        for (int i = 1; i < subItems.Length; i++)
+                        {
+                            newItem.SubItems.Add(subItems[i]);
+                        }
+                        itemsToAdd.Add(newItem);
                     }
-                    itemsToAdd.Add(newItem);
+                }
+
+                if (itemsToAdd.Any())
+                {
+                    var addNotesCommand = new AddNoteCommand(listViewNotes, itemsToAdd, insertIndex);
+                    commandManager.ExecuteCommand(addNotesCommand);
+
+                    isModified = true;
+                    UpdateFormTitle();
+                    if (insertIndex != -1) // If inserted at a specific index, ensure that index is visible
+                    {
+                        listViewNotes.EnsureVisible(insertIndex);
+                    }
+                    else
+                    {
+                        listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
+                    }
+
+                    Logger.Log("Paste is executed.", Logger.LogTypes.Info);
                 }
             }
-
-            if (itemsToAdd.Any())
+            catch (Exception ex)
             {
-                var addNotesCommand = new AddNoteCommand(listViewNotes, itemsToAdd, insertIndex);
-                commandManager.ExecuteCommand(addNotesCommand);
-
-                isModified = true;
-                UpdateFormTitle();
-                if (insertIndex != -1) // If inserted at a specific index, ensure that index is visible
-                {
-                    listViewNotes.EnsureVisible(insertIndex);
-                }
-                else
-                {
-                    listViewNotes.EnsureVisible(listViewNotes.Items.Count - 1);
-                }
-
-                Logger.Log("Paste is executed.", Logger.LogTypes.Info);
+                Logger.Log($"Error pasting from clipboard: {ex.Message}", Logger.LogTypes.Error);
+                Toast.ShowToast(this, Resources.MessageFailedToPaste, 2000, Toast.ToastIcon.Error);
             }
         }
 
@@ -5648,39 +5620,47 @@ namespace NeoBleeper
         /// the method updates the form state and displays a notification to the user.</remarks>
         private void CutToClipboard()
         {
-            var itemsToCut = listViewNotes.SelectedItems.Cast<ListViewItem>()
+            try
+            {
+                var itemsToCut = listViewNotes.SelectedItems.Cast<ListViewItem>()
                 .Union(listViewNotes.CheckedItems.Cast<ListViewItem>())
                 .Distinct()
                 .ToList();
 
-            if (itemsToCut.Any())
-            {
-                StringBuilder clipboardText = new StringBuilder();
-
-                foreach (ListViewItem item in itemsToCut)
+                if (itemsToCut.Any())
                 {
-                    foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                    StringBuilder clipboardText = new StringBuilder();
+
+                    foreach (ListViewItem item in itemsToCut)
                     {
-                        clipboardText.Append(subItem.Text + "\t");
+                        foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                        {
+                            clipboardText.Append(subItem.Text + "\t");
+                        }
+                        clipboardText.Length--;
+                        clipboardText.AppendLine();
                     }
-                    clipboardText.Length--;
-                    clipboardText.AppendLine();
+
+                    if (clipboardText.Length > 0)
+                    {
+                        clipboardText.Length--;
+                    }
+                    string standardizedText = StandardizeLocalizedLengthModsAndArticulations(clipboardText.ToString());
+                    Clipboard.SetText(standardizedText);
+
+                    var removeCommand = new RemoveNoteCommand(listViewNotes, Target.Both);
+                    commandManager.ExecuteCommand(removeCommand);
+
+                    isModified = true;
+                    UpdateFormTitle();
+                    Logger.Log("Cut is executed.", Logger.LogTypes.Info);
+                    Toast.ShowToast(this, Resources.ToastMessageNotesCut, 2000);
                 }
-
-                if (clipboardText.Length > 0)
-                {
-                    clipboardText.Length--;
-                }
-                string standardizedText = StandardizeLocalizedLengthModsAndArticulations(clipboardText.ToString());
-                Clipboard.SetText(standardizedText);
-
-                var removeCommand = new RemoveNoteCommand(listViewNotes, Target.Both);
-                commandManager.ExecuteCommand(removeCommand);
-
-                isModified = true;
-                UpdateFormTitle();
-                Toast.ShowToast(this, Resources.ToastMessageNotesCut, 2000);
-                Logger.Log("Cut is executed.", Logger.LogTypes.Info);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Error cutting to clipboard: {ex.Message}", Logger.LogTypes.Error);
+                Toast.ShowToast(this, Resources.MessageFailedToCut, 2000, Toast.ToastIcon.Error);
             }
         }
 
@@ -6001,26 +5981,19 @@ namespace NeoBleeper
         /// null.</param>
         private void SaveRunAndRetry(Action action)
         {
-            SaveTheFile(); // Try to save file
-            if (isSaved)
+            int tries = 0;
+            while (tries <= 3)
             {
-                action(); // Run the action if the file is saved
-                retryCount = 0; // Reset retry count after successful save and action execution
-            }
-            else
-            {
-                if (retryCount >= 3)
+                SaveTheFile();
+                if (isSaved)
                 {
-                    Logger.Log("The action is executed without saving after 3 retries.", Logger.LogTypes.Warning);
-                    retryCount = 0; // Reset retry count
-                    action(); // Run the action without saving after 3 retries
+                    action();
+                    return;
                 }
-                else
-                {
-                    retryCount++;
-                    SaveRunAndRetry(action); // Retry to save if not saved 
-                }
+                tries++;
             }
+            Logger.Log("The action is executed without saving after 3 retries.", Logger.LogTypes.Warning);
+            action();
         }
         // This method is used to update the form title with the current file path and modification status.
 
@@ -6103,6 +6076,8 @@ namespace NeoBleeper
                 // Clear tag
                 numericUpDown_bpm.Tag = null;
                 numericUpDown_alternating_notes.Tag = null;
+                trackBar_note_silence_ratio.Tag = null;
+                trackBar_time_signature.Tag = null;
             }
         }
 
@@ -6398,6 +6373,9 @@ namespace NeoBleeper
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetKeyboardLayout(uint idThread);
+        [DllImport("user32.dll")]
+        private static extern bool GetKeyboardState(byte[] lpKeyState);
+
 
         /// <summary>
         /// Returns a user-friendly display string for the specified key, suitable for use in UI labels or shortcut
@@ -6438,6 +6416,11 @@ namespace NeoBleeper
             uint virtualKey = (uint)key;
             IntPtr keyboardLayout = GetKeyboardLayout(0);
             byte[] keyState = new byte[256];
+            try
+            {
+                GetKeyboardState(keyState); // populate actual keyboard state
+            }
+            catch { /* ignore, fallback below */ }
             StringBuilder sb = new StringBuilder(5);
 
             int result = ToUnicodeEx(virtualKey, 0, keyState, sb, sb.Capacity, 0, keyboardLayout);
@@ -7184,17 +7167,20 @@ namespace NeoBleeper
         /// <remarks>This method attaches the necessary event handler and starts the MIDI input device. It
         /// has no effect if MIDI input is disabled or the MIDI input device is not available. Call this method before
         /// attempting to receive MIDI input events.</remarks>
-        private void InitializeMidiInput()
-        {
-            if (!TemporarySettings.MIDIDevices.useMIDIinput || MIDIIOUtils._midiIn == null)
-                return;
+       private void InitializeMidiInput()
+{
+    if (!TemporarySettings.MIDIDevices.useMIDIinput) return;
 
-            // Set up event handler for MIDI input
-            MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
-            MIDIIOUtils._midiIn.Start(); // Start listening for MIDI input
+    if (MIDIIOUtils._midiIn == null)
+        MIDIIOUtils.ChangeInputDevice(TemporarySettings.MIDIDevices.MIDIInputDevice);
 
-            Logger.Log("MIDI input initialized and listening", Logger.LogTypes.Info);
-        }
+    if (MIDIIOUtils._midiIn != null)
+    {
+        MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
+        MIDIIOUtils._midiIn.Start();
+        Logger.Log("MIDI input initialized and listening", Logger.LogTypes.Info);
+    }
+}
         // Handle MIDI device status changes
         private void MidiDevices_StatusChanged(object sender, EventArgs e)
         {
@@ -7375,7 +7361,11 @@ namespace NeoBleeper
         private void PlayPortamento(int targetFrequency)
         {
             // Cancel any ongoing portamento
-            portamentoCts.Cancel();
+            if (portamentoCts != null)
+            {
+                try { portamentoCts.Cancel(); } catch { }
+                portamentoCts.Dispose();
+            }
             portamentoCts = new CancellationTokenSource();
             var token = portamentoCts.Token;
 
@@ -7570,7 +7560,7 @@ namespace NeoBleeper
                     manualLink = "https://github.com/GeniusPilot2016/NeoBleeper/blob/master/docs/MANUAL.md";
                     break;
             }
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(manualLink) { UseShellExecute = true });
+            LinkHelper.OpenLink(manualLink, this);
         }
         private void button_use_voice_system_help_Click(object sender, EventArgs e)
         {

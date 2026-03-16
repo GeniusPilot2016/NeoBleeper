@@ -208,8 +208,7 @@ namespace NeoBleeper
         /// <returns>A task that represents the asynchronous operation.</returns>
         public static async Task PlayMidiNoteAsync(int note, int length, bool nonStopping = false) // Make async
         {
-            if (_midiOut == null) return;
-
+            if (_midiOut == null || note < 0 || note > 127) return;
             ChangeInstrument(_midiOut, TemporarySettings.MIDIDevices.MIDIOutputInstrument, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel);
             _midiOut.Send(MidiMessage.StartNote(note, DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await HighPrecisionSleep.SleepAsync(length);
@@ -234,7 +233,7 @@ namespace NeoBleeper
         /// <returns>A task that represents the asynchronous operation.</returns>
         public static async Task PlayMidiNoteAsync(int note, int length, int instrument, bool nonStopping = false, int? channel = null)
         {
-            if (_midiOut == null) return;
+            if (_midiOut == null || note < 0 || note > 127) return;
 
             int midiChannel = channel ?? TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel;
             int originalInstrument = TemporarySettings.MIDIDevices.MIDIOutputInstrument;
@@ -296,6 +295,11 @@ namespace NeoBleeper
         public static async Task PlayMidiNote(MidiOut midiOut, double frequency, int length, bool nonStopping = false)
         {
             int note = FrequencyToMidiNote(frequency);
+            if (note < 0 || note > 127)
+            {
+                // Swallow the note if it's out of MIDI range, as it cannot be played
+                return;
+            }
             midiOut.Send(MidiMessage.StartNote(note, MIDIIOUtils.DynamicVelocity(), TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
             await HighPrecisionSleep.SleepAsync(length);
             if (!nonStopping)
@@ -354,7 +358,10 @@ namespace NeoBleeper
         {
             if (_midiOut != null)
             {
-                _midiOut.Send(MidiMessage.StopNote(midiNote, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                if (midiNote >= 0 && midiNote <= 127)
+                {
+                    _midiOut.Send(MidiMessage.StopNote(midiNote, 0, TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel + 1).RawData);
+                }
             }
             else
             {
@@ -369,7 +376,7 @@ namespace NeoBleeper
         /// <param name="channel">The zero-based MIDI channel on which to send the message. Must be between 0 and 15.</param>
         public static void SendNoteOff(int noteNumber, int channel)
         {
-            if (_midiOut == null) return;
+            if (_midiOut == null || noteNumber < 0 || noteNumber > 127) return;
             _midiOut.Send(MidiMessage.StopNote(noteNumber, 0, ClampChannel(channel + 1)).RawData);
         }
 
@@ -383,7 +390,7 @@ namespace NeoBleeper
         /// <param name="channel">The MIDI channel on which to send the message. Valid values are typically in the range 0 to 15.</param>
         public static void SendNoteOn(int noteNumber, int instrument, int channel)
         {
-            if (_midiOut == null) return;
+            if (_midiOut == null || noteNumber < 0 || noteNumber > 127) return;
             ChangeInstrument(_midiOut, instrument, channel);
             _midiOut.Send(MidiMessage.StartNote(noteNumber, DynamicVelocity(), ClampChannel(channel + 1)).RawData);
         }
