@@ -1096,13 +1096,22 @@
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Ноты не сгенерированы</value>
   </data>
-  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
-    <value>Для использования этой функции вам должно быть не менее 18 лет.</value>
-  </data>
   <data name="ErrorLineIsEmpty" xml:space="preserve">
     <value>Список строк пуст. Пожалуйста, добавьте примечания перед началом воспроизведения.</value>
   </data>
   <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
     <value>Музыка уже играет. Пожалуйста, остановите воспроизведение, прежде чем начать ждать.</value>
+  </data>
+  <data name="MessageFailedToCopy" xml:space="preserve">
+    <value>Не удалось скопировать в буфер обмена.</value>
+  </data>
+  <data name="MessageFailedToPaste" xml:space="preserve">
+    <value>Не удалось вставить текст из буфера обмена.</value>
+  </data>
+  <data name="MessageFailedToCut" xml:space="preserve">
+    <value>Не удалось перенести запись в буфер обмена.</value>
+  </data>
+  <data name="MessageFailedToOpenLink" xml:space="preserve">
+    <value>Не удалось открыть ссылку. Возможно, URL-адрес недействителен или возникла проблема с веб-браузером по умолчанию.</value>
   </data>
 </root>

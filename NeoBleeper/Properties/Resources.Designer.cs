@@ -1211,6 +1211,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_success_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-success-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_sustainable_energy_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-sustainable-energy-48", resourceCulture);
@@ -1517,6 +1527,42 @@ namespace NeoBleeper.Properties {
         public static string MessageFailedPrecondition {
             get {
                 return ResourceManager.GetString("MessageFailedPrecondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to copy to clipboard. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFailedToCopy {
+            get {
+                return ResourceManager.GetString("MessageFailedToCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to cut to clipboard. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFailedToCut {
+            get {
+                return ResourceManager.GetString("MessageFailedToCut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to open the link. The URL might be invalid or there might be an issue with the default web browser. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFailedToOpenLink {
+            get {
+                return ResourceManager.GetString("MessageFailedToOpenLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed to paste from clipboard. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageFailedToPaste {
+            get {
+                return ResourceManager.GetString("MessageFailedToPaste", resourceCulture);
             }
         }
         

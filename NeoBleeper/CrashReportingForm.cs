@@ -169,8 +169,16 @@ namespace NeoBleeper
 
         private void buttonCopyCrashReport_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(richTextBoxCrashReport.Text);
-            Toast.ShowToast(this, Resources.CrashReportCopied, 2000);
+            try
+            {
+                Clipboard.SetText(richTextBoxCrashReport.Text);
+                Toast.ShowToast(this, Resources.CrashReportCopied, 2000, Toast.ToastIcon.Success);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Failed to copy crash report to clipboard: {ex.Message}", Logger.LogTypes.Error);
+                Toast.ShowToast(this, Resources.MessageFailedToCopy, 2000, Toast.ToastIcon.Error);
+            }
         }
 
         private void CrashReportingForm_SystemColorsChanged(object sender, EventArgs e)

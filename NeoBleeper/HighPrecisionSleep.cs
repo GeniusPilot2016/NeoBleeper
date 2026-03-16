@@ -114,6 +114,14 @@ namespace NeoBleeper
         {
             lock (_sync)
             {
+                foreach (var kv in _schedule)
+                {
+                    foreach (var waiter in kv.Value)
+                    {
+                        if (waiter is ManualResetEventSlim mre)
+                            mre.Set();
+                    }
+                }
                 _sharedTimer?.Stop();
                 _sharedTimer?.Dispose();
                 _schedule.Clear();

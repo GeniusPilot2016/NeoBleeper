@@ -1094,13 +1094,22 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Es wurden keine Noten generiert</value>
   </data>
-  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
-    <value>Um diese Funktion nutzen zu können, müssen Sie mindestens 18 Jahre alt sein.</value>
-  </data>
   <data name="ErrorLineIsEmpty" xml:space="preserve">
     <value>Die Zeilenliste ist leer. Bitte fügen Sie vor dem Abspielen Noten hinzu.</value>
   </data>
   <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
     <value>Die Musik wird bereits abgespielt. Bitte stoppen Sie die Wiedergabe, bevor Sie mit dem Warten beginnen.</value>
+  </data>
+  <data name="MessageFailedToCopy" xml:space="preserve">
+    <value>Fehler beim Kopieren in die Zwischenablage.</value>
+  </data>
+  <data name="MessageFailedToPaste" xml:space="preserve">
+    <value>Fehler beim Einfügen aus der Zwischenablage.</value>
+  </data>
+  <data name="MessageFailedToCut" xml:space="preserve">
+    <value>Fehler beim Kopieren in die Zwischenablage.</value>
+  </data>
+  <data name="MessageFailedToOpenLink" xml:space="preserve">
+    <value>Der Link konnte nicht geöffnet werden. Die URL ist möglicherweise ungültig oder es liegt ein Problem mit dem Standard-Webbrowser vor.</value>
   </data>
 </root>

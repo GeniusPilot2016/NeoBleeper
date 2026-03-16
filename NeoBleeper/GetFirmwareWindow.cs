@@ -114,8 +114,17 @@ namespace NeoBleeper
         }
         private void buttonCopyFirmwareToClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(richTextBoxFirmware.Text);
-            Toast.ShowToast(this, Resources.MessageFirmwareCopied, 2000);
+            try
+            {
+                Clipboard.SetText(richTextBoxFirmware.Text);
+                Logger.Log("Firmware code copied to clipboard.", Logger.LogTypes.Info);
+                Toast.ShowToast(this, Resources.MessageFirmwareCopied, 2000, Toast.ToastIcon.Success);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Failed to copy firmware code to clipboard: {ex.Message}", Logger.LogTypes.Error);
+                Toast.ShowToast(this, Resources.MessageFailedToCopy, 2000, Toast.ToastIcon.Error);
+            }
         }
 
         private void comboBoxMicrocontroller_SelectedIndexChanged(object sender, EventArgs e)

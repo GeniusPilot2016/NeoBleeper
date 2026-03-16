@@ -121,10 +121,21 @@ namespace NeoBleeper
         }
         private void buttonCopyBeepCommandToClipboard_Click(object sender, EventArgs e)
         {
-            string textToCopy = richTextBoxBeepCommand.Text.Trim();
-            textToCopy = textToCopy.Replace("\n", string.Empty);
-            Clipboard.SetText(textToCopy);
-            Toast.ShowToast(this, Resources.MessageConvertedBeepCommandCopied, 2000);
+            try
+            {
+                string textToCopy = richTextBoxBeepCommand.Text.Trim();
+                textToCopy = textToCopy.Replace("\n", string.Empty);
+                Clipboard.SetText(textToCopy);
+                Logger.Log("Beep command copied to clipboard.", Logger.LogTypes.Info);
+                Toast.ShowToast(this, Resources.MessageConvertedBeepCommandCopied, 2000, Toast.ToastIcon.Success);
+            }
+            catch (Exception ex)
+            {
+                {
+                    Logger.Log($"Error copying beep command to clipboard: {ex.Message}", Logger.LogTypes.Error);
+                    Toast.ShowToast(this, Resources.MessageFailedToCopy, 2000, Toast.ToastIcon.Error);
+                }
+            }
         }
 
 

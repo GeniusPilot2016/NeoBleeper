@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             ShowTimer = new System.Windows.Forms.Timer(components);
             labelMessage = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // ShowTimer
@@ -41,12 +43,25 @@
             // labelMessage
             // 
             labelMessage.AutoSize = true;
+            labelMessage.BackColor = Color.Transparent;
             labelMessage.Font = new Font("HarmonyOS Sans", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelMessage.Location = new Point(12, 9);
             labelMessage.Name = "labelMessage";
             labelMessage.Size = new Size(69, 20);
             labelMessage.TabIndex = 0;
             labelMessage.Text = "Message";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Left;
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Location = new Point(6, 6);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(25, 25);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
+            pictureBox1.Visible = false;
             // 
             // Toast
             // 
@@ -56,12 +71,14 @@
             BackColor = SystemColors.ControlLight;
             ClientSize = new Size(92, 38);
             Controls.Add(labelMessage);
+            Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Toast";
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "Toast";
             Paint += Toast_Paint;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -70,5 +87,6 @@
 
         private System.Windows.Forms.Timer ShowTimer;
         private Label labelMessage;
+        private PictureBox pictureBox1;
     }
 }

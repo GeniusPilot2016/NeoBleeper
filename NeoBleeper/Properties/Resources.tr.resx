@@ -1095,13 +1095,22 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="TitleNoNotesGenerated" xml:space="preserve">
     <value>Nota oluşturulmadı</value>
   </data>
-  <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
-    <value>Bu özelliği kullanabilmek için en az 18 yaşında olmanız gerekmektedir.</value>
-  </data>
   <data name="ErrorLineIsEmpty" xml:space="preserve">
     <value>Satır listesi boş. Lütfen oynatmaya başlamadan önce nota ekleyiniz.</value>
   </data>
   <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
     <value>Müzik zaten oynatılıyor. Beklemeye başlamadan önce lütfen oynatmayı durdurunuz.</value>
+  </data>
+  <data name="MessageFailedToCopy" xml:space="preserve">
+    <value>Panoya kopyalama işlemi başarısız oldu.</value>
+  </data>
+  <data name="MessageFailedToPaste" xml:space="preserve">
+    <value>Panodan yapıştırma işlemi başarısız oldu.</value>
+  </data>
+  <data name="MessageFailedToCut" xml:space="preserve">
+    <value>Panoya kesme işlemi başarısız oldu.</value>
+  </data>
+  <data name="MessageFailedToOpenLink" xml:space="preserve">
+    <value>Bağlantı açılamadı. URL geçersiz olabilir veya varsayılan web tarayıcınızda bir sorun olabilir.</value>
   </data>
 </root>

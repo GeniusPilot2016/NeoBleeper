@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using NeoBleeper.Properties;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -23,7 +24,18 @@ namespace NeoBleeper
         UIFonts uiFonts = UIFonts.Instance;
         Form parentForm;
         bool darkTheme = false;
-        public Toast(Form parentForm, string Message, int duration)
+
+        public enum ToastIcon
+        {
+            None,
+            Success,
+            Error,
+            Warning,
+            Information,
+            Question
+        }
+
+        public Toast(Form parentForm, string Message, int duration, ToastIcon icon = ToastIcon.None)
         {
             this.parentForm = parentForm;
             InitializeComponent();
@@ -33,6 +45,11 @@ namespace NeoBleeper
             labelMessage.Text = Message;
             this.Size = new Size(labelMessage.Width + CalculatePaddingAfterText(20), this.Height);
             PositionToast();
+            Point preservedLocation = labelMessage.Location;
+            SetToastIcon(icon);
+            this.MaximumSize = new Size(parentForm.Width - 40, parentForm.Height - (this.Location.Y - parentForm.Size.Height));
+            labelMessage.MaximumSize = new Size(this.MaximumSize.Width - (preservedLocation.X * 2) - (pictureBox1.Visible == true ? 
+                (pictureBox1.Width + (preservedLocation.X / 2)) : 0), this.MaximumSize.Height - (preservedLocation.Y * 2));
             ShowTimer.Interval = duration;
         }
 
@@ -164,10 +181,39 @@ namespace NeoBleeper
                 e.Graphics.DrawRectangle(pen, rectangle);
             }
         }
-        public static void ShowToast(Form parentForm, string Message, int duration)
+        public static void ShowToast(Form parentForm, string Message, int duration, ToastIcon icon = ToastIcon.None)
         {
-            Toast toast = new Toast(parentForm, Message, duration);
+            Toast toast = new Toast(parentForm, Message, duration, icon);
             toast.Show();
+        }
+
+        private void SetToastIcon(ToastIcon icon)
+        {
+            if (icon == ToastIcon.None)
+                return;
+
+            // Set image index quickly
+            switch (icon)
+            {
+                case ToastIcon.Success:
+                    pictureBox1.Image = Resources.icons8_success_48;
+                    break;
+                case ToastIcon.Error:
+                    pictureBox1.Image = Resources.icons8_error_48;
+                    break;
+                case ToastIcon.Warning:
+                    pictureBox1.Image = Resources.icons8_warning_48;
+                    break;
+                case ToastIcon.Information:
+                    pictureBox1.Image = Resources.icons8_information_48;
+                    break;
+                case ToastIcon.Question:
+                    pictureBox1.Image = Resources.icons8_question_48;
+                    break;
+            }
+            this.Size = new Size(this.Size.Width + pictureBox1.Width, this.Size.Height);
+            labelMessage.Location = new Point(pictureBox1.Location.X + pictureBox1.Width + (labelMessage.Location.X / 2), labelMessage.Location.Y);
+            pictureBox1.Visible = true;
         }
     }
 }
