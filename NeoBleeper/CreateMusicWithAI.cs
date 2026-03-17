@@ -2753,50 +2753,106 @@ namespace NeoBleeper
             if (string.IsNullOrWhiteSpace(nbpmlContent))
                 return string.Empty;
 
-            // Map fractional and word representations to standard NBPML duration names
-            var durationMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-    {
-        // Fractional representations
-        { @"\b1/2\b", "Half" },
-        { @"\b1/4\b", "Quarter" },
-        { @"\b1/8\b", "1/8" },
-        { @"\b1/16\b", "1/16" },
-        { @"\b1/32\b", "1/32" },
-        { @"(?<=^|\W)1(?![/])(?=\W|$)", "Whole" },
-        
-        // Word representations
-        { @"\bEighth\b", "1/8" },
-        { @"\bSixteenth\b", "1/16" },
-        { @"\bThirty-second\b", "1/32" },
-        { @"\bThirty Second\b", "1/32" },
-        { @"\bThirtySecond\b", "1/32" },
-        { @"\b32nd\b", "1/32" },
-        { @"\b16th\b", "1/16" },
-        { @"\b8th\b", "1/8" },
-        
-        // With "Note" suffix
-        { @"\bQuarter Note\b", "Quarter" },
-        { @"\bHalf Note\b", "Half" },
-        { @"\bWhole Note\b", "Whole" },
-        { @"\bEighth Note\b", "1/8" },
-        { @"\bSixteenth Note\b", "1/16" },
-        { @"\bThirty-second Note\b", "1/32" },
-        { @"\bThirty Second Note\b", "1/32" },
-
-        // With index values
-        { @"<Length>\s*0\s*</Length>", "<Length>Whole</Length>" },
-        { @"<Length>\s*1\s*</Length>", "<Length>Half</Length>" },
-        { @"<Length>\s*2\s*</Length>", "<Length>Quarter</Length>" },
-        { @"<Length>\s*3\s*</Length>", "<Length>1/8</Length>" },
-        { @"<Length>\s*4\s*</Length>", "<Length>1/16</Length>" },
-        { @"<Length>\s*5\s*</Length>", "<Length>1/32</Length>" }
-
-    };
-
-            foreach (var pair in durationMap)
+            // Helper: normalize single length token (only used for <Length> content)
+            string NormalizeLengthToken(string value)
             {
-                nbpmlContent = Regex.Replace(nbpmlContent, pair.Key, pair.Value, RegexOptions.IgnoreCase);
+                if (string.IsNullOrWhiteSpace(value))
+                    return "Quarter"; // default
+
+                var v = value.Trim();
+
+                // Direct mappings (allow many word variants)
+                var wordMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "whole", "Whole" },
+                    { "whole note", "Whole" },
+                    { "1", "Whole" },       // If user used numeric 1 inside <Length>, interpret as Whole
+                    { "half", "Half" },
+                    { "half note", "Half" },
+                    { "1/2", "Half" },
+                    { "quarter", "Quarter" },
+                    { "quarter note", "Quarter" },
+                    { "1/4", "Quarter" },
+                    { "eighth", "1/8" },
+                    { "eighth note", "1/8" },
+                    { "1/8", "1/8" },
+                    { "8th", "1/8" },
+                    { "sixteenth", "1/16" },
+                    { "sixteenth note", "1/16" },
+                    { "1/16", "1/16" },
+                    { "16th", "1/16" },
+                    { "thirty-second", "1/32" },
+                    { "thirty second", "1/32" },
+                    { "thirtysecond", "1/32" },
+                    { "1/32", "1/32" },
+                    { "32nd", "1/32" }
+                };
+
+                // normalize whitespace and punctuation for matching
+                var cleaned = Regex.Replace(v, @"\s+", " ").Trim();
+
+                if (wordMap.TryGetValue(cleaned, out var mapped))
+                    return mapped;
+
+                // If it's a numeric index used in some outputs (0..5) map to durations
+                if (int.TryParse(cleaned, out int idx))
+                {
+                    switch (idx)
+                    {
+                        case 0: return "Whole";
+                        case 1: return "Half";
+                        case 2: return "Quarter";
+                        case 3: return "1/8";
+                        case 4: return "1/16";
+                        case 5: return "1/32";
+                        default: return "Quarter";
+                    }
+                }
+
+                // Fraction patterns like "1/8" already covered, but match more flexibly:
+                if (Regex.IsMatch(cleaned, @"^1\s*/\s*8$")) return "1/8";
+                if (Regex.IsMatch(cleaned, @"^1\s*/\s*16$")) return "1/16";
+                if (Regex.IsMatch(cleaned, @"^1\s*/\s*32$")) return "1/32";
+                if (Regex.IsMatch(cleaned, @"^1\s*/\s*2$")) return "Half";
+
+                // Fallback: if unknown, default to Quarter
+                return "Quarter";
             }
+
+            // Replace only content inside <Length>...</Length> tags
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<Length>([^<]*)</Length>",
+                m =>
+                {
+                    string inner = m.Groups[1].Value;
+                    string normalized = NormalizeLengthToken(inner);
+                    return $"<Length>{normalized}</Length>";
+                },
+                RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            // Also handle older pattern where <Length> contained index numbers with spaces/newlines
+            nbpmlContent = Regex.Replace(
+                nbpmlContent,
+                @"<Length>\s*([0-9]+)\s*</Length>",
+                m =>
+                {
+                    if (int.TryParse(m.Groups[1].Value, out int idx))
+                    {
+                        switch (idx)
+                        {
+                            case 0: return "<Length>Whole</Length>";
+                            case 1: return "<Length>Half</Length>";
+                            case 2: return "<Length>Quarter</Length>";
+                            case 3: return "<Length>1/8</Length>";
+                            case 4: return "<Length>1/16</Length>";
+                            case 5: return "<Length>1/32</Length>";
+                            default: return "<Length>Quarter</Length>";
+                        }
+                    }
+                    return "<Length>Quarter</Length>";
+                },
+                RegexOptions.IgnoreCase);
 
             return nbpmlContent;
         }
