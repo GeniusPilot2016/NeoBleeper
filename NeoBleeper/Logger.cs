@@ -16,13 +16,16 @@
 
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 
 namespace NeoBleeper
 {
     public static class Logger
     {
         // Out with legacy "logenable" file without extension to enable logging, in with "DebugLog.txt" that always logs.
-        static String logText;
+        static string logText = string.Empty;
+        private static readonly object _logLock = new();
+
         static Logger()
         {
             logText += "\r\n  _   _            ____  _                           \r\n" +
@@ -211,34 +214,41 @@ namespace NeoBleeper
                     break;
             }
             string logMessage = $"[{DateTime.Now:HH:mm:ss}] - [{LoggingType}] {message}";
-            logText += logMessage + "\r\n";
-            WriteLogToFile(logText);
+            lock (_logLock)
+            {
+                logText += logMessage + "\r\n";
+                // Prevent race conditions by locking the log text update and file writing operations together.
+                WriteLogToFile(logText);
+            }
             Debug.WriteLine(logMessage);
         }
 
         /// <summary>
-        /// Writes the specified log content to a file named "DebugLog.txt" in the application's directory.
+        /// Writes the specified log content to a file named 'DebugLog.txt' in the application's directory. Overwrites
+        /// any existing log file with the new content.
         /// </summary>
-        /// <remarks>If the log file does not exist, it is created. If it exists, its contents are
-        /// overwritten. This method is intended for diagnostic or debugging purposes and is not thread-safe.</remarks>
-        /// <param name="content">The log content to write to the file. Can be any string, including empty or null.</param>
+        /// <remarks>If an error occurs during file writing, the exception is logged to the debug output
+        /// and the application continues running.</remarks>
+        /// <param name="content">The log content to be written to the file. Cannot be null.</param>
         private static void WriteLogToFile(string content)
         {
             try
             {
                 string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 string logPath = Path.Combine(exePath, "DebugLog.txt");
-                using (FileStream fs = new FileStream(logPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                // FileMode.Create ile dosya her yazmada truncate edilir -> eskiden kalan tail verisi sorununu çözer
+                using (FileStream fs = new FileStream(logPath, FileMode.Create, FileAccess.Write, FileShare.Read))
                 {
-                    using (StreamWriter writer = new StreamWriter(fs))
+                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                     {
                         writer.Write(content);
                     }
                 }
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
-                Debug.WriteLine($"File access error: {ex.Message}");
+                // Write to debug output if file writing fails, but do not throw further exceptions to avoid crashing the application.
+                Debug.WriteLine($"Logger: file write error: {ex.GetType().Name}: {ex.Message}");
             }
         }
     }

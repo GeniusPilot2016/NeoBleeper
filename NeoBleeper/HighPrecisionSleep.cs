@@ -21,7 +21,7 @@ namespace NeoBleeper
         // Single shared timer for all sleep requests
         private static readonly MultimediaTimer _sharedTimer;
         private static readonly object _sync = new();
-        // dueTime (ms since epoch) -> list of waiters
+        // dueTime (ms since epoch) -> list of waiters (ManualResetEventSlim or TaskCompletionSource<bool>)
         private static readonly SortedList<long, List<object>> _schedule = new();
 
         static HighPrecisionSleep()
@@ -56,8 +56,17 @@ namespace NeoBleeper
                 {
                     foreach (var waiter in kv.Value)
                     {
-                        if (waiter is ManualResetEventSlim mre)
-                            mre.Set();
+                        try
+                        {
+                            if (waiter is ManualResetEventSlim mre)
+                                mre.Set();
+                            else if (waiter is TaskCompletionSource<bool> tcs)
+                                tcs.TrySetResult(true);
+                        }
+                        catch
+                        {
+                            // Ignore exceptions from waiters, as they may have been disposed or already completed
+                        }
                     }
                 }
             }
@@ -91,25 +100,27 @@ namespace NeoBleeper
             mre.Wait();
         }
 
-        /// <summary>
-        /// Asynchronously suspends execution for the specified number of milliseconds.
-        /// </summary>
-        /// <param name="milliseconds">The duration, in milliseconds, for which to suspend execution. Must be zero or greater.</param>
-        /// <returns>A task that represents the asynchronous delay operation. The task is completed immediately if the specified
-        /// duration is zero or negative.</returns>
         public static Task SleepAsync(int milliseconds)
         {
-            // Return completed task for non-positive durations
             if (milliseconds <= 0) return Task.CompletedTask;
-            return Task.Run(() => Sleep(milliseconds));
+
+            // Non-blocking wait using TaskCompletionSource to allow async/await usage
+            var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            long due = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond + milliseconds;
+
+            lock (_sync)
+            {
+                if (!_schedule.TryGetValue(due, out var list))
+                {
+                    list = new List<object>();
+                    _schedule.Add(due, list);
+                }
+                list.Add(tcs);
+            }
+
+            return tcs.Task;
         }
 
-        /// <summary>
-        /// Shuts down the shared timer and releases all associated resources.
-        /// </summary>
-        /// <remarks>After calling this method, any scheduled operations managed by the shared timer are
-        /// cancelled and cannot be resumed. This method is thread-safe and can be called multiple times without
-        /// throwing exceptions.</remarks>
         public static void Shutdown()
         {
             lock (_sync)
@@ -118,8 +129,17 @@ namespace NeoBleeper
                 {
                     foreach (var waiter in kv.Value)
                     {
-                        if (waiter is ManualResetEventSlim mre)
-                            mre.Set();
+                        try
+                        {
+                            if (waiter is ManualResetEventSlim mre)
+                                mre.Set();
+                            else if (waiter is TaskCompletionSource<bool> tcs)
+                                tcs.TrySetResult(true);
+                        }
+                        catch
+                        {
+                            // mute
+                        }
                     }
                 }
                 _sharedTimer?.Stop();
