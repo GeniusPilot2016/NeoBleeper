@@ -234,11 +234,11 @@ namespace NeoBleeper
         {
             try
             {
-                string exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string exePath = AppContext.BaseDirectory ?? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
                 string logPath = Path.Combine(exePath, "DebugLog.txt");
-                // FileMode.Create ile dosya her yazmada truncate edilir -> eskiden kalan tail verisi sorununu çözer
-                using (FileStream fs = new FileStream(logPath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                lock (_logLock)
                 {
+                    using (FileStream fs = new FileStream(logPath, FileMode.Create, FileAccess.Write, FileShare.Read))
                     using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                     {
                         writer.Write(content);
@@ -247,7 +247,6 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                // Write to debug output if file writing fails, but do not throw further exceptions to avoid crashing the application.
                 Debug.WriteLine($"Logger: file write error: {ex.GetType().Name}: {ex.Message}");
             }
         }

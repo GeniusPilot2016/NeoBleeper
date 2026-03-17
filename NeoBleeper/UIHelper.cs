@@ -321,7 +321,7 @@ public static class UIHelper
                             {
                                 ctrl.BeginInvoke(new Action(() =>
                                 {
-                                    try { handler.Invoke(null, EventArgs.Empty); } catch { }
+                                    try { handler.Invoke(ctrl, EventArgs.Empty); } catch { }
                                 }));
                             }
                             catch
