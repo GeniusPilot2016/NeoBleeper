@@ -111,25 +111,51 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Handles timer events triggered by the system timer and raises the Tick event.
+        /// Handles timer callback events and invokes registered tick event handlers.
         /// </summary>
-        /// <remarks>This method is intended to be used as a callback for system timer events and is not
-        /// intended to be called directly by user code.</remarks>
-        /// <param name="id">The identifier of the timer that generated the event.</param>
-        /// <param name="msg">The system-defined message associated with the timer event.</param>
-        /// <param name="user">A user-defined value associated with the timer, typically specified when the timer was created.</param>
-        /// <param name="dw1">Additional message-specific information provided by the system.</param>
-        /// <param name="dw2">Additional message-specific information provided by the system.</param>
+        /// <remarks>This method is intended to be called by the timer infrastructure when a timer event
+        /// occurs. Any exceptions thrown by event handlers are caught to prevent the timer from affecting application
+        /// stability.</remarks>
+        /// <param name="id">The identifier of the timer instance triggering the callback.</param>
+        /// <param name="msg">The message code associated with the timer event.</param>
+        /// <param name="user">A user-defined value passed to the timer callback, typically used for context.</param>
+        /// <param name="dw1">Additional timer-specific data provided to the callback.</param>
+        /// <param name="dw2">Additional timer-specific data provided to the callback.</param>
         private void TimerCallback(uint id, uint msg, UIntPtr user, UIntPtr dw1, UIntPtr dw2)
         {
-            Tick?.Invoke(this, EventArgs.Empty);
+            // It shouldn't affect the application if the event handler throws native exceptions, but it should catch them to prevent the timer from crashing the app
+            var handler = Tick;
+            if (handler == null) return;
+
+            foreach (Delegate d in handler.GetInvocationList())
+            {
+                try
+                {
+                    if (d is EventHandler eh)
+                    {
+                        eh.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        // General safety fallback for non-EventHandler delegates, though in this design we expect only EventHandlers to be subscribed
+                        d.DynamicInvoke(this, EventArgs.Empty);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Use Logger to log the exception, but catch any exceptions from Logger itself to avoid cascading failures
+                    try
+                    {
+                        Logger.Log($"Timer callback handler threw: {ex.GetType().Name} {ex.Message}", Logger.LogTypes.Error);
+                    }
+                    catch
+                    {
+                        // Mute any exceptions from Logger to prevent further issues, as it's already a failure scenario
+                    }
+                }
+            }
         }
 
-        /// <summary>
-        /// Releases all resources used by the current instance of the class.
-        /// </summary>
-        /// <remarks>Call this method when you are finished using the object to free unmanaged resources
-        /// and perform other cleanup operations. After calling this method, the object should not be used.</remarks>
         public void Dispose()
         {
             if (!_disposed)

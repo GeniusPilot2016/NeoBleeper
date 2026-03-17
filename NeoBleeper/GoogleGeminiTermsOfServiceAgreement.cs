@@ -334,18 +334,7 @@ namespace NeoBleeper
 
         private void richTextBoxTerms_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = e.LinkText,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.Log("Failed to open link: " + ex.Message, Logger.LogTypes.Error);
-            }
+            LinkHelper.OpenLink(e.LinkText, this);
         }
     }
 }

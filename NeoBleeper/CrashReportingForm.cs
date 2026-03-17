@@ -188,11 +188,7 @@ namespace NeoBleeper
 
         private void richTextBoxCrashReport_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = e.LinkText,
-                UseShellExecute = true
-            });
+            LinkHelper.OpenLink(e.LinkText, this);
         }
     }
 }
