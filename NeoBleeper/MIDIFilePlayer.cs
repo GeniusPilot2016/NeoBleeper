@@ -1679,7 +1679,7 @@ namespace NeoBleeper
                 durationMs = totalDurationMs - TicksToMilliseconds(currentTime);
             }
 
-            int durationMsInt = Math.Max(0, (int)Math.Floor(durationMs));
+            int durationMsInt = Math.Max(0, (int)Math.Round(durationMs));
             if (driftMs > 0)
             {
                 durationMsInt = Math.Max(0, durationMsInt - driftMs);
