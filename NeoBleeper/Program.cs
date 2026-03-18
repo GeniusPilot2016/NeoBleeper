@@ -53,9 +53,9 @@ namespace NeoBleeper
                 }
                 // Initialize application configuration
                 ApplicationConfiguration.Initialize();
+                ConfigureApplication();
                 splashScreen = new SplashScreen(); // Create splash screen instance
                 LoadSettingsIfNeeded(); // Load settings if needed (upgrade from previous versions)
-                ConfigureApplication();
                 splashScreen.Show();
                 CheckAndPlaceInpOutX64(); // Check presence of InpOutx64.dll and place it if not present
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
