@@ -1604,7 +1604,7 @@ namespace NeoBleeper
         }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
-        int driftMs = 0;
+        double driftMs = 0;
         private HashSet<int> _previousMidiOutputNotes = new();
 
         /// <summary>
@@ -1679,21 +1679,34 @@ namespace NeoBleeper
                 durationMs = totalDurationMs - TicksToMilliseconds(currentTime);
             }
 
-            int durationMsInt = Math.Max(0, (int)Math.Round(durationMs));
-            if (driftMs > 0)
+            // --- Robust drift compensation (preserve fractional ms) ---
+            double originalDuration = Math.Max(0.0, durationMs);
+            double adjustedDuration;
+
+            if (driftMs > 0.0)
             {
-                durationMsInt = Math.Max(0, durationMsInt - driftMs);
-                driftMs = Math.Max(0, driftMs - (int)durationMs);
+                // It's behind: consume as much drift as possible from this frame.
+                double consume = Math.Min(driftMs, originalDuration);
+                adjustedDuration = Math.Max(0.0, originalDuration - driftMs);
+                driftMs -= consume; // reduce accumulated drift by consumed amount
             }
-            else if (driftMs < 0)
+            else if (driftMs < 0.0)
             {
-                durationMsInt -= driftMs;
-                driftMs = 0;
+                // It's ahead: extend this frame by the negative drift to compensate
+                adjustedDuration = originalDuration + (-driftMs);
+                driftMs = 0.0;
             }
+            else
+            {
+                adjustedDuration = originalDuration;
+            }
+
+            int durationMsInt = (int)Math.Max(0, Math.Round(adjustedDuration));
 
             if (durationMsInt <= 0 && filteredNotes.Count == 0)
             {
-                driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
+                // If nothing to play and adjusted duration is zero or negative, update drift accumulation and return.
+                driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
                 return;
             }
 
@@ -1718,7 +1731,9 @@ namespace NeoBleeper
                     await PlayMultipleNotesAsync(frequencies, durationMsInt, token);
                 }
             }
-            driftMs = (int)(driftStopwatch.ElapsedMilliseconds - durationMsInt);
+
+            // Accumulate the real elapsed difference (can be positive or negative)
+            driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
         }
 
         /// <summary>
@@ -1903,7 +1918,7 @@ namespace NeoBleeper
         {
             try
             {
-                await Task.Delay(milliseconds, cancellationToken);
+                await HighPrecisionSleep.SleepAsync(milliseconds, cancellationToken);
             }
             catch (OperationCanceledException)
             {

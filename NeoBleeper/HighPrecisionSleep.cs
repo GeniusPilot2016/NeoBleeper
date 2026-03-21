@@ -100,24 +100,35 @@ namespace NeoBleeper
             mre.Wait();
         }
 
-        public static Task SleepAsync(int milliseconds)
+        public static Task SleepAsync(int milliseconds, CancellationToken token = default)
         {
             if (milliseconds <= 0) return Task.CompletedTask;
-
-            // Non-blocking wait using TaskCompletionSource to allow async/await usage
             var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-            long due = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond + milliseconds;
 
-            lock (_sync)
+            try
             {
-                if (!_schedule.TryGetValue(due, out var list))
-                {
-                    list = new List<object>();
-                    _schedule.Add(due, list);
-                }
-                list.Add(tcs);
-            }
+                token.ThrowIfCancellationRequested();
+                // Non-blocking wait using TaskCompletionSource to allow async/await usage
+                long due = DateTime.UtcNow.Ticks / TimeSpan.TicksPerMillisecond + milliseconds;
 
+                lock (_sync)
+                {
+                    if (!_schedule.TryGetValue(due, out var list))
+                    {
+                        list = new List<object>();
+                        _schedule.Add(due, list);
+                    }
+                    list.Add(tcs);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                tcs.SetCanceled();
+            }
+            catch (Exception ex)
+            {
+                tcs.SetException(ex);
+            }
             return tcs.Task;
         }
 

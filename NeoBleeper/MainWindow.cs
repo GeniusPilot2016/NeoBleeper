@@ -123,6 +123,7 @@ namespace NeoBleeper
             lastListHash = ComputeListHash();
             listViewNotes.DoubleBuffering(true);
             label_beep.DoubleBuffering(true);
+            position_table.DoubleBuffering(true);
             trackBar_note_silence_ratio.DoubleBuffering(true);
             trackBar_time_signature.DoubleBuffering(true);
             UpdateUndoRedoButtons();
@@ -3077,12 +3078,13 @@ namespace NeoBleeper
                         {
                             int cachedNoteDuration = noteSound_int;
                             // Adjust the note sound duration to compensate for drift
-                            noteSound_int = Math.Max(1, noteSound_int - (int)drift);
+                            noteSound_int = Math.Max(1, noteSound_int - (int)Math.Round(Math.Min(drift, noteSound_int)));
                             if (drift - cachedNoteDuration > 0) // If drift exceeds the original note duration, adjust silence accordingly
                             {
-                                silence_int = (Math.Max(0, (int)(drift - cachedNoteDuration)));
+                                silence_int = Math.Max(0, (int)Math.Round(drift - cachedNoteDuration));
                             }
-                            drift -= drift; // Reset drift after adjustment
+                            // Subtract only the amount of drift it consumed (cached duration), not the entire drift
+                            drift = Math.Max(0.0, drift - cachedNoteDuration);
                         }
                         else // If drift exceeds the note duration, skip to the next note
                         {

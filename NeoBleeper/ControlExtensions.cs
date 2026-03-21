@@ -30,8 +30,14 @@ namespace NeoBleeper
         /// <param name="enabled">true to enable double buffering; otherwise, false.</param>
         public static void DoubleBuffering(this Control control, bool enabled)
         {
-            var method = typeof(Control).GetMethod("SetStyle", BindingFlags.Instance | BindingFlags.NonPublic);
-            method.Invoke(control, new object[] { ControlStyles.OptimizedDoubleBuffer, enabled });
+            // Enable double buffering for the container to reduce flicker (safe to call repeatedly)
+            try
+            {
+                var prop = control.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                if (prop != null)
+                    prop.SetValue(control, true, null);
+            }
+            catch { /* ignore if not available */ }
         }
 
     }
