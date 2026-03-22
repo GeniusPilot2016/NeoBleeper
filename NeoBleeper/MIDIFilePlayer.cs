@@ -796,7 +796,9 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    double currentPositionPercent = ((double)_currentFrameIndex / _frames.Count) * 100.0;
+                    // Use 0-based denominator so last frame maps to 100%
+                    int denom = Math.Max(1, _frames.Count - 1);
+                    double currentPositionPercent = ((double)_currentFrameIndex / denom) * 100.0;
                     bool wasPlaying = _isPlaying;
                     await SetPosition(currentPositionPercent);
                     if (wasPlaying && !_isPlaying)
@@ -1255,7 +1257,9 @@ namespace NeoBleeper
                             // Update the UI labels (guard frames)
                             if (_frames != null && _frames.Count > 0)
                             {
-                                int frameIndex = (int)(_pendingPositionPercent * _frames.Count / 100.0);
+                                // Map percent -> frame index using 0-based denominator so last frame corresponds to 100%
+                                int denomForIndex = Math.Max(1, _frames.Count - 1);
+                                int frameIndex = (int)Math.Round((_pendingPositionPercent / 100.0) * denomForIndex);
                                 frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
 
                                 long frameTick = _frames[frameIndex].Time;
@@ -1535,7 +1539,7 @@ namespace NeoBleeper
             }
 
             // Change: only consider playback complete when index >= _frames.Count (all frames processed)
-            if (_currentFrameIndex >= _frames.Count)
+            if (_currentFrameIndex >= _frames.Count - 1)
             {
                 HandlePlaybackComplete();
                 return;

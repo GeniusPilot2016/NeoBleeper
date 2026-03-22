@@ -117,104 +117,271 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelPrompt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelPrompt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="labelPrompt.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="labelPrompt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 53</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="labelPrompt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="labelPrompt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 16</value>
-  </data>
   <data name="labelPrompt.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="labelPrompt.Text" xml:space="preserve">
-    <value>Prompt</value>
+  <data name="labelPoweredByGemini.Text" xml:space="preserve">
+    <value>      Powered by Google Gemini™</value>
   </data>
-  <data name="&gt;&gt;labelPrompt.Name" xml:space="preserve">
-    <value>labelPrompt</value>
+  <data name="label_ai_model.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;labelPrompt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelPrompt.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelPrompt.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="textBoxPrompt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="textBoxPrompt.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="textBoxPrompt.Font" type="System.Drawing.Font, System.Drawing">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label_ai_model.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="textBoxPrompt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 51</value>
+  <data name="label_ai_model.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="textBoxPrompt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonCreate.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="textBoxPrompt.MaxLength" type="System.Int32, mscorlib">
-    <value>512</value>
+  <data name="labelWarning.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1024, 0</value>
   </data>
-  <data name="textBoxPrompt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 23</value>
+  <data name="&gt;&gt;buttonCreate.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="textBoxPrompt.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="label_ai_model.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 16</value>
   </data>
-  <data name="&gt;&gt;textBoxPrompt.Name" xml:space="preserve">
-    <value>textBoxPrompt</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Create Music with AI</value>
   </data>
-  <data name="&gt;&gt;textBoxPrompt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBoxPrompt.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelCreating.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;textBoxPrompt.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;buttonCreate.Name" xml:space="preserve">
+    <value>buttonCreate</value>
   </data>
-  <data name="buttonCreate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="buttonCreate.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="buttonCreate.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="buttonCreate.ImageIndex" type="System.Int32, mscorlib">
+  <data name="buttonCreate.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxCreating.Name" xml:space="preserve">
+    <value>pictureBoxCreating</value>
+  </data>
+  <data name="labelPoweredByGemini.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;label_ai_model.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_ai_model.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="pictureBoxCreating.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label_ai_model.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;label_ai_model.Name" xml:space="preserve">
+    <value>label_ai_model</value>
+  </data>
+  <data name="labelCreating.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelPrompt.Text" xml:space="preserve">
+    <value>Prompt</value>
+  </data>
+  <data name="&gt;&gt;labelPoweredByGemini.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelPoweredByGemini.Name" xml:space="preserve">
+    <value>labelPoweredByGemini</value>
+  </data>
+  <data name="buttonCreate.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="pictureBoxCreating.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="labelPrompt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="labelPrompt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="comboBox_ai_model.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="labelWarning.Text" xml:space="preserve">
+    <value>      Warning: The AI generates inspirational suggestions, not exact reproductions. 
+Results may be imperfect or contain mistakes.
+Do not share any sensitive or personal data when using this feature.</value>
+  </data>
+  <data name="labelCreating.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="comboBox_ai_model.Location" type="System.Drawing.Point, System.Drawing">
+    <value>85, 17</value>
+  </data>
+  <data name="textBoxPrompt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>85, 51</value>
+  </data>
+  <data name="textBoxPrompt.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="textBoxPrompt.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="progressBarCreating.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>470, 181</value>
+  </data>
+  <data name="progressBarCreating.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonCreate.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="labelCreating.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelPrompt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;labelPrompt.Name" xml:space="preserve">
+    <value>labelPrompt</value>
+  </data>
+  <data name="&gt;&gt;label_ai_model.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ai_model.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;connectionCheckTimer.Name" xml:space="preserve">
+    <value>connectionCheckTimer</value>
+  </data>
+  <data name="labelPoweredByGemini.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ai_model.Name" xml:space="preserve">
+    <value>comboBox_ai_model</value>
+  </data>
+  <data name="buttonCreate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;images.Name" xml:space="preserve">
+    <value>images</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelPoweredByGemini.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelPoweredByGemini.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="comboBox_ai_model.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="buttonCreate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>102, 26</value>
+  </data>
+  <data name="progressBarCreating.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;progressBarCreating.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxCreating.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ai_model.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxCreating.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pictureBoxCreating.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="label_ai_model.Text" xml:space="preserve">
+    <value>AI Model</value>
+  </data>
+  <data name="comboBox_ai_model.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <metadata name="images.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="&gt;&gt;progressBarCreating.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;labelCreating.Name" xml:space="preserve">
+    <value>labelCreating</value>
+  </data>
+  <data name="&gt;&gt;labelPoweredByGemini.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="labelPrompt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 16</value>
+  </data>
+  <data name="progressBarCreating.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 233</value>
+  </data>
+  <data name="&gt;&gt;textBoxPrompt.Name" xml:space="preserve">
+    <value>textBoxPrompt</value>
+  </data>
+  <data name="labelWarning.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="comboBox_ai_model.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="labelPoweredByGemini.Location" type="System.Drawing.Point, System.Drawing">
+    <value>145, 152</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxCreating.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelPoweredByGemini.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="labelPoweredByGemini.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;connectionCheckTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pictureBoxCreating.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="labelCreating.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="labelCreating.Location" type="System.Drawing.Point, System.Drawing">
+    <value>133, 195</value>
+  </data>
+  <data name="labelCreating.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;labelCreating.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="images.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA4AoAAAJNU0Z0AUkBTAIBAQMB
-        AAGkAQIBpAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAy
-        AAGXAXABTQHx/AAB3gF+ASwB/2AAA1EB/wNQAf8DTwH/A08B/wNOAf8DTQH/A00B/wNMAf8DSwH/A0sB
+        AAGsAQIBsAECARABAAEQAQAE/wEhARAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARAy
+        AAGSAXABUAHx/AAB3gF+ASwB/2AAA1EB/wNQAf8DTwH/A08B/wNOAf8DTQH/A00B/wNMAf8DSwH/A0sB
         /wNKAf8DSQH/A0kB/wNIAf8DRwH/XAADBgEIAd8BfQEzAf8kAAHwAb0BMgH/Ae4BuAEvAf8B7AG0ASwB
         /wHqAa8BKAH/AegBqgElAf8B5gGlASEB/wHkAaEBHgH/AeIBnAEbAf8B4AGXARcB/wHeAZIBFAH/Ad0B
         jgEQAf8B2wGJAQ0B/wwAA1MB/wEPAbYB8AH/AQoBvgH+Af8BCgG+Af4B/wEJAb0B/gH/AQkBvQH+Af8B
@@ -230,298 +397,139 @@
         ewE5Af8cAAHwAb0BMgH/Ae4BuAEvAf8B7AG0ASwB/wHqAa8BKAH/AdgBnwEiAf8B5AGkASEB/wHkAaEB
         HgH/AeIBnAEbAf8B4AGXARcB/wHeAZIBFAH/Ad0BjgEQAf8B2wGJAQ0B/xQAA1cB/wEPAccB/gH/AQ8B
         xgH+Af8BDwHGAf4B/wEOAcUB/gH/AzcB/wEOAcQB/gH/AQ0BxAH+Af8BDQHDAf4B/wENAcIB/gH/A1AB
-        /1gAAVwCWgHCAeYBcgFkAf8B5QF0AVwB/wHkAXYBVAH/AeMBdwFMAf8B4gF5AUYB/wHhAXoBPwH/AeAB
+        /1gAAVsCWgHCAeYBcgFkAf8B5QF0AVwB/wHkAXYBVAH/AeMBdwFMAf8B4gF5AUYB/wHhAXoBPwH/AeAB
         ewE5Af8DJwE6FAAB8AG9ATIB/wHuAbgBLwH/AewBtAEsAf8B6gGvASgB/wGtAZYBZgH/A/AB/wEaAbkB
         1QH/AeIBnAEbAf8B4AGXARcB/wHeAZIBFAH/Ad0BjgEQAf8B2wGJAQ0B/xgAA1gB/wERAckC/wEQAcgB
         /gH/ARAByAH+Af8DOwH/AQ8BxwH+Af8BDwHGAf4B/wEPAcYB/gH/A1MB/1AAAewBaQGMAf8B6wFrAYMB
         /wHpAW0BewH/AegBbwFzAf8B5wFwAWsB/wHmAXIBZAH/AeUBdAFcAf8B5AF2AVQB/wHjAXcBTAH/AeIB
-        eQFGAf8B4QF6AT8B/wHgAXsBOQH/Ad8BfQEzAf8B3gF+ASwB/wGJAW0BTQHuCAAB8AG9ATIB/wHuAbgB
+        eQFGAf8B4QF6AT8B/wHgAXsBOQH/Ad8BfQEzAf8B3gF+ASwB/wGFAWwBUAHuCAAB8AG9ATIB/wHuAbgB
         LwH/AewBtAEsAf8B6gGvASgB/wHfAaQBJAH/AQABvgHtAf8BAAG+Ae0B/wEZAbcB0gH/AeABlwEXAf8B
         3gGSARQB/wHdAY4BEAH/AdsBiQENAf8YAANaAf8BEwHMAv8BEgHLAv8BEgHLAv8DPwH/AREBygL/AREB
         yQL/ASMBqgHSAf8DVAH/WAADNwFaAekBbQF7Af8B6AFvAXMB/wHnAXABawH/AeYBcgFkAf8B5QF0AVwB
         /wHkAXYBVAH/AeMBdwFMAf8B4gF5AUYB/wHhAXoBPwH/AwYBCBAAAfABvQEyAf8B7gG4AS8B/wHsAbQB
         LAH/AeoBrwEoAf8B6AGqASUB/wG7AZsBNQH/AQABvgHtAf8BAAG+Ae0B/wEZAbcB0gH/Ad4BkgEUAf8B
-        3QGOARAB/wHbAYkBDQH/HAADWwH/ARQBzgL/ARQBzgL/A0EB/wETAc0C/wETAcwC/wNXAf9kAAFmAmEB
+        3QGOARAB/wHbAYkBDQH/HAADWwH/ARQBzgL/ARQBzgL/A0EB/wETAc0C/wETAcwC/wNXAf9kAAFlAmEB
         1AHoAW8BcwH/AecBcAFrAf8B5gFyAWQB/wHlAXQBXAH/AeQBdgFUAf8DGwEmGAAB8AG9ATIB/wHuAbgB
         LwH/AewBtAEsAf8B6gGvASgB/wHoAaoBJQH/AeYBpQEhAf8BuQGXATMB/wEAAb4B7QH/AQABvgHtAf8B
         GQG2AdEB/wHdAY4BEAH/AdsBiQENAf8cAANdAf8BJAG4AdwB/wEWAdEC/wEVAdAC/wEVAdAC/wFYAloB
-        /wNHAYBoAAFmAmEB1AHoAW8BcwH/AecBcAFrAf8B5gFyAWQB/wMLAQ4cAAHwAb0BMgH/Ae4BuAEvAf8B
+        /wNHAYBoAAFlAmEB1AHoAW8BcwH/AecBcAFrAf8B5gFyAWQB/wMLAQ4cAAHwAb0BMgH/Ae4BuAEvAf8B
         7AG0ASwB/wHqAa8BKAH/AegBqgElAf8B5gGlASEB/wHkAaEBHgH/AbcBlAEwAf8BAAG+Ae0B/wEAAb4B
         7QH/ARkBtgHRAf8B2wGJAQ0B/yAAA14B/wEYAdMC/wEXAdMC/wEXAdIC/wNbAf9wAAHpAW0BewH/AegB
-        bwFzAf8BXAJaAcIgAAHwAb0BMgH/Ae4BuAEvAf8B7AG0ASwB/wHqAa8BKAH/AegBqgElAf8B5gGlASEB
+        bwFzAf8BWwJaAcIgAAHwAb0BMgH/Ae4BuAEvAf8B7AG0ASwB/wHqAa8BKAH/AegBqgElAf8B5gGlASEB
         /wHkAaEBHgH/AeIBnAEbAf8BtgGQAS0B/wEAAb4B7QH/AQABvgHtAf8BGAG1AdAB/yAAA1UBrwFeAWIB
         YwH/ARkB1gL/A14B/3QAAzgBWwHpAW0BewH/JAAB8AG9ATIB/wHuAbgBLwH/AewBtAEsAf8B6gGvASgB
         /wHoAaoBJQH/AeYBpQEhAf8B5AGhAR4B/wHiAZwBGwH/AeABlwEXAf8BtQGLASoB/wEAAb4B7QH/AQAB
         vgHtAf8DWgHCIAADYQH/ARsB2QL/A2AB/3gAAesBawGDAf8kAAMwAUsB7gG4AS8B/wHsAbQBLAH/AeoB
         rwEoAf8B6AGqASUB/wHmAaUBIQH/AeQBoQEeAf8B4gGcARsB/wHgAZcBFwH/Ad4BkgEUAf8BtAGIASYB
-        /wHTAc4BwgH/A9oB/wNkAdscAAMDAQQDYwH/fAAB2wFxAYAB/lAAAxYBHQPdAf8BYAFPAckB//gAAxUB
+        /wHTAc4BwgH/A9oB/wNkAdscAAMDAQQDYwH/fAAB2QFyAYAB/lAAAxYBHQPdAf8BYAFPAckB//gAAxUB
         HAMUARuAAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAB/wF/BP8CAAH/AX8C
         /wGAAwAB/gF/AcABAwGAAwAB/gE/AcABAwHAAQECAAH8AT8BwAEDAcABAwIAAfgBHwHAAQMB4AEDAgAB
         8AEHAcABAwHwAQcCAAGAAQABwAEDAfABBwIAAeABAwHAAQMB+AEPAgAB+AEPAcABAwH4AQ8CAAH8AR8B
         wAEDAfwBHwIAAf4BPwHAAQMB/AE/AgAB/gF/AcABAQH+AT8CAAH/AX8BwAEAAf4BfwIAAf8BfwH/AfgC
-        /wIAA/8B/AL/AgAL
+        /wIAA/8B/AL/GAAL
 </value>
   </data>
-  <data name="buttonCreate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>346, 49</value>
+  <data name="&gt;&gt;labelWarning.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="buttonCreate.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="textBoxPrompt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="buttonCreate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 26</value>
+  <data name="textBoxPrompt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 23</value>
   </data>
-  <data name="buttonCreate.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="buttonCreate.Text" xml:space="preserve">
-    <value>Create</value>
-  </data>
-  <data name="buttonCreate.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="buttonCreate.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="&gt;&gt;buttonCreate.Name" xml:space="preserve">
-    <value>buttonCreate</value>
-  </data>
-  <data name="&gt;&gt;buttonCreate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelPrompt.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
   <data name="&gt;&gt;buttonCreate.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;buttonCreate.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="labelPoweredByGemini.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="labelPoweredByGemini.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelPoweredByGemini.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="labelPoweredByGemini.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="labelPoweredByGemini.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="labelPoweredByGemini.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 152</value>
-  </data>
-  <data name="labelPoweredByGemini.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="labelPoweredByGemini.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 16</value>
-  </data>
-  <data name="labelPoweredByGemini.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelPoweredByGemini.Text" xml:space="preserve">
-    <value>      Powered by Google Gemini™</value>
-  </data>
-  <data name="labelPoweredByGemini.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;labelPoweredByGemini.Name" xml:space="preserve">
-    <value>labelPoweredByGemini</value>
-  </data>
-  <data name="&gt;&gt;labelPoweredByGemini.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelWarning.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelPoweredByGemini.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelPoweredByGemini.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="comboBox_ai_model.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="comboBox_ai_model.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comboBox_ai_model.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="comboBox_ai_model.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 17</value>
-  </data>
-  <data name="comboBox_ai_model.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="comboBox_ai_model.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 24</value>
-  </data>
-  <data name="comboBox_ai_model.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;comboBox_ai_model.Name" xml:space="preserve">
-    <value>comboBox_ai_model</value>
-  </data>
-  <data name="&gt;&gt;comboBox_ai_model.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comboBox_ai_model.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;comboBox_ai_model.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label_ai_model.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="label_ai_model.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label_ai_model.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="label_ai_model.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 19</value>
-  </data>
-  <data name="label_ai_model.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="label_ai_model.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 16</value>
-  </data>
-  <data name="label_ai_model.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label_ai_model.Text" xml:space="preserve">
-    <value>AI Model</value>
-  </data>
-  <data name="&gt;&gt;label_ai_model.Name" xml:space="preserve">
-    <value>label_ai_model</value>
-  </data>
-  <data name="&gt;&gt;label_ai_model.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_ai_model.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label_ai_model.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="progressBarCreating.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="progressBarCreating.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 233</value>
-  </data>
-  <data name="progressBarCreating.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="progressBarCreating.Size" type="System.Drawing.Size, System.Drawing">
-    <value>446, 12</value>
-  </data>
-  <data name="progressBarCreating.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="progressBarCreating.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;progressBarCreating.Name" xml:space="preserve">
-    <value>progressBarCreating</value>
-  </data>
-  <data name="&gt;&gt;progressBarCreating.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;progressBarCreating.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;progressBarCreating.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="pictureBoxCreating.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
   </data>
   <data name="pictureBoxCreating.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 186</value>
   </data>
-  <data name="pictureBoxCreating.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="&gt;&gt;labelCreating.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pictureBoxCreating.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 38</value>
+  <data name="label_ai_model.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 19</value>
   </data>
-  <data name="pictureBoxCreating.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
+  <data name="&gt;&gt;textBoxPrompt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="pictureBoxCreating.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="labelPoweredByGemini.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="pictureBoxCreating.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;progressBarCreating.Name" xml:space="preserve">
+    <value>progressBarCreating</value>
   </data>
-  <data name="&gt;&gt;pictureBoxCreating.Name" xml:space="preserve">
-    <value>pictureBoxCreating</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxCreating.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxCreating.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;pictureBoxCreating.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="labelCreating.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="labelCreating.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelCreating.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 8.999999pt</value>
-  </data>
-  <data name="labelCreating.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 195</value>
-  </data>
-  <data name="labelCreating.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="labelCreating.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 16</value>
-  </data>
-  <data name="labelCreating.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 91</value>
   </data>
   <data name="labelCreating.Text" xml:space="preserve">
     <value>Music is being created by AI. Please wait...</value>
   </data>
-  <data name="labelCreating.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="labelCreating.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;labelCreating.Name" xml:space="preserve">
-    <value>labelCreating</value>
-  </data>
-  <data name="&gt;&gt;labelCreating.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelCreating.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;labelCreating.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <metadata name="connectionCheckTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>121, 17</value>
-  </metadata>
   <data name="labelWarning.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelWarning.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="pictureBoxCreating.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelCreating.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="comboBox_ai_model.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="buttonCreate.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 48</value>
+  </data>
+  <data name="labelCreating.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="labelPrompt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 53</value>
+  </data>
+  <data name="&gt;&gt;textBoxPrompt.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="label_ai_model.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="labelPoweredByGemini.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;comboBox_ai_model.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelPoweredByGemini.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;labelPrompt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonCreate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 49</value>
+  </data>
+  <data name="&gt;&gt;images.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>CreateMusicWithAI</value>
+  </data>
+  <data name="progressBarCreating.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 12</value>
+  </data>
+  <data name="&gt;&gt;labelWarning.Name" xml:space="preserve">
+    <value>labelWarning</value>
   </data>
   <data name="labelWarning.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopLeft</value>
@@ -529,72 +537,67 @@
   <data name="labelWarning.ImageIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="labelWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 91</value>
+  <data name="textBoxPrompt.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="labelWarning.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>1024, 0</value>
+  <data name="pictureBoxCreating.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 38</value>
   </data>
-  <data name="labelWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>446, 48</value>
+  <data name="comboBox_ai_model.Size" type="System.Drawing.Size, System.Drawing">
+    <value>257, 24</value>
+  </data>
+  <data name="buttonCreate.Text" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="buttonCreate.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelPoweredByGemini.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 16</value>
+  </data>
+  <data name="textBoxPrompt.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
+  </data>
+  <data name="&gt;&gt;textBoxPrompt.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelPrompt.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="labelWarning.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="labelWarning.Text" xml:space="preserve">
-    <value>      Warning: The AI generates inspirational suggestions, not exact reproductions. 
-Results may be imperfect or contain mistakes.
-Do not share any sensitive or personal data when using this feature.</value>
+  <data name="labelWarning.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.999999pt</value>
   </data>
-  <data name="labelWarning.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
+  <data name="textBoxPrompt.MaxLength" type="System.Int32, mscorlib">
+    <value>512</value>
   </data>
-  <data name="&gt;&gt;labelWarning.Name" xml:space="preserve">
-    <value>labelWarning</value>
+  <data name="&gt;&gt;buttonCreate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelWarning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelWarning.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelPrompt.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;labelWarning.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;progressBarCreating.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelCreating.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 16</value>
+  </data>
+  <data name="progressBarCreating.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>470, 181</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Create Music with AI</value>
-  </data>
-  <data name="&gt;&gt;images.Name" xml:space="preserve">
-    <value>images</value>
-  </data>
-  <data name="&gt;&gt;images.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;connectionCheckTimer.Name" xml:space="preserve">
-    <value>connectionCheckTimer</value>
-  </data>
-  <data name="&gt;&gt;connectionCheckTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>CreateMusicWithAI</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>ru</value>
+  </metadata>
+  <metadata name="connectionCheckTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>121, 17</value>
+  </metadata>
+  <metadata name="images.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

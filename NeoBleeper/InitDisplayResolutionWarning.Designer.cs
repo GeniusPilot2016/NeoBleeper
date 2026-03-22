@@ -66,7 +66,7 @@
             pictureBox1.Name = "pictureBox1";
             pictureBox1.TabStop = false;
             // 
-            // neobleeper_init_display_resolution_warning
+            // InitDisplayResolutionWarning
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -77,7 +77,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "neobleeper_init_display_resolution_warning";
+            Name = "InitDisplayResolutionWarning";
             ShowIcon = false;
             Shown += neobleeper_init_display_resolution_warning_Shown;
             SystemColorsChanged += neobleeper_init_display_resolution_warning_SystemColorsChanged;

@@ -96,7 +96,7 @@
             checkBoxDontShowAgain.Name = "checkBoxDontShowAgain";
             checkBoxDontShowAgain.UseVisualStyleBackColor = true;
             // 
-            // neobleeper_init_system_speaker_warning
+            // InitSystemSpeakerWarning
             // 
             AcceptButton = button_yes;
             resources.ApplyResources(this, "$this");
@@ -112,7 +112,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "neobleeper_init_system_speaker_warning";
+            Name = "InitSystemSpeakerWarning";
             ShowIcon = false;
             Shown += neobleeper_init_system_speaker_warning_Shown;
             SystemColorsChanged += neobleeper_init_system_speaker_warning_SystemColorsChanged;

@@ -3062,31 +3062,33 @@ namespace NeoBleeper
                     double noteDuration = CalculateLineLength(baseLength); // + beat_length;
                     int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
 
-                    // Calculate the expected end time for the current note
+                    // Drift compensation: Calculate the expected end time of the current note and compare it to the actual elapsed time
                     double expectedEndTime = totalElapsedNoteDuration + noteDuration;
-
-                    // Get the current elapsed time from the global stopwatch
                     double currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
-
-                    // Calculate the drift
                     double drift = currentTime - totalElapsedNoteDuration;
 
-                    if (drift > 0) // Handle positive drift
+                    // Synchronize the note if it's ahead of the line and there's negative drift (playing ahead of schedule)
+                    if (drift < 0)
                     {
-                        rawNoteDuration = (int)Math.Max(0, rawNoteDuration - drift);
-                        if (drift < noteDuration) // If drift is less than the note duration, adjust the note sound duration
+                        await HighPrecisionSleep.SleepAsync((int)Math.Max(0, -drift));
+                        currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
+                        drift = currentTime - totalElapsedNoteDuration;
+                    }
+
+                    if (drift > 0) // Positive drift: It's behind schedule, try to catch up
+                    {
+                        if (drift < noteDuration) // Smaller drift than the note duration allows for shortening the note to catch up
                         {
                             int cachedNoteDuration = noteSound_int;
-                            // Adjust the note sound duration to compensate for drift
-                            noteSound_int = Math.Max(1, noteSound_int - (int)Math.Round(Math.Min(drift, noteSound_int)));
-                            if (drift - cachedNoteDuration > 0) // If drift exceeds the original note duration, adjust silence accordingly
+                            noteSound_int = Math.Max(1, (int)Math.Round(noteSound_int - drift));
+                            // If the drift is larger than the note sound duration, skip the note and go to next line, but if it's smaller, shorten the note duration to catch up. If the drift is larger than the note duration, it will be handled in the next loop iteration by skipping the note and moving to the next one.
+                            if (drift > cachedNoteDuration)
                             {
-                                silence_int = Math.Max(0, (int)Math.Round(drift - cachedNoteDuration));
+                                silence_int = 0;
                             }
-                            // Subtract only the amount of drift it consumed (cached duration), not the entire drift
-                            drift = Math.Max(0.0, drift - cachedNoteDuration);
+                            // Don't reset the drift here, as the next note will also need to be shortened if the drift is still present after shortening the current note
                         }
-                        else // If drift exceeds the note duration, skip to the next note
+                        else // If the drift is larger than the note duration, skip the note and go to next line
                         {
                             currentNoteIndex++;
                             if (currentNoteIndex > (listViewNotes.Items.Count - 1))
@@ -3096,25 +3098,23 @@ namespace NeoBleeper
                                     StopPlaying();
                                     return;
                                 }
-                                int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1); // Calculate how many indices we've gone past the end
-                                int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count; // Calculate the overflow within the bounds of the list
+                                int totalIndexOverflow = currentNoteIndex - (listViewNotes.Items.Count - 1);
+                                int indexOverflow = totalIndexOverflow % listViewNotes.Items.Count;
                                 if (checkBox_loop.Checked)
                                 {
-                                    // Looping enabled - wrap around to the start
                                     currentNoteIndex = startIndex + indexOverflow;
                                 }
                                 else
                                 {
-                                    // End of list reached and not looping - stop playback
                                     StopPlaying();
                                     listViewNotes.SelectedItems.Clear();
                                     break;
                                 }
                             }
                             await UpdateListViewSelection(currentNoteIndex);
-                            drift -= noteDuration;
+                            // Add elapsed note duration to the total elapsed time to keep the timing accurate for the next note, even when skipping
                             totalElapsedNoteDuration += noteDuration;
-                            continue; // Skip to the next note if drift exceeds note duration
+                            continue;
                         }
                     }
                     // Normal playing flow
@@ -3126,7 +3126,7 @@ namespace NeoBleeper
                         UpdateLabelVisible(false);
                         await HighPrecisionSleep.SleepAsync(silence_int);
                     }
-                    if (drift < 0) // Handle negative drift
+                    if ((int)drift < 0) // Handle negative drift
                     {
                         await HighPrecisionSleep.SleepAsync(Math.Abs((int)drift));
                         drift -= drift;
@@ -3241,11 +3241,13 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Plays all notes in the list from the beginning, unless the keyboard is currently being used as a piano.
+        /// Starts playback of all notes in the list, if not already playing and keyboard input mode is disabled.
         /// </summary>
-        /// <remarks>This method has no effect if the note list is empty or if the keyboard-as-piano mode
-        /// is enabled. Playback starts from the first note in the list.</remarks>
-        public void PlayAll()
+        /// <remarks>Playback is only initiated if there are notes in the list and keyboard input mode is
+        /// not active. If playback is already in progress, this method does nothing.</remarks>
+        /// <param name="latency">The latency, in milliseconds, to apply before playback starts. The default is 0. This parameter is reserved
+        /// for future use to compensate for timing if needed.</param>
+        public void PlayAll(int latency = 0) // Latency parameter is reserved for compensate if present
         {
             if (listViewNotes.Items.Count > 0 && !checkBox_use_keyboard_as_piano.Checked) // Lock the play if using keyboard as piano
             {
@@ -3747,7 +3749,7 @@ namespace NeoBleeper
                     }
                     HighPrecisionSleep.Sleep(1);
                     var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                    int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
+                    int rawNoteDuration = (int)Math.Max(0, Math.Round(FixRoundingErrors(CalculateRawNoteLength(baseLength))));
                     HandleMidiOutput(noteSound_int);
                     bool nonStopping;
                     if (trackBar_note_silence_ratio.Value == 100)

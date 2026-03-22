@@ -96,7 +96,7 @@
             resources.ApplyResources(label_unknown_type_of_computer_result, "label_unknown_type_of_computer_result");
             label_unknown_type_of_computer_result.Name = "label_unknown_type_of_computer_result";
             // 
-            // neobleeper_init_unknown_type_of_computer_warning
+            // InitUnknownTypeOfComputerWarning
             // 
             AcceptButton = button_yes;
             resources.ApplyResources(this, "$this");
@@ -112,7 +112,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "neobleeper_init_unknown_type_of_computer_warning";
+            Name = "InitUnknownTypeOfComputerWarning";
             ShowIcon = false;
             Shown += neobleeper_init_unknown_type_of_computer_warning_Shown;
             SystemColorsChanged += neobleeper_init_unknown_type_of_computer_warning_SystemColorsChanged;

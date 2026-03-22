@@ -117,10 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="labelStatus.Text" xml:space="preserve">
-    <value>NeoBleeper запускается...</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>591, 127</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>НеоБлипер</value>
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="pictureBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 49</value>
+  </data>
+  <data name="labelVersion.Text" xml:space="preserve">
+    <value>Версия 0.0.0</value>
+  </data>
+  <data name="labelVersion.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="progressBar1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelStatus.Text" xml:space="preserve">
+    <value>НеоБлипер запускается...</value>
+  </data>
+  <data name="labelStatus.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="notifyIconNeoBleeper.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABYSAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAASB9J
@@ -754,5 +784,8 @@
         iUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCK5YPx/FGDb+Y+IaKgAAAAASUVORK5C
         YII=
 </value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

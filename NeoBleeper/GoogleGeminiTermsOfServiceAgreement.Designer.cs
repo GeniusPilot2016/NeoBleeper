@@ -91,6 +91,7 @@
             dateTimePickerDateOfBirth.MaxDate = new DateTime(2025, 12, 31, 0, 0, 0, 0);
             dateTimePickerDateOfBirth.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
             dateTimePickerDateOfBirth.Name = "dateTimePickerDateOfBirth";
+            dateTimePickerDateOfBirth.Value = new DateTime(2025, 12, 31, 0, 0, 0, 0);
             // 
             // GoogleGeminiTermsOfServiceAgreement
             // 

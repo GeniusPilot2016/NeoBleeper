@@ -25,7 +25,6 @@ namespace NeoBleeper
         bool waiting = false;
         bool isPlaying = false;
         private MainWindow mainWindow;
-        private PreciseTimer preciseTimer;
 
         public SynchronizedPlayWindow(MainWindow mainWindow)
         {
@@ -37,9 +36,6 @@ namespace NeoBleeper
             lbl_current_system_time.Text = DateTime.Now.ToString("HH:mm:ss");
             UIFonts.SetFonts(this);
             SetTheme();
-            preciseTimer = new PreciseTimer(1); // Store as field
-            preciseTimer.Tick += preciseTimer_Tick;
-            preciseTimer.Start();
         }
 
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
@@ -54,45 +50,9 @@ namespace NeoBleeper
         }
         private void synchronized_play_window_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Stop and dispose the timer before closing
-            preciseTimer?.Stop();
-            preciseTimer?.Dispose();
-            preciseTimer = null;
             if (mainWindow != null)
             {
                 mainWindow.MusicStopped -= MainWindow_MusicStopped;
-            }
-        }
-        private void preciseTimer_Tick(object sender, EventArgs e)
-        {
-            if (waiting)
-            {
-                if (mainWindow.listViewNotes.Items.Count > 0 && !isPlaying)
-                {
-                    var targetTime = dateTimePicker1.Value.ToUniversalTime();
-                    var currentTime = DateTime.UtcNow;
-
-                    // Check if the target time has been reached or exceeded
-                    if (currentTime >= targetTime)  // Direct UTC comparison for accuracy
-                    {
-                        Logger.Log($"Target time reached! Starting music immediately.", Logger.LogTypes.Info);
-                        Logger.Log($"Target: {targetTime:HH:mm:ss.fff}, Current: {currentTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
-
-                        // Start playing music and update the UI
-                        if (this.InvokeRequired)
-                        {
-                            this.Invoke((MethodInvoker)StartPlaying);
-                        }
-                        else
-                        {
-                            StartPlaying();
-                        }
-                    }
-                }
-                else
-                {
-                    StopWaiting();
-                }
             }
         }
         private void MainWindow_MusicStopped(object sender, EventArgs e)
@@ -166,6 +126,35 @@ namespace NeoBleeper
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (waiting)
+            {
+                if (mainWindow.listViewNotes.Items.Count > 0 && !isPlaying)
+                {
+                    var targetTime = dateTimePicker1.Value;
+                    var currentTime = DateTime.Now;
+
+                    // Check if the target time has been reached or exceeded
+                    if (IsReadyToPlay())  // Check if current time is equal to or later than target time
+                    {
+                        Logger.Log($"Target time reached! Starting music immediately.", Logger.LogTypes.Info);
+                        Logger.Log($"Target: {targetTime:HH:mm:ss}, Current: {currentTime:HH:mm:ss}", Logger.LogTypes.Info);
+
+                        // Start playing music and update the UI
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke((MethodInvoker)StartPlaying);
+                        }
+                        else
+                        {
+                            StartPlaying();
+                        }
+                    }
+                }
+                else
+                {
+                    StopWaiting();
+                }
+            }
             Task.Run(() =>
             {
                 SafeBeginInvoke(() =>
@@ -189,12 +178,12 @@ namespace NeoBleeper
         {
             if (waiting)
             {
-                var targetTime = dateTimePicker1.Value.ToUniversalTime();
-                var actualStartTime = DateTime.UtcNow;
+                var targetTime = dateTimePicker1.Value;
+                var actualStartTime = DateTime.Now;
                 var startDelay = (actualStartTime - targetTime).TotalMilliseconds;
 
-                Logger.Log($"Music started at {actualStartTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
-                Logger.Log($"Target was {targetTime:HH:mm:ss.fff}", Logger.LogTypes.Info);
+                Logger.Log($"Music started at {actualStartTime:HH:mm:ss}", Logger.LogTypes.Info);
+                Logger.Log($"Target was {targetTime:HH:mm:ss}", Logger.LogTypes.Info);
                 Logger.Log($"Start delay: {startDelay}ms", Logger.LogTypes.Info);
 
                 isPlaying = true;
@@ -297,6 +286,25 @@ namespace NeoBleeper
                 ResumeLayout(true);
             });
         }
+
+        /// <summary>
+        /// Determines whether the current time is equal to or later than the time specified in the date and time
+        /// picker.
+        /// </summary>
+        /// <remarks>This method compares the current UTC time to the value selected in the date and time
+        /// picker control. It is typically used to check if a scheduled time has been reached or passed.</remarks>
+        /// <returns>true if the current UTC time is equal to or later than the selected time; otherwise, false.</returns>
+        private bool IsReadyToPlay()
+        {
+            int targetHours = dateTimePicker1.Value.Hour;
+            int targetMinutes = dateTimePicker1.Value.Minute;
+            int targetSeconds = dateTimePicker1.Value.Second;
+
+            // Strip off the milliseconds with 0 to start same time if set multiple sessions to same time
+            DateTime targetTime = new DateTime(dateTimePicker1.Value.Year, dateTimePicker1.Value.Month, dateTimePicker1.Value.Day, targetHours, targetMinutes, targetSeconds, 0);
+
+            return DateTime.UtcNow >= targetTime.ToUniversalTime();
+        }
         private async void button_wait_Click(object sender, EventArgs e)
         {
             bool playbackStarted = false; // To distinguish between already playing and played after waiting
@@ -319,7 +327,7 @@ namespace NeoBleeper
                 {
                     mainWindow.StopPlaying();
                 }
-                if (dateTimePicker1.Value.ToUniversalTime() <= DateTime.UtcNow)
+                if (IsReadyToPlay())
                 {
                     playbackStarted = true;
                     StartPlaying();
