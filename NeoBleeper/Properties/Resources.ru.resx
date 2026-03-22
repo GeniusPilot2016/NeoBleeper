@@ -121,7 +121,7 @@
     <value>Определение типа компьютера...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>Бесплатный тариф Google Gemini™ API недоступен в вашей стране/регионе. Для доступа к сервису рассмотрите возможность перехода на платный тариф.</value>
+    <value>Бесплатный тариф Гугл Gemini™ AПИ недоступен в вашей стране/регионе. Для доступа к сервису рассмотрите возможность перехода на платный тариф.</value>
   </data>
   <data name="MessageRequestTimeout" xml:space="preserve">
     <value>Запрос завершился по истечении времени ожидания. Пожалуйста, попробуйте снова.</value>
@@ -134,7 +134,7 @@
     <value>Доступ запрещен</value>
   </data>
   <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
-    <value>Пустой список заметок невозможно преобразовать в команду Beep для Linux.</value>
+    <value>Пустой список заметок невозможно преобразовать в команду Beep для Линукс.</value>
   </data>
   <data name="TitleOutOfRange" xml:space="preserve">
     <value>Вне диапазона</value>
@@ -189,7 +189,7 @@
     <value>Запрошенная функция не реализована.</value>
   </data>
   <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Сервер Google Gemini™ в настоящее время недоступен. Повторите попытку позже.</value>
+    <value>Сервер Гугл Gemini™ в настоящее время недоступен. Повторите попытку позже.</value>
   </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Создай блюзовую прогрессию с выразительными нотами</value>
@@ -198,7 +198,7 @@
     <value>Расширенный тест качающейся частоты: </value>
   </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>API Google Gemini™ недоступен в вашей стране. Проверьте список поддерживаемых стран.</value>
+    <value>AПИ Гугл Gemini™ недоступен в вашей стране. Проверьте список поддерживаемых стран.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -258,7 +258,7 @@
     <value>Создай тему битвы с боссом в 8-битном стиле для видеоигры</value>
   </data>
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
-    <value>Перетащенный вами файл не поддерживается проигрывателем NeoBleeper MIDI или поврежден.</value>
+    <value>Перетащенный вами файл не поддерживается проигрывателем НеоБлипер MIDI или поврежден.</value>
   </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Воспроизвести звук бита</value>
@@ -325,16 +325,16 @@
     <value>Не реализовано</value>
   </data>
   <data name="MessageNonSupportedDraggedFile" xml:space="preserve">
-    <value>Перетащенный вами файл не поддерживается NeoBleeper или поврежден.</value>
+    <value>Перетащенный вами файл не поддерживается НеоБлипер или поврежден.</value>
   </data>
   <data name="MessageGCodeExported" xml:space="preserve">
-    <value>Файл GCode успешно экспортирован!</value>
+    <value>Файл G-код успешно экспортирован!</value>
   </data>
   <data name="StatusHDDStorageType" xml:space="preserve">
     <value>Обнаружен жесткий диск (HDD). Избегание резонансной частоты {value} Гц.</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
-    <value>Ошибка преобразования в GCode:</value>
+    <value>Ошибка преобразования в G-код:</value>
   </data>
   <data name="ExamplePrompt1" xml:space="preserve">
     <value>Создай классическое произведение в стиле Чайковского</value>
@@ -346,7 +346,7 @@
     <value>Напиши романтическую фортепианную пьесу</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Выход на системный динамик присутствует, но это компактный компьютер. NeoBleeper будет использовать звуковую карту для создания звуковых сигналов, чтобы избежать проблем с компактными компьютерами.</value>
+    <value>Выход на системный динамик присутствует, но это компактный компьютер. НеоБлипер будет использовать звуковую карту для создания звуковых сигналов, чтобы избежать проблем с компактными компьютерами.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Проверка чипсета на наличие проблем с системными динамиками...</value>
@@ -392,7 +392,7 @@
     <value>Tab</value>
   </data>
   <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Ключ API Google Gemini™ успешно сброшен.</value>
+    <value>Ключ AПИ Гугл Gemini™ успешно сброшен.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Сочини народную мелодию с балалайкой</value>
@@ -452,7 +452,7 @@
 Нажмите ещё раз, чтобы отобразить его.</value>
   </data>
   <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Неверный формат ключа API Google Gemini™. Введите ключ API повторно на вкладке «Общие» в настройках.</value>
+    <value>Неверный формат ключа AПИ Гугл Gemini™. Введите ключ AПИ повторно на вкладке «Общие» в настройках.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Инициализация MIDI-входа/выхода завершена.</value>
@@ -470,7 +470,7 @@
     <value>Есть несохранённые изменения. Сохранить перед выходом?</value>
   </data>
   <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
-    <value>Разрешение экрана не поддерживается. Для корректной работы NeoBleeper требуется разрешение не менее 1024x768.</value>
+    <value>Разрешение экрана не поддерживается. Для корректной работы НеоБлипер требуется разрешение не менее 1024x768.</value>
   </data>
   <data name="ExamplePrompt24" xml:space="preserve">
     <value>Создай энергичный электронный танцевальный ритм</value>
@@ -479,7 +479,7 @@
     <value>Сгенерируй спокойный эмбиент для релаксации</value>
   </data>
   <data name="MessageErrorSavingFile" xml:space="preserve">
-    <value>Ошибка сохранения файла NeoBleeper:</value>
+    <value>Ошибка сохранения файла НеоБлипер:</value>
   </data>
   <data name="MessageNonValidMIDIFile" xml:space="preserve">
     <value>Этот файл не является допустимым файлом MIDI, поврежден или используется другим процессом.</value>
@@ -491,7 +491,7 @@
     <value>Сохраненной версии для перемотки нет.</value>
   </data>
   <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Ключ API Google Gemini™ не работает. Проверьте и замените ключ API на вкладке «Общие» в настройках.</value>
+    <value>Ключ AПИ Гугл Gemini™ не работает. Проверьте и замените ключ API на вкладке «Общие» в настройках.</value>
   </data>
   <data name="SpaceKey" xml:space="preserve">
     <value>Пробел </value>
@@ -540,7 +540,7 @@
     <value>&amp;Игнорировать</value>
   </data>
   <data name="FilterProjectFileFormats" xml:space="preserve">
-    <value>Файлы языка разметки проекта NeoBleeper|*.NBPML|Файлы Bleeper Music Maker|*.BMM|Все файлы|*.*</value>
+    <value>Файлы языка разметки проекта НеоБлипер|*.NBPML|Файлы Bleeper Music Maker|*.BMM|Все файлы|*.*</value>
   </data>
   <data name="ButtonNo" xml:space="preserve">
     <value>&amp;Нет</value>
@@ -633,7 +633,7 @@
     <value>Четвертная</value>
   </data>
   <data name="StatusProgramLanguage" xml:space="preserve">
-    <value>NeoBleeper запускается с языком: </value>
+    <value>НеоБлипер запускается с языком: </value>
   </data>
   <data name="MessageFileNotFoundError" xml:space="preserve">
     <value>Файл не найден:</value>
@@ -654,7 +654,7 @@
     <value>Не найдено</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Не удалось добавить модель ИИ в список. Проверьте ключ API Google Gemini™ и подключение к интернету.</value>
+    <value>Не удалось добавить модель ИИ в список. Проверьте ключ AПИ Гугл Gemini™ и подключение к интернету.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -692,7 +692,7 @@
     <value>Музыка, созданная ИИ</value>
   </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Ключ API Google Gemini™ успешно сохранен.</value>
+    <value>Ключ AПИ Гугл Gemini™ успешно сохранен.</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Сочини церемониальный марш с постоянным темпом</value>
@@ -704,7 +704,7 @@
     <value>Создай драматическое оркестровое произведение с эпическими крещендо</value>
   </data>
   <data name="StatusClassicBleeperModeEnabled" xml:space="preserve">
-    <value>Режим Classic Bleeper включен. NeoBleeper будет работать в режиме Classic Bleeper.</value>
+    <value>Режим Классический Блипер включен. НеоБлипер будет работать в режиме Классический Блипер .</value>
   </data>
   <data name="TextPassed" xml:space="preserve">
     <value>ПРОШЕДШИЙ</value>
@@ -752,7 +752,7 @@
     <value>..\Resources\icons8-line-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageNonStandardNeoBleeperFile" xml:space="preserve">
-    <value>Этот файл NeoBleeper содержит недопустимые элементы, не соответствующие синтаксису формата файла NeoBleeper.
+    <value>Этот файл НеоБлипер содержит недопустимые элементы, не соответствующие синтаксису формата файла НеоБлипер.
 
 Вы хотите всё равно открыть этот файл?</value>
   </data>
@@ -763,7 +763,7 @@
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper обнаружил, что ваш ключ API Google Gemini™ повреждён. Введите ключ API Google Gemini™ повторно в окне настроек.</value>
+    <value>НеоБлипер обнаружил, что ваш ключ AПИ Гугл Gemini™ повреждён. Введите ключ AПИ Гугл Gemini™ повторно в окне настроек.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>Системный динамик активировался.</value>
@@ -772,7 +772,7 @@
     <value>Напиши блюзовую прогрессию</value>
   </data>
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
-    <value>Режим Classic Bleeper отключен. NeoBleeper будет работать в стандартном режиме.</value>
+    <value>Режим Классический Блипер отключен. НеоБлипер будет работать в стандартном режиме.</value>
   </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -787,10 +787,10 @@
     <value>Несохранённые изменения</value>
   </data>
   <data name="StatusInitializationCompleted" xml:space="preserve">
-    <value>Инициализация NeoBleeper завершена.</value>
+    <value>Инициализация НеоБлипер завершена.</value>
   </data>
   <data name="StatusModularComputerDetected" xml:space="preserve">
-    <value>Выход на системный динамик присутствует, и это модульный компьютер. NeoBleeper будет использовать системный динамик для создания звуковых сигналов.</value>
+    <value>Выход на системный динамик присутствует, и это модульный компьютер. НеоБлипер будет использовать системный динамик для создания звуковых сигналов.</value>
   </data>
   <data name="NotificationTitleMIDIFileLoaded" xml:space="preserve">
     <value>MIDI-файл загружен.</value>
@@ -908,7 +908,7 @@
     <value>Сообщение</value>
   </data>
   <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
-    <value>Ошибка преобразования в команду Beep для Linux: </value>
+    <value>Ошибка преобразования в команду Beep для Линукс: </value>
   </data>
   <data name="ExamplePrompt12" xml:space="preserve">
     <value>Сочини спокойный эмбиентный звуковой пейзаж для релаксации и медитации</value>
@@ -935,7 +935,7 @@
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Действующие модели Google Gemini™ отсутствуют.</value>
+    <value>Действующие модели Гугл Gemini™ отсутствуют.</value>
   </data>
   <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -950,7 +950,7 @@
     <value>Сочини ритмический паттерн с синкопированными ударами</value>
   </data>
   <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
-    <value>Открытый вами файл не поддерживается NeoBleeper или повреждён.</value>
+    <value>Открытый вами файл не поддерживается НеоБлипер или повреждён.</value>
   </data>
   <data name="TitleUnknownError" xml:space="preserve">
     <value>Неизвестная ошибка</value>
@@ -959,7 +959,7 @@
     <value>InpOutx64.dll присутствует и действителен.</value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
-    <value>Эта функция позволяет синхронизировать воспроизведение нескольких копий NeoBleeper.
+    <value>Эта функция позволяет синхронизировать воспроизведение нескольких копий НеоБлипер.
 
 Он также может работать на нескольких компьютерах и начинать воспроизведение одновременно, если все их часы установлены правильно.
 
@@ -967,7 +967,7 @@
 
 При включении этой функции откроется новое окно с элементами управления синхронизированным воспроизведением.
 
-Это окно можно использовать для управления воспроизведением всех копий NeoBleeper на вашем компьютере.</value>
+Это окно можно использовать для управления воспроизведением всех копий НеоБлипер на вашем компьютере.</value>
   </data>
   <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
     <value>Музыка, сгенерированная ИИ, успешно создана.</value>
@@ -984,18 +984,18 @@
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Произошла внутренняя ошибка в сервисе Google Gemini™, или введенный текст слишком длинный. Повторите попытку позже или сократите текст.</value>
+    <value>Произошла внутренняя ошибка в сервисе Гугл Gemini™, или введенный текст слишком длинный. Повторите попытку позже или сократите текст.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Создай композицию в стиле барокко со сложным контрапунктом</value>
   </data>
   <data name="MIDIFilePlayerMutedError" xml:space="preserve">
-    <value>Проигрыватель MIDI-файлов не может быть открыт, если установлен флажок «Отключить воспроизведение», сняты флажки «Использовать мотор или зуммер (через Arduino, Raspberry Pi или ESP32)» и «Использовать выход MIDI».
+    <value>Проигрыватель MIDI-файлов не может быть открыт, если установлен флажок «Отключить воспроизведение», сняты флажки «Использовать мотор или зуммер (через Ардуино, Ра́збери па́й или ЕСП32)» и «Использовать выход MIDI».
 
-Чтобы использовать эту функцию, установите флажок «Использовать выход MIDI» на вкладке «Устройства» в настройках или снимите флажок «Отключить воспроизведение» или флажок «Использовать мотор или зуммер (через Arduino, Raspberry Pi или ESP32)».</value>
+Чтобы использовать эту функцию, установите флажок «Использовать выход MIDI» на вкладке «Устройства» в настройках или снимите флажок «Отключить воспроизведение» или флажок «Использовать мотор или зуммер (через Ардуино, Ра́збери па́й или ЕСП32)».</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Ключ API Google Gemini™ проходит проверку...</value>
+    <value>Ключ AПИ Гугл Gemini™ проходит проверку...</value>
   </data>
   <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1007,7 +1007,7 @@
     <value>Пун</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Не установлен ключ API Google Gemini™. Установите ключ API на вкладке «Общие» в настройках.</value>
+    <value>Не установлен ключ AПИ Гугл Gemini™. Установите ключ AПИ на вкладке «Общие» в настройках.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Сочини расслабляющую ambient композицию</value>
@@ -1028,7 +1028,7 @@
     <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>Выход на системный динамик присутствует, но это компьютер неизвестного типа. NeoBleeper будет использовать звуковую карту для создания звуковых сигналов, чтобы избежать проблем с компьютерами неизвестного типа.</value>
+    <value>Выход на системный динамик присутствует, но это компьютер неизвестного типа. НеоБлипер будет использовать звуковую карту для создания звуковых сигналов, чтобы избежать проблем с компьютерами неизвестного типа.</value>
   </data>
   <data name="FermataArticulation" xml:space="preserve">
     <value>Фер</value>
@@ -1055,7 +1055,7 @@
     <value>Значение выходит за пределы допустимого диапазона.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Ключ API Google Gemini™ успешно прошел проверку</value>
+    <value>Ключ AПИ Гугл Gemini™ успешно прошел проверку</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Лазер, Хлыст, Скретч толчок, Скретч протяжка, Щелчок палочки, Удар по ободу, Щелчок метронома, Колокольчик метронома, Бас-барабан, Бочка, Римшот малого барабана, Малый барабан, Хлопок в ладоши, Электронный малый барабан, Напольный том 2, Хай-хэт закрытый, Напольный том 1, Хай-хэт педаль, Низкий том, Хай-хэт открытый, Низко-средний том, Высоко-средний том, Крэш-тарелка, Высокий том, Райд-тарелка, Чайна-тарелка, Купол райда, Бубен, Сплэш-тарелка, Колокольчик, Крэш-тарелка 2, Вибраслэп, Райд-тарелка 2, Высокое бонго, Низкое бонго, Конга заглушенная, Конга, Тумба, Высокий тимбал, Низкий тимбал, Высокое агого, Низкое агого, Кабаса, Маракасы, Короткий свисток, Длинный свисток, Короткое гуиро, Длинное гуиро, Клавес, Высокий вудблок, Низкий вудблок, Высокая куика, Низкая куика, Треугольник закрытый, Треугольник открытый, Шейкер, Бубенцы, Колокольное дерево, Кастаньеты, Сурду заглушенный, Сурду, Гуиро, Клаве, Вудблок, Малый барабан палочки, Океанский барабан, Малый барабан щетки</value>
