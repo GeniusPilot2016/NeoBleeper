@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>112, 28</value>
+    <value>130, 28</value>
   </data>
   <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>221, 47</value>
+    <value>239, 47</value>
   </data>
   <data name="lbl_name.Size" type="System.Drawing.Size, System.Drawing">
     <value>298, 64</value>
@@ -131,7 +131,7 @@
     <value>НеоБлипер</value>
   </data>
   <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 111</value>
+    <value>248, 111</value>
   </data>
   <data name="lbl_version.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 25</value>
@@ -144,7 +144,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAHMAQIBzAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHkAQIB5AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -263,7 +263,7 @@
     <value>12, 408</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>603, 147</value>
+    <value>638, 147</value>
   </data>
   <data name="columnHeader1.Text" xml:space="preserve">
     <value>Имя</value>
@@ -272,7 +272,7 @@
     <value>Задача</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>286, 384</value>
+    <value>304, 384</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 16</value>
@@ -281,7 +281,7 @@
     <value>Авторы</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 330</value>
+    <value>54, 330</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 47</value>
@@ -293,7 +293,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 330</value>
+    <value>233, 330</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 47</value>
@@ -305,7 +305,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 330</value>
+    <value>418, 330</value>
   </data>
   <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 47</value>
@@ -314,13 +314,13 @@
     <value>Исследуйте и добавляйте в избранное на Гитхаб</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>627, 183</value>
+    <value>662, 183</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 201</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>585, 116</value>
+    <value>620, 116</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023 GeniusPilot2016
@@ -332,7 +332,7 @@
 Гугл Gemini™ является товарным знаком Гугл ООО</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>627, 567</value>
+    <value>662, 567</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -1111,4 +1111,7 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="MessageFailedToOpenLink" xml:space="preserve">
     <value>Impossibile aprire il collegamento. L'URL potrebbe non essere valido oppure potrebbe esserci un problema con il browser predefinito.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

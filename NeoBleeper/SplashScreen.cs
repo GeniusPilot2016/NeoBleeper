@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace NeoBleeper
@@ -12,7 +13,7 @@ namespace NeoBleeper
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             UIFonts.SetFonts(this);
-            labelVersion.Text = $"Version {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
+            labelVersion.Text = $"{Resources.TextVersion} {GetInformations.GetVersionAndStatus().version} {GetInformations.GetVersionAndStatus().status}\r\n";
             AddShadowToBackOfForm();
             RoundCornersOfForm();
         }

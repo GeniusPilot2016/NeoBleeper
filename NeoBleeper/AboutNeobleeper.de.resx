@@ -117,12 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 28</value>
+  </data>
+  <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 47</value>
+  </data>
+  <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
+    <value>198, 111</value>
+  </data>
   <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAGgAQIBoAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAGwAQIBsAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -235,9 +245,11 @@
         cmF3aW5nLkdyYXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAIAwAAAAMAAAAL
 </value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 438</value>
+  </data>
+  <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>543, 155</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="columnHeader1.Width" type="System.Int32, mscorlib">
@@ -247,13 +259,13 @@
     <value>Aufgabe</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 414</value>
+    <value>242, 414</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Mitwirkende</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>52, 323</value>
+    <value>80, 323</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 80</value>
@@ -265,7 +277,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 323</value>
+    <value>210, 323</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 80</value>
@@ -277,13 +289,16 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>318, 323</value>
+    <value>346, 323</value>
   </data>
   <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 80</value>
   </data>
   <data name="button_explore_and_star_on_github.Text" xml:space="preserve">
     <value>Auf GitHub entdecken und mit einem Stern markieren</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>563, 183</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lbl_credit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -293,7 +308,7 @@
     <value>15, 200</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>475, 112</value>
+    <value>532, 112</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023 GeniusPilot2016
@@ -306,7 +321,7 @@ Google Gemini™ ist eine Marke von Google LLC
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>506, 601</value>
+    <value>563, 601</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

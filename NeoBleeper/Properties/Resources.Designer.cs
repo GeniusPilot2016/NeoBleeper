@@ -2812,6 +2812,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Version benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextVersion {
+            get {
+                return ResourceManager.GetString("TextVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Warning benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextWarning {

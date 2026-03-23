@@ -119,20 +119,20 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 28</value>
+    <value>114, 28</value>
   </data>
   <data name="lbl_name.Location" type="System.Drawing.Point, System.Drawing">
-    <value>208, 47</value>
+    <value>223, 47</value>
   </data>
   <data name="lbl_version.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 111</value>
+    <value>232, 111</value>
   </data>
   <data name="imageList_about.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAHIAQIByAECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHQAQIB0AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -176,6 +176,12 @@
         wAEDAeABBwHAAQECAAHAAQMB4AEDAeABAwIAAcABAwH4AQ8B4AEHAgABwAEDAfgBDwH4AQ8CAAP/AX8C
         /wIABv8CAAs=
 </value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Завдання</value>
   </data>
   <data name="listView1.Items" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -251,16 +257,10 @@
     <value>12, 410</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>577, 146</value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Ім'я</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Завдання</value>
+    <value>607, 146</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 386</value>
+    <value>287, 386</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 16</value>
@@ -273,7 +273,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>33, 336</value>
+    <value>48, 336</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 45</value>
@@ -285,7 +285,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>209, 336</value>
+    <value>224, 336</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 45</value>
@@ -297,7 +297,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 336</value>
+    <value>401, 336</value>
   </data>
   <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>179, 45</value>
@@ -306,13 +306,13 @@
     <value>Досліджуйте та ставте зірки на GitHub</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>601, 183</value>
+    <value>631, 183</value>
   </data>
   <data name="lbl_credit.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 206</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 119</value>
+    <value>590, 119</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023 GeniusPilot2016
@@ -325,7 +325,7 @@ Google Gemini™ є торговою маркою Google LLC
 </value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>601, 568</value>
+    <value>631, 568</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

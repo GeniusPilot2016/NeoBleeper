@@ -1112,4 +1112,7 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="MessageFailedToOpenLink" xml:space="preserve">
     <value>No se pudo abrir el enlace. La URL podría no ser válida o podría haber un problema con el navegador web predeterminado.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

@@ -1113,4 +1113,7 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="MessageFailedToOpenLink" xml:space="preserve">
     <value>Bağlantı açılamadı. URL geçersiz olabilir veya varsayılan web tarayıcınızda bir sorun olabilir.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

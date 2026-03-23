@@ -1112,4 +1112,7 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="MessageFailedToOpenLink" xml:space="preserve">
     <value>Der Link konnte nicht geöffnet werden. Die URL ist möglicherweise ungültig oder es liegt ein Problem mit dem Standard-Webbrowser vor.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>

@@ -1114,4 +1114,7 @@
   <data name="MessageFailedToOpenLink" xml:space="preserve">
     <value>Не вдалося відкрити посилання. Можливо, URL-адреса недійсна або виникла проблема зі стандартним веб-браузером.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>
