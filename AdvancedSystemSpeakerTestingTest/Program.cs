@@ -7,32 +7,6 @@ using System.Threading;
 
 namespace AdvancedSystemSpeakerProbe
 {
-    // ════════════════════════════════════════════════════════════════════════════
-    //  ADVANCED SYSTEM SPEAKER PROBE — Silent Edition
-    //
-    //  Strategy
-    //  ────────
-    //  • Bit 1 of port 0x61 (speaker-data enable) is NEVER held high.
-    //    The single sub-audio probe (T08) enables it for exactly 100 µs at
-    //    ~18 Hz — well below the 20 Hz auditory threshold, inaudible to humans.
-    //  • No Beep service (Console.Beep / Beep driver / \Device\Beep).
-    //  • No PNP0800 device-node enumeration.
-    //  • No ultrasonic frequencies.
-    //
-    //  Test matrix
-    //  ───────────
-    //  T01  Port 0x61 read — basic I/O accessibility
-    //  T02  Port 0x61 bit-0 write / read-back — register is writable
-    //  T03  PIT channel 2 square-wave program — command port responds
-    //  T04  PIT count latch — timer count changes between two samples
-    //  T05  PIT read-back status decode — mode/access fields match programmed values
-    //  T06  Bit-5 oscillation (gate ON, speaker OFF) — PIT output toggles on port
-    //  T07  Bit-5 stability control (gate OFF) — output freezes as expected
-    //  T08  Sub-audio probe 18 Hz / 100 µs — speaker-enable path exercised silently
-    //  T09  Count in-range at two different divisors — PIT reloads correctly
-    //  T10  Bit-5 frequency estimation — measured frequency matches programmed value
-    // ════════════════════════════════════════════════════════════════════════════
-
     internal static class Program
     {
         // ── Native interop ───────────────────────────────────────────────────────
@@ -245,7 +219,7 @@ namespace AdvancedSystemSpeakerProbe
                 Console.WriteLine("  ═══════════════════════════════════════════════════════");
                 Console.ResetColor();
 
-                // Kritik testlerin sonuçlarını çıkar
+                // Take the results of all tests into account to produce an overall verdict and explanation.
                 var t06 = _results.FirstOrDefault(r => r.Name.StartsWith("T06"));
                 var t10 = _results.FirstOrDefault(r => r.Name.StartsWith("T10"));
                 bool t06Pass = t06.Result?.Verdict == Verdict.Pass;
@@ -254,37 +228,88 @@ namespace AdvancedSystemSpeakerProbe
                 Console.WriteLine();
                 Console.Write("  Overall verdict: ");
 
-                // Yeni karar ağacı — PIT çıkışını (bit-5) gösteren testler kritik sayılır
-                if (pass >= 8 && fail == 0 && t06Pass && t10Pass)
+                // Priority 1: T06 and T10 are the most direct indicators of a real speaker circuit with PIT feedback.  If both fail, it's very unlikely real hardware is present regardless of other test results.
+                string overallReason;
+                if (!t06Pass && !t10Pass)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("NOT DETECTED — speaker hardware not confirmed.");
+                    Console.ResetColor();
+
+                    overallReason =
+                        "No PIT output observed (T06 and T10 did not PASS). " +
+                        "Even though some PIT/port accesses succeeded, bit-5 transitions required to indicate a physical speaker circuit were not observed. " +
+                        "Causes: no physical speaker connected, speaker circuit disconnected, or firmware/hypervisor emulation that returns plausible port values without real toggles.";
+                }
+                else if (pass >= 8 && fail == 0 && t06Pass && t10Pass)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("SPEAKER CONFIRMED — all major tests passed.");
+                    Console.ResetColor();
+
+                    overallReason =
+                        "All major tests passed including bit-5 oscillation (T06) and frequency estimation (T10). " +
+                        "This is strong evidence a physical speaker circuit is present and the PIT ↔ port path is functioning.";
                 }
                 else if (pass >= 6 && fail <= 1 && (t06Pass || t10Pass))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("LIKELY PRESENT — strong but incomplete evidence.");
+                    Console.ResetColor();
+
+                    overallReason =
+                        "Most tests passed and at least one PIT output test (T06 or T10) passed. " +
+                        "Likely a speaker circuit is present but some secondary checks flagged warnings/failures (see list below).";
                 }
                 else if (t06Pass || t10Pass)
                 {
-                    // PIT toggles gözlendi ama diğer testler eksik/uyarı veriyor
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("UNCERTAIN — PIT output observed but other evidence incomplete.");
+                    Console.ResetColor();
+
+                    overallReason =
+                        "A PIT output (bit-5 transitions) was observed, but other tests failed or produced warnings. " +
+                        "This can indicate a partial wiring, an adapter, or an environment that interferes with some PIT/readback behaviors.";
                 }
                 else if (pass >= 3)
                 {
-                    // Yeterli PASS var ama PIT çıkışı gözlenemiyor -> belirsiz ama şüpheli
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("UNCERTAIN — partial legacy port support detected but no PIT output observed.");
+                    Console.ResetColor();
+
+                    overallReason =
+                        "Several legacy port operations succeeded but no PIT ↔ port output was observed (T06/T10 failed). " +
+                        "This often indicates emulation of port reads/writes without a real speaker circuit.";
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("NOT DETECTED — speaker hardware not confirmed.");
+                    Console.ResetColor();
+
+                    overallReason =
+                        "Insufficient passing tests and no convincing PIT output evidence; speaker hardware could not be confirmed.";
                 }
+
+                // Print summary of overall verdict and reasoning for the user to understand the conclusion, along with explanations of what the different outcomes mean and a list of failed/warning tests for further insight.
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("  Reason:");
+                Console.ResetColor();
+                Console.WriteLine($"    {overallReason}");
+
+                // Situation analysis and next steps for the user based on the observed results, especially if the outcome is not a clear PASS or FAIL.
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine("  Explanation of possible outcomes:");
+                Console.ResetColor();
+                Console.WriteLine("    • SPEAKER CONFIRMED: All major tests including bit-5 oscillation and frequency estimation passed — physical speaker likely present.");
+                Console.WriteLine("    • LIKELY PRESENT  : Most tests passed and PIT output observed — strong evidence but minor discrepancies exist.");
+                Console.WriteLine("    • UNCERTAIN       : Partial evidence (some PASS) but either PIT output inconsistent or other tests failed — further checks required.");
+                Console.WriteLine("    • NOT DETECTED    : No PIT → port feedback observed (T06/T10) or too few tests passed — speaker hardware not confirmed.");
                 Console.ResetColor();
 
-                // Başarısız/uyarı veren testleri kısaca listele (kullanıcıya nedenleri göster)
+                // List any failed or warning tests with their reasons to give the user more insight into what issues were observed during the probe, which can help with troubleshooting or understanding limitations of the environment (e.g. hypervisor interference, partial emulation, etc.).
                 var failed = _results.Where(r => r.Result.Verdict == Verdict.Fail).ToList();
                 var warns = _results.Where(r => r.Result.Verdict == Verdict.Warn).ToList();
 
@@ -314,16 +339,14 @@ namespace AdvancedSystemSpeakerProbe
                     }
                 }
 
-                // Kullanıcıya eylem önerileri
+                // Suggestions for improving test reliability and next steps for the user to take if the results are inconclusive or indicate potential issues with the testing environment rather than the hardware itself.
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine("  Suggestions:");
+                Console.WriteLine("  Suggestions / Checks:");
                 Console.WriteLine("  • Run on a physical machine (no VM) with UEFI/firmware default settings.");
                 Console.WriteLine("  • Launch elevated (Administrator) so inpoutx64 driver can access ports.");
                 Console.WriteLine("  • Verify inpoutx64 driver is installed and functional.");
-                Console.WriteLine("  • If T06/T10 do not PASS, PIT ↔ port feedback path was not observed —");
-                Console.WriteLine("    this commonly means no physical speaker circuit is present or the hypervisor/firmware");
-                Console.WriteLine("    emulates port reads/writes without real hardware toggles.");
+                Console.WriteLine("  • If T06/T10 do not PASS, check physical speaker wiring, speaker-enable path, and whether BIOS/UEFI or hypervisor intercepts PIT I/O.");
                 Console.ResetColor();
             }
         }
