@@ -315,7 +315,7 @@ namespace AdvancedSystemSpeakerProbe
 
                 if (failed.Any())
                 {
-                    Console.WriteLine();
+                Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("  Failed tests:");
                     Console.ResetColor();
