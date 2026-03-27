@@ -19,6 +19,7 @@ using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -492,8 +493,6 @@ namespace NeoBleeper
                                 transitions++;
                         }
 
-                        Console.WriteLine($"  {freq} Hz: {transitions} transitions (SILENT)");
-
                         if (transitions >= 2)
                         {
                             anyFrequencyWorks = true;
@@ -510,17 +509,27 @@ namespace NeoBleeper
                     return false;
                 }
             }
+
+            private const short PortSpeakerControl = 0x61;
+            private const short PortPitControl = 0x43;
+            private const short PortPitChannel2 = 0x42;
+
+            // Very short probe to minimize noticeability.
+            // Still not guaranteed to be inaudible on every machine.
+            private const int ProbeFrequencyHz = 9000;
+            private const int ProbeDurationMicroseconds = 200;
+
             private static readonly Mutex SystemSpeakerMutex = new Mutex(false, "Global\\NeoBleeperSystemSpeakerMutex"); // Mutex to prevent concurrent access to system speaker checks
 
             /// <summary>
-            /// Determines whether the system speaker is functional based on a series of hardware checks.
+            /// Determines whether the system speaker is present and functioning correctly.
             /// </summary>
-            /// <remarks>This method attempts to acquire a mutex before performing hardware checks to
-            /// ensure thread safety. If the mutex cannot be acquired within the timeout period, the method returns
-            /// false. The checks performed may include electrical feedback validation, port state stability, and a
-            /// frequency sweep test. This method is intended for internal use when verifying system speaker
-            /// functionality.</remarks>
-            /// <returns>true if at least one of the system speaker validation checks passes; otherwise, false.</returns>
+            /// <remarks>This method performs a series of hardware-level checks to verify the presence
+            /// and operability of the system speaker. It attempts to acquire a mutex to ensure thread safety during the
+            /// check. If the mutex cannot be acquired within the timeout period, the method returns false. This method
+            /// is intended for use in environments where direct hardware access is permitted and may not be suitable
+            /// for all platforms.</remarks>
+            /// <returns>true if the system speaker is detected and passes all functional checks; otherwise, false.</returns>
             private static bool IsFunctionalSystemSpeaker()
             {
                 bool acquired = false;
@@ -535,11 +544,19 @@ namespace NeoBleeper
                     }
 
                     // Perform the system speaker checks
-                    bool electricalFeedbackValid = CheckElectricalFeedbackOnPort();
-                    bool portStateStable = CheckPortStateStability();
-                    bool frequencySweepWorks = AdvancedFrequencySweepTest();
+                    if (!TryReadPort61(out _))
+                        return false;
 
-                    return electricalFeedbackValid || portStateStable || frequencySweepWorks;
+                    if (!CheckControlPortRoundTrip(out _))
+                        return false;
+
+                    if (!CheckPitChannel2Bit5Activity(ProbeFrequencyHz, 64, out _))
+                        return false;
+
+                    if (!TryMinimalAudibleProbe(ProbeFrequencyHz, ProbeDurationMicroseconds))
+                        return false;
+
+                    return true;
                 }
                 finally
                 {
@@ -547,6 +564,189 @@ namespace NeoBleeper
                     {
                         SystemSpeakerMutex.ReleaseMutex();
                     }
+                }
+            }
+            private static bool TryReadPort61(out byte value)
+            {
+                try
+                {
+                    value = ReadPortByte(PortSpeakerControl);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    value = 0;
+                    return false;
+                }
+            }
+
+            private static bool CheckControlPortRoundTrip(out string details)
+            {
+                byte originalState = 0;
+
+                try
+                {
+                    originalState = ReadPortByte(PortSpeakerControl);
+
+                    byte safeBase = (byte)(originalState & ~0x02);
+                    byte variantA = (byte)(safeBase & ~0x01);
+                    byte variantB = (byte)(safeBase | 0x01);
+
+                    WritePortByte(PortSpeakerControl, variantA);
+                    BusyWaitMicroseconds(500); // Thread.Sleep(1) yerine
+                    byte readA = ReadPortByte(PortSpeakerControl);
+
+                    WritePortByte(PortSpeakerControl, variantB);
+                    BusyWaitMicroseconds(500); // Thread.Sleep(1) yerine
+                    byte readB = ReadPortByte(PortSpeakerControl);
+
+                    RestoreSpeakerControl(originalState);
+
+                    bool aMatched = ((readA & 0x01) == (variantA & 0x01)) && ((readA & 0x02) == 0);
+                    bool bMatched = ((readB & 0x01) == (variantB & 0x01)) && ((readB & 0x02) == 0);
+
+                    details =
+                        "Control-port round trip:\n" +
+                        $"  Original: 0x{originalState:X2}\n" +
+                        $"  WriteA  : 0x{variantA:X2} -> ReadA: 0x{readA:X2}\n" +
+                        $"  WriteB  : 0x{variantB:X2} -> ReadB: 0x{readB:X2}\n" +
+                        $"  Result  : {(aMatched && bMatched ? "PASS" : "FAIL")}";
+
+                    return aMatched && bMatched;
+                }
+                catch (Exception ex)
+                {
+                    RestoreSpeakerControl(originalState);
+                    details = $"Control-port round trip failed: {ex.Message}";
+                    return false;
+                }
+            }
+
+            private static bool CheckPitChannel2Bit5Activity(
+        int frequencyHz,
+        int sampleCount,
+        out int transitions)
+            {
+                byte original61 = 0;
+
+                try
+                {
+                    original61 = ReadPortByte(PortSpeakerControl);
+
+                    int divisor = 1193182 / Math.Max(1, frequencyHz);
+                    if (divisor < 1) divisor = 1;
+                    if (divisor > 65535) divisor = 65535;
+
+                    // Program PIT channel 2, mode 3 square wave, lobyte/hibyte.
+                    WritePortByte(PortPitControl, 0xB6);
+                    WritePortByte(PortPitChannel2, (byte)(divisor & 0xFF));
+                    WritePortByte(PortPitChannel2, (byte)((divisor >> 8) & 0xFF));
+
+                    // Gate timer 2 ON, keep speaker data OFF.
+                    byte gated = (byte)((original61 | 0x01) & ~0x02);
+                    WritePortByte(PortSpeakerControl, gated);
+                    BusyWaitMicroseconds(500); // Thread.Sleep(1) yerine
+
+                    transitions = 0;
+                    bool? prev = null;
+
+                    for (int i = 0; i < sampleCount; i++)
+                    {
+                        byte sample = ReadPortByte(PortSpeakerControl);
+                        bool bit5 = (sample & 0x20) != 0;
+
+                        if (prev.HasValue && prev.Value != bit5)
+                            transitions++;
+
+                        prev = bit5;
+
+                        Thread.Sleep(0);
+                    }
+
+                    RestoreSpeakerControl(original61);
+
+                    bool ok = transitions > 0;
+                    return ok;
+                }
+                catch (Exception ex)
+                {
+                    RestoreSpeakerControl(original61);
+                    transitions = 0;
+                    return false;
+                }
+            }
+
+            private static bool TryMinimalAudibleProbe(
+        int frequencyHz,
+        int durationUs)
+            {
+                byte original61 = 0;
+
+                try
+                {
+                    original61 = ReadPortByte(PortSpeakerControl);
+
+                    int divisor = 1193182 / Math.Max(1, frequencyHz);
+                    if (divisor < 1) divisor = 1;
+                    if (divisor > 65535) divisor = 65535;
+
+                    // Program PIT channel 2.
+                    WritePortByte(PortPitControl, 0xB6);
+                    WritePortByte(PortPitChannel2, (byte)(divisor & 0xFF));
+                    WritePortByte(PortPitChannel2, (byte)((divisor >> 8) & 0xFF));
+
+                    // Enable gate + speaker only for a tiny duration.
+                    byte onState = (byte)(original61 | 0x03);
+                    WritePortByte(PortSpeakerControl, onState);
+
+                    BusyWaitMicroseconds(durationUs); // mikro-saniye ile bekle
+
+                    RestoreSpeakerControl(original61);
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    RestoreSpeakerControl(original61);
+                    return false;
+                }
+            }
+
+            private static void BusyWaitMicroseconds(int microseconds)
+            {
+                if (microseconds <= 0)
+                    return;
+
+                long start = Stopwatch.GetTimestamp();
+                long ticksToWait = (long)(microseconds * (Stopwatch.Frequency / 1_000_000.0));
+                long target = start + Math.Max(1, ticksToWait);
+
+                // Hafifçe spin-wait, CPU'yu tamamen kilitlememek için arada SpinWait yap
+                while (Stopwatch.GetTimestamp() < target)
+                    Thread.SpinWait(10);
+            }
+
+
+
+            private static byte ReadPortByte(short port)
+            {
+                return unchecked((byte)(Inp32(port) & 0xFF));
+            }
+
+            private static void WritePortByte(short port, byte value)
+            {
+                Out32(port, value);
+            }
+
+            private static void RestoreSpeakerControl(byte originalState)
+            {
+                try
+                {
+                    WritePortByte(PortSpeakerControl, originalState);
+                    BusyWaitMicroseconds(200); // Thread.Sleep(1) yerine kısa bekleme
+                }
+                catch
+                {
                 }
             }
 
