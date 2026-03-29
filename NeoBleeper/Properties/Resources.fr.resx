@@ -194,9 +194,6 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Créez une progression blues avec des notes expressives</value>
   </data>
-  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
-    <value>Test de balayage de fréquence avancé: </value>
-  </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>L'API Google Gemini™ n'est pas disponible dans votre pays. Veuillez consulter la liste des pays pris en charge.</value>
   </data>
@@ -798,9 +795,6 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>La commande Beep convertie est copiée dans le presse-papiers.</value>
   </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Test de stabilité de l'état des ports: </value>
-  </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Le type de stockage est inconnu. La prévention de la résonance est appliquée aux fréquences de résonance probables par mesure de sécurité.</value>
   </data>
@@ -1034,9 +1028,6 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Test de rétroaction électrique: </value>
-  </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1114,5 +1105,107 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   </data>
   <data name="TextVersion" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>Lisibilité de la sortie du haut-parleur système : </value>
+  </data>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>Activation/désactivation du contrôle de haut-parleur système : </value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Configuration du minuteur : </value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Vérification du compte à rebours du minuteur : </value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Vérification de l'état du minuteur : </value>
+  </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>Détection du signal de retour du haut-parleur système : </value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Stabilité du signal de retour (désactivé) : </value>
+  </data>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Impulsion d'activation silencieuse brève : </value>
+  </data>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Test de la vitesse du minuteur : </value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Mesure de la vitesse du signal de retour : </value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>INCERTAIN</value>
+  </data>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>Entrée haut-parleur système TROUVÉE sur le système</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>Voce dell'altoparlante di sistema NON trovata nel sistema</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Le test de rétroaction électrique a échoué.</value>
+  </data>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Il test di stabilità dello stato della porta non è riuscito.</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>La configuration du minuteur a échoué.</value>
+  </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Échec de la vérification du compte à rebours.</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>La lecture de l'état du minuteur a échoué (accès/mode/BCD inattendu).</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>La détection des commentaires a échoué.</value>
+  </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Signal de retour instable lorsqu'il est désactivé (instabilité du signal détectée).</value>
+  </data>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Échec de l'impulsion d'activation silencieuse brève.</value>
+  </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>Vitesse du signal de retour d'information hors tolérance.</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Raisons de l'échec : </value>
+  </data>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>La vitesse du minuteur est hors de la plage attendue.</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Test de rétroaction électrique</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Test de stabilité de l'état du port</value>
+  </data>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Test de configuration du minuteur</value>
+  </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Quelques contrôles de base ont été réussis.</value>
+  </data>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>Aucun contrôle de base n'a été réussi.</value>
+  </data>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Signal de retour non détecté
+</value>
+  </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Vitesse de retour d'information hors des limites attendues
+</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>Entrée haut-parleur système trouvée dans ce système
+</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value> Problèmes: </value>
   </data>
 </root>

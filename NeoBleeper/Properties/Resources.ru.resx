@@ -194,9 +194,6 @@
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Создай блюзовую прогрессию с выразительными нотами</value>
   </data>
-  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
-    <value>Расширенный тест качающейся частоты: </value>
-  </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>AПИ Гугл Gemini™ недоступен в вашей стране. Проверьте список поддерживаемых стран.</value>
   </data>
@@ -798,9 +795,6 @@
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>Преобразованная команда Beep скопирована в буфер обмена.</value>
   </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Испытание на остойчивость состояния порта: </value>
-  </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Тип накопителя неизвестен. Предотвращение резонанса применяется на вероятных резонансных частотах для обеспечения безопасности.</value>
   </data>
@@ -1036,9 +1030,6 @@
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Тест электрической обратной связи: </value>
-  </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1116,5 +1107,107 @@
   </data>
   <data name="TextVersion" xml:space="preserve">
     <value>Версия</value>
+  </data>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>Читабельность выходного сигнала системного динамика: </value>
+  </data>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>Включение/выключение гейта системного динамика: </value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Настройка таймера: </value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Проверка обратного отсчета таймера: </value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Проверка состояния таймера: </value>
+  </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>Обнаружение сигнала обратной связи системного динамика: </value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Стабильность сигнала обратной связи при отключении: </value>
+  </data>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Короткий бесшумный импульс включения: </value>
+  </data>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Тест скорости таймера: </value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Измерение скорости сигнала обратной связи: </value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>НЕОПРЕДЕЛЕННЫЙ</value>
+  </data>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>Ввод звука через системный динамик ОБНАРУЖЕН в системе</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>Ввод звука через системный динамик НЕ найден в системе.</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Проверка электрической обратной связи не пройдена.</value>
+  </data>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Проверка стабильности состояния порта не пройдена.</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>Настройка таймера завершилась неудачей.</value>
+  </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Проверка обратного отсчета таймера не пройдена.</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>Сбой при считывании состояния таймера (неожиданный доступ/режим/BCD).</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>Обнаружение обратной связи не удалось.</value>
+  </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Сигнал обратной связи нестабилен при отключении (обнаружена нестабильность сигнала).</value>
+  </data>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Короткий импульс включения беззвучного режима завершился неудачей.</value>
+  </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>Скорость сигнала обратной связи не соответствует допустимым отклонениям.</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Причины сбоев: </value>
+  </data>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>Скорость таймера выходит за пределы допустимого диапазона.</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Тест электрической обратной связи</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Тест на стабильность состояния порта</value>
+  </data>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Тест настройки таймера</value>
+  </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Некоторые базовые проверки пройдены.</value>
+  </data>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>Базовые проверки не пройдены.</value>
+  </data>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Сигнал обратной связи не обнаружен
+</value>
+  </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Скорость обратной связи выходит за пределы ожидаемого диапазона
+</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>Ввод звука через системный динамик найден в этой системе
+</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value> Проблемы: </value>
   </data>
 </root>

@@ -194,9 +194,6 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Crea una progressione blues con note espressive</value>
   </data>
-  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
-    <value>Test avanzato di scansione della frequenza: </value>
-  </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>L'API Google Gemini™ non è disponibile nel tuo Paese. Consulta l'elenco dei Paesi supportati.</value>
   </data>
@@ -798,9 +795,6 @@ Vuoi aprire comunque questo file?</value>
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>Il comando Beep convertito viene copiato negli appunti.</value>
   </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Test di stabilità dello stato del porto: </value>
-  </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Il tipo di archiviazione è sconosciuto. La prevenzione della risonanza viene applicata a frequenze di risonanza probabili per motivi di sicurezza.</value>
   </data>
@@ -1033,9 +1027,6 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Test di feedback elettrico: </value>
-  </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1113,5 +1104,107 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   </data>
   <data name="TextVersion" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>Leggibilità dell'uscita degli altoparlanti di sistema: </value>
+  </data>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>Attivazione/disattivazione del gate degli altoparlanti di sistema: </value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Impostazione del timer: </value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Controllo del conto alla rovescia del timer: </value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Controllo dello stato del timer: </value>
+  </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>Rilevamento del segnale di feedback degli altoparlanti di sistema: </value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Stabilità del segnale di feedback quando disabilitato: </value>
+  </data>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Impulso di abilitazione silenzioso breve: </value>
+  </data>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Test della velocità del timer: </value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Misurazione della velocità del segnale di feedback: </value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>INCERTO</value>
+  </data>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>Voce dell'altoparlante di sistema TROVATA sul sistema</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>Voce dell'altoparlante di sistema NON trovata nel sistema</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Il test di feedback elettrico non ha avuto successo.</value>
+  </data>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Il test di stabilità dello stato della porta non è riuscito.</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>La configuration du minuteur a échoué.</value>
+  </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Verifica del conto alla rovescia del timer non riuscita.</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>Impossibile leggere lo stato del timer (accesso/modalità/BCD imprevisti).</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>Rilevamento del feedback fallito.</value>
+  </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Il segnale di feedback non è stabile quando disabilitato (instabilità del segnale rilevata).</value>
+  </data>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Impulso di abilitazione silenzioso breve non riuscito.</value>
+  </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>La velocità del segnale di feedback non rientra nella tolleranza prevista.</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Cause del guasto: </value>
+  </data>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>La velocità del timer risulta al di fuori dell'intervallo previsto.</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Test di feedback elettrico</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Test di stabilità dello stato del porto</value>
+  </data>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Test di configurazione del timer</value>
+  </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Alcuni controlli di base superati.</value>
+  </data>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>Nessun controllo di base è stato superato.</value>
+  </data>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Segnale di feedback non rilevato
+</value>
+  </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Velocità di feedback fuori dall'intervallo previsto
+</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>Voce altoparlante di sistema trovata in questo sistema
+</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value> Problemi: </value>
   </data>
 </root>

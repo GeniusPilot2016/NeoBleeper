@@ -61,15 +61,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Advanced frequency sweep test:  benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string AdvancedFrequencySweepTest {
-            get {
-                return ResourceManager.GetString("AdvancedFrequencySweepTest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Advanced system speaker test is started. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AdvancedSystemSpeakerTestStarted {
@@ -254,11 +245,20 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Electrical feedback test:  benzeri yerelleştirilmiş bir dize arar.
+        ///   Electrical feedback test benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ElectricalFeedbackTest {
             get {
                 return ResourceManager.GetString("ElectricalFeedbackTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Electrical feedback test failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ElectricalFeedbackTestFailed {
+            get {
+                return ResourceManager.GetString("ElectricalFeedbackTestFailed", resourceCulture);
             }
         }
         
@@ -574,6 +574,80 @@ namespace NeoBleeper.Properties {
         public static string ExamplePrompt9 {
             get {
                 return ResourceManager.GetString("ExamplePrompt9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failure reasons:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FailureReasons {
+            get {
+                return ResourceManager.GetString("FailureReasons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback detection failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbackDetectionFailed {
+            get {
+                return ResourceManager.GetString("FeedbackDetectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback signal speed not within expected tolerance. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbackNotWithinTolerance {
+            get {
+                return ResourceManager.GetString("FeedbackNotWithinTolerance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback signal not detected
+        /// benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbackSignalNotDetected {
+            get {
+                return ResourceManager.GetString("FeedbackSignalNotDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback signal not stable when disabled (signal instability detected). benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbackSignalNotStable {
+            get {
+                return ResourceManager.GetString("FeedbackSignalNotStable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback signal stability when disabled:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbackSignalStability {
+            get {
+                return ResourceManager.GetString("FeedbackSignalStability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback speed out of expected range
+        /// benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbackSpeedIsOutOfRange {
+            get {
+                return ResourceManager.GetString("FeedbackSpeedIsOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Feedback signal speed measurement:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string FeedbeckSignalSpeedMeasurement {
+            get {
+                return ResourceManager.GetString("FeedbeckSignalSpeedMeasurement", resourceCulture);
             }
         }
         
@@ -1284,6 +1358,15 @@ namespace NeoBleeper.Properties {
         public static string InpOutX64PlaceError {
             get {
                 return ResourceManager.GetString("InpOutX64PlaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Issues:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string Issues {
+            get {
+                return ResourceManager.GetString("Issues", resourceCulture);
             }
         }
         
@@ -2019,6 +2102,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   No basic checks passed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string NoBasicChecksPassed {
+            get {
+                return ResourceManager.GetString("NoBasicChecksPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   The AI-generated music has been created successfully. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string NotificationMessageAIMusicCreated {
@@ -2113,11 +2205,20 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Port state stability test:  benzeri yerelleştirilmiş bir dize arar.
+        ///   Port state stability test benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string PortStateStabilityTest {
             get {
                 return ResourceManager.GetString("PortStateStabilityTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port state stability test failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PortStateStabilityTestFailed {
+            get {
+                return ResourceManager.GetString("PortStateStabilityTestFailed", resourceCulture);
             }
         }
         
@@ -2140,6 +2241,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Short silent enable pulse:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ShortSilentEnablePulse {
+            get {
+                return ResourceManager.GetString("ShortSilentEnablePulse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Short silent enable pulse failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ShortSilentPulseEnableFailed {
+            get {
+                return ResourceManager.GetString("ShortSilentPulseEnableFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Show the API key in the API key field.
         ///Click again to hide it. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
@@ -2155,6 +2274,15 @@ namespace NeoBleeper.Properties {
         public static string SixteenthNote {
             get {
                 return ResourceManager.GetString("SixteenthNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Some basic checks passed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SomeBasicChecksPassed {
+            get {
+                return ResourceManager.GetString("SomeBasicChecksPassed", resourceCulture);
             }
         }
         
@@ -2541,6 +2669,60 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   System speaker entry FOUND on system benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SystemSpeakerEntryFound {
+            get {
+                return ResourceManager.GetString("SystemSpeakerEntryFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker entry found in this system benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SystemSpeakerEntryFoundInThisSystem {
+            get {
+                return ResourceManager.GetString("SystemSpeakerEntryFoundInThisSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker entry NOT found on system benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SystemSpeakerEntryNotFound {
+            get {
+                return ResourceManager.GetString("SystemSpeakerEntryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker feedback signal detection:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SystemSpeakerFeedbackSignalDetection {
+            get {
+                return ResourceManager.GetString("SystemSpeakerFeedbackSignalDetection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker gate turn on/off:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SystemSpeakerGateTurnOnOff {
+            get {
+                return ResourceManager.GetString("SystemSpeakerGateTurnOnOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System speaker output readability:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string SystemSpeakerOutputReadability {
+            get {
+                return ResourceManager.GetString("SystemSpeakerOutputReadability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Tab benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TabKey {
@@ -2812,6 +2994,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   UNCERTAIN benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TextUncertain {
+            get {
+                return ResourceManager.GetString("TextUncertain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Version benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string TextVersion {
@@ -2835,6 +3026,78 @@ namespace NeoBleeper.Properties {
         public static string ThirtySecondNote {
             get {
                 return ResourceManager.GetString("ThirtySecondNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer countdown check:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerCountdownCheck {
+            get {
+                return ResourceManager.GetString("TimerCountdownCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer countdown check failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerCountdownCheckFailed {
+            get {
+                return ResourceManager.GetString("TimerCountdownCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer setup:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerSetup {
+            get {
+                return ResourceManager.GetString("TimerSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer setup failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerSetupFailed {
+            get {
+                return ResourceManager.GetString("TimerSetupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer setup test benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerSetupTest {
+            get {
+                return ResourceManager.GetString("TimerSetupTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer speed checks out of expected range. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerSpeedOutOfRange {
+            get {
+                return ResourceManager.GetString("TimerSpeedOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer speed test:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerSpeedTest {
+            get {
+                return ResourceManager.GetString("TimerSpeedTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer status check:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TimerStatusCheck {
+            get {
+                return ResourceManager.GetString("TimerStatusCheck", resourceCulture);
             }
         }
         
@@ -3105,6 +3368,15 @@ namespace NeoBleeper.Properties {
         public static string TripletModifier {
             get {
                 return ResourceManager.GetString("TripletModifier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Timer status read-back failed (unexpected access/mode/BCD). benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string UnexpectedReadBack {
+            get {
+                return ResourceManager.GetString("UnexpectedReadBack", resourceCulture);
             }
         }
         

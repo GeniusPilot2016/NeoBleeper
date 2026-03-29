@@ -58,6 +58,7 @@
             icons.Images.SetKeyName(0, "icons8-wait-48.png");
             icons.Images.SetKeyName(1, "icons8-check-48.png");
             icons.Images.SetKeyName(2, "icons8-cross-48.png");
+            icons.Images.SetKeyName(3, "icons8-warning-48.png");
             // 
             // tableLayoutPanel1
             // 
@@ -77,20 +78,17 @@
             tableLayoutPanel1.Controls.Add(label10, 0, 9);
             tableLayoutPanel1.Controls.Add(label6, 0, 5);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            toolTip1.SetToolTip(tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
             // 
             // label14
             // 
             resources.ApplyResources(label14, "label14");
             label14.Name = "label14";
-            toolTip1.SetToolTip(label14, resources.GetString("label14.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(label1, "label1");
             label1.ImageList = icons;
             label1.Name = "label1";
-            toolTip1.SetToolTip(label1, resources.GetString("label1.ToolTip"));
             // 
             // label4
             // 
@@ -146,7 +144,6 @@
             resources.ApplyResources(label13, "label13");
             label13.ImageList = icons;
             label13.Name = "label13";
-            toolTip1.SetToolTip(label13, resources.GetString("label13.ToolTip"));
             // 
             // label11
             // 
@@ -188,7 +185,6 @@
             Name = "AdvancedSystemSpeakerTest";
             ShowIcon = false;
             ShowInTaskbar = false;
-            toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             FormClosing += AdvancedSystemSpeakerTest_FormClosing;
             SystemColorsChanged += AdvancedSystemSpeakerTest_SystemColorsChanged;
             tableLayoutPanel1.ResumeLayout(false);

@@ -197,9 +197,6 @@ You can see the key mappings on the buttons at the top of the window.</value>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Create a blues progression with expressive notes</value>
   </data>
-  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
-    <value>Advanced frequency sweep test: </value>
-  </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>Google Gemini™ API is not available in your country. Please check the list of supported countries.</value>
   </data>
@@ -819,9 +816,6 @@ Do you want to open this file anyway?</value>
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>The converted Beep command has been copied to clipboard</value>
   </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Port state stability test: </value>
-  </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Storage type is unknown. Resonance prevention is applied in probable resonant frequencies to be safe.</value>
   </data>
@@ -1060,9 +1054,6 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Electrical feedback test: </value>
-  </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1146,5 +1137,106 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   </data>
   <data name="TextVersion" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>System speaker output readability: </value>
+  </data>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>System speaker gate turn on/off: </value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Timer setup: </value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Timer countdown check: </value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Timer status check: </value>
+  </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>System speaker feedback signal detection: </value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Feedback signal stability when disabled: </value>
+  </data>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Short silent enable pulse: </value>
+  </data>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Timer speed test: </value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Feedback signal speed measurement: </value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>UNCERTAIN</value>
+  </data>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>System speaker entry FOUND on system</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>System speaker entry NOT found on system</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Electrical feedback test failed.</value>
+  </data>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Port state stability test failed.</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>Timer setup failed.</value>
+  </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Timer countdown check failed.</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>Timer status read-back failed (unexpected access/mode/BCD).</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>Feedback detection failed.</value>
+  </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Feedback signal not stable when disabled (signal instability detected).</value>
+  </data>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Short silent enable pulse failed.</value>
+  </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>Feedback signal speed not within expected tolerance.</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Failure reasons: </value>
+  </data>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>Timer speed checks out of expected range.</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Electrical feedback test</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Port state stability test</value>
+  </data>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Timer setup test</value>
+  </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Some basic checks passed.</value>
+  </data>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>No basic checks passed.</value>
+  </data>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Feedback signal not detected
+</value>
+  </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Feedback speed out of expected range
+</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>System speaker entry found in this system</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value> Issues: </value>
   </data>
 </root>

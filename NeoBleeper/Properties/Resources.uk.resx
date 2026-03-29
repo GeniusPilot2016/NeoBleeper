@@ -194,9 +194,6 @@
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Створи блюзову прогресію з виразними нотами</value>
   </data>
-  <data name="AdvancedFrequencySweepTest" xml:space="preserve">
-    <value>Розширений тест частотної розгортки: </value>
-  </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>API Google Gemini™ недоступний у вашій країні. Будь ласка, перевірте список підтримуваних країн.</value>
   </data>
@@ -798,9 +795,6 @@
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>Конвертована команда Beep скопійована в буфер обміну.</value>
   </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Випробування на стійкість у порту в стані порту: </value>
-  </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Тип сховища невідомий. Запобігання резонансу застосовується на ймовірних резонансних частотах для безпеки.</value>
   </data>
@@ -1036,9 +1030,6 @@
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Випробування електричного зворотного зв'язку: </value>
-  </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1116,5 +1107,107 @@
   </data>
   <data name="TextVersion" xml:space="preserve">
     <value>Version</value>
+  </data>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>Зчитування виходу системного динаміка: </value>
+  </data>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>Увімкнення/вимкнення гейту системного динаміка: </value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Налаштування таймера: </value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Перевірка зворотного відліку таймера: </value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Перевірка стану таймера: </value>
+  </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>Виявлення сигналу зворотного зв'язку системного динаміка: </value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Стабільність сигналу зворотного зв'язку при вимкненні: </value>
+  </data>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Короткий безшумний імпульс увімкнення: </value>
+  </data>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Тест швидкості таймера: </value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Вимірювання швидкості сигналу зворотного зв'язку: </value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>НЕВИЗНАЧЕНИЙ</value>
+  </data>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>Вхід для системного динаміка ЗНАЙДЕНО на системі</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>Запис системного динаміка НЕ ​​знайдено в системі</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Перевірка електричного зворотного зв'язку не пройшла.</value>
+  </data>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Перевірка стабільності стану порту пройшла невдало.</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>Налаштування таймера не вдалося.</value>
+  </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Не вдалося перевірити зворотний відлік таймера.</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>Зчитування стану таймера не вдалося (неочікуваний доступ/режим/BCD).</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>Не вдалося виявити зворотний зв'язок.</value>
+  </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Сигнал зворотного зв'язку нестабільний, коли він вимкнений (виявлено нестабільність сигналу).</value>
+  </data>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Не вдалося виконати короткий беззвучний імпульс увімкнення.</value>
+  </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>Швидкість сигналу зворотного зв'язку виходить за межі очікуваного допуску.</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Причини невдачі: </value>
+  </data>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>Швидкість таймера виходить за межі очікуваного діапазону.</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Випробування електричного зворотного зв'язку</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Випробування на стійкість у порту</value>
+  </data>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Тест налаштування таймера</value>
+  </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Деякі основні перевірки пройдено.</value>
+  </data>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>Жодних базових перевірок не пройдено.</value>
+  </data>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Сигнал зворотного зв'язку не виявлено
+</value>
+  </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Швидкість зворотного зв'язку поза очікуваним діапазоном
+</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>У цій системі знайдено запис системного динаміка
+</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value> Проблеми: </value>
   </data>
 </root>
