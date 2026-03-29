@@ -943,7 +943,7 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Vérification de la présence de la sortie haut-parleur du système (haut-parleur du PC) à l'étape 2/2... (vous pouvez entendre des cliquetis/craquements)</value>
+    <value>Vérification de la présence de la sortie haut-parleur du système (haut-parleur du PC) à l'étape 2/2... (vous pouvez entendre un clic/crépitement)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Composez un motif rythmique avec des temps syncopés</value>

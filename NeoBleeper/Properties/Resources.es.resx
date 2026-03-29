@@ -943,7 +943,7 @@ Haz clic de nuevo para ocultarla.</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Comprobación de la presencia de salida del altavoz del sistema (altavoz de la PC) en el paso 2/2... (es posible que escuche ruidos de clic o chasquidos)</value>
+    <value>Comprobación de la presencia de salida del altavoz del sistema (altavoz de la PC) en el paso 2/2... (es posible que escuche un clic/chasquido)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Compón un patrón rítmico con ritmos sincopados</value>

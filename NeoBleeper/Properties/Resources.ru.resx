@@ -944,7 +944,7 @@
     <value>Ста</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Проверка наличия звука от системных динамиков (динамиков ПК) на шаге 2/2... (вы можете услышать щелчки/треск)</value>
+    <value>Проверка наличия звука от системных динамиков (динамиков ПК) на шаге 2/2... (вы можете услышать щелчок/треск)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Сочини ритмический паттерн с синкопированными ударами</value>

@@ -943,7 +943,7 @@ Bạn có muốn mở tệp này không?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Kiểm tra sự hiện diện của âm thanh đầu ra từ loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy tiếng lách cách/lụp bụp)</value>
+    <value>Kiểm tra sự hiện diện của âm thanh đầu ra từ loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy một tiếng lách cách/lụp bụp)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Sáng tác một mẫu nhịp điệu với nhịp đảo phách</value>

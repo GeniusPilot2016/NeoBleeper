@@ -943,7 +943,7 @@ Vuoi aprire comunque questo file?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Controllo della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 2/2... (potresti sentire dei clic/lievi rumori)</value>
+    <value>Controllo della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 2/2... (potresti sentire un clic/rumore)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Componi un pattern ritmico con battiti sincopati</value>

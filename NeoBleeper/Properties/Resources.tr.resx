@@ -944,7 +944,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
     <value>Sta</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama/çıtlama sesleri duyabilirsiniz)</value>
+    <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 2/2. adımda kontrol ediliyor... (tıklama/çıtlama sesi duyabilirsiniz)</value>
   </data>
   <data name="ExamplePrompt18" xml:space="preserve">
     <value>Senkoplu vuruşlarla ritmik bir kalıp oluştur</value>
