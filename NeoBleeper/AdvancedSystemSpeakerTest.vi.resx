@@ -121,14 +121,14 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPhQAAAJNU0Z0AUkBTAIBAQMB
-        AAG4AQABuAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARn/
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAANhQAAAJNU0Z0AUkBTAIBAQMB
+        AAHIAQAByAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARn/
         AL8ABAEDPQFoAVYBVwFWAbUBWgFdAVoBxwFPAVABTwGbAyQBNTgABAEDPQFoAlYBVwG1AloBXQHHAk8B
-        UAGbAyQBNXwAAaQBfQFNAfoB7AGkAUIB/wHsAaQBQgH/Ae0BpAFCAf8B7QGkAUIB/wHuAaQBQgH/Ae8B
+        UAGbAyQBNXwAAaABfQFNAfoB7AGkAUIB/wHsAaQBQgH/Ae0BpAFCAf8B7QGkAUIB/wHuAaQBQgH/Ae8B
         owFCAf8B7wGjAUIB/wHwAaMBQgH/AfABowFCAf8B8QGjAUIB/wHxAaMBQgH/A00BkiAAAw0BEQFbAV0B
-        WwHKAUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYBCgH/AVcBgAEcAf4D
+        WwHKAUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYBCgH/AVkBgAEeAf4D
         PQFoKAADDQERAlsBXQHKAT4BMAHqAf8BPQEuAekB/wE7ASwB6QH/ATgBKQHoAf8BNwEoAecB/wE0ASUB
-        5wH/AUYBNgHAAf4DPQFoeAAB0gF8ASkB/wHTAXwBKgH/AdMBewErAf8B0wF7ASsB/wHUAXsBLAH/AdQB
+        5wH/AUgBOAG8Af4DPQFoeAAB0gF8ASkB/wHTAXwBKgH/AdMBewErAf8B0wF7ASsB/wHUAXsBLAH/AdQB
         egEtAf8B1AF6AS0B/wHVAXoBLgH/AdUBegEvAf8B1gF5AS8B/wHWAXkBMAH/IAADLQFFAVEBlQETAf8B
         TwGTARIB/wFOAZEBEQH/AUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYB
         CgH/AUQBhAEJAf8BXQFhAV0B1AMDAQQcAAMtAkUBNwHsAf8BQgE1AesB/wFBATMB6wH/AT4BMAHqAf8B
@@ -137,119 +137,204 @@
         3wH/ASgBgwHfAf8BygHDAYYB/yAAAxYBHgFUAZgBFQH/AVIBlwEUAf8BUQGVARMB/wFPAZMBEgH/AU4B
         kQERAf8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUBhgEKAf8BRAGEAQkB
         /wFdAWEBXQHUGAADFgEeAUgBOwHtAf8BRwE5Ae0B/wFFATcB7AH/AUIBNQHrAf8BQQEzAesB/wE+ATAB
-        6gH/AT0BLgHpAf8BOwEsAekB/wE4ASkB6AH/ATcBKAHnAf8BNAElAecB/wEzASMB5gH/Al0BYQHUcAAB
-        wgG+AVcB/QHmAc8BdwH/ATgBkQHgAf8BMwGPAeMB/wEzAY8B4wH/ATMBjwHjAf8BMwGPAeMB/wEzAY8B
-        4wH/AWUBoQHEAf8B/AHXAWoB/yAAAVoBbgFKAfUBVQGbARYB/wFUAZgBFQH/AVIBlwEUAf8BUQGVARMB
-        /wFPAZMBEgH/AUwBjgERAf8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUB
-        hgEKAf8BRAGEAQkB/wI+AT0BaRQAAVoBVwGBAfUBSgE+Ae4B/wFIATsB7QH/AUcBOQHtAf8BRAE2AegB
-        /wFCATUB6wH/AUEBMwHrAf8BPgEwAeoB/wE9AS4B6QH/AToBKwHnAf8BOAEpAecB/wE3ASgB5wH/ATQB
-        JQHnAf8BMwEjAeYB/wI9AT4BaWwAA1wBvgH8AdcBagH/AeYBzwF4Af8BQAGcAeUB/wE/AZsB5wH/AT8B
-        mwHnAf8BPwGbAecB/wFzAawBxAH/AfsB1wFqAf8B/AHXAWoB/xwAAzgBWwFYAZ4BGAH/AVcBnAEXAf8B
-        VQGbARYB/wFUAZgBFQH/AVIBlwEUAf8BbQGgAT4B/wH3AfoB9QH/AVYBkAEiAf8BTAGPARAB/wFLAY4B
-        DwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUBhgEKAf8BVwGAARwB/hAAAzgBWwFOAUEB7wH/AUwB
-        PwHvAf8BSgE+Ae4B/wFPAUMB5gH/Ae0B6wH7Af8BaQFfAeMB/wFCATUB6wH/AUEBMwHrAf8BPgEwAecB
-        /wHKAccB8wH/AbMBrgHvAf8BOAEpAecB/wE3ASgB5wH/ATQBJQHnAf8BRgE2AcAB/mwAAwkBCwH8AdcB
-        agH/AfwB1wFqAf8B/AHXAWoB/wG5AcUBmgH/AX4BtAHEAf8B5gHRAXkB/wH8AdcBagH/AfwB1wFqAf8D
-        aQHoHAABXwFjAV8B2gFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsBFgH/AXABowE/Df8BZQGbATUB
-        /wFMAY8BEAH/AUsBjgEPAf8BSgGMAQ4B/wFIAYoBDQH/AUcBiAEMAf8BRQGGAQoB/wMkATUMAAJfAWMB
-        2gFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFaAVAB5gH/AvkB/gX/AWwBYgHlAf8BQgE1AekB/wG/AbsB
-        8QX/AcsBxwHzAf8BOgErAecB/wE4ASkB6AH/ATcBKAHnAf8BNAElAecB/wMkATVsAANJAYgB/AHXAWoB
-        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8BkwGKAWwB9wMYASEcAAFgAW8B
-        VAHzAVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AXsBrQFOAf8C/QH8Af8B+QH7AfcB/wGCAa4BWgX/AfoB
-        +wH4Af8BZQGbATUB/wFMAY8BEAH/AUsBjgEPAf8BSgGMAQ4B/wFIAYoBDQH/AUcBiAEMAf8BTwFQAU8B
-        mwwAAWABXwF8AfMBUAFEAfAB/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFaAVAB5gH/Av4G/wHKAcYB
-        8wX/AcIBvgHxAf8BPgEwAecB/wE9AS4B6QH/ATsBLAHpAf8BOAEpAegB/wE3ASgB5wH/Ak8BUAGbcAAD
-        EwEaA2UB4wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wNOAZgkAAFxAYABLwH+AV0BpAEcAf8BWwGhARoB
-        /wFUAZUBFwn/AVMBkwEZAf8BVAGYARUB/wFRAY4BGQn/AVUBkAEgAf8BTAGPARAB/wFLAY4BDwH/AUoB
-        jAEOAf8BSAGKAQ0B/wFZAVwBWQHGDAABZgFaAcwB/gFSAUYB8QH/AVABRAHwAf8BTwFDAfAB/wFOAUEB
-        7wH/AUwBPwHvAf8BUwFIAeUB/wL+Bv8BzQHJAfQB/wFCATQB6QH/AUEBMwHrAf8BPgEwAeoB/wE9AS4B
-        6QH/ATsBLAHpAf8BOAEpAegB/wJZAVwBxmwAAxkBIgFsAWoBaQHtAfwB1wFqAf8B/AHXAWoB/wH8AdcB
-        agH/AfwB1wFqAf8B/AHXAWoB/wNSAaAEAhwAAWgBhAFBAfkBXgGlARwB/wFdAaQBHAH/AVoBoAEaAf8B
-        uwHVAaUB/wFlAaABLwH/AVcBnAEXAf8BVQGbARYB/wFUAZgBFQH/AW0BogE+Af8B+wH8AfoB/wH8Af0B
-        +gH/AWkBngE6Af8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BVQFXAVUBtAwAAVUBSgGdAfkBUwFIAfIB
-        /wFSAUYB8QH/AVABRAHwAf8BTwFDAfAB/wFNAUAB7AH/AcIBvgHyBf8C/gb/AW0BYwHlAf8BQgE1AesB
-        /wFBATMB6wH/AT4BMAHqAf8BPQEuAekB/wE7ASwB6QH/AlUBVwG0bAABkwGKAWwB9wH8AdcBagH/AfwB
-        1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/A04BlhwAAWEBagFhAeYB
-        YAGnAR4B/wFeAaUBHAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsB
-        FgH/AVQBmAEVAf8BZAGbATIF/wH8Af0B+gH/AUoBiQEQAf8BTAGPARAB/wFLAY4BDwH/Az0BaAwAAmEB
-        agHmAVUBSgHyAf8BUwFIAfIB/wFSAUYB8QH/AU8BQwHtAf8BzgHLAfUF/wHFAcEB8gH/AVIBSAHkAf8C
-        /gb/AWsBYQHjAf8BQgE1AesB/wFBATMB6wH/AT4BMAHqAf8BPQEuAekB/wM9AWhoAANEAXsB/AHXAWoB
-        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB
-        1wFqAf8cAANTAacBYQGpAR8B/wFgAacBHgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8B
-        WAGeARgB/wFXAZwBFwH/AVUBmwEWAf8BVAGYARUB/wFkAZsBMQH/AdQB4wHHAf8BTgGSARIB/wFOAZEB
-        EQH/AUwBjwEQAf8EAgwAA1MBpwFXAUsB8wH/AVUBSgHyAf8BUwFIAfIB/wF4AXAB6gH/Av4C/wHPAcwB
-        9QH/AUwBQAHsAf8BTAE/Ae8B/wFaAVAB5QH/AvkB/gH/Ae0B6wH7Af8BRAE2AegB/wFCATUB6wH/AUEB
-        MwHrAf8BPgEwAeoB/wQCaAABdgF0AWUB8QH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB
-        1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/xwAAwcBCQFiAasBIAH/AWEBqQEfAf8B
-        YAGnAR4B/wFeAaUBHAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsB
-        FgH/AVQBmAEVAf8BUgGWARQB/wFRAZUBEwH/AU8BkwESAf8BWwFdAVsByhAAAwcBCQFYAU0B8wH/AVcB
-        SwHzAf8BVQFKAfIB/wFTAUgB8QH/AXgBcAHqAf8BTwFDAe0B/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B
-        /wFaAVAB5gH/AU8BQwHmAf8BRwE5Ae0B/wFFATcB7AH/AUIBNQHrAf8CWwFdAcpsAAH8AdcBagH/AfwB
-        1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB
-        /wH8AdcBagH/IAADRQF8AWIBqwEgAf8BYQGpAR8B/wFgAacBHgH/AV4BpQEcAf8BXQGkARwB/wFbAaEB
-        GgH/AVoBoAEZAf8BWAGeARgB/wFXAZwBFwH/AVUBmwEWAf8BVAGYARUB/wFSAZcBFAH/AVEBlQETAf8D
-        DQERFAADRQF8AVgBTQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB8AH/AU8B
-        QwHwAf8BTgFBAe8B/wFMAT8B7wH/AUoBPgHuAf8BSAE7Ae0B/wFHATkB7QH/AUUBNwHsAf8DDQERbAAB
-        1gF5ATAB/wHVAXkBLwH/AdUBegEuAf8B1QF6AS4B/wHUAXoBLQH/AdQBewEsAf8B1AF7ASwB/wHTAXsB
-        KwH/AdMBewEqAf8B0gF8ASoB/wJjAV8B2hwABAECVwFWAbUBYgGrASAB/wFhAakBHwH/AWABpwEeAf8B
-        XgGlARwB/wFdAaQBHAH/AVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AVcBnAEXAf8BVQGbARYB/wFUAZgB
-        FQH/Ay4BRxgABAEBVwFWAVcBtQFYAU0B8wH/AVcBSwHzAf8BVQFKAfIB/wFTAUgB8gH/AVIBRgHxAf8B
-        UAFEAfAB/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFKAT4B7gH/AUgBOwHtAf8DLgFHbAACWQFXAbkB
-        7AGbAT4B/wHrAZsBPgH/AesBmwE+Af8B6gGbAT4B/wHqAZsBPgH/AekBnAE+Af8B6QGcAT4B/wHoAZwB
-        PQH/AegBnAE9Af8B5wGcAT0B/wHnAZwBPQH/AzkBXRwABAEDRAF7AWIBqwEgAf8BYQGpAR8B/wFgAacB
-        HgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB/wFgAXIBSAH2AxYBHiAABAED
-        RAF7AVgBTQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB8AH/AU8BQwHwAf8B
-        TgFBAe8B/wFMAUgBgAH2AxYBHnAAAlkBVwG5A10BzANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwD
-        XQHMA10BzANdAcwDOQFeJAADBwEJAlQBUgGoAWEBagFhAeYBTQF9ATEB+gFwAYABLwH+AWABbwFUAfMB
-        XwFjAV8B2gM4AVswAAMHAQkBVAFSAVQBqAJhAWoB5gJNAaUB+gFmAVsBzAH+AWABXwF8AfMCXwFjAdoD
-        OAFb/wD/AOoAAUIBTQE+BwABPgMAASgDAAFQAwABFAMAAQEBAAEBBQAB8BcAA/8BAAf/AfAEAAP/AeAB
-        fwH+AQcB8AQAAfABAAF/AYABHwH4AQEB8AQAAfgBAAH/AQABBwHwAQABcAQAAfgBAQH+AQABBwHgAQAB
-        cAQAAfgBAQH+AQABAwHgAQABMAQAAfgBAQH8AQABAwHAAQABMAQAAfgBAQH8AQABAQHAAQABEAQAAfwB
-        AQH8AQABAQHAAQABEAQAAf4BBwH8AQABAQHAAQABEAQAAfwBAQH8AQABAQHAAQABEAQAAfwBAQH8AQAB
-        AQHAAQABEAQAAfgBAQH8AQABAQHAAQABEAQAAfgBAQH8AQABAwHAAQABMAQAAfgBAQH+AQABAwHgAQAB
-        MAQAAfgBAAH+AQABBwHgAQABcAQAAfABAAF/AQABDwHwAQAB8AQAAfABAAF/AcABPwH8AQMB8AQAB/8B
-        8AQAB/8B8AQACw==
+        6gH/AT0BLgHpAf8BOwEsAekB/wE4ASkB6AH/ATcBKAHnAf8BNAElAecB/wEzASMB5gH/Al0BYQHUcAAC
+        vgFVAf0B5gHPAXcB/wE4AZEB4AH/ATMBjwHjAf8BMwGPAeMB/wEzAY8B4wH/ATMBjwHjAf8BMwGPAeMB
+        /wFlAaEBxAH/AfwB1wFqAf8gAAFaAW4BTAH1AVUBmwEWAf8BVAGYARUB/wFSAZcBFAH/AVEBlQETAf8B
+        TwGTARIB/wFMAY4BEQH/AUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYB
+        CgH/AUQBhAEJAf8CPgE9AWkUAAFaAVkBfAH1AUoBPgHuAf8BSAE7Ae0B/wFHATkB7QH/AUQBNgHoAf8B
+        QgE1AesB/wFBATMB6wH/AT4BMAHqAf8BPQEuAekB/wE6ASsB5wH/ATgBKQHnAf8BNwEoAecB/wE0ASUB
+        5wH/ATMBIwHmAf8CPQE+AWlsAANcAb4B/AHXAWoB/wHmAc8BeAH/AUABnAHlAf8BPwGbAecB/wE/AZsB
+        5wH/AT8BmwHnAf8BcwGsAcQB/wH7AdcBagH/AfwB1wFqAf8cAAM4AVsBWAGeARgB/wFXAZwBFwH/AVUB
+        mwEWAf8BVAGYARUB/wFSAZcBFAH/AW0BoAE+Af8B9wH6AfUB/wFWAZABIgH/AUwBjwEQAf8BSwGOAQ8B
+        /wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYBCgH/AVkBgAEeAf4QAAM4AVsBTgFBAe8B/wFMAT8B
+        7wH/AUoBPgHuAf8BTwFDAeYB/wHtAesB+wH/AWkBXwHjAf8BQgE1AesB/wFBATMB6wH/AT4BMAHnAf8B
+        ygHHAfMB/wGzAa4B7wH/ATgBKQHnAf8BNwEoAecB/wE0ASUB5wH/AUgBOAG8Af5sAAMJAQsB/AHXAWoB
+        /wH8AdcBagH/AfwB1wFqAf8BuQHFAZoB/wF+AbQBxAH/AeYB0QF5Af8B/AHXAWoB/wH8AdcBagH/A2kB
+        6BwAAV8BYwFfAdoBWgGgARkB/wFYAZ4BGAH/AVcBnAEXAf8BVQGbARYB/wFwAaMBPw3/AWUBmwE1Af8B
+        TAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUBhgEKAf8DJAE1DAACXwFjAdoB
+        TwFDAfAB/wFOAUEB7wH/AUwBPwHvAf8BWgFQAeYB/wL5Af4F/wFsAWIB5QH/AUIBNQHpAf8BvwG7AfEF
+        /wHLAccB8wH/AToBKwHnAf8BOAEpAegB/wE3ASgB5wH/ATQBJQHnAf8DJAE1bAADSQGIAfwB1wFqAf8B
+        /AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AY0BiAFsAfcDGAEhHAABYAFvAVYB
+        8wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB/wF7Aa0BTgH/Av0B/AH/AfkB+wH3Af8BggGuAVoF/wH6AfsB
+        +AH/AWUBmwE1Af8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AU8BUAFPAZsM
+        AAJgAXYB8wFQAUQB8AH/AU8BQwHwAf8BTgFBAe8B/wFMAT8B7wH/AVoBUAHmAf8C/gb/AcoBxgHzBf8B
+        wgG+AfEB/wE+ATAB5wH/AT0BLgHpAf8BOwEsAekB/wE4ASkB6AH/ATcBKAHnAf8CTwFQAZtwAAMTARoD
+        ZQHjAfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/A04BmCQAAXMBgAExAf4BXQGkARwB/wFbAaEBGgH/AVQB
+        lQEXCf8BUwGTARkB/wFUAZgBFQH/AVEBjgEZCf8BVQGQASAB/wFMAY8BEAH/AUsBjgEPAf8BSgGMAQ4B
+        /wFIAYoBDQH/AVkBXAFZAcYMAAFoAVwByAH+AVIBRgHxAf8BUAFEAfAB/wFPAUMB8AH/AU4BQQHvAf8B
+        TAE/Ae8B/wFTAUgB5QH/Av4G/wHNAckB9AH/AUIBNAHpAf8BQQEzAesB/wE+ATAB6gH/AT0BLgHpAf8B
+        OwEsAekB/wE4ASkB6AH/AlkBXAHGbAADGQEiAmoBaQHtAfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB
+        1wFqAf8B/AHXAWoB/wNSAaAEAhwAAWgBggFBAfkBXgGlARwB/wFdAaQBHAH/AVoBoAEaAf8BuwHVAaUB
+        /wFlAaABLwH/AVcBnAEXAf8BVQGbARYB/wFUAZgBFQH/AW0BogE+Af8B+wH8AfoB/wH8Af0B+gH/AWkB
+        ngE6Af8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BVQFXAVUBtAwAAVUBSgGVAfkBUwFIAfIB/wFSAUYB
+        8QH/AVABRAHwAf8BTwFDAfAB/wFNAUAB7AH/AcIBvgHyBf8C/gb/AW0BYwHlAf8BQgE1AesB/wFBATMB
+        6wH/AT4BMAHqAf8BPQEuAekB/wE7ASwB6QH/AlUBVwG0bAABjQGIAWwB9wH8AdcBagH/AfwB1wFqAf8B
+        /AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/A04BlhwAAWEBagFhAeYBYAGnAR4B
+        /wFeAaUBHAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsBFgH/AVQB
+        mAEVAf8BZAGbATIF/wH8Af0B+gH/AUoBiQEQAf8BTAGPARAB/wFLAY4BDwH/Az0BaAwAAmEBagHmAVUB
+        SgHyAf8BUwFIAfIB/wFSAUYB8QH/AU8BQwHtAf8BzgHLAfUF/wHFAcEB8gH/AVIBSAHkAf8C/gb/AWsB
+        YQHjAf8BQgE1AesB/wFBATMB6wH/AT4BMAHqAf8BPQEuAekB/wM9AWhoAANEAXsB/AHXAWoB/wH8AdcB
+        agH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8c
+        AANTAacBYQGpAR8B/wFgAacBHgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB
+        /wFXAZwBFwH/AVUBmwEWAf8BVAGYARUB/wFkAZsBMQH/AdQB4wHHAf8BTgGSARIB/wFOAZEBEQH/AUwB
+        jwEQAf8EAgwAA1MBpwFXAUsB8wH/AVUBSgHyAf8BUwFIAfIB/wF4AXAB6gH/Av4C/wHPAcwB9QH/AUwB
+        QAHsAf8BTAE/Ae8B/wFaAVAB5QH/AvkB/gH/Ae0B6wH7Af8BRAE2AegB/wFCATUB6wH/AUEBMwHrAf8B
+        PgEwAeoB/wQCaAABdAFyAWUB8QH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B
+        /AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/xwAAwcBCQFiAasBIAH/AWEBqQEfAf8BYAGnAR4B
+        /wFeAaUBHAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsBFgH/AVQB
+        mAEVAf8BUgGWARQB/wFRAZUBEwH/AU8BkwESAf8BWwFdAVsByhAAAwcBCQFYAU0B8wH/AVcBSwHzAf8B
+        VQFKAfIB/wFTAUgB8QH/AXgBcAHqAf8BTwFDAe0B/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFaAVAB
+        5gH/AU8BQwHmAf8BRwE5Ae0B/wFFATcB7AH/AUIBNQHrAf8CWwFdAcpsAAH8AdcBagH/AfwB1wFqAf8B
+        /AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcB
+        agH/IAADRQF8AWIBqwEgAf8BYQGpAR8B/wFgAacBHgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoB
+        oAEZAf8BWAGeARgB/wFXAZwBFwH/AVUBmwEWAf8BVAGYARUB/wFSAZcBFAH/AVEBlQETAf8DDQERFAAD
+        RQF8AVgBTQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB8AH/AU8BQwHwAf8B
+        TgFBAe8B/wFMAT8B7wH/AUoBPgHuAf8BSAE7Ae0B/wFHATkB7QH/AUUBNwHsAf8DDQERbAAB1gF5ATAB
+        /wHVAXkBLwH/AdUBegEuAf8B1QF6AS4B/wHUAXoBLQH/AdQBewEsAf8B1AF7ASwB/wHTAXsBKwH/AdMB
+        ewEqAf8B0gF8ASoB/wJjAV8B2hwABAECVwFWAbUBYgGrASAB/wFhAakBHwH/AWABpwEeAf8BXgGlARwB
+        /wFdAaQBHAH/AVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AVcBnAEXAf8BVQGbARYB/wFUAZgBFQH/Ay4B
+        RxgABAEBVwFWAVcBtQFYAU0B8wH/AVcBSwHzAf8BVQFKAfIB/wFTAUgB8gH/AVIBRgHxAf8BUAFEAfAB
+        /wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFKAT4B7gH/AUgBOwHtAf8DLgFHbAACWQFXAbkB7AGbAT4B
+        /wHrAZsBPgH/AesBmwE+Af8B6gGbAT4B/wHqAZsBPgH/AekBnAE+Af8B6QGcAT4B/wHoAZwBPQH/AegB
+        nAE9Af8B5wGcAT0B/wHnAZwBPQH/AzkBXRwABAEDRAF7AWIBqwEgAf8BYQGpAR8B/wFgAacBHgH/AV4B
+        pQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB/wFgAW8BSAH2AxYBHiAABAEDRAF7AVgB
+        TQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB8AH/AU8BQwHwAf8BTgFBAe8B
+        /wFMAUgBewH2AxYBHnAAAlkBVwG5A10BzANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwDXQHMA10B
+        zANdAcwDOQFeJAADBwEJAlQBUgGoAWEBagFhAeYBTQF9ATMB+gFyAYABMQH+AWABbwFWAfMBXwFjAV8B
+        2gM4AVswAAMHAQkBVAFSAVQBqAJhAWoB5gJNAaEB+gFoAV0ByAH+AmABdgHzAl8BYwHaAzgBW/8A/wDq
+        AAFCAU0BPgcAAT4DAAEoAwABUAMAARQDAAEBAQABAQUAAfAXAAP/AQAH/wHwBAAD/wHgAX8B/gEHAfAE
+        AAHwAQABfwGAAR8B+AEBAfAEAAH4AQAB/wEAAQcB8AEAAXAEAAH4AQEB/gEAAQcB4AEAAXAEAAH4AQEB
+        /gEAAQMB4AEAATAEAAH4AQEB/AEAAQMBwAEAATAEAAH4AQEB/AEAAQEBwAEAARAEAAH8AQEB/AEAAQEB
+        wAEAARAEAAH+AQcB/AEAAQEBwAEAARAEAAH8AQEB/AEAAQEBwAEAARAEAAH8AQEB/AEAAQEBwAEAARAE
+        AAH4AQEB/AEAAQEBwAEAARAEAAH4AQEB/AEAAQMBwAEAATAEAAH4AQEB/gEAAQMB4AEAATAEAAH4AQAB
+        /gEAAQcB4AEAAXAEAAHwAQABfwEAAQ8B8AEAAfAEAAHwAQABfwHAAT8B/AEDAfAEAAf/AfAEAAf/AfAE
+        AAs=
 </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 64</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Nguyên nhân gây ra lỗi có thể bao gồm:
+- Phần cứng loa hệ thống bị lỗi hoặc không hoạt động.
+- Sự cố bo mạch chủ ảnh hưởng đến chức năng loa hệ thống.
+- Nhiễu điện hoặc tiếng ồn trên cổng loa hệ thống.</value>
+  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 16</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>        Bắt đầu thử nghiệm loa hệ thống nâng cao</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 16</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>        Thực hiện kiểm tra phản hồi điện trên cổng loa hệ thống</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 16</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>        Thực hiện kiểm tra độ ổn định trạng thái cổng</value>
-  </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>249, 16</value>
+    <value>283, 16</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>        Thực hiện kiểm tra quét tần số nâng cao</value>
+    <value>        Thiết lập bộ hẹn giờ nội bộ để kiểm tra im lặng</value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value>Gửi lệnh im lặng đến bộ hẹn giờ hệ thống và xác nhận lệnh đã được ghi.</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>363, 16</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>        Kiểm tra xem cổng loa hệ thống có thể bật và tắt được không</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value>Bật/tắt cổng loa hệ thống và xác nhận thay đổi đã được chấp nhận.</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 16</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>        Kiểm tra khả năng đọc tín hiệu đầu ra loa hệ thống</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value>Kiểm tra xem chương trình có thể đọc được tín hiệu điều khiển loa hệ thống hay không.</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 16</value>
+    <value>345, 16</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
+    <value>        Kiểm tra xem bộ hẹn giờ có thực sự đếm ngược hay không</value>
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value>Đọc bộ hẹn giờ sau một khoảng thời gian ngắn để xem nó có thay đổi hay không.</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 16</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>        Theo dõi tín hiệu phản hồi loa hệ thống khi âm thanh bị tắt</value>
+  </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value>Khi âm thanh bị tắt, hãy theo dõi một đường điều khiển hiển thị tín hiệu nội bộ.</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>295, 16</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>        Xác nhận tín hiệu phản hồi vẫn ổn định khi bị tắt</value>
+  </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value>Tắt bộ hẹn giờ và xác nhận đường phản hồi vẫn ổn định.</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>332, 16</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>        Thực hiện xung kích hoạt loa hệ thống im lặng rất ngắn</value>
+  </data>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value>Kích hoạt loa hệ thống trong một khoảnh khắc ngắn đến mức không thể nghe thấy.</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 16</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
     <value>        Kết quả chung cuộc: ĐẠT</value>
   </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 16</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>        Đo tốc độ tín hiệu phản hồi</value>
+  </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value>Đếm số lần đường phản hồi thay đổi để ước tính tốc độ bên trong.</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 16</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>        Kiểm tra mục loa hệ thống</value>
+  </data>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value>Kiểm tra xem có mục loa hệ thống nào được liệt kê là "Loa hệ thống" trong danh mục thiết bị hệ thống của Trình quản lý thiết bị hay không</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>364, 16</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>        Kiểm tra hai tốc độ hẹn giờ và giá trị được báo cáo của chúng</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value>Đặt hai tốc độ khác nhau và xác nhận các giá trị được báo cáo là hợp lý cho mỗi tốc độ.</value>
+  </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>340, 64</value>
+    <value>216, 16</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Nguyên nhân gây ra lỗi có thể bao gồm:
-- Phần cứng loa hệ thống bị lỗi hoặc không hoạt động.
-- Sự cố bo mạch chủ ảnh hưởng đến chức năng loa hệ thống.
-- Nhiễu điện hoặc tiếng ồn trên cổng loa hệ thống.</value>
+    <value>        Đọc báo cáo trạng thái bộ hẹn giờ</value>
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value>Yêu cầu báo cáo trạng thái từ bộ hẹn giờ và xác minh rằng nó trông bình thường.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Kiểm tra loa hệ thống nâng cao</value>

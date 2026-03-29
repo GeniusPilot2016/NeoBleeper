@@ -121,14 +121,14 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAPhQAAAJNU0Z0AUkBTAIBAQMB
-        AAGsAQABrAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARn/
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAOBQAAAJNU0Z0AUkBTAIBAQMB
+        AAG8AQABvAEAARQBAAEUAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABUAMAARQDAAEBAQABIAYAARn/
         AL8ABAEDPQFoAVYBVwFWAbUBWgFdAVoBxwFPAVABTwGbAyQBNTgABAEDPQFoAlYBVwG1AloBXQHHAk8B
-        UAGbAyQBNXwAAaYBfQFNAfoB7AGkAUIB/wHsAaQBQgH/Ae0BpAFCAf8B7QGkAUIB/wHuAaQBQgH/Ae8B
+        UAGbAyQBNXwAAaIBfQFNAfoB7AGkAUIB/wHsAaQBQgH/Ae0BpAFCAf8B7QGkAUIB/wHuAaQBQgH/Ae8B
         owFCAf8B7wGjAUIB/wHwAaMBQgH/AfABowFCAf8B8QGjAUIB/wHxAaMBQgH/A00BkiAAAw0BEQFbAV0B
-        WwHKAUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYBCgH/AVYBgAEbAf4D
+        WwHKAUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYBCgH/AVgBgAEdAf4D
         PQFoKAADDQERAlsBXQHKAT4BMAHqAf8BPQEuAekB/wE7ASwB6QH/ATgBKQHoAf8BNwEoAecB/wE0ASUB
-        5wH/AUUBNQHCAf4DPQFoeAAB0gF8ASkB/wHTAXwBKgH/AdMBewErAf8B0wF7ASsB/wHUAXsBLAH/AdQB
+        5wH/AUcBNwG+Af4DPQFoeAAB0gF8ASkB/wHTAXwBKgH/AdMBewErAf8B0wF7ASsB/wHUAXsBLAH/AdQB
         egEtAf8B1AF6AS0B/wHVAXoBLgH/AdUBegEvAf8B1gF5AS8B/wHWAXkBMAH/IAADLQFFAVEBlQETAf8B
         TwGTARIB/wFOAZEBEQH/AUwBjwEQAf8BSwGOAQ8B/wFKAYwBDgH/AUgBigENAf8BRwGIAQwB/wFFAYYB
         CgH/AUQBhAEJAf8BXQFhAV0B1AMDAQQcAAMtAkUBNwHsAf8BQgE1AesB/wFBATMB6wH/AT4BMAHqAf8B
@@ -138,82 +138,91 @@
         kQERAf8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUBhgEKAf8BRAGEAQkB
         /wFdAWEBXQHUGAADFgEeAUgBOwHtAf8BRwE5Ae0B/wFFATcB7AH/AUIBNQHrAf8BQQEzAesB/wE+ATAB
         6gH/AT0BLgHpAf8BOwEsAekB/wE4ASkB6AH/ATcBKAHnAf8BNAElAecB/wEzASMB5gH/Al0BYQHUcAAB
-        xQG+AVgB/QHmAc8BdwH/ATgBkQHgAf8BMwGPAeMB/wEzAY8B4wH/ATMBjwHjAf8BMwGPAeMB/wEzAY8B
-        4wH/AWUBoQHEAf8B/AHXAWoB/yAAAVoBbgFJAfUBVQGbARYB/wFUAZgBFQH/AVIBlwEUAf8BUQGVARMB
+        vwG+AVYB/QHmAc8BdwH/ATgBkQHgAf8BMwGPAeMB/wEzAY8B4wH/ATMBjwHjAf8BMwGPAeMB/wEzAY8B
+        4wH/AWUBoQHEAf8B/AHXAWoB/yAAAVoBbgFLAfUBVQGbARYB/wFUAZgBFQH/AVIBlwEUAf8BUQGVARMB
         /wFPAZMBEgH/AUwBjgERAf8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUB
-        hgEKAf8BRAGEAQkB/wI+AT0BaRQAAVoBVgGDAfUBSgE+Ae4B/wFIATsB7QH/AUcBOQHtAf8BRAE2AegB
+        hgEKAf8BRAGEAQkB/wI+AT0BaRQAAVoBWAF/AfUBSgE+Ae4B/wFIATsB7QH/AUcBOQHtAf8BRAE2AegB
         /wFCATUB6wH/AUEBMwHrAf8BPgEwAeoB/wE9AS4B6QH/AToBKwHnAf8BOAEpAecB/wE3ASgB5wH/ATQB
         JQHnAf8BMwEjAeYB/wI9AT4BaWwAA1wBvgH8AdcBagH/AeYBzwF4Af8BQAGcAeUB/wE/AZsB5wH/AT8B
         mwHnAf8BPwGbAecB/wFzAawBxAH/AfsB1wFqAf8B/AHXAWoB/xwAAzgBWwFYAZ4BGAH/AVcBnAEXAf8B
         VQGbARYB/wFUAZgBFQH/AVIBlwEUAf8BbQGgAT4B/wH3AfoB9QH/AVYBkAEiAf8BTAGPARAB/wFLAY4B
-        DwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUBhgEKAf8BVgGAARsB/hAAAzgBWwFOAUEB7wH/AUwB
+        DwH/AUoBjAEOAf8BSAGKAQ0B/wFHAYgBDAH/AUUBhgEKAf8BWAGAAR0B/hAAAzgBWwFOAUEB7wH/AUwB
         PwHvAf8BSgE+Ae4B/wFPAUMB5gH/Ae0B6wH7Af8BaQFfAeMB/wFCATUB6wH/AUEBMwHrAf8BPgEwAecB
-        /wHKAccB8wH/AbMBrgHvAf8BOAEpAecB/wE3ASgB5wH/ATQBJQHnAf8BRQE1AcIB/mwAAwkBCwH8AdcB
+        /wHKAccB8wH/AbMBrgHvAf8BOAEpAecB/wE3ASgB5wH/ATQBJQHnAf8BRwE3Ab4B/mwAAwkBCwH8AdcB
         agH/AfwB1wFqAf8B/AHXAWoB/wG5AcUBmgH/AX4BtAHEAf8B5gHRAXkB/wH8AdcBagH/AfwB1wFqAf8D
         aQHoHAABXwFjAV8B2gFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsBFgH/AXABowE/Df8BZQGbATUB
         /wFMAY8BEAH/AUsBjgEPAf8BSgGMAQ4B/wFIAYoBDQH/AUcBiAEMAf8BRQGGAQoB/wMkATUMAAJfAWMB
         2gFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFaAVAB5gH/AvkB/gX/AWwBYgHlAf8BQgE1AekB/wG/AbsB
         8QX/AcsBxwHzAf8BOgErAecB/wE4ASkB6AH/ATcBKAHnAf8BNAElAecB/wMkATVsAANJAYgB/AHXAWoB
-        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8BlwGLAWwB9wMYASEcAAFgAW8B
-        UwHzAVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AXsBrQFOAf8C/QH8Af8B+QH7AfcB/wGCAa4BWgX/AfoB
+        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8BjwGJAWwB9wMYASEcAAFgAW8B
+        VQHzAVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AXsBrQFOAf8C/QH8Af8B+QH7AfcB/wGCAa4BWgX/AfoB
         +wH4Af8BZQGbATUB/wFMAY8BEAH/AUsBjgEPAf8BSgGMAQ4B/wFIAYoBDQH/AUcBiAEMAf8BTwFQAU8B
-        mwwAAWABXgF/AfMBUAFEAfAB/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFaAVAB5gH/Av4G/wHKAcYB
-        8wX/AcIBvgHxAf8BPgEwAecB/wE9AS4B6QH/ATsBLAHpAf8BOAEpAegB/wE3ASgB5wH/Ak8BUAGbcAAD
-        EwEaA2UB4wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wNOAZgkAAFwAYEBLgH+AV0BpAEcAf8BWwGhARoB
-        /wFUAZUBFwn/AVMBkwEZAf8BVAGYARUB/wFRAY4BGQn/AVUBkAEgAf8BTAGPARAB/wFLAY4BDwH/AUoB
-        jAEOAf8BSAGKAQ0B/wFZAVwBWQHGDAABZQFZAc4B/gFSAUYB8QH/AVABRAHwAf8BTwFDAfAB/wFOAUEB
-        7wH/AUwBPwHvAf8BUwFIAeUB/wL+Bv8BzQHJAfQB/wFCATQB6QH/AUEBMwHrAf8BPgEwAeoB/wE9AS4B
-        6QH/ATsBLAHpAf8BOAEpAegB/wJZAVwBxmwAAxkBIgFuAWoBaQHtAfwB1wFqAf8B/AHXAWoB/wH8AdcB
-        agH/AfwB1wFqAf8B/AHXAWoB/wNSAaAEAhwAAWgBhQFBAfkBXgGlARwB/wFdAaQBHAH/AVoBoAEaAf8B
-        uwHVAaUB/wFlAaABLwH/AVcBnAEXAf8BVQGbARYB/wFUAZgBFQH/AW0BogE+Af8B+wH8AfoB/wH8Af0B
-        +gH/AWkBngE6Af8BTAGPARAB/wFLAY4BDwH/AUoBjAEOAf8BVQFXAVUBtAwAAVUBSgGhAfkBUwFIAfIB
-        /wFSAUYB8QH/AVABRAHwAf8BTwFDAfAB/wFNAUAB7AH/AcIBvgHyBf8C/gb/AW0BYwHlAf8BQgE1AesB
-        /wFBATMB6wH/AT4BMAHqAf8BPQEuAekB/wE7ASwB6QH/AlUBVwG0bAABlwGLAWwB9wH8AdcBagH/AfwB
-        1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/A04BlhwAAWEBagFhAeYB
-        YAGnAR4B/wFeAaUBHAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsB
-        FgH/AVQBmAEVAf8BZAGbATIF/wH8Af0B+gH/AUoBiQEQAf8BTAGPARAB/wFLAY4BDwH/Az0BaAwAAmEB
-        agHmAVUBSgHyAf8BUwFIAfIB/wFSAUYB8QH/AU8BQwHtAf8BzgHLAfUF/wHFAcEB8gH/AVIBSAHkAf8C
-        /gb/AWsBYQHjAf8BQgE1AesB/wFBATMB6wH/AT4BMAHqAf8BPQEuAekB/wM9AWhoAANEAXsB/AHXAWoB
-        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB
-        1wFqAf8cAANTAacBYQGpAR8B/wFgAacBHgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8B
-        WAGeARgB/wFXAZwBFwH/AVUBmwEWAf8BVAGYARUB/wFkAZsBMQH/AdQB4wHHAf8BTgGSARIB/wFOAZEB
-        EQH/AUwBjwEQAf8EAgwAA1MBpwFXAUsB8wH/AVUBSgHyAf8BUwFIAfIB/wF4AXAB6gH/Av4C/wHPAcwB
-        9QH/AUwBQAHsAf8BTAE/Ae8B/wFaAVAB5QH/AvkB/gH/Ae0B6wH7Af8BRAE2AegB/wFCATUB6wH/AUEB
-        MwHrAf8BPgEwAeoB/wQCaAABeQF1AWUB8QH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB
-        1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/xwAAwcBCQFiAasBIAH/AWEBqQEfAf8B
-        YAGnAR4B/wFeAaUBHAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsB
-        FgH/AVQBmAEVAf8BUgGWARQB/wFRAZUBEwH/AU8BkwESAf8BWwFdAVsByhAAAwcBCQFYAU0B8wH/AVcB
-        SwHzAf8BVQFKAfIB/wFTAUgB8QH/AXgBcAHqAf8BTwFDAe0B/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B
-        /wFaAVAB5gH/AU8BQwHmAf8BRwE5Ae0B/wFFATcB7AH/AUIBNQHrAf8CWwFdAcpsAAH8AdcBagH/AfwB
+        mwwAAmABeQHzAVABRAHwAf8BTwFDAfAB/wFOAUEB7wH/AUwBPwHvAf8BWgFQAeYB/wL+Bv8BygHGAfMF
+        /wHCAb4B8QH/AT4BMAHnAf8BPQEuAekB/wE7ASwB6QH/ATgBKQHoAf8BNwEoAecB/wJPAVABm3AAAxMB
+        GgNlAeMB/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8DTgGYJAABcgGAATAB/gFdAaQBHAH/AVsBoQEaAf8B
+        VAGVARcJ/wFTAZMBGQH/AVQBmAEVAf8BUQGOARkJ/wFVAZABIAH/AUwBjwEQAf8BSwGOAQ8B/wFKAYwB
+        DgH/AUgBigENAf8BWQFcAVkBxgwAAWcBWwHKAf4BUgFGAfEB/wFQAUQB8AH/AU8BQwHwAf8BTgFBAe8B
+        /wFMAT8B7wH/AVMBSAHlAf8C/gb/Ac0ByQH0Af8BQgE0AekB/wFBATMB6wH/AT4BMAHqAf8BPQEuAekB
+        /wE7ASwB6QH/ATgBKQHoAf8CWQFcAcZsAAMZASICagFpAe0B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B
+        /AHXAWoB/wH8AdcBagH/A1IBoAQCHAABaAGDAUEB+QFeAaUBHAH/AV0BpAEcAf8BWgGgARoB/wG7AdUB
+        pQH/AWUBoAEvAf8BVwGcARcB/wFVAZsBFgH/AVQBmAEVAf8BbQGiAT4B/wH7AfwB+gH/AfwB/QH6Af8B
+        aQGeAToB/wFMAY8BEAH/AUsBjgEPAf8BSgGMAQ4B/wFVAVcBVQG0DAABVQFKAZkB+QFTAUgB8gH/AVIB
+        RgHxAf8BUAFEAfAB/wFPAUMB8AH/AU0BQAHsAf8BwgG+AfIF/wL+Bv8BbQFjAeUB/wFCATUB6wH/AUEB
+        MwHrAf8BPgEwAeoB/wE9AS4B6QH/ATsBLAHpAf8CVQFXAbRsAAGPAYkBbAH3AfwB1wFqAf8B/AHXAWoB
+        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8DTgGWHAABYQFqAWEB5gFgAacB
+        HgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB/wFXAZwBFwH/AVUBmwEWAf8B
+        VAGYARUB/wFkAZsBMgX/AfwB/QH6Af8BSgGJARAB/wFMAY8BEAH/AUsBjgEPAf8DPQFoDAACYQFqAeYB
+        VQFKAfIB/wFTAUgB8gH/AVIBRgHxAf8BTwFDAe0B/wHOAcsB9QX/AcUBwQHyAf8BUgFIAeQB/wL+Bv8B
+        awFhAeMB/wFCATUB6wH/AUEBMwHrAf8BPgEwAeoB/wE9AS4B6QH/Az0BaGgAA0QBewH8AdcBagH/AfwB
         1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB
-        /wH8AdcBagH/IAADRQF8AWIBqwEgAf8BYQGpAR8B/wFgAacBHgH/AV4BpQEcAf8BXQGkARwB/wFbAaEB
-        GgH/AVoBoAEZAf8BWAGeARgB/wFXAZwBFwH/AVUBmwEWAf8BVAGYARUB/wFSAZcBFAH/AVEBlQETAf8D
-        DQERFAADRQF8AVgBTQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB8AH/AU8B
-        QwHwAf8BTgFBAe8B/wFMAT8B7wH/AUoBPgHuAf8BSAE7Ae0B/wFHATkB7QH/AUUBNwHsAf8DDQERbAAB
-        1gF5ATAB/wHVAXkBLwH/AdUBegEuAf8B1QF6AS4B/wHUAXoBLQH/AdQBewEsAf8B1AF7ASwB/wHTAXsB
-        KwH/AdMBewEqAf8B0gF8ASoB/wJjAV8B2hwABAECVwFWAbUBYgGrASAB/wFhAakBHwH/AWABpwEeAf8B
-        XgGlARwB/wFdAaQBHAH/AVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AVcBnAEXAf8BVQGbARYB/wFUAZgB
-        FQH/Ay4BRxgABAEBVwFWAVcBtQFYAU0B8wH/AVcBSwHzAf8BVQFKAfIB/wFTAUgB8gH/AVIBRgHxAf8B
-        UAFEAfAB/wFPAUMB8AH/AU4BQQHvAf8BTAE/Ae8B/wFKAT4B7gH/AUgBOwHtAf8DLgFHbAACWQFXAbkB
-        7AGbAT4B/wHrAZsBPgH/AesBmwE+Af8B6gGbAT4B/wHqAZsBPgH/AekBnAE+Af8B6QGcAT4B/wHoAZwB
-        PQH/AegBnAE9Af8B5wGcAT0B/wHnAZwBPQH/AzkBXRwABAEDRAF7AWIBqwEgAf8BYQGpAR8B/wFgAacB
-        HgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB/wFgAXMBSAH2AxYBHiAABAED
-        RAF7AVgBTQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB8AH/AU8BQwHwAf8B
-        TgFBAe8B/wFMAUgBhAH2AxYBHnAAAlkBVwG5A10BzANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwD
-        XQHMA10BzANdAcwDOQFeJAADBwEJAlQBUgGoAWEBagFhAeYBTQF9ATAB+gFvAYIBLgH+AWABbwFTAfMB
-        XwFjAV8B2gM4AVswAAMHAQkBVAFSAVQBqAJhAWoB5gJNAacB+gFlAVoBzgH+AWABXgF/AfMCXwFjAdoD
-        OAFb/wD/AOoAAUIBTQE+BwABPgMAASgDAAFQAwABFAMAAQEBAAEBBQAB8BcAA/8BAAf/AfAEAAP/AeAB
-        fwH+AQcB8AQAAfABAAF/AYABHwH4AQEB8AQAAfgBAAH/AQABBwHwAQABcAQAAfgBAQH+AQABBwHgAQAB
-        cAQAAfgBAQH+AQABAwHgAQABMAQAAfgBAQH8AQABAwHAAQABMAQAAfgBAQH8AQABAQHAAQABEAQAAfwB
-        AQH8AQABAQHAAQABEAQAAf4BBwH8AQABAQHAAQABEAQAAfwBAQH8AQABAQHAAQABEAQAAfwBAQH8AQAB
-        AQHAAQABEAQAAfgBAQH8AQABAQHAAQABEAQAAfgBAQH8AQABAwHAAQABMAQAAfgBAQH+AQABAwHgAQAB
-        MAQAAfgBAAH+AQABBwHgAQABcAQAAfABAAF/AQABDwHwAQAB8AQAAfABAAF/AcABPwH8AQMB8AQAB/8B
-        8AQAB/8B8AQACw==
+        /xwAA1MBpwFhAakBHwH/AWABpwEeAf8BXgGlARwB/wFdAaQBHAH/AVsBoQEaAf8BWgGgARkB/wFYAZ4B
+        GAH/AVcBnAEXAf8BVQGbARYB/wFUAZgBFQH/AWQBmwExAf8B1AHjAccB/wFOAZIBEgH/AU4BkQERAf8B
+        TAGPARAB/wQCDAADUwGnAVcBSwHzAf8BVQFKAfIB/wFTAUgB8gH/AXgBcAHqAf8C/gL/Ac8BzAH1Af8B
+        TAFAAewB/wFMAT8B7wH/AVoBUAHlAf8C+QH+Af8B7QHrAfsB/wFEATYB6AH/AUIBNQHrAf8BQQEzAesB
+        /wE+ATAB6gH/BAJoAAF1AXMBZQHxAfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB
+        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/HAADBwEJAWIBqwEgAf8BYQGpAR8B/wFgAacB
+        HgH/AV4BpQEcAf8BXQGkARwB/wFbAaEBGgH/AVoBoAEZAf8BWAGeARgB/wFXAZwBFwH/AVUBmwEWAf8B
+        VAGYARUB/wFSAZYBFAH/AVEBlQETAf8BTwGTARIB/wFbAV0BWwHKEAADBwEJAVgBTQHzAf8BVwFLAfMB
+        /wFVAUoB8gH/AVMBSAHxAf8BeAFwAeoB/wFPAUMB7QH/AU8BQwHwAf8BTgFBAe8B/wFMAT8B7wH/AVoB
+        UAHmAf8BTwFDAeYB/wFHATkB7QH/AUUBNwHsAf8BQgE1AesB/wJbAV0BymwAAfwB1wFqAf8B/AHXAWoB
+        /wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB1wFqAf8B/AHXAWoB/wH8AdcBagH/AfwB
+        1wFqAf8gAANFAXwBYgGrASAB/wFhAakBHwH/AWABpwEeAf8BXgGlARwB/wFdAaQBHAH/AVsBoQEaAf8B
+        WgGgARkB/wFYAZ4BGAH/AVcBnAEXAf8BVQGbARYB/wFUAZgBFQH/AVIBlwEUAf8BUQGVARMB/wMNAREU
+        AANFAXwBWAFNAfMB/wFXAUsB8wH/AVUBSgHyAf8BUwFIAfIB/wFSAUYB8QH/AVABRAHwAf8BTwFDAfAB
+        /wFOAUEB7wH/AUwBPwHvAf8BSgE+Ae4B/wFIATsB7QH/AUcBOQHtAf8BRQE3AewB/wMNARFsAAHWAXkB
+        MAH/AdUBeQEvAf8B1QF6AS4B/wHVAXoBLgH/AdQBegEtAf8B1AF7ASwB/wHUAXsBLAH/AdMBewErAf8B
+        0wF7ASoB/wHSAXwBKgH/AmMBXwHaHAAEAQJXAVYBtQFiAasBIAH/AWEBqQEfAf8BYAGnAR4B/wFeAaUB
+        HAH/AV0BpAEcAf8BWwGhARoB/wFaAaABGQH/AVgBngEYAf8BVwGcARcB/wFVAZsBFgH/AVQBmAEVAf8D
+        LgFHGAAEAQFXAVYBVwG1AVgBTQHzAf8BVwFLAfMB/wFVAUoB8gH/AVMBSAHyAf8BUgFGAfEB/wFQAUQB
+        8AH/AU8BQwHwAf8BTgFBAe8B/wFMAT8B7wH/AUoBPgHuAf8BSAE7Ae0B/wMuAUdsAAJZAVcBuQHsAZsB
+        PgH/AesBmwE+Af8B6wGbAT4B/wHqAZsBPgH/AeoBmwE+Af8B6QGcAT4B/wHpAZwBPgH/AegBnAE9Af8B
+        6AGcAT0B/wHnAZwBPQH/AecBnAE9Af8DOQFdHAAEAQNEAXsBYgGrASAB/wFhAakBHwH/AWABpwEeAf8B
+        XgGlARwB/wFdAaQBHAH/AVsBoQEaAf8BWgGgARkB/wFYAZ4BGAH/AWABcQFIAfYDFgEeIAAEAQNEAXsB
+        WAFNAfMB/wFXAUsB8wH/AVUBSgHyAf8BUwFIAfIB/wFSAUYB8QH/AVABRAHwAf8BTwFDAfAB/wFOAUEB
+        7wH/AUwBSAF9AfYDFgEecAACWQFXAbkDXQHMA10BzANdAcwDXQHMA10BzANdAcwDXQHMA10BzANdAcwD
+        XQHMA10BzAM5AV4kAAMHAQkCVAFSAagBYQFqAWEB5gFNAX0BMgH6AXEBgAEwAf4BYAFvAVUB8wFfAWMB
+        XwHaAzgBWzAAAwcBCQFUAVIBVAGoAmEBagHmAk0BowH6AWcBXAHKAf4CYAF5AfMCXwFjAdoDOAFb/wD/
+        AOoAAUIBTQE+BwABPgMAASgDAAFQAwABFAMAAQEBAAEBBQAB8BcAA/8BAAf/AfAEAAP/AeABfwH+AQcB
+        8AQAAfABAAF/AYABHwH4AQEB8AQAAfgBAAH/AQABBwHwAQABcAQAAfgBAQH+AQABBwHgAQABcAQAAfgB
+        AQH+AQABAwHgAQABMAQAAfgBAQH8AQABAwHAAQABMAQAAfgBAQH8AQABAQHAAQABEAQAAfwBAQH8AQAB
+        AQHAAQABEAQAAf4BBwH8AQABAQHAAQABEAQAAfwBAQH8AQABAQHAAQABEAQAAfwBAQH8AQABAQHAAQAB
+        EAQAAfgBAQH8AQABAQHAAQABEAQAAfgBAQH8AQABAwHAAQABMAQAAfgBAQH+AQABAwHgAQABMAQAAfgB
+        AAH+AQABBwHgAQABcAQAAfABAAF/AQABDwHwAQAB8AQAAfABAAF/AcABPwH8AQMB8AQAB/8B8AQAB/8B
+        8AQACw==
 </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>447, 219</value>
+    <value>573, 437</value>
+  </data>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>545, 64</value>
+  </data>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Причини несправності можуть включати:
+- Несправне або нефункціональне обладнання системних динаміків.
+- Проблеми з материнською платою, що впливають на функціональність системних динаміків.
+- Електричні перешкоди або шум на порту системних динаміків.</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>309, 16</value>
@@ -221,41 +230,117 @@
   <data name="label1.Text" xml:space="preserve">
     <value>        Початок розширених тестів системних динаміків</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>398, 26</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>        Виконання перевірки електричного зворотного зв'язку на порту системного динаміка</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>290, 16</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>        Виконання випробування на стійкість у порту</value>
-  </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 16</value>
+    <value>391, 16</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
-    <value>        Виконання розширеного тесту розгортки частоти</value>
+    <value>        Налаштування внутрішнього таймера для безшумної перевірки</value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value>Надішліть безшумну команду системному таймеру та підтвердіть, що її було записано.</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>463, 16</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>        Перевірка можливості ввімкнення та вимкнення гейту системного динаміка</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value>Увімкніть гейт системного динаміка та підтвердіть прийняття змін.</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>342, 16</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>        Перевірка читабельності виходу системного динаміка</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value>Перевірте, чи може програма зчитувати керування системним динаміком.</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 16</value>
+    <value>288, 16</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
+    <value>        Перевірка, чи таймер справді відраховує час</value>
+  </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value>Зчитуйте таймер через короткий проміжок часу, щоб побачити, чи він змінюється.</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>541, 16</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>        Спостереження за сигналом зворотного зв'язку системного динаміка, коли звук вимкнено</value>
+  </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value>Вимкнувши звук, спостерігайте за контрольною лінією, яка повинна показувати внутрішній сигнал.</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>547, 16</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>        Перевірка того, чи сигнал зворотного зв'язку залишається нерухомим, коли його вимкнено</value>
+  </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value>Вимкніть таймер та переконайтеся, що лінія зворотного зв'язку залишається стабільною.</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>499, 16</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>        Виконання дуже короткого безшумного імпульсу ввімкнення системного динаміка</value>
+  </data>
+  <data name="label9.ToolTip" xml:space="preserve">
+    <value>Короткочасно ввімкніть системний динамік на мить, яку занадто коротко, щоб його було чути.</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 16</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
     <value>        Загальний результат: ЗДАНО</value>
   </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 16</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>        Вимірювання швидкості сигналу зворотного зв'язку</value>
+  </data>
+  <data name="label11.ToolTip" xml:space="preserve">
+    <value>Підрахуйте, як часто змінюється лінія зворотного зв'язку, щоб оцінити внутрішню швидкість.</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>255, 16</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>        Перевірка запису системного динаміка</value>
+  </data>
+  <data name="label12.ToolTip" xml:space="preserve">
+    <value>Перевірте, чи є запис системного динаміка, який позначено як "Системний динамік" у категорії системних пристроїв диспетчера пристроїв</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>435, 16</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>        Тестування двох швидкостей таймера та їхніх зареєстрованих значень</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value>Встановіть дві різні швидкості та перевірте, чи зареєстровані значення мають сенс для кожної з них.</value>
+  </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>425, 80</value>
+    <value>231, 16</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Причини несправності можуть включати:
-- Несправне або нефункціональне обладнання системних динаміків.
-- Проблеми з материнською платою, що впливають на функціональність системних динаміків.
-- Електричні перешкоди або шум на порту системних динаміків.</value>
+    <value>        Зчитування звіту про стан таймера</value>
+  </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value>Запитайте звіт про стан таймера та перевірте, чи він виглядає нормально.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>467, 239</value>
+    <value>593, 457</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Розширений тест системних динаміків</value>

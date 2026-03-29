@@ -131,12 +131,12 @@ namespace NeoBleeper
                 bool result = electricalFeedbackTestPassed || portStabilityTestPassed || frequencySweepTestPassed;
                 await Task.Delay(500);
                 Logger.Log("Overall advanced system speaker test result: " + (result ? "PASSED" : "FAILED"), Logger.LogTypes.Info);
-                label5.Visible = true;
-                label5.Text = "        " + Resources.OverallResult + ((result) ? Resources.TextPassed : Resources.TextFailed);
-                label5.ImageIndex = (result) ? 1 : 2;
+                label13.Visible = true;
+                label13.Text = "        " + Resources.OverallResult + ((result) ? Resources.TextPassed : Resources.TextFailed);
+                label13.ImageIndex = (result) ? 1 : 2;
                 if (!result)
                 {
-                    label6.Visible = true;
+                    label14.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -147,8 +147,8 @@ namespace NeoBleeper
                 label2.Visible = false; // Hide other labels on error
                 label3.Visible = false;
                 label4.Visible = false;
-                label5.Visible = false;
-                label6.Visible = false;
+                label13.Visible = false;
+                label14.Visible = false;
             }
             finally
             {
