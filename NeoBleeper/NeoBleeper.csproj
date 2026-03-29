@@ -40,7 +40,7 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google_GenerativeAI" Version="3.6.3" />
+    <PackageReference Include="Google_GenerativeAI" Version="3.6.4" />
     <PackageReference Include="NAudio" Version="2.3.0" />
     <PackageReference Include="System.IO.Ports" Version="10.0.5" />
     <PackageReference Include="System.Management" Version="10.0.5" />
