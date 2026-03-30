@@ -243,7 +243,7 @@ namespace NeoBleeper
                 // - UNCERTAIN: any of basic checks (readable/gate/timer-set) OK AND PNP0800 present
                 // - FAILED  : otherwise
                 OverallState overallState = OverallState.UNCERTAIN;
-                if ((isFeedbackSignalDetected && feedbackSignalSpeedMeasurementResult) || !systemSpeakerEntryCheckResult)
+                if ((isFeedbackSignalDetected && feedbackSignalSpeedMeasurementResult) || systemSpeakerEntryCheckResult)
                 {
                     overallState = OverallState.PASSED;
                 }
