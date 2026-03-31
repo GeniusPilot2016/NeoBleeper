@@ -1142,7 +1142,7 @@
     <value>НЕОПРЕДЕЛЕННЫЙ</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Ввод звука через системный динамик ОБНАРУЖЕН в системе</value>
+    <value>Ввод звука через системный динамик ОБНАРУЖЕН в системе.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>Ввод звука через системный динамик НЕ найден в системе.</value>
@@ -1190,10 +1190,10 @@
     <value>Тест настройки таймера</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Некоторые базовые проверки пройдены.</value>
+    <value>Некоторые базовые проверки пройдены: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Базовые проверки не пройдены.</value>
+    <value>Базовые проверки не пройдены. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>Сигнал обратной связи не обнаружен
@@ -1208,6 +1208,8 @@
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Проблемы: </value>
+    <value>
+Проблемы: 
+</value>
   </data>
 </root>

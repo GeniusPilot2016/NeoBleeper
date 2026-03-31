@@ -1140,7 +1140,7 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
     <value>INCERTAIN</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Entrée haut-parleur système TROUVÉE sur le système</value>
+    <value>Entrée haut-parleur système TROUVÉE sur le système.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>Voce dell'altoparlante di sistema NON trovata nel sistema</value>
@@ -1188,10 +1188,10 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
     <value>Test de configuration du minuteur</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Quelques contrôles de base ont été réussis.</value>
+    <value>Quelques contrôles de base ont été réussis: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Aucun contrôle de base n'a été réussi.</value>
+    <value>Aucun contrôle de base n'a été réussi. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>Signal de retour non détecté
@@ -1202,10 +1202,12 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
 </value>
   </data>
   <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Entrée haut-parleur système trouvée dans ce système
+    <value>Entrée haut-parleur système trouvée dans ce système.
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Problèmes: </value>
+    <value>
+Problèmes: 
+</value>
   </data>
 </root>

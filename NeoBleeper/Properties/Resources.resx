@@ -1172,7 +1172,7 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
     <value>UNCERTAIN</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>System speaker entry FOUND on system</value>
+    <value>System speaker entry FOUND on system.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>System speaker entry NOT found on system</value>

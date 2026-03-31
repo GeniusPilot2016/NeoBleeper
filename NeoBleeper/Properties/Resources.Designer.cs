@@ -2669,7 +2669,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System speaker entry FOUND on system benzeri yerelleştirilmiş bir dize arar.
+        ///   System speaker entry FOUND on system. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string SystemSpeakerEntryFound {
             get {

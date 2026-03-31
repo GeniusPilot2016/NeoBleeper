@@ -1140,7 +1140,7 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
     <value>INCIERTO</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Entrada de altavoz del sistema ENCONTRADA en el sistema</value>
+    <value>Entrada de altavoz del sistema ENCONTRADA en el sistema.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>Voce dell'altoparlante di sistema NON trovata nel sistema</value>
@@ -1188,10 +1188,10 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
     <value>Prueba de configuración del temporizador</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Se han superado algunas comprobaciones básicas.</value>
+    <value>Se han superado algunas comprobaciones básicas: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>No se superaron las comprobaciones básicas.</value>
+    <value>No se superaron las comprobaciones básicas. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>No se detectó señal de retroalimentación
@@ -1202,10 +1202,12 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
 </value>
   </data>
   <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Entrada de altavoz del sistema encontrada en este sistema
+    <value>Entrada de altavoz del sistema encontrada en este sistema.
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Asuntos: </value>
+    <value>
+Asuntos: 
+</value>
   </data>
 </root>

@@ -1142,7 +1142,7 @@
     <value>НЕВИЗНАЧЕНИЙ</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Вхід для системного динаміка ЗНАЙДЕНО на системі</value>
+    <value>Вхід для системного динаміка ЗНАЙДЕНО на системі.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>Запис системного динаміка НЕ ​​знайдено в системі</value>
@@ -1190,10 +1190,10 @@
     <value>Тест налаштування таймера</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Деякі основні перевірки пройдено.</value>
+    <value>Деякі основні перевірки пройдено: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Жодних базових перевірок не пройдено.</value>
+    <value>Жодних базових перевірок не пройдено. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>Сигнал зворотного зв'язку не виявлено
@@ -1208,6 +1208,8 @@
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Проблеми: </value>
+    <value>
+Проблеми: 
+</value>
   </data>
 </root>

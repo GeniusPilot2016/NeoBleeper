@@ -1189,10 +1189,10 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
     <value>Zamanlayıcı kurulum testi</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Bazı temel kontroller başarıyla tamamlandı.</value>
+    <value>Bazı temel kontroller başarıyla tamamlandı: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Temel kontrollerin hiçbiri geçilmedi.</value>
+    <value>Temel kontrollerin hiçbiri geçilmedi. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>Geri bildirim sinyali algılanmadı
@@ -1203,10 +1203,12 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
 </value>
   </data>
   <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Bu sistemde sistem hoparlörü kaydı bulundu
+    <value>Bu sistemde sistem hoparlörü kaydı bulunamadı
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Sorunlar: </value>
+    <value>
+Sorunlar: 
+</value>
   </data>
 </root>

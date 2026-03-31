@@ -1139,7 +1139,7 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
     <value>INCERTO</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Voce dell'altoparlante di sistema TROVATA sul sistema</value>
+    <value>Voce dell'altoparlante di sistema TROVATA sul sistema.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>Voce dell'altoparlante di sistema NON trovata nel sistema</value>
@@ -1187,10 +1187,10 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
     <value>Test di configurazione del timer</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Alcuni controlli di base superati.</value>
+    <value>Alcuni controlli di base superati: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Nessun controllo di base è stato superato.</value>
+    <value>Nessun controllo di base è stato superato. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>Segnale di feedback non rilevato
@@ -1201,10 +1201,12 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
 </value>
   </data>
   <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Voce altoparlante di sistema trovata in questo sistema
+    <value>Voce altoparlante di sistema trovata in questo sistema.
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Problemi: </value>
+    <value>
+Problemi: 
+</value>
   </data>
 </root>

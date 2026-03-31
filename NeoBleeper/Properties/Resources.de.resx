@@ -1140,7 +1140,7 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
     <value>UNSICHER</value>
   </data>
   <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Systemlautsprecher-Eingang im System gefunden</value>
+    <value>Systemlautsprecher-Eingang im System gefunden.</value>
   </data>
   <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
     <value>Systemlautsprecher-Eingabe nicht gefunden</value>
@@ -1188,10 +1188,10 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
     <value>Timer-Setup-Test</value>
   </data>
   <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Einige grundlegende Prüfungen bestanden.</value>
+    <value>Einige grundlegende Prüfungen bestanden: </value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Keine der grundlegenden Überprüfungen bestanden.</value>
+    <value>Keine der grundlegenden Überprüfungen bestanden. </value>
   </data>
   <data name="FeedbackSignalNotDetected" xml:space="preserve">
     <value>Rückkopplungssignal nicht erkannt
@@ -1202,10 +1202,12 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
 </value>
   </data>
   <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Systemlautsprecher-Eingabe in diesem System gefunden
+    <value>Systemlautsprecher-Eingabe in diesem System gefunden.
 </value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value> Probleme: </value>
+    <value>
+Probleme: 
+</value>
   </data>
 </root>

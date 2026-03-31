@@ -238,16 +238,57 @@ namespace NeoBleeper
                 label12.ImageIndex = systemSpeakerEntryCheckResult ? 1 : 2;
 
 
-                // Decision tree: produce PASSED / UNCERTAIN / FAILED
-                // - PASSED  : feedback detected (T06) AND feedback speed OK (T10)
-                // - UNCERTAIN: any of basic checks (readable/gate/timer-set) OK AND PNP0800 present
-                // - FAILED  : otherwise
                 OverallState overallState = OverallState.UNCERTAIN;
-                if ((isFeedbackSignalDetected && feedbackSignalSpeedMeasurementResult) || systemSpeakerEntryCheckResult)
+                // Summary for each situations
+                var tests = new bool[]
+                {
+                    systemSpeakerOutputReadability,
+                    canSystemSpeakerGateTurnOnOff,
+                    canTimerBeSet,
+                    isTimerActuallyCountingDown,
+                    isTimerStatusNormal,
+                    isFeedbackSignalDetected,
+                    isFeedbackSignalStableWhenDisabled,
+                    shortSilentEnablePulseResult,
+                    timerSpeedTestResult,
+                    feedbackSignalSpeedMeasurementResult
+                };
+
+                int passCount = tests.Count(t => t);
+                int totalTests = tests.Length;
+                int failCount = totalTests - passCount;
+
+                bool t06Pass = isFeedbackSignalDetected;
+                bool t10Pass = feedbackSignalSpeedMeasurementResult;
+
+                // Decision tree
+                // - PASSED if there's a system speaker entry
+                // - If 6th and 10th step is failed => NOT DETECTED -> FAILED
+                // - If all/most tests are passed and 6th and 10th step is passed => PASSED
+                // - If 6th or 10th step is observed, but no other steps are observed => UNCERTAIN
+                // - If few tests are passed, but other ones not => UNCERTAIN
+                // - Other conditions => FAILED
+                if (systemSpeakerEntryCheckResult)
                 {
                     overallState = OverallState.PASSED;
                 }
-                else if ((systemSpeakerOutputReadability || canSystemSpeakerGateTurnOnOff || canTimerBeSet) && !systemSpeakerEntryCheckResult)
+                else if (!t06Pass && !t10Pass)
+                {
+                    overallState = OverallState.FAILED; // NOT DETECTED
+                }
+                else if (passCount >= 8 && failCount == 0 && t06Pass && t10Pass)
+                {
+                    overallState = OverallState.PASSED; // SPEAKER CONFIRMED -> PASSED
+                }
+                else if (passCount >= 6 && failCount <= 1 && (t06Pass || t10Pass))
+                {
+                    overallState = OverallState.PASSED; // LIKELY PRESENT -> TREATED AS PASSED
+                }
+                else if (t06Pass || t10Pass)
+                {
+                    overallState = OverallState.UNCERTAIN;
+                }
+                else if (passCount >= 3)
                 {
                     overallState = OverallState.UNCERTAIN;
                 }
@@ -286,7 +327,7 @@ namespace NeoBleeper
                     if (!feedbackSignalSpeedMeasurementResult)
                         reasons.Add(Resources.FeedbackNotWithinTolerance);
                     // PNP presence info:
-                    if (!systemSpeakerEntryCheckResult)
+                    if (systemSpeakerEntryCheckResult)
                         reasons.Add(Resources.SystemSpeakerEntryFound);
                     else
                         reasons.Add(Resources.SystemSpeakerEntryNotFound);
@@ -310,7 +351,7 @@ namespace NeoBleeper
                     if (!feedbackSignalSpeedMeasurementResult) issues.Add(Resources.FeedbackSpeedIsOutOfRange);
                     if (systemSpeakerEntryCheckResult) issues.Add(Resources.SystemSpeakerEntryFoundInThisSystem);
 
-                    label14.Text = basics + (issues.Count > 0 ? Resources.Issues + string.Join("; ", issues) + "." : "");
+                    label14.Text = basics + (issues.Count > 0 ? "\r\n" + Resources.Issues + string.Join(string.Empty, issues) : "");
                     label14.Visible = true;
                 }
                 else
