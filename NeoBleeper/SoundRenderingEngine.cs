@@ -162,8 +162,12 @@ namespace NeoBleeper
             }
 
             [DllImport("inpoutx64.dll")]
+
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             extern static void Out32(short PortAddress, short Data);
             [DllImport("inpoutx64.dll")]
+
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             extern static char Inp32(short PortAddress);
 
             /// <summary>
@@ -178,6 +182,7 @@ namespace NeoBleeper
             /// <param name="ms">The duration of the beep, in milliseconds. Must be a non-negative integer.</param>
             /// <param name="nonStopping">If set to <see langword="true"/>, the beep will continue after the specified duration until stopped by
             /// other means; otherwise, the beep stops automatically after the duration elapses.</param>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -220,6 +225,7 @@ namespace NeoBleeper
             /// <remarks>On platforms where the system speaker is not present or not supported (such
             /// as most ARM64-based devices), this method performs no operation. This method has no effect if the system
             /// speaker is already silent.</remarks>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
                 if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
@@ -237,6 +243,7 @@ namespace NeoBleeper
             /// attempts to stop it if necessary. Any exceptions that occur during this process are suppressed. This
             /// method is typically used to ensure that unwanted or continuous beeping is silenced in scenarios where
             /// the system speaker may not stop beeping automatically.</remarks>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void StopBeepIfNeeded()
             {
                 try
@@ -260,6 +267,7 @@ namespace NeoBleeper
             /// supported and this method always returns false. If an error occurs while checking the speaker status,
             /// the method also returns false.</remarks>
             /// <returns>true if the system speaker is detected to be continuously beeping; otherwise, false.</returns>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool IsSystemSpeakerBeepStuck()
             {
                 try
@@ -275,238 +283,6 @@ namespace NeoBleeper
                 catch (Exception)
                 {
                     return false; // If an error occurs, assume the speaker is not stuck
-                }
-            }
-            private const int ULTRASONIC_FREQ = 30000; // 30 kHz - Inaudible frequency to users but can still cause electrical feedback if the speaker is functional
-            private const int PIT_BASE_FREQ = 1193180;
-
-            /// <summary>
-            /// Enables the PC speaker to emit an ultrasonic frequency by configuring the programmable interval timer
-            /// (PIT) and updating the speaker control port.
-            /// </summary>
-            /// <remarks>This method is intended for low-level hardware control and should be used
-            /// only in environments where direct access to hardware ports is permitted. The method temporarily modifies
-            /// the speaker control port to enable ultrasonic output and may not be supported on all hardware or
-            /// operating systems.</remarks>
-            /// <param name="originalState">The original value of the speaker control port (I/O port 0x61) to preserve and restore non-related bits
-            /// during speaker activation.</param>
-            private static void UltraSoftEnableSpeaker(byte originalState)
-            {
-                // Configure PIT channel 2 for the ultrasonic frequency
-                Out32(0x43, 0xB6);
-                int div = PIT_BASE_FREQ / ULTRASONIC_FREQ;
-                Out32(0x42, (byte)(div & 0xFF));
-                Out32(0x42, (byte)(div >> 8));
-
-                Program.splashScreen.ResponsiveWait(10); // To stabilize the timer
-
-                // Open only the gate (bit 0), keep speaker data (bit 1) off
-                Out32(0x61, (byte)(originalState | 0x01)); // Bit 1 = 0
-                Program.splashScreen.ResponsiveWait(10);
-
-                // Open speaker data (bit 1) now
-                Out32(0x61, (byte)(originalState | 0x03)); // Bit 0 ve 1
-            }
-
-            /// <summary>
-            /// Disables the system speaker by restoring the specified original port state.
-            /// </summary>
-            /// <remarks>This method is intended for low-level hardware control and should only be
-            /// used in trusted contexts where direct port access is permitted. Incorrect usage may affect system audio
-            /// behavior.</remarks>
-            /// <param name="originalState">The original value of the port state to restore after disabling the speaker. Typically obtained prior to
-            /// any modifications.</param>
-            private static void UltraSoftDisableSpeaker(byte originalState)
-            {
-                // Close speaker data (bit 1) first
-                Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
-                Program.splashScreen.ResponsiveWait(10);
-
-                // Then close the gate (bit 0)
-                Out32(0x61, (byte)(originalState & 0xFC));
-                Program.splashScreen.ResponsiveWait(10);
-            }
-
-            /// <summary>
-            /// Checks whether electrical feedback is present and responsive on the designated hardware port.
-            /// </summary>
-            /// <remarks>This method performs a series of hardware port reads and writes to determine
-            /// if the electrical feedback mechanism is functioning correctly. It is intended for use in environments
-            /// where direct hardware access is available. If an error occurs during the check, the method returns
-            /// false.</remarks>
-            /// <returns>true if electrical feedback is detected and the port responds as expected; otherwise, false.</returns>
-            public static bool CheckElectricalFeedbackOnPort()
-            {
-                try
-                {
-                    byte originalState = (byte)Inp32(0x61);
-
-                    // Ultra soft start
-                    UltraSoftEnableSpeaker(originalState);
-                    Program.splashScreen.ResponsiveWait(50);
-
-                    List<byte> enabledSamples = new List<byte>();
-                    for (int i = 0; i < 20; i++)
-                    {
-                        enabledSamples.Add((byte)Inp32(0x61));
-                        Program.splashScreen.ResponsiveWait(1);
-                    }
-                    byte stateEnabled = enabledSamples[enabledSamples.Count / 2];
-
-                    // Ultra soft close
-                    UltraSoftDisableSpeaker(originalState);
-                    Program.splashScreen.ResponsiveWait(50);
-
-                    List<byte> disabledSamples = new List<byte>();
-                    for (int i = 0; i < 20; i++)
-                    {
-                        disabledSamples.Add((byte)Inp32(0x61));
-                        Program.splashScreen.ResponsiveWait(1);
-                    }
-                    byte stateDisabled = disabledSamples[disabledSamples.Count / 2];
-
-                    // Restore original state
-                    Out32(0x61, originalState);
-                    Program.splashScreen.ResponsiveWait(20);
-
-                    bool bit5VariesWhenEnabled = enabledSamples.Select(s => (byte)(s & 0x20)).Distinct().Count() > 1;
-                    bool feedbackPresent = ((stateEnabled & 0x20) != (stateDisabled & 0x20)) || bit5VariesWhenEnabled;
-                    bool gateResponsive = ((stateEnabled & 0x03) == 0x03) && ((stateDisabled & 0x03) == 0x00);
-
-                    return feedbackPresent && gateResponsive;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
-
-            /// <summary>
-            /// Checks whether the state of the hardware port at address 0x61 is stable and responsive by sampling its
-            /// value and analyzing bit transitions.
-            /// </summary>
-            /// <remarks>This method is typically used to verify that the hardware port is functioning
-            /// correctly before performing further operations that depend on its responsiveness. If an error occurs
-            /// during the check, the method returns false.</remarks>
-            /// <returns>true if the port's bit 5 shows sufficient variation and transitions during sampling, indicating a stable
-            /// and responsive state; otherwise, false.</returns>
-            public static bool CheckPortStateStability()
-            {
-                try
-                {
-                    byte originalState = (byte)Inp32(0x61);
-
-                    // Ultra soft start
-                    UltraSoftEnableSpeaker(originalState);
-                    Program.splashScreen.ResponsiveWait(50);
-
-                    List<byte> samples = new List<byte>();
-                    for (int i = 0; i < 100; i++)
-                    {
-                        samples.Add((byte)Inp32(0x61));
-                    }
-
-                    // Ultra soft close
-                    UltraSoftDisableSpeaker(originalState);
-                    Out32(0x61, originalState);
-                    Program.splashScreen.ResponsiveWait(20);
-
-                    var bit5Values = samples.Select(s => (byte)(s & 0x20)).Distinct().ToList();
-                    bool bit5Varies = bit5Values.Count > 1;
-
-                    int bit5Transitions = 0;
-                    for (int i = 0; i < samples.Count - 1; i++)
-                    {
-                        if ((samples[i] & 0x20) != (samples[i + 1] & 0x20))
-                        {
-                            bit5Transitions++;
-                        }
-                    }
-
-                    bool sufficientTransitions = bit5Transitions >= 3;
-
-                    return bit5Varies && sufficientTransitions;
-                }
-                catch (Exception ex)
-                {
-                    return false;
-                }
-            }
-
-            /// <summary>
-            /// Performs a diagnostic test to verify whether high-frequency signals can be generated and detected using
-            /// the system's programmable interval timer and speaker circuitry.
-            /// </summary>
-            /// <remarks>This test is intended to run silently by using only high frequencies that are
-            /// typically inaudible to users. It is useful for determining whether the system's hardware supports
-            /// frequency generation and detection at the specified ranges. The method restores the original hardware
-            /// state after the test completes.</remarks>
-            /// <returns>true if at least one of the tested high frequencies is successfully generated and detected; otherwise,
-            /// false.</returns>
-            public static bool AdvancedFrequencySweepTest()
-            {
-                try
-                {
-                    byte originalState = (byte)Inp32(0x61);
-                    bool anyFrequencyWorks = false;
-
-                    // Only high frequencies to avoid audible noise to users
-                    int[] testFrequencies = { 30000, 35000, 38000 };
-
-                    foreach (int freq in testFrequencies)
-                    {
-                        int div = PIT_BASE_FREQ / freq;
-                        if (div < 1) continue;
-
-                        // Configure the timer
-                        Out32(0x43, 0xB6);
-                        Out32(0x42, (byte)(div & 0xFF));
-                        Out32(0x42, (byte)(div >> 8));
-                        Program.splashScreen.ResponsiveWait(10);
-
-                        // Open the gate
-                        Out32(0x61, (byte)(originalState | 0x01));
-                        Program.splashScreen.ResponsiveWait(10);
-
-                        // Open the speaker data
-                        Out32(0x61, (byte)(originalState | 0x03));
-                        Program.splashScreen.ResponsiveWait(30);
-
-                        List<byte> samples = new List<byte>();
-                        for (int i = 0; i < 50; i++)
-                        {
-                            samples.Add((byte)Inp32(0x61));
-                        }
-
-                        // Close the speaker data
-                        Out32(0x61, (byte)((originalState & 0xFE) | 0x01));
-                        Program.splashScreen.ResponsiveWait(10);
-
-                        // Close the gate
-                        Out32(0x61, (byte)(originalState & 0xFC));
-                        Program.splashScreen.ResponsiveWait(10);
-
-                        int transitions = 0;
-                        for (int i = 0; i < samples.Count - 1; i++)
-                        {
-                            if ((samples[i] & 0x20) != (samples[i + 1] & 0x20))
-                                transitions++;
-                        }
-
-                        if (transitions >= 2)
-                        {
-                            anyFrequencyWorks = true;
-                            break;
-                        }
-                    }
-
-                    Out32(0x61, originalState);
-                    Program.splashScreen.ResponsiveWait(20);
-                    return anyFrequencyWorks;
-                }
-                catch (Exception ex)
-                {
-                    return false;
                 }
             }
 
@@ -530,6 +306,7 @@ namespace NeoBleeper
             /// is intended for use in environments where direct hardware access is permitted and may not be suitable
             /// for all platforms.</remarks>
             /// <returns>true if the system speaker is detected and passes all functional checks; otherwise, false.</returns>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool IsFunctionalSystemSpeaker()
             {
                 bool acquired = false;
@@ -566,6 +343,8 @@ namespace NeoBleeper
                     }
                 }
             }
+
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool TryReadPort61(out byte value)
             {
                 try
@@ -580,6 +359,7 @@ namespace NeoBleeper
                 }
             }
 
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool CheckControlPortRoundTrip(out string details)
             {
                 byte originalState = 0;
@@ -622,10 +402,11 @@ namespace NeoBleeper
                 }
             }
 
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool CheckPitChannel2Bit5Activity(
-        int frequencyHz,
-        int sampleCount,
-        out int transitions)
+                int frequencyHz,
+                int sampleCount,
+                out int transitions)
             {
                 byte original61 = 0;
 
@@ -676,9 +457,10 @@ namespace NeoBleeper
                 }
             }
 
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool TryMinimalAudibleProbe(
-        int frequencyHz,
-        int durationUs)
+            int frequencyHz,
+            int durationUs)
             {
                 byte original61 = 0;
 
@@ -727,17 +509,19 @@ namespace NeoBleeper
             }
 
 
-
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static byte ReadPortByte(short port)
             {
                 return unchecked((byte)(Inp32(port) & 0xFF));
             }
 
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static void WritePortByte(short port, byte value)
             {
                 Out32(port, value);
             }
 
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static void RestoreSpeakerControl(byte originalState)
             {
                 try
@@ -757,6 +541,8 @@ namespace NeoBleeper
             /// application will fall back to using the sound card for beep functionality. System speaker detection is
             /// not supported on ARM64 architectures; in such cases, this method always returns false.</remarks>
             /// <returns>true if a system speaker is detected and can be accessed; otherwise, false.</returns>
+            
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool IsSystemSpeakerExist()
             {
                 // No system speaker, no problem.
@@ -829,6 +615,7 @@ namespace NeoBleeper
             /// performed on ARM64 devices, which typically do not support system speaker access. If an error occurs
             /// during detection, the method returns false and assumes the chipset is not affected.</remarks>
             /// <returns>true if the chipset is identified as affected by known system speaker issues; otherwise, false.</returns>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool CheckIfChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
@@ -943,6 +730,7 @@ namespace NeoBleeper
             /// may become unresponsive due to known hardware issues. It has no effect on systems that are not affected.
             /// The method is thread-safe and will not block indefinitely if the speaker is currently being reset by
             /// another process.</remarks>
+            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void AwakeSystemSpeakerIfNeeded() // Attempt to fix system speaker in some systems by simulating sleep and wake up
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -1846,6 +1634,52 @@ namespace NeoBleeper
                     }
                 }
             }
+        }
+        public static bool IsOSAffectedFromApril2026Update() // Flag for check if the OS is affected from the cross-signed driver issue that cross-signed drivers are treated as unreliable after April 2026 update of Windows 11 and Windows Server 2025 24H2 and above
+        {
+            if (!OperatingSystem.IsWindows())
+                return false; // The issue is specific to Windows, so non-Windows OSes are not affected.
+
+            // Windows 11 24H2 and Windows Server 2025 start at build 26100
+            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 26100))
+            {
+                // To check if the specific update (April 2026) is applied, we can look at the Update Build Revision (UBR).
+                // Although the exact UBR for April 2026 is unknown today, we can prepare the logic.
+                // If the base build is greater than 26100 (e.g., 25H2 or 26H1), it's natively affected.
+                if (Environment.OSVersion.Version.Build >= 26100)
+                {
+                    // For build 26100 (24H2), check the UBR (patch level)
+                    int ubr = GetUpdateBuildRevision();
+
+                    int april2026UbrThreshold = 8138; // Actual UBR of April 2026 update that's affected, according to current information. 
+
+                    if (ubr >= april2026UbrThreshold)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static int GetUpdateBuildRevision()
+        {
+            if (!OperatingSystem.IsWindows()) return 0;
+            try
+            {
+                // Read the UBR (Update Build Revision) from the registry to determine the exact patch level
+                using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+                if (key?.GetValue("UBR") is int ubr)
+                {
+                    return ubr;
+                }
+            }
+            catch
+            {
+                // Ignore registry access exceptions
+            }
+            return 0;
         }
     }
 }

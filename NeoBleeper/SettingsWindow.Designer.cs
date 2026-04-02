@@ -53,6 +53,7 @@
             btn_test_system_speaker = new Button();
             label_test_system_speaker_message = new Label();
             panelSystemSpeakerWarnings = new Panel();
+            warning_system_speaker_access = new Label();
             label_test_system_speaker_message_2 = new Label();
             label_test_system_speaker_message_3 = new Label();
             label_test_system_speaker_message_4 = new Label();
@@ -392,11 +393,19 @@
             // panelSystemSpeakerWarnings
             // 
             resources.ApplyResources(panelSystemSpeakerWarnings, "panelSystemSpeakerWarnings");
+            panelSystemSpeakerWarnings.Controls.Add(warning_system_speaker_access);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_2);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_4);
             panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
             toolTip1.SetToolTip(panelSystemSpeakerWarnings, resources.GetString("panelSystemSpeakerWarnings.ToolTip"));
+            // 
+            // warning_system_speaker_access
+            // 
+            resources.ApplyResources(warning_system_speaker_access, "warning_system_speaker_access");
+            warning_system_speaker_access.ForeColor = Color.FromArgb(192, 0, 0);
+            warning_system_speaker_access.Name = "warning_system_speaker_access";
+            toolTip1.SetToolTip(warning_system_speaker_access, resources.GetString("warning_system_speaker_access.ToolTip"));
             // 
             // label_test_system_speaker_message_2
             // 
@@ -1371,5 +1380,6 @@
         private Label label7;
         public Label label_test_system_speaker_message_4;
         public Label label_create_beep_from_soundcard_automatically_activated_message_3;
+        public Label warning_system_speaker_access;
     }
 }

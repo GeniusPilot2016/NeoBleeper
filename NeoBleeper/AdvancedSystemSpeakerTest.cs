@@ -6,6 +6,7 @@ using static UIHelper;
 
 namespace NeoBleeper
 {
+    [Obsolete("This form will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
     public partial class AdvancedSystemSpeakerTest : Form
     {// ── Native interop ───────────────────────────────────────────────────────
         [DllImport("inpoutx64.dll", EntryPoint = "Out32")]

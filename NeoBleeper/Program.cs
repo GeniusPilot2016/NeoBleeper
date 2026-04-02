@@ -433,6 +433,7 @@ namespace NeoBleeper
         /// <remarks>This method skips placement of InpOutx64.dll on ARM64 architectures, as system
         /// speaker support is not available on most ARM64 devices. The method updates the splash screen with status
         /// messages to inform the user of progress and any errors encountered during the process.</remarks>
+        [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
         private static void CheckAndPlaceInpOutX64()
         {
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64) // Skip InpOutx64.dll placement on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
@@ -469,6 +470,7 @@ namespace NeoBleeper
         /// comparing its SHA256 hash to the expected value. Use this check to ensure that the DLL has not been tampered
         /// with or replaced.</remarks>
         /// <returns>true if InpOutx64.dll exists and its SHA256 hash matches the expected value; otherwise, false.</returns>
+        [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
         private static bool IsInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
         {
             var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
