@@ -677,8 +677,8 @@ namespace NeoBleeper
             }
 
             private static bool TryMinimalAudibleProbe(
-        int frequencyHz,
-        int durationUs)
+            int frequencyHz,
+            int durationUs)
             {
                 byte original61 = 0;
 
@@ -1846,6 +1846,52 @@ namespace NeoBleeper
                     }
                 }
             }
+        }
+        public static bool IsOSAffectedFromApril2026Update() // Flag for check if the OS is affected from the cross-signed driver issue that cross-signed drivers are treated as unreliable after April 2026 update of Windows 11 and Windows Server 2025 24H2 and above
+        {
+            if (!OperatingSystem.IsWindows())
+                return false; // The issue is specific to Windows, so non-Windows OSes are not affected.
+
+            // Windows 11 24H2 and Windows Server 2025 start at build 26100
+            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 26100))
+            {
+                // To check if the specific update (April 2026) is applied, we can look at the Update Build Revision (UBR).
+                // Although the exact UBR for April 2026 is unknown today, we can prepare the logic.
+                // If the base build is greater than 26100 (e.g., 25H2 or 26H1), it's natively affected.
+                if (Environment.OSVersion.Version.Build >= 26100)
+                {
+                    // For build 26100 (24H2), check the UBR (patch level)
+                    int ubr = GetUpdateBuildRevision();
+
+                    int april2026UbrThreshold = 8138; // Actual UBR of April 2026 update that's affected, according to current information. 
+
+                    if (ubr >= april2026UbrThreshold)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static int GetUpdateBuildRevision()
+        {
+            if (!OperatingSystem.IsWindows()) return 0;
+            try
+            {
+                // Read the UBR (Update Build Revision) from the registry to determine the exact patch level
+                using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+                if (key?.GetValue("UBR") is int ubr)
+                {
+                    return ubr;
+                }
+            }
+            catch
+            {
+                // Ignore registry access exceptions
+            }
+            return 0;
         }
     }
 }
