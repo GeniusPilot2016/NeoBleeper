@@ -1155,6 +1155,16 @@ namespace NeoBleeper.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_pawn_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-pawn-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
         public static System.Drawing.Bitmap icons8_play_48 {
             get {
                 object obj = ResourceManager.GetObject("icons8-play-48", resourceCulture);

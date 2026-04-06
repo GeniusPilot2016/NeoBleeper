@@ -541,7 +541,7 @@ namespace NeoBleeper
             /// application will fall back to using the sound card for beep functionality. System speaker detection is
             /// not supported on ARM64 architectures; in such cases, this method always returns false.</remarks>
             /// <returns>true if a system speaker is detected and can be accessed; otherwise, false.</returns>
-            
+
             [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool IsSystemSpeakerExist()
             {
@@ -786,6 +786,88 @@ namespace NeoBleeper
                         }
                     }
                 }
+            }
+            public static bool IsOSAffectedFromApril2026Update() // Flag for check if the OS is affected from the cross-signed driver issue that cross-signed drivers are treated as unreliable after April 2026 update of Windows 11 and Windows Server 2025 24H2 and above
+            {
+                if (!OperatingSystem.IsWindows())
+                    return false; // The issue is specific to Windows, so non-Windows OSes are not affected.
+
+                // Windows 11 24H2 and Windows Server 2025 start at build 26100
+                if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 26100))
+                {
+                    // To check if the specific update (April 2026) is applied, we can look at the Update Build Revision (UBR).
+                    // Although the exact UBR for April 2026 is unknown today, we can prepare the logic.
+                    // If the base build is greater than 26100 (e.g., 25H2 or 26H1), it's natively affected.
+                    if (Environment.OSVersion.Version.Build >= 26100)
+                    {
+                        // For build 26100 (24H2), check the UBR (patch level)
+                        int ubr = GetUpdateBuildRevision();
+
+                        int april2026UbrThreshold = 8138; // Actual UBR of April 2026 update that's affected, according to current information. 
+
+                        if (ubr >= april2026UbrThreshold)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            private static int GetUpdateBuildRevision()
+            {
+                if (!OperatingSystem.IsWindows()) return 0;
+                try
+                {
+                    // Read the UBR (Update Build Revision) from the registry to determine the exact patch level
+                    using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+                    if (key?.GetValue("UBR") is int ubr)
+                    {
+                        return ubr;
+                    }
+                }
+                catch
+                {
+                    // Ignore registry access exceptions
+                }
+                return 0;
+            }
+            public static bool IsPawnIOInstalled()
+            {
+                try
+                {
+                    var pawnioPath = Environment.GetEnvironmentVariable("PAWNIO_ROOT");
+                    if (!string.IsNullOrEmpty(pawnioPath)) // Check if PawnIO is installed
+                    {
+                        try
+                        {
+                            if (!File.Exists(Path.Combine(pawnioPath, "PawnIOLib.dll")))
+                            {
+                                return false; // DLL not found in the specified path
+                            }
+                            return true;
+                        }
+                        catch
+                        {
+                            return false;
+                        }
+                    }
+                    return false;
+                }
+                catch
+                {
+                }
+                return false; // Placeholder implementation, as PawnIO is not relevant in this context
+            }
+            private static void StartBeep(int frequency)
+            {
+
+            }
+
+            private static void StopBeepPawnIO()
+            {
+
             }
         }
         public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD, that is used in Bleeper Music Maker, using NAudio
@@ -1634,52 +1716,6 @@ namespace NeoBleeper
                     }
                 }
             }
-        }
-        public static bool IsOSAffectedFromApril2026Update() // Flag for check if the OS is affected from the cross-signed driver issue that cross-signed drivers are treated as unreliable after April 2026 update of Windows 11 and Windows Server 2025 24H2 and above
-        {
-            if (!OperatingSystem.IsWindows())
-                return false; // The issue is specific to Windows, so non-Windows OSes are not affected.
-
-            // Windows 11 24H2 and Windows Server 2025 start at build 26100
-            if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 26100))
-            {
-                // To check if the specific update (April 2026) is applied, we can look at the Update Build Revision (UBR).
-                // Although the exact UBR for April 2026 is unknown today, we can prepare the logic.
-                // If the base build is greater than 26100 (e.g., 25H2 or 26H1), it's natively affected.
-                if (Environment.OSVersion.Version.Build >= 26100)
-                {
-                    // For build 26100 (24H2), check the UBR (patch level)
-                    int ubr = GetUpdateBuildRevision();
-
-                    int april2026UbrThreshold = 8138; // Actual UBR of April 2026 update that's affected, according to current information. 
-
-                    if (ubr >= april2026UbrThreshold)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private static int GetUpdateBuildRevision()
-        {
-            if (!OperatingSystem.IsWindows()) return 0;
-            try
-            {
-                // Read the UBR (Update Build Revision) from the registry to determine the exact patch level
-                using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
-                if (key?.GetValue("UBR") is int ubr)
-                {
-                    return ubr;
-                }
-            }
-            catch
-            {
-                // Ignore registry access exceptions
-            }
-            return 0;
         }
     }
 }

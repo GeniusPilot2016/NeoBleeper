@@ -50,6 +50,9 @@
     <Compile Update="DisableCreateBeepFromSoundDeviceWarningOnAffectedMotherboards.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="PawnIOIsNotLoadedWarning.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DisableCreateBeepFromSoundDeviceWarningOnComputersWithoutSystemSpeakerOutput.cs">
       <SubType>Form</SubType>
     </Compile>
