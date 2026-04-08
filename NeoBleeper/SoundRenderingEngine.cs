@@ -131,8 +131,12 @@ namespace NeoBleeper
                 NVMe,
                 Other
             }
+
+            static PawnIOWrapper pawnIO;
             static SystemSpeakerBeepEngine()
             {
+                /*var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sysspkr.bin"));
+                pawnIO = new PawnIOWrapper(sysspkrModuleBytes);*/
                 // Safe stop to avoid stuck beeps on exit or crash
 
                 void SafeStop()
