@@ -38,12 +38,12 @@ namespace NeoBleeper
         /// <returns>true if the library is successfully loaded; otherwise, false.</returns>
         private static bool TryLoadDll()
         {
-            var pawnioPath = Environment.GetEnvironmentVariable("PAWNIO_ROOT");
+            var pawnioPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
             if (!string.IsNullOrEmpty(pawnioPath))
             {
                 try
                 {
-                    LoadLibrary(pawnioPath + Path.DirectorySeparatorChar + "PawnIOLib.dll");
+                    LoadLibrary(Path.Combine(pawnioPath, "PawnIOLib.dll"));
                     return true;
                 }
                 catch
