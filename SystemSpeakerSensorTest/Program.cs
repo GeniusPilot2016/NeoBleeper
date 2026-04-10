@@ -42,65 +42,13 @@ namespace NeoBleeperSpeakerExistenceTest
             {
                 result.Exists = false;
                 result.Log.Add(readMessage);
-                result.Reason = "Port 0x61 (Speaker & Timer Control Gate) could not be read.";
+                result.Reason = "Port 0x61 could not be read.";
                 return result;
             }
 
             result.Log.Add(readMessage);
-            result.Log.Add("Initial port 0x61 (Speaker & Timer Control Gate) state:");
+            result.Log.Add("Initial port 0x61 state:");
             result.Log.Add(DescribePort61(original61));
-
-            bool portsStuck = false;
-
-            if (original61 == 0xFF)
-            {
-                result.Log.Add("Warning: Port 0x61 (Speaker & Timer Control Gate) seems unconnected (high impedance -> 0xFF).");
-                portsStuck = true;
-            }
-            else if (original61 == 0x00)
-            {
-                result.Log.Add("Note: Port 0x61 (Speaker & Timer Control Gate) is 0x00 (this is not necessarily stuck).");
-            }
-
-            try
-            {
-                byte val42 = ReadPortByte(PortPitChannel2);
-                result.Log.Add($"Initial port 0x42 (Speaker Square Wave Generator Data) state: 0x{val42:X2}");
-                if (val42 == 0xFF)
-                {
-                    result.Log.Add("Warning: Port 0x42 (Speaker Square Wave Generator Data) seems unconnected (high impedance -> 0xFF).");
-                    portsStuck = true;
-                }
-                else if (val42 == 0x00)
-                {
-                    result.Log.Add("Note: Port 0x42 (Speaker Square Wave Generator Data) is 0x00 (this is not necessarily stuck).");
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Log.Add($"Failed to read port 0x42 (Speaker Square Wave Generator Data): {ex.Message}");
-                portsStuck = true;
-            }
-
-            try
-            {
-                byte val43 = ReadPortByte(PortPitControl);
-                result.Log.Add($"Initial port 0x43 (Speaker Square Wave Generator Command) state: 0x{val43:X2}");
-                if (val43 == 0xFF)
-                {
-                    result.Log.Add("Warning: Port 0x43 (Speaker Square Wave Generator Command) seems unconnected (high impedance -> 0xFF).");
-                    portsStuck = true;
-                }
-                else if (val43 == 0x00)
-                {
-                    result.Log.Add("Note: Port 0x43 (Speaker Square Wave Generator Command) is 0x00 (this is not necessarily stuck).");
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Log.Add($"Failed to read port 0x43 (Speaker Square Wave Generator Command): {ex.Message}");
-                portsStuck = true;
-            }
 
             bool roundTripOk = CheckControlPortRoundTrip(out string rtMessage);
             result.Log.Add(rtMessage);
@@ -124,14 +72,19 @@ namespace NeoBleeperSpeakerExistenceTest
             result.Log.Add(probeMessage);
             result.MinimalProbeExecuted = minimalProbeOk;
 
-            // Decision:
-            // Treat as EXISTS if at least beeping related ports aren't in high impedance/broken
-            // OR there's alternating activity in bit 5.
-            result.Exists = !portsStuck || pitBit5Ok;
+            // Strict decision:
+            // We only say EXISTS if:
+            // - port works
+            // - round trip works
+            // - PIT channel 2 seems alive via bit 5 transitions
+            // - minimal audible probe path executed successfully
+            //
+            // This is intentionally stricter than your old logic to avoid false positives.
+            result.Exists = roundTripOk && pitBit5Ok && minimalProbeOk;
 
             result.Reason = result.Exists
-                ? "Legacy speaker hardware appears present (ports responsive or PIT activity detected)."
-                : "Could not confirm a usable legacy speaker output path (ports fail or appear floating/stuck).";
+                ? "Legacy speaker path appears to be fully implemented."
+                : "Could not confirm a usable legacy speaker output path.";
 
             return result;
         }
@@ -141,13 +94,13 @@ namespace NeoBleeperSpeakerExistenceTest
             try
             {
                 value = ReadPortByte(PortSpeakerControl);
-                message = $"Read port 0x61 (Speaker & Timer Control Gate) successfully: 0x{value:X2}";
+                message = $"Read port 0x61 successfully: 0x{value:X2}";
                 return true;
             }
             catch (Exception ex)
             {
                 value = 0;
-                message = $"Failed to read port 0x61 (Speaker & Timer Control Gate): {ex.Message}";
+                message = $"Failed to read port 0x61: {ex.Message}";
                 return false;
             }
         }
@@ -367,61 +320,28 @@ namespace NeoBleeperSpeakerExistenceTest
 
         private static void PrintResult(DetectionResult result)
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("┌──────────────────────────────────────────────────┐");
-            Console.WriteLine("│                  DIAGNOSTICS                     │");
-            Console.WriteLine("└──────────────────────────────────────────────────┘");
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Diagnostics");
+            Console.WriteLine("-----------");
             foreach (string line in result.Log)
-            {
-                if (line.Contains("Warning:"))
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                else if (line.Contains("Failed:") || line.Contains("FAIL") || line.Contains("could not be read"))
-                    Console.ForegroundColor = ConsoleColor.Red;
-                else if (line.Contains("PASS") || line.Contains("successfully") || line.Contains("EXECUTED"))
-                    Console.ForegroundColor = ConsoleColor.Green;
-                else
-                    Console.ForegroundColor = ConsoleColor.Gray;
-
-                string formattedLine = line.Replace("\n", "\n    ");
-                Console.WriteLine("  * " + formattedLine);
-            }
+                Console.WriteLine(line);
 
             Console.WriteLine();
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("┌──────────────────────────────────────────────────┐");
-            Console.WriteLine("│                    CONCLUSION                    │");
-            Console.WriteLine("└──────────────────────────────────────────────────┘");
-
-            Console.Write("  Result : ");
-            if (result.Exists)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("EXISTS");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("NOT EXISTS");
-            }
-
+            Console.Write("Result: ");
+            Console.ForegroundColor = result.Exists ? ConsoleColor.Green : ConsoleColor.Red;
+            Console.WriteLine(result.Exists ? "EXISTS" : "NOT EXISTS");
             Console.ResetColor();
-            Console.Write("  Reason : ");
+
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine(result.Reason);
             Console.ResetColor();
 
             Console.WriteLine();
 
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("  [ Note ]");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("  This test is designed to find out if hidden or explicit system");
-            Console.WriteLine("  speaker hardware is present and functional via legacy ports.");
-            Console.WriteLine("  It does not guarantee that every possible speaker configuration");
-            Console.WriteLine("  will be detected, especially if non-standard hardware/drivers");
-            Console.WriteLine("  are involved.");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Note:");
+            Console.WriteLine("This test is designed to find out if hidden or explicit system speaker hardware is present and functional via legacy ports. It does not guarantee that every possible speaker configuration will be detected, especially if non-standard hardware or drivers are involved.");
             Console.ResetColor();
         }
 
@@ -452,7 +372,6 @@ namespace NeoBleeperSpeakerExistenceTest
         private sealed class DetectionResult
         {
             public bool Exists { get; set; }
-            public bool PortsStuck { get; set; }
             public bool ControlPortRoundTripOk { get; set; }
             public bool PitBit5ActivityOk { get; set; }
             public bool MinimalProbeExecuted { get; set; }
