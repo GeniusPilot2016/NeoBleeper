@@ -4,6 +4,10 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
+using System.Security.Principal;
+using System.Security.AccessControl;
+using System.Globalization;
 
 public class Program
 {
@@ -34,9 +38,62 @@ public class Program
         ApplyPITReadTest();
     }
 
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    static extern uint FormatMessage(
+    uint dwFlags,
+    IntPtr lpSource,
+    uint dwMessageId,
+    uint dwLanguageId,
+    System.Text.StringBuilder lpBuffer,
+    uint nSize,
+    IntPtr Arguments);
+
+    const uint FORMAT_MESSAGE_FROM_SYSTEM = 0x00001000;
+    const uint FORMAT_MESSAGE_IGNORE_INSERTS = 0x00000200;
+    const uint LANG_EN_US = 0x0409;
+
+    private static string GetSystemMessageEnglish(int hr)
+    {
+        int win32 = hr & 0xFFFF; // 0x80070005 -> 5
+        var sb = new System.Text.StringBuilder(512);
+        uint res = FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                                 IntPtr.Zero, (uint)win32, LANG_EN_US, sb, (uint)sb.Capacity, IntPtr.Zero);
+        if (res != 0)
+            return sb.ToString().Trim();
+        return null;
+    }
+
+    private static string TurnErrorCodeIntoString(int code)
+    {
+        // Önce İngilizce anlamı dene
+        var msgEn = GetSystemMessageEnglish(code);
+        if (!string.IsNullOrEmpty(msgEn))
+            return msgEn.Trim(); // sadece metin
+
+        // Yerel dildeki mesajı dene (fallback)
+        try
+        {
+            var ex = new System.ComponentModel.Win32Exception(code);
+            if (!string.IsNullOrEmpty(ex.Message))
+                return ex.Message;
+        }
+        catch { /* ignore */ }
+
+        // Hiçbir anlam yoksa hex ile bilinmiyor mesajı
+        return $"Unknown error code: 0x{((uint)code):X8}";
+    }
+
+    private static bool IsErrorCode(string input)
+    {
+        return Regex.IsMatch(input, @"^0x[0-9A-Fa-f]{8}$");
+    }
+
     private static void CheckEnforcementStatus()
     {
         Console.WriteLine("--- [Step 1: System Policy Mode] ---");
+        bool isElevated = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        Console.WriteLine(isElevated ? "Process: Elevated (admin)" : "Process: Not elevated (no admin)");
+
         try
         {
             using var process = new Process
@@ -46,39 +103,155 @@ public class Program
                     FileName = "citool.exe",
                     Arguments = "-lp -json",
                     RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                     UseShellExecute = false,
                     CreateNoWindow = true
                 }
             };
-            process.Start();
-            string output = process.StandardOutput.ReadToEnd();
+
+            try
+            {
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Warning: Failed to start citool.exe. {ex.Message}");
+                Console.ResetColor();
+                Console.WriteLine("Note: citool.exe is a Microsoft internal tool and may not be present on all systems. If you have access to it, place it in the same directory as this program or ensure it's in the PATH.");
+                Console.WriteLine();
+                return;
+            }
+
+            string stdout = process.StandardOutput.ReadToEnd();
+            string stderr = process.StandardError.ReadToEnd();
             process.WaitForExit();
 
-            var result = JsonSerializer.Deserialize<CiToolOutput>(output);
-            var evalPolicy = result?.Policies?.FirstOrDefault(p => p.PolicyId.Equals(EvalPolicyId, StringComparison.OrdinalIgnoreCase));
-            var enforcedPolicy = result?.Policies?.FirstOrDefault(p => p.PolicyId.Equals(EnforcedPolicyId, StringComparison.OrdinalIgnoreCase));
-
-            if (enforcedPolicy is { IsEnforced: true, IsAuthorized: true })
+            // İlk tercih: JSON parse
+            CiToolOutput? result = null;
+            if (!string.IsNullOrWhiteSpace(stdout))
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("✅ System is in Enforcement Mode");
+                try { result = JsonSerializer.Deserialize<CiToolOutput>(stdout); }
+                catch { result = null; }
             }
-            else if (evalPolicy is { IsEnforced: true, IsAuthorized: true })
+
+            // Eğer JSON parse başarılı ve policy'ler varsa, normal akış
+            if (result?.Policies != null && result.Policies.Count > 0)
+            {
+                Console.WriteLine("Policies found:");
+                foreach (var p in result.Policies)
+                    Console.WriteLine($" - {p.PolicyId}  Enforced: {p.IsEnforced}  Authorized: {p.IsAuthorized}");
+
+                var evalPolicy = result.Policies.FirstOrDefault(p => p.PolicyId.Equals(EvalPolicyId, StringComparison.OrdinalIgnoreCase));
+                var enforcedPolicy = result.Policies.FirstOrDefault(p => p.PolicyId.Equals(EnforcedPolicyId, StringComparison.OrdinalIgnoreCase));
+
+                if (enforcedPolicy is { IsEnforced: true, IsAuthorized: true })
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("✅ System is in Enforcement Mode");
+                }
+                else if (evalPolicy is { IsEnforced: true, IsAuthorized: true })
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("✅ System is in Evaluation (Audit) Mode");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("❌ Required policies are not active");
+                }
+                Console.ResetColor();
+                Console.WriteLine();
+                return;
+            }
+
+            // JSON parse yoksa; fallback: metin içinde GUID ve yanındaki IsEnforced/IsAuthorized değerlerini regex ile yakala
+            string combined = (stdout ?? "") + "\n" + (stderr ?? "");
+            var guidRegex = new Regex(@"[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}", RegexOptions.Compiled);
+            var boolRegex = new Regex(@"IsEnforced""?\s*[:=]\s*(true|false)|IsAuthorized""?\s*[:=]\s*(true|false)|Enforced\s*[:=]\s*(true|false)|Authorized\s*[:=]\s*(true|false)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+            var found = new Dictionary<string, (bool? IsEnforced, bool? IsAuthorized)>(StringComparer.OrdinalIgnoreCase);
+            foreach (Match m in guidRegex.Matches(combined))
+            {
+                string id = m.Value;
+                if (!string.Equals(id, EvalPolicyId, StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(id, EnforcedPolicyId, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                int idx = m.Index;
+                int ctxStart = Math.Max(0, idx);
+                int ctxEnd = Math.Min(combined.Length, idx + 400); // 400 chars after GUID
+                string ctx = combined.Substring(ctxStart, ctxEnd - ctxStart);
+
+                bool? isEnf = null, isAuth = null;
+                // İlk en yakın IsEnforced / IsAuthorized eşleşmelerini ara
+                var enMatch = Regex.Match(ctx, @"IsEnforced""?\s*[:=]\s*(true|false)|Enforced\s*[:=]\s*(true|false)", RegexOptions.IgnoreCase);
+                if (enMatch.Success)
+                {
+                    string val = enMatch.Groups.Cast<Group>().Select(g => g.Value).FirstOrDefault(v => !string.IsNullOrEmpty(v) && (v.Equals("true", StringComparison.OrdinalIgnoreCase) || v.Equals("false", StringComparison.OrdinalIgnoreCase)));
+                    if (!string.IsNullOrEmpty(val)) isEnf = val.Equals("true", StringComparison.OrdinalIgnoreCase);
+                }
+
+                var auMatch = Regex.Match(ctx, @"IsAuthorized""?\s*[:=]\s*(true|false)|Authorized\s*[:=]\s*(true|false)", RegexOptions.IgnoreCase);
+                if (auMatch.Success)
+                {
+                    string val = auMatch.Groups.Cast<Group>().Select(g => g.Value).FirstOrDefault(v => !string.IsNullOrEmpty(v) && (v.Equals("true", StringComparison.OrdinalIgnoreCase) || v.Equals("false", StringComparison.OrdinalIgnoreCase)));
+                    if (!string.IsNullOrEmpty(val)) isAuth = val.Equals("true", StringComparison.OrdinalIgnoreCase);
+                }
+
+                found[id] = (isEnf, isAuth);
+            }
+
+            // Evaluation mode
+            if (found.TryGetValue(EnforcedPolicyId, out var enforcedVals) && enforcedVals.IsEnforced == true && enforcedVals.IsAuthorized == true)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("✅ System is in Evaluation (Audit) Mode");
+                Console.WriteLine("✅ System is in Enforcement Mode (detected from text output)");
+                Console.ResetColor();
+            }
+            else if (found.TryGetValue(EvalPolicyId, out var evalVals) && evalVals.IsEnforced == true && evalVals.IsAuthorized == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("✅ System is in Evaluation (Audit) Mode (detected from text output)");
+                Console.ResetColor();
+            }
+            else if (found.Count > 0)
+            {
+                // GUID is found but no clear enforcement/auth status - partial info
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Partial policy info detected in citool output:");
+                foreach (var kv in found)
+                    Console.WriteLine($" - {kv.Key}  Enforced: {kv.Value.IsEnforced?.ToString() ?? "unknown"}  Authorized: {kv.Value.IsAuthorized?.ToString() ?? "unknown"}");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Note: Run it as administrator for more complete information. Partial data may indicate limited access to policy details.");
+                Console.ResetColor();
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("❌ Required policies are not active");
+                // Nothing is found - show raw output for troubleshooting (decoded)
+                if (!string.IsNullOrWhiteSpace(stdout))
+                {
+                    PrintOutputWithDecodedErrors("The citool failed to provide information:", stdout);
+                }
+
+                if (!string.IsNullOrWhiteSpace(stderr))
+                {
+                    PrintOutputWithDecodedErrors("citool error output:", stderr);
+                }
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Note: No recognizable policy information found in citool output. This may be due to lack of access permissions, an unexpected output format, or the tool not functioning correctly on this system.");
+                Console.ResetColor();
             }
         }
-        catch { Console.WriteLine("Error: Unable to check system policy status via citool."); }
-        Console.ResetColor();
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: Unable to check system policy status via citool. {ex.Message}");
+        }
+
         Console.WriteLine();
     }
-
     private static void CheckInpOutStatus()
     {
         Console.WriteLine("--- [Step 2: inpoutx64.sys Presence & Enforcement Check] ---");
@@ -153,6 +326,11 @@ public class Program
                     Console.ResetColor();
                     // Show the logged file path if available, otherwise show the file name
                     string sourcePath = !string.IsNullOrEmpty(filePath) ? filePath : fileName;
+
+                    // decode tokens inside event fields so they display human-readable reasons
+                    process = DecodeErrorTokensInline(process);
+                    sourcePath = DecodeErrorTokensInline(sourcePath);
+
                     Console.WriteLine($"| Logged: {eventDetail.TimeCreated} | Path: {sourcePath} | By: {process}");
                 }
             }
@@ -169,7 +347,6 @@ public class Program
         Console.WriteLine();
     }
 
-    // ── Test ────────────────────────────────────────────────────────────────────
     public static void ApplyPITReadTest()
     {
         Console.WriteLine("--- [Step 3: System Timer (PIT) Read Test] ---");
@@ -300,14 +477,6 @@ public class Program
 
         Console.WriteLine();
     }
-
-    // ── Helpers ─────────────────────────────────────────────────────────────────
-
-    /// <summary>
-    /// Writes a colour-coded result block.
-    /// Pass <c>true</c> for success (green), <c>false</c> for failure (red),
-    /// <c>null</c> for ambiguous (yellow).
-    /// </summary>
     private static void WriteResult(bool? success, params string[] lines)
     {
         Console.ForegroundColor = success switch
@@ -329,6 +498,7 @@ public class Program
             Console.WriteLine($"   {lines[i]}");
 
         Console.ResetColor();
+        Console.WriteLine();
     }
 
     public static void PrintASCIIArtLogo()
@@ -345,7 +515,7 @@ public class Program
  | || (_) | |     _| |_| | | | |_) | |__| | |_| | |_ >  <| (_) | | |               
  |_| \___/|_|    |_____|_| |_| .__/ \____/ \__,_|\__/_/\_\\___/  |_|                
                              | |                                                    
-                             |_|                                                    ";
+                             |_|                                                   ";
 
         (int R, int G, int B)[] palette = [(0, 255, 255), (0, 255, 0), (255, 255, 0), (255, 0, 255)];
         Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -366,6 +536,176 @@ public class Program
             Console.Write($"\x1b[38;2;{r};{g};{b}m{lines[i].TrimEnd()}\n");
         }
         Console.Write("\x1b[0m");
+    }
+
+    private static void PrintOutputWithDecodedErrors(string title, string text)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return;
+
+        var hexRegex = new Regex(@"0x[0-9A-Fa-f]{8}", RegexOptions.Compiled);
+        var decRegex = new Regex(@"-?\d{9,10}", RegexOptions.Compiled); // büyük negatif HRESULT'ları yakalamak için
+
+        string[] lines = text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        foreach (var line in lines)
+        {
+            string original = line;
+            var replacements = new List<(int start, int length, string repl)>();
+
+            // Hex eşleşmeleri
+            foreach (Match m in hexRegex.Matches(original))
+            {
+                string token = m.Value;
+                if (!IsErrorCode(token)) continue;
+                if (uint.TryParse(token.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint u))
+                {
+                    int code = unchecked((int)u);
+                    string friendly = TurnErrorCodeIntoString(code) ?? $"Unknown error code: 0x{u:X8}";
+                    bool inQuotes = IsSurroundedByQuotes(original, m.Index, m.Length);
+                    string rep = inQuotes ? EscapeForJson(friendly) : $"\"{EscapeForJson(friendly)}\"";
+                    replacements.Add((m.Index, m.Length, rep));
+                }
+            }
+
+            // Negatif ondalık HRESULT eşleşmeleri
+            foreach (Match m in decRegex.Matches(original))
+            {
+                string token = m.Value;
+                if (int.TryParse(token, NumberStyles.Integer, CultureInfo.InvariantCulture, out int intVal) && intVal < 0)
+                {
+                    string friendly = TurnErrorCodeIntoString(intVal) ?? $"Unknown error code: 0x{((uint)intVal):X8}";
+                    bool inQuotes = IsSurroundedByQuotes(original, m.Index, m.Length);
+                    string rep = inQuotes ? EscapeForJson(friendly) : $"\"{EscapeForJson(friendly)}\"";
+                    replacements.Add((m.Index, m.Length, rep));
+                }
+            }
+
+            if (replacements.Count == 0)
+            {
+                // Eğer herhangi bir token değişmedi ise sadece orijinal satırı yaz
+                if (!string.IsNullOrWhiteSpace(original))
+                    Console.WriteLine(original);
+                continue;
+            }
+
+            // Sıralama ve çakışan eşleşmeleri atlama
+            replacements.Sort((a, b) => a.start.CompareTo(b.start));
+            var filtered = new List<(int start, int length, string repl)>();
+            int lastEnd = -1;
+            foreach (var r in replacements)
+            {
+                if (r.start < lastEnd) continue;
+                filtered.Add(r);
+                lastEnd = r.start + r.length;
+            }
+
+            // Yeni satırı oluştur
+            var sb = new System.Text.StringBuilder();
+            int pos = 0;
+            foreach (var r in filtered)
+            {
+                if (pos < r.start) sb.Append(original.Substring(pos, r.start - pos));
+                sb.Append(r.repl);
+                pos = r.start + r.length;
+            }
+            if (pos < original.Length) sb.Append(original.Substring(pos));
+
+            string outputLine = sb.ToString();
+            if (string.IsNullOrWhiteSpace(outputLine))
+            {
+                // boş çıktıysa başlık yazma
+                continue;
+            }
+
+            // Eğer çıktı tek alanlı geçerli bir JSON nesnesiyse, başlığı ve değeri aynı satırda yaz
+            try
+            {
+                using var doc = System.Text.Json.JsonDocument.Parse(outputLine);
+                var root = doc.RootElement;
+                if (root.ValueKind == System.Text.Json.JsonValueKind.Object)
+                {
+                    int propCount = 0;
+                    string singleStringValue = null;
+                    foreach (var p in root.EnumerateObject())
+                    {
+                        propCount++;
+                        if (propCount == 1 && p.Value.ValueKind == System.Text.Json.JsonValueKind.String)
+                            singleStringValue = p.Value.GetString();
+                        if (propCount > 1) break;
+                    }
+
+                    if (propCount == 1 && singleStringValue != null)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"{title} {singleStringValue}");
+                        Console.ResetColor();
+                        continue;
+                    }
+                }
+            }
+            catch
+            {
+                // JSON parse başarısızsa devam et, normal çıktı yazdırılacak
+            }
+
+            // Genel durumda başlığı ve çözümlenmiş satırı yaz
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(title);
+            Console.ResetColor();
+            Console.WriteLine(outputLine);
+        }
+
+        // Yerel yardımcılar
+        static bool IsSurroundedByQuotes(string s, int startIndex, int length)
+        {
+            int left = startIndex - 1;
+            while (left >= 0 && char.IsWhiteSpace(s[left])) left--;
+            int right = startIndex + length;
+            while (right < s.Length && char.IsWhiteSpace(s[right])) right++;
+            return left >= 0 && s[left] == '"' && right < s.Length && s[right] == '"';
+        }
+
+        static string EscapeForJson(string input)
+        {
+            if (input == null) return "";
+            return input.Replace("\\", "\\\\").Replace("\"", "\\\"");
+        }
+    }
+
+    // Yeni yardımcı: event alanları içinde bulunan hex/negatif HRESULT tokenlarını inline olarak çözer
+    private static string DecodeErrorTokensInline(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return input;
+
+        var hexRegex = new Regex(@"0x[0-9A-Fa-f]{8}", RegexOptions.Compiled);
+        var decRegex = new Regex(@"-?\d{9,10}", RegexOptions.Compiled);
+
+        string result = input;
+
+        foreach (Match m in hexRegex.Matches(input))
+        {
+            string token = m.Value;
+            if (!IsErrorCode(token)) continue;
+            if (uint.TryParse(token.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint u))
+            {
+                int code = unchecked((int)u);
+                string friendly = TurnErrorCodeIntoString(code);
+                if (!string.IsNullOrEmpty(friendly))
+                    result = result.Replace(token, friendly);
+            }
+        }
+
+        foreach (Match m in decRegex.Matches(input))
+        {
+            string token = m.Value;
+            if (int.TryParse(token, NumberStyles.Integer, CultureInfo.InvariantCulture, out int intVal) && intVal < 0)
+            {
+                string friendly = TurnErrorCodeIntoString(intVal);
+                if (!string.IsNullOrEmpty(friendly))
+                    result = result.Replace(token, friendly);
+            }
+        }
+
+        return result;
     }
 
     private record CiToolOutput([property: JsonPropertyName("Policies")] List<Policy> Policies);
