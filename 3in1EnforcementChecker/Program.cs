@@ -299,7 +299,7 @@ public class Program
         }
 
         Console.WriteLine();
-    }
+        }
 
     // ── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -329,6 +329,7 @@ public class Program
             Console.WriteLine($"   {lines[i]}");
 
         Console.ResetColor();
+        Console.WriteLine();
     }
 
     public static void PrintASCIIArtLogo()
