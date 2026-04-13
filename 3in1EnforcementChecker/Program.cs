@@ -138,10 +138,7 @@ public class Program
             // Eğer JSON parse başarılı ve policy'ler varsa, normal akış
             if (result?.Policies != null && result.Policies.Count > 0)
             {
-                Console.WriteLine("Policies found:");
-                foreach (var p in result.Policies)
-                    Console.WriteLine($" - {p.PolicyId}  Enforced: {p.IsEnforced}  Authorized: {p.IsAuthorized}");
-
+                
                 var evalPolicy = result.Policies.FirstOrDefault(p => p.PolicyId.Equals(EvalPolicyId, StringComparison.OrdinalIgnoreCase));
                 var enforcedPolicy = result.Policies.FirstOrDefault(p => p.PolicyId.Equals(EnforcedPolicyId, StringComparison.OrdinalIgnoreCase));
 
