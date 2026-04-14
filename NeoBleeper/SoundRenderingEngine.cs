@@ -807,7 +807,7 @@ namespace NeoBleeper
                         // For build 26100 (24H2), check the UBR (patch level)
                         int ubr = GetUpdateBuildRevision();
 
-                        int april2026UbrThreshold = 8138; // Actual UBR of April 2026 update that's affected, according to current information. 
+                        int april2026UbrThreshold = 8246; // Actual UBR of April 2026 update that's affected, according to current information. 
 
                         if (ubr >= april2026UbrThreshold)
                         {
