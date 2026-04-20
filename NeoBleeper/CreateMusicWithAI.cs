@@ -56,6 +56,7 @@ namespace NeoBleeper
         {
         };
         private bool isMusicGenerationStarted = false; // Flag to indicate if music generation has started
+        private EncryptionHelper encryptionHelper = new EncryptionHelper(); // Encryption helper instance for decrypting API key
         public CreateMusicWithAI(Form owner)
         {
             InitializeComponent();
@@ -144,7 +145,8 @@ namespace NeoBleeper
         {
             try
             {
-                var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
+                EncryptionHelper encryptionHelper = new EncryptionHelper();
+                var generativeAI = new GenerativeAI.GoogleAi(encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64));
                 var models = await generativeAI.ListModelsAsync();
 
                 List<string> filteredDisplayNames = new List<string>();
@@ -238,7 +240,7 @@ namespace NeoBleeper
         {
             try
             {
-                var generativeAI = new GenerativeAI.GoogleAi(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey));
+                var generativeAI = new GenerativeAI.GoogleAi(encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64));
                 var models = generativeAI.ListModelsAsync(); // Attempt to list models to validate API key
                 await models;
                 return models != null && models?.Result?.Models?.Count > 0;
@@ -390,13 +392,13 @@ namespace NeoBleeper
                 ShowServerDownMessage();
                 return false; // Return false if server is down
             }
-            else if (string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+            else if (string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
             {
                 Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(this, Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false; // Return false if API key is not set
             }
-            else if (!IsAPIKeyValidFormat(EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey)))
+            else if (!IsAPIKeyValidFormat(encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64)))
             {
                 Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
                 MessageForm.Show(this, Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1218,7 +1220,7 @@ namespace NeoBleeper
                     SetControlsEnabledAndMakeLoadingVisible(false);
                     var resultBuilder = new StringBuilder();
                     string response = string.Empty;
-                    var apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                    var apiKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64);
                     var googleAI = new GoogleAi(apiKey);
                     var googleModel = googleAI.CreateGenerativeModel(AIModel);
                     googleModel.SystemInstruction = systemInstructions;
@@ -2145,7 +2147,7 @@ namespace NeoBleeper
                 xmlDoc.LoadXml(nbpmlContent);
 
                 // Find and process CDATA sections
-                var cdataNodes = xmlDoc.SelectNodes("//text()[self::*[local-name()='']]"); // CDATA düğümlerini seç
+                var cdataNodes = xmlDoc.SelectNodes("//text()[self::*[local-name()='']]"); // Select the CDATA nodes
                 foreach (XmlCDataSection cdata in cdataNodes)
                 {
                     // Convert CDATA to regular text node

@@ -55,6 +55,8 @@ namespace NeoBleeper
                 ApplicationConfiguration.Initialize();
                 // Load settings first so ConfigureApplication can apply the correct language/theme
                 LoadSettingsIfNeeded(); // Load settings if needed (upgrade from previous versions)
+                EncryptionHelper encryptionHelper1 = new EncryptionHelper();
+                encryptionHelper1.MigrateSavedLegacyAPIKey(); // Migrate saved legacy API key if exists to new encrypted format
                 ConfigureApplication();
                 splashScreen = new SplashScreen(); // Create splash screen instance
                 splashScreen.Show();
@@ -81,32 +83,28 @@ namespace NeoBleeper
                 splashScreen.UpdateStatus(Resources.StatusMIDIIOInitializationCompleted, 5);
 
                 // Check if it has an API key to verify
-                if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+                if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
                 {
-                    try
+                    splashScreen.UpdateStatus(Resources.StatusAPIKeyValidating);
+                    EncryptionHelper encryptionHelper2 = new EncryptionHelper();
+                    bool valid = encryptionHelper2.TryDecryptStringBase64(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                    if (valid == true)
                     {
-                        splashScreen.UpdateStatus(Resources.StatusAPIKeyValidating);
-                        string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
                         Logger.Log("API key validation successful", LogTypes.Info);
                         splashScreen.UpdateStatus(Resources.StatusAPIKeyValidationSuccessful, 5);
                     }
-                    catch (CryptographicException ex)
+                    else
                     {
-                        Logger.Log($"API key validation failed: {ex.Message}\nThis may be due to a corrupted API key or a change in encryption keys. The API key has been reset.", LogTypes.Error);
                         splashScreen.UpdateStatus(Resources.MessageAPIKeyIsCorrupted);
-                        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+                        if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
                         {
                             Settings1.Default.geminiAPIKey = String.Empty;
                             Settings1.Default.Save(); // Save the settings after clearing the API key
-                            EncryptionHelper.ChangeKeyAndIV();
                         }
                     }
-                    finally
+                    if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64) && !Settings1.Default.googleGeminiTermsOfServiceAccepted)
                     {
-                        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey) && !Settings1.Default.googleGeminiTermsOfServiceAccepted)
-                        {
-                            Settings1.Default.googleGeminiTermsOfServiceAccepted = true; // Assume accepted if API key is valid but Terms of Service acceptance is not recorded in older versions that did not have this setting
-                        }
+                        Settings1.Default.googleGeminiTermsOfServiceAccepted = true; // Assume accepted if API key is valid but Terms of Service acceptance is not recorded in older versions that did not have this setting
                     }
                 }
                 splashScreen.UpdateStatus(Resources.StatusDisplayResolutionCheck);

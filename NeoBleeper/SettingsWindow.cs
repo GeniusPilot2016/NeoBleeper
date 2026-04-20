@@ -30,6 +30,7 @@ namespace NeoBleeper
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
         LyricsOverlay lyricsOverlay = new LyricsOverlay();
         private string decryptedAPIKey = String.Empty;
+        private EncryptionHelper encryptionHelper = new EncryptionHelper();
         public SettingsWindow(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -163,9 +164,9 @@ namespace NeoBleeper
             }
             try
             {
-                if(!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+                if(!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
                 {
-                    decryptedAPIKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                    decryptedAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64);
                 }                
             }
             catch
@@ -173,7 +174,7 @@ namespace NeoBleeper
                 decryptedAPIKey = string.Empty;
             }
             textBoxAPIKey.Text = decryptedAPIKey;
-            if (Settings1.Default.geminiAPIKey != String.Empty)
+            if (Settings1.Default.EncryptedGeminiAPIKeyBase64 != String.Empty)
             {
                 buttonResetAPIKey.Enabled = true;
             }
@@ -1660,19 +1661,17 @@ namespace NeoBleeper
                 if (CreateMusicWithAI.IsAPIKeyValidFormat(textBoxAPIKey.Text))
                 {
                     Action acceptAction = () =>
-                    { // Generate new encryption keys first
-                        EncryptionHelper.ChangeKeyAndIV();
-
-                        // Now encrypt and save the API key with the new keys
-                        string unEncryptedAPIKey = textBoxAPIKey.Text;
-                        decryptedAPIKey = unEncryptedAPIKey;
-                        Settings1.Default.geminiAPIKey = EncryptionHelper.EncryptString(unEncryptedAPIKey);
+                    {
+                        // Encrypt and save the API key with the new keys
+                        string unencryptedAPIKey = textBoxAPIKey.Text;
+                        decryptedAPIKey = unencryptedAPIKey;
+                        Settings1.Default.EncryptedGeminiAPIKeyBase64 = encryptionHelper.GenerateEncryptedStringBase64(unencryptedAPIKey);
                         Settings1.Default.Save();
 
                         buttonUpdateAPIKey.Enabled = false;
                         buttonResetAPIKey.Enabled = true;
                         MessageForm.Show(this, Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Logger.Log("API key saved successfully with new encryption keys", Logger.LogTypes.Info);
+                        Logger.Log("API key saved successfully", Logger.LogTypes.Info);
                     };
                     Action rejectAction = () =>
                     {
@@ -1705,7 +1704,7 @@ namespace NeoBleeper
 
         private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxAPIKey.Text != string.Empty && textBoxAPIKey.Text != EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey))
+            if (textBoxAPIKey.Text != string.Empty && textBoxAPIKey.Text != encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64))
             {
                 buttonUpdateAPIKey.Enabled = true;
             }
@@ -1720,9 +1719,8 @@ namespace NeoBleeper
             try
             {
                 decryptedAPIKey = string.Empty;
-                Settings1.Default.geminiAPIKey = string.Empty;
+                Settings1.Default.EncryptedGeminiAPIKeyBase64 = string.Empty;
                 Settings1.Default.Save();
-                EncryptionHelper.ChangeKeyAndIV();
                 textBoxAPIKey.Text = string.Empty;
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
