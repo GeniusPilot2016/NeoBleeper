@@ -51,9 +51,15 @@
     <PackageReference Include="NAudio" Version="2.3.0" />
     <PackageReference Include="System.IO.Ports" Version="10.0.6" />
     <PackageReference Include="System.Management" Version="10.0.6" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="APIKeySettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>APIKeySettings.settings</DependentUpon>
+    </Compile>
     <Compile Update="DisableCreateBeepFromSoundDeviceWarningOnAffectedMotherboards.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="APIKeySettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>APIKeySettings.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Music\Adele - Skyfall.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

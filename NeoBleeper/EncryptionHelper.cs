@@ -15,7 +15,13 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper;
+using NeoBleeper.Properties;
+using System.Buffers.Text;
+using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Text;
+using Windows.ApplicationModel.Activation;
+using static NeoBleeper.Logger;
 
 public class EncryptionHelper
 {
@@ -80,6 +86,7 @@ public class EncryptionHelper
     /// <returns>A Base64-encoded string containing the encrypted representation of the input plain text. Returns an empty string
     /// if the input is null or empty.</returns>
     /// <exception cref="ArgumentException">Thrown if the configured AES key is not 16, 24, or 32 bytes in length, or if the IV is not 16 bytes in length.</exception>
+    [Obsolete("This function is replaced with DPAPI", error: true)]
     public static string EncryptString(string plainText)
     {
         if (string.IsNullOrEmpty(plainText))
@@ -131,6 +138,7 @@ public class EncryptionHelper
     /// <param name="cipherText">The encrypted string to decrypt, encoded in Base64. Cannot be null or empty.</param>
     /// <returns>The decrypted plain text string. Returns an empty string if the input is null or empty.</returns>
     /// <exception cref="ArgumentException">Thrown if the configured AES key is not 16, 24, or 32 bytes in length, or if the IV is not 16 bytes.</exception>
+    [Obsolete("This function is replaced with DPAPI", error:false)]
     public static string DecryptString(string cipherText)
     {
         if (string.IsNullOrEmpty(cipherText))
@@ -172,6 +180,97 @@ public class EncryptionHelper
     }
 
     /// <summary>
+    /// Encrypts the specified plain text using the current user's data protection scope and returns the result as a
+    /// Base64-encoded string.
+    /// </summary>
+    /// <remarks>The encrypted data can only be decrypted by the same user account on the same machine. Use
+    /// this method to securely store or transmit sensitive information in a form that is tied to the current
+    /// user.</remarks>
+    /// <param name="plainText">The plain text string to encrypt. Cannot be null.</param>
+    /// <returns>A Base64-encoded string representing the encrypted form of the input plain text.</returns>
+    public string GenerateEncryptedStringBase64(string plainText)
+    {
+        // Convert the plain text string to a byte array using Unicode encoding
+        byte[] bytes = UnicodeEncoding.Unicode.GetBytes(plainText);
+        // Encrypt the byte array using DPAPI with the current user scope
+        byte[] encryptedString = ProtectedData.Protect(bytes, DataProtectionScope.CurrentUser);
+        // Convert the encrypted byte array to a Base64 string for easier storage and transmission
+        string outputBase64 = Convert.ToBase64String(encryptedString);
+        return outputBase64;
+    }
+
+    public bool TryDecryptStringBase64(string plainText)
+    {
+        try
+        {
+            // Convert the Base64-encoded string back to a byte array
+            byte[] encryptedBytes = Convert.FromBase64String(plainText);
+            // Decrypt the byte array using DPAPI with the current user scope
+            byte[] decryptedBytes = ProtectedData.Unprotect(encryptedBytes, DataProtectionScope.CurrentUser);
+            // Convert the decrypted byte array back to a string using Unicode encoding
+            string decryptedString = UnicodeEncoding.Unicode.GetString(decryptedBytes);
+            return true;
+
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("TryDecryptStringBase64 error: " + ex.Message, Logger.LogTypes.Error);
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to decrypt the legacy API key using the current application settings.
+    /// </summary>
+    /// <remarks>This method does not throw an exception if decryption fails. Instead, it returns false to
+    /// indicate failure.</remarks>
+    /// <returns>true if the legacy API key is successfully decrypted; otherwise, false.</returns>
+    private bool TryDecryptLegacyAPIKey()
+    {
+        try
+        {
+            string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+            return true;
+        }
+        catch (CryptographicException ex)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Decrypts a Base64-encoded string that was encrypted using Windows Data Protection API (DPAPI) for the current
+    /// user.
+    /// </summary>
+    /// <remarks>This method uses the current user's data protection scope to decrypt the input. If the input
+    /// was not encrypted with the same user context or is not a valid Base64-encoded DPAPI payload, an exception will
+    /// be thrown.</remarks>
+    /// <param name="encryptedDataBase64">The Base64-encoded string representing data encrypted with DPAPI. Cannot be null or empty.</param>
+    /// <returns>The decrypted string if decryption is successful; otherwise, an empty string if the input is null or empty.</returns>
+    public string DecryptBase64EncryptedData(string encryptedDataBase64)
+    {
+        if (string.IsNullOrEmpty(encryptedDataBase64))
+            return string.Empty;
+
+        try
+        {
+            // Convert Base64 string to byte array
+            byte[] protectedBytes = Convert.FromBase64String(encryptedDataBase64);
+
+            // Decrypt the byte array using DPAPI
+            byte[] plainBytes = ProtectedData.Unprotect(protectedBytes, null, DataProtectionScope.CurrentUser);
+
+            // Convert the decrypted byte array back to a string
+            return UnicodeEncoding.Unicode.GetString(plainBytes);
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("DecryptBase64EncryptedData error: " + ex.Message, Logger.LogTypes.Error);
+            throw;
+        }
+    }
+
+    /// <summary>
     /// Generates and stores a new encryption key and initialization vector (IV) for AES encryption in the application
     /// settings.
     /// </summary>
@@ -179,6 +278,7 @@ public class EncryptionHelper
     /// method, any data encrypted with the previous key and IV will no longer be decryptable unless the old values are
     /// preserved elsewhere. This operation updates the stored key and IV and resets any cached values to ensure the new
     /// credentials are used in subsequent cryptographic operations.</remarks>
+    [Obsolete("This function is replaced with DPAPI", error: true)]
     public static void ChangeKeyAndIV()
     {
         try
@@ -209,6 +309,22 @@ public class EncryptionHelper
         {
             Logger.Log("Error changing encryption key and IV: " + ex.Message, Logger.LogTypes.Error);
             throw;
+        }
+    }
+    public void MigrateSavedLegacyAPIKey()
+    {
+        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+        {
+            if(!TryDecryptLegacyAPIKey())
+            {
+                Debug.WriteLine("Failed to decrypt legacy API key. Migration aborted.");
+                return;
+            }
+            string legacyAPIKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+            Settings1.Default.EncryptedGeminiAPIKeyBase64 = GenerateEncryptedStringBase64(legacyAPIKey);
+            Settings1.Default.geminiAPIKey = string.Empty; // Clear the legacy key
+            Settings1.Default.Key = string.Empty; // Clear the legacy key
+            Settings1.Default.IV = string.Empty; // Clear the legacy IV
         }
     }
 }

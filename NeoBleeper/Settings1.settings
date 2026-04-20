@@ -80,5 +80,20 @@
     <Setting Name="HasSettingsUpgraded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="MusicInitialFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DefaultMusicFolder</Value>
+    </Setting>
+    <Setting Name="MIDIInitialFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">UserMusicFolder</Value>
+    </Setting>
+    <Setting Name="GCodeInitialFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">UserDocumentsFolder</Value>
+    </Setting>
+    <Setting Name="BeepCommandInitialFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">UserDocumentsFolder</Value>
+    </Setting>
+    <Setting Name="EncryptedGeminiAPIKeyBase64" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
