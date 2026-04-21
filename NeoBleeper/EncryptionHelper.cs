@@ -34,6 +34,7 @@ public class EncryptionHelper
     /// </summary>
     /// <remarks>The key is retrieved from application settings and is expected to be a Base64-encoded string.
     /// Accessing this property will throw an exception if the key is not set in the configuration.</remarks>
+    [Obsolete("This function is replaced with DPAPI", error: false)]
     private static byte[] Key
     {
         get
@@ -57,6 +58,7 @@ public class EncryptionHelper
     /// </summary>
     /// <remarks>The IV is retrieved from application settings as a Base64-encoded string and converted to a
     /// byte array on first access. The value must be set in the application settings before use.</remarks>
+    [Obsolete("This function is replaced with DPAPI", error: false)]
     private static byte[] IV
     {
         get
