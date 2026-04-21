@@ -130,6 +130,13 @@ public class EncryptionHelper
             Logger.Log("Encryption error: " + ex.Message, Logger.LogTypes.Error);
             throw;
         }
+        finally
+        {
+            if (!string.IsNullOrEmpty(plainText))
+            {
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(plainText)); // Clear the input plain text from memory
+            }
+        }
     }
 
     /// <summary>
@@ -179,6 +186,13 @@ public class EncryptionHelper
             Logger.Log("Decryption error: " + ex.Message, Logger.LogTypes.Error);
             throw;
         }
+        finally
+        {
+            if(!string.IsNullOrEmpty(cipherText))
+            {
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(cipherText)); // Clear the input cipher text from memory
+            }
+        }
     }
 
     /// <summary>
@@ -192,25 +206,51 @@ public class EncryptionHelper
     /// <returns>A Base64-encoded string representing the encrypted form of the input plain text.</returns>
     public string GenerateEncryptedStringBase64(string plainText)
     {
-        // Convert the plain text string to a byte array using Unicode encoding
-        byte[] bytes = UnicodeEncoding.Unicode.GetBytes(plainText);
-        // Encrypt the byte array using DPAPI with the current user scope
-        byte[] encryptedString = ProtectedData.Protect(bytes, DataProtectionScope.CurrentUser);
-        // Convert the encrypted byte array to a Base64 string for easier storage and transmission
-        string outputBase64 = Convert.ToBase64String(encryptedString);
-        return outputBase64;
+        byte[] bytes = null;
+        byte[] encryptedString = null;
+        string outputBase64 = null;
+        try
+        {
+            // Convert the plain text string to a byte array using Unicode encoding
+            bytes = UnicodeEncoding.Unicode.GetBytes(plainText);
+            // Encrypt the byte array using DPAPI with the current user scope
+            encryptedString = ProtectedData.Protect(bytes, DataProtectionScope.CurrentUser);
+            // Convert the encrypted byte array to a Base64 string for easier storage and transmission
+            outputBase64 = Convert.ToBase64String(encryptedString);
+            return outputBase64;
+        }
+        finally
+        {
+            // Clear the plain text byte array from memory
+            if (!string.IsNullOrEmpty(plainText)){
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(plainText));
+            }
+            if(bytes != null){
+                CryptographicOperations.ZeroMemory(bytes);
+            }
+            if (encryptedString != null){
+                CryptographicOperations.ZeroMemory(encryptedString);
+            }
+            if (!string.IsNullOrEmpty(outputBase64))
+            {
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(outputBase64));
+            }
+        }
     }
 
     public bool TryDecryptStringBase64(string plainText)
     {
+        byte[] encryptedBytes = null;
+        byte[] decryptedBytes = null;
+        string decryptedString = null;
         try
         {
             // Convert the Base64-encoded string back to a byte array
-            byte[] encryptedBytes = Convert.FromBase64String(plainText);
+            encryptedBytes = Convert.FromBase64String(plainText);
             // Decrypt the byte array using DPAPI with the current user scope
-            byte[] decryptedBytes = ProtectedData.Unprotect(encryptedBytes, DataProtectionScope.CurrentUser);
+            decryptedBytes = ProtectedData.Unprotect(encryptedBytes, DataProtectionScope.CurrentUser);
             // Convert the decrypted byte array back to a string using Unicode encoding
-            string decryptedString = UnicodeEncoding.Unicode.GetString(decryptedBytes);
+            decryptedString = UnicodeEncoding.Unicode.GetString(decryptedBytes);
             return true;
 
         }
@@ -218,6 +258,21 @@ public class EncryptionHelper
         {
             Logger.Log("TryDecryptStringBase64 error: " + ex.Message, Logger.LogTypes.Error);
             return false;
+        }
+        finally
+        {
+            if (encryptedBytes != null){
+                CryptographicOperations.ZeroMemory(encryptedBytes); // Clear the encrypted byte array from memory
+            }
+            if (decryptedBytes != null){
+                CryptographicOperations.ZeroMemory(decryptedBytes);
+            }
+            if (!string.IsNullOrEmpty(decryptedString)){
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(decryptedString)); // Clear the decrypted string from memory
+            }
+            if(!string.IsNullOrEmpty(plainText)){
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(plainText)); // Clear the input string from memory
+            }
         }
     }
 
@@ -229,14 +284,21 @@ public class EncryptionHelper
     /// <returns>true if the legacy API key is successfully decrypted; otherwise, false.</returns>
     private bool TryDecryptLegacyAPIKey()
     {
+        string apiKey = null;
         try
         {
-            string apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+            apiKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
             return true;
         }
         catch (CryptographicException ex)
         {
             return false;
+        }
+        finally
+        {
+            if (!string.IsNullOrEmpty(apiKey)) {
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(apiKey)); // Clear the decrypted API key from memory
+            }
         }
     }
 
@@ -254,13 +316,15 @@ public class EncryptionHelper
         if (string.IsNullOrEmpty(encryptedDataBase64))
             return string.Empty;
 
+        byte[] protectedBytes = null;
+        byte[] plainBytes = null;
         try
         {
             // Convert Base64 string to byte array
-            byte[] protectedBytes = Convert.FromBase64String(encryptedDataBase64);
+            protectedBytes = Convert.FromBase64String(encryptedDataBase64);
 
             // Decrypt the byte array using DPAPI
-            byte[] plainBytes = ProtectedData.Unprotect(protectedBytes, null, DataProtectionScope.CurrentUser);
+            plainBytes = ProtectedData.Unprotect(protectedBytes, null, DataProtectionScope.CurrentUser);
 
             // Convert the decrypted byte array back to a string
             return UnicodeEncoding.Unicode.GetString(plainBytes);
@@ -269,6 +333,16 @@ public class EncryptionHelper
         {
             Logger.Log("DecryptBase64EncryptedData error: " + ex.Message, Logger.LogTypes.Error);
             throw;
+        }
+        finally
+        {
+            // Clear sensitive data from memory
+            if (protectedBytes != null)
+                CryptographicOperations.ZeroMemory(protectedBytes);
+            if (plainBytes != null)
+                CryptographicOperations.ZeroMemory(plainBytes);
+            if(!string.IsNullOrEmpty(encryptedDataBase64))
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(encryptedDataBase64));
         }
     }
 
@@ -283,6 +357,8 @@ public class EncryptionHelper
     [Obsolete("This function is replaced with DPAPI", error: true)]
     public static void ChangeKeyAndIV()
     {
+        string newKeyBase64 = null;
+        string newIVBase64 = null;
         try
         {
             // Create new AES instance and generate a new key and IV
@@ -292,8 +368,8 @@ public class EncryptionHelper
                 aesAlg.GenerateIV();
 
                 // Convert the new key and IV to base64 strings
-                string newKeyBase64 = Convert.ToBase64String(aesAlg.Key);
-                string newIVBase64 = Convert.ToBase64String(aesAlg.IV);
+                newKeyBase64 = Convert.ToBase64String(aesAlg.Key);
+                newIVBase64 = Convert.ToBase64String(aesAlg.IV);
 
                 // Store the new key and IV in settings
                 Settings1.Default.Key = newKeyBase64;
@@ -312,21 +388,44 @@ public class EncryptionHelper
             Logger.Log("Error changing encryption key and IV: " + ex.Message, Logger.LogTypes.Error);
             throw;
         }
+        finally
+        {
+            if (!string.IsNullOrEmpty(newKeyBase64))
+            {
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(newKeyBase64)); // Clear the new key from memory
+            }
+            if (!string.IsNullOrEmpty(newIVBase64))
+            {
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(newIVBase64)); // Clear the new IV from memory
+            }
+        }
     }
+
+    /// <summary>
+    /// Migrates a legacy API key stored in application settings to the new encrypted format, if present.
+    /// </summary>
+    /// <remarks>This method checks for the existence of a legacy API key and related cryptographic values in
+    /// the application settings. If found and successfully decrypted, the key is re-encrypted using the current
+    /// encryption scheme and stored in the updated format. The legacy key and associated values are then cleared from
+    /// the settings to prevent reuse. This operation is intended to be called during application upgrade scenarios
+    /// where API key storage has changed.</remarks>
     public void MigrateSavedLegacyAPIKey()
     {
-        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey))
+        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey) || 
+            !string.IsNullOrEmpty(Settings1.Default.Key) ||
+            !string.IsNullOrEmpty(Settings1.Default.IV))
         {
-            if(!TryDecryptLegacyAPIKey())
+            if(TryDecryptLegacyAPIKey())
+            {
+                Debug.WriteLine("Successfully decrypted legacy API key. Proceeding with migration.");
+                string legacyAPIKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
+                Settings1.Default.EncryptedGeminiAPIKeyBase64 = GenerateEncryptedStringBase64(legacyAPIKey);
+                CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(legacyAPIKey)); // Clear the decrypted API key from memory
+            }
+            else
             {
                 Debug.WriteLine("Failed to decrypt legacy API key. Migration aborted.");
-                Settings1.Default.geminiAPIKey = string.Empty; // Clear the legacy key
-                Settings1.Default.Key = string.Empty; // Clear the legacy key
-                Settings1.Default.IV = string.Empty; // Clear the legacy IV
-                return;
             }
-            string legacyAPIKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);
-            Settings1.Default.EncryptedGeminiAPIKeyBase64 = GenerateEncryptedStringBase64(legacyAPIKey);
             Settings1.Default.geminiAPIKey = string.Empty; // Clear the legacy key
             Settings1.Default.Key = string.Empty; // Clear the legacy key
             Settings1.Default.IV = string.Empty; // Clear the legacy IV
