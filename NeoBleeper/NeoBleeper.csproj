@@ -47,7 +47,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google_GenerativeAI" Version="3.6.5" />
+    <PackageReference Include="Google_GenerativeAI" Version="3.6.6" />
     <PackageReference Include="NAudio" Version="2.3.0" />
     <PackageReference Include="System.IO.Ports" Version="10.0.6" />
     <PackageReference Include="System.Management" Version="10.0.6" />
@@ -196,6 +196,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Music\Rush E.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Music\The minimalist tune with repeating motifs.NBPML">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Music\Waltz Op.64 No.1.NBPML">

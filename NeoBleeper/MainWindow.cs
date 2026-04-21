@@ -721,6 +721,13 @@ namespace NeoBleeper
         {
             public static bool synchronized_play = false;
         }
+        // File type helper
+        private enum ProjectFileKind
+        {
+            NBPML,
+            LegacyBMM,
+            Unknown
+        }
         /// <summary>
         /// Adds a new note to the notes list based on the selected note length and current line data.
         /// </summary>
@@ -1482,6 +1489,8 @@ namespace NeoBleeper
                 return;
             }
 
+            var kind = DetectProjectFileKind(fileContent);
+
             string cleanedContent = RemoveImpuritiesFromFileContent(fileContent); // Remove any unexpected characters or formatting issues that could interfere with parsing, while preserving the original content for potential future use if needed.
             string firstLine = cleanedContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault()?.Trim() ?? string.Empty;
 
@@ -1497,9 +1506,9 @@ namespace NeoBleeper
                 return defaultVal;
             }
 
-            switch (firstLine)
+            switch (kind)
             {
-                case "Bleeper Music Maker by Robbi-985 file format":
+                case ProjectFileKind.LegacyBMM:
                     {
                         try
                         {
@@ -1678,7 +1687,7 @@ namespace NeoBleeper
                         }
                         break;
                     }
-                case "<NeoBleeperProjectFile>":
+                case ProjectFileKind.NBPML:
                     {
                         try
                         {
@@ -5043,10 +5052,9 @@ namespace NeoBleeper
                 else
                 {
                     string fileContent = File.ReadAllText(fileName);
-                    string cleanedContent = RemoveImpuritiesFromFileContent(fileContent); // Remove impurities such as BOM (byte order mark) or other non-printable characters
-                    string firstLine = cleanedContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).FirstOrDefault()?.Trim() ?? string.Empty;
-                    if (firstLine == "Bleeper Music Maker by Robbi-985 file format" ||
-                    firstLine == "<NeoBleeperProjectFile>")
+                    var kind = DetectProjectFileKind(fileContent);
+
+                    if (kind == ProjectFileKind.NBPML || kind == ProjectFileKind.LegacyBMM)
                     {
                         switch (fileOpenMode)
                         {
@@ -7751,6 +7759,79 @@ namespace NeoBleeper
                     RestartBeepIfMutedEarly(frequency);
                 }
             }
+        }
+
+
+        /// <summary>
+        /// Determines the kind of project file represented by the specified file content.
+        /// </summary>
+        /// <remarks>This method inspects the file content to identify whether it is a NeoBleeper project
+        /// file (NBPML), a legacy Bleeper Music Maker (BMM) file, or an unknown format. The detection is based on XML
+        /// structure and known header lines. The method does not throw exceptions for malformed input; it returns
+        /// ProjectFileKind.Unknown if the content cannot be parsed.</remarks>
+        /// <param name="fileContent">The content of the project file to analyze. May be in XML or legacy text format.</param>
+        /// <returns>A value of the ProjectFileKind enumeration indicating the detected file kind. Returns
+        /// ProjectFileKind.Unknown if the file type cannot be determined.</returns>
+        private ProjectFileKind DetectProjectFileKind(string fileContent)
+        {
+            if (string.IsNullOrWhiteSpace(fileContent))
+                return ProjectFileKind.Unknown;
+
+            string cleaned = RemoveImpuritiesFromFileContent(fileContent);
+
+            // 1) Try to parse as XML and check the root element
+            try
+            {
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+
+                using (var sr = new StringReader(cleaned))
+                using (var xr = XmlReader.Create(sr, settings))
+                {
+                    // Read through the XML until find the first element
+                    while (xr.Read())
+                    {
+                        if (xr.NodeType == XmlNodeType.Element)
+                        {
+                            if (string.Equals(xr.LocalName, "NeoBleeperProjectFile", StringComparison.OrdinalIgnoreCase))
+                                return ProjectFileKind.NBPML;
+                            // If the root element is something else, break and try fallback
+                            break;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // If the content is not well-formed XML, ignore the error and try the fallback method
+            }
+
+            // 2) Fallback: Skip leading empty lines and comments, check for legacy header
+            var lines = cleaned.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            foreach (var raw in lines)
+            {
+                if (string.IsNullOrWhiteSpace(raw)) continue;
+                var line = raw.Trim();
+                if (line.StartsWith("<!--")) continue; // XML comment start
+                if (line.StartsWith("<?xml", StringComparison.OrdinalIgnoreCase)) continue;
+                if (line.StartsWith("//")) continue; // possible legacy comment
+
+                // If the first meaningful line is the NBPML header, it's an NBPML file
+                if (line.StartsWith("<NeoBleeperProjectFile", StringComparison.OrdinalIgnoreCase))
+                    return ProjectFileKind.NBPML;
+
+                // Header for legacy BMM format
+                if (string.Equals(line, "Bleeper Music Maker by Robbi-985 file format", StringComparison.OrdinalIgnoreCase))
+                    return ProjectFileKind.LegacyBMM;
+
+                // Break after the first meaningful line, as we only want to check the header
+                break;
+            }
+
+            return ProjectFileKind.Unknown;
         }
     }
 }
