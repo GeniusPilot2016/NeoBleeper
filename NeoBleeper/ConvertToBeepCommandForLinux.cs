@@ -191,37 +191,77 @@ namespace NeoBleeper
 
             if (notes.Count == 0)
                 return string.Empty;
-            beepCommandBuilder.Append("beep"); // Start the beep command
+
+            // Start the beep command
+            beepCommandBuilder.Append("beep");
+
+            // Use a double-precision cursor to avoid accumulated rounding drift between notes
+            double cursorMs = 0.0;
+
             foreach (var note in notes)
             {
                 bool endOfLine = notes.IndexOf(note) == notes.Count - 1;
-                var (note_length, silence) = NoteLengths.CalculateNoteDurations(note.Length, bpm, note.Mod, note.Art, (note_silence_ratio / 100.0));
-                int drift = 0;
+
+                // Accumulation-safe durations derived from absolute cursor position
+                var (totalRhythm_int, noteSound_int, nextCursorMs) =
+                    NoteLengths.CalculateNoteDurationsAtPosition(
+                        note.Length, bpm, note.Mod, note.Art, (note_silence_ratio / 100.0),
+                        cursorMs);
+
+                int silence_int = totalRhythm_int - noteSound_int;
+
+                // Drift = how far our generated text timeline is from the expected cursor
+                double drift = (double)elapsedElementTime - cursorMs;
+
+                if (drift < 0)
+                {
+                    // We're ahead of the expected start — insert a pre-delay so the note starts at cursorMs
+                    int wait = (int)Math.Max(0, Math.Round(-drift));
+                    if (wait > 0)
+                    {
+                        // Pre-wait is not the end of line
+                        beepCommandBuilder.Append(CreateDelay(wait, false).duration);
+                        elapsedElementTime += wait;
+                    }
+                    // Recompute drift after waiting
+                    drift = (double)elapsedElementTime - cursorMs;
+                }
+
                 if (drift > 0)
                 {
-                    if (drift < note_length)
+                    // Behind schedule — try to catch up by shortening the audible portion
+                    if (drift < totalRhythm_int)
                     {
-                        note_length -= drift; // Reduce note length by drift amount
+                        int cachedNoteDuration = noteSound_int;
+                        noteSound_int = Math.Max(1, (int)Math.Round(noteSound_int - drift));
+
+                        // If drift already exceeds the audible portion, silence is irrelevant.
+                        if (drift > cachedNoteDuration)
+                            silence_int = 0;
                     }
                     else
                     {
-                        drift -= note_length; // Skip note length if drift is larger
+                        // Drift larger than the entire slot: skip this note entirely.
+                        cursorMs = nextCursorMs;
                         continue;
                     }
                 }
-                // Insert elements of Beep command
-                elapsedElementTime = insert_note_to_beep_command(note.Note1, note.Note2, note.Note3, note.Note4,
-                    true, true, true, true, note_length, endOfLine);
-                if (drift < 0)
-                {
-                    silence -= drift; // Add drift to silence if drift is negative
-                }
-                if (silence > 0)
+
+                // Insert audible portion (noteSound_int) into the beep command and update elapsed time
+                int added = insert_note_to_beep_command(note.Note1, note.Note2, note.Note3, note.Note4,
+                    true, true, true, true, noteSound_int, endOfLine);
+                elapsedElementTime += added;
+
+                // Append trailing silence (if any)
+                if (silence_int > 0)
                 {
                     // Pass endOfLine so that last element doesn't get a trailing -n
-                    beepCommandBuilder.Append(CreateDelay(silence, endOfLine).duration);
+                    beepCommandBuilder.Append(CreateDelay(silence_int, endOfLine).duration);
+                    elapsedElementTime += silence_int;
                 }
 
+                // Advance the double cursor to the next expected start time
+                cursorMs = nextCursorMs;
             }
             string rawOutput = beepCommandBuilder.ToString();
             string trimmedOutput = rawOutput.TrimEnd();

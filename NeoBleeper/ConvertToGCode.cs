@@ -270,34 +270,65 @@ namespace NeoBleeper
             if (notes.Count == 0)
                 return string.Empty;
 
+            // Use a double-precision cursor to avoid accumulated rounding drift between notes
+            double cursorMs = 0.0;
+
             foreach (var note in notes)
             {
-                var (totalRhythm_int, noteSound_int) = NoteLengths.CalculateNoteDurations(note.Length, bpm, note.Mod, note.Art, (noteSilenceRatio / 100.0));
+                // Accumulation-safe durations derived from absolute cursor position
+                var (totalRhythm_int, noteSound_int, nextCursorMs) =
+                    NoteLengths.CalculateNoteDurationsAtPosition(
+                        note.Length, bpm, note.Mod, note.Art, (noteSilenceRatio / 100.0),
+                        cursorMs);
+
                 int silence = totalRhythm_int - noteSound_int;
-                int drift = 0;
+
+                // Drift between generated text timeline and expected cursor
+                double drift = (double)elapsedLineTime - cursorMs;
+
+                if (drift < 0)
+                {
+                    // We're ahead of schedule — insert pre-delay so the next note starts at cursorMs
+                    int wait = (int)Math.Max(0, Math.Round(-drift));
+                    if (wait > 0)
+                    {
+                        gcodeBuilder.AppendLine($"G4 P{wait}");
+                        elapsedLineTime += wait;
+                    }
+                    drift = (double)elapsedLineTime - cursorMs;
+                }
+
                 if (drift > 0)
                 {
                     if (drift < totalRhythm_int)
                     {
-                        totalRhythm_int -= drift; // Reduce note length by drift amount
+                        int cached = noteSound_int;
+                        noteSound_int = Math.Max(1, (int)Math.Round(noteSound_int - drift));
+                        if (drift > cached)
+                            silence = 0;
                     }
                     else
                     {
-                        drift -= totalRhythm_int; // Skip note length if drift is larger
+                        // Skip this note entirely
+                        cursorMs = nextCursorMs;
                         continue;
                     }
                 }
-                // Add GCode line
-                elapsedLineTime = InsertNoteToGCode(note.Note1, note.Note2, note.Note3, note.Note4,
-                    true, true, true, true, totalRhythm_int);
-                if (drift < 0)
-                {
-                    silence -= drift; // Add drift to silence if drift is negative
-                }
+
+                // Add GCode line for the audible portion
+                int added = InsertNoteToGCode(note.Note1, note.Note2, note.Note3, note.Note4,
+                    true, true, true, true, noteSound_int);
+                elapsedLineTime += added;
+
+                // Append trailing silence if any
                 if (silence > 0)
                 {
                     gcodeBuilder.AppendLine($"G4 P{silence}");
+                    elapsedLineTime += silence;
                 }
+
+                // Advance cursor to the next expected start time
+                cursorMs = nextCursorMs;
             }
 
             return gcodeBuilder.ToString();

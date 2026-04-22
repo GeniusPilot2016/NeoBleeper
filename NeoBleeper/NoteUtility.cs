@@ -37,15 +37,16 @@ namespace NeoBleeper
             public static double B = 493.88;
         }
     }
+
     public class NoteFrequencies
     {
         /// <summary>
         /// Calculates the frequency, in hertz, corresponding to a given musical note name and octave.
         /// </summary>
-        /// <remarks>The method supports natural notes (A–G) and sharps (e.g., "C#4"). The reference
+        /// <remarks>The method supports natural notes (A-G) and sharps (e.g., "C#4"). The reference
         /// octave is the 4th octave (e.g., "A4" for 440 Hz). Flat notes are not supported; use the equivalent sharp
         /// notation (e.g., "D#" instead of "Eb").</remarks>
-        /// <param name="noteName">The note name and octave in standard format (e.g., "A4", "C#3"). The note must consist of a letter (A–G), an
+        /// <param name="noteName">The note name and octave in standard format (e.g., "A4", "C#3"). The note must consist of a letter (A-G), an
         /// optional sharp symbol ('#'), and a single-digit octave number. If null or empty, the frequency for middle C
         /// (C4) is returned.</param>
         /// <returns>The frequency in hertz for the specified note and octave. Returns 0 if the note name is invalid. Returns the
@@ -92,128 +93,208 @@ namespace NeoBleeper
             }
         }
     }
+
     public static class NoteLengths
     {
         /// <summary>
-        /// Calculates the duration of a musical note in milliseconds based on tempo, note type, and optional modifiers.
+        /// Calculates the effective note length based on the specified articulation.
         /// </summary>
-        /// <remarks>If an unsupported note type, modifier, or articulation is provided, the method
-        /// defaults to the base note length without the corresponding adjustment. This method does not validate the
-        /// musical correctness of combined modifiers and articulations.</remarks>
-        /// <param name="bpm">The tempo in beats per minute. Must be greater than zero.</param>
-        /// <param name="noteType">The type of note to calculate the length for. Supported values include "Whole", "Half", "Quarter", "1/8",
-        /// "1/16", and "1/32".</param>
-        /// <param name="modifier">An optional modifier that alters the note length. Supported values are "Dot" (dotted note) and "Tri"
-        /// (triplet). If not specified or unrecognized, no modifier is applied.</param>
-        /// <param name="articulation">An optional articulation that further adjusts the note length. Supported values are "Sta" (staccato), "Spi"
-        /// (spiccato), and "Fer" (fermata). If not specified or unrecognized, no articulation is applied.</param>
-        /// <returns>The length of the note in milliseconds, adjusted for the specified tempo, note type, modifier, and
-        /// articulation.</returns>
-        public static double CalculateNoteLength(int bpm, string noteType, string modifier = "", string articulation = "")
+        /// <remarks>Use this method to modify note durations according to articulation markings commonly
+        /// used in music notation. For example, staccato halves the note length, while spiccato quarters it.</remarks>
+        /// <param name="length">The original length of the note to be adjusted.</param>
+        /// <param name="articulation">The articulation type to apply. Supported values are "Sta" for staccato and "Spi" for spiccato. If not
+        /// specified or unrecognized, no adjustment is made.</param>
+        /// <returns>The adjusted note length after applying the specified articulation.</returns>
+        public static double CalculateNoteLength(double length, string articulation = "")
         {
-            int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
-            int baseLength = noteType switch
+            // Use double precision for length calculations to maintain accuracy when applying articulations
+            switch (articulation)
             {
-                "Whole" => millisecondsPerBeat * 4,
-                "Half" => millisecondsPerBeat * 2,
+                case "Sta":
+                    length = length / 2.0;
+                    break;
+                case "Spi":
+                    length = length / 4.0;
+                    break;
+                default:
+                    break;
+            }
+            return length;
+        }
+
+        /// <summary>
+        /// Calculates the duration, in milliseconds, of a musical note based on the specified beats per minute (BPM),
+        /// note type, and optional modifier.
+        /// </summary>
+        /// <remarks>This method is useful for timing calculations in music applications, such as
+        /// sequencers or metronomes. The calculation uses double precision to ensure accuracy for fractional note
+        /// values.</remarks>
+        /// <param name="bpm">The tempo in beats per minute. If set to 0, a default value of 1 is used to avoid division by zero.</param>
+        /// <param name="noteType">The type of note to calculate the duration for. Supported values include "Whole", "Half", "Quarter", "1/8",
+        /// "1/16", and "1/32". If an unsupported value is provided, the calculation defaults to a quarter note.</param>
+        /// <param name="modifier">An optional modifier that alters the note duration. Supported values are "Dot" (increases duration by 50%)
+        /// and "Tri" (divides duration by 3). If not specified or unrecognized, no modification is applied.</param>
+        /// <returns>The duration of the specified note, in milliseconds, after applying the BPM and any modifier.</returns>
+        public static double CalculateLineLength(int bpm, string noteType, string modifier = "")
+        {
+            if (bpm == 0) bpm = 1;
+            // Use double precision for beat and note length calculations to avoid integer truncation
+            double millisecondsPerBeat = 60000.0 / bpm;
+            double baseLength = noteType switch
+            {
+                "Whole" => millisecondsPerBeat * 4.0,
+                "Half" => millisecondsPerBeat * 2.0,
                 "Quarter" => millisecondsPerBeat,
-                "1/8" => millisecondsPerBeat / 2,
-                "1/16" => millisecondsPerBeat / 4,
-                "1/32" => millisecondsPerBeat / 8,
+                "1/8" => millisecondsPerBeat / 2.0,
+                "1/16" => millisecondsPerBeat / 4.0,
+                "1/32" => millisecondsPerBeat / 8.0,
                 _ => millisecondsPerBeat
             };
             switch (modifier)
             {
                 case "Dot":
-                    baseLength = (int)(baseLength * 1.5);
+                    baseLength = baseLength * 1.5;
                     break;
                 case "Tri":
-                    baseLength /= 3;
-                    break;
-                default:
-                    break;
-            }
-            switch (articulation)
-            {
-                case "Sta":
-                    baseLength /= 2;
-                    break;
-                case "Spi":
-                    baseLength /= 4;
-                    break;
-                default:
+                    baseLength = baseLength / 3.0;
                     break;
             }
             return baseLength;
         }
 
         /// <summary>
-        /// Calculates the duration, in milliseconds, of a musical note based on tempo, note type, and optional
-        /// modifiers.
+        /// Calculates the total rhythm slot and the audible note duration for a musical note based on its length,
+        /// tempo, modifier, articulation, and silence ratio.
         /// </summary>
-        /// <remarks>If an unsupported note type, modifier, or articulation is provided, the method
-        /// defaults to standard quarter note length and ignores unrecognized modifiers or articulations. This method
-        /// does not validate input strings beyond the supported values.</remarks>
-        /// <param name="bpm">The tempo in beats per minute. Must be greater than zero.</param>
-        /// <param name="noteType">The type of note to calculate the length for. Supported values include "Whole", "Half", "Quarter", "1/8",
-        /// "1/16", and "1/32".</param>
-        /// <param name="modifier">An optional modifier that alters the note length. Supported values are "Dot" (for dotted notes) and "Tri"
-        /// (for triplet notes). If not specified, no modifier is applied.</param>
-        /// <param name="articulation">An optional articulation that further modifies the note length. Use "Fer" to apply a fermata (doubling the
-        /// duration). If not specified, no articulation is applied.</param>
-        /// <returns>The calculated length of the note, in milliseconds.</returns>
-        public static double CalculateLineLength(int bpm, string noteType, string modifier = "", string articulation = "")
+        /// <remarks>If the articulation is 'fermata', both the total rhythm slot and the audible duration
+        /// are extended proportionally. The silence ratio is applied only to the audible portion of the note.</remarks>
+        /// <param name="lengthName">The name of the note length (e.g., quarter, eighth) to determine the base duration.</param>
+        /// <param name="bpm">The tempo in beats per minute. If set to 0, a default value of 1 is used.</param>
+        /// <param name="modifier">A string representing any note length modifier (such as dot or triplet) to adjust the duration.</param>
+        /// <param name="articulation">The articulation style applied to the note (e.g., staccato, legato, fermata), which may affect the duration.</param>
+        /// <param name="noteSilenceRatio">The proportion of the note's duration that is audible, as a value between 0.0 and 1.0.</param>
+        /// <returns>A tuple containing the total rhythm slot in integer units and the audible note duration in integer units.
+        /// The audible duration will not exceed the total rhythm slot and will not be negative.</returns>
+        public static (int totalRhythm_int, int noteSound_int) CalculateNoteDurations(
+            string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio)
         {
-            if (bpm == 0) bpm = 1;
-            int millisecondsPerBeat = (int)Math.Floor(60000.0 / bpm);
-            int baseLength = noteType switch
-            {
-                "Whole" => millisecondsPerBeat * 4,
-                "Half" => millisecondsPerBeat * 2,
-                "Quarter" => millisecondsPerBeat,
-                "1/8" => millisecondsPerBeat / 2,
-                "1/16" => millisecondsPerBeat / 4,
-                "1/32" => millisecondsPerBeat / 8,
-                _ => millisecondsPerBeat
-            };
-            switch (modifier)
-            {
-                case "Dot":
-                    baseLength = (int)(baseLength * 1.5);
-                    break;
-                case "Tri":
-                    baseLength /= 3;
-                    break;
-            }
-            return baseLength;
-        }
-        public static (int totalRhythm_int, int noteSound_int) CalculateNoteDurations(string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio)
-        {
-            if(bpm == 0) 
+            if (bpm == 0)
                 bpm = 1;
 
-            var (lengthName_checked, modifier_checked, articulation_checked) = UseOriginalValueOrDefault(lengthName, modifier, articulation);
-            if (string.IsNullOrEmpty(lengthName))
-                lengthName = "Quarter";
-            // Essential values for note duration calculations
-            double noteSound_double = FixRoundingErrors(CalculateNoteLength(bpm, lengthName_checked, modifier_checked, articulation_checked));
-            double totalRhythm_double = FixRoundingErrors(CalculateLineLength(bpm, lengthName_checked, modifier_checked, articulation_checked));
+            var (lengthName_checked, modifier_checked, articulation_checked) =
+                UseOriginalValueOrDefault(lengthName, modifier, articulation);
 
-            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
-            int noteSound_int = Math.Min((int)Math.Truncate(noteSound_double), totalRhythm_int);
+            // --- Step 1: total rhythm slot (modifier applied exactly once here) ---
+            double totalRhythm_double = FixRoundingErrors(
+                CalculateLineLength(bpm, lengthName_checked, modifier_checked));
 
-            if (articulation == "Fer")
+            // --- Step 2: audible note duration ---
+            double noteSound_double = FixRoundingErrors(
+                CalculateNoteLength(totalRhythm_double, articulation_checked));
+
+            // --- Step 3: fermata extends both the slot and the sound proportionally ---
+            if (articulation_checked == "Fer")
             {
-                // Random variation for fermata duration (between 50% and 100% of the original note sound duration)
-                int extraFermataDuration = (int)(noteSound_double * (0.5 + 0.5 * Random.Shared.NextDouble()));
-
-                totalRhythm_int += extraFermataDuration;
-                noteSound_int = Math.Min(noteSound_int + extraFermataDuration, totalRhythm_int);
+                double extraFermataDuration = totalRhythm_double * (0.5 + 0.5 * Random.Shared.NextDouble());
+                totalRhythm_double += extraFermataDuration;
+                // Recalculate noteSound so it stays proportional to the extended slot
+                noteSound_double = FixRoundingErrors(
+                    CalculateNoteLength(totalRhythm_double, articulation_checked));
             }
 
-            noteSound_int = (int)(noteSound_int * noteSilenceRatio);
+            // --- Step 4: apply silence ratio to the audible portion only ---
+            noteSound_double *= noteSilenceRatio;
+
+            // --- Step 5: round once at the very end ---
+            int totalRhythm_int = (int)Math.Round(totalRhythm_double, MidpointRounding.AwayFromZero);
+            int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.AwayFromZero);
+
+            // Guard: audible sound must fit inside rhythm slot and must not be negative
+            if (noteSound_int > totalRhythm_int) noteSound_int = totalRhythm_int;
+            if (noteSound_int < 0) noteSound_int = 0;
+
             return (totalRhythm_int, noteSound_int);
         }
+
+        /// <summary>
+        /// Accumulation-safe variant of <see cref="CalculateNoteDurations"/> for multi-part
+        /// synchronous playback.
+        /// </summary>
+        /// <remarks>
+        /// When multiple simultaneous parts advance time by summing per-note integer millisecond
+        /// values, floating-point rounding accumulates and parts drift out of sync. Example at
+        /// 90 BPM: a quarter note is 666.666... ms, rounded to 667 ms. After 100 notes the
+        /// accumulated error is ~33 ms — clearly audible.
+        ///
+        /// This method takes a shared, per-track cursorMs (a running double) and derives integer
+        /// sleep/beep durations from the absolute cursor position rather than summing already-
+        /// rounded integers, so rounding errors never compound across notes.
+        ///
+        /// Usage pattern:
+        ///   double cursor = 0.0;
+        ///   foreach (var note in track)
+        ///   {
+        ///       var (rhythmMs, soundMs, nextCursor) = NoteLengths.CalculateNoteDurationsAtPosition(
+        ///           note.Length, bpm, note.Modifier, note.Articulation, note.SilenceRatio, cursor);
+        ///
+        ///       Console.Beep(note.Frequency, soundMs);
+        ///       Thread.Sleep(rhythmMs - soundMs); // silence gap within the slot
+        ///       cursor = nextCursor;              // advance cursor in double space
+        ///   }
+        /// </remarks>
+        /// <param name="lengthName">Note type string (e.g., "Quarter", "1/8"). Unknown values default to "Quarter".</param>
+        /// <param name="bpm">Tempo in beats per minute.</param>
+        /// <param name="modifier">Optional modifier ("Dot" or "Tri"). Unknown values are ignored.</param>
+        /// <param name="articulation">Optional articulation ("Sta", "Spi", or "Fer"). Unknown values are ignored.</param>
+        /// <param name="noteSilenceRatio">Fraction of the total rhythm that the note actually sounds (0.0-1.0).</param>
+        /// <param name="cursorMs">
+        /// The current absolute playback position in milliseconds as a double. Must be maintained
+        /// by the caller and advanced by nextCursorMs after each note.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        ///   totalRhythm_int — integer ms to advance the clock for this note slot.
+        ///   noteSound_int   — integer ms the note should sound.
+        ///   nextCursorMs    — the new cursor value (double) to pass for the following note.
+        /// </returns>
+        public static (int totalRhythm_int, int noteSound_int, double nextCursorMs) CalculateNoteDurationsAtPosition(
+            string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio,
+            double cursorMs)
+        {
+            if (bpm == 0)
+                bpm = 1;
+
+            var (lengthName_checked, modifier_checked, articulation_checked) =
+                UseOriginalValueOrDefault(lengthName, modifier, articulation);
+
+            // Exact (double) rhythm slot with modifier applied once
+            double totalRhythm_double = FixRoundingErrors(
+                CalculateLineLength(bpm, lengthName_checked, modifier_checked));
+
+            // Fermata extension
+            if (articulation_checked == "Fer")
+            {
+                double extra = totalRhythm_double * (0.5 + 0.5 * Random.Shared.NextDouble());
+                totalRhythm_double += extra;
+
+            }
+
+            // Audible portion (no modifier — already in totalRhythm_double)
+            double noteSound_double = FixRoundingErrors(
+                CalculateNoteLength(totalRhythm_double, articulation_checked)) * noteSilenceRatio;
+
+            // FIX: derive integer durations from the absolute cursor so rounding errors
+            // never accumulate across successive notes.
+            double nextCursor = cursorMs + totalRhythm_double;
+            int totalRhythm_int = (int)Math.Round(nextCursor) - (int)Math.Round(cursorMs);
+            int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.AwayFromZero);
+
+            if (noteSound_int > totalRhythm_int) noteSound_int = totalRhythm_int;
+            if (noteSound_int < 0) noteSound_int = 0;
+
+            return (totalRhythm_int, noteSound_int, nextCursor);
+        }
+
         /// <summary>
         /// Adjusts the specified floating-point value to reduce the impact of minor rounding errors near zero.
         /// </summary>
@@ -225,30 +306,24 @@ namespace NeoBleeper
         /// decreased if it is sufficiently far from zero; otherwise, it is returned unchanged.</returns>
         public static double FixRoundingErrors(double inputValue)
         {
-            // Define the threshold and adjustment values based on the assembly constants
             const double threshold = 1e-7;
             const double adjustment = 1e-10;
 
-            // Check if the input value exceeds the threshold
             if (inputValue >= 0)
             {
                 if (inputValue > threshold)
-                {
                     inputValue += adjustment;
-                }
             }
             else
             {
                 if (inputValue < (threshold * -1))
-                {
                     inputValue -= adjustment;
-                }
             }
-            // Return the corrected value
             return inputValue;
         }
 
-        private static (string returnedLength, string returnedModifier, string returnedArticulation) UseOriginalValueOrDefault(string length, string modifier, string articulation)
+        private static (string returnedLength, string returnedModifier, string returnedArticulation)
+            UseOriginalValueOrDefault(string length, string modifier, string articulation)
         {
             string[] allowedLengths = { "Whole", "Half", "Quarter", "1/8", "1/16", "1/32" };
             string[] allowedModifiers = { "Dot", "Tri" };

@@ -3052,62 +3052,81 @@ namespace NeoBleeper
                             (articulation.ToLowerInvariant().Contains(Resources.StaccatoArticulation.ToLower()) ||
                              articulation.ToLowerInvariant().Contains(Resources.SpiccatoArticulation.ToLower())));
                 }
-                // Use a single, high-resolution timer for the entire playback duration
-                await HighPrecisionSleep.SleepAsync(1); // Sleep briefly to ensure accurate timing
+
+                await HighPrecisionSleep.SleepAsync(1); // Brief sleep to ensure accurate timing at start
                 Stopwatch globalStopwatch = new Stopwatch();
                 globalStopwatch.Start();
 
-                // Store the total elapsed time of all previous notes
-                double totalElapsedNoteDuration = 0.0;
+                // FIX (Bug 1 + Bug 2): Track the cursor as a double so fractional milliseconds are never
+                // discarded between notes. This value is the exact expected start time (in ms) of each
+                // upcoming note, and is advanced by the precise double rhythm value returned from
+                // CalculateNoteDurationsAtPosition — never by a pre-rounded integer.
+                double cursorMs = 0.0;
 
                 while (listViewNotes.SelectedItems.Count > 0 && isMusicPlaying)
                 {
                     string noteLengthStr = listViewNotes.Items[currentNoteIndex].SubItems[0].Text;
                     string modifierStr = listViewNotes.Items[currentNoteIndex].SubItems[5].Text;
                     string articulationStr = listViewNotes.Items[currentNoteIndex].SubItems[6].Text;
-                    var (standardizedNoteLength, standardizedModifier, standardizedArticulation) = StandardizeLocalizedLengthModsAndArticulationsValues(noteLengthStr, modifierStr, articulationStr);
-                    var (totalRhythm_int, noteSound_int) = NoteLengths.CalculateNoteDurations(standardizedNoteLength, Variables.bpm, standardizedModifier, standardizedArticulation, Variables.noteSilenceRatio);
-                    string articulation = listViewNotes.Items[listViewNotes.SelectedIndices[0]].SubItems[6].Text ?? string.Empty;
+
+                    var (standardizedNoteLength, standardizedModifier, standardizedArticulation) =
+                        StandardizeLocalizedLengthModsAndArticulationsValues(
+                            noteLengthStr, modifierStr, articulationStr);
+
+                    // FIX (Bug 2): Use the accumulation-safe overload. It derives integer durations from
+                    // the absolute cursorMs position rather than rounding each note independently, so
+                    // rounding errors never compound across successive notes.
+                    var (totalRhythm_int, noteSound_int, nextCursorMs) =
+                        NoteLengths.CalculateNoteDurationsAtPosition(
+                            standardizedNoteLength, Variables.bpm,
+                            standardizedModifier, standardizedArticulation,
+                            Variables.noteSilenceRatio,
+                            cursorMs);
+
+                    string articulation = listViewNotes.Items[listViewNotes.SelectedIndices[0]]
+                                                      .SubItems[6].Text ?? string.Empty;
                     int silence_int = totalRhythm_int - noteSound_int;
                     nonStopping = trackBar_note_silence_ratio.Value == 100;
 
-                    // Handle staccato and spiccato articulations for non-stopping notes: If the note is marked as staccato or spiccato, set the note sound duration to the total rhythm duration and the silence to 0, effectively making it play for the entire duration without silence, even if the note-silence ratio is set to 100%. This allows staccato and spiccato notes to maintain their characteristic short and detached sound while still respecting the timing of the line.
+                    // Handle staccato / spiccato when silence ratio is 100%:
+                    // let the note fill its entire rhythm slot without a silent tail.
                     if (nonStopping && listViewNotes.SelectedItems.Count > 0)
                     {
-                        if (IsValidArticulation(articulation)) 
+                        if (IsValidArticulation(articulation))
                         {
                             noteSound_int = totalRhythm_int;
                             silence_int = 0;
                         }
                     }
 
-                    // Drift compensation: Calculate the expected end time of the current note and compare it to the actual elapsed time
-                    double expectedEndTime = totalElapsedNoteDuration + totalRhythm_int;
+                    // ── Drift compensation ──────────────────────────────────────────────────────
+                    // Calculate drift by comparing the global stopwatch to the expected start time of this note (cursorMs).
                     double currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
-                    double drift = currentTime - totalElapsedNoteDuration;
+                    double drift = currentTime - cursorMs;
 
-                    // Synchronize the note if it's ahead of the line and there's negative drift (playing ahead of schedule)
                     if (drift < 0)
                     {
+                        // Ahead of schedule — wait until the note's expected start time.
                         await HighPrecisionSleep.SleepAsync((int)Math.Max(0, -drift));
                         currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
-                        drift = currentTime - totalElapsedNoteDuration;
+                        drift = currentTime - cursorMs;
                     }
 
-                    if (drift > 0) // Positive drift: It's behind schedule, try to catch up
+                    if (drift > 0) // Behind schedule — try to catch up.
                     {
-                        if (drift < totalRhythm_int) // Smaller drift than the note duration allows for shortening the note to catch up
+                        if (drift < totalRhythm_int) // Drift smaller than the slot: shorten this note.
                         {
                             int cachedNoteDuration = noteSound_int;
                             noteSound_int = Math.Max(1, (int)Math.Round(noteSound_int - drift));
-                            // If the drift is larger than the note sound duration, skip the note and go to next line, but if it's smaller, shorten the note duration to catch up. If the drift is larger than the note duration, it will be handled in the next loop iteration by skipping the note and moving to the next one.
+
+                            // If drift already exceeds the audible portion, silence is irrelevant.
                             if (drift > cachedNoteDuration)
-                            {
                                 silence_int = 0;
-                            }
-                            // Don't reset the drift here, as the next note will also need to be shortened if the drift is still present after shortening the current note
+
+                            // Do NOT reset drift here — the next note's drift check will account for
+                            // any remaining slippage automatically via the globalStopwatch comparison.
                         }
-                        else // If the drift is larger than the note duration, skip the note and go to next line
+                        else // Drift larger than the whole slot: skip this note entirely.
                         {
                             currentNoteIndex++;
                             if (currentNoteIndex > (listViewNotes.Items.Count - 1))
@@ -3131,31 +3150,29 @@ namespace NeoBleeper
                                 }
                             }
                             await UpdateListViewSelection(currentNoteIndex);
-                            // Add elapsed note duration to the total elapsed time to keep the timing accurate for the next note, even when skipping
-                            totalElapsedNoteDuration += totalRhythm_int;
+
+                            // Advance cursor to the next note's expected start time, which is where the global stopwatch currently is or slightly ahead. This effectively "resets" the timing and gives the next note a fresh start without accumulated drift.
+                            cursorMs = nextCursorMs;
                             continue;
                         }
                     }
-                    // Normal playing flow
+
+                    // ── Normal playback ─────────────────────────────────────────────────────────
                     HandleMidiOutput(noteSound_int);
                     await HandleStandardNotePlayback(noteSound_int, nonStopping);
 
-                    if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
+                    if (!nonStopping && silence_int > 0)
                     {
                         UpdateLabelVisible(false);
                         await HighPrecisionSleep.SleepAsync(silence_int);
                     }
-                    if ((int)drift < 0) // Handle negative drift
-                    {
-                        await HighPrecisionSleep.SleepAsync(Math.Abs((int)drift));
-                        drift -= drift;
-                    }
-                    // Update the total elapsed note duration for the next loop iteration
-                    totalElapsedNoteDuration += totalRhythm_int;
+
+                    // Advance cursor to the next note's expected start time, regardless of drift. The next loop iteration will compare the global stopwatch to this new cursorMs to determine if it's ahead or behind schedule.
+                    cursorMs = nextCursorMs;
 
                     currentNoteIndex++;
 
-                    // Check if it's reached the end and handle looping
+                    // Check end-of-list and handle looping.
                     if (currentNoteIndex >= listViewNotes.Items.Count)
                     {
                         if (checkBox_loop.Checked)
@@ -3165,7 +3182,6 @@ namespace NeoBleeper
                         }
                         else
                         {
-                            // End of list reached and not looping - stop playback
                             StopPlaying();
                             listViewNotes.SelectedItems.Clear();
                             break;
@@ -3173,14 +3189,13 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        // Normal progression - update selection to current note
                         UpdateListViewSelection(currentNoteIndex);
                     }
                 }
+
                 if (nonStopping)
-                {
                     StopAllNotesAfterPlaying();
-                }
+
                 await StopAllVoices();
             }
             finally
