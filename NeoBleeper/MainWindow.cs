@@ -2761,7 +2761,7 @@ namespace NeoBleeper
         /// <param name="rawNoteDuration">The original duration, in milliseconds, of the note before any processing or adjustments.</param>
         /// <param name="nonStopping">true to play notes without stopping ongoing playback; otherwise, false. The default is false.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
-        private async Task HandleStandardNotePlayback(int noteSoundDuration, bool nonStopping = false)
+        private async Task HandleStandardNotePlayback(int noteSoundDuration, int totalRhythm, bool nonStopping = false)
         {
             if (listViewNotes.SelectedIndices.Count > 0)
             {
@@ -2772,7 +2772,8 @@ namespace NeoBleeper
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
-                        noteSoundDuration, nonStopping
+                        noteSoundDuration, totalRhythm,
+                        nonStopping
                     );
                 }
                 else
@@ -2826,7 +2827,7 @@ namespace NeoBleeper
         /// should play the notes.</param>
         /// <param name="nonStopping">true to prevent stopping currently playing notes before starting new ones; otherwise, false. Optional.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
-        private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false) // Play note with voice in a line
+        private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, int totalRhythm, bool nonStopping = false) // Play note with voice in a line
         {
             // System speaker notes
             bool systemSpeakerNote1 = (TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && playNote1;
@@ -2841,7 +2842,7 @@ namespace NeoBleeper
             bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote4;
 
             // Play voice
-            StartVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, length, nonStopping);
+            StartVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, totalRhythm, nonStopping);
 
             // Play system speaker notes
             await PlayNotesOfLine(
@@ -3159,7 +3160,7 @@ namespace NeoBleeper
 
                     // ── Normal playback ─────────────────────────────────────────────────────────
                     HandleMidiOutput(noteSound_int);
-                    await HandleStandardNotePlayback(noteSound_int, nonStopping);
+                    await HandleStandardNotePlayback(noteSound_int, totalRhythm_int ,nonStopping);
 
                     if (!nonStopping && silence_int > 0)
                     {
@@ -3792,7 +3793,7 @@ namespace NeoBleeper
                     {
                         nonStopping = false;
                     }
-                    await HandleStandardNotePlayback(noteSound_int, nonStopping);
+                    await HandleStandardNotePlayback(noteSound_int, totalRhythm_int, nonStopping);
                     await StopAllVoices(); // Stop all voices if using voice system
                     if (nonStopping == true)
                     {
