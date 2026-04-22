@@ -195,10 +195,7 @@ namespace NeoBleeper
             foreach (var note in notes)
             {
                 bool endOfLine = notes.IndexOf(note) == notes.Count - 1;
-                double noteDuration = NoteLengths.CalculateLineLength(bpm, note.Length, note.Mod, note.Art);
-                double rawNoteLength = NoteLengths.CalculateNoteLength(bpm, note.Length, note.Mod, note.Art) * (note_silence_ratio / 100.0);
-                int note_length = (int)Math.Truncate(rawNoteLength);
-                int silence = (int)Math.Truncate(noteDuration - rawNoteLength);
+                var (note_length, silence) = NoteLengths.CalculateNoteDurations(note.Length, bpm, note.Mod, note.Art, (note_silence_ratio / 100.0));
                 int drift = 0;
                 if (drift > 0)
                 {

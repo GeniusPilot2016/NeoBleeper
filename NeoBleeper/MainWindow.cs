@@ -2733,63 +2733,6 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Calculates the durations of the note sound and the following silence based on the specified base note
-        /// length.
-        /// </summary>
-        /// <param name="baseLength">The base length of the note, typically representing its duration in beats or time units. Must be a positive
-        /// value.</param>
-        /// <returns>A tuple containing the duration of the note sound and the duration of the silence, both as integers. The
-        /// first item is the note sound duration; the second item is the silence duration. Both values are in the same
-        /// units as the input.</returns>
-        private (int noteSound_int, int silence_int) CalculateNoteDurations(double baseLength)
-        {
-            // Compute raw double values
-            double noteSound_double = FixRoundingErrors(CalculateNoteLength(baseLength));
-            double totalRhythm_double = FixRoundingErrors(CalculateLineLength(baseLength));
-
-            // Convert to integers
-            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
-            int noteSound_int = Math.Min((int)Math.Truncate(noteSound_double), totalRhythm_int);
-            int silence_int = totalRhythm_int - noteSound_int;
-
-            return (noteSound_int, silence_int);
-        }
-
-        /// <summary>
-        /// Adjusts the specified floating-point value to reduce the impact of minor rounding errors near zero.
-        /// </summary>
-        /// <remarks>This method is useful when small floating-point inaccuracies could affect subsequent
-        /// calculations or comparisons, particularly for values close to zero. The adjustment is only applied if the
-        /// absolute value of the input exceeds a small threshold.</remarks>
-        /// <param name="inputValue">The double-precision floating-point value to be corrected for potential rounding errors.</param>
-        /// <returns>A double value with minor rounding errors adjusted. The returned value may be slightly increased or
-        /// decreased if it is sufficiently far from zero; otherwise, it is returned unchanged.</returns>
-        public static double FixRoundingErrors(double inputValue)
-        {
-            // Define the threshold and adjustment values based on the assembly constants
-            const double threshold = 1e-7;
-            const double adjustment = 1e-10;
-
-            // Check if the input value exceeds the threshold
-            if (inputValue >= 0)
-            {
-                if (inputValue > threshold)
-                {
-                    inputValue += adjustment;
-                }
-            }
-            else
-            {
-                if (inputValue < (threshold * -1))
-                {
-                    inputValue -= adjustment;
-                }
-            }
-            // Return the corrected value
-            return inputValue;
-        }
-
-        /// <summary>
         /// Handles MIDI output by playing the selected MIDI notes with the specified note duration, if MIDI output is
         /// enabled and a note is selected.
         /// </summary>
@@ -2818,7 +2761,7 @@ namespace NeoBleeper
         /// <param name="rawNoteDuration">The original duration, in milliseconds, of the note before any processing or adjustments.</param>
         /// <param name="nonStopping">true to play notes without stopping ongoing playback; otherwise, false. The default is false.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
-        private async Task HandleStandardNotePlayback(int noteSoundDuration, int rawNoteDuration, bool nonStopping = false)
+        private async Task HandleStandardNotePlayback(int noteSoundDuration, bool nonStopping = false)
         {
             if (listViewNotes.SelectedIndices.Count > 0)
             {
@@ -2829,8 +2772,7 @@ namespace NeoBleeper
                         checkBox_play_note2_played.Checked,
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
-                        noteSoundDuration, rawNoteDuration,
-                        nonStopping
+                        noteSoundDuration, nonStopping
                     );
                 }
                 else
@@ -2884,7 +2826,7 @@ namespace NeoBleeper
         /// should play the notes.</param>
         /// <param name="nonStopping">true to prevent stopping currently playing notes before starting new ones; otherwise, false. Optional.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
-        private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, int rawLength, bool nonStopping = false) // Play note with voice in a line
+        private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false) // Play note with voice in a line
         {
             // System speaker notes
             bool systemSpeakerNote1 = (TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && playNote1;
@@ -2907,7 +2849,7 @@ namespace NeoBleeper
                  systemSpeakerNote2,
                  systemSpeakerNote3,
                  systemSpeakerNote4,
-                 rawLength,
+                 length,
                  nonStopping
                 );
         }
@@ -3030,6 +2972,61 @@ namespace NeoBleeper
             return number - Math.Truncate(number) < 1e-10 && number - Math.Truncate(number) > -1e-10 ? 0 : number - Math.Truncate(number);
         }
 
+        private (string returnedLength, string returnedModifier, string returnedArticulation) StandardizeLocalizedLengthModsAndArticulationsValues(string length, string modifier, string articulation)
+        {
+            string standardizedLength = "Quarter"; // Default to quarter note if parsing fails
+            string standardizedModifier = string.Empty;
+            string standardizedArticulation = string.Empty;
+            if(length == Resources.WholeNote)
+            {
+                standardizedLength = "Whole";
+            }
+            else if(length == Resources.HalfNote)
+            {
+                standardizedLength = "Half";
+            }
+            else if(length == Resources.QuarterNote)
+            {
+                standardizedLength = "Quarter";
+            }
+            else if(length == Resources.EighthNote)
+            {
+                standardizedLength = "1/8";
+            }
+            else if(length == Resources.SixteenthNote)
+            {
+                standardizedLength = "1/16";
+            }
+            else if(length == Resources.ThirtySecondNote)
+            {
+                standardizedLength = "1/32";
+            }
+
+            if(modifier == Resources.DottedModifier)
+            {
+                standardizedModifier = "Dot";
+            }
+            else if(modifier == Resources.TripletModifier)
+            {
+                standardizedModifier = "Tri";
+            }
+
+            if(articulation == Resources.StaccatoArticulation)
+            {
+                standardizedArticulation = "Sta";
+            }
+            else if(articulation == Resources.SpiccatoArticulation)
+            {
+                standardizedArticulation = "Spi";
+            }
+            else if(articulation == Resources.FermataArticulation)
+            {
+                standardizedArticulation = "Fer";
+            }
+
+            return (standardizedLength, standardizedModifier, standardizedArticulation);
+        }
+
         /// <summary>
         /// Plays the sequence of musical notes starting from the specified index in the note list, handling timing,
         /// looping, and playback controls asynchronously.
@@ -3045,11 +3042,16 @@ namespace NeoBleeper
         {
             bool nonStopping = false;
             int currentNoteIndex = startIndex;
-            int baseLength = 0;
 
             EnableDisableCommonControls(false);
             try
             {
+                bool IsValidArticulation(string articulation)
+                {
+                    return (!string.IsNullOrWhiteSpace(articulation) &&
+                            (articulation.ToLowerInvariant().Contains(Resources.StaccatoArticulation.ToLower()) ||
+                             articulation.ToLowerInvariant().Contains(Resources.SpiccatoArticulation.ToLower())));
+                }
                 // Use a single, high-resolution timer for the entire playback duration
                 await HighPrecisionSleep.SleepAsync(1); // Sleep briefly to ensure accurate timing
                 Stopwatch globalStopwatch = new Stopwatch();
@@ -3060,19 +3062,27 @@ namespace NeoBleeper
 
                 while (listViewNotes.SelectedItems.Count > 0 && isMusicPlaying)
                 {
-                    if (Variables.bpm <= 0) Variables.bpm = 1;
-                    if (Variables.bpm > 0)
+                    string noteLengthStr = listViewNotes.Items[currentNoteIndex].SubItems[0].Text;
+                    string modifierStr = listViewNotes.Items[currentNoteIndex].SubItems[5].Text;
+                    string articulationStr = listViewNotes.Items[currentNoteIndex].SubItems[6].Text;
+                    var (standardizedNoteLength, standardizedModifier, standardizedArticulation) = StandardizeLocalizedLengthModsAndArticulationsValues(noteLengthStr, modifierStr, articulationStr);
+                    var (totalRhythm_int, noteSound_int) = NoteLengths.CalculateNoteDurations(standardizedNoteLength, Variables.bpm, standardizedModifier, standardizedArticulation, Variables.noteSilenceRatio);
+                    string articulation = listViewNotes.Items[listViewNotes.SelectedIndices[0]].SubItems[6].Text ?? string.Empty;
+                    int silence_int = totalRhythm_int - noteSound_int;
+                    nonStopping = trackBar_note_silence_ratio.Value == 100;
+
+                    // Handle staccato and spiccato articulations for non-stopping notes: If the note is marked as staccato or spiccato, set the note sound duration to the total rhythm duration and the silence to 0, effectively making it play for the entire duration without silence, even if the note-silence ratio is set to 100%. This allows staccato and spiccato notes to maintain their characteristic short and detached sound while still respecting the timing of the line.
+                    if (nonStopping && listViewNotes.SelectedItems.Count > 0)
                     {
-                        baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
+                        if (IsValidArticulation(articulation)) 
+                        {
+                            noteSound_int = totalRhythm_int;
+                            silence_int = 0;
+                        }
                     }
 
-                    nonStopping = trackBar_note_silence_ratio.Value == 100;
-                    var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                    double noteDuration = CalculateLineLength(baseLength); // + beat_length;
-                    int rawNoteDuration = (int)Math.Truncate(FixRoundingErrors(CalculateRawNoteLength(baseLength))); // Note length calculator without note-silence ratio
-
                     // Drift compensation: Calculate the expected end time of the current note and compare it to the actual elapsed time
-                    double expectedEndTime = totalElapsedNoteDuration + noteDuration;
+                    double expectedEndTime = totalElapsedNoteDuration + totalRhythm_int;
                     double currentTime = globalStopwatch.Elapsed.TotalMilliseconds;
                     double drift = currentTime - totalElapsedNoteDuration;
 
@@ -3086,7 +3096,7 @@ namespace NeoBleeper
 
                     if (drift > 0) // Positive drift: It's behind schedule, try to catch up
                     {
-                        if (drift < noteDuration) // Smaller drift than the note duration allows for shortening the note to catch up
+                        if (drift < totalRhythm_int) // Smaller drift than the note duration allows for shortening the note to catch up
                         {
                             int cachedNoteDuration = noteSound_int;
                             noteSound_int = Math.Max(1, (int)Math.Round(noteSound_int - drift));
@@ -3122,13 +3132,13 @@ namespace NeoBleeper
                             }
                             await UpdateListViewSelection(currentNoteIndex);
                             // Add elapsed note duration to the total elapsed time to keep the timing accurate for the next note, even when skipping
-                            totalElapsedNoteDuration += noteDuration;
+                            totalElapsedNoteDuration += totalRhythm_int;
                             continue;
                         }
                     }
                     // Normal playing flow
                     HandleMidiOutput(noteSound_int);
-                    await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
+                    await HandleStandardNotePlayback(noteSound_int, nonStopping);
 
                     if (!nonStopping && silence_int > 0) // Only sleep if there's silence to wait for
                     {
@@ -3141,7 +3151,7 @@ namespace NeoBleeper
                         drift -= drift;
                     }
                     // Update the total elapsed note duration for the next loop iteration
-                    totalElapsedNoteDuration += noteDuration;
+                    totalElapsedNoteDuration += totalRhythm_int;
 
                     currentNoteIndex++;
 
@@ -3744,21 +3754,19 @@ namespace NeoBleeper
             {
                 try
                 {
+                    string lengthNameStr = listViewNotes.SelectedItems[0].SubItems[0].Text.ToString();
+                    string modifierStr = listViewNotes.SelectedItems[0].SubItems[5].Text.ToString();
+                    string articulationStr = listViewNotes.SelectedItems[0].SubItems[6].Text.ToString();
                     noteAlreadyPlaying = true; // Set the flag to indicate a note is playing
                     int baseLength = 0;
                     Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
-                    if (Variables.bpm <= 0) Variables.bpm = 1;
-                    if (Variables.bpm != 0)
-                    {
-                        baseLength = Math.Max(1, (int)(60000.0 / (double)Variables.bpm));
-                    }
                     if (listViewNotes.SelectedItems.Count > 0)
                     {
                         UpdateDisplays(listViewNotes.SelectedIndices[0]);
                     }
                     HighPrecisionSleep.Sleep(1);
-                    var (noteSound_int, silence_int) = CalculateNoteDurations(baseLength);
-                    int rawNoteDuration = (int)Math.Max(0, Math.Round(FixRoundingErrors(CalculateRawNoteLength(baseLength))));
+                    var (standardizedLengthName, standardizedModifier, standardizedArticulation) = StandardizeLocalizedLengthModsAndArticulationsValues(lengthNameStr, modifierStr, articulationStr);
+                    var (totalRhythm_int, noteSound_int) = NoteLengths.CalculateNoteDurations(standardizedLengthName, Variables.bpm, standardizedModifier, standardizedArticulation, Variables.noteSilenceRatio);
                     HandleMidiOutput(noteSound_int);
                     bool nonStopping;
                     if (trackBar_note_silence_ratio.Value == 100)
@@ -3769,7 +3777,7 @@ namespace NeoBleeper
                     {
                         nonStopping = false;
                     }
-                    await HandleStandardNotePlayback(noteSound_int, rawNoteDuration, nonStopping);
+                    await HandleStandardNotePlayback(noteSound_int, nonStopping);
                     await StopAllVoices(); // Stop all voices if using voice system
                     if (nonStopping == true)
                     {
@@ -3783,65 +3791,12 @@ namespace NeoBleeper
                 }
                 if (!(listViewNotes.SelectedItems == null) && listViewNotes.SelectedItems.Count > 0) // Multi-lingual compatible logging of selected line as English 
                 {
-                    string length = "Quarter"; // Default to quarter note
-                    string modifier = string.Empty;
-                    string articulation = string.Empty;
-                    switch (listViewNotes.SelectedItems[0].SubItems[0].Text.ToString())
-                    {
-                        case var n when n == Resources.WholeNote:
-                            length = "Whole";
-                            break;
-                        case var n when n == Resources.HalfNote:
-                            length = "Half";
-                            break;
-                        case var n when n == Resources.QuarterNote:
-                            length = "Quarter";
-                            break;
-                        case var n when n == Resources.EighthNote:
-                            length = "1/8";
-                            break;
-                        case var n when n == Resources.SixteenthNote:
-                            length = "1/16";
-                            break;
-                        case var n when n == Resources.ThirtySecondNote:
-                            length = "1/32";
-                            break;
-                        default:
-                            length = "Quarter";
-                            break;
-                    }
-                    switch (listViewNotes.SelectedItems[0].SubItems[5].Text.ToString())
-                    {
-                        case var m when m == Resources.DottedModifier:
-                            modifier = "Dotted";
-                            break;
-                        case var m when m == Resources.TripletModifier:
-                            modifier = "Triplet";
-                            break;
-                        default:
-                            modifier = string.Empty;
-                            break;
-                    }
-                    switch (listViewNotes.SelectedItems[0].SubItems[6].Text.ToString())
-                    {
-                        case var a when a == Resources.StaccatoArticulation:
-                            articulation = "Staccato";
-                            break;
-                        case var a when a == Resources.SpiccatoArticulation:
-                            articulation = "Spiccato";
-                            break;
-                        case var a when a == Resources.FermataArticulation:
-                            articulation = "Fermata";
-                            break;
-                        default:
-                            articulation = string.Empty;
-                            break;
-                    }
+                    var (standardizedLengthName, standardizedModifier, standardizedArticulation) = StandardizeLocalizedLengthModsAndArticulationsValues(listViewNotes.SelectedItems[0].SubItems[0].Text.ToString(), listViewNotes.SelectedItems[0].SubItems[5].Text.ToString(), listViewNotes.SelectedItems[0].SubItems[6].Text.ToString());
                     Logger.Log($"Selected line: {listViewNotes.SelectedItems[0].Index} Length: " +
-                     $"{length} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
+                     $"{standardizedLengthName} Note 1: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[1].Text.ToString())}" +
                      $" Note 2: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[2].Text.ToString())} Note 3: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[3].Text.ToString())}" +
-                     $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(modifier)}" +
-                     $" Articulation: {GetOrDefault(articulation)}", Logger.LogTypes.Info);
+                     $" Note 4: {GetOrDefault(listViewNotes.SelectedItems[0].SubItems[4].Text.ToString())} Modifier: {GetOrDefault(standardizedModifier)}" +
+                     $" Articulation: {GetOrDefault(standardizedArticulation)}", Logger.LogTypes.Info);
                 }
 
             }
@@ -3909,121 +3864,6 @@ namespace NeoBleeper
             }
 
             Logger.Log($"Alternating note length: {Variables.alternatingNoteLength}", Logger.LogTypes.Info);
-        }
-
-        /// <summary>
-        /// Calculates the raw note length based on the specified base length and the currently selected note's
-        /// properties.
-        /// </summary>
-        /// <remarks>The calculation takes into account the selected note's type, modifier, and
-        /// articulation, as well as the current note-silence ratio. The result is always at least 1.</remarks>
-        /// <param name="baseLength">The base length of the note, typically representing the unmodified duration before applying note-specific
-        /// modifiers and articulations.</param>
-        /// <returns>The calculated raw note length as a double. Returns 0 if no note is selected or if the note list is empty.</returns>
-        private double CalculateRawNoteLength(double baseLength)
-        {
-            if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
-                listViewNotes.Items == null || listViewNotes.Items.Count == 0)
-            {
-                return 0;
-            }
-
-            int selectedLine = listViewNotes.SelectedIndices[0];
-            string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
-            string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text;
-            string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
-
-            // Articulation factor
-            double articulationFactor = 1.0;
-            if (!string.IsNullOrWhiteSpace(articulation))
-            {
-                if (articulation.ToLowerInvariant().Contains(Resources.StaccatoArticulation.ToLower()))
-                    articulationFactor = 0.5;    // Staccato: 0.5x length
-                else if (articulation.ToLowerInvariant().Contains(Resources.SpiccatoArticulation.ToLower()))
-                    articulationFactor = 0.25;   // Spiccato: 0.25x length
-                else if (articulation.ToLowerInvariant().Contains(Resources.FermataArticulation.ToLower()))
-                    articulationFactor = 2.0;    // Fermata: 2x length
-            }
-
-            // Note-silence ratio (from trackBar)
-            double silenceRatio = (double)trackBar_note_silence_ratio.Value / 100.0;
-
-            // Calculate the total note length - use precise calculations without truncation
-            double result = GetNoteLength(baseLength, noteType);
-            result = GetModifiedNoteLength(result, modifier);
-            result = result * articulationFactor;
-
-            // Only round at the very end when converting to integer milliseconds
-            return Math.Max(1, result);
-        }
-
-        /// <summary>
-        /// Calculates the effective note length based on the specified base length and the current note-silence ratio
-        /// settings.
-        /// </summary>
-        /// <remarks>The result is always at least 1. The calculation takes into account the current
-        /// selection and the value of the note-silence ratio control. If no notes are selected or available, the method
-        /// returns 0.</remarks>
-        /// <param name="baseLength">The base length of the note, typically in milliseconds, before applying the note-silence ratio. Must be
-        /// greater than zero.</param>
-        /// <returns>The calculated note length after applying the note-silence ratio. Returns 0 if no notes are selected or
-        /// available.</returns>
-        private double CalculateNoteLength(double baseLength)
-        {
-            if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
-                listViewNotes.Items == null || listViewNotes.Items.Count == 0)
-            {
-                return 0;
-            }
-
-            // Note-silence ratio (from trackBar)
-            double silenceRatio = (double)trackBar_note_silence_ratio.Value / 100.0;
-
-            // Calculate the total note length - use precise calculations without truncation
-            double result = CalculateRawNoteLength(baseLength);
-            result = result * silenceRatio;
-
-            // Only round at the very end when converting to integer milliseconds
-            return Math.Max(1, result);
-        }
-
-        /// <summary>
-        /// Calculates the duration, in milliseconds, of the currently selected line in the notes list, taking into
-        /// account note type, modifiers, and articulation.
-        /// </summary>
-        /// <remarks>A fermata articulation doubles the calculated line length. Staccato and spiccato
-        /// articulations do not affect the duration.</remarks>
-        /// <param name="quarterNoteMs">The duration of a quarter note, in milliseconds, used as the base for calculating the line length.</param>
-        /// <returns>The calculated line length in milliseconds. Returns 0 if no line is selected or the notes list is empty. The
-        /// value is always at least 1 millisecond.</returns>
-        private double CalculateLineLength(double quarterNoteMs)
-        {
-            if (listViewNotes.SelectedItems == null || listViewNotes.SelectedItems.Count == 0 ||
-                listViewNotes.Items == null || listViewNotes.Items.Count == 0)
-            {
-                return 0;
-            }
-
-            int selectedLine = listViewNotes.SelectedIndices[0];
-            string noteType = listViewNotes.Items[selectedLine].SubItems[0].Text;
-            string modifier = listViewNotes.Items[selectedLine].SubItems[5].Text;
-            string articulation = listViewNotes.Items[selectedLine].SubItems[6].Text;
-
-            // Articulation factor - only fermata affects line length
-            double articulationFactor = 1.0;
-            if (!string.IsNullOrWhiteSpace(articulation) && articulation.ToLowerInvariant().Contains(Resources.FermataArticulation.ToLower()))
-            {
-                articulationFactor = 2.0; // Fermata: 2x length
-            }
-            // Staccato and Spiccato do not affect line length
-
-            // Calculate the total line length (without note-silence ratio)
-            double result = GetNoteLength(quarterNoteMs, noteType);
-            result = GetModifiedNoteLength(result, modifier);
-            result = result * articulationFactor;
-
-            // Should be at least 1 ms
-            return Math.Max(1, result);
         }
 
         /// <summary>

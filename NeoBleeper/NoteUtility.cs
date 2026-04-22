@@ -20,6 +20,7 @@ namespace NeoBleeper
 {
     public class NoteUtility
     {
+        Random fermataRnd = new Random(); // Random instance for fermata duration variation
         public static class BaseNoteFrequencyIn4thOctave
         {
             public static double C = 261.63;
@@ -140,9 +141,6 @@ namespace NeoBleeper
                 case "Spi":
                     baseLength /= 4;
                     break;
-                case "Fer":
-                    baseLength *= 2;
-                    break;
                 default:
                     break;
             }
@@ -187,11 +185,79 @@ namespace NeoBleeper
                     baseLength /= 3;
                     break;
             }
+            return baseLength;
+        }
+        public static (int totalRhythm_int, int noteSound_int) CalculateNoteDurations(string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio)
+        {
+            if(bpm == 0) 
+                bpm = 1;
+
+            var (lengthName_checked, modifier_checked, articulation_checked) = UseOriginalValueOrDefault(lengthName, modifier, articulation);
+            if (string.IsNullOrEmpty(lengthName))
+                lengthName = "Quarter";
+            // Essential values for note duration calculations
+            double noteSound_double = FixRoundingErrors(CalculateNoteLength(bpm, lengthName_checked, modifier_checked, articulation_checked));
+            double totalRhythm_double = FixRoundingErrors(CalculateLineLength(bpm, lengthName_checked, modifier_checked, articulation_checked));
+
+            int totalRhythm_int = (int)Math.Truncate(totalRhythm_double);
+            int noteSound_int = Math.Min((int)Math.Truncate(noteSound_double), totalRhythm_int);
+
             if (articulation == "Fer")
             {
-                baseLength *= 2;
+                // Random variation for fermata duration (between 50% and 100% of the original note sound duration)
+                int extraFermataDuration = (int)(noteSound_double * (0.5 + 0.5 * Random.Shared.NextDouble()));
+
+                totalRhythm_int += extraFermataDuration;
+                noteSound_int = Math.Min(noteSound_int + extraFermataDuration, totalRhythm_int);
             }
-            return baseLength;
+
+            noteSound_int = (int)(noteSound_int * noteSilenceRatio);
+            return (totalRhythm_int, noteSound_int);
+        }
+        /// <summary>
+        /// Adjusts the specified floating-point value to reduce the impact of minor rounding errors near zero.
+        /// </summary>
+        /// <remarks>This method is useful when small floating-point inaccuracies could affect subsequent
+        /// calculations or comparisons, particularly for values close to zero. The adjustment is only applied if the
+        /// absolute value of the input exceeds a small threshold.</remarks>
+        /// <param name="inputValue">The double-precision floating-point value to be corrected for potential rounding errors.</param>
+        /// <returns>A double value with minor rounding errors adjusted. The returned value may be slightly increased or
+        /// decreased if it is sufficiently far from zero; otherwise, it is returned unchanged.</returns>
+        public static double FixRoundingErrors(double inputValue)
+        {
+            // Define the threshold and adjustment values based on the assembly constants
+            const double threshold = 1e-7;
+            const double adjustment = 1e-10;
+
+            // Check if the input value exceeds the threshold
+            if (inputValue >= 0)
+            {
+                if (inputValue > threshold)
+                {
+                    inputValue += adjustment;
+                }
+            }
+            else
+            {
+                if (inputValue < (threshold * -1))
+                {
+                    inputValue -= adjustment;
+                }
+            }
+            // Return the corrected value
+            return inputValue;
+        }
+
+        private static (string returnedLength, string returnedModifier, string returnedArticulation) UseOriginalValueOrDefault(string length, string modifier, string articulation)
+        {
+            string[] allowedLengths = { "Whole", "Half", "Quarter", "1/8", "1/16", "1/32" };
+            string[] allowedModifiers = { "Dot", "Tri" };
+            string[] allowedArticulations = { "Sta", "Spi", "Fer" };
+
+            string currentLength = allowedLengths.Contains(length) ? length : "Quarter";
+            string currentModifier = allowedModifiers.Contains(modifier) ? modifier : string.Empty;
+            string currentArticulation = allowedArticulations.Contains(articulation) ? articulation : string.Empty;
+            return (currentLength, currentModifier, currentArticulation);
         }
     }
 }

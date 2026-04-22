@@ -272,26 +272,24 @@ namespace NeoBleeper
 
             foreach (var note in notes)
             {
-                double noteDuration = NoteLengths.CalculateLineLength(bpm, note.Length, note.Mod, note.Art);
-                double rawNoteLength = NoteLengths.CalculateNoteLength(bpm, note.Length, note.Mod, note.Art) * (noteSilenceRatio / 100.0);
-                int noteLength = (int)Math.Truncate(rawNoteLength);
-                int silence = (int)Math.Truncate(noteDuration - rawNoteLength);
+                var (totalRhythm_int, noteSound_int) = NoteLengths.CalculateNoteDurations(note.Length, bpm, note.Mod, note.Art, (noteSilenceRatio / 100.0));
+                int silence = totalRhythm_int - noteSound_int;
                 int drift = 0;
                 if (drift > 0)
                 {
-                    if (drift < noteLength)
+                    if (drift < totalRhythm_int)
                     {
-                        noteLength -= drift; // Reduce note length by drift amount
+                        totalRhythm_int -= drift; // Reduce note length by drift amount
                     }
                     else
                     {
-                        drift -= noteLength; // Skip note length if drift is larger
+                        drift -= totalRhythm_int; // Skip note length if drift is larger
                         continue;
                     }
                 }
                 // Add GCode line
                 elapsedLineTime = InsertNoteToGCode(note.Note1, note.Note2, note.Note3, note.Note4,
-                    true, true, true, true, noteLength);
+                    true, true, true, true, totalRhythm_int);
                 if (drift < 0)
                 {
                     silence -= drift; // Add drift to silence if drift is negative
