@@ -17,6 +17,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace NeoBleeper
 {
@@ -213,6 +214,7 @@ namespace NeoBleeper
                     LoggingType = "Info";
                     break;
             }
+            message = MaskSensitiveInformations(message); 
             string logMessage = $"[{DateTime.Now:HH:mm:ss}] - [{LoggingType}] {message}";
             lock (_logLock)
             {
@@ -249,6 +251,60 @@ namespace NeoBleeper
             {
                 Debug.WriteLine($"Logger: file write error: {ex.GetType().Name}: {ex.Message}");
             }
+        }
+
+
+        /// <summary>
+        /// Masks sensitive information such as API keys, email addresses, file paths, and other identifiable data
+        /// within the specified text.
+        /// </summary>
+        /// <remarks>This method identifies and masks common patterns of sensitive data, including API
+        /// keys, email addresses, file paths, UUIDs, base64 strings, tokens, credit card numbers, and IPv4 addresses.
+        /// The method is intended to help prevent accidental exposure of confidential information in logs or output.
+        /// The masking is based on pattern matching and may not cover all possible sensitive data formats.</remarks>
+        /// <param name="text">The input text that may contain sensitive information to be masked. Can be null or empty.</param>
+        /// <returns>A string with sensitive information replaced by placeholder values. If no sensitive data is detected,
+        /// returns the original text.</returns>
+        private static string MaskSensitiveInformations(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return text;
+            }
+            var patterns = new (string pattern, string replacement)[]
+            {
+                // Google API key format
+                (@"\bAIzaSy[A-Za-z0-9_\-]{33}\b", "[REDACTED_API_KEY]"),
+                // OpenAI style keys (sk-...)
+                (@"\bsk-[A-Za-z0-9_\-]{24,}\b", "[REDACTED_API_KEY]"),
+                // UUID
+                (@"\b[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\b", "[REDACTED_UUID]"),
+                // E-posta addresses
+                (@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "[REDACTED_EMAIL]"),
+                // Windows full paths
+                (@"[A-Za-z]:\\(?:[^\\/:*?""<>|&#x0a;]+\\)*[^\\/:*?""<>|&#x0a;]*", "[REDACTED_PATH]"),
+                // Long base64 strings
+                (@"(?<=\s|^)[A-Za-z0-9+/]{40,}={0,2}(?=\s|$)", "[REDACTED_BASE64]"),
+                // Potential tokens/keys
+                (@"(?<=\s|^)[A-Za-z0-9_\-]{40,}(?=\s|$)", "[REDACTED_SECRET]"),
+                // Credit card number-like strings
+                (@"\b(?:\d[ -]*?){13,19}\b", "[REDACTED_NUMBER]"),
+                // IPv4 addresses
+                (@"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b", "[REDACTED_IP]"),
+            }; string result = text;
+            foreach (var (pattern, replacement) in patterns)
+            {
+                try
+                {
+                    result = Regex.Replace(result, pattern, replacement, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+                }
+                catch
+                {
+                    // Use original text if failed
+                }
+            }
+
+            return result;
         }
     }
 }
