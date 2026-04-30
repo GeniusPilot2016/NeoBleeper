@@ -26,7 +26,11 @@ namespace BeepBridge
         public MainWindow()
         {
             InitializeComponent();
-            buttonEnableBeepSlider.Enabled = !IsBeepSliderAlreadyEnabled(); // Disable the button if the beep slider is already enabled as default.
+            if (IsRunAsAdmin())
+            {
+                buttonEnableBeepSlider.Enabled = !IsBeepSliderAlreadyEnabled(); // Disable the button if the beep slider is already enabled as default.
+            }
+            CheckIsProgramRanAsAdmin(); // Check if the program is run as administrator and display a warning message if it is not.
         }
 
         private void buttonEnableBeepSlider_Click(object sender, EventArgs e)
@@ -146,6 +150,97 @@ namespace BeepBridge
             // If backup is not present, it means the beep slider is enabled as default.
             bool isBackupPresent = !IsBackupPresent();
             return isBeepSliderAlreadyEnabled && isBackupPresent; // If the beep slider is already enabled and there is no backup, it means the beep slider is enabled as default.
+        }
+        private bool IsRunAsAdmin()
+        {
+            // This method checks if the program is run as administrator. This is important because some operations performed by the Beep Bridge may require administrative privileges to execute properly.
+            try
+            {
+                var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+                var principal = new System.Security.Principal.WindowsPrincipal(identity);
+                return principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"IsRunAsAdmin error: {ex.Message}");
+                return false; // Assume not running as admin if there's an error checking.
+            }
+        }
+        private void CheckIsProgramRanAsAdmin()
+        {
+            // This method checks if the program is run as administrator. If it is not, then the user should be prompted to run the program as administrator for it to work properly.
+            if (!IsRunAsAdmin())
+            {
+                buttonEnableBeepSlider.Enabled = false; // Disable the button to prevent users from trying to enable the beep slider without administrative privileges.
+                buttonRevertChanges.Enabled = false; // Disable the revert changes button as well since it also requires administrative privileges to function properly.
+                labelStatus.Enabled = true;
+                labelStatus.ForeColor = Color.DarkRed; // Set the status label color to red to indicate an error.
+                labelStatus.Font = new Font(labelStatus.Font, FontStyle.Bold); // Make the status label text bold to emphasize the importance of the message.
+                labelStatus.Text = "Please run the program as administrator for it to work properly."; // Display an error message in the status label.
+            }
+        }
+
+        private string GetSpeakerConfigDirectoryInRegistry()
+        {
+            string rootPath = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4d36e96c-e325-11ce-bfc1-08002be10318}";
+            return "";
+        }
+
+        string[] negativeKeys = new string[]
+        {
+                "Disable",
+                "Hide",
+                "NoLoad",
+        };
+
+        string[] positiveKeys = new string[]
+        {
+                "Enable",
+                "Show",
+                "Load",
+        };
+
+        private string GetFourDigitNumberOfSpeakers()
+        {
+            return "0001"; // Placeholder return value. The actual implementation would involve reading the registry to determine the number of speakers configured in the system and returning it as a four-digit string (e.g., "0001" for 1 speaker, "0002" for 2 speakers, etc.).
+        }
+
+        private uint GetEnableValue(string keyName)
+        {
+            foreach (string key in negativeKeys)
+            {
+                if (keyName.Contains(key))
+                {
+                    return 0;
+                }
+            }
+            foreach (string key in positiveKeys)
+            {
+                if (keyName.Contains(key))
+                {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        private uint GetDisableValue(string keyName)
+        {
+            foreach (string key in negativeKeys)
+            {
+                if (keyName.Contains(key))
+                {
+                    return 1;
+                }
+            }
+            foreach (string key in positiveKeys)
+            {
+                if (keyName.Contains(key))
+                {
+                    return 0;
+                }
+            }
+            return 0;
         }
     }
 }
