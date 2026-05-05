@@ -577,6 +577,7 @@ namespace NeoBleeper
                         _cancellationTokenSource.Cancel();
                         if (_playbackTask != null && !_playbackTask.IsCompleted)
                         {
+                            HandleLyricsDisplay(_frames[_currentFrameIndex].Time); // Update lyrics immediately for current frame
                             await Task.WhenAny(_playbackTask, Task.Delay(1000));
                         }
                     }
