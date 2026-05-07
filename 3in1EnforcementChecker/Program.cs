@@ -89,9 +89,20 @@ public class Program
         return Regex.IsMatch(input, @"^0x[0-9A-Fa-f]{8}$");
     }
 
+    private static void WriteColoredText(string text, ConsoleColor color, bool writeLine = true)
+    {
+        Console.ForegroundColor = color;
+        if (writeLine)
+            Console.WriteLine(text);
+        else
+            Console.Write(text);
+        Console.ResetColor();
+    }
+
     private static void CheckEnforcementStatus()
     {
         Console.WriteLine("--- [Step 1: System Policy Mode] ---");
+        WriteColoredText("\r\nThe aim of this step: Determine if the system is in Enforcement Mode, Evaluation (Audit) Mode, or neither and get accumulated uptime and reboot counts if in Evaluation Mode.\r\n", ConsoleColor.Blue);
         bool isElevated = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         Console.WriteLine(isElevated ? "Process: Elevated (admin)" : "Process: Not elevated (no admin)");
 
@@ -116,9 +127,7 @@ public class Program
             }
             catch (Exception ex)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"Warning: Failed to start citool.exe. {ex.Message}");
-                Console.ResetColor();
+                WriteColoredText($"Warning: Failed to start citool.exe. {ex.Message}", ConsoleColor.Yellow);
                 Console.WriteLine("Note: citool.exe is a Microsoft internal tool and may not be present on all systems. If you have access to it, place it in the same directory as this program or ensure it's in the PATH.");
                 Console.WriteLine();
                 return;
@@ -128,7 +137,7 @@ public class Program
             string stderr = process.StandardError.ReadToEnd();
             process.WaitForExit();
 
-            // İlk tercih: JSON parse
+            // First preference: try to parse JSON output for structured policy info
             CiToolOutput? result = null;
             if (!string.IsNullOrWhiteSpace(stdout))
             {
@@ -136,7 +145,7 @@ public class Program
                 catch { result = null; }
             }
 
-            // Eğer JSON parse başarılı ve policy'ler varsa, normal akış
+            // Normal flow if JSON is present and well-formed
             if (result?.Policies != null && result.Policies.Count > 0)
             {
                 
@@ -145,14 +154,11 @@ public class Program
 
                 if (enforcedPolicy is { IsEnforced: true, IsAuthorized: true })
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("✅ System is in Enforcement Mode");
+                    WriteColoredText("✅ System is in Enforcement Mode", ConsoleColor.Green);
                 }
                 else if (evalPolicy is { IsEnforced: true, IsAuthorized: true })
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("✅ System is in Evaluation (Audit) Mode");
-                    Console.ResetColor();
+                    WriteColoredText("✅ System is in Evaluation (Audit) Mode", ConsoleColor.Green);
                     Console.WriteLine();
                     try
                     {
@@ -168,22 +174,19 @@ public class Program
                                     // Convert 100-nanosecond ticks to hours
                                     double hours = Math.Round((double)uptimeTicks / 10_000_000 / 3600, 2);
                                     Console.WriteLine($"Accumulated uptime : {hours} / 100 hours");
-                                    if (hours >= 100 && (int)sessionsObj < 3)
-                                    {
-                                        Console.ForegroundColor = ConsoleColor.Yellow;
-                                        Console.WriteLine("Uptime is enough to have triggered enforcement, but reboot count is insufficient.");
-                                    }
-
                                     if (sessionsObj != null)
                                     {
-                                        Console.WriteLine($"Reboot count      : {(int)sessionsObj - 1} / 3");
-                                        if (hours < 100 && ((int)sessionsObj - 1) >= 3)
-                                        {
-                                            Console.ForegroundColor = ConsoleColor.Yellow;
-                                            Console.WriteLine("Reboot count is enough to have triggered enforcement, but uptime is insufficient.");
-                                        }
+                                        Console.WriteLine($"Reboot count       : {(int)sessionsObj - 1} / 3 reboots");
                                     }
-
+                                    if (hours >= 100 && (int)sessionsObj < 3)
+                                    {
+                                        WriteColoredText("Uptime is enough to have triggered enforcement, but reboot count is insufficient.", ConsoleColor.Yellow);
+                                    }
+                                    if (hours < 100 && ((int)sessionsObj - 1) >= 3)
+                                    {
+                                        WriteColoredText("Reboot count is enough to have triggered enforcement, but uptime is insufficient.", ConsoleColor.Yellow);
+                                    }
+                                    Console.WriteLine("\r\nAccording to https://support.microsoft.com/en-us/windows/the-windows-driver-policy-ecd2a78c-750c-415d-93f2-e37302ce0443 article\r\n");
                                 }
                                 else
                                 {
@@ -199,15 +202,13 @@ public class Program
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("❌ Required policies are not active");
+                    WriteColoredText("❌ Required policies are not active", ConsoleColor.Red);
                 }
-                Console.ResetColor();
                 Console.WriteLine();
                 return;
             }
 
-            // JSON parse yoksa; fallback: metin içinde GUID ve yanındaki IsEnforced/IsAuthorized değerlerini regex ile yakala
+            // If no structured JSON output, fall back to regex parsing for best effort info extraction
             string combined = (stdout ?? "") + "\n" + (stderr ?? "");
             var guidRegex = new Regex(@"[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}", RegexOptions.Compiled);
             var boolRegex = new Regex(@"IsEnforced""?\s*[:=]\s*(true|false)|IsAuthorized""?\s*[:=]\s*(true|false)|Enforced\s*[:=]\s*(true|false)|Authorized\s*[:=]\s*(true|false)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
@@ -226,7 +227,7 @@ public class Program
                 string ctx = combined.Substring(ctxStart, ctxEnd - ctxStart);
 
                 bool? isEnf = null, isAuth = null;
-                // İlk en yakın IsEnforced / IsAuthorized eşleşmelerini ara
+                // Search for both "IsEnforced" and "Enforced" patterns, and similarly for "IsAuthorized"/"Authorized"
                 var enMatch = Regex.Match(ctx, @"IsEnforced""?\s*[:=]\s*(true|false)|Enforced\s*[:=]\s*(true|false)", RegexOptions.IgnoreCase);
                 if (enMatch.Success)
                 {
@@ -247,27 +248,19 @@ public class Program
             // Evaluation mode
             if (found.TryGetValue(EnforcedPolicyId, out var enforcedVals) && enforcedVals.IsEnforced == true && enforcedVals.IsAuthorized == true)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("✅ System is in Enforcement Mode (detected from text output)");
-                Console.ResetColor();
+                WriteColoredText("✅ System is in Enforcement Mode (detected from text output)", ConsoleColor.Green);
             }
             else if (found.TryGetValue(EvalPolicyId, out var evalVals) && evalVals.IsEnforced == true && evalVals.IsAuthorized == true)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("✅ System is in Evaluation (Audit) Mode (detected from text output)");
-                Console.ResetColor();
+                WriteColoredText("✅ System is in Evaluation (Audit) Mode (detected from text output)", ConsoleColor.Green);
             }
             else if (found.Count > 0)
             {
                 // GUID is found but no clear enforcement/auth status - partial info
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("Partial policy info detected in citool output:");
+                WriteColoredText("Partial policy info detected in citool output:", ConsoleColor.Cyan);
                 foreach (var kv in found)
-                    Console.WriteLine($" - {kv.Key}  Enforced: {kv.Value.IsEnforced?.ToString() ?? "unknown"}  Authorized: {kv.Value.IsAuthorized?.ToString() ?? "unknown"}");
-                Console.ResetColor();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Note: Run it as administrator for more complete information. Partial data may indicate limited access to policy details.");
-                Console.ResetColor();
+                    WriteColoredText($" - {kv.Key}  Enforced: {kv.Value.IsEnforced?.ToString() ?? "unknown"}  Authorized: {kv.Value.IsAuthorized?.ToString() ?? "unknown"}", ConsoleColor.Cyan);
+                WriteColoredText("Note: Run it as administrator for more complete information. Partial data may indicate limited access to policy details.", ConsoleColor.Yellow);
             }
             else
             {
@@ -282,9 +275,7 @@ public class Program
                     PrintOutputWithDecodedErrors("citool error output:", stderr);
                 }
 
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Note: No recognizable policy information found in citool output. This may be due to lack of access permissions, an unexpected output format, or the tool not functioning correctly on this system.");
-                Console.ResetColor();
+                WriteColoredText("Note: No recognizable policy information found in citool output. This may be due to lack of access permissions, an unexpected output format, or the tool not functioning correctly on this system.", ConsoleColor.Yellow);
             }
         }
         catch (Exception ex)
@@ -297,23 +288,19 @@ public class Program
     private static void CheckInpOutStatus()
     {
         Console.WriteLine("--- [Step 2: inpoutx64.sys Presence & Enforcement Check] ---");
-
+        WriteColoredText("\r\nThe aim of this step: Check for the presence of inpoutx64.sys and look for any 3076/3077 Code Integrity logs related to it, which would indicate that it has been blocked or enforced by new CI policies that aren't trust to cross-signed drivers.\r\n", ConsoleColor.Blue);
         const string targetDriver = "inpoutx64.sys";
         string systemDriversPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "drivers", targetDriver);
 
         // 1. Physical Presence Check
         if (File.Exists(systemDriversPath))
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("[PRESENT] ");
-            Console.ResetColor();
+            WriteColoredText("[PRESENT] ", ConsoleColor.Cyan, false);
             Console.WriteLine($"Found at: {systemDriversPath}");
         }
         else
         {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write("[NOT PRESENT] ");
-            Console.ResetColor();
+            WriteColoredText("[NOT PRESENT] ", ConsoleColor.Gray, false);
             Console.WriteLine($"{targetDriver} not found in standard drivers directory.");
         }
 
@@ -356,16 +343,13 @@ public class Program
                 {
                     if (eventDetail.Id == 3077)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("[ENFORCEMENT APPLIED] ");
+                        WriteColoredText("[ENFORCEMENT APPLIED] ", ConsoleColor.Red, false);
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("[AUDITED]             ");
+                        WriteColoredText("[AUDITED]             ", ConsoleColor.Yellow, false);
                     }
 
-                    Console.ResetColor();
                     // Show the logged file path if available, otherwise show the file name
                     string sourcePath = !string.IsNullOrEmpty(filePath) ? filePath : fileName;
 
@@ -392,9 +376,7 @@ public class Program
     public static void ApplyPITReadTest()
     {
         Console.WriteLine("--- [Step 3: System Timer (PIT) Read Test] ---");
-        Console.WriteLine();
-
-        // ── 1. Driver handle check ───────────────────────────────────────────────
+        WriteColoredText("\r\nThe aim of this step: Perform a direct hardware interaction test by writing to and reading from the PIT Channel 2 data port (0x42) using inpoutx64.sys. This test can reveal whether the driver is genuinely forwarding I/O to hardware or if it's being stubbed/blocked by CI/HVCI, which typically results in static dummy values on readback or errors.\r\n", ConsoleColor.Blue);
         try
         {
             if (IsInpOutDriverOpen() == false)
@@ -413,9 +395,7 @@ public class Program
             return;
         }
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("✅ Driver handle is open.");
-        Console.ResetColor();
+        WriteColoredText("✅ Driver handle is open.", ConsoleColor.Green);
         Console.WriteLine();
 
         // ── 2. PIT Channel 2 round-trip write/readback test ──────────────────────
@@ -521,7 +501,7 @@ public class Program
     }
     private static void WriteResult(bool? success, params string[] lines)
     {
-        Console.ForegroundColor = success switch
+        ConsoleColor color = success switch
         {
             true => ConsoleColor.Green,
             false => ConsoleColor.Yellow,
@@ -535,11 +515,10 @@ public class Program
             null => "❓",
         };
 
-        Console.WriteLine($"{icon} {lines[0]}");
+        WriteColoredText($"{icon} {lines[0]}", color);
         for (int i = 1; i < lines.Length; i++)
-            Console.WriteLine($"   {lines[i]}");
+            WriteColoredText($"   {lines[i]}", color);
 
-        Console.ResetColor();
         Console.WriteLine();
     }
 
@@ -677,9 +656,7 @@ public class Program
 
                     if (propCount == 1 && singleStringValue != null)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{title} {singleStringValue}");
-                        Console.ResetColor();
+                        WriteColoredText($"{title} {singleStringValue}", ConsoleColor.Red);
                         continue;
                     }
                 }
@@ -690,9 +667,7 @@ public class Program
             }
 
             // Genel durumda başlığı ve çözümlenmiş satırı yaz
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(title);
-            Console.ResetColor();
+            WriteColoredText(title, ConsoleColor.Red);
             Console.WriteLine(outputLine);
         }
 
