@@ -1,13 +1,14 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Win32;
+using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml.Linq;
 using System.Text.RegularExpressions;
-using System.Security.Principal;
-using System.Security.AccessControl;
-using System.Globalization;
+using System.Xml.Linq;
 
 public class Program
 {
@@ -151,6 +152,50 @@ public class Program
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("✅ System is in Evaluation (Audit) Mode");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    try
+                    {
+                        using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\CI\WhqlOnlyEvaluation"))
+                        {
+                            if (key != null)
+                            {
+                                object uptimeObj = key.GetValue("SystemUptime");
+                                object sessionsObj = key.GetValue("NumBootSessions");
+
+                                if (uptimeObj is long uptimeTicks)
+                                {
+                                    // Convert 100-nanosecond ticks to hours
+                                    double hours = Math.Round((double)uptimeTicks / 10_000_000 / 3600, 2);
+                                    Console.WriteLine($"Accumulated uptime : {hours} / 100 hours");
+                                    if (hours >= 100 && (int)sessionsObj < 3)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Console.WriteLine("Uptime is enough to have triggered enforcement, but boot sessions count is insufficient.");
+                                    }
+
+                                    if (sessionsObj != null)
+                                    {
+                                        Console.WriteLine($"Boot sessions      : {(int)sessionsObj - 1} / 3");
+                                        if (hours < 100 && ((int)sessionsObj - 1) >= 3)
+                                        {
+                                            Console.ForegroundColor = ConsoleColor.Yellow;
+                                            Console.WriteLine("Boot sessions count is enough to have triggered enforcement, but uptime is insufficient.");
+                                        }
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("WhqlOnlyEvaluation registry key not found (Default state).");
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Note: Could not read CI registry metrics: {ex.Message}");
+                    }
                 }
                 else
                 {
