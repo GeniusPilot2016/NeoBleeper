@@ -176,13 +176,13 @@ public class Program
                                     Console.WriteLine($"Accumulated uptime : {hours} / 100 hours");
                                     if (sessionsObj != null)
                                     {
-                                        Console.WriteLine($"Reboot count       : {(int)sessionsObj - 1} / 3 reboots");
+                                        Console.WriteLine($"Reboot count       : {(int)sessionsObj} / 3 reboots");
                                     }
                                     if (hours >= 100 && (int)sessionsObj < 3)
                                     {
                                         WriteColoredText("Uptime is enough to have triggered enforcement, but reboot count is insufficient.", ConsoleColor.Yellow);
                                     }
-                                    if (hours < 100 && ((int)sessionsObj - 1) >= 3)
+                                    if (hours < 100 && ((int)sessionsObj) >= 3)
                                     {
                                         WriteColoredText("Reboot count is enough to have triggered enforcement, but uptime is insufficient.", ConsoleColor.Yellow);
                                     }
