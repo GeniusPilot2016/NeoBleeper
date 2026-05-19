@@ -42,6 +42,7 @@
             labelCreating = new Label();
             connectionCheckTimer = new System.Windows.Forms.Timer(components);
             labelWarning = new Label();
+            checkBoxExtendedThinking = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).BeginInit();
             SuspendLayout();
             // 
@@ -121,11 +122,19 @@
             labelWarning.ImageList = images;
             labelWarning.Name = "labelWarning";
             // 
+            // checkBoxExtendedThinking
+            // 
+            resources.ApplyResources(checkBoxExtendedThinking, "checkBoxExtendedThinking");
+            checkBoxExtendedThinking.Name = "checkBoxExtendedThinking";
+            checkBoxExtendedThinking.UseVisualStyleBackColor = true;
+            checkBoxExtendedThinking.CheckedChanged += checkBoxExtendedThinking_CheckedChanged;
+            // 
             // CreateMusicWithAI
             // 
             AcceptButton = buttonCreate;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
+            Controls.Add(checkBoxExtendedThinking);
             Controls.Add(labelWarning);
             Controls.Add(progressBarCreating);
             Controls.Add(pictureBoxCreating);
@@ -164,5 +173,6 @@
         private Label labelCreating;
         private System.Windows.Forms.Timer connectionCheckTimer;
         private Label labelWarning;
+        private CheckBox checkBoxExtendedThinking;
     }
 }

@@ -16,8 +16,10 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -56,11 +58,13 @@ namespace NeoBleeper
         {
         };
         private bool isMusicGenerationStarted = false; // Flag to indicate if music generation has started
+        private bool extendedThinking = false;  // Flag to indicate if extended thinking mode is active (for complex music creations)
         private EncryptionHelper encryptionHelper = new EncryptionHelper(); // Encryption helper instance for decrypting API key
         public CreateMusicWithAI(Form owner)
         {
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
+            extendedThinking = Settings1.Default.DefaultExtendedThinkingMode;
             this.Owner = owner;
             UIFonts.SetFonts(this);
             normalWindowSize = this.Size;
@@ -214,6 +218,14 @@ namespace NeoBleeper
                         return; // Close the form and exit the method if no models are available
                     }
                 }
+
+                if(filteredDisplayNames.Count > 0 && 
+                    IsModelExtendedThinkingCapable(AIModel))
+                {
+                    checkBoxExtendedThinking.Checked = extendedThinking; // Set the checkbox state based on the current setting
+                    checkBoxExtendedThinking.Enabled = true; // Enable extended thinking mode for capable models
+                }
+                
                 buttonCreate.Enabled = true; // Enable the create button after loading models
                 comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
                 textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
@@ -250,6 +262,37 @@ namespace NeoBleeper
                 Logger.Log($"The Google Gemini™ API key validation failed. The API key may be invalid or there may be an issue with the connection. Error: {ex.Message}", Logger.LogTypes.Error);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Determines whether the specified model name corresponds to a Gemini AI model that is capable of extended thinking,
+        /// which may be required for more complex music generation tasks. The method checks for specific keywords and version patterns
+        /// </summary>
+        /// <param name="modelName">The name of the AI model to evaluate. This should be a non-null string representing the model's identifier.</param>
+        /// <returns>true if the model is identified as extended thinking capable based on its name; otherwise, false.</returns>
+        private bool IsModelExtendedThinkingCapable(string modelName)
+        {
+            string lower = modelName.ToLowerInvariant();
+
+            // Consider models with "latest" in the name as extended thinking capable, as they are likely to be the most advanced versions
+            if (lower.Contains("latest"))
+                return true;
+
+            // Catch models with version numbers, e.g. "gemini-3.X" (X is minor version), "gemini-4", ..., "gemini-9"
+            var m = System.Text.RegularExpressions.Regex.Match(lower, @"gemini-(\d+(?:\.\d+)?)");
+            if (m.Success)
+            {
+                if (double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, out double ver))
+                {
+                    return ver >= 3.0;
+                }
+            }
+
+            // For simple model names like "gemini-3", "gemini-4", ..., "gemini-9"
+            if (System.Text.RegularExpressions.Regex.IsMatch(lower, @"\bgemini-(3|4|5|6|7|8|9)\b"))
+                return true;
+
+            return false;
         }
 
         /// <summary>
@@ -1041,7 +1084,10 @@ namespace NeoBleeper
                 try
                 {
                     // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
-                    Logger.Log("Starting music generation with AI...", Logger.LogTypes.Info);
+                    string startMessage = IsModelExtendedThinkingCapable(AIModel) ? 
+                        (checkBoxExtendedThinking.Checked == true ? "Starting music generation with AI using extended thinking..." : "Starting music generation with AI without using extended thinking...") :
+                            "Starting music generation with AI...";
+                    Logger.Log(startMessage, Logger.LogTypes.Info);
                     string prompt = !string.IsNullOrWhiteSpace(textBoxPrompt.Text) ? textBoxPrompt.Text.Trim() : textBoxPrompt.PlaceholderText.Trim(); // Use placeholder if textbox is empty
 
                     /* The "makeshift rubbish prompt template" (aka system prompt) to create "chaotic" music 
@@ -1215,7 +1261,7 @@ namespace NeoBleeper
                         $"        </Line>\r\n" +
                         $"        <!-- More <Line> elements representing musical events or rests -->\r\n" +
                         $"    </LineList>\r\n" +
-                        $"</NeoBleeperProjectFile>"; 
+                        $"</NeoBleeperProjectFile>";
                     connectionCheckTimer.Start();
                     SetControlsEnabledAndMakeLoadingVisible(false);
                     var resultBuilder = new StringBuilder();
@@ -1224,6 +1270,32 @@ namespace NeoBleeper
                     var googleAI = new GoogleAi(apiKey);
                     var googleModel = googleAI.CreateGenerativeModel(AIModel);
                     googleModel.SystemInstruction = systemInstructions;
+
+                    // If the model supports extended thinking, set the thinking level based on the checkbox
+                    if (IsModelExtendedThinkingCapable(AIModel)){
+                        // Config
+                        if (googleModel.Config == null)
+                        {
+                            googleModel.Config = new GenerativeAI.Types.GenerationConfig();
+                        }
+                        var configValue = googleModel.Config;
+
+                        // ThinkingConfig
+                        if (configValue.ThinkingConfig == null)
+                        {
+                            configValue.ThinkingConfig = new GenerativeAI.Types.ThinkingConfig();
+                        }
+                        var finalThinking = configValue.ThinkingConfig;
+
+                        // ThinkingLevel
+                        if (finalThinking != null)
+                        {
+                            var desired = checkBoxExtendedThinking.Checked ?
+                                GenerativeAI.Types.ThinkingLevel.HIGH : GenerativeAI.Types.ThinkingLevel.LOW;
+
+                            finalThinking.ThinkingLevel = desired;
+                        }
+                    }
                     isMusicGenerationStarted = true; // Set the flag to indicate music generation has started
                     await foreach (var chunk in googleModel.StreamContentAsync(prompt, cts.Token))
                     {
@@ -3699,7 +3771,6 @@ namespace NeoBleeper
                 if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating ||
                     ctrl == labelPoweredByGemini || ctrl == labelWarning)
                     continue;
-
                 ctrl.Enabled = enabled;
             }
             if (enabled == true)
@@ -3711,6 +3782,11 @@ namespace NeoBleeper
                 else
                 {
                     buttonCreate.Enabled = false;
+                }
+                if (!string.IsNullOrEmpty(AIModel))
+                {
+                    checkBoxExtendedThinking.Checked = extendedThinking;
+                    checkBoxExtendedThinking.Enabled = IsModelExtendedThinkingCapable(AIModel);
                 }
             }
         }
@@ -3736,6 +3812,16 @@ namespace NeoBleeper
                 Logger.Log($"AI Model changed to: {selectedDisplayName} ({AIModel})", Logger.LogTypes.Info);
                 Settings1.Default.preferredAIModel = AIModel;
                 Settings1.Default.Save();
+                if (IsModelExtendedThinkingCapable(AIModel)) // Enable the Extended Thinking checkbox if the selected model supports it
+                {
+                    checkBoxExtendedThinking.Enabled = true;
+                    checkBoxExtendedThinking.Checked = extendedThinking;
+                }
+                else
+                {
+                    checkBoxExtendedThinking.Enabled = false;
+                    checkBoxExtendedThinking.Checked = false;
+                }
             }
         }
 
@@ -4069,6 +4155,15 @@ namespace NeoBleeper
             // Count the number of <Line> tags in the content
             var lineCount = Regex.Matches(nbpmlContent, @"<Line\b[^>]*>", RegexOptions.IgnoreCase).Count;
             return lineCount;
+        }
+
+        private void checkBoxExtendedThinking_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxExtendedThinking.Enabled) // Only save the setting if the checkbox is enabled 
+            {
+                extendedThinking = checkBoxExtendedThinking.Checked;
+                Settings1.Default.DefaultExtendedThinkingMode = extendedThinking;
+            }
         }
     }
 }
