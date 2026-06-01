@@ -98,5 +98,8 @@
     <Setting Name="DefaultExtendedThinkingMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="OllamaClientURL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:11434</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

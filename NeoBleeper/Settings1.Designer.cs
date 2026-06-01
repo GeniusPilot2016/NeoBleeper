@@ -405,5 +405,17 @@ namespace NeoBleeper {
                 this["DefaultExtendedThinkingMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:11434")]
+        public string OllamaClientURL {
+            get {
+                return ((string)(this["OllamaClientURL"]));
+            }
+            set {
+                this["OllamaClientURL"] = value;
+            }
+        }
     }
 }
