@@ -417,5 +417,16 @@ namespace NeoBleeper {
                 this["OllamaClientURL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection EnabledLocalModels {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["EnabledLocalModels"]));
+            }
+            set {
+                this["EnabledLocalModels"] = value;
+            }
+        }
     }
 }
