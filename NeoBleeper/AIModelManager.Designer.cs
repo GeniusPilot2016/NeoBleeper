@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AIModelManager));
             flowLayoutPanel1 = new FlowLayoutPanel();
             groupBox1 = new GroupBox();
+            label3 = new Label();
             button4 = new Button();
             icons = new ImageList(components);
             button3 = new Button();
@@ -66,11 +67,13 @@
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new Padding(5);
-            flowLayoutPanel1.Size = new Size(423, 566);
+            flowLayoutPanel1.Size = new Size(423, 556);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.Transparent;
+            groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(button4);
             groupBox1.Controls.Add(button3);
             groupBox1.Controls.Add(button2);
@@ -85,7 +88,18 @@
             groupBox1.Size = new Size(407, 305);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Ollama Settings";
+            groupBox1.Text = "Ollama Settings (Experimental)";
+            // 
+            // label3
+            // 
+            label3.BackColor = SystemColors.Window;
+            label3.Enabled = false;
+            label3.Location = new Point(21, 161);
+            label3.Name = "label3";
+            label3.Size = new Size(360, 67);
+            label3.TabIndex = 8;
+            label3.Text = "No installed local AI model is found";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button4
             // 
@@ -172,6 +186,7 @@
             // checkedListBox1
             // 
             checkedListBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            checkedListBox1.Enabled = false;
             checkedListBox1.FormattingEnabled = true;
             checkedListBox1.Location = new Point(10, 129);
             checkedListBox1.Name = "checkedListBox1";
@@ -335,7 +350,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             AutoSize = true;
-            ClientSize = new Size(423, 566);
+            ClientSize = new Size(423, 556);
             Controls.Add(flowLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -375,5 +390,6 @@
         private Button button4;
         private ContextMenuStrip modelsRightClickMenu;
         private ToolStripMenuItem removeModelToolStripMenuItem;
+        private Label label3;
     }
 }

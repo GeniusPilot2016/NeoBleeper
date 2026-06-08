@@ -14,9 +14,11 @@ namespace NeoBleeper
     public partial class AIModelManager : Form
     {
         private Dictionary<string, string> modelNamesAndDisplayNames = new Dictionary<string, string>();
+        private string noModelFoundText;
         public AIModelManager()
         {
             InitializeComponent();
+            noModelFoundText = label3.Text; // Store the original text of label3 to use it later if needed
             bool isGoogleGeminiAvailable = CreateMusicWithAI.IsAvailableInCountry();
             if (!OllamaUtility.EnsureOllamaIsRunning())
             {
@@ -82,8 +84,39 @@ namespace NeoBleeper
                 return false; // Default to false if there's an error
             }
         }
+        
+        enum LocalModelsStatus
+        {
+            PleaseWait,
+            NoModelsFound,
+            ModelsFound
+        }
 
-
+        private void SetLocalModelsStatus(LocalModelsStatus status)
+        {
+            switch (status)
+            {
+                case LocalModelsStatus.PleaseWait:
+                    checkedListBox1.Enabled = false;
+                    checkedListBox1.Cursor = Cursors.WaitCursor;
+                    label3.Cursor = Cursors.WaitCursor;
+                    label3.Text = "Please wait while querying local AI models...";
+                    label3.Visible = true;
+                    break;
+                case LocalModelsStatus.NoModelsFound:
+                    checkedListBox1.Enabled = false;
+                    checkedListBox1.Cursor = Cursors.Default;
+                    label3.Cursor = Cursors.Default;
+                    label3.Text = noModelFoundText; // Use the original text stored in the constructor for the "no models found" message
+                    label3.Visible = true;
+                    break;
+                case LocalModelsStatus.ModelsFound:
+                    checkedListBox1.Enabled = true;
+                    checkedListBox1.Cursor = Cursors.Default;
+                    label3.Visible = false;
+                    break;
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -110,13 +143,19 @@ namespace NeoBleeper
         private async void FillModelsListAndCheckEnabled()
         {
             checkedListBox1.Items.Clear();
+            SetLocalModelsStatus(LocalModelsStatus.PleaseWait);
             string targetUrl = Settings1.Default.OllamaClientURL;
-            checkedListBox1.Cursor = Cursors.WaitCursor;
             Dictionary<string, string> modelsDictionary = await OllamaUtility.GetModelNamesAndDisplayNamesAsync(targetUrl);
             modelNamesAndDisplayNames = modelsDictionary;
             foreach (var modelPair in modelsDictionary)
             {
                 checkedListBox1.Items.Add(modelPair.Value);
+            }
+
+            if(modelsDictionary.Count == 0)
+            {
+                SetLocalModelsStatus(LocalModelsStatus.NoModelsFound);
+                return;
             }
             if (Settings1.Default.EnabledLocalModels == null)
                 Settings1.Default.EnabledLocalModels = new System.Collections.Specialized.StringCollection();
@@ -132,7 +171,7 @@ namespace NeoBleeper
                     }
                 }
             }
-            checkedListBox1.Cursor = Cursors.Default;
+            SetLocalModelsStatus(LocalModelsStatus.ModelsFound);
         }
 
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
