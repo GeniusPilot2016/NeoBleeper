@@ -203,7 +203,7 @@ namespace NeoBleeper
             // European Economic Area (EEA) countries (ISO 3166-1 alpha-2 codes)
             "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU",
             "IS", "IE", "IT", "LV", "LI", "LT", "LU", "MT", "NL", "NO", "PL", "PT", "RO",
-            "SK", "SI", "ES", "SE",
+            "SK", "SI", "ES", "SE", "AX", "GF", "RE",
             // Additionally Switzerland and the United Kingdom
             "CH", "GB"
         };

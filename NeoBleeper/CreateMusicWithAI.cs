@@ -872,7 +872,15 @@ namespace NeoBleeper
               "EH",
               "YE",
               "ZM",
-              "ZW"
+              "ZW",
+              "AD",
+              "GF",
+              "MD",
+              "MC",
+              "RE",
+              "SM",
+              "VA",
+              "AX"
             };
             var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
             return supportedCountries.Contains(countryCode);
