@@ -161,7 +161,8 @@ namespace NeoBleeper
                 foreach (var model in models.Models)
                 {
                     // Skip models that don't contain "gemini" in the name (case-insensitive)
-                    if (string.IsNullOrEmpty(model.Name) || !model.Name.Contains("gemini", StringComparison.OrdinalIgnoreCase))
+                    if (string.IsNullOrEmpty(model.Name) || !model.Name.Contains("gemini", StringComparison.OrdinalIgnoreCase)
+                        || model.Name.Contains("omni", StringComparison.OrdinalIgnoreCase)) // Exclude the newly-released Gemini Omni model, which is not suitable for music generation due to it's any-to-any video generation model, just like Veo model 
                     {
                         continue;
                     }
