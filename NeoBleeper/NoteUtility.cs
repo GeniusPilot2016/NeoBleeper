@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace NeoBleeper
 {
@@ -333,6 +334,284 @@ namespace NeoBleeper
             string currentModifier = allowedModifiers.Contains(modifier) ? modifier : string.Empty;
             string currentArticulation = allowedArticulations.Contains(articulation) ? articulation : string.Empty;
             return (currentLength, currentModifier, currentArticulation);
+        }
+    }
+    public class PercussionSounds
+    {
+        public enum MidiPercussion : byte
+        {
+            Laser = 27,
+            Whip = 28,
+            ScratchPush = 29,
+            ScratchPull = 30,
+            StickClick = 31,
+            MetronomeClick = 33,
+            MetronomeBell = 34,
+            BassDrum = 35,
+            KickDrum = 36,
+            SideStick = 37,
+            SnareCrossStick = 37,
+            SnareDrum = 38,
+            HandClap = 39,
+            ElectricSnareDrum = 40,
+            FloorTom2 = 41,
+            HiHatClosed = 42,
+            FloorTom1 = 43,
+            HiHatFoot = 44,
+            LowTom = 45,
+            HiHatOpen = 46,
+            LowMidTom = 47,
+            HighMidTom = 48,
+            CrashCymbal = 49,
+            HighTom = 50,
+            RideCymbal = 51,
+            ChinaCymbal = 52,
+            RideBell = 53,
+            Tambourine = 54,
+            SplashCymbal = 55,
+            Cowbell = 56,
+            CrashCymbal2 = 57,
+            Vibraslap = 58,
+            RideCymbal2 = 59,
+            HighBongo = 60,
+            LowBongo = 61,
+            CongaDeadStroke = 62,
+            Conga = 63,
+            Tumba = 64,
+            HighTimbale = 65,
+            LowTimbale = 66,
+            HighAgogo = 67,
+            LowAgogo = 68,
+            Cabasa = 69,
+            Maracas = 70,
+            WhistleShort = 71,
+            WhistleLong = 72,
+            GuiroShort = 73,
+            GuiroLong = 74,
+            Claves = 75,
+            HighWoodblock = 76,
+            LowWoodblock = 77,
+            CuicaHigh = 78,
+            CuicaLow = 79,
+            TriangleMute = 80,
+            TriangleOpen = 81,
+            Shaker = 82,
+            SleighBell = 83,
+            BellTree = 84,
+            Castanets = 85,
+            SurduDeadStroke = 86,
+            Surdu = 87,
+            Güiro = 73,
+            Clave = 75,
+            WoodBlock = 76,
+            SnareDrumRod = 91,
+            OceanDrum = 92,
+            SnareDrumBrush = 93
+        }
+        public static void PlayPercussion(MidiPercussion percussion, CancellationToken cancellationToken = default, int maxDurationMs = 55, int velocity = 100)
+        {
+            // PC speaker percussion has no volume control.  Long high-frequency beeps are
+            // perceived as painful, so keep every hit short and keep the noise bands low.
+            // The goal is the BaWaMI-style 1-bit percussion: a short transient/noisy tick,
+            // not a realistic cymbal tail.
+            int minFreq = 180;
+            int maxFreq = 900;
+            int totalDurationMs = 36;
+            int stepDurationMs = 2;
+            int grainDurationMs = 1; // noise grains must be very short, otherwise the texture turns into slow chirps
+
+            bool isPitchGlide = false;
+            double startFreq = 0;
+            double endFreq = 0;
+
+            switch (percussion)
+            {
+                // Low drums: short downward pitch bend.
+                case MidiPercussion.KickDrum:
+                case MidiPercussion.BassDrum:
+                    isPitchGlide = true; startFreq = 145; endFreq = 55; totalDurationMs = 36; stepDurationMs = 2;
+                    break;
+
+                // Special effects.  Keep the laser/whip lower than before; PC speakers make
+                // 2-3 kHz very piercing.
+                case MidiPercussion.Laser:
+                    isPitchGlide = true; startFreq = 900; endFreq = 220; totalDurationMs = 45; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.Whip:
+                    isPitchGlide = true; startFreq = 1200; endFreq = 300; totalDurationMs = 30; stepDurationMs = 2;
+                    break;
+
+                // Cymbals / open hats: noisy, but capped low and short.  The old 350 ms
+                // duration was the main playback-scheduling freeze during dense drum parts.
+                case MidiPercussion.HiHatOpen:
+                case MidiPercussion.CrashCymbal:
+                case MidiPercussion.CrashCymbal2:
+                case MidiPercussion.SplashCymbal:
+                case MidiPercussion.ChinaCymbal:
+                case MidiPercussion.RideCymbal:
+                case MidiPercussion.RideCymbal2:
+                case MidiPercussion.RideBell:
+                case MidiPercussion.Tambourine:
+                case MidiPercussion.SleighBell:
+                case MidiPercussion.BellTree:
+                case MidiPercussion.Vibraslap:
+                case MidiPercussion.WhistleLong:
+                case MidiPercussion.OceanDrum:
+                    minFreq = 520; maxFreq = 1350; totalDurationMs = 42; stepDurationMs = 2; grainDurationMs = 1;
+                    break;
+
+                // Closed hats / ticks / shakers: very short transient.
+                case MidiPercussion.HiHatClosed:
+                case MidiPercussion.HiHatFoot:
+                case MidiPercussion.Cabasa:
+                case MidiPercussion.Maracas:
+                case MidiPercussion.Shaker:
+                case MidiPercussion.TriangleMute:
+                case MidiPercussion.TriangleOpen:
+                case MidiPercussion.Castanets:
+                case MidiPercussion.WhistleShort:
+                    minFreq = 620; maxFreq = 1450; totalDurationMs = 16; stepDurationMs = 2; grainDurationMs = 1;
+                    break;
+
+                // Wooden/metal clicks: a definite short pitch reads better than random high noise.
+                case MidiPercussion.StickClick:
+                case MidiPercussion.MetronomeClick:
+                case MidiPercussion.Claves:
+                case MidiPercussion.HighWoodblock:
+                case MidiPercussion.LowWoodblock:
+                    isPitchGlide = true; startFreq = percussion == MidiPercussion.LowWoodblock ? 620 : 820; endFreq = startFreq; totalDurationMs = 12; stepDurationMs = 2;
+                    break;
+
+                // Snares/claps/scratches/guiros: low-mid noise burst.
+                case MidiPercussion.SnareDrum:
+                case MidiPercussion.ElectricSnareDrum:
+                case MidiPercussion.SideStick:
+                case MidiPercussion.SnareDrumRod:
+                case MidiPercussion.SnareDrumBrush:
+                case MidiPercussion.HandClap:
+                case MidiPercussion.ScratchPush:
+                case MidiPercussion.ScratchPull:
+                case MidiPercussion.GuiroShort:
+                case MidiPercussion.GuiroLong:
+                    minFreq = 220; maxFreq = 1050; totalDurationMs = 32; stepDurationMs = 2; grainDurationMs = 1;
+                    break;
+
+                // Toms / bongos / congas: short downward pitch bends, with rough pitch by drum size.
+                case MidiPercussion.FloorTom2:
+                    isPitchGlide = true; startFreq = 165; endFreq = 70; totalDurationMs = 38; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.FloorTom1:
+                    isPitchGlide = true; startFreq = 185; endFreq = 78; totalDurationMs = 38; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.LowTom:
+                case MidiPercussion.LowMidTom:
+                    isPitchGlide = true; startFreq = 230; endFreq = 92; totalDurationMs = 34; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.HighMidTom:
+                case MidiPercussion.HighTom:
+                    isPitchGlide = true; startFreq = 310; endFreq = 125; totalDurationMs = 32; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.HighBongo:
+                case MidiPercussion.LowBongo:
+                case MidiPercussion.Conga:
+                case MidiPercussion.CongaDeadStroke:
+                case MidiPercussion.Tumba:
+                case MidiPercussion.HighTimbale:
+                case MidiPercussion.LowTimbale:
+                case MidiPercussion.CuicaHigh:
+                case MidiPercussion.CuicaLow:
+                case MidiPercussion.Surdu:
+                case MidiPercussion.SurduDeadStroke:
+                    isPitchGlide = true; startFreq = 360; endFreq = 145; totalDurationMs = 28; stepDurationMs = 2;
+                    break;
+
+                // Pitched percussion.
+                case MidiPercussion.Cowbell:
+                    isPitchGlide = true; startFreq = 620; endFreq = 620; totalDurationMs = 22; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.HighAgogo:
+                    isPitchGlide = true; startFreq = 760; endFreq = 760; totalDurationMs = 20; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.LowAgogo:
+                    isPitchGlide = true; startFreq = 520; endFreq = 520; totalDurationMs = 20; stepDurationMs = 2;
+                    break;
+                case MidiPercussion.MetronomeBell:
+                    isPitchGlide = true; startFreq = 880; endFreq = 880; totalDurationMs = 18; stepDurationMs = 2;
+                    break;
+            }
+
+            maxDurationMs = Math.Max(4, Math.Min(70, maxDurationMs));
+            totalDurationMs = Math.Min(totalDurationMs, maxDurationMs);
+
+            double velocityScale = Math.Max(1, Math.Min(127, velocity)) / 127.0;
+            totalDurationMs = Math.Max(4, (int)Math.Round(totalDurationMs * (0.60 + (0.40 * velocityScale))));
+
+            int ClampSpeakerFrequency(double value)
+            {
+                int freq = (int)Math.Round(value);
+                if (freq < 37) return 37;
+                if (freq > 1600) return 1600; // hard anti-piercing ceiling
+                return freq;
+            }
+
+            ushort lfsr = (ushort)Random.Shared.Next(1, ushort.MaxValue);
+            int elapsed = 0;
+            int attackMs = Math.Min(3, totalDurationMs);
+            int decayMs = Math.Max(1, totalDurationMs - attackMs);
+
+            int range = Math.Max(1, maxFreq - minFreq);
+            int attackCeiling = minFreq + (int)(range * 0.45); // no full-range high screech on attack
+            int attackRangeSize = Math.Max(1, attackCeiling - minFreq);
+
+            int decayCenter = minFreq + (int)(range * 0.10);
+            int decayJitter = Math.Max(1, (int)(range * 0.05));
+            int decayBandMin = Math.Max(minFreq, decayCenter - decayJitter);
+            int decayBandMax = Math.Min(maxFreq, decayCenter + decayJitter);
+            int decayRangeSize = Math.Max(1, decayBandMax - decayBandMin);
+
+            while (elapsed < totalDurationMs)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                double currentFreq;
+                int currentStepMs;
+
+                if (isPitchGlide)
+                {
+                    double t = totalDurationMs <= 1 ? 1.0 : (double)elapsed / totalDurationMs;
+                    // Slight curve makes drums hit then fall quickly, closer to a percussive thump.
+                    double curved = 1.0 - Math.Pow(1.0 - t, 2.0);
+                    currentFreq = startFreq + ((endFreq - startFreq) * curved);
+                    currentStepMs = stepDurationMs;
+                }
+                else
+                {
+                    int feedbackBit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
+                    lfsr = (ushort)((lfsr >> 1) | (feedbackBit << 15));
+
+                    if (elapsed < attackMs)
+                    {
+                        currentFreq = minFreq + (lfsr % attackRangeSize);
+                        currentStepMs = grainDurationMs;
+                    }
+                    else
+                    {
+                        double decayProgress = (double)(elapsed - attackMs) / decayMs;
+                        // Keep grains tiny.  Long 4-6 ms grains sound like separate chirps,
+                        // so the noisy/percussive texture becomes hard to notice.
+                        currentStepMs = grainDurationMs + (decayProgress > 0.70 ? 1 : 0); // mostly 1 ms, 2 ms tail
+                        currentFreq = decayBandMin + (lfsr % decayRangeSize);
+                    }
+                }
+
+                currentStepMs = Math.Min(currentStepMs, totalDurationMs - elapsed);
+                if (currentStepMs <= 0)
+                    break;
+
+                NotePlayer.PlayNoteWithoutGap(ClampSpeakerFrequency(currentFreq), currentStepMs);
+                elapsed += currentStepMs;
+            }
         }
     }
 }
