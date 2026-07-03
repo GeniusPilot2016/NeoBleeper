@@ -1,5 +1,4 @@
-﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
-// Copyright (C) 2023 GeniusPilot2016
+﻿// Copyright (C) 2023 GeniusPilot2016
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,6 +14,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace NeoBleeper
 {
@@ -333,6 +333,289 @@ namespace NeoBleeper
             string currentModifier = allowedModifiers.Contains(modifier) ? modifier : string.Empty;
             string currentArticulation = allowedArticulations.Contains(articulation) ? articulation : string.Empty;
             return (currentLength, currentModifier, currentArticulation);
+        }
+    }
+    public class PercussionSounds
+    {
+        public enum MidiPercussion : byte
+        {
+            Laser = 27,
+            Whip = 28,
+            ScratchPush = 29,
+            ScratchPull = 30,
+            StickClick = 31,
+            MetronomeClick = 33,
+            MetronomeBell = 34,
+            BassDrum = 35,
+            KickDrum = 36,
+            SideStick = 37,
+            SnareCrossStick = 37,
+            SnareDrum = 38,
+            HandClap = 39,
+            ElectricSnareDrum = 40,
+            FloorTom2 = 41,
+            HiHatClosed = 42,
+            FloorTom1 = 43,
+            HiHatFoot = 44,
+            LowTom = 45,
+            HiHatOpen = 46,
+            LowMidTom = 47,
+            HighMidTom = 48,
+            CrashCymbal = 49,
+            HighTom = 50,
+            RideCymbal = 51,
+            ChinaCymbal = 52,
+            RideBell = 53,
+            Tambourine = 54,
+            SplashCymbal = 55,
+            Cowbell = 56,
+            CrashCymbal2 = 57,
+            Vibraslap = 58,
+            RideCymbal2 = 59,
+            HighBongo = 60,
+            LowBongo = 61,
+            CongaDeadStroke = 62,
+            Conga = 63,
+            Tumba = 64,
+            HighTimbale = 65,
+            LowTimbale = 66,
+            HighAgogo = 67,
+            LowAgogo = 68,
+            Cabasa = 69,
+            Maracas = 70,
+            WhistleShort = 71,
+            WhistleLong = 72,
+            GuiroShort = 73,
+            GuiroLong = 74,
+            Claves = 75,
+            HighWoodblock = 76,
+            LowWoodblock = 77,
+            CuicaHigh = 78,
+            CuicaLow = 79,
+            TriangleMute = 80,
+            TriangleOpen = 81,
+            Shaker = 82,
+            SleighBell = 83,
+            BellTree = 84,
+            Castanets = 85,
+            SurduDeadStroke = 86,
+            Surdu = 87,
+            Güiro = 73,
+            Clave = 75,
+            WoodBlock = 76,
+            SnareDrumRod = 91,
+            OceanDrum = 92,
+            SnareDrumBrush = 93
+        }
+        public static void PlayPercussion(MidiPercussion percussion, CancellationToken cancellationToken = default)
+        {
+            // Default values for percussion sounds
+            int minFreq = 300;
+            int maxFreq = 3000;
+            int totalDurationMs = 150;
+            int stepDurationMs = 8; // Step duration for pitch glide, if applicable
+
+            bool isPitchGlide = false;
+            double startFreq = 0;
+            double endFreq = 0;
+
+            // Percussion sound characteristics based on MIDI percussion number
+            switch (percussion)
+            {
+                // Category 1: Pitch Glide Percussion (Kick Drum, Bass Drum, Laser
+                case MidiPercussion.KickDrum:
+                case MidiPercussion.BassDrum:
+                    isPitchGlide = true; startFreq = 180; endFreq = 42; totalDurationMs = 110;
+                    break;
+                case MidiPercussion.Laser:
+                    isPitchGlide = true; startFreq = 1600; endFreq = 250; totalDurationMs = 250;
+                    break;
+                case MidiPercussion.Whip:
+                    isPitchGlide = true; startFreq = 3000; endFreq = 500; totalDurationMs = 120;
+                    break;
+
+                // Category 2: Long Cymbal & Hi-Hat Sounds
+                // Kept audibly brighter than snare/toms for differentiation, but capped well
+                // under 2000 Hz - the 2500-5500 Hz range used earlier kept getting flagged as
+                // too high/piercing even after the original 5000-14000 Hz range was already
+                // reduced once. This is a firm ceiling, not another halfway step.
+                case MidiPercussion.HiHatOpen:
+                case MidiPercussion.CrashCymbal:
+                case MidiPercussion.CrashCymbal2:
+                case MidiPercussion.SplashCymbal:
+                case MidiPercussion.ChinaCymbal:
+                case MidiPercussion.RideCymbal:
+                case MidiPercussion.RideCymbal2:
+                case MidiPercussion.RideBell:
+                case MidiPercussion.Tambourine:
+                case MidiPercussion.SleighBell:
+                case MidiPercussion.BellTree:
+                case MidiPercussion.Vibraslap:
+                case MidiPercussion.WhistleLong:
+                case MidiPercussion.OceanDrum:
+                    minFreq = 500; maxFreq = 1800; totalDurationMs = 350;
+                    break;
+
+                // Category 3: Short Cymbal & Hi-Hat Sounds
+                // Same rationale as Category 2 above.
+                case MidiPercussion.HiHatClosed:
+                case MidiPercussion.HiHatFoot:
+                case MidiPercussion.StickClick:
+                case MidiPercussion.MetronomeClick:
+                case MidiPercussion.Claves:        // Scopes the Clave value (75)
+                case MidiPercussion.HighWoodblock: // Scopes the HighWoodblock value (76)
+                case MidiPercussion.LowWoodblock:
+                case MidiPercussion.Cabasa:
+                case MidiPercussion.Maracas:
+                case MidiPercussion.Shaker:
+                case MidiPercussion.TriangleMute:
+                case MidiPercussion.TriangleOpen:
+                case MidiPercussion.Castanets:
+                case MidiPercussion.WhistleShort:
+                    minFreq = 700; maxFreq = 2000; totalDurationMs = 50;
+                    break;
+
+                // Category 4: Snare Drum & Noise Percussion
+                case MidiPercussion.SnareDrum:
+                case MidiPercussion.ElectricSnareDrum:
+                case MidiPercussion.SideStick:      // Scopes the SideStick value (37)
+                case MidiPercussion.SnareDrumRod:
+                case MidiPercussion.SnareDrumBrush:
+                case MidiPercussion.HandClap:
+                case MidiPercussion.ScratchPush:
+                case MidiPercussion.ScratchPull:
+                case MidiPercussion.GuiroShort:     // Scopes the GuiroShort value (73)
+                case MidiPercussion.GuiroLong:
+                    minFreq = 200; maxFreq = 1300; totalDurationMs = 160;
+                    break;
+
+                // Category 5: Tom Drums & Low Percussion
+                // Real toms/bongos/congas have a clear pitched "thump" with a fast downward
+                // pitch bend, much like the kick drum - they are not a noise source. Switched
+                // from random-frequency noise to a pitch glide for a far more realistic,
+                // recognizable drum-like attack instead of a low buzz.
+                case MidiPercussion.FloorTom1:
+                case MidiPercussion.FloorTom2:
+                case MidiPercussion.LowTom:
+                case MidiPercussion.LowMidTom:
+                case MidiPercussion.HighMidTom:
+                case MidiPercussion.HighTom:
+                case MidiPercussion.HighBongo:
+                case MidiPercussion.LowBongo:
+                case MidiPercussion.Conga:
+                case MidiPercussion.CongaDeadStroke:
+                case MidiPercussion.Tumba:
+                case MidiPercussion.HighTimbale:
+                case MidiPercussion.LowTimbale:
+                case MidiPercussion.CuicaHigh:
+                case MidiPercussion.CuicaLow:
+                case MidiPercussion.Surdu:
+                case MidiPercussion.SurduDeadStroke:
+                    isPitchGlide = true; startFreq = 260; endFreq = 85; totalDurationMs = 170;
+                    break;
+
+                // Category 6: Miscellaneous Percussion (Cowbell, Agogo, Metronome Bell)
+                // These are definite-pitch instruments in a real kit, not noise sources.
+                // Held as a steady tone (glide with equal start/end) instead of hopping
+                // between random frequencies, for a clean "clonk" rather than static.
+                case MidiPercussion.Cowbell:
+                    isPitchGlide = true; startFreq = 800; endFreq = 800; totalDurationMs = 140;
+                    break;
+                case MidiPercussion.HighAgogo:
+                    isPitchGlide = true; startFreq = 950; endFreq = 950; totalDurationMs = 120;
+                    break;
+                case MidiPercussion.LowAgogo:
+                    isPitchGlide = true; startFreq = 650; endFreq = 650; totalDurationMs = 120;
+                    break;
+                case MidiPercussion.MetronomeBell:
+                    isPitchGlide = true; startFreq = 1000; endFreq = 1000; totalDurationMs = 100;
+                    break;
+            }
+
+            // Engine of the percussion sound generation in loop
+            System.Random random = new System.Random();
+            int elapsed = 0;
+
+            // --- Attack + decay noise envelope ---
+            // Real percussion isn't a flat, constant-texture sound for its whole duration -
+            // it's a sharp, wideband noisy transient (the stick/mallet strike) that then
+            // decays: the noise narrows and thins out as the sound fades. Using one constant
+            // texture for the whole duration (what earlier revisions did) always ends up
+            // sounding like either a flat drone or a string of discrete beeps, because
+            // there's no shape to it - a real hit's initial "crack" and its fading tail have
+            // different character, and that contrast is a big part of what reads as
+            // percussive rather than tonal.
+            //
+            // Attack phase (short, ~20% of total duration): the LFSR picks frequencies from
+            // across the FULL category range, stepped very fast - this is the noisy "crack".
+            // Decay phase (remaining ~80%): frequency settles into a narrow low band near the
+            // bottom of the range (so it doesn't wander into audibly distinct pitches), and
+            // the step duration progressively lengthens, thinning out the noise density as
+            // the hit fades - approximating amplitude decay without actual volume control.
+            int attackMs = Math.Max(6, (int)(totalDurationMs * 0.2));
+            attackMs = Math.Min(attackMs, totalDurationMs);
+            int decayMs = Math.Max(1, totalDurationMs - attackMs);
+
+            int decayCenter = minFreq + (int)((maxFreq - minFreq) * 0.12);
+            int decayJitter = Math.Max(1, (int)((maxFreq - minFreq) * 0.06));
+            int decayBandMin = Math.Max(minFreq, decayCenter - decayJitter);
+            int decayBandMax = Math.Min(maxFreq, decayCenter + decayJitter);
+            int decayRangeSize = Math.Max(1, decayBandMax - decayBandMin);
+            int attackRangeSize = Math.Max(1, maxFreq - minFreq);
+
+            ushort lfsr = (ushort)random.Next(1, ushort.MaxValue); // non-zero seed, unique per hit
+
+            while (elapsed < totalDurationMs)
+            {
+                // Check for cancellation between steps so Stop() (or the next note event)
+                // can interrupt a long cymbal/hi-hat sound instead of blocking until it
+                // finishes on its own.
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                double currentFreq;
+                int currentStepMs;
+
+                if (isPitchGlide)
+                {
+                    // Slide the frequency from startFreq to endFreq over the total duration
+                    // (startFreq == endFreq for held tones like cowbell/agogo, which just
+                    // produces a steady pitch).
+                    double t = (double)elapsed / totalDurationMs;
+                    currentFreq = startFreq + (endFreq - startFreq) * t;
+                    currentStepMs = stepDurationMs;
+                }
+                else
+                {
+                    // Advance the LFSR by one step. Standard (non-cryptographic) 16-bit
+                    // Fibonacci LFSR - doesn't need to be perfect, just uncorrelated-looking
+                    // from one step to the next.
+                    int feedbackBit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
+                    lfsr = (ushort)((lfsr >> 1) | (feedbackBit << 15));
+
+                    if (elapsed < attackMs)
+                    {
+                        // Attack: fast, wideband, chaotic - the percussive "crack".
+                        currentFreq = minFreq + (lfsr % attackRangeSize);
+                        currentStepMs = 2;
+                    }
+                    else
+                    {
+                        // Decay: narrow low band, with the step duration growing from fast
+                        // to slow as the hit fades out, thinning the noise density over time.
+                        double decayProgress = (double)(elapsed - attackMs) / decayMs; // 0..1
+                        currentStepMs = 2 + (int)(decayProgress * 6); // 2ms -> 8ms
+                        currentFreq = decayBandMin + (lfsr % decayRangeSize);
+                    }
+                }
+
+                // Trigger the note without gap for the current frequency and step duration
+                NotePlayer.PlayNoteWithoutGap((int)currentFreq, currentStepMs);
+
+                elapsed += currentStepMs;
+            }
         }
     }
 }

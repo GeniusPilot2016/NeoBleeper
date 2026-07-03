@@ -1631,33 +1631,29 @@ namespace NeoBleeper
             var currentFrame = _frames[_currentFrameIndex];
             var currentTime = currentFrame.Time;
 
-            // --- Event-based MIDI output logic ---
-            if (TemporarySettings.MIDIDevices.useMIDIoutput)
-            {
-                // Take events from preprocessed dictionary
-                if (_eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime))
-                {
-                    // 1. Process Note Off events
-                    var noteOffEvents = eventsAtThisTime.OfType<NoteEvent>().Where(n => !MidiEvent.IsNoteOn(n));
-                    foreach (var noteOff in noteOffEvents)
-                    {
-                        // Check if this channel enabled
-                        if (_enabledChannels.Contains(noteOff.Channel))
-                        {
-                            MIDIIOUtils.SendNoteOff(noteOff.NoteNumber, noteOff.Channel - 1);
-                        }
-                    }
+            _eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime);
 
-                    // 2. Process all Note On events
-                    var noteOnEvents = eventsAtThisTime.OfType<NoteOnEvent>().Where(n => n.Velocity > 0);
-                    foreach (var noteOn in noteOnEvents)
+            // --- Event-based MIDI output logic ---
+            if (TemporarySettings.MIDIDevices.useMIDIoutput && eventsAtThisTime != null)
+            {
+                // 1. Process Note Off events
+                var noteOffEvents = eventsAtThisTime.OfType<NoteEvent>().Where(n => !MidiEvent.IsNoteOn(n));
+                foreach (var noteOff in noteOffEvents)
+                {
+                    if (_enabledChannels.Contains(noteOff.Channel))
                     {
-                        // Check if this channel enabled
-                        if (_enabledChannels.Contains(noteOn.Channel))
-                        {
-                            _noteInstruments.TryGetValue((noteOn.NoteNumber, currentTime), out int instrument);
-                            MIDIIOUtils.SendNoteOn(noteOn.NoteNumber, instrument, noteOn.Channel - 1);
-                        }
+                        MIDIIOUtils.SendNoteOff(noteOff.NoteNumber, noteOff.Channel - 1);
+                    }
+                }
+
+                // 2. Process all Note On events
+                var noteOnEvents = eventsAtThisTime.OfType<NoteOnEvent>().Where(n => n.Velocity > 0);
+                foreach (var noteOn in noteOnEvents)
+                {
+                    if (_enabledChannels.Contains(noteOn.Channel))
+                    {
+                        _noteInstruments.TryGetValue((noteOn.NoteNumber, currentTime), out int instrument);
+                        MIDIIOUtils.SendNoteOn(noteOn.NoteNumber, instrument, noteOn.Channel - 1);
                     }
                 }
             }
@@ -1667,7 +1663,11 @@ namespace NeoBleeper
             foreach (var note in currentFrame.ActiveNotes)
             {
                 if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
+                {
+                    // Exclude Channel 10 from standard melodic notes so they don't play as beeps
+                    if (channel == 10) continue;
                     filteredNotes.Add(note);
+                }
             }
 
             // Calculate duration
@@ -1707,7 +1707,6 @@ namespace NeoBleeper
             }
 
             int durationMsInt = (int)Math.Max(0, Math.Round(adjustedDuration));
-
             if (durationMsInt <= 0 && filteredNotes.Count == 0)
             {
                 // If nothing to play and adjusted duration is zero or negative, update drift accumulation and return.
@@ -1720,24 +1719,58 @@ namespace NeoBleeper
                 HandleLyricsDisplay(currentTime);
             }
 
-            if (filteredNotes.Count == 0)
+            // --- NEW: Prioritized Percussion Block ---
+            bool playedPercussion = false;
+
+            // Use the already defined eventsAtThisTime
+            if (eventsAtThisTime != null)
             {
-                await WaitPreciseWithCancellation(durationMsInt, token);
-            }
-            else
-            {
-                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-                if (frequencies.Length == 1)
+                var drumEvent = eventsAtThisTime.OfType<NoteOnEvent>()
+                    .FirstOrDefault(n => n.Velocity > 0 && n.Channel == 10 && _enabledChannels.Contains(10));
+
+                if (drumEvent != null)
                 {
-                    await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], durationMsInt), token);
+                    // Note: Since PlayPercussion is sync, Task.Run works fine. 
+                    // The compiler error was strictly about the variable name collision.
+                    await Task.Run(() => PercussionSounds.PlayPercussion((PercussionSounds.MidiPercussion)drumEvent.NoteNumber));
+                    playedPercussion = true;
+                }
+            }
+
+            // Only play the melody if the speaker wasn't just hogged by a drum hit
+            if (!playedPercussion)
+            {
+                if (filteredNotes.Count == 0)
+                {
+                    await WaitPreciseWithCancellation(durationMsInt, token);
                 }
                 else
                 {
-                    await PlayMultipleNotesAsync(frequencies, durationMsInt, token);
+                    var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+                    if (frequencies.Length == 1)
+                    {
+                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], durationMsInt), token);
+                    }
+                    else
+                    {
+                        await PlayMultipleNotesAsync(frequencies, durationMsInt, token);
+                    }
+                }
+            }
+            else
+            {
+                // If the drum finished FASTER than the frame's intended duration, wait out the remaining time
+                // so we don't accidentally fast-forward the song.
+                int elapsedDrumTime = (int)driftStopwatch.ElapsedMilliseconds;
+                int remainingFrameTime = durationMsInt - elapsedDrumTime;
+                if (remainingFrameTime > 0)
+                {
+                    await WaitPreciseWithCancellation(remainingFrameTime, token);
                 }
             }
 
             // Accumulate the real elapsed difference (can be positive or negative)
+            // If the drum took longer than durationMsInt, this naturally tells the drift logic to skip the next frame!
             driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
         }
 
