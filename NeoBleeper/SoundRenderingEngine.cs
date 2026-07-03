@@ -166,12 +166,10 @@ namespace NeoBleeper
             }
 
             [DllImport("inpoutx64.dll")]
-
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             extern static void Out32(short PortAddress, short Data);
+            
             [DllImport("inpoutx64.dll")]
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             extern static char Inp32(short PortAddress);
 
             /// <summary>
@@ -186,28 +184,13 @@ namespace NeoBleeper
             /// <param name="ms">The duration of the beep, in milliseconds. Must be a non-negative integer.</param>
             /// <param name="nonStopping">If set to <see langword="true"/>, the beep will continue after the specified duration until stopped by
             /// other means; otherwise, the beep stops automatically after the duration elapses.</param>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
-                    // This program contains 100% recycled beeps from the golden age of the PC audio.
-                    int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
-                    if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) ||
-                        (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
-                                                                                                                // Also, if the storage type is unknown, avoid common resonant frequencies to be safe
-                    {
-                        freq += 1; // Shift frequency by 1 Hz to avoid resonance
-                    }
-                    Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
-                    int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
-                    Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
-                    Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
-                    if (!nonStopping)
-                    {
-                        HighPrecisionSleep.Sleep(5); // Small delay if not nonStopping to ensure the PIT is set up before enabling the speaker
-                    }
-                    Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
+                    int offset = 0; // Optional offset before enabling the speaker, can be adjusted if needed
+                    offset = (nonStopping == true ? 0 : 5);
+                    StartBeep(freq, offset);
                     HighPrecisionSleep.Sleep(ms); // Wait for the specified duration
                     if (!nonStopping) // If nonStopping is true, the beep will not stop
                     {
@@ -224,12 +207,45 @@ namespace NeoBleeper
             }
 
             /// <summary>
+            /// Opens the system speaker (aka PC speaker) gate to start producing a beep sound at the specified frequency.
+            /// </summary>
+            /// <remarks>
+            /// On platforms where the system speaker is not present or not supported (such as most ARM64-based devices), this method performs no operation. The frequency may be adjusted internally to avoid potential resonance issues with certain storage devices.
+            /// </remarks>
+            /// <param name="freq"></param>
+            /// <param name="offset"></param>
+            public static void StartBeep(int freq, int offset = 0)
+            {
+                if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                {
+                    // Philosophical problem: How do you start a beep that doesn't exist in most of Copilot+ devices?
+                    return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
+                }
+                // This program contains 100% recycled beeps from the golden age of the PC audio.
+                int[] probableResonantFrequencies = new int[] { 45, 50, 60, 100, 120 }; // Common resonant frequencies to avoid if StorageType is Other
+                if ((freq == resonanceFrequency && StorageType == systemStorageType.HDD) ||
+                    (StorageType == systemStorageType.Other && probableResonantFrequencies.Contains(freq))) // Prevent resonance frequencies on HDDs to avoid critical crashes because the system speaker doesn't have resonance prevention unlike regular sound devices and it's usually inside of the computer case
+                                                                                                            // Also, if the storage type is unknown, avoid common resonant frequencies to be safe
+                {
+                    freq += 1; // Shift frequency by 1 Hz to avoid resonance
+                }
+                Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
+                int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
+                Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
+                Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
+                if(offset > 0)
+                {
+                    HighPrecisionSleep.Sleep(offset); // Optional offset before enabling the speaker, if specified
+                }
+                Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
+            }
+
+            /// <summary>
             /// Stops the system speaker (PC speaker) from producing a beep sound, if supported by the current platform.
             /// </summary>
             /// <remarks>On platforms where the system speaker is not present or not supported (such
             /// as most ARM64-based devices), this method performs no operation. This method has no effect if the system
             /// speaker is already silent.</remarks>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
                 if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
@@ -957,19 +973,8 @@ namespace NeoBleeper
             /// stopped automatically after the specified duration.</param>
             private static void PlaySound(int ms, bool nonStopping)
             {
-                lock (AudioLock)
-                {
-                    if (!nonStopping)
-                    {
-                        HighPrecisionSleep.Sleep(5);
-                    }
-
-                    // Ensure waveOut is not already playing
-                    if (waveOut.PlaybackState != PlaybackState.Playing)
-                    {
-                        waveOut.Play();
-                    }
-                }
+                int offset = (nonStopping == true ? 0 : 5); // Add a small offset to ensure the sound starts before the sleep duration
+                StartSynth(signalGenerator.Type, (int)signalGenerator.Frequency, offset);
 
                 if (ms > 0)
                 {
@@ -1037,6 +1042,12 @@ namespace NeoBleeper
             /// otherwise, it may interrupt ongoing playback.</param>
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
+                SetWaveTypeFrequencyAndVolume(type, freq);
+                PlaySound(ms, nonStopping);
+            }
+
+            private static void SetWaveTypeFrequencyAndVolume(SignalGeneratorType type, int freq)
+            {
                 lock (AudioLock)
                 {
                     if (currentProvider != signalGenerator)
@@ -1050,7 +1061,24 @@ namespace NeoBleeper
                         signalGenerator.Gain = 0.15;
                     }
                 }
-                PlaySound(ms, nonStopping);
+            }
+
+            public static void StartSynth(SignalGeneratorType type, int freq, int offset = 0)
+            {
+                SetWaveTypeFrequencyAndVolume(type, freq);
+                lock (AudioLock)
+                {
+                    if (offset > 0)
+                    {
+                        HighPrecisionSleep.Sleep(offset);
+                    }
+
+                    // Ensure waveOut is not already playing
+                    if (waveOut.PlaybackState != PlaybackState.Playing)
+                    {
+                        waveOut.Play();
+                    }
+                }
             }
 
             /// <summary>
