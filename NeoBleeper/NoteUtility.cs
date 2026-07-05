@@ -407,8 +407,63 @@ namespace NeoBleeper
             OceanDrum = 92,
             SnareDrumBrush = 93
         }
+        public enum PercussionOutputChoice
+        {
+            SystemSpeaker,
+            SoundDevice
+        }
+
+        private static void StartPulse(PercussionOutputChoice outputChoice, int frequency)
+        {
+            switch (outputChoice)
+            {
+                case PercussionOutputChoice.SystemSpeaker:
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(frequency);
+                    break;
+                case PercussionOutputChoice.SoundDevice:
+                    switch (TemporarySettings.CreatingSounds.soundDeviceBeepWaveform)
+                    {
+                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Square:
+                            {
+                                SoundRenderingEngine.WaveSynthEngine.StartSynth(NAudio.Wave.SampleProviders.SignalGeneratorType.Square, frequency);
+                                break;
+                            }
+                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Sine:
+                            {
+                                SoundRenderingEngine.WaveSynthEngine.StartSynth(NAudio.Wave.SampleProviders.SignalGeneratorType.Sin, frequency);
+                                break;
+                            }
+                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Triangle:
+                            {
+                                SoundRenderingEngine.WaveSynthEngine.StartSynth(NAudio.Wave.SampleProviders.SignalGeneratorType.Triangle, frequency);
+                                break;
+                            }
+                        case TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Noise:
+                            {
+                                SoundRenderingEngine.WaveSynthEngine.StartSynth(NAudio.Wave.SampleProviders.SignalGeneratorType.White, frequency);
+                                break;
+                            }
+                    }
+                    break;
+            }
+        }
+
+        private static void StopPulse(PercussionOutputChoice outputChoice)
+        {
+            switch (outputChoice)
+            {
+                case PercussionOutputChoice.SystemSpeaker:
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                    break;
+                case PercussionOutputChoice.SoundDevice:
+                    SoundRenderingEngine.WaveSynthEngine.StopSynth();
+                    break;
+            }
+        }
+
         public static void PlayPercussion(MidiPercussion percussion, CancellationToken cancellationToken = default, int maxDurationMs = 55, int velocity = 100)
         {
+            PercussionOutputChoice outputChoice = TemporarySettings.CreatingSounds.createBeepWithSoundDevice == true ? PercussionOutputChoice.SoundDevice : PercussionOutputChoice.SystemSpeaker;
             // PC speaker percussion has no volume control.  Long high-frequency beeps are
             // perceived as painful, so keep every hit short and keep the noise bands low.
             // The goal is the BaWaMI-style 1-bit percussion: a short transient/noisy tick,
@@ -469,7 +524,7 @@ namespace NeoBleeper
                 case MidiPercussion.TriangleOpen:
                 case MidiPercussion.Castanets:
                 case MidiPercussion.WhistleShort:
-                    minFreq = 620; maxFreq = 1450; totalDurationMs = 16; stepDurationMs = 2; grainDurationMs = 1;
+                    minFreq = 620; maxFreq = 1450; totalDurationMs = 22; stepDurationMs = 2; grainDurationMs = 1;
                     break;
 
                 // Wooden/metal clicks: a definite short pitch reads better than random high noise.
@@ -478,7 +533,7 @@ namespace NeoBleeper
                 case MidiPercussion.Claves:
                 case MidiPercussion.HighWoodblock:
                 case MidiPercussion.LowWoodblock:
-                    isPitchGlide = true; startFreq = percussion == MidiPercussion.LowWoodblock ? 620 : 820; endFreq = startFreq; totalDurationMs = 12; stepDurationMs = 2;
+                    isPitchGlide = true; startFreq = percussion == MidiPercussion.LowWoodblock ? 620 : 820; endFreq = startFreq; totalDurationMs = 15; stepDurationMs = 2;
                     break;
 
                 // Snares/claps/scratches/guiros: low-mid noise burst.
@@ -543,7 +598,7 @@ namespace NeoBleeper
             totalDurationMs = Math.Min(totalDurationMs, maxDurationMs);
 
             double velocityScale = Math.Max(1, Math.Min(127, velocity)) / 127.0;
-            totalDurationMs = Math.Max(4, (int)Math.Round(totalDurationMs * (0.60 + (0.40 * velocityScale))));
+            totalDurationMs = Math.Max(10, (int)Math.Round(totalDurationMs * (0.75 + (0.25 * velocityScale))));
 
             int ClampSpeakerFrequency(double value)
             {
@@ -555,61 +610,116 @@ namespace NeoBleeper
 
             ushort lfsr = (ushort)Random.Shared.Next(1, ushort.MaxValue);
             int elapsed = 0;
-            int attackMs = Math.Min(3, totalDurationMs);
+            // FIX: attack used to be a flat 3ms regardless of note length, so on a 30-40ms
+            // snare/cymbal/hat hit almost the whole audible duration was the (narrow) decay
+            // band below. Scale it with the total duration instead so the broadband "crack"
+            // actually has time to be heard.
+            int attackMs = Math.Max(2, Math.Min(totalDurationMs - 1, (int)Math.Round(totalDurationMs * 0.35)));
             int decayMs = Math.Max(1, totalDurationMs - attackMs);
 
             int range = Math.Max(1, maxFreq - minFreq);
-            int attackCeiling = minFreq + (int)(range * 0.45); // no full-range high screech on attack
+            int attackCeiling = minFreq + (int)(range * 0.65); // wide, harsh band for the initial transient
             int attackRangeSize = Math.Max(1, attackCeiling - minFreq);
 
-            int decayCenter = minFreq + (int)(range * 0.10);
-            int decayJitter = Math.Max(1, (int)(range * 0.05));
+            // FIX: the decay band used to be only ~10% of the full frequency range
+            // (decayCenter ± 5%), which made the tail sound like a near-constant single
+            // pitch — i.e. a quiet "beep" — instead of a fading noise burst. Widen it to
+            // ~50% of the range so it keeps a noisy, percussive character while still
+            // trending lower than the attack for a natural decay feel.
+            int decayCenter = minFreq + (int)(range * 0.30);
+            int decayJitter = Math.Max(2, (int)(range * 0.25));
             int decayBandMin = Math.Max(minFreq, decayCenter - decayJitter);
             int decayBandMax = Math.Min(maxFreq, decayCenter + decayJitter);
             int decayRangeSize = Math.Max(1, decayBandMax - decayBandMin);
 
-            while (elapsed < totalDurationMs)
+            // FIX: this is the piece the earlier pass was missing. BaWaMI's actual noise-based
+            // percussion (see reference source: `If Rnd < NoiseVol Then PCSpkDirectOn Else
+            // PCSpkDirectOff`) doesn't just hop pitch — for every tiny sample it flips a weighted
+            // coin and either sounds the speaker or leaves it truly silent, with the "on"
+            // probability (NoiseVol) tracking the note's live volume envelope so the crackle
+            // visibly thins out as the note decays. That random on/off gating, not the pitch
+            // hopping by itself, is what makes it read as *noise* with a real decay — without it,
+            // a speaker that's always "on" just sounds like one continuous (if wobbly) tone,
+            // i.e. a beep, no matter how much the pitch jumps around.
+            // We have no live envelope to sample here, so the decay phase fades a gate
+            // probability from DecayGateStart down to DecayGateFloor over the tail instead. The
+            // attack phase is intentionally left ungated (always on) so the initial crack stays
+            // solid and unambiguously audible.
+            const double DecayGateStart = 0.90;
+            const double DecayGateFloor = 0.22;
+
+            // FIX: StartPulse/StopPulse are non-blocking -- unlike the old
+            // NotePlayer.PlayNoteWithoutGap(freq, ms), which returned on its own after
+            // playing for exactly `ms`, a started pulse just keeps going until something
+            // explicitly stops it. That means every exit from this method -- normal
+            // completion, cancellation, or an exception -- has to guarantee StopPulse
+            // runs, or the tone/noise is left playing indefinitely.
+            try
             {
-                if (cancellationToken.IsCancellationRequested)
-                    break;
-
-                double currentFreq;
-                int currentStepMs;
-
-                if (isPitchGlide)
+                while (elapsed < totalDurationMs)
                 {
-                    double t = totalDurationMs <= 1 ? 1.0 : (double)elapsed / totalDurationMs;
-                    // Slight curve makes drums hit then fall quickly, closer to a percussive thump.
-                    double curved = 1.0 - Math.Pow(1.0 - t, 2.0);
-                    currentFreq = startFreq + ((endFreq - startFreq) * curved);
-                    currentStepMs = stepDurationMs;
-                }
-                else
-                {
-                    int feedbackBit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
-                    lfsr = (ushort)((lfsr >> 1) | (feedbackBit << 15));
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
 
-                    if (elapsed < attackMs)
+                    double currentFreq;
+                    int currentStepMs;
+                    bool playGrain = true;
+
+                    if (isPitchGlide)
                     {
-                        currentFreq = minFreq + (lfsr % attackRangeSize);
-                        currentStepMs = grainDurationMs;
+                        double t = totalDurationMs <= 1 ? 1.0 : (double)elapsed / totalDurationMs;
+                        // Slight curve makes drums hit then fall quickly, closer to a percussive thump.
+                        double curved = 1.0 - Math.Pow(1.0 - t, 2.0);
+                        currentFreq = startFreq + ((endFreq - startFreq) * curved);
+                        currentStepMs = stepDurationMs;
                     }
                     else
                     {
-                        double decayProgress = (double)(elapsed - attackMs) / decayMs;
-                        // Keep grains tiny.  Long 4-6 ms grains sound like separate chirps,
-                        // so the noisy/percussive texture becomes hard to notice.
-                        currentStepMs = grainDurationMs + (decayProgress > 0.70 ? 1 : 0); // mostly 1 ms, 2 ms tail
-                        currentFreq = decayBandMin + (lfsr % decayRangeSize);
+                        int feedbackBit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
+                        lfsr = (ushort)((lfsr >> 1) | (feedbackBit << 15));
+
+                        if (elapsed < attackMs)
+                        {
+                            currentFreq = minFreq + (lfsr % attackRangeSize);
+                            currentStepMs = grainDurationMs;
+                        }
+                        else
+                        {
+                            double decayProgress = (double)(elapsed - attackMs) / decayMs;
+                            // Keep grains tiny.  Long 4-6 ms grains sound like separate chirps,
+                            // so the noisy/percussive texture becomes hard to notice.
+                            currentStepMs = grainDurationMs + (decayProgress > 0.70 ? 1 : 0); // mostly 1 ms, 2 ms tail
+                            currentFreq = decayBandMin + (lfsr % decayRangeSize);
+
+                            double gateProbability = DecayGateStart + ((DecayGateFloor - DecayGateStart) * decayProgress);
+                            playGrain = Random.Shared.NextDouble() < gateProbability;
+                        }
                     }
+
+                    currentStepMs = Math.Min(currentStepMs, totalDurationMs - elapsed);
+                    if (currentStepMs <= 0)
+                        break;
+
+                    // NOTE: this assumes StartPulse can be called again, with a new frequency,
+                    // while a pulse is already playing, and that it updates the pitch in place
+                    // rather than audibly restarting -- i.e. it behaves like a register write on
+                    // the SystemSpeaker path. Calling it every 1-2ms is fine for a raw port
+                    // toggle; if WaveSynthEngine's SoundDevice path tears down/recreates its
+                    // NAudio output on every call instead of just updating an already-running
+                    // oscillator, calling it this fast will click/glitch and the grain size below
+                    // (grainDurationMs) would need to be coarsened specifically for that path.
+                    if (playGrain)
+                        StartPulse(outputChoice, ClampSpeakerFrequency(currentFreq));
+                    else
+                        StopPulse(outputChoice); // true silence — this is what makes the decay actually decay
+
+                    Thread.Sleep(currentStepMs);
+                    elapsed += currentStepMs;
                 }
-
-                currentStepMs = Math.Min(currentStepMs, totalDurationMs - elapsed);
-                if (currentStepMs <= 0)
-                    break;
-
-                NotePlayer.PlayNoteWithoutGap(ClampSpeakerFrequency(currentFreq), currentStepMs);
-                elapsed += currentStepMs;
+            }
+            finally
+            {
+                StopPulse(outputChoice); // always stop, however this method exits
             }
         }
     }

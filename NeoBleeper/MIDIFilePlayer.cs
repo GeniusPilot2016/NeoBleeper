@@ -1740,10 +1740,7 @@ namespace NeoBleeper
                     : 8;
 
                 PercussionSounds.PlayPercussion(
-                    (PercussionSounds.MidiPercussion)drumEvent.NoteNumber,
-                    token,
-                    maxPercussionMs,
-                    drumEvent.Velocity);
+                    (PercussionSounds.MidiPercussion)drumEvent.NoteNumber);
 
                 playedPercussion = true;
             }

@@ -903,7 +903,7 @@ namespace NeoBleeper
             static WaveSynthEngine()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 50;
+                waveOut.DesiredLatency = 25;
                 waveOut.NumberOfBuffers = 4;
                 waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
                 waveOut.Init(signalGenerator);
