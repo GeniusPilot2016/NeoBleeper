@@ -263,7 +263,6 @@ namespace NeoBleeper
             /// attempts to stop it if necessary. Any exceptions that occur during this process are suppressed. This
             /// method is typically used to ensure that unwanted or continuous beeping is silenced in scenarios where
             /// the system speaker may not stop beeping automatically.</remarks>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void StopBeepIfNeeded()
             {
                 try
@@ -287,7 +286,6 @@ namespace NeoBleeper
             /// supported and this method always returns false. If an error occurs while checking the speaker status,
             /// the method also returns false.</remarks>
             /// <returns>true if the system speaker is detected to be continuously beeping; otherwise, false.</returns>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool IsSystemSpeakerBeepStuck()
             {
                 try
@@ -326,7 +324,6 @@ namespace NeoBleeper
             /// is intended for use in environments where direct hardware access is permitted and may not be suitable
             /// for all platforms.</remarks>
             /// <returns>true if the system speaker is detected and passes all functional checks; otherwise, false.</returns>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool IsFunctionalSystemSpeaker()
             {
                 bool acquired = false;
@@ -364,7 +361,6 @@ namespace NeoBleeper
                 }
             }
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool TryReadPort61(out byte value)
             {
                 try
@@ -379,7 +375,6 @@ namespace NeoBleeper
                 }
             }
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool CheckControlPortRoundTrip(out string details)
             {
                 byte originalState = 0;
@@ -422,7 +417,6 @@ namespace NeoBleeper
                 }
             }
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool CheckPitChannel2Bit5Activity(
                 int frequencyHz,
                 int sampleCount,
@@ -477,7 +471,6 @@ namespace NeoBleeper
                 }
             }
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static bool TryMinimalAudibleProbe(
             int frequencyHz,
             int durationUs)
@@ -529,19 +522,16 @@ namespace NeoBleeper
             }
 
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static byte ReadPortByte(short port)
             {
                 return unchecked((byte)(Inp32(port) & 0xFF));
             }
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static void WritePortByte(short port, byte value)
             {
                 Out32(port, value);
             }
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             private static void RestoreSpeakerControl(byte originalState)
             {
                 try
@@ -562,7 +552,6 @@ namespace NeoBleeper
             /// not supported on ARM64 architectures; in such cases, this method always returns false.</remarks>
             /// <returns>true if a system speaker is detected and can be accessed; otherwise, false.</returns>
 
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool IsSystemSpeakerExist()
             {
                 // No system speaker, no problem.
@@ -635,7 +624,6 @@ namespace NeoBleeper
             /// performed on ARM64 devices, which typically do not support system speaker access. If an error occurs
             /// during detection, the method returns false and assumes the chipset is not affected.</remarks>
             /// <returns>true if the chipset is identified as affected by known system speaker issues; otherwise, false.</returns>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static bool CheckIfChipsetAffectedFromSystemSpeakerIssues() // Check if the chipset known to have system speaker issues
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
@@ -750,7 +738,6 @@ namespace NeoBleeper
             /// may become unresponsive due to known hardware issues. It has no effect on systems that are not affected.
             /// The method is thread-safe and will not block indefinitely if the speaker is currently being reset by
             /// another process.</remarks>
-            [Obsolete("This function will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
             public static void AwakeSystemSpeakerIfNeeded() // Attempt to fix system speaker in some systems by simulating sleep and wake up
             {
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
@@ -807,52 +794,6 @@ namespace NeoBleeper
                     }
                 }
             }
-            public static bool IsOSAffectedFromApril2026Update() // Flag for check if the OS is affected from the cross-signed driver issue that cross-signed drivers are treated as unreliable after April 2026 update of Windows 11 and Windows Server 2025 24H2 and above
-            {
-                if (!OperatingSystem.IsWindows())
-                    return false; // The issue is specific to Windows, so non-Windows OSes are not affected.
-
-                // Windows 11 24H2 and Windows Server 2025 start at build 26100
-                if (OperatingSystem.IsWindowsVersionAtLeast(10, 0, 26100))
-                {
-                    // To check if the specific update (April 2026) is applied, we can look at the Update Build Revision (UBR).
-                    // Although the exact UBR for April 2026 is unknown today, we can prepare the logic.
-                    // If the base build is greater than 26100 (e.g., 25H2 or 26H1), it's natively affected.
-                    if (Environment.OSVersion.Version.Build >= 26100)
-                    {
-                        // For build 26100 (24H2), check the UBR (patch level)
-                        int ubr = GetUpdateBuildRevision();
-
-                        int april2026UbrThreshold = 8246; // Actual UBR of April 2026 update that's affected, according to current information. 
-
-                        if (ubr >= april2026UbrThreshold)
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-                return false;
-            }
-
-            private static int GetUpdateBuildRevision()
-            {
-                if (!OperatingSystem.IsWindows()) return 0;
-                try
-                {
-                    // Read the UBR (Update Build Revision) from the registry to determine the exact patch level
-                    using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
-                    if (key?.GetValue("UBR") is int ubr)
-                    {
-                        return ubr;
-                    }
-                }
-                catch
-                {
-                    // Ignore registry access exceptions
-                }
-                return 0;
-            }
             public static bool IsPawnIOInstalled()
             {
                 try
@@ -903,7 +844,7 @@ namespace NeoBleeper
             static WaveSynthEngine()
             {
                 currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 25;
+                waveOut.DesiredLatency = 50;
                 waveOut.NumberOfBuffers = 4;
                 waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
                 waveOut.Init(signalGenerator);
