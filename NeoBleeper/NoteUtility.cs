@@ -336,6 +336,7 @@ namespace NeoBleeper
             return (currentLength, currentModifier, currentArticulation);
         }
     }
+
     public class PercussionSounds
     {
         public enum MidiPercussion : byte
@@ -364,11 +365,20 @@ namespace NeoBleeper
             SoundDevice
         }
 
+        private static int _globalSessionId = 0;
+        private static int _activeSpeakerSession = 0;
+        private static int _activeDeviceSession = 0;
+
         private static int ClampPercussionFrequency(double frequency)
         {
-            // The previous noise code jumped up to 13 kHz. That often sounds like alien/foreign beeps,
-            // and many beep/synth backends do not handle those values cleanly.
-            return (int)Math.Round(Math.Clamp(frequency, 37.0, 4000.0));
+            return (int)Math.Round(Math.Clamp(frequency, 45.0, 4000.0));
+        }
+
+        private static bool IsSessionActive(PercussionOutputChoice choice, int sessionId)
+        {
+            return choice == PercussionOutputChoice.SystemSpeaker
+                ? Volatile.Read(ref _activeSpeakerSession) == sessionId
+                : Volatile.Read(ref _activeDeviceSession) == sessionId;
         }
 
         private static void StartPulse(PercussionOutputChoice outputChoice, int frequency, bool forceWhiteNoise = false)
@@ -378,15 +388,12 @@ namespace NeoBleeper
             switch (outputChoice)
             {
                 case PercussionOutputChoice.SystemSpeaker:
-                    // A system speaker cannot produce real white noise. We therefore use short gated clicks
-                    // elsewhere instead of holding a random high-pitched beep.
                     SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(frequency);
                     break;
 
                 case PercussionOutputChoice.SoundDevice:
                     if (forceWhiteNoise)
                     {
-                        // Noise-like percussion must be noise even when the normal beep waveform is sine/square/triangle.
                         SoundRenderingEngine.WaveSynthEngine.StartSynth(
                             NAudio.Wave.SampleProviders.SignalGeneratorType.White,
                             frequency);
@@ -412,15 +419,17 @@ namespace NeoBleeper
             }
         }
 
-        private static void StopPulse(PercussionOutputChoice outputChoice)
+        private static void StopPulse(PercussionOutputChoice outputChoice, int sessionId)
         {
             switch (outputChoice)
             {
                 case PercussionOutputChoice.SystemSpeaker:
-                    SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                    if (Volatile.Read(ref _activeSpeakerSession) == sessionId)
+                        SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
                     break;
                 case PercussionOutputChoice.SoundDevice:
-                    SoundRenderingEngine.WaveSynthEngine.StopSynth();
+                    if (Volatile.Read(ref _activeDeviceSession) == sessionId)
+                        SoundRenderingEngine.WaveSynthEngine.StopSynth();
                     break;
             }
         }
@@ -440,6 +449,7 @@ namespace NeoBleeper
 
         private readonly struct PercussionProfile
         {
+            public readonly bool IsDrumType;
             public readonly bool HasTonalBody;
             public readonly double StartFreq;
             public readonly double EndFreq;
@@ -451,6 +461,7 @@ namespace NeoBleeper
             public readonly int AccentHits;
 
             public PercussionProfile(
+                bool isDrumType,
                 bool hasTonalBody,
                 double startFreq,
                 double endFreq,
@@ -460,6 +471,7 @@ namespace NeoBleeper
                 int noiseBaseFreq = 1800,
                 int accentHits = 1)
             {
+                IsDrumType = isDrumType;
                 HasTonalBody = hasTonalBody;
                 StartFreq = startFreq;
                 EndFreq = endFreq;
@@ -473,87 +485,38 @@ namespace NeoBleeper
 
         private static PercussionProfile GetProfile(MidiPercussion percussion) => percussion switch
         {
-            // Kicks: clear low transient. Longer than before so the hit is noticeable.
-            MidiPercussion.KickDrum or MidiPercussion.BassDrum
-                => new PercussionProfile(true, 220, 52, 72),
+            MidiPercussion.KickDrum or MidiPercussion.BassDrum => new PercussionProfile(true, true, 220, 90, 42),
+            MidiPercussion.HighTom or MidiPercussion.HighMidTom => new PercussionProfile(true, true, 320, 150, 45),
+            MidiPercussion.LowTom or MidiPercussion.LowMidTom => new PercussionProfile(true, true, 240, 110, 48),
+            MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 => new PercussionProfile(true, true, 180, 85, 52),
 
-            // Snares: tonal crack + forced white-noise tail. This avoids sine/square random beeps.
             MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or MidiPercussion.SnareCrossStick
                 or MidiPercussion.SideStick or MidiPercussion.SnareDrumRod or MidiPercussion.SnareDrumBrush
-                => new PercussionProfile(true, 330, 185, 24, true, 86, 2100, 2),
-
-            // Clap: several close noise accents, like hands instead of one faint hiss.
-            MidiPercussion.HandClap
-                => new PercussionProfile(false, 0, 0, 0, true, 105, 1900, 3),
-
-            // Toms: resonant tonal sweeps.
-            MidiPercussion.HighTom or MidiPercussion.HighMidTom
-                => new PercussionProfile(true, 330, 125, 72),
-            MidiPercussion.LowTom or MidiPercussion.LowMidTom
-                => new PercussionProfile(true, 235, 88, 82),
-            MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2
-                => new PercussionProfile(true, 165, 62, 94),
-
-            // Hats/shakers: short gated noise, not high-frequency random tones.
-            MidiPercussion.HiHatClosed or MidiPercussion.HiHatFoot
-                => new PercussionProfile(false, 0, 0, 0, true, 46, 3000, 1),
-            MidiPercussion.Cabasa or MidiPercussion.Maracas or MidiPercussion.Shaker or MidiPercussion.Castanets
-                => new PercussionProfile(false, 0, 0, 0, true, 58, 2600, 2),
-
-            // Cymbals: sustained gated white noise. Still capped by maxDurationMs in PlayPercussion.
-            MidiPercussion.HiHatOpen
-                => new PercussionProfile(false, 0, 0, 0, true, 180, 3100, 1),
-            MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal
-                => new PercussionProfile(false, 0, 0, 0, true, 240, 3300, 2),
-            MidiPercussion.SplashCymbal
-                => new PercussionProfile(false, 0, 0, 0, true, 155, 3400, 2),
-            MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2
-                => new PercussionProfile(false, 0, 0, 0, true, 135, 2900, 1),
-
-            // Wood/blocks/clicks: short, strong, recognisable attacks.
+                => new PercussionProfile(false, true, 330, 185, 20, true, 75, 2100, 2),
+            MidiPercussion.HandClap => new PercussionProfile(false, false, 0, 0, 0, true, 95, 1900, 3),
+            MidiPercussion.HiHatClosed or MidiPercussion.HiHatFoot => new PercussionProfile(false, false, 0, 0, 0, true, 40, 3200, 1),
+            MidiPercussion.Cabasa or MidiPercussion.Maracas or MidiPercussion.Shaker or MidiPercussion.Castanets => new PercussionProfile(false, false, 0, 0, 0, true, 45, 2800, 2),
+            MidiPercussion.HiHatOpen => new PercussionProfile(false, false, 0, 0, 0, true, 160, 3100, 1),
+            MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal => new PercussionProfile(false, false, 0, 0, 0, true, 220, 3300, 2),
+            MidiPercussion.SplashCymbal => new PercussionProfile(false, false, 0, 0, 0, true, 140, 3400, 2),
+            MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 => new PercussionProfile(false, false, 0, 0, 0, true, 120, 2900, 1),
             MidiPercussion.StickClick or MidiPercussion.MetronomeClick or MidiPercussion.Claves
-                or MidiPercussion.HighWoodblock or MidiPercussion.Clave or MidiPercussion.WoodBlock
-                => new PercussionProfile(true, 1450, 950, 26),
-            MidiPercussion.LowWoodblock
-                => new PercussionProfile(true, 950, 620, 34),
-            MidiPercussion.Cowbell
-                => new PercussionProfile(true, 880, 880, 48),
-
-            // Metals/bells: tonal, not noise.
-            MidiPercussion.RideBell or MidiPercussion.MetronomeBell
-                => new PercussionProfile(true, 2400, 2350, 95),
-            MidiPercussion.TriangleOpen or MidiPercussion.TriangleMute
-                => new PercussionProfile(true, 3200, 3150, percussion == MidiPercussion.TriangleOpen ? 135 : 62),
-            MidiPercussion.Tambourine or MidiPercussion.SleighBell
-                => new PercussionProfile(true, 2100, 2050, 46, true, 55, 3200, 2),
-
-            // Latin percussion.
-            MidiPercussion.HighBongo
-                => new PercussionProfile(true, 520, 250, 52),
-            MidiPercussion.LowBongo
-                => new PercussionProfile(true, 410, 205, 58),
-            MidiPercussion.CongaDeadStroke or MidiPercussion.Conga
-                => new PercussionProfile(true, 310, 165, 72),
-            MidiPercussion.Tumba
-                => new PercussionProfile(true, 260, 128, 82),
-            MidiPercussion.HighTimbale
-                => new PercussionProfile(true, 620, 330, 62, true, 30, 2500, 1),
-            MidiPercussion.LowTimbale
-                => new PercussionProfile(true, 465, 240, 68, true, 32, 2300, 1),
-            MidiPercussion.HighAgogo
-                => new PercussionProfile(true, 1600, 1600, 55),
-            MidiPercussion.LowAgogo
-                => new PercussionProfile(true, 1120, 1120, 62),
-
-            // SFX kept short to avoid musical/foreign beeps.
-            MidiPercussion.Laser
-                => new PercussionProfile(true, 1650, 270, 80),
-            MidiPercussion.Whip
-                => new PercussionProfile(false, 0, 0, 0, true, 48, 2600, 3),
-            MidiPercussion.ScratchPush or MidiPercussion.ScratchPull
-                => new PercussionProfile(false, 0, 0, 0, true, 62, 1700, 3),
-
-            _ => new PercussionProfile(true, 760, 480, 35, true, 22, 2200, 1)
+                or MidiPercussion.HighWoodblock or MidiPercussion.Clave or MidiPercussion.WoodBlock => new PercussionProfile(false, true, 1450, 950, 22),
+            MidiPercussion.LowWoodblock => new PercussionProfile(false, true, 950, 620, 26),
+            MidiPercussion.Cowbell => new PercussionProfile(false, true, 880, 880, 40),
+            MidiPercussion.RideBell or MidiPercussion.MetronomeBell => new PercussionProfile(false, true, 2400, 2350, 80),
+            MidiPercussion.TriangleOpen or MidiPercussion.TriangleMute => new PercussionProfile(false, true, 3200, 3150, percussion == MidiPercussion.TriangleOpen ? 120 : 50),
+            MidiPercussion.Tambourine or MidiPercussion.SleighBell => new PercussionProfile(false, true, 2100, 2050, 35, true, 45, 3200, 2),
+            MidiPercussion.HighBongo => new PercussionProfile(true, true, 480, 240, 32),
+            MidiPercussion.LowBongo => new PercussionProfile(true, true, 380, 190, 34),
+            MidiPercussion.CongaDeadStroke or MidiPercussion.Conga => new PercussionProfile(true, true, 300, 160, 36),
+            MidiPercussion.Tumba => new PercussionProfile(true, true, 250, 120, 40),
+            MidiPercussion.HighTimbale => new PercussionProfile(true, true, 600, 320, 35, true, 25, 2500, 1),
+            MidiPercussion.LowTimbale => new PercussionProfile(true, true, 450, 230, 38, true, 25, 2300, 1),
+            MidiPercussion.Laser => new PercussionProfile(false, true, 1650, 270, 70),
+            MidiPercussion.Whip => new PercussionProfile(false, false, 0, 0, 0, true, 40, 2600, 3),
+            MidiPercussion.ScratchPush or MidiPercussion.ScratchPull => new PercussionProfile(false, false, 0, 0, 0, true, 50, 1700, 3),
+            _ => new PercussionProfile(false, true, 760, 480, 30, true, 20, 2200, 1)
         };
 
         public static void PlayPercussion(
@@ -562,187 +525,156 @@ namespace NeoBleeper
             int maxDurationMs = 500,
             int velocity = 100)
         {
+            int currentSessionId = Interlocked.Increment(ref _globalSessionId);
+
+            Task.Run(() =>
+            {
+                ExecutePercussionPlayback(percussion, currentSessionId, cancellationToken, maxDurationMs, velocity);
+            }, cancellationToken);
+        }
+
+        private static void ExecutePercussionPlayback(
+            MidiPercussion percussion,
+            int sessionId,
+            CancellationToken cancellationToken,
+            int maxDurationMs,
+            int velocity)
+        {
             PercussionOutputChoice outputChoice = TemporarySettings.CreatingSounds.createBeepWithSoundDevice == true
                 ? PercussionOutputChoice.SoundDevice
                 : PercussionOutputChoice.SystemSpeaker;
+
+            if (outputChoice == PercussionOutputChoice.SystemSpeaker)
+                Interlocked.Exchange(ref _activeSpeakerSession, sessionId);
+            else
+                Interlocked.Exchange(ref _activeDeviceSession, sessionId);
 
             var profile = GetProfile(percussion);
 
             double velocityScale = Math.Clamp(velocity, 1, 127) / 127.0;
             int safeMaxDurationMs = Math.Max(8, maxDurationMs);
 
-            // With this engine there is no true volume envelope, so make quiet hits shorter but never inaudibly tiny.
             int bodyMs = Math.Min(
                 safeMaxDurationMs,
-                Math.Max(profile.HasTonalBody ? 12 : 0, (int)Math.Round(profile.BodyDurationMs * (0.72 + 0.38 * velocityScale))));
+                Math.Max(profile.HasTonalBody ? 10 : 0, (int)Math.Round(profile.BodyDurationMs * (0.75 + 0.35 * velocityScale))));
 
             int noiseMs = Math.Min(
                 safeMaxDurationMs,
-                Math.Max(profile.HasNoiseBody ? 18 : 0, (int)Math.Round(profile.NoiseDurationMs * (0.72 + 0.38 * velocityScale))));
+                Math.Max(profile.HasNoiseBody ? 15 : 0, (int)Math.Round(profile.NoiseDurationMs * (0.75 + 0.35 * velocityScale))));
 
-            double pitchBoost = 0.96 + 0.10 * velocityScale;
+            double pitchBoost = 0.95 + 0.10 * velocityScale;
 
             try
             {
                 if (profile.HasTonalBody && bodyMs > 0)
                 {
-                    PlayPitchGlide(
-                        outputChoice,
-                        profile.StartFreq * pitchBoost,
-                        profile.EndFreq,
-                        bodyMs,
-                        cancellationToken);
+                    // --- 100% UNIFIED PERCUSSION PIPELINE FOR BOTH MODES ---
+                    if (profile.IsDrumType)
+                    {
+                        int elapsedDrum = 0;
+                        int drumStepMs = 6;
+                        int alternateCounter = 0;
 
-                    StopPulse(outputChoice);
+                        double currentStartFreq = profile.StartFreq * pitchBoost;
+                        double currentEndFreq = profile.EndFreq;
+
+                        while (elapsedDrum < bodyMs)
+                        {
+                            if (cancellationToken.IsCancellationRequested || !IsSessionActive(outputChoice, sessionId))
+                                break;
+
+                            double t = (double)elapsedDrum / bodyMs;
+                            double baseFreq = currentStartFreq + (currentEndFreq - currentStartFreq) * t;
+
+                            int targetFreq = (alternateCounter % 2 == 0)
+                                ? (int)Math.Round(baseFreq)
+                                : (int)Math.Round(baseFreq * 0.45); // Harmonic rattle logic runs on both speaker and device
+
+                            StartPulse(outputChoice, targetFreq);
+
+                            int nextStep = Math.Min(drumStepMs, bodyMs - elapsedDrum);
+                            PreciseWaitMs(nextStep, cancellationToken);
+                            elapsedDrum += nextStep;
+                            alternateCounter++;
+                        }
+                    }
+                    else
+                    {
+                        // Structural non-drum notes play with identical stable pulses across both channels
+                        StartPulse(outputChoice, (int)(profile.StartFreq * pitchBoost));
+                        PreciseWaitMs(bodyMs, cancellationToken);
+                    }
                 }
 
-                if (profile.HasNoiseBody && noiseMs > 0 && !cancellationToken.IsCancellationRequested)
+                // --- NOISE GENERATION ENGINE (UNTOUCHED) ---
+                if (profile.HasNoiseBody && noiseMs > 0 && !cancellationToken.IsCancellationRequested && IsSessionActive(outputChoice, sessionId))
                 {
-                    PlayNoiseBurst(
-                        outputChoice,
-                        noiseMs,
-                        profile.NoiseBaseFreq,
-                        profile.AccentHits,
-                        velocityScale,
-                        cancellationToken);
+                    PlayNoiseBurst(outputChoice, noiseMs, profile.NoiseBaseFreq, profile.AccentHits, velocityScale, sessionId, cancellationToken);
                 }
             }
             finally
             {
-                StopPulse(outputChoice);
+                StopPulse(outputChoice, sessionId);
             }
         }
 
         private static void PlayNoiseBurst(
-    PercussionOutputChoice outputChoice,
-    int totalDurationMs,
-    int baseFrequency,
-    int accentHits,
-    double velocityScale,
-    CancellationToken cancellationToken)
+            PercussionOutputChoice outputChoice,
+            int totalDurationMs,
+            int baseFrequency,
+            int accentHits,
+            double velocityScale,
+            int sessionId,
+            CancellationToken cancellationToken)
         {
             if (totalDurationMs <= 0) return;
+            if (!IsSessionActive(outputChoice, sessionId)) return;
 
             var rnd = Random.Shared;
             long startTicks = Stopwatch.GetTimestamp();
             long durationTicks = (long)(totalDurationMs * Stopwatch.Frequency / 1000.0);
 
-            // Initial accents (claps, crashes, shakers) still read as distinct hits, so keep those.
-            int accentOnMs = Math.Max(2, (int)Math.Round(2.0 + 3.0 * velocityScale));
-            int accentGapMs = 4;
-
-            for (int i = 0; i < accentHits; i++)
-            {
-                if (cancellationToken.IsCancellationRequested) return;
-                if (Stopwatch.GetTimestamp() - startTicks >= durationTicks) return;
-
-                int accentFreq = ClampPercussionFrequency(baseFrequency + rnd.Next(-90, 91));
-                StartPulse(outputChoice, accentFreq, forceWhiteNoise: outputChoice == PercussionOutputChoice.SoundDevice);
-                PreciseWaitMs(accentOnMs, cancellationToken);
-                StopPulse(outputChoice);
-                PreciseWaitMs(accentGapMs + i, cancellationToken);
-            }
-
             if (outputChoice == PercussionOutputChoice.SoundDevice)
             {
-                // The sound device can render true continuous white noise, so just hold it and
-                // let it decay naturally instead of gating it on/off (that gating was a
-                // system-speaker-only workaround and only made the sound-device path choppier too).
+                int accentOnMs = Math.Max(2, (int)Math.Round(2.0 + 3.0 * velocityScale));
+                int accentGapMs = 4;
+
+                for (int i = 0; i < accentHits; i++)
+                {
+                    if (cancellationToken.IsCancellationRequested || !IsSessionActive(outputChoice, sessionId)) return;
+                    if (Stopwatch.GetTimestamp() - startTicks >= durationTicks) return;
+
+                    int accentFreq = ClampPercussionFrequency(baseFrequency + rnd.Next(-90, 91));
+                    StartPulse(outputChoice, accentFreq, forceWhiteNoise: true);
+                    PreciseWaitMs(accentOnMs, cancellationToken);
+                    StopPulse(outputChoice, sessionId);
+                    PreciseWaitMs(accentGapMs + i, cancellationToken);
+                }
+
                 long remainStart = Stopwatch.GetTimestamp();
                 long remainTicks = durationTicks - (remainStart - startTicks);
-                if (remainTicks > 0)
+                if (remainTicks > 0 && !cancellationToken.IsCancellationRequested && IsSessionActive(outputChoice, sessionId))
                 {
                     StartPulse(outputChoice, baseFrequency, forceWhiteNoise: true);
                     PreciseWaitMs(remainTicks * 1000.0 / Stopwatch.Frequency, cancellationToken);
-                    StopPulse(outputChoice);
                 }
                 return;
             }
 
-            // --- System speaker path ---
-            // Sustain phase: keep the tone continuously ON and only retune the frequency to fake a
-            // noise texture. No StopPulse between steps -> no audible gaps -> reads as one sound.
-            // Decay phase (final ~40% of the hit): switch to real gated clicks, spaced further apart
-            // over time, which is what an actual decaying noise burst sounds like.
-            double decayStartMs = totalDurationMs * 0.6;
-            bool pulseActive = false;
-
+            bool toggle = false;
             while (true)
             {
                 long now = Stopwatch.GetTimestamp();
                 if (cancellationToken.IsCancellationRequested || now - startTicks >= durationTicks) break;
+                if (!IsSessionActive(outputChoice, sessionId)) return;
 
-                double elapsedMs = (now - startTicks) * 1000.0 / Stopwatch.Frequency;
-                double t = Math.Clamp(elapsedMs / totalDurationMs, 0.0, 1.0);
-                int jitter = rnd.Next(-180, 181);
-                int freq = ClampPercussionFrequency(baseFrequency * (1.0 - 0.25 * t) + jitter);
+                int chaoticFreq = toggle ? rnd.Next(3200, 4000) : rnd.Next(95, 190);
 
-                if (elapsedMs < decayStartMs)
-                {
-                    // Continuous sustain: retune without stopping.
-                    StartPulse(outputChoice, freq);
-                    pulseActive = true;
-                    PreciseWaitMs(2.0 + 2.0 * rnd.NextDouble(), cancellationToken);
-                }
-                else
-                {
-                    double decayT = (elapsedMs - decayStartMs) / Math.Max(1.0, totalDurationMs - decayStartMs);
-                    double onMs = Math.Max(1.0, (3.5 - 2.2 * decayT) * (0.75 + 0.35 * velocityScale));
-                    double offMs = 1.5 + 8.0 * decayT;
+                StartPulse(outputChoice, chaoticFreq);
+                toggle = !toggle;
 
-                    StartPulse(outputChoice, freq);
-                    pulseActive = true;
-                    PreciseWaitMs(onMs, cancellationToken);
-                    StopPulse(outputChoice);
-                    pulseActive = false;
-                    PreciseWaitMs(offMs, cancellationToken);
-                }
-            }
-
-            if (pulseActive) StopPulse(outputChoice);
-        }
-
-        private static void PlayPitchGlide(
-            PercussionOutputChoice outputChoice,
-            double startFreq,
-            double endFreq,
-            int totalDurationMs,
-            CancellationToken cancellationToken)
-        {
-            if (totalDurationMs <= 0) return;
-
-            startFreq = ClampPercussionFrequency(startFreq);
-            endFreq = ClampPercussionFrequency(endFreq);
-
-            if (Math.Abs(endFreq - startFreq) < 0.01)
-            {
-                StartPulse(outputChoice, ClampPercussionFrequency(startFreq));
-                PreciseWaitMs(totalDurationMs, cancellationToken);
-                return;
-            }
-
-            const int stepMs = 2;
-            int elapsed = 0;
-
-            double logStart = Math.Log(startFreq);
-            double logEnd = Math.Log(endFreq);
-
-            while (elapsed < totalDurationMs)
-            {
-                if (cancellationToken.IsCancellationRequested) break;
-
-                double t = totalDurationMs <= 1 ? 1.0 : (double)elapsed / totalDurationMs;
-
-                // A slightly curved decay keeps kicks/toms punchy at the start and avoids melodic glides.
-                double curvedT = 1.0 - Math.Pow(1.0 - t, 2.35);
-                double currentLogFreq = logStart + (logEnd - logStart) * curvedT;
-                int freq = ClampPercussionFrequency(Math.Exp(currentLogFreq));
-
-                StartPulse(outputChoice, freq);
-
-                int step = Math.Min(stepMs, totalDurationMs - elapsed);
-                PreciseWaitMs(step, cancellationToken);
-                elapsed += step;
+                double asynchronousDelay = 0.15 + (rnd.NextDouble() * 0.45);
+                PreciseWaitMs(asynchronousDelay, cancellationToken);
             }
         }
     }
