@@ -472,5 +472,70 @@ namespace NeoBleeper
             }
             finally { StopPulse(output, sid); }
         }
+
+        /// <summary>
+        /// Plays a percussion hit for an exact, caller-specified duration and awaits completion.
+        /// </summary>
+        /// <remarks>
+        /// Unlike <see cref="PlayPercussion"/>, which is fire-and-forget and uses the instrument's own
+        /// natural profile duration, this method is designed to be interleaved with melody notes inside
+        /// a shared, single-voice time slot (see
+        /// <c>MIDIFilePlayer.PlayNotesAndPercussionAlternatingAsync</c>). Because the system speaker
+        /// (and the equivalent single-oscillator sound-device path) can only render one voice at a time,
+        /// callers must always <c>await</c> this method to completion before starting any other voice —
+        /// never call it "fire-and-forget" alongside a note that is still sounding, or the two will
+        /// overlap on the hardware.
+        ///
+        /// The sweep-style profiles (e.g. kicks, toms) scale their step count down for very short slices
+        /// so a fast alternation cycle doesn't try to cram a 6-step sweep into a couple of milliseconds.
+        /// </remarks>
+        /// <param name="p">The percussion instrument to play.</param>
+        /// <param name="durationMs">The exact duration, in milliseconds, the hit should occupy. Values &lt;= 0 complete immediately without sound.</param>
+        /// <param name="ct">A cancellation token that aborts playback early.</param>
+        /// <param name="velocity">Reserved for future velocity-sensitive rendering; currently unused.</param>
+        /// <returns>A task that completes when the percussion hit has finished sounding (or been canceled).</returns>
+        public static Task PlayPercussionForDurationAsync(MidiPercussion p, int durationMs, CancellationToken ct = default, int velocity = 100)
+        {
+            if (durationMs <= 0) return Task.CompletedTask;
+            int sid = Interlocked.Increment(ref _globalSessionId);
+            return Task.Run(() => ExecutePercussionPlaybackForDuration(p, sid, ct, durationMs, velocity), ct);
+        }
+
+        private static void ExecutePercussionPlaybackForDuration(MidiPercussion p, int sid, CancellationToken ct, int durationMs, int vel)
+        {
+            var output = TemporarySettings.CreatingSounds.createBeepWithSoundDevice ? PercussionOutputChoice.SoundDevice : PercussionOutputChoice.SystemSpeaker;
+            if (output == PercussionOutputChoice.SystemSpeaker) Interlocked.Exchange(ref _activeSpeakerSession, sid);
+            else Interlocked.Exchange(ref _activeDeviceSession, sid);
+
+            var prof = GetProfile(p);
+            try
+            {
+                if (prof.BodyWave == SynthWave.Noise)
+                {
+                    StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
+                    PreciseWaitMs(durationMs, ct);
+                }
+                else if (prof.DoesSweep)
+                {
+                    // Scale sweep steps to the time actually available in this slot so a short
+                    // alternation slice still gets at least a couple of frequency steps.
+                    int steps = Math.Max(2, Math.Min(6, durationMs / 5));
+                    for (int i = 0; i < steps; i++)
+                    {
+                        if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
+                        double progress = (double)i / (steps - 1);
+                        int freq = (int)(prof.BodyStartFreq - ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
+                        StartPulse(output, freq, prof.BodyWave);
+                        PreciseWaitMs((double)durationMs / steps, ct);
+                    }
+                }
+                else
+                {
+                    StartPulse(output, prof.BodyEndFreq, prof.BodyWave);
+                    PreciseWaitMs(durationMs, ct);
+                }
+            }
+            finally { StopPulse(output, sid); }
+        }
     }
 }
