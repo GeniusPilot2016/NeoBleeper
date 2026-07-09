@@ -396,10 +396,30 @@ namespace NeoBleeper
         private static void PreciseWaitMs(double ms, CancellationToken ct)
         {
             if (ms <= 0) return;
-            var sw = Stopwatch.StartNew();
-            double targetTicks = ms * Stopwatch.Frequency / 1000.0;
-            while (sw.ElapsedTicks < targetTicks) { if (ct.IsCancellationRequested) break; }
+
+            // Convert milliseconds directly to a TimeSpan for high-precision mapping
+            TimeSpan timeout = TimeSpan.FromMicroseconds(ms * 1000);
+
+            try
+            {
+                // Blocks the thread completely until either the timeout hits
+                // OR the cancellation token triggers the ct.WaitHandle.
+                // Returns true if timeout hit, returns false if canceled.
+                bool timedOut = ct.WaitHandle.WaitOne(timeout);
+
+                if (!timedOut && ct.IsCancellationRequested)
+                {
+                    // Thread woke up because of cancellation
+                    return;
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                // Safe guard in case the token source is disposed mid-wait
+                return;
+            }
         }
+
 
         private readonly struct PercussionProfile
         {
