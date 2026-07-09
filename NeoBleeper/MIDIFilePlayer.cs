@@ -1846,35 +1846,52 @@ namespace NeoBleeper
             // The speaker can only render one voice at a time, so when both a drum hit and one or
             // more held melody notes are due this frame, they take turns instead of the drum hit
             // silencing the melody (or the melody blocking the drum hit).
+
+            int totalFrameDuration = durationMsInt;
+
+            // Define the percussion "strike" duration. 
+            // If the frame is very short, percussion takes the whole frame.
+            // If the frame is long, percussion takes a fixed 'hit' (e.g., 50ms) and melody fills the rest.
+            int percussionStrikeDuration = Math.Min(totalFrameDuration, 50);
+            int melodyFillDuration = totalFrameDuration - percussionStrikeDuration;
+
             PercussionSounds.MidiPercussion? percussionToPlay = drumEvent != null
                 ? (PercussionSounds.MidiPercussion)drumEvent.NoteNumber
                 : (PercussionSounds.MidiPercussion?)null;
 
-            if (percussionToPlay.HasValue && filteredNotes.Count > 0)
+            // 1. Play Percussion First (The "Strike")
+            if (percussionToPlay.HasValue)
             {
-                // Both a drum hit and melody note(s) are due this frame — alternate between them.
-                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-                await PlayNotesAndPercussionAlternatingAsync(frequencies, percussionToPlay, durationMsInt, token);
-            }
-            else if (percussionToPlay.HasValue)
-            {
-                // Percussion only — play a single clean hit for the full frame duration.
-                await PercussionSounds.PlayPercussionForDurationAsync(percussionToPlay.Value, durationMsInt, token);
-            }
-            else if (filteredNotes.Count == 0)
-            {
-                await WaitPreciseWithCancellation(durationMsInt, token);
+                await PercussionSounds.PlayPercussionForDurationAsync(percussionToPlay.Value, percussionStrikeDuration, token);
             }
             else
             {
-                var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-                if (frequencies.Length == 1)
+                // If no percussion, the melody gets the whole duration (and we don't 'waste' the strike time)
+                melodyFillDuration = totalFrameDuration;
+            }
+
+            // 2. Play Melody (or Silence) for the remaining "Fill" duration
+            if (melodyFillDuration > 0)
+            {
+                if (filteredNotes.Count > 0)
                 {
-                    await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], durationMsInt), token);
+                    var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
+
+                    // If we are strictly monophonic, we play one note, 
+                    // otherwise, play the multiple-note polyphony helper
+                    if (frequencies.Length == 1)
+                    {
+                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], melodyFillDuration), token);
+                    }
+                    else
+                    {
+                        await PlayMultipleNotesAsync(frequencies, melodyFillDuration, token);
+                    }
                 }
                 else
                 {
-                    await PlayMultipleNotesAsync(frequencies, durationMsInt, token);
+                    // Nothing to play, just wait to keep timing accurate
+                    await WaitPreciseWithCancellation(melodyFillDuration, token);
                 }
             }
 

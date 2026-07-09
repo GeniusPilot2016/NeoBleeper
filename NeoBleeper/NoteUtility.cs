@@ -396,10 +396,30 @@ namespace NeoBleeper
         private static void PreciseWaitMs(double ms, CancellationToken ct)
         {
             if (ms <= 0) return;
-            var sw = Stopwatch.StartNew();
-            double targetTicks = ms * Stopwatch.Frequency / 1000.0;
-            while (sw.ElapsedTicks < targetTicks) { if (ct.IsCancellationRequested) break; }
+
+            // Convert milliseconds directly to a TimeSpan for high-precision mapping
+            TimeSpan timeout = TimeSpan.FromMicroseconds(ms * 1000);
+
+            try
+            {
+                // Blocks the thread completely until either the timeout hits
+                // OR the cancellation token triggers the ct.WaitHandle.
+                // Returns true if timeout hit, returns false if canceled.
+                bool timedOut = ct.WaitHandle.WaitOne(timeout);
+
+                if (!timedOut && ct.IsCancellationRequested)
+                {
+                    // Thread woke up because of cancellation
+                    return;
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                // Safe guard in case the token source is disposed mid-wait
+                return;
+            }
         }
+
 
         private readonly struct PercussionProfile
         {
@@ -411,21 +431,23 @@ namespace NeoBleeper
             public PercussionProfile(SynthWave w, bool s, int start, int end, int dur) { BodyWave = w; DoesSweep = s; BodyStartFreq = start; BodyEndFreq = end; DurationMs = dur; }
         }
 
-        private static PercussionProfile GetProfile(MidiPercussion p) => p switch
+        private static PercussionProfile GetProfile(MidiPercussion p, PercussionOutputChoice output) => p switch
         {
-            // Kicks: Aggressive sweep from 250Hz down to 60Hz. 
-            MidiPercussion.KickDrum or MidiPercussion.BassDrum => new PercussionProfile(SynthWave.Triangle, true, 250, 60, 60),
+            // Updated Kicks: Now use the sweep profile for both SystemSpeaker and SoundDevice
+            MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
+                new PercussionProfile(SynthWave.Triangle, true, 250, 60, 60),
 
-            // Snares: High frequency for "Snap"
-            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum => new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 60),
+            // Snares: Noise for both (Unchanged)
+            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum =>
+                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 60),
 
-            // Cymbals: Increased duration for authentic resonance and shimmer
+            // Cymbals: Noise for both (Unchanged)
             MidiPercussion.CrashCymbal => new PercussionProfile(SynthWave.Noise, false, 7000, 7000, 400),
             MidiPercussion.RideCymbal => new PercussionProfile(SynthWave.Noise, false, 6000, 6000, 500),
             MidiPercussion.HiHatClosed => new PercussionProfile(SynthWave.Noise, false, 9000, 9000, 80),
             MidiPercussion.HiHatOpen => new PercussionProfile(SynthWave.Noise, false, 9000, 9000, 300),
 
-            // Toms: Lower pitched
+            // Updated Toms: Now use the sweep profile for both SystemSpeaker and SoundDevice
             MidiPercussion.HighTom => new PercussionProfile(SynthWave.Triangle, true, 300, 120, 80),
             MidiPercussion.LowTom => new PercussionProfile(SynthWave.Triangle, true, 200, 100, 100),
 
@@ -440,28 +462,40 @@ namespace NeoBleeper
 
         private static void ExecutePercussionPlayback(MidiPercussion p, int sid, CancellationToken ct, int maxMs, int vel)
         {
-            var output = TemporarySettings.CreatingSounds.createBeepWithSoundDevice ? PercussionOutputChoice.SoundDevice : PercussionOutputChoice.SystemSpeaker;
+            var output = TemporarySettings.CreatingSounds.createBeepWithSoundDevice ?
+                PercussionOutputChoice.SoundDevice : PercussionOutputChoice.SystemSpeaker;
             if (output == PercussionOutputChoice.SystemSpeaker) Interlocked.Exchange(ref _activeSpeakerSession, sid);
             else Interlocked.Exchange(ref _activeDeviceSession, sid);
 
-            var prof = GetProfile(p);
+            // Pass the output choice into the profile generator
+            var prof = GetProfile(p, output);
+
             try
             {
                 if (prof.BodyWave == SynthWave.Noise)
                 {
-                    StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
-                    PreciseWaitMs(prof.DurationMs, ct);
+                    if (output == PercussionOutputChoice.SoundDevice)
+                    {
+                        StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
+                        PreciseWaitMs(prof.DurationMs, ct);
+                    }
+                    else
+                    {
+                        RenderGatedNoise(output, sid, prof.BodyStartFreq, prof.DurationMs, 0.5, ct);
+                    }
                 }
                 else if (prof.DoesSweep)
                 {
-                    int steps = 6; // More steps = smoother sweep
+                    int steps = 6;
                     for (int i = 0; i < steps; i++)
                     {
                         if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
                         double progress = (double)i / (steps - 1);
                         int freq = (int)(prof.BodyStartFreq - ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
                         StartPulse(output, freq, prof.BodyWave);
-                        PreciseWaitMs(prof.DurationMs / steps, ct);
+
+                        // Cast to double to prevent timing truncation!
+                        PreciseWaitMs((double)prof.DurationMs / steps, ct);
                     }
                 }
                 else
@@ -503,22 +537,30 @@ namespace NeoBleeper
 
         private static void ExecutePercussionPlaybackForDuration(MidiPercussion p, int sid, CancellationToken ct, int durationMs, int vel)
         {
-            var output = TemporarySettings.CreatingSounds.createBeepWithSoundDevice ? PercussionOutputChoice.SoundDevice : PercussionOutputChoice.SystemSpeaker;
+            var output = TemporarySettings.CreatingSounds.createBeepWithSoundDevice ?
+                PercussionOutputChoice.SoundDevice : PercussionOutputChoice.SystemSpeaker;
             if (output == PercussionOutputChoice.SystemSpeaker) Interlocked.Exchange(ref _activeSpeakerSession, sid);
             else Interlocked.Exchange(ref _activeDeviceSession, sid);
 
-            var prof = GetProfile(p);
+            // Pass the output choice into the profile generator
+            var prof = GetProfile(p, output);
+
             try
             {
                 if (prof.BodyWave == SynthWave.Noise)
                 {
-                    StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
-                    PreciseWaitMs(durationMs, ct);
+                    if (output == PercussionOutputChoice.SoundDevice)
+                    {
+                        StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
+                        PreciseWaitMs(durationMs, ct);
+                    }
+                    else
+                    {
+                        RenderGatedNoise(output, sid, prof.BodyStartFreq, durationMs, 0.5, ct);
+                    }
                 }
                 else if (prof.DoesSweep)
                 {
-                    // Scale sweep steps to the time actually available in this slot so a short
-                    // alternation slice still gets at least a couple of frequency steps.
                     int steps = Math.Max(2, Math.Min(6, durationMs / 5));
                     for (int i = 0; i < steps; i++)
                     {
@@ -536,6 +578,52 @@ namespace NeoBleeper
                 }
             }
             finally { StopPulse(output, sid); }
+        }
+
+        /// <summary>
+        /// Ports the core noise-generation technique from the reference PC-speaker
+        /// implementation: independent per-sample probability gating (equivalent to
+        /// "Rnd &lt; NoiseVol"), sampled at a rate derived from the instrument's own
+        /// channel frequency with the same brightness-dependent shift the reference
+        /// applies before computing the sample period. This is genuine amplitude-
+        /// domain randomness — not frequency modulation — which is what actually
+        /// reads as broadband noise instead of a tone/squeak.
+        /// </summary>
+        private static void RenderGatedNoise(PercussionOutputChoice output, int sid, double baseFreq, int totalDurationMs, double noiseVol, CancellationToken ct)
+        {
+            // Same brightness shift as the reference: brighten low-frequency sources
+            // more aggressively so the noise doesn't sound muddy relative to the
+            // instrument it's representing.
+            double sampleFreq = baseFreq < 3500 ? baseFreq + 5000 : baseFreq + 1200;
+            double sampleDurMs = 1000.0 / (sampleFreq + 0.25);
+
+            var sw = Stopwatch.StartNew();
+            double nextSampleMs = 0;
+            bool speakerOn = false;
+
+            while (sw.Elapsed.TotalMilliseconds < totalDurationMs)
+            {
+                if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
+
+                bool wantOn = Random.Shared.NextDouble() < noiseVol;
+                if (wantOn != speakerOn)
+                {
+                    if (wantOn) StartPulse(output, (int)sampleFreq, SynthWave.Square);
+                    else StopPulse(output, sid);
+                    speakerOn = wantOn;
+                }
+
+                // Bounded poll to the next sample boundary only — mirrors the
+                // reference's QueryPerformanceCounter loop, which never spins past
+                // one sample period at a time.
+                nextSampleMs += sampleDurMs;
+                while (sw.Elapsed.TotalMilliseconds < nextSampleMs)
+                {
+                    if (ct.IsCancellationRequested) break;
+                }
+            }
+
+            StopPulse(output, sid);
         }
     }
 }
