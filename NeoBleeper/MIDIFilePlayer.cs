@@ -1862,7 +1862,21 @@ namespace NeoBleeper
             // 1. Play Percussion First (The "Strike")
             if (percussionToPlay.HasValue)
             {
+                int noteNumber = (int)percussionToPlay.Value;
+
+                // Highlight the corresponding percussion label
+                if (_noteToLabelMap.TryGetValue(noteNumber, out int labelIndex))
+                {
+                    HighlightNoteLabel(labelIndex);
+                }
+
                 await PercussionSounds.PlayPercussionForDurationAsync(percussionToPlay.Value, percussionStrikeDuration, token);
+
+                // Unhighlight the label now that the percussion has finished playing
+                if (_noteToLabelMap.TryGetValue(noteNumber, out int unHighlightIndex))
+                {
+                    UnHighlightNoteLabel(unHighlightIndex);
+                }
             }
             else
             {
