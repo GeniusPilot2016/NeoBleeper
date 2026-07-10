@@ -29,7 +29,8 @@ namespace NeoBleeper
 
     /* Note: Notes are alternated like telephone ringing or playing one of notes if multiple notes are held
     and it may cause crackling sound in some systems that uses piezo buzzer for system speaker.
-    This is because the system speaker can only play one note at a time.*/
+    This is because the system speaker can only play one note at a time.
+    Also, percussions are playing as PWM-like noise to simulate the sound of percussions [inspired from BaWaMI by Robbi-985 (aka SomethingUnreal)].*/
     public partial class MIDIFilePlayer : Form
     {
         bool darkTheme = false;
@@ -1862,7 +1863,21 @@ namespace NeoBleeper
             // 1. Play Percussion First (The "Strike")
             if (percussionToPlay.HasValue)
             {
+                int noteNumber = (int)percussionToPlay.Value;
+
+                // Highlight the corresponding percussion label
+                if (_noteToLabelMap.TryGetValue(noteNumber, out int labelIndex))
+                {
+                    HighlightNoteLabel(labelIndex);
+                }
+
                 await PercussionSounds.PlayPercussionForDurationAsync(percussionToPlay.Value, percussionStrikeDuration, token);
+
+                // Unhighlight the label now that the percussion has finished playing
+                if (_noteToLabelMap.TryGetValue(noteNumber, out int unHighlightIndex))
+                {
+                    UnHighlightNoteLabel(unHighlightIndex);
+                }
             }
             else
             {

@@ -343,22 +343,37 @@ namespace NeoBleeper
     {
         public enum MidiPercussion : byte
         {
+            // FX / Click
             Laser = 27, Whip = 28, ScratchPush = 29, ScratchPull = 30, StickClick = 31,
-            MetronomeClick = 33, MetronomeBell = 34, BassDrum = 35, KickDrum = 36,
-            SideStick = 37, SnareCrossStick = 37, SnareDrum = 38, HandClap = 39,
-            ElectricSnareDrum = 40, FloorTom2 = 41, HiHatClosed = 42, FloorTom1 = 43,
-            HiHatFoot = 44, LowTom = 45, HiHatOpen = 46, LowMidTom = 47, HighMidTom = 48,
-            CrashCymbal = 49, HighTom = 50, RideCymbal = 51, ChinaCymbal = 52,
-            RideBell = 53, Tambourine = 54, SplashCymbal = 55, Cowbell = 56,
-            CrashCymbal2 = 57, Vibraslap = 58, RideCymbal2 = 59, HighBongo = 60,
-            LowBongo = 61, CongaDeadStroke = 62, Conga = 63, Tumba = 64, HighTimbale = 65,
-            LowTimbale = 66, HighAgogo = 67, LowAgogo = 68, Cabasa = 69, Maracas = 70,
-            WhistleShort = 71, WhistleLong = 72, GuiroShort = 73, GuiroLong = 74,
-            Claves = 75, HighWoodblock = 76, LowWoodblock = 77, CuicaHigh = 78,
-            CuicaLow = 79, TriangleMute = 80, TriangleOpen = 81, Shaker = 82,
-            SleighBell = 83, BellTree = 84, Castanets = 85, SurduDeadStroke = 86,
-            Surdu = 87, Güiro = 73, Clave = 75, WoodBlock = 76, SnareDrumRod = 91,
-            OceanDrum = 92, SnareDrumBrush = 93
+            SquareClick = 32, MetronomeClick = 33, MetronomeBell = 34,
+
+            // Kicks / Toms
+            BassDrum = 35, KickDrum = 36, LowTom = 45, LowMidTom = 47, HighMidTom = 48,
+            HighTom = 50, FloorTom1 = 43, FloorTom2 = 41,
+
+            // Snares
+            SideStick = 37, SnareCrossStick = 37, SnareDrum = 38, ElectricSnareDrum = 40,
+            SnareDrumRod = 91, SnareDrumBrush = 93,
+
+            // Cymbals / Hi-Hats
+            HiHatClosed = 42, HiHatOpen = 46, HiHatFoot = 44, CrashCymbal = 49,
+            CrashCymbal2 = 57, RideCymbal = 51, RideCymbal2 = 59, ChinaCymbal = 52,
+            SplashCymbal = 55, RideBell = 53,
+
+            // Latin / Percussion
+            HandClap = 39, Tambourine = 54, Vibraslap = 58, Cowbell = 56,
+            HighBongo = 60, LowBongo = 61, CongaDeadStroke = 62, Conga = 63, Tumba = 64,
+            HighTimbale = 65, LowTimbale = 66, HighAgogo = 67, LowAgogo = 68,
+            Cabasa = 69, Maracas = 70, Shaker = 82, SleighBell = 83, BellTree = 84,
+            Castanets = 85, SurduDeadStroke = 86, Surdu = 87, CuicaHigh = 78, CuicaLow = 79,
+
+            // Wood / Scrapers
+            GuiroShort = 73, GuiroLong = 74, Güiro = 73, Claves = 75, Clave = 75,
+            HighWoodblock = 76, LowWoodblock = 77, WoodBlock = 76,
+
+            // Other
+            WhistleShort = 71, WhistleLong = 72, TriangleMute = 80, TriangleOpen = 81,
+            OceanDrum = 92
         }
 
         public enum PercussionOutputChoice { SystemSpeaker, SoundDevice }
@@ -433,27 +448,60 @@ namespace NeoBleeper
 
         private static PercussionProfile GetProfile(MidiPercussion p, PercussionOutputChoice output) => p switch
         {
-            // Updated Kicks: Now use the sweep profile for both SystemSpeaker and SoundDevice
+            // --- Kicks & Toms (Thuddy Triangle Sweep) ---
             MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
                 new PercussionProfile(SynthWave.Triangle, true, 250, 60, 60),
-
-            // Snares: Noise for both (Unchanged)
-            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum =>
-                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 60),
-
-            // Cymbals: Noise for both (Unchanged)
-            MidiPercussion.CrashCymbal => new PercussionProfile(SynthWave.Noise, false, 7000, 7000, 400),
-            MidiPercussion.RideCymbal => new PercussionProfile(SynthWave.Noise, false, 6000, 6000, 500),
-            MidiPercussion.HiHatClosed => new PercussionProfile(SynthWave.Noise, false, 9000, 9000, 80),
-            MidiPercussion.HiHatOpen => new PercussionProfile(SynthWave.Noise, false, 9000, 9000, 300),
-
-            // Updated Toms: Now use the sweep profile for both SystemSpeaker and SoundDevice
             MidiPercussion.HighTom => new PercussionProfile(SynthWave.Triangle, true, 300, 120, 80),
-            MidiPercussion.LowTom => new PercussionProfile(SynthWave.Triangle, true, 200, 100, 100),
+            MidiPercussion.LowTom or MidiPercussion.HighMidTom or MidiPercussion.LowMidTom =>
+                new PercussionProfile(SynthWave.Triangle, true, 200, 100, 100),
+            MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 =>
+                new PercussionProfile(SynthWave.Triangle, true, 150, 80, 120),
+
+            // --- Snares & Noisy Elements (White Noise) ---
+            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or
+            MidiPercussion.SnareDrumRod or MidiPercussion.SnareDrumBrush =>
+                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 60),
+            MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal or
+            MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
+                new PercussionProfile(SynthWave.Noise, false, 6000, 6000, 400),
+            MidiPercussion.HiHatClosed or MidiPercussion.HiHatOpen or MidiPercussion.HiHatFoot =>
+                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 100),
+            MidiPercussion.HandClap or MidiPercussion.Vibraslap =>
+                new PercussionProfile(SynthWave.Noise, true, 3000, 1000, 100),
+
+            // --- Clicks & Metronomes (Now using Noise to kill the "Beep") ---
+            MidiPercussion.SideStick or MidiPercussion.SnareCrossStick or MidiPercussion.StickClick or
+            MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.MetronomeBell =>
+                new PercussionProfile(SynthWave.Noise, false, 500, 500, 20),
+
+            // --- Woods / Blocks / Latin (Triangle for warmer tone) ---
+            MidiPercussion.Claves or MidiPercussion.Clave or MidiPercussion.HighWoodblock or
+            MidiPercussion.LowWoodblock or MidiPercussion.WoodBlock or MidiPercussion.Castanets =>
+                new PercussionProfile(SynthWave.Triangle, false, 1200, 1200, 20),
+            MidiPercussion.HighBongo or MidiPercussion.LowBongo or MidiPercussion.Conga or
+            MidiPercussion.CongaDeadStroke or MidiPercussion.Tumba or MidiPercussion.HighTimbale or
+            MidiPercussion.LowTimbale or MidiPercussion.Surdu or MidiPercussion.SurduDeadStroke =>
+                new PercussionProfile(SynthWave.Triangle, true, 180, 90, 50),
+            MidiPercussion.Cowbell or MidiPercussion.RideBell or MidiPercussion.HighAgogo or
+            MidiPercussion.LowAgogo or MidiPercussion.TriangleMute or MidiPercussion.TriangleOpen =>
+                new PercussionProfile(SynthWave.Triangle, false, 1200, 1200, 40),
+
+            // --- Shakers / Scrapers (Noise) ---
+            MidiPercussion.Maracas or MidiPercussion.Cabasa or MidiPercussion.Shaker or
+            MidiPercussion.GuiroShort or MidiPercussion.GuiroLong or MidiPercussion.Güiro or
+            MidiPercussion.ScratchPush or MidiPercussion.ScratchPull or MidiPercussion.OceanDrum =>
+                new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 100),
+
+            // --- Exceptions (Square for recognizable FX) ---
+            MidiPercussion.WhistleShort or MidiPercussion.WhistleLong =>
+                new PercussionProfile(SynthWave.Square, false, 1500, 1500, 150),
+            MidiPercussion.Laser or MidiPercussion.Whip =>
+                new PercussionProfile(SynthWave.Square, true, 1500, 100, 100),
+            MidiPercussion.CuicaHigh or MidiPercussion.CuicaLow =>
+                new PercussionProfile(SynthWave.Triangle, true, 800, 400, 150),
 
             _ => new PercussionProfile(SynthWave.Square, false, 400, 400, 30)
         };
-
         public static void PlayPercussion(MidiPercussion p, CancellationToken ct = default, int maxMs = 500, int velocity = 100)
         {
             int sid = Interlocked.Increment(ref _globalSessionId);
