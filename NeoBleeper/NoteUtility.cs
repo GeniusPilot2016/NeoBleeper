@@ -435,7 +435,27 @@ namespace NeoBleeper
             }
         }
 
-
+        /// <summary>
+        /// Describes one percussion voice's synthesis recipe.
+        /// </summary>
+        /// <remarks>
+        /// Neither output path has a real multi-partial timbre generator: the system speaker is a
+        /// single monophonic square-wave oscillator (frequency + on/off only), and the sound-device
+        /// path is a single-oscillator synth (square/triangle/white-noise). Realism therefore has to
+        /// come from three levers that both paths actually support:
+        ///   1. Frequency choice / sweep shape (pitched drums are simulated as a fast downward pitch
+        ///      sweep, since a real drum's fundamental audibly drops as the head's tension "settles"
+        ///      immediately after the strike).
+        ///   2. Duration (how long the transient/decay lasts for that instrument in real life).
+        ///   3. NoiseDensity — for noise-based voices rendered on the system speaker, this is the
+        ///      per-sample gating probability used by <see cref="RenderGatedNoise"/>. A higher density
+        ///      reads as louder/brighter/denser (snare, closed hi-hat); a lower density reads as
+        ///      sparser/softer/airier (brushes, shakers, cymbal wash, ocean drum).
+        ///   4. HitCount/HitGapMs — some instruments are not a single transient at all but a fast
+        ///      cluster of discrete strikes (a hand clap is ~3 slaps ~15-20ms apart; a long güiro
+        ///      stroke is a series of scrape ticks). Modeling that cluster is far closer to the real
+        ///      instrument than one long tone.
+        /// </remarks>
         private readonly struct PercussionProfile
         {
             public readonly SynthWave BodyWave;
@@ -443,65 +463,162 @@ namespace NeoBleeper
             public readonly int BodyStartFreq;
             public readonly int BodyEndFreq;
             public readonly int DurationMs;
-            public PercussionProfile(SynthWave w, bool s, int start, int end, int dur) { BodyWave = w; DoesSweep = s; BodyStartFreq = start; BodyEndFreq = end; DurationMs = dur; }
+            public readonly double NoiseDensity;
+            public readonly int HitCount;
+            public readonly int HitGapMs;
+
+            public PercussionProfile(SynthWave w, bool s, int start, int end, int dur,
+                double density = 0.5, int hits = 1, int gap = 0)
+            {
+                BodyWave = w; DoesSweep = s; BodyStartFreq = start; BodyEndFreq = end; DurationMs = dur;
+                NoiseDensity = density; HitCount = Math.Max(1, hits); HitGapMs = gap;
+            }
         }
 
         private static PercussionProfile GetProfile(MidiPercussion p, PercussionOutputChoice output) => p switch
         {
-            // --- Kicks & Toms (Thuddy Triangle Sweep) ---
+            // ================= Kicks & Toms (triangle pitch-drop sweep) =================
+            // Real kick/tom fundamentals audibly drop right after the strike as head tension
+            // settles, so a short fast sweep from a higher start pitch down to the true
+            // fundamental reads far more like a drum than a static tone.
             MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
-                new PercussionProfile(SynthWave.Triangle, true, 250, 60, 60),
-            MidiPercussion.HighTom => new PercussionProfile(SynthWave.Triangle, true, 300, 120, 80),
+                new PercussionProfile(SynthWave.Triangle, true, 170, 48, 60),
+            MidiPercussion.HighTom =>
+                new PercussionProfile(SynthWave.Triangle, true, 320, 140, 85),
             MidiPercussion.LowTom or MidiPercussion.HighMidTom or MidiPercussion.LowMidTom =>
-                new PercussionProfile(SynthWave.Triangle, true, 200, 100, 100),
+                new PercussionProfile(SynthWave.Triangle, true, 210, 105, 110),
             MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 =>
-                new PercussionProfile(SynthWave.Triangle, true, 150, 80, 120),
+                new PercussionProfile(SynthWave.Triangle, true, 130, 65, 150),
 
-            // --- Snares & Noisy Elements (White Noise) ---
-            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or
-            MidiPercussion.SnareDrumRod or MidiPercussion.SnareDrumBrush =>
-                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 60),
-            MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal or
+            // ================= Snares (white noise, tuned brightness/density) =================
+            // Sticks are bright and dense (snappy wire buzz); rods are a touch warmer and softer;
+            // brushes are the warmest and softest, with a longer swish-like decay.
+            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum =>
+                new PercussionProfile(SynthWave.Noise, false, 4200, 4200, 140, density: 0.60),
+            MidiPercussion.SnareDrumRod =>
+                new PercussionProfile(SynthWave.Noise, false, 3200, 3200, 110, density: 0.45),
+            MidiPercussion.SnareDrumBrush =>
+                new PercussionProfile(SynthWave.Noise, false, 2600, 2600, 160, density: 0.30),
+
+            // ================= Cymbals =================
+            // Crash/china: bright, long, dense wash. Ride: similarly bright but sparser gating,
+            // which reads more like a shimmering "ping" than a full wash.
+            MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal =>
+                new PercussionProfile(SynthWave.Noise, false, 7000, 7000, 480, density: 0.55),
+            MidiPercussion.SplashCymbal =>
+                new PercussionProfile(SynthWave.Noise, false, 7500, 7500, 220, density: 0.55),
             MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
-                new PercussionProfile(SynthWave.Noise, false, 6000, 6000, 400),
-            MidiPercussion.HiHatClosed or MidiPercussion.HiHatOpen or MidiPercussion.HiHatFoot =>
-                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 100),
-            MidiPercussion.HandClap or MidiPercussion.Vibraslap =>
-                new PercussionProfile(SynthWave.Noise, true, 3000, 1000, 100),
+                new PercussionProfile(SynthWave.Noise, false, 6200, 6200, 550, density: 0.35),
 
-            // --- Clicks & Metronomes (Now using Noise to kill the "Beep") ---
+            // ================= Hi-Hats =================
+            // Closed: very short and dense (tight "chick"). Open: longer and sparser (airy decay).
+            // Foot chick: short, muffled (lower frequency), moderate density.
+            MidiPercussion.HiHatClosed =>
+                new PercussionProfile(SynthWave.Noise, false, 8500, 8500, 45, density: 0.70),
+            MidiPercussion.HiHatOpen =>
+                new PercussionProfile(SynthWave.Noise, false, 8000, 8000, 320, density: 0.40),
+            MidiPercussion.HiHatFoot =>
+                new PercussionProfile(SynthWave.Noise, false, 3000, 3000, 35, density: 0.50),
+
+            // ================= Hand claps / vibraslap (multi-hit) =================
+            // A real hand clap is not one transient — it's ~3 rapid slaps only ~15-20ms apart.
+            // Modeling that cluster (instead of one 100ms noise burst) is the single biggest
+            // realism win available on this synth.
+            MidiPercussion.HandClap =>
+                new PercussionProfile(SynthWave.Noise, false, 2800, 2800, 25, density: 0.65, hits: 3, gap: 18),
+            MidiPercussion.Vibraslap =>
+                new PercussionProfile(SynthWave.Noise, false, 2200, 2200, 350, density: 0.25),
+
+            // ================= Clicks / metronome (short dense noise "tick") =================
             MidiPercussion.SideStick or MidiPercussion.SnareCrossStick or MidiPercussion.StickClick or
             MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.MetronomeBell =>
-                new PercussionProfile(SynthWave.Noise, false, 500, 500, 20),
+                new PercussionProfile(SynthWave.Noise, false, 900, 900, 15, density: 0.80),
 
-            // --- Woods / Blocks / Latin (Triangle for warmer tone) ---
-            MidiPercussion.Claves or MidiPercussion.Clave or MidiPercussion.HighWoodblock or
-            MidiPercussion.LowWoodblock or MidiPercussion.WoodBlock or MidiPercussion.Castanets =>
-                new PercussionProfile(SynthWave.Triangle, false, 1200, 1200, 20),
-            MidiPercussion.HighBongo or MidiPercussion.LowBongo or MidiPercussion.Conga or
-            MidiPercussion.CongaDeadStroke or MidiPercussion.Tumba or MidiPercussion.HighTimbale or
-            MidiPercussion.LowTimbale or MidiPercussion.Surdu or MidiPercussion.SurduDeadStroke =>
-                new PercussionProfile(SynthWave.Triangle, true, 180, 90, 50),
-            MidiPercussion.Cowbell or MidiPercussion.RideBell or MidiPercussion.HighAgogo or
-            MidiPercussion.LowAgogo or MidiPercussion.TriangleMute or MidiPercussion.TriangleOpen =>
-                new PercussionProfile(SynthWave.Triangle, false, 1200, 1200, 40),
+            // ================= Wood blocks / claves / castanets =================
+            // Real wood strikes decay almost instantly — keep these very short and pitched by size.
+            MidiPercussion.Claves or MidiPercussion.Clave or MidiPercussion.Castanets =>
+                new PercussionProfile(SynthWave.Triangle, false, 2000, 2000, 15),
+            MidiPercussion.HighWoodblock =>
+                new PercussionProfile(SynthWave.Triangle, false, 1600, 1600, 18),
+            MidiPercussion.LowWoodblock or MidiPercussion.WoodBlock =>
+                new PercussionProfile(SynthWave.Triangle, false, 1100, 1100, 22),
 
-            // --- Shakers / Scrapers (Noise) ---
-            MidiPercussion.Maracas or MidiPercussion.Cabasa or MidiPercussion.Shaker or
-            MidiPercussion.GuiroShort or MidiPercussion.GuiroLong or MidiPercussion.Güiro or
-            MidiPercussion.ScratchPush or MidiPercussion.ScratchPull or MidiPercussion.OceanDrum =>
-                new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 100),
+            // ================= Bongos / congas / timbales / surdu =================
+            // Muted ("dead stroke") hits are short with little pitch drop; open hits ring
+            // longer and sweep further as the head relaxes.
+            MidiPercussion.HighBongo =>
+                new PercussionProfile(SynthWave.Triangle, true, 260, 150, 55),
+            MidiPercussion.LowBongo =>
+                new PercussionProfile(SynthWave.Triangle, true, 190, 105, 65),
+            MidiPercussion.CongaDeadStroke =>
+                new PercussionProfile(SynthWave.Triangle, true, 220, 150, 35),
+            MidiPercussion.Conga =>
+                new PercussionProfile(SynthWave.Triangle, true, 220, 100, 90),
+            MidiPercussion.Tumba =>
+                new PercussionProfile(SynthWave.Triangle, true, 170, 85, 100),
+            MidiPercussion.HighTimbale =>
+                new PercussionProfile(SynthWave.Triangle, true, 500, 300, 60),
+            MidiPercussion.LowTimbale =>
+                new PercussionProfile(SynthWave.Triangle, true, 380, 220, 75),
+            MidiPercussion.SurduDeadStroke =>
+                new PercussionProfile(SynthWave.Triangle, true, 150, 85, 50),
+            MidiPercussion.Surdu =>
+                new PercussionProfile(SynthWave.Triangle, true, 140, 60, 130),
 
-            // --- Exceptions (Square for recognizable FX) ---
-            MidiPercussion.WhistleShort or MidiPercussion.WhistleLong =>
-                new PercussionProfile(SynthWave.Square, false, 1500, 1500, 150),
-            MidiPercussion.Laser or MidiPercussion.Whip =>
-                new PercussionProfile(SynthWave.Square, true, 1500, 100, 100),
-            MidiPercussion.CuicaHigh or MidiPercussion.CuicaLow =>
-                new PercussionProfile(SynthWave.Triangle, true, 800, 400, 150),
+            // ================= Bells / agogo / cowbell / triangle =================
+            // A real orchestral triangle "open" rings for a genuinely long time; muted, it stops
+            // almost instantly — the two articulations should sound very different in duration.
+            MidiPercussion.Cowbell =>
+                new PercussionProfile(SynthWave.Triangle, false, 800, 800, 90),
+            MidiPercussion.RideBell =>
+                new PercussionProfile(SynthWave.Triangle, false, 1400, 1400, 130),
+            MidiPercussion.HighAgogo =>
+                new PercussionProfile(SynthWave.Triangle, false, 950, 950, 60),
+            MidiPercussion.LowAgogo =>
+                new PercussionProfile(SynthWave.Triangle, false, 700, 700, 70),
+            MidiPercussion.TriangleMute =>
+                new PercussionProfile(SynthWave.Triangle, false, 3800, 3800, 25),
+            MidiPercussion.TriangleOpen =>
+                new PercussionProfile(SynthWave.Triangle, false, 3800, 3800, 400),
+            MidiPercussion.SleighBell or MidiPercussion.BellTree =>
+                new PercussionProfile(SynthWave.Triangle, false, 2600, 2600, 220, hits: 4, gap: 25),
+
+            // ================= Shakers / scrapers =================
+            // Sparse gating reads as a granular "shhh" texture rather than a solid tone, which is
+            // much closer to how these instruments actually sound.
+            MidiPercussion.Maracas =>
+                new PercussionProfile(SynthWave.Noise, false, 5500, 5500, 55, density: 0.35),
+            MidiPercussion.Cabasa =>
+                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 70, density: 0.50),
+            MidiPercussion.Shaker or MidiPercussion.Tambourine =>
+                new PercussionProfile(SynthWave.Noise, false, 6000, 6000, 90, density: 0.30),
+            MidiPercussion.GuiroShort or MidiPercussion.Güiro =>
+                new PercussionProfile(SynthWave.Noise, false, 3500, 3500, 55, density: 0.60),
+            // A long güiro stroke is a rapid run of individual scrape ticks, not one sustained burst.
+            MidiPercussion.GuiroLong =>
+                new PercussionProfile(SynthWave.Noise, false, 3500, 3500, 40, density: 0.60, hits: 5, gap: 18),
+            MidiPercussion.ScratchPush or MidiPercussion.ScratchPull =>
+                new PercussionProfile(SynthWave.Noise, false, 4200, 4200, 80, density: 0.45),
+            MidiPercussion.OceanDrum =>
+                new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 500, density: 0.15),
+
+            // ================= Exceptions (square, for recognizable FX tone) =================
+            MidiPercussion.WhistleShort =>
+                new PercussionProfile(SynthWave.Square, false, 1800, 1800, 130),
+            MidiPercussion.WhistleLong =>
+                new PercussionProfile(SynthWave.Square, false, 1800, 1800, 500),
+            MidiPercussion.Laser =>
+                new PercussionProfile(SynthWave.Square, true, 2500, 200, 150),
+            MidiPercussion.Whip =>
+                new PercussionProfile(SynthWave.Square, true, 1800, 150, 90),
+            MidiPercussion.CuicaHigh =>
+                new PercussionProfile(SynthWave.Triangle, true, 900, 500, 140),
+            MidiPercussion.CuicaLow =>
+                new PercussionProfile(SynthWave.Triangle, true, 500, 250, 180),
 
             _ => new PercussionProfile(SynthWave.Square, false, 400, 400, 30)
         };
+
         public static void PlayPercussion(MidiPercussion p, CancellationToken ct = default, int maxMs = 500, int velocity = 100)
         {
             int sid = Interlocked.Increment(ref _globalSessionId);
@@ -515,42 +632,11 @@ namespace NeoBleeper
             if (output == PercussionOutputChoice.SystemSpeaker) Interlocked.Exchange(ref _activeSpeakerSession, sid);
             else Interlocked.Exchange(ref _activeDeviceSession, sid);
 
-            // Pass the output choice into the profile generator
             var prof = GetProfile(p, output);
 
             try
             {
-                if (prof.BodyWave == SynthWave.Noise)
-                {
-                    if (output == PercussionOutputChoice.SoundDevice)
-                    {
-                        StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
-                        PreciseWaitMs(prof.DurationMs, ct);
-                    }
-                    else
-                    {
-                        RenderGatedNoise(output, sid, prof.BodyStartFreq, prof.DurationMs, 0.5, ct);
-                    }
-                }
-                else if (prof.DoesSweep)
-                {
-                    int steps = 6;
-                    for (int i = 0; i < steps; i++)
-                    {
-                        if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
-                        double progress = (double)i / (steps - 1);
-                        int freq = (int)(prof.BodyStartFreq - ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
-                        StartPulse(output, freq, prof.BodyWave);
-
-                        // Cast to double to prevent timing truncation!
-                        PreciseWaitMs((double)prof.DurationMs / steps, ct);
-                    }
-                }
-                else
-                {
-                    StartPulse(output, prof.BodyEndFreq, prof.BodyWave);
-                    PreciseWaitMs(prof.DurationMs, ct);
-                }
+                RenderProfile(output, sid, prof, ct);
             }
             finally { StopPulse(output, sid); }
         }
@@ -570,6 +656,8 @@ namespace NeoBleeper
         ///
         /// The sweep-style profiles (e.g. kicks, toms) scale their step count down for very short slices
         /// so a fast alternation cycle doesn't try to cram a 6-step sweep into a couple of milliseconds.
+        /// Multi-hit profiles (e.g. hand claps, long güiro scrapes) are compressed to fit exactly inside
+        /// the caller-specified duration rather than being skipped.
         /// </remarks>
         /// <param name="p">The percussion instrument to play.</param>
         /// <param name="durationMs">The exact duration, in milliseconds, the hit should occupy. Values &lt;= 0 complete immediately without sound.</param>
@@ -590,42 +678,95 @@ namespace NeoBleeper
             if (output == PercussionOutputChoice.SystemSpeaker) Interlocked.Exchange(ref _activeSpeakerSession, sid);
             else Interlocked.Exchange(ref _activeDeviceSession, sid);
 
-            // Pass the output choice into the profile generator
             var prof = GetProfile(p, output);
 
             try
             {
-                if (prof.BodyWave == SynthWave.Noise)
+                RenderProfile(output, sid, prof, ct, durationMs);
+            }
+            finally { StopPulse(output, sid); }
+        }
+
+        /// <summary>
+        /// Renders a full percussion profile: either a single hit (the common case) or, for
+        /// instruments modeled as a fast cluster of strikes (hand claps, long güiro scrapes,
+        /// sleigh bells), a sequence of hits separated by short gaps. When
+        /// <paramref name="totalDurationOverrideMs"/> is supplied (the exact-duration playback
+        /// path), the hits and gaps are proportionally compressed so the whole cluster still fits
+        /// exactly inside the caller's time slot.
+        /// </summary>
+        private static void RenderProfile(PercussionOutputChoice output, int sid, PercussionProfile prof,
+            CancellationToken ct, int? totalDurationOverrideMs = null)
+        {
+            if (prof.HitCount <= 1)
+            {
+                PlaySingleHit(output, sid, prof, ct, totalDurationOverrideMs);
+                return;
+            }
+
+            int perHitMs;
+            if (totalDurationOverrideMs.HasValue)
+            {
+                int totalGap = prof.HitGapMs * (prof.HitCount - 1);
+                perHitMs = Math.Max(1, (totalDurationOverrideMs.Value - totalGap) / prof.HitCount);
+            }
+            else
+            {
+                perHitMs = prof.DurationMs;
+            }
+
+            for (int hit = 0; hit < prof.HitCount; hit++)
+            {
+                if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
+                PlaySingleHit(output, sid, prof, ct, perHitMs);
+                if (hit < prof.HitCount - 1)
+                    PreciseWaitMs(prof.HitGapMs, ct);
+            }
+        }
+
+        /// <summary>
+        /// Renders exactly one strike of a profile for the given duration (or the profile's own
+        /// natural duration if none is supplied).
+        /// </summary>
+        private static void PlaySingleHit(PercussionOutputChoice output, int sid, PercussionProfile prof,
+            CancellationToken ct, int? durationMsOverride = null)
+        {
+            int duration = durationMsOverride ?? prof.DurationMs;
+            if (duration <= 0) return;
+
+            if (prof.BodyWave == SynthWave.Noise)
+            {
+                if (output == PercussionOutputChoice.SoundDevice)
                 {
-                    if (output == PercussionOutputChoice.SoundDevice)
-                    {
-                        StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
-                        PreciseWaitMs(durationMs, ct);
-                    }
-                    else
-                    {
-                        RenderGatedNoise(output, sid, prof.BodyStartFreq, durationMs, 0.5, ct);
-                    }
-                }
-                else if (prof.DoesSweep)
-                {
-                    int steps = Math.Max(2, Math.Min(6, durationMs / 5));
-                    for (int i = 0; i < steps; i++)
-                    {
-                        if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
-                        double progress = (double)i / (steps - 1);
-                        int freq = (int)(prof.BodyStartFreq - ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
-                        StartPulse(output, freq, prof.BodyWave);
-                        PreciseWaitMs((double)durationMs / steps, ct);
-                    }
+                    StartPulse(output, prof.BodyStartFreq, SynthWave.Noise);
+                    PreciseWaitMs(duration, ct);
                 }
                 else
                 {
-                    StartPulse(output, prof.BodyEndFreq, prof.BodyWave);
-                    PreciseWaitMs(durationMs, ct);
+                    RenderGatedNoise(output, sid, prof.BodyStartFreq, duration, prof.NoiseDensity, ct);
                 }
             }
-            finally { StopPulse(output, sid); }
+            else if (prof.DoesSweep)
+            {
+                // Scale step count down for very short slices so a fast alternation cycle
+                // doesn't try to cram a 6-step sweep into a couple of milliseconds.
+                int steps = durationMsOverride.HasValue
+                    ? Math.Max(2, Math.Min(6, duration / 5))
+                    : 6;
+                for (int i = 0; i < steps; i++)
+                {
+                    if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
+                    double progress = (double)i / (steps - 1);
+                    int freq = (int)(prof.BodyStartFreq - ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
+                    StartPulse(output, freq, prof.BodyWave);
+                    PreciseWaitMs((double)duration / steps, ct);
+                }
+            }
+            else
+            {
+                StartPulse(output, prof.BodyEndFreq, prof.BodyWave);
+                PreciseWaitMs(duration, ct);
+            }
         }
 
         /// <summary>
