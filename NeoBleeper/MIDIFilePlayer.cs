@@ -1778,11 +1778,28 @@ namespace NeoBleeper
             HashSet<int> filteredNotes = new HashSet<int>();
             foreach (var note in currentFrame.ActiveNotes)
             {
-                if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
+                // FIX: Instead of relying solely on _noteChannels, we need to verify 
+                // the channel associated with the specific note event in this frame.
+                // We filter out any note that is currently playing on Channel 10 
+                // to keep the melodic channel clean.
+
+                // Check all events occurring at this time to see if any correspond to this note
+                bool isPercussion = false;
+
+                if (eventsAtThisTime != null)
                 {
-                    // Exclude Channel 10 from standard melodic notes so percussion does not become a piercing melodic beep.
-                    if (channel == 10) continue;
-                    filteredNotes.Add(note);
+                    // Check if this note number is being triggered on Channel 10 at this exact time
+                    isPercussion = eventsAtThisTime.OfType<NoteOnEvent>()
+                        .Any(n => n.NoteNumber == note && n.Channel == 10);
+                }
+
+                if (!isPercussion)
+                {
+                    // Only add to melodic notes if it's not a Channel 10 percussion hit
+                    if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
+                    {
+                        filteredNotes.Add(note);
+                    }
                 }
             }
 
