@@ -754,7 +754,7 @@
             playbackTimer.Interval = 1;
             playbackTimer.Tick += playbackTimer_Tick;
             // 
-            // MIDI_file_player
+            // MIDIFilePlayer
             // 
             AllowDrop = true;
             resources.ApplyResources(this, "$this");
@@ -792,7 +792,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "MIDI_file_player";
+            Name = "MIDIFilePlayer";
             ShowIcon = false;
             ShowInTaskbar = false;
             FormClosing += MIDI_file_player_FormClosing;

@@ -300,10 +300,75 @@ namespace NeoBleeper
                     _enabledChannels.Add(i);
                 }
             }
-
+            if (isDeciding)
+            {
+                return; // Don't log in deciding process
+            }
             Logger.Log($"Enabled channels: {string.Join(", ", _enabledChannels)}", Logger.LogTypes.Info);
         }
 
+        private int lyricsChunkCount = 0; // Count of lyric chunks processed for display
+
+        /// <summary>
+        /// Determines whether a given text chunk from a MIDI file is considered "junk" and should be filtered out.
+        /// </summary>
+        /// <param name="textChunk"></param>
+        /// <returns>True if the text chunk is considered junk; otherwise, false.</returns>
+        private bool IsTextEventJunk(string textChunk)
+        {
+            if (string.IsNullOrWhiteSpace(textChunk)) return true;
+
+            string trimmed = textChunk.Trim();
+
+            // 1. Karaoke file headers or control tags (e.g. @KMIDI, @LENGL, @T, @I)
+            if (trimmed.StartsWith("@")) return true;
+
+            // 2. Definite technical/setup junk patterns that are never lyrics
+            string[] strictJunkKeywords = {
+        "Microsoft Wavetable",
+        "GS Reset",
+        "Start of Setup",
+        "End of Setup",
+        "LCD:",
+        "GSAE",
+        "SysEx",
+        "XG System On",
+        "GM System On",
+        "NRPN:",
+        "RPN:",
+        "Control Change",
+        "Parameter"
+    };
+
+            foreach (var keyword in strictJunkKeywords)
+            {
+                if (trimmed.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            // 3. File metadata & author tags (with a colon or clear copyright layout)
+            string[] metadataPrefixes = {
+        "Sequenced by",
+        "Arranged by",
+        "Composed by",
+        "Copyright",
+        "Author",
+        "SoundFont"
+    };
+
+            foreach (var prefix in metadataPrefixes)
+            {
+                if (trimmed.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        private bool lyricsEnabled = false;
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
         private List<(long time, int tempo)> _tempoEvents;
         private int _ticksPerQuarterNote;
@@ -324,6 +389,8 @@ namespace NeoBleeper
         {
             try
             {
+                lyricsChunkCount = 0; // Reset the chunk counter variable.
+                DecideCheckboxesThatWillBeEnabled(0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes during loading
                 panelLoading.Visible = true;
                 labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
                 progressBar1.Value = 0;
@@ -410,12 +477,20 @@ namespace NeoBleeper
                                 var meta = (MetaEvent)midiEvent;
                                 if (meta.MetaEventType == MetaEventType.Lyric || meta.MetaEventType == MetaEventType.TextEvent)
                                 {
-                                    if (!metaDict.TryGetValue(meta.AbsoluteTime, out var list))
+                                    string rawText = ExtractLyricsFromMetaEvent(meta);
+
+                                    // Skip filtering out system setup texts/junk 
+                                    // This is to ensure that lyrics are not filtered out if they contain technical words like "MIDI", "Roland", etc.
+                                    if (!IsTextEventJunk(rawText))
                                     {
-                                        list = new List<MetaEvent>();
-                                        metaDict[meta.AbsoluteTime] = list;
+                                        if (!metaDict.TryGetValue(meta.AbsoluteTime, out var list))
+                                        {
+                                            list = new List<MetaEvent>();
+                                            metaDict[meta.AbsoluteTime] = list;
+                                        }
+                                        list.Add(meta);
+                                        lyricsChunkCount++;
                                     }
-                                    list.Add(meta);
                                 }
                             }
                         }
@@ -492,10 +567,12 @@ namespace NeoBleeper
                 PrecomputeTempoTimes();
                 AssignInstrumentsToNotes(_midiFile);
                 groupBox1.Enabled = true; // Enable controls after successful load
+                DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, _noteChannels, lyricsEnabled);
                 NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleMIDIFileLoaded, Resources.NotificationMessageMIDIFileLoaded, ToolTipIcon.Info, 3000);
             }
             catch (Exception ex)
             {
+                DecideCheckboxesThatWillBeEnabled(0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes on error
                 labelStatus.Text = Resources.TextMIDIFileLoadingError;
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
@@ -510,6 +587,30 @@ namespace NeoBleeper
                 ResetLabelsAndTrackBar(); // Reset UI elements
                 panelLoading.Visible = false;
             }
+        }
+
+        /// <summary>
+        /// Determines which checkboxes in the user interface should be enabled based on the presence of lyrics and note channels in the loaded MIDI file.
+        /// </summary>
+        private void DecideCheckboxesThatWillBeEnabled(int textChunkCount, Dictionary<int, int> channels, bool lyricsEnabled)
+        {
+            isDeciding = true;
+            checkBox_show_lyrics_or_text_events.Enabled = textChunkCount > 0;
+            checkBox_show_lyrics_or_text_events.Checked = textChunkCount > 0 && lyricsEnabled;
+            int[] nonEmptyChannels = new int[] { };
+            foreach (var kvp in channels)
+            {
+                int channel = kvp.Value;
+                Array.Resize(ref nonEmptyChannels, nonEmptyChannels.Length + 1);
+                nonEmptyChannels[nonEmptyChannels.Length - 1] = channel;
+            }
+            foreach (var checkBox in Controls.OfType<CheckBox>().Where(cb => cb.Name.StartsWith("checkBox_channel_")))
+            {
+                int channelNumber = int.Parse(checkBox.Name.Split('_').Last());
+                checkBox.Enabled = nonEmptyChannels.Contains(channelNumber);
+                checkBox.Checked = nonEmptyChannels.Contains(channelNumber);
+            }
+            isDeciding = false;
         }
 
         /// <summary>
@@ -786,10 +887,14 @@ namespace NeoBleeper
             }
             panel1.ResumeLayout();
         }
+        bool isDeciding = false;
         private async void checkBox_channel_CheckedChanged(object sender, EventArgs e)
         {
             UpdateEnabledChannels();
-
+            if (isDeciding)
+            {
+                return; // Don't log in deciding process
+            }
             if (_isPlaying)
             {
                 if (_frames == null || _frames.Count == 0)
@@ -2433,6 +2538,7 @@ namespace NeoBleeper
         }
         private void checkBox_show_lyrics_or_text_events_CheckedChanged(object sender, EventArgs e)
         {
+            lyricsEnabled = checkBox_show_lyrics_or_text_events.Checked;
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
                 Logger.Log("Show lyrics is enabled.", Logger.LogTypes.Info);
