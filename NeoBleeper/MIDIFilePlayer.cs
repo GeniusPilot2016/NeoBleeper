@@ -948,7 +948,6 @@ namespace NeoBleeper
 
             if (!percussion.HasValue)
             {
-                // No drum hit this frame — just play the melody as usual.
                 if (frequencies.Length == 0)
                 {
                     await WaitPreciseWithCancellation(duration, token);
@@ -964,53 +963,42 @@ namespace NeoBleeper
                 return;
             }
 
-            if (frequencies.Length == 0)
-            {
-                // Percussion only — the whole frame is its burst, no hand-off needed.
-                await PercussionSounds.PlayPercussionForDurationAsync(percussion.Value, duration, token);
-                return;
-            }
+            bool melodyAlsoPlaying = frequencies.Length > 0;
+            int percussionMs = PercussionSounds.GetMidiFrameDurationMs(
+                percussion.Value, duration, melodyAlsoPlaying);
 
-            // Both are due this frame: give percussion a short, clearly audible burst first
-            // (long enough for its sweep/noise profile to actually read as a "hit"), then hand
-            // the remainder of the frame to the melody note(s), uninterrupted.
-            //
-            // IMPORTANT: percussion must never be allowed to consume the entire frame when a
-            // melody note is also due — dense drum tracks (fast hi-hats, etc.) produce a lot of
-            // frames well under the "preferred" burst length, and an earlier winner-take-all
-            // short-frame fallback gave percussion 100% of those frames, which silenced the
-            // melody every time a drum hit landed. MinMelodyFloorMs guarantees the melody always
-            // gets at least a sliver of the frame, no matter how short it is.
-            const int MinMelodyFloorMs = 8;
-            const int MinPercussionMs = 12;
-            const int PreferredPercussionMs = 45;
-
-            int percussionMs;
-            if (duration <= MinMelodyFloorMs + MinPercussionMs)
+            int percussionLabelIndex = -1;
+            if (_noteToLabelMap.TryGetValue((int)percussion.Value, out int foundLabelIndex))
             {
-                // Genuinely too short for either floor to fit — split what little time there is
-                // roughly in half rather than letting one voice take it all.
-                percussionMs = Math.Max(1, duration / 2);
+                percussionLabelIndex = foundLabelIndex;
+                HighlightNoteLabel(percussionLabelIndex);
             }
-            else
-            {
-                int maxPercussionAllowed = duration - MinMelodyFloorMs; // always preserve the melody floor
-                percussionMs = Math.Min(PreferredPercussionMs, duration / 2);
-                percussionMs = Math.Max(MinPercussionMs, percussionMs);
-                percussionMs = Math.Min(percussionMs, maxPercussionAllowed);
-            }
-            percussionMs = Math.Clamp(percussionMs, 1, duration);
 
             try
             {
-                await PercussionSounds.PlayPercussionForDurationAsync(percussion.Value, percussionMs, token);
+                try
+                {
+                    await PercussionSounds.PlayPercussionForDurationAsync(
+                        percussion.Value, percussionMs, token);
+                }
+                finally
+                {
+                    if (percussionLabelIndex >= 0)
+                        UnHighlightNoteLabel(percussionLabelIndex);
+                }
 
-                int remaining = duration - percussionMs;
+                int remaining = Math.Max(0, duration - percussionMs);
                 if (remaining <= 0) return;
 
                 token.ThrowIfCancellationRequested();
 
-                if (frequencies.Length == 1)
+                if (frequencies.Length == 0)
+                {
+                    // A GM percussion note is a one-shot event. Once its natural envelope has
+                    // finished, keep the remainder of the MIDI frame silent instead of stretching it.
+                    await WaitPreciseWithCancellation(remaining, token);
+                }
+                else if (frequencies.Length == 1)
                 {
                     await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], remaining), token);
                 }
@@ -1021,13 +1009,10 @@ namespace NeoBleeper
             }
             catch (OperationCanceledException)
             {
-                throw; // normal cancellation — let the caller's cancellation handling deal with it
+                throw;
             }
             catch (Exception ex)
             {
-                // A failure in the percussion/melody hand-off should never be allowed to abort the
-                // whole playback pipeline (that would look exactly like "music stops on every drum
-                // hit"). Log it and let the next frame continue normally instead.
                 Logger.Log($"Error during percussion/melody hand-off: {ex.Message}", Logger.LogTypes.Error);
             }
         }
@@ -1861,71 +1846,21 @@ namespace NeoBleeper
             }
 
             // --- Melody + percussion, alternated on the single-voice speaker output ---
-            // The speaker can only render one voice at a time, so when both a drum hit and one or
-            // more held melody notes are due this frame, they take turns instead of the drum hit
-            // silencing the melody (or the melody blocking the drum hit).
-
+            // General MIDI defines percussion key assignments, but not fixed sound lengths.
+            // PercussionSounds supplies the instrument's natural one-shot duration and this
+            // hand-off keeps the monophonic speaker timeline and melody floor intact.
             int totalFrameDuration = durationMsInt;
-
-            // Define the percussion "strike" duration. 
-            // If the frame is very short, percussion takes the whole frame.
-            // If the frame is long, percussion takes a fixed 'hit' (e.g., 50ms) and melody fills the rest.
-            int percussionStrikeDuration = Math.Min(totalFrameDuration, 50);
-            int melodyFillDuration = totalFrameDuration - percussionStrikeDuration;
 
             PercussionSounds.MidiPercussion? percussionToPlay = drumEvent != null
                 ? (PercussionSounds.MidiPercussion)drumEvent.NoteNumber
                 : (PercussionSounds.MidiPercussion?)null;
 
-            // 1. Play Percussion First (The "Strike")
-            if (percussionToPlay.HasValue)
-            {
-                int noteNumber = (int)percussionToPlay.Value;
+            int[] frequenciesToPlay = filteredNotes
+                .Select(note => NoteToFrequency(note))
+                .ToArray();
 
-                // Highlight the corresponding percussion label
-                if (_noteToLabelMap.TryGetValue(noteNumber, out int labelIndex))
-                {
-                    HighlightNoteLabel(labelIndex);
-                }
-
-                await PercussionSounds.PlayPercussionForDurationAsync(percussionToPlay.Value, percussionStrikeDuration, token);
-
-                // Unhighlight the label now that the percussion has finished playing
-                if (_noteToLabelMap.TryGetValue(noteNumber, out int unHighlightIndex))
-                {
-                    UnHighlightNoteLabel(unHighlightIndex);
-                }
-            }
-            else
-            {
-                // If no percussion, the melody gets the whole duration (and we don't 'waste' the strike time)
-                melodyFillDuration = totalFrameDuration;
-            }
-
-            // 2. Play Melody (or Silence) for the remaining "Fill" duration
-            if (melodyFillDuration > 0)
-            {
-                if (filteredNotes.Count > 0)
-                {
-                    var frequencies = filteredNotes.Select(note => NoteToFrequency(note)).ToArray();
-
-                    // If we are strictly monophonic, we play one note, 
-                    // otherwise, play the multiple-note polyphony helper
-                    if (frequencies.Length == 1)
-                    {
-                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], melodyFillDuration), token);
-                    }
-                    else
-                    {
-                        await PlayMultipleNotesAsync(frequencies, melodyFillDuration, token);
-                    }
-                }
-                else
-                {
-                    // Nothing to play, just wait to keep timing accurate
-                    await WaitPreciseWithCancellation(melodyFillDuration, token);
-                }
-            }
+            await PlayNotesAndPercussionAlternatingAsync(
+                frequenciesToPlay, percussionToPlay, totalFrameDuration, token);
 
             // Accumulate the real elapsed difference (can be positive or negative)
             // If a voice took longer than durationMsInt, this naturally tells the drift logic to skip ahead next frame.

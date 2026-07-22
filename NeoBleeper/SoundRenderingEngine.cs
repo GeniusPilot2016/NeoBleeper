@@ -833,30 +833,398 @@ namespace NeoBleeper
         }
         public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD, that is used in Bleeper Music Maker, using NAudio
         {
+            /// <summary>
+            /// Passes ordinary beeps through with the original direct SignalGenerator.Gain
+            /// behavior. Only a rapid sequence of gate edges is replayed sample-accurately
+            /// inside Read, so the tight-loop pulse noise is not reduced to a faint beep.
+            /// </summary>
+            private sealed class RapidGateSampleProvider : ISampleProvider
+            {
+                private const double OpenGain = 0.15;
+                private const int RapidEdgeCount = 3;
+
+                // Three or more edges, each no farther than 2 ms apart, identify the
+                // tight-loop gate pattern. A long pause returns adaptive calls to the
+                // original direct-gain behavior.
+                private static readonly long RapidEdgeTicks =
+                    Math.Max(1L, System.Diagnostics.Stopwatch.Frequency * 2L / 1000L);
+                private static readonly long RapidResetTicks =
+                    Math.Max(1L, System.Diagnostics.Stopwatch.Frequency * 10L / 1000L);
+
+                private readonly SignalGenerator source;
+                private readonly object gateLock = new object();
+                private readonly System.Collections.Generic.Queue<GateCommand> commands =
+                    new System.Collections.Generic.Queue<GateCommand>();
+                private readonly System.Collections.Generic.List<GateCommand> rapidCandidate =
+                    new System.Collections.Generic.List<GateCommand>(RapidEdgeCount);
+                private readonly System.Collections.Generic.List<RenderedGateCommand> dueCommands =
+                    new System.Collections.Generic.List<RenderedGateCommand>(64);
+
+                private long renderedFrames;
+                private long clockOriginTimestamp;
+                private long clockOriginFrame;
+                private long scheduleDelayFrames;
+                private long lastTransitionTimestamp;
+                private bool clockStarted;
+                private volatile bool preciseGateMode;
+
+                private int candidateStartState;
+                private int renderedGateState;
+                private volatile int requestedGateState;
+
+                private readonly struct GateCommand
+                {
+                    public GateCommand(long timestamp, int state)
+                    {
+                        Timestamp = timestamp;
+                        State = state;
+                    }
+
+                    public long Timestamp { get; }
+                    public int State { get; }
+                }
+
+                private readonly struct RenderedGateCommand
+                {
+                    public RenderedGateCommand(long frame, int state)
+                    {
+                        Frame = frame;
+                        State = state;
+                    }
+
+                    public long Frame { get; }
+                    public int State { get; }
+                }
+
+                public RapidGateSampleProvider(SignalGenerator source)
+                {
+                    this.source = source ?? throw new ArgumentNullException(nameof(source));
+                }
+
+                public WaveFormat WaveFormat => source.WaveFormat;
+
+                public bool IsMuted => requestedGateState == 0;
+
+                /// <summary>
+                /// Exact legacy path for regular beeps. No edge queue is involved.
+                /// </summary>
+                public void SetDirectGate(bool open)
+                {
+                    int newState = open ? 1 : 0;
+
+                    lock (gateLock)
+                    {
+                        CancelPreciseModeLocked();
+                        requestedGateState = newState;
+                        renderedGateState = newState;
+                        source.Gain = open ? OpenGain : 0.0;
+                    }
+                }
+
+                /// <summary>
+                /// Directly gates isolated StartSynth/StopSynth calls. It switches to the
+                /// timestamped path only after detecting the tight multi-edge loop pattern.
+                /// </summary>
+                public void SetAdaptiveGate(bool open)
+                {
+                    int newState = open ? 1 : 0;
+                    long timestamp = System.Diagnostics.Stopwatch.GetTimestamp();
+
+                    lock (gateLock)
+                    {
+                        if (requestedGateState == newState)
+                        {
+                            return;
+                        }
+
+                        int previousState = requestedGateState;
+                        long edgeGap = lastTransitionTimestamp == 0
+                            ? long.MaxValue
+                            : timestamp - lastTransitionTimestamp;
+
+                        requestedGateState = newState;
+
+                        if (preciseGateMode)
+                        {
+                            if (edgeGap > RapidResetTicks)
+                            {
+                                // The rapid burst has ended. Restore the original direct
+                                // gate before handling this new, isolated transition.
+                                LeavePreciseModeLocked(previousState);
+                                ApplyDirectGainLocked(newState);
+                                BeginCandidateLocked(previousState, timestamp, newState);
+                            }
+                            else
+                            {
+                                commands.Enqueue(new GateCommand(timestamp, newState));
+                                lastTransitionTimestamp = timestamp;
+                            }
+
+                            return;
+                        }
+
+                        // This is the untouched regular-pulse behavior until a true rapid
+                        // sequence has been identified.
+                        ApplyDirectGainLocked(newState);
+
+                        if (edgeGap > RapidEdgeTicks)
+                        {
+                            BeginCandidateLocked(previousState, timestamp, newState);
+                        }
+                        else
+                        {
+                            if (rapidCandidate.Count == 0)
+                            {
+                                candidateStartState = previousState;
+                            }
+
+                            rapidCandidate.Add(new GateCommand(timestamp, newState));
+                            lastTransitionTimestamp = timestamp;
+                        }
+
+                        if (rapidCandidate.Count >= RapidEdgeCount)
+                        {
+                            EnterPreciseModeLocked();
+                        }
+                    }
+                }
+
+                /// <summary>
+                /// Clears stale state while WaveOut is stopped and this provider is selected.
+                /// </summary>
+                public void ResetClosed()
+                {
+                    lock (gateLock)
+                    {
+                        CancelPreciseModeLocked();
+                        requestedGateState = 0;
+                        renderedGateState = 0;
+                        source.Gain = 0.0;
+                        renderedFrames = 0;
+                    }
+                }
+
+                public int Read(float[] buffer, int offset, int count)
+                {
+                    int read = source.Read(buffer, offset, count);
+
+                    // In normal mode the source Gain is changed exactly as in the original
+                    // engine, and this provider does not alter a single regular-beep sample.
+                    if (!preciseGateMode)
+                    {
+                        return read;
+                    }
+
+                    int channels = WaveFormat.Channels;
+                    int frameCount = read / channels;
+
+                    if (frameCount <= 0)
+                    {
+                        return read;
+                    }
+
+                    long firstFrame = renderedFrames;
+                    long frameAfterBuffer = firstFrame + frameCount;
+                    dueCommands.Clear();
+
+                    lock (gateLock)
+                    {
+                        if (!preciseGateMode)
+                        {
+                            return read;
+                        }
+
+                        if (!clockStarted && commands.Count != 0)
+                        {
+                            GateCommand first = commands.Peek();
+                            clockOriginTimestamp = first.Timestamp;
+                            clockOriginFrame = firstFrame;
+                            scheduleDelayFrames = 0;
+                            clockStarted = true;
+                        }
+
+                        while (clockStarted && commands.Count != 0)
+                        {
+                            GateCommand command = commands.Peek();
+                            long relativeFrames = TimestampDeltaToFrames(
+                                command.Timestamp - clockOriginTimestamp);
+                            long targetFrame = clockOriginFrame + relativeFrames + scheduleDelayFrames;
+
+                            // WaveOut can already be ahead of the control thread. Shift the
+                            // pending burst forward while preserving every edge interval.
+                            if (targetFrame < firstFrame)
+                            {
+                                scheduleDelayFrames += firstFrame - targetFrame;
+                                targetFrame = firstFrame;
+                            }
+
+                            if (targetFrame >= frameAfterBuffer)
+                            {
+                                break;
+                            }
+
+                            commands.Dequeue();
+                            dueCommands.Add(new RenderedGateCommand(targetFrame, command.State));
+                        }
+                    }
+
+                    int gateState = renderedGateState;
+                    int commandIndex = 0;
+
+                    for (int frame = 0; frame < frameCount; frame++)
+                    {
+                        long absoluteFrame = firstFrame + frame;
+
+                        while (commandIndex < dueCommands.Count &&
+                               dueCommands[commandIndex].Frame <= absoluteFrame)
+                        {
+                            gateState = dueCommands[commandIndex].State;
+                            commandIndex++;
+                        }
+
+                        if (gateState == 0)
+                        {
+                            int sampleIndex = offset + (frame * channels);
+                            for (int channel = 0; channel < channels; channel++)
+                            {
+                                buffer[sampleIndex + channel] = 0.0f;
+                            }
+                        }
+                    }
+
+                    renderedGateState = gateState;
+                    renderedFrames = frameAfterBuffer;
+                    return read;
+                }
+
+                private void BeginCandidateLocked(int stateBeforeEdge, long timestamp, int newState)
+                {
+                    rapidCandidate.Clear();
+                    candidateStartState = stateBeforeEdge;
+                    rapidCandidate.Add(new GateCommand(timestamp, newState));
+                    lastTransitionTimestamp = timestamp;
+                }
+
+                private void EnterPreciseModeLocked()
+                {
+                    commands.Clear();
+
+                    foreach (GateCommand command in rapidCandidate)
+                    {
+                        commands.Enqueue(command);
+                    }
+
+                    renderedGateState = candidateStartState;
+                    rapidCandidate.Clear();
+                    clockStarted = false;
+                    scheduleDelayFrames = 0;
+
+                    // The oscillator must remain available while Read applies the queued
+                    // ON/OFF mask at individual sample frames.
+                    source.Gain = OpenGain;
+                    preciseGateMode = true;
+                }
+
+                private void LeavePreciseModeLocked(int stableState)
+                {
+                    commands.Clear();
+                    rapidCandidate.Clear();
+                    clockStarted = false;
+                    scheduleDelayFrames = 0;
+                    preciseGateMode = false;
+                    renderedGateState = stableState;
+                    source.Gain = stableState != 0 ? OpenGain : 0.0;
+                }
+
+                private void CancelPreciseModeLocked()
+                {
+                    commands.Clear();
+                    rapidCandidate.Clear();
+                    clockStarted = false;
+                    scheduleDelayFrames = 0;
+                    lastTransitionTimestamp = 0;
+                    preciseGateMode = false;
+                }
+
+                private void ApplyDirectGainLocked(int state)
+                {
+                    source.Gain = state != 0 ? OpenGain : 0.0;
+                }
+
+                private long TimestampDeltaToFrames(long timestampDelta)
+                {
+                    if (timestampDelta <= 0)
+                    {
+                        return 0;
+                    }
+
+                    return (long)Math.Round(
+                        timestampDelta * (double)WaveFormat.SampleRate /
+                        System.Diagnostics.Stopwatch.Frequency);
+                }
+            }
+
+            private static readonly object AudioLock = new object();
             public static readonly WaveOutEvent waveOut = new WaveOutEvent();
-            private static readonly SignalGenerator signalGenerator = new SignalGenerator() { Gain = 0.15 };
-            private static readonly SignalGenerator whiteNoiseGenerator = new SignalGenerator() { Type = SignalGeneratorType.Pink, Gain = 0.5 };
+
+            // Regular beeps still gate signalGenerator.Gain directly. The wrapper only
+            // masks samples after it recognizes the rapid loop-generated pulse pattern.
+            private static readonly SignalGenerator signalGenerator =
+                new SignalGenerator() { Gain = 0.0 }; // Continuous silent PIT carrier
+            private static readonly RapidGateSampleProvider rapidSignalGate =
+                new RapidGateSampleProvider(signalGenerator);
+
+            private static readonly SignalGenerator whiteNoiseGenerator =
+                new SignalGenerator() { Type = SignalGeneratorType.Pink, Gain = 0.0 };
             private static BandPassNoiseGenerator bandPassNoise;
             private static ISampleProvider currentProvider; // To keep track of the current provider
+
+            private static volatile bool isWaveOutRunning = false;
+            private static volatile bool isInitialized = false;
+
+            // PlayWave uses the original direct Gain path. The loop-based pulse path
+            // remains adaptive and enters precise scheduling only after rapid edges.
+            [ThreadStatic]
+            private static bool forceDirectRegularBeepGate;
 
             // FMOD? That's a F-problem, so we use NAudio instead.
 
             static WaveSynthEngine()
             {
-                currentProvider = signalGenerator;
-                waveOut.DesiredLatency = 50;
-                waveOut.NumberOfBuffers = 4;
+                // Safe static initialization: Do NOT call waveOut.Init or waveOut.Play here to prevent TypeInitializationException
+                currentProvider = rapidSignalGate;
+                waveOut.DesiredLatency = 1;
+                waveOut.NumberOfBuffers = 35;
                 waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
-                waveOut.Init(signalGenerator);
+            }
+
+            /// <summary>
+            /// Safely lazy-initializes NAudio hardware streams on demand without risking static constructor crashes.
+            /// </summary>
+            private static void EnsureInitialized()
+            {
+                if (isInitialized) return;
+
+                lock (AudioLock)
+                {
+                    if (!isInitialized)
+                    {
+                        try
+                        {
+                            waveOut.Init(currentProvider);
+                            waveOut.Play();
+                            isWaveOutRunning = true;
+                            isInitialized = true;
+                        }
+                        catch (COMException) { }
+                        catch (InvalidOperationException) { }
+                    }
+                }
             }
 
             /// <summary>
             /// Determines whether any enabled sound device is present on the system.
             /// </summary>
-            /// <remarks>This method checks for sound devices that are both present and enabled, using
-            /// system management queries. It may return false if no enabled sound devices are found or if an error
-            /// occurs while accessing device information.</remarks>
-            /// <returns>true if at least one enabled sound device is detected; otherwise, false.</returns>
             public static bool CheckIfAnySoundDeviceExistAndEnabled()
             {
                 using (var enumerator = new MMDeviceEnumerator())
@@ -882,11 +1250,9 @@ namespace NeoBleeper
             /// <summary>
             /// Sets the current audio sample provider for playback.
             /// </summary>
-            /// <remarks>If the specified provider differs from the current provider, playback is
-            /// stopped and reinitialized with the new provider. This method is thread-safe.</remarks>
-            /// <param name="provider">The audio sample provider to use for playback. Cannot be null.</param>
             private static void SetCurrentProvider(ISampleProvider provider)
             {
+                EnsureInitialized();
                 lock (AudioLock)
                 {
                     if (currentProvider != provider)
@@ -894,24 +1260,25 @@ namespace NeoBleeper
                         if (waveOut.PlaybackState == PlaybackState.Playing)
                         {
                             waveOut.Stop();
+                            isWaveOutRunning = false;
                         }
+
+                        if (provider == rapidSignalGate)
+                        {
+                            rapidSignalGate.ResetClosed();
+                        }
+
                         waveOut.Init(provider); // Restart the provider if only changed
+                        waveOut.Play();
+                        isWaveOutRunning = true;
                         currentProvider = provider;
                     }
                 }
             }
 
             /// <summary>
-            /// Plays a sound for the specified duration, with optional control over whether playback is stopped
-            /// automatically.
+            /// Plays a sound for the specified duration, with optional control over whether playback is stopped automatically.
             /// </summary>
-            /// <remarks>This method is thread-safe. If called while audio is already playing, it will
-            /// not restart playback. When <paramref name="nonStopping"/> is <see langword="false"/>, playback is
-            /// stopped after the specified duration; otherwise, the caller is responsible for stopping
-            /// playback.</remarks>
-            /// <param name="ms">The duration, in milliseconds, to play the sound. Specify 0 to play without a timed stop.</param>
-            /// <param name="nonStopping">If <see langword="true"/>, the sound continues playing after the method returns; otherwise, playback is
-            /// stopped automatically after the specified duration.</param>
             private static void PlaySound(int ms, bool nonStopping)
             {
                 int offset = (nonStopping == true ? 0 : 5); // Add a small offset to ensure the sound starts before the sleep duration
@@ -930,94 +1297,119 @@ namespace NeoBleeper
             }
 
             /// <summary>
-            /// Determines whether all audio wave outputs are currently muted based on the active audio provider's gain
-            /// settings.
+            /// Determines whether all audio wave outputs are currently muted based on the active audio provider's gain settings.
             /// </summary>
-            /// <remarks>This method checks the gain of the current audio provider to determine if
-            /// audio output is effectively muted. If no provider is active, the method considers the output
-            /// muted.</remarks>
-            /// <returns>true if the active audio provider's gain is zero or if no provider is active; otherwise, false.</returns>
             public static bool AreWavesMutedEarly()
             {
-                lock (AudioLock)
+                if (currentProvider == rapidSignalGate)
                 {
-                    if (currentProvider == signalGenerator)
-                    {
-                        return signalGenerator.Gain == 0;
-                    }
-                    else if (currentProvider == bandPassNoise)
-                    {
-                        return whiteNoiseGenerator.Gain == 0;
-                    }
-                    return true; // If no provider is active, consider it muted
+                    return rapidSignalGate.IsMuted;
                 }
+                else if (currentProvider == bandPassNoise)
+                {
+                    return whiteNoiseGenerator.Gain == 0;
+                }
+                return true; // If no provider is active, consider it muted
             }
 
             /// <summary>
-            /// Stops audio synthesis by muting the currently active audio provider, if any.
+            /// Stops audio synthesis. Regular beeps close the original direct gate;
+            /// only an already-detected rapid pulse burst uses the precise queue.
             /// </summary>
-            /// <remarks>This method is thread-safe and can be called at any time to immediately
-            /// silence audio output. It has no effect if no audio provider is currently active.</remarks>
             public static void StopSynth()
             {
-                lock (AudioLock)
-                {
-                    if (currentProvider == signalGenerator)
-                    {
-                        signalGenerator.Gain = 0;
-                    }
-                    else if (currentProvider == bandPassNoise)
-                    {
-                        whiteNoiseGenerator.Gain = 0;
-                    }
-                }
+                SetSignalGate(false);
+                whiteNoiseGenerator.Gain = 0;
             }
 
             /// <summary>
             /// Plays a synthesized audio wave of the specified type, frequency, and duration.
             /// </summary>
-            /// <param name="type">The type of waveform to generate for the audio signal.</param>
-            /// <param name="freq">The frequency of the wave, in hertz. Must be a positive integer.</param>
-            /// <param name="ms">The duration of the sound to play, in milliseconds. Must be greater than zero.</param>
-            /// <param name="nonStopping">If set to <see langword="true"/>, the sound will play without interrupting any currently playing sound;
-            /// otherwise, it may interrupt ongoing playback.</param>
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
-                SetWaveTypeFrequencyAndVolume(type, freq);
-                PlaySound(ms, nonStopping);
+                bool previousDirectMode = forceDirectRegularBeepGate;
+                forceDirectRegularBeepGate = true;
+
+                try
+                {
+                    SetWaveTypeFrequencyAndVolume(type, freq);
+                    PlaySound(ms, nonStopping);
+                }
+                finally
+                {
+                    forceDirectRegularBeepGate = previousDirectMode;
+                }
+            }
+
+            private static void SetSignalGate(bool open)
+            {
+                if (forceDirectRegularBeepGate)
+                {
+                    rapidSignalGate.SetDirectGate(open);
+                }
+                else
+                {
+                    rapidSignalGate.SetAdaptiveGate(open);
+                }
             }
 
             private static void SetWaveTypeFrequencyAndVolume(SignalGeneratorType type, int freq)
             {
-                lock (AudioLock)
+                EnsureInitialized();
+                if (currentProvider != rapidSignalGate)
                 {
-                    if (currentProvider != signalGenerator)
-                    {
-                        SetCurrentProvider(signalGenerator);
-                    }
-                    if (signalGenerator.Frequency != freq || signalGenerator.Type != type || signalGenerator.Gain == 0)
-                    {
-                        signalGenerator.Frequency = freq;
-                        signalGenerator.Type = type;
-                        signalGenerator.Gain = 0.15;
-                    }
+                    SetCurrentProvider(rapidSignalGate);
                 }
+
+                if (signalGenerator.Frequency != freq) signalGenerator.Frequency = freq;
+                if (signalGenerator.Type != type) signalGenerator.Type = type;
+                SetSignalGate(true);
             }
 
+            /// <summary>
+            /// Starts audio synthesis. Isolated calls retain the original direct Gain
+            /// behavior; only a detected rapid gate burst is applied inside Read.
+            /// </summary>
             public static void StartSynth(SignalGeneratorType type, int freq, int offset = 0)
             {
-                SetWaveTypeFrequencyAndVolume(type, freq);
-                lock (AudioLock)
-                {
-                    if (offset > 0)
-                    {
-                        HighPrecisionSleep.Sleep(offset);
-                    }
+                EnsureInitialized();
 
-                    // Ensure waveOut is not already playing
-                    if (waveOut.PlaybackState != PlaybackState.Playing)
+                if (offset > 0)
+                {
+                    HighPrecisionSleep.Sleep(offset);
+                }
+
+                if (currentProvider == rapidSignalGate)
+                {
+                    if (signalGenerator.Frequency != freq) signalGenerator.Frequency = freq;
+                    if (signalGenerator.Type != type) signalGenerator.Type = type;
+                    SetSignalGate(true);
+                }
+                else
+                {
+                    lock (AudioLock)
                     {
-                        waveOut.Play();
+                        SetCurrentProvider(rapidSignalGate);
+                        if (signalGenerator.Frequency != freq) signalGenerator.Frequency = freq;
+                        if (signalGenerator.Type != type) signalGenerator.Type = type;
+                        SetSignalGate(true);
+                    }
+                }
+
+                // Safety check to ensure background stream thread stays alive
+                if (!isWaveOutRunning)
+                {
+                    lock (AudioLock)
+                    {
+                        if (!isWaveOutRunning)
+                        {
+                            try
+                            {
+                                waveOut.Play();
+                                isWaveOutRunning = true;
+                            }
+                            catch { }
+                        }
                     }
                 }
             }
@@ -1025,14 +1417,9 @@ namespace NeoBleeper
             /// <summary>
             /// Plays a band-pass filtered noise sound at the specified center frequency for a given duration.
             /// </summary>
-            /// <param name="freq">The center frequency, in hertz, of the band-pass filter to apply to the noise. Must be a positive
-            /// integer.</param>
-            /// <param name="ms">The duration, in milliseconds, for which the filtered noise will be played. Must be greater than zero.</param>
-            /// <param name="nonStopping">If set to <see langword="true"/>, the sound will not be interrupted by other playback requests;
-            /// otherwise, it may be stopped by subsequent calls.</param>
-
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
+                EnsureInitialized();
                 lock (AudioLock)
                 {
                     if (bandPassNoise == null)
@@ -1050,55 +1437,27 @@ namespace NeoBleeper
                     }
                     if (whiteNoiseGenerator.Gain == 0)
                     {
-                        whiteNoiseGenerator.Gain = 0.5; // Restore gain
+                        whiteNoiseGenerator.Gain = 0.5; // Restore noise gate
                     }
                 }
                 PlaySound(ms, nonStopping);
             }
 
-            /// <summary>
-            /// Plays a square wave tone with the specified frequency and duration.
-            /// </summary>
-            /// <param name="freq">The frequency of the square wave, in hertz. Must be a positive integer.</param>
-            /// <param name="ms">The duration of the tone, in milliseconds. Must be a non-negative integer.</param>
-            /// <param name="nonStopping">true to allow overlapping tones to play without stopping previous ones; otherwise, false to stop any
-            /// currently playing tone before starting the new one.</param>
             public static void SquareWave(int freq, int ms, bool nonStopping)
             {
                 PlayWave(SignalGeneratorType.Square, freq, ms, nonStopping);
             }
 
-            /// <summary>
-            /// Plays a sine wave tone with the specified frequency and duration.
-            /// </summary>
-            /// <param name="freq">The frequency of the sine wave, in hertz. Must be a positive integer.</param>
-            /// <param name="ms">The duration of the tone, in milliseconds. Must be a non-negative integer.</param>
-            /// <param name="nonStopping">true to allow overlapping tones to play without stopping previous ones; otherwise, false to stop any
-            /// currently playing tone before starting the new one.</param>
             public static void SineWave(int freq, int ms, bool nonStopping)
             {
                 PlayWave(SignalGeneratorType.Sin, freq, ms, nonStopping);
             }
 
-            /// <summary>
-            /// Plays a triangle wave tone with the specified frequency and duration.
-            /// </summary>
-            /// <param name="freq">The frequency of the triangle wave, in hertz. Must be a positive integer.</param>
-            /// <param name="ms">The duration of the tone, in milliseconds. Must be a non-negative integer.</param>
-            /// <param name="nonStopping">true to allow overlapping tones to play without stopping previous ones; otherwise, false to stop any
-            /// currently playing tone before starting the new one.</param>
             public static void TriangleWave(int freq, int ms, bool nonStopping)
             {
                 PlayWave(SignalGeneratorType.Triangle, freq, ms, nonStopping);
             }
 
-            /// <summary>
-            /// Plays a noise with the specified frequency and duration.
-            /// </summary>
-            /// <param name="freq">The frequency of the noise, in hertz. Must be a positive integer.</param>
-            /// <param name="ms">The duration of the noise, in milliseconds. Must be a non-negative integer.</param>
-            /// <param name="nonStopping">true to allow overlapping noises to play without stopping previous ones; otherwise, false to stop any
-            /// currently playing tone before starting the new one.</param>
             public static void Noise(int freq, int ms, bool nonStopping)
             {
                 PlayFilteredNoise(freq, ms, nonStopping);
@@ -1296,8 +1655,8 @@ namespace NeoBleeper
                 masterMixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1)) { ReadFully = true };
                 masterWaveOut = new WaveOutEvent
                 {
-                    DesiredLatency = 50,
-                    NumberOfBuffers = 4,
+                    DesiredLatency = 1,
+                    NumberOfBuffers = 35,
                     Volume = 1.0f
                 };
                 masterWaveOut.Init(masterMixer);
