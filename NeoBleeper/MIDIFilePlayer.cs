@@ -20,6 +20,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -267,6 +268,65 @@ namespace NeoBleeper
             }
         }
 
+        /// <summary>
+        /// Extracts and renders raw lyric texts from hardware streams while stripping hardware control commands,
+        /// formatting double quotes, and preserving syllable/word boundaries cleanly.
+        /// </summary>
+        /// <param name="lyricChunk">The raw text string directly from the MIDI parser.</param>
+        /// <returns>A beautifully formatted lyric string free of hardware commands.</returns>
+        private string SanitizeLyricQuotes(string lyricChunk)
+        {
+            if (string.IsNullOrEmpty(lyricChunk)) return string.Empty;
+
+            string result = lyricChunk;
+
+            // ==========================================
+            // 0. CONTROL CHARACTER & HARDWARE NOISE CLEANUP
+            // ==========================================
+            // Strip non-printable control characters (\x00-\x1F, \x7F-\x9F) except standard whitespace
+            result = Regex.Replace(result, @"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x9F]", "");
+
+            // ==========================================
+            // 1. HARDWARE STREAM COMMAND EXTRACTION
+            // ==========================================
+            // Strip "Display page [n]", "Display page 1", "Display page n", etc.
+            result = Regex.Replace(result, @"Display\s+page\s*\[?[\dn]+\]?", "", RegexOptions.IgnoreCase);
+
+            // Strips out "FD:", "FD: Page X", and "FD: Page X:" patterns wherever they occur
+            result = Regex.Replace(result, @"FD:\s*(Page\s*\d+\s*:?)?", "", RegexOptions.IgnoreCase);
+
+            // Clean out hardware display style bracket toggles (e.g., "(WOB)", "(BOW)", "(Ch01)")
+            result = Regex.Replace(result, @"\([A-Z0-9]{3,4}\)", "", RegexOptions.IgnoreCase);
+
+            // Strip hardware display status tags/indices (e.g., "<P05>", "<02>")
+            result = Regex.Replace(result, @"<[^>]+>", "");
+
+            // Strip residual hardware store instructions (e.g., "P1: Store+Display", "P2: Store")
+            result = Regex.Replace(result, @"P\d+\s*:?\s*Store(\+Display)?", "", RegexOptions.IgnoreCase);
+
+            // Strip channel program change telemetry (e.g., "Update prog of ch 10 (drum 65)")
+            result = Regex.Replace(result, @"Update\s+prog\s+of\s+ch\s*\d+(\s*\([^)]*\))?", "", RegexOptions.IgnoreCase);
+
+            // Strip Sequencer setup markers and FX cues (e.g., "Live-recorded setup...", "OD 2: Level - > 90")
+            result = Regex.Replace(result, @"Live-recorded\s+setup[^\n\r]*", "", RegexOptions.IgnoreCase);
+            result = Regex.Replace(result, @"\bOD\s*\d+\s*:\s*Level\s*-\s*>\s*\d+", "", RegexOptions.IgnoreCase);
+
+            // Remove residual hardware flags (e.g. standalone "UF" flags from FD displays)
+            result = Regex.Replace(result, @"\bUF\b", "", RegexOptions.IgnoreCase);
+
+            // ==========================================
+            // 2. UNIFIED QUOTES & WHITESPACE NORMALIZATION
+            // ==========================================
+
+            // Remove structural double quote characters
+            result = result.Replace("\"", "");
+
+            // Collapse excessive internal tab/space sequences while preserving boundary spacing
+            result = Regex.Replace(result, @"[ \t]+", " ");
+
+            return result;
+        }
+
         // Class-level variables for controlling playback
         private CancellationTokenSource _cancellationTokenSource;
         private List<(long Time, HashSet<int> ActiveNotes)> _frames;
@@ -300,10 +360,279 @@ namespace NeoBleeper
                     _enabledChannels.Add(i);
                 }
             }
-
+            if (isDeciding)
+            {
+                return; // Don't log in deciding process
+            }
             Logger.Log($"Enabled channels: {string.Join(", ", _enabledChannels)}", Logger.LogTypes.Info);
         }
 
+        private int lyricsChunkCount = 0; // Count of lyric chunks processed for display
+        /// <summary>
+        /// Determines whether a given text chunk from a MIDI file is considered "junk" or hardware noise and should be filtered out.
+        /// Evaluates hardware commands, telemetry data, display events, and non-lyric control parameters.
+        /// </summary>
+        /// <param name="textChunk">The raw text event string extracted from the MIDI file.</param>
+        /// <returns>True if the text chunk is considered junk or a hardware command; otherwise, false.</returns>
+        private bool IsTextEventJunk(string textChunk)
+        {
+            if (string.IsNullOrWhiteSpace(textChunk)) return true;
+
+            string trimmed = textChunk.Trim();
+
+            // ==========================================
+            // EVALUATE DISPLAY / FD LINES FOR EMPTY FIELDS & HARDWARE COMMANDS
+            // Handles: "Display page [n]", "Display page 1", "Display page", "page [n]", "page 1", etc.
+            // ==========================================
+            if (Regex.IsMatch(trimmed, @"^(Display\s+)?page(\s*\[?[\dn]+\]?)?$", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"^FD:\s*Page\s*\d+\s*:\s*UF$", RegexOptions.IgnoreCase) ||
+                trimmed.Equals("FD: Page 5: UF", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            // If line starts with "FD:", check if it contains actual lyric payloads after stripping the prefix
+            if (trimmed.StartsWith("FD:", StringComparison.OrdinalIgnoreCase))
+            {
+                string strippedFD = Regex.Replace(trimmed, @"^FD:\s*(Page\s*\d+\s*:?)?\s*(UF)?", "", RegexOptions.IgnoreCase).Trim();
+                if (string.IsNullOrWhiteSpace(strippedFD)) return true;
+                return false;
+            }
+
+            // ==========================================
+            // 1. PREFIX & SYMBOL CONTROL TAGS
+            // ==========================================
+            // Per the Soft Karaoke (.kar) text-event convention, a leading "@" always introduces
+            // file/header metadata (e.g. "@KMIDI KARAOKE FILE", "@T title", "@LENGL" language) -
+            // never a sung syllable - so these are always junk.
+            if (trimmed.StartsWith("@"))
+                return true;
+
+            // A leading "\" or "/" denotes screen/line breaks; keep these events as valid structural lyric markers
+            if (trimmed.StartsWith("\\") || trimmed.StartsWith("/"))
+            {
+                return false;
+            }
+
+            // A line that is *entirely* a bracketed stage direction (e.g. "[Chorus]", "[Instrumental]") is an annotation
+            if (Regex.IsMatch(trimmed, @"^\[[^\]]*\]$"))
+                return true;
+
+
+            // ==========================================
+            // 2. DYNAMIC TELEMETRY, HARDWARE & MIXER REGEX FILTERS
+            // ==========================================
+
+            // Pattern A: Filters MIDI Multi-Channel parameter updates (e.g., "(Ch03) G L Muted: IFX Off")
+            if (Regex.IsMatch(trimmed, @"^\(Ch\d+\)", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern B: Filters CC / NRPN / Port / Controller setups
+            if (Regex.IsMatch(trimmed, @"\b(CC|CC#|NRPN|RPN|Port|MidiOut|MidiIn)\s*\d+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern C: Filters dynamic hardware delay assignments and signal levels (e.g., "Alt V Shouts L: Delay 127")
+            if (Regex.IsMatch(trimmed, @"\bDelay\s*\d+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern D: Filters hardware memory store allocations (e.g., "Store  2: kisushisu", "Store  6 Music")
+            if (Regex.IsMatch(trimmed, @"^Store\s*\d+.*", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern E: Filters hardware display directories (e.g., "Display FD3", "Display no FD")
+            if (Regex.IsMatch(trimmed, @"^Display\s+no\s+FD$", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"^Display\s+FD\d+$", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern F: Filters real-time envelope release parameter updates (e.g., "Release: Momentarily drop to 64")
+            if (trimmed.StartsWith("Release:", StringComparison.OrdinalIgnoreCase) ||
+                Regex.IsMatch(trimmed, @"^Release\s*:\s*.+\d+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern G: Filters instrument receiver state logs (e.g., "Crash2 - Rx.Note Off = 0")
+            if (Regex.IsMatch(trimmed, @"-\s*Rx\.Note\s*Off\s*=\s*\d+", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"-\s*(Rx|Tx)\.\w+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern H: Filters controller layout reset events (e.g., "Spread reset: Atk, Rel, Pan, Exp")
+            if (Regex.IsMatch(trimmed, @"^Spread\s+reset\s*:", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern I: General variants of "Display page [n]", "Display page 1", "Display no page"
+            if (Regex.IsMatch(trimmed, @"\b(Display|display)\s+(page|no\s+page)(\s*\[?[\dn]+\]?)?", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern J: Target hybrid graphics pipeline and storage modifications
+            if (Regex.IsMatch(trimmed, @"Store\s*\+?\s*display\s+graphic\s+page\s*\d*", RegexOptions.IgnoreCase) ||
+                trimmed.Contains("display graphic", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern K: Step/Tracking parameters for pads (e.g., "Shoe 1/4 <P05>")
+            if (Regex.IsMatch(trimmed, @"^(Shoe|Hand|Foot|Leg|Arm)\s+\d+/\d+\s*<[^>]+>", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern L: Hardware mapping assignments (e.g., "D1 P1 1/2 <02>")
+            if (Regex.IsMatch(trimmed, @"^D\d+\s+P\d+.*<\d+>", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"^D\d+\s+P\d+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern M: Initialization Routines and Module Tags (e.g., "Init Bell Synth")
+            if (trimmed.StartsWith("Init", StringComparison.OrdinalIgnoreCase) ||
+                Regex.IsMatch(trimmed, @"^Init\s*.+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern N: Parameter data-binding streams and channel mod routes (e.g., "Drum 1 Note 27 Pan -> 64")
+            if (Regex.IsMatch(trimmed, @"Drum\s*\d+\s*Note\s*\d+.+->\s*\d+", RegexOptions.IgnoreCase) ||
+                trimmed.Contains("->"))
+            {
+                return true;
+            }
+
+            // Pattern O: Target standalone visual instruction fallbacks
+            if (trimmed.Equals("No Display", StringComparison.OrdinalIgnoreCase) ||
+                Regex.IsMatch(trimmed, @"\bNo\s+Display\b", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern P: Continuous Visual/Layout Loops (e.g., "P2 DisplayP3 Display")
+            if (Regex.IsMatch(trimmed, @"(isplay|display|\bno\b|\bdisp\b)?\s*parts?\s*\d*", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"(P\d+\s*Display)+", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"\bNo\s*DisplayPart\b", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern Q: Custom Hardware Patch & Storing states (e.g. "P1: Store+Display", "P2 Store:")
+            if (Regex.IsMatch(trimmed, @"P\d+\s*:?\s*Store(\+Display)?", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"\bStore\+Display\b", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"\bStore\s*:\s*\w+", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern R: Sequencer Directive Strings
+            if (Regex.IsMatch(trimmed, @"-\s*Skip\s*!", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern S: Automatic Unlabeled Track Titles or Blank Placeholders
+            if (Regex.IsMatch(trimmed, @"^(Track|Trk|Channel|Chan|Inst|Instrument|Midi\s*Track|Drum|Percussion|Synth|Vocal|Melody)\s*\d*$", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern T: Raw Hex blocks or isolated numeric hardware register indicators
+            if (Regex.IsMatch(trimmed, @"^[0-9A-Fa-f\s\-\:\#]+$") && trimmed.Length > 3)
+                return true;
+
+            // Pattern U: Program / Channel Change Hardware Telemetry (e.g., "Update prog of ch 10 (drum 65)")
+            if (Regex.IsMatch(trimmed, @"\bUpdate\s+prog(\s+of\s+ch\s*\d+)?\b", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern V: Live-recorded setup blocks (e.g. "Live-recorded setup (minus reset) - START")
+            if (Regex.IsMatch(trimmed, @"\bLive-recorded\s+setup\b", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+            // Pattern W: Patch/FX Initializations & State Post-Markers (e.g. "Solo init (Main)", "Glockenspiel AFTER", "Solo AFTER (Harm)")
+            if (Regex.IsMatch(trimmed, @"\b(init|AFTER)\s*(\([^)]*\))?$", RegexOptions.None) ||
+                Regex.IsMatch(trimmed, @"\b(init|AFTER)\b", RegexOptions.IgnoreCase) && (trimmed.Contains("Solo") || trimmed.Contains("Glockenspiel") || trimmed.Contains("overdrive")))
+            {
+                return true;
+            }
+
+            // Pattern X: Overdrive SFX & Level Telemetry (e.g. "OD 2: Level - > 90", "Overdrive SFX - Right (lower)")
+            if (Regex.IsMatch(trimmed, @"\b(OD|Overdrive)\s*(SFX|\d+)?\b", RegexOptions.IgnoreCase) ||
+                Regex.IsMatch(trimmed, @"\bLevel\s*-\s*>\s*\d+\b", RegexOptions.IgnoreCase))
+            {
+                return true;
+            }
+
+
+            // ==========================================
+            // 3. TECHNICAL & SYNTHESIZER SETUP KEYWORDS
+            // ==========================================
+            string[] strictJunkKeywords = {
+        "Microsoft Wavetable", "GS Reset", "XG System On", "GM System On", "GM2 System On",
+        "Roland GS", "Yamaha XG", "SoundBlaster", "AWE32", "AWE64", "Creative Labs",
+        "QuickTime Music", "CoreAudio", "DirectMusic", "HyperSound", "SC-55", "SC-88",
+        "Start of Setup", "End of Setup", "SysEx", "System Exclusive", "NRPN", "RPN",
+        "Control Change", "Parameter", "LCD:", "GSAE", "Bank Select", "Program Change",
+        "Channel Volume", "Velocity", "Pitch Bend", "Aftertouch", "Modulation Wheel",
+        "Expression", "Sustain", "Panpot", "Reverb Send", "Chorus Send",
+        "screen layout", "view mode", "window status", "resolution:", "tempo map",
+        "time sig", "key sig", "marker:", "cue:", "frame:", "smpte", "samplerate",
+        "Cakewalk", "Sonar", "Cubase", "Nuendo", "Logic Audio", "Anvil Studio",
+        "Pro Tools", "Ableton", "FL Studio", "FruityLoops", "Guitar Pro", "TuxGuitar",
+        "Rosegarden", "MuseScore", "Sibelius", "Finale", "REAPER", "Studio One",
+        "pan left", "pan right", "pan centre", "no chorus", "no resonance", "White noise",
+        "Normal attack", "Slow attack", "Enable EFX", "EFX Level", "Big Shot",
+        "Random pan", "Non-random pan", "Update prog", "Stereo overdrive"
+    };
+
+            foreach (var keyword in strictJunkKeywords)
+            {
+                if (trimmed.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+
+            // ==========================================
+            // 4. METADATA, CREDITS, & FILE ATTRIBUTES
+            // ==========================================
+            string[] metadataPrefixes = {
+        "Sequenced by", "Sequenced", "Arranged by", "Arranged", "Composed by", "Composer",
+        "Copyright", "(c)", "Author", "Written by", "Lyrics by", "Performer", "Artist",
+        "SoundFont", "Soundfont Bank", "Patch Name", "Instrument Name", "Program Name",
+        "File:", "Path:", "URL:", "http:", "https:", "www.", "Email:", "Mail:",
+        "Created with", "Generated by", "Converted by", "Encoded by", "Downloaded from"
+    };
+
+            foreach (var prefix in metadataPrefixes)
+            {
+                if (trimmed.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool lyricsEnabled = false;
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
         private List<(long time, int tempo)> _tempoEvents;
         private int _ticksPerQuarterNote;
@@ -324,6 +653,8 @@ namespace NeoBleeper
         {
             try
             {
+                lyricsChunkCount = 0; // Reset the chunk counter variable.
+                DecideCheckboxesThatWillBeEnabled(0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes during loading
                 panelLoading.Visible = true;
                 labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
                 progressBar1.Value = 0;
@@ -410,12 +741,20 @@ namespace NeoBleeper
                                 var meta = (MetaEvent)midiEvent;
                                 if (meta.MetaEventType == MetaEventType.Lyric || meta.MetaEventType == MetaEventType.TextEvent)
                                 {
-                                    if (!metaDict.TryGetValue(meta.AbsoluteTime, out var list))
+                                    string rawText = ExtractLyricsFromMetaEvent(meta);
+
+                                    // Filter out system setup texts/junk and hardware commands
+                                    if (!IsTextEventJunk(rawText))
                                     {
-                                        list = new List<MetaEvent>();
-                                        metaDict[meta.AbsoluteTime] = list;
+                                        if (!metaDict.TryGetValue(meta.AbsoluteTime, out var list))
+                                        {
+                                            list = new List<MetaEvent>();
+                                            metaDict[meta.AbsoluteTime] = list;
+                                        }
+                                        list.Add(meta);
+                                        lyricsChunkCount++;
+                                        Debug.WriteLine(rawText);
                                     }
-                                    list.Add(meta);
                                 }
                             }
                         }
@@ -492,10 +831,12 @@ namespace NeoBleeper
                 PrecomputeTempoTimes();
                 AssignInstrumentsToNotes(_midiFile);
                 groupBox1.Enabled = true; // Enable controls after successful load
+                DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, _noteChannels, lyricsEnabled);
                 NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleMIDIFileLoaded, Resources.NotificationMessageMIDIFileLoaded, ToolTipIcon.Info, 3000);
             }
             catch (Exception ex)
             {
+                DecideCheckboxesThatWillBeEnabled(0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes on error
                 labelStatus.Text = Resources.TextMIDIFileLoadingError;
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
@@ -510,6 +851,30 @@ namespace NeoBleeper
                 ResetLabelsAndTrackBar(); // Reset UI elements
                 panelLoading.Visible = false;
             }
+        }
+
+        /// <summary>
+        /// Determines which checkboxes in the user interface should be enabled based on the presence of lyrics and note channels in the loaded MIDI file.
+        /// </summary>
+        private void DecideCheckboxesThatWillBeEnabled(int textChunkCount, Dictionary<int, int> channels, bool lyricsEnabled)
+        {
+            isDeciding = true;
+            checkBox_show_lyrics_or_text_events.Enabled = textChunkCount > 0;
+            checkBox_show_lyrics_or_text_events.Checked = textChunkCount > 0 && lyricsEnabled;
+            int[] nonEmptyChannels = new int[] { };
+            foreach (var kvp in channels)
+            {
+                int channel = kvp.Value;
+                Array.Resize(ref nonEmptyChannels, nonEmptyChannels.Length + 1);
+                nonEmptyChannels[nonEmptyChannels.Length - 1] = channel;
+            }
+            foreach (var checkBox in Controls.OfType<CheckBox>().Where(cb => cb.Name.StartsWith("checkBox_channel_")))
+            {
+                int channelNumber = int.Parse(checkBox.Name.Split('_').Last());
+                checkBox.Enabled = nonEmptyChannels.Contains(channelNumber);
+                checkBox.Checked = nonEmptyChannels.Contains(channelNumber);
+            }
+            isDeciding = false;
         }
 
         /// <summary>
@@ -786,10 +1151,14 @@ namespace NeoBleeper
             }
             panel1.ResumeLayout();
         }
+        bool isDeciding = false;
         private async void checkBox_channel_CheckedChanged(object sender, EventArgs e)
         {
             UpdateEnabledChannels();
-
+            if (isDeciding)
+            {
+                return; // Don't log in deciding process
+            }
             if (_isPlaying)
             {
                 if (_frames == null || _frames.Count == 0)
@@ -923,20 +1292,6 @@ namespace NeoBleeper
         /// melody notes so that both remain audible within the same frame slot, instead of a drum hit
         /// silencing whatever melody notes are currently held (or vice versa).
         /// </summary>
-        /// <remarks>
-        /// This is a two-phase sequential hand-off, not a rapid round-robin: percussion plays first for
-        /// a short, guaranteed-audible burst, then whatever time remains in the frame goes to the melody
-        /// note(s) via the existing, unfragmented playback path (<see cref="NotePlayer.PlayNoteWithoutGap"/>
-        /// for a single note, or <see cref="PlayMultipleNotesAsync"/> for a chord).
-        ///
-        /// An earlier version split the frame into equal-length slices and cycled through percussion and
-        /// every melody note in rotation. That made both sound bad: a frame of, say, 60 ms divided among
-        /// three voices left each one only ~20 ms, and further splitting for multi-note chords could push
-        /// individual slices under 10 ms — too short for a sweep-based drum hit to register as a hit, and
-        /// short enough on repeated on/off cycling to sound like clicking rather than a tone. Giving
-        /// percussion one clean, bounded burst up front and leaving the remainder uninterrupted for the
-        /// melody fixes both problems while still guaranteeing the two voices never sound at once.
-        /// </remarks>
         /// <param name="frequencies">Frequencies, in hertz, of the currently held melody notes. May be empty if only percussion is due.</param>
         /// <param name="percussion">The percussion instrument to play, or null if there is no drum hit this frame.</param>
         /// <param name="duration">The total duration, in milliseconds, of the frame slot to fill.</param>
@@ -1718,11 +2073,8 @@ namespace NeoBleeper
         /// </summary>
         /// <remarks>This method should be called as part of a MIDI playback loop to process each frame in
         /// sequence. It respects cancellation requests via the associated cancellation token. MIDI output and system
-        /// speaker playback are performed based on user settings and enabled channels. If both a percussion hit and one
-        /// or more held melody notes are due in the same frame, they are alternated on the single-voice speaker output
-        /// (see <see cref="PlayNotesAndPercussionAlternatingAsync"/>) rather than the drum hit silencing the melody.</remarks>
-        /// <returns>A task that represents the asynchronous operation of processing the current frame. The task completes when
-        /// all note events and timing for the frame have been handled.</returns>
+        /// speaker playback are performed based on user settings and enabled channels.</remarks>
+        /// <returns>A task that represents the asynchronous operation of processing the current frame.</returns>
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
@@ -1763,11 +2115,6 @@ namespace NeoBleeper
             HashSet<int> filteredNotes = new HashSet<int>();
             foreach (var note in currentFrame.ActiveNotes)
             {
-                // FIX: Instead of relying solely on _noteChannels, we need to verify 
-                // the channel associated with the specific note event in this frame.
-                // We filter out any note that is currently playing on Channel 10 
-                // to keep the melodic channel clean.
-
                 // Check all events occurring at this time to see if any correspond to this note
                 bool isPercussion = false;
 
@@ -1789,8 +2136,6 @@ namespace NeoBleeper
             }
 
             // Pick the drum hit from the actual events at this tick, not from ActiveNotes.
-            // ActiveNotes is only keyed by note number, so the same note number on another
-            // channel can overwrite _noteChannels and make percussion classification unreliable.
             NoteOnEvent drumEvent = null;
             if (eventsAtThisTime != null && _enabledChannels.Contains(10))
             {
@@ -1846,9 +2191,6 @@ namespace NeoBleeper
             }
 
             // --- Melody + percussion, alternated on the single-voice speaker output ---
-            // General MIDI defines percussion key assignments, but not fixed sound lengths.
-            // PercussionSounds supplies the instrument's natural one-shot duration and this
-            // hand-off keeps the monophonic speaker timeline and melody floor intact.
             int totalFrameDuration = durationMsInt;
 
             PercussionSounds.MidiPercussion? percussionToPlay = drumEvent != null
@@ -1863,7 +2205,6 @@ namespace NeoBleeper
                 frequenciesToPlay, percussionToPlay, totalFrameDuration, token);
 
             // Accumulate the real elapsed difference (can be positive or negative)
-            // If a voice took longer than durationMsInt, this naturally tells the drift logic to skip ahead next frame.
             driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
         }
 
@@ -1879,7 +2220,6 @@ namespace NeoBleeper
         private static int GetPercussionPriority(int noteNumber)
         {
             // PC speaker is monophonic, so simultaneous drum hits need a deterministic choice.
-            // Bass/snare define the groove; cymbals and shakers are less important.
             switch (noteNumber)
             {
                 case 35: // Acoustic Bass Drum
@@ -1918,8 +2258,7 @@ namespace NeoBleeper
         /// Retrieves the tempo, in microseconds per quarter note, that is in effect at the specified time.
         /// </summary>
         /// <param name="currentTime">The current time, in ticks, for which to determine the active tempo. Must be greater than or equal to zero.</param>
-        /// <returns>The tempo in microseconds per quarter note that applies at the specified time. Returns 500,000 if no tempo
-        /// event is found, corresponding to a default of 120 BPM.</returns>
+        /// <returns>The tempo in microseconds per quarter note that applies at the specified time.</returns>
         private int GetCurrentTempo(long currentTime)
         {
             // Last tempo event before or at currentTime
@@ -1934,12 +2273,8 @@ namespace NeoBleeper
         /// Calculates adaptive threshold values for lyric gaps and melody sections based on the current tempo at the
         /// specified time.
         /// </summary>
-        /// <remarks>Thresholds decrease as tempo increases and are bounded to ensure reasonable minimum
-        /// and maximum values. This method is intended for internal use when dynamically segmenting lyrics and melody
-        /// sections based on tempo changes.</remarks>
         /// <param name="currentTime">The current time, in ticks, used to determine the tempo for threshold calculation.</param>
-        /// <returns>A tuple containing the lyric gap threshold and the melody section threshold, both in milliseconds. The
-        /// thresholds are adjusted according to the tempo at the specified time.</returns>
+        /// <returns>A tuple containing the lyric gap threshold and the melody section threshold, both in milliseconds.</returns>
         private (int lyricGapThreshold, int melodySectionThreshold) CalculateDynamicThresholds(long currentTime)
         {
             int currentTempo = GetCurrentTempo(currentTime);
@@ -1953,7 +2288,6 @@ namespace NeoBleeper
             const int baseMelodySection = 2000; // 2 seconds
 
             // Set thresholds based on tempo ratio
-            // If the tempo is higher, thresholds decrease, and vice versa
             double tempoRatio = baseBpm / bpm;
 
             int lyricGapThreshold = (int)(baseLyricGap * tempoRatio);
@@ -1969,9 +2303,6 @@ namespace NeoBleeper
         /// <summary>
         /// Handles the display and clearing of lyrics based on the current playback time.
         /// </summary>
-        /// <remarks>This method updates the lyrics display according to the timing of lyric meta events
-        /// and dynamic thresholds. It ensures that lyrics are shown or cleared in response to playback position and
-        /// timing gaps between lyric events.</remarks>
         /// <param name="currentTime">The current playback time, in ticks or milliseconds, used to determine which lyrics to display or clear.</param>
         private void HandleLyricsDisplay(long currentTime)
         {
@@ -2014,11 +2345,9 @@ namespace NeoBleeper
                         _isInLyricSection = false;
                         ClearLyrics();
                     }
-                    // Shorter delay
                 }
                 else
                 {
-                    // The lyric is already cleaned
                     if (timeSinceLastLyric > melodySectionThreshold)
                     {
                         // Do nothing, if there isn't any lyric
@@ -2030,10 +2359,7 @@ namespace NeoBleeper
         /// <summary>
         /// Extracts the lyrics text from the specified MIDI meta event, if available.
         /// </summary>
-        /// <remarks>This method attempts to retrieve the lyrics from meta events that expose a 'Text'
-        /// property, such as TextEvent instances. If the meta event does not contain lyrics or does not have a 'Text'
-        /// property, the method returns null.</remarks>
-        /// <param name="metaEvent">The meta event from which to extract lyrics. Must not be null and should represent a text-based meta event.</param>
+        /// <param name="metaEvent">The meta event from which to extract lyrics.</param>
         /// <returns>A string containing the lyrics text if present in the meta event; otherwise, null.</returns>
         private string ExtractLyricsFromMetaEvent(MetaEvent metaEvent)
         {
@@ -2058,21 +2384,24 @@ namespace NeoBleeper
         /// <summary>
         /// Processes the specified lyric text by removing control characters and formatting it for display.
         /// </summary>
-        /// <remarks>If the input lyric text contains any control characters (such as newlines, tabs, or
-        /// slashes), the current lyric display is cleared before processing the new text.</remarks>
-        /// <param name="lyrics">The lyric text to process. May include control characters such as newlines, tabs, or slashes, which will be
-        /// removed before display.</param>
+        /// <param name="lyrics">The lyric text to process.</param>
         private void ProcessLyricText(string lyrics)
         {
+            if (string.IsNullOrEmpty(lyrics)) return;
+
+            // Clear previous line buffer if a line or screen break marker is present
             if (lyrics.Contains("\n") || lyrics.Contains("\\") || lyrics.Contains("/") ||
                 lyrics.Contains("\r") || lyrics.Contains("\t") || lyrics.Contains("\0") ||
                 lyrics.Contains("\f") || lyrics.Contains("\v") || lyrics.Contains("|"))
             {
-                lyricRow = string.Empty; // Clear previous lyrics if there's a newline
+                lyricRow = string.Empty;
             }
 
-            lyricRow += lyrics;
-            lyricRow = lyricRow
+            // Sanitize individual lyric chunk before appending to preserve syllable boundaries
+            string sanitizedChunk = SanitizeLyricQuotes(lyrics);
+
+            // Strip line break and control symbols from the printable text
+            sanitizedChunk = sanitizedChunk
                 .Replace("\n", string.Empty)
                 .Replace("\r", string.Empty)
                 .Replace("\\", string.Empty)
@@ -2083,13 +2412,14 @@ namespace NeoBleeper
                 .Replace("\v", string.Empty)
                 .Replace("|", string.Empty);
 
+            lyricRow += sanitizedChunk;
             PrintLyrics(lyricRow.Trim());
         }
 
         /// <summary>
         /// Asynchronously waits for the specified number of milliseconds or until the operation is canceled.
         /// </summary>
-        /// <param name="milliseconds">The number of milliseconds to wait before completing the task. Must be non-negative.</param>
+        /// <param name="milliseconds">The number of milliseconds to wait before completing the task.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the wait operation.</param>
         /// <returns>A task that represents the asynchronous wait operation.</returns>
         private async Task WaitPreciseWithCancellation(int milliseconds, CancellationToken cancellationToken)
@@ -2106,11 +2436,8 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Resets the track bar and associated labels to their initial state, displaying zero values for position and
-        /// percentage.
+        /// Resets the track bar and associated labels to their initial state.
         /// </summary>
-        /// <remarks>This method is thread-safe and can be called from any thread. If invoked from a
-        /// non-UI thread, the updates are marshaled to the UI thread automatically.</remarks>
         private void ResetLabelsAndTrackBar()
         {
             if (this.InvokeRequired)
@@ -2145,12 +2472,8 @@ namespace NeoBleeper
         /// <summary>
         /// Synchronizes all relevant UI elements to reflect the specified frame index and filtered notes.
         /// </summary>
-        /// <remarks>This method ensures that UI updates occur on the UI thread. If called from a non-UI
-        /// thread, the update is marshaled to the UI thread automatically. The method updates the track bar, percentage
-        /// label, position label, note labels, and held notes label to match the specified frame and filtered notes.
-        /// Grid updates are skipped if the 'Don't update grid' option is enabled.</remarks>
-        /// <param name="frameIndex">The zero-based index of the frame to display. Must be within the range of available frames.</param>
-        /// <param name="filteredNotes">A set of note identifiers to be displayed or highlighted in the UI. Cannot be null.</param>
+        /// <param name="frameIndex">The zero-based index of the frame to display.</param>
+        /// <param name="filteredNotes">A set of note identifiers to be displayed or highlighted in the UI.</param>
         private void UpdateAllUISync(int frameIndex, HashSet<int> filteredNotes)
         {
             if (this.InvokeRequired)
@@ -2194,13 +2517,8 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Updates the position label to display the current playback time in minutes, seconds, and hundredths of a
-        /// second.
+        /// Updates the position label to display the current playback time in minutes, seconds, and hundredths of a second.
         /// </summary>
-        /// <remarks>This method calculates the playback time using both the elapsed stopwatch time and
-        /// the current frame's timestamp, providing a more accurate display. If called from a thread other than the UI
-        /// thread, the update is marshaled to the UI thread automatically. The label is only updated while playback is
-        /// active.</remarks>
         private void UpdatePositionLabel()
         {
             if (!_isPlaying) return;
@@ -2234,9 +2552,6 @@ namespace NeoBleeper
         /// Handles the completion of audio playback, performing necessary cleanup and optionally restarting playback if
         /// looping is enabled.
         /// </summary>
-        /// <remarks>If looping is enabled, playback is rewound and restarted automatically. Otherwise,
-        /// playback is stopped and rewound. Any errors encountered during this process are logged, and playback is
-        /// stopped to ensure a consistent state.</remarks>
         private async void HandlePlaybackComplete()
         {
             try
@@ -2315,9 +2630,7 @@ namespace NeoBleeper
         /// Assigns instrument identifiers to each note event in the specified MIDI file based on the most recent
         /// program change for each channel.
         /// </summary>
-        /// <remarks>Percussion notes on channel 10 are assigned a special instrument identifier of -1.
-        /// For channels without an explicit program change, the default instrument identifier is 0.</remarks>
-        /// <param name="midiFile">The MIDI file whose note events will be analyzed and assigned instrument identifiers. Cannot be null.</param>
+        /// <param name="midiFile">The MIDI file whose note events will be analyzed and assigned instrument identifiers.</param>
         private void AssignInstrumentsToNotes(MidiFile midiFile)
         {
             var lastPatchPerChannel = new Dictionary<int, int>();
@@ -2348,7 +2661,7 @@ namespace NeoBleeper
         /// <summary>
         /// Displays the specified lyrics using the lyrics overlay.
         /// </summary>
-        /// <param name="lyrics">The lyrics text to display. Cannot be null.</param>
+        /// <param name="lyrics">The lyrics text to display.</param>
         private void PrintLyrics(string lyrics)
         {
             if (this.InvokeRequired)
@@ -2391,8 +2704,6 @@ namespace NeoBleeper
         /// <summary>
         /// Displays the lyrics overlay window if it is not already visible.
         /// </summary>
-        /// <remarks>If the lyrics overlay window has not been created or has been disposed, a new
-        /// instance is created and shown. The overlay is brought to the foreground when displayed.</remarks>
         private void ShowLyricsOverlay()
         {
             if (this.InvokeRequired)
@@ -2433,14 +2744,26 @@ namespace NeoBleeper
         }
         private void checkBox_show_lyrics_or_text_events_CheckedChanged(object sender, EventArgs e)
         {
+            bool logging = !isDeciding;
+
+            if (!isDeciding)
+            {
+                lyricsEnabled = checkBox_show_lyrics_or_text_events.Checked;
+            }
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
-                Logger.Log("Show lyrics is enabled.", Logger.LogTypes.Info);
+                if (logging)
+                {
+                    Logger.Log("Show lyrics is enabled.", Logger.LogTypes.Info);
+                }
                 ShowLyricsOverlay();
             }
             else
             {
-                Logger.Log("Show lyrics is disabled.", Logger.LogTypes.Info);
+                if (logging)
+                {
+                    Logger.Log("Show lyrics is disabled.", Logger.LogTypes.Info);
+                }
                 HideLyricsOverlay();
             }
         }
