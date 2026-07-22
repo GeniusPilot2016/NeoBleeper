@@ -759,5 +759,75 @@ namespace NeoBleeper
 
             if (speakerOn) StopPulse(output, sid);
         }
+        /// <summary>
+        /// Chooses how much of a monophonic frame should be assigned to the percussion attack.
+        /// With no melody, the instrument may use its natural one-shot duration. When melody is
+        /// also present, only the recognizable attack portion is used and at least 8 ms is kept
+        /// for the melody whenever the frame is long enough.
+        /// </summary>
+        public static int GetMidiFrameDurationMs(MidiPercussion percussion, int availableFrameMs, bool melodyAlsoPlaying)
+        {
+            if (availableFrameMs <= 0) return 0;
+
+            int naturalDurationMs = GetNaturalDurationMs(percussion);
+            if (!melodyAlsoPlaying)
+                return Math.Min(availableFrameMs, naturalDurationMs);
+
+            const int melodyFloorMs = 8;
+            if (availableFrameMs <= melodyFloorMs + 1)
+                return Math.Max(1, availableFrameMs / 2);
+
+            int preferredAttackMs = percussion switch
+            {
+                MidiPercussion.HiHatClosed or MidiPercussion.HiHatFoot or
+                MidiPercussion.StickClick or MidiPercussion.SquareClick or
+                MidiPercussion.MetronomeClick => 26,
+
+                MidiPercussion.SideStick or MidiPercussion.Claves or
+                MidiPercussion.Castanets or MidiPercussion.TriangleMute => 34,
+
+                MidiPercussion.KickDrum or MidiPercussion.BassDrum => 48,
+
+                MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or
+                MidiPercussion.SnareDrumRod => 56,
+
+                MidiPercussion.HandClap => 96,
+
+                MidiPercussion.HighTom or MidiPercussion.HighMidTom or
+                MidiPercussion.LowMidTom or MidiPercussion.LowTom or
+                MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 or
+                MidiPercussion.HighBongo or MidiPercussion.LowBongo or
+                MidiPercussion.CongaDeadStroke or MidiPercussion.Conga or
+                MidiPercussion.Tumba or MidiPercussion.HighTimbale or
+                MidiPercussion.LowTimbale or MidiPercussion.SurduDeadStroke or
+                MidiPercussion.Surdu => 62,
+
+                MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or
+                MidiPercussion.ChinaCymbal or MidiPercussion.SplashCymbal or
+                MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 or
+                MidiPercussion.RideBell or MidiPercussion.TriangleOpen => 50,
+
+                MidiPercussion.GuiroLong or MidiPercussion.Vibraslap or
+                MidiPercussion.BellTree or MidiPercussion.OceanDrum => 72,
+
+                _ => 45
+            };
+
+            int maximumPercussionMs = availableFrameMs - melodyFloorMs;
+            int selectedMs = Math.Min(preferredAttackMs, naturalDurationMs);
+            selectedMs = Math.Min(selectedMs, maximumPercussionMs);
+            return Math.Clamp(selectedMs, 1, availableFrameMs);
+        }
+
+        /// <summary>
+        /// Returns the natural one-shot envelope length used for a General MIDI percussion key.
+        /// General MIDI standardizes the key map, but not fixed acoustic durations; these values
+        /// are the engine's natural release times and are not stretched by long MIDI note lengths.
+        /// </summary>
+        public static int GetNaturalDurationMs(MidiPercussion percussion)
+        {
+            return GetProfile(percussion, PercussionOutputChoice.SystemSpeaker).DurationMs;
+        }
+
     }
 }
