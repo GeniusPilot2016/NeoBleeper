@@ -130,7 +130,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="sysexEmulatorBase.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
+    <value>12, 47</value>
   </data>
   <data name="sysexEmulatorBase.RowCount" type="System.Int32, mscorlib">
     <value>17</value>
@@ -151,14 +151,38 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;sysexEmulatorBase.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="sysexEmulatorBase.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25" /&gt;&lt;Rows Styles="Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>tr</value>
-  </metadata>
+  <data name="textBoxSysExText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="textBoxSysExText.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Cascadia Code, 13.8pt, style=Bold</value>
+  </data>
+  <data name="textBoxSysExText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="textBoxSysExText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 29</value>
+  </data>
+  <data name="textBoxSysExText.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxSysExText.Name" xml:space="preserve">
+    <value>textBoxSysExText</value>
+  </data>
+  <data name="&gt;&gt;textBoxSysExText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSysExText.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxSysExText.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -166,7 +190,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>313, 145</value>
+    <value>313, 180</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>SysEx Display Emulator</value>

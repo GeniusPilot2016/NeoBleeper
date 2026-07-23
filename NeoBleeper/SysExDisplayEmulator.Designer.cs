@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SysExDisplayEmulator));
             sysexEmulatorBase = new TableLayoutPanel();
+            textBoxSysExText = new TextBox();
             SuspendLayout();
             // 
             // sysexEmulatorBase
@@ -39,11 +40,20 @@
             sysexEmulatorBase.ForeColor = Color.DimGray;
             sysexEmulatorBase.Name = "sysexEmulatorBase";
             // 
+            // textBoxSysExText
+            // 
+            resources.ApplyResources(textBoxSysExText, "textBoxSysExText");
+            textBoxSysExText.BackColor = Color.Black;
+            textBoxSysExText.ForeColor = Color.White;
+            textBoxSysExText.Name = "textBoxSysExText";
+            textBoxSysExText.ReadOnly = true;
+            // 
             // SysExDisplayEmulator
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
             ControlBox = false;
+            Controls.Add(textBoxSysExText);
             Controls.Add(sysexEmulatorBase);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -52,10 +62,12 @@
             ShowIcon = false;
             FormClosing += SysExDisplayEmulator_FormClosing;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private TableLayoutPanel sysexEmulatorBase;
+        private TextBox textBoxSysExText;
     }
 }
