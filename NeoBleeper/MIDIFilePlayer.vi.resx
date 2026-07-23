@@ -153,7 +153,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAEgAQUBIAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEwAQUBMAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -199,7 +199,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAEgAQUBIAEFARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAEwAQUBMAEFARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -338,7 +338,7 @@ Các kênh không được chọn sẽ bị bỏ qua.</value>
     <value>Hãy thử làm cho mỗi chu kỳ kéo dài 30 mS (với thời gian xen kẽ tối đa được giới hạn ở mức 15 mS cho mỗi nốt)</value>
   </data>
   <data name="checkBox_dont_update_grid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 582</value>
+    <value>9, 593</value>
   </data>
   <data name="checkBox_dont_update_grid.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 20</value>
@@ -371,7 +371,7 @@ Các kênh không được chọn sẽ bị bỏ qua.</value>
     <value>Đang tải tệp MIDI. Vui lòng đợi...</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 607</value>
+    <value>9, 618</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Size" type="System.Drawing.Size, System.Drawing">
     <value>244, 20</value>
@@ -379,8 +379,17 @@ Các kênh không được chọn sẽ bị bỏ qua.</value>
   <data name="checkBox_show_lyrics_or_text_events.Text" xml:space="preserve">
     <value>Hiển thị lời bài hát hoặc sự kiện văn bản</value>
   </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 642</value>
+  </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 20</value>
+  </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Text" xml:space="preserve">
+    <value>Hiển thị trình giả lập màn hình SysEx</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>348, 635</value>
+    <value>348, 671</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Phát tệp MIDI</value>

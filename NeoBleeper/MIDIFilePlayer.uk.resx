@@ -156,7 +156,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAEkAQUBJAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEsAQUBLAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -202,7 +202,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAEkAQUBJAEFARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAEsAQUBLAEFARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -339,13 +339,13 @@
     <value>Переглянути файл</value>
   </data>
   <data name="checkBox_play_each_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 515</value>
+    <value>10, 523</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 542</value>
+    <value>10, 550</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>321, 55</value>
@@ -357,7 +357,7 @@
     <value>Спробуйте зробити кожен цикл тривалістю 30 мС (з максимальним часом чергування, обмеженим до 15 мС на ноту)</value>
   </data>
   <data name="checkBox_dont_update_grid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 601</value>
+    <value>10, 609</value>
   </data>
   <data name="checkBox_dont_update_grid.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 20</value>
@@ -395,6 +395,9 @@
   <data name="label_ms.Text" xml:space="preserve">
     <value>мС</value>
   </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 481</value>
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>322, 38</value>
   </data>
@@ -414,7 +417,7 @@
     <value>Завантаження MIDI-файлу. Зачекайте...</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 626</value>
+    <value>10, 634</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Size" type="System.Drawing.Size, System.Drawing">
     <value>315, 20</value>
@@ -422,8 +425,17 @@
   <data name="checkBox_show_lyrics_or_text_events.Text" xml:space="preserve">
     <value>Показувати тексти пісень або текстові події пісень</value>
   </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 660</value>
+  </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 20</value>
+  </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Text" xml:space="preserve">
+    <value>Показати емулятор дисплея SysEx</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>348, 654</value>
+    <value>348, 689</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Відтворити MIDI-файл</value>
