@@ -20,6 +20,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using static UIHelper;
 
@@ -46,6 +47,7 @@ namespace NeoBleeper
         private MidiFile _midiFile;
         private Stopwatch _playbackStopwatch;
         private LyricsOverlay lyricsOverlay;
+        private SysExDisplayEmulator sysExDisplayEmulator;
         private readonly object _playbackRestartTimerLock = new object();
         public MIDIFilePlayer(string filename, Form owner)
         {
@@ -368,6 +370,7 @@ namespace NeoBleeper
         }
 
         private int lyricsChunkCount = 0; // Count of lyric chunks processed for display
+        private int sysExEventCount = 0; // Count of SysEx events processed for display
         /// <summary>
         /// Determines whether a given text chunk from a MIDI file is considered "junk" or hardware noise and should be filtered out.
         /// Evaluates hardware commands, telemetry data, display events, and non-lyric control parameters.
@@ -633,11 +636,25 @@ namespace NeoBleeper
         }
 
         private bool lyricsEnabled = false;
+        private bool sysExEmulatorEnabled = false;
         private Dictionary<int, int> _noteChannels = new Dictionary<int, int>();
         private List<(long time, int tempo)> _tempoEvents;
         private int _ticksPerQuarterNote;
         private Dictionary<long, List<MetaEvent>> _metaEventsByTime = new Dictionary<long, List<MetaEvent>>();
         private Dictionary<long, List<MidiEvent>> _eventsByTime = new Dictionary<long, List<MidiEvent>>();
+        private Dictionary<long, List<byte[]>> _sysExEventsByTime = new Dictionary<long, List<byte[]>>();
+        private List<long> _sysExDisplayEventTimes = new List<long>();
+        private int _nextSysExDisplayEventIndex = 0;
+        private readonly RolandGSStyleDisplayDecoder _sysExDisplayDecoder = new RolandGSStyleDisplayDecoder();
+        private readonly object _sysExDisplayLock = new object();
+
+        private static readonly PropertyInfo SysExDataProperty =
+            typeof(SysexEvent).GetProperty("Data", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic) ??
+            typeof(SysexEvent).GetProperty("Buffer", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+        private static readonly FieldInfo SysExDataField =
+            typeof(SysexEvent).GetField("data", BindingFlags.Instance | BindingFlags.NonPublic) ??
+            typeof(SysexEvent).GetField("_data", BindingFlags.Instance | BindingFlags.NonPublic);
 
         /// <summary>
         /// Asynchronously loads a MIDI file and prepares it for playback and analysis.
@@ -653,8 +670,9 @@ namespace NeoBleeper
         {
             try
             {
+                sysExEventCount = 0; // Reset the SysEx event counter variable.
                 lyricsChunkCount = 0; // Reset the chunk counter variable.
-                DecideCheckboxesThatWillBeEnabled(0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes during loading
+                DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes during loading
                 panelLoading.Visible = true;
                 labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
                 progressBar1.Value = 0;
@@ -666,6 +684,10 @@ namespace NeoBleeper
                 _noteChannels.Clear();
                 _metaEventsByTime.Clear();
                 _eventsByTime.Clear();
+                _sysExEventsByTime.Clear();
+                _sysExDisplayEventTimes.Clear();
+                _nextSysExDisplayEventIndex = 0;
+                ResetSysExDisplayState();
 
                 // Offload heavy processing to a background thread
                 await Task.Run(() =>
@@ -713,8 +735,9 @@ namespace NeoBleeper
                     int totalTracks = midiFile.Events.Tracks;
                     int processedTracks = 0;
 
-                    // Local dictionary to collect lyric/text meta events by absolute time
+                    // Local dictionaries for lyric/text and display SysEx events.
                     var metaDict = new Dictionary<long, List<MetaEvent>>();
+                    var sysExDict = new Dictionary<long, List<byte[]>>();
 
                     foreach (var track in midiFile.Events)
                     {
@@ -735,6 +758,33 @@ namespace NeoBleeper
                                     _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel; // or 0
                                 }
                             }
+                            else if (midiEvent is SysexEvent sysexEvent)
+                            {
+                                byte[] sysExData = ExtractSysExData(sysexEvent);
+
+                                // An empty payload means there is effectively no SysEx event here —
+                                // do not count it, log it as a warning, or store it. Only messages
+                                // with actual readable data are treated as real SysEx events.
+                                if (sysExData.Length == 0)
+                                {
+                                    continue;
+                                }
+
+                                // Count only once we know there is real, readable data.
+                                sysExEventCount++;
+
+                                // Keep every readable SysEx message. Do not discard it here.
+                                // Some MIDI writers omit F0/F7 framing or write a non-matching
+                                // checksum even though the Roland display payload is usable.
+                                // The decoder performs the protocol check during playback.
+                                if (!sysExDict.TryGetValue(sysexEvent.AbsoluteTime, out var list))
+                                {
+                                    list = new List<byte[]>();
+                                    sysExDict[sysexEvent.AbsoluteTime] = list;
+                                }
+
+                                list.Add(sysExData);
+                            }
                             else if (midiEvent.CommandCode == MidiCommandCode.MetaEvent)
                             {
                                 // Collect lyric/text meta events so it can create frames at their times
@@ -753,7 +803,6 @@ namespace NeoBleeper
                                         }
                                         list.Add(meta);
                                         lyricsChunkCount++;
-                                        Debug.WriteLine(rawText);
                                     }
                                 }
                             }
@@ -782,7 +831,9 @@ namespace NeoBleeper
                         }
                     }
 
-                    // Take distinct time points; include meta event times so lyrics have frames
+                    // Audio frames must contain only note and lyric/text times.
+                    // Adding SysEx timestamps here splits held notes into tiny audio
+                    // segments and causes gaps or broken PC-speaker playback.
                     var timePoints = allEvents.Select(e => e.Time)
                                               .Concat(metaDict.Keys)
                                               .Distinct()
@@ -815,10 +866,88 @@ namespace NeoBleeper
                         }
                     }
 
-                    // Assign collected meta events to the field for fast lookup later
+                    // Assign collected visual events to fields for fast lookup during playback.
+                    // SysEx has its own timeline and never changes the audio frame list.
                     _metaEventsByTime = metaDict;
-                });
+                    _sysExEventsByTime = sysExDict;
+                    _sysExDisplayEventTimes = sysExDict.Keys
+                        .OrderBy(time => time)
+                        .ToList();
+                    _nextSysExDisplayEventIndex = 0;
 
+                    int recognizedDisplayPayloadCount = sysExDict.Values
+                        .SelectMany(events => events)
+                        .Count(RolandGSStyleDisplayDecoder.AffectsDisplayState);
+                    // 1. First, apply the strict filters to clean out reset patterns, barcodes, and text strings
+                    foreach (var key in sysExDict.Keys.ToList())
+                    {
+                        sysExDict[key] = sysExDict[key]
+                            .Where(payload =>
+                            {
+                                // Check and filter out standard MIDI / Roland GS special patterns
+                                if (IsStandardOrGSResetPattern(payload))
+                                {
+                                    return false;
+                                }
+
+                                // Must affect display state according to Roland specs
+                                if (!RolandGSStyleDisplayDecoder.AffectsDisplayState(payload))
+                                    return false;
+
+                                // Block short configuration "barcodes" (<= 15 bytes)
+                                if (payload.Length <= 15)
+                                    return false;
+
+                                // Block text strings (e.g., copyright credits like "Programmed by Hands On")
+                                int printableAsciiCount = payload.Count(b => b >= 0x20 && b <= 0x7A);
+                                double printableRatio = (double)printableAsciiCount / payload.Length;
+                                if (printableRatio > 0.6)
+                                    return false;
+
+                                // Retain only pure pixel art / custom graphic frames
+                                return true;
+                            })
+                            .ToList();
+
+                        // Clean up empty dictionary keys
+                        if (sysExDict[key].Count == 0)
+                        {
+                            sysExDict.Remove(key);
+                        }
+                    }
+
+                    // 2. Count ONLY the verified pure pixel art payloads remaining after filtering
+                    recognizedDisplayPayloadCount = sysExDict.Values
+                        .SelectMany(events => events)
+                        .Count();
+
+                    // Debug dump for isolated pixel art frames
+                    if (recognizedDisplayPayloadCount > 0)
+                    {
+                        StringBuilder artBuilder = new StringBuilder();
+                        artBuilder.AppendLine();
+                        artBuilder.AppendLine("=== Isolated Pixel Art Frames ===");
+
+                        foreach (var sysExEvents in sysExDict.Values)
+                        {
+                            foreach (byte[] payload in sysExEvents)
+                            {
+                                artBuilder.AppendLine($"--- Payload Size: {payload.Length} bytes ---");
+
+                                foreach (byte b in payload)
+                                {
+                                    string binaryString = Convert.ToString(b, 2).PadLeft(7, '0');
+                                    string asciiArtRow = binaryString.Replace("1", "██").Replace("0", "..");
+                                    artBuilder.AppendLine($"{b:X2} | {asciiArtRow}");
+                                }
+                                artBuilder.AppendLine("----------------------------------");
+                            }
+                        }
+                        Logger.Log(artBuilder.ToString(), Logger.LogTypes.Info);
+                    }
+
+                    sysExEventCount = recognizedDisplayPayloadCount;
+                });
                 _currentFrameIndex = 0;
                 _isPlaying = false;
 
@@ -831,12 +960,32 @@ namespace NeoBleeper
                 PrecomputeTempoTimes();
                 AssignInstrumentsToNotes(_midiFile);
                 groupBox1.Enabled = true; // Enable controls after successful load
-                DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, _noteChannels, lyricsEnabled);
+
+                // Restore the display immediately after loading. The emulator must not
+                // remain on its reset/blank image until an audio frame happens to run.
+                if (checkBoxShowSysExDisplayEmulator.Checked &&
+                    sysExDisplayEmulator != null &&
+                    !sysExDisplayEmulator.IsDisposed)
+                {
+                    long displayTick = _frames != null && _frames.Count > 0
+                        ? _frames[Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1))].Time
+                        : (_sysExDisplayEventTimes.Count > 0 ? _sysExDisplayEventTimes[0] : 0);
+
+                    RebuildSysExDisplayAtTick(displayTick);
+                }
+                else
+                {
+                    // Clear the display emulator if no SysEx is found or it is disabled
+                    ClearSysExDisplay();
+                }
+
+
                 NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleMIDIFileLoaded, Resources.NotificationMessageMIDIFileLoaded, ToolTipIcon.Info, 3000);
+                DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, sysExEventCount, _noteChannels, lyricsEnabled);
             }
             catch (Exception ex)
             {
-                DecideCheckboxesThatWillBeEnabled(0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes on error
+                DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes on error
                 labelStatus.Text = Resources.TextMIDIFileLoadingError;
                 progressBar1.Visible = false;
                 progressBar1.Value = 0;
@@ -856,11 +1005,13 @@ namespace NeoBleeper
         /// <summary>
         /// Determines which checkboxes in the user interface should be enabled based on the presence of lyrics and note channels in the loaded MIDI file.
         /// </summary>
-        private void DecideCheckboxesThatWillBeEnabled(int textChunkCount, Dictionary<int, int> channels, bool lyricsEnabled)
+        private void DecideCheckboxesThatWillBeEnabled(int textChunkCount, int sysExEventCount, Dictionary<int, int> channels, bool lyricsEnabled)
         {
             isDeciding = true;
             checkBox_show_lyrics_or_text_events.Enabled = textChunkCount > 0;
             checkBox_show_lyrics_or_text_events.Checked = textChunkCount > 0 && lyricsEnabled;
+            checkBoxShowSysExDisplayEmulator.Enabled = sysExEventCount > 0;
+            checkBoxShowSysExDisplayEmulator.Checked = sysExEventCount > 0 && sysExEmulatorEnabled;
             int[] nonEmptyChannels = new int[] { };
             foreach (var kvp in channels)
             {
@@ -1090,6 +1241,11 @@ namespace NeoBleeper
                 : 0;
 
             _playbackStopwatch?.Reset();
+
+            long displayTick = _currentFrameIndex < _frames.Count
+                ? _frames[_currentFrameIndex].Time
+                : 0;
+            RebuildSysExDisplayAtTick(displayTick);
 
             Logger.Log($"Position set to {positionPercent:0.00}% (frame {_currentFrameIndex} of {_frames.Count}, offset: {_playbackStartOffsetMs:0.00}ms)", Logger.LogTypes.Info);
         }
@@ -1977,6 +2133,10 @@ namespace NeoBleeper
             if (_isStopping || !_isPlaying || _frames == null)
                 return;
 
+            // SysEx uses the same stopwatch, but it is not part of the audio frames.
+            double currentSongTimeMs =
+                _playbackStartOffsetMs + _playbackStopwatch.Elapsed.TotalMilliseconds;
+
             // --- UI Update Block ---
             if (IsHandleCreated && Visible)
             {
@@ -1994,17 +2154,19 @@ namespace NeoBleeper
                 }
             }
 
-            // Change: only consider playback complete when index >= _frames.Count (all frames processed)
-            if (_currentFrameIndex >= _frames.Count - 1)
+            // Playback is complete after every audio/lyric frame is processed.
+            if (_currentFrameIndex >= _frames.Count)
             {
+                ProcessPendingSysExDisplayEvents(currentSongTimeMs);
                 HandlePlaybackComplete();
                 return;
             }
 
             // --- Sound Processing Block ---
-            // Skip if previous playback task is still running
+            // While sound is already playing, use this timer tick for the display.
             if (!_playbackTask.IsCompleted)
             {
+                ProcessPendingSysExDisplayEvents(currentSongTimeMs);
                 return;
             }
 
@@ -2061,6 +2223,10 @@ namespace NeoBleeper
                     }
                 }
             }, _cancellationTokenSource.Token);
+
+            // The next audio task has already been scheduled, so updating the
+            // display here cannot delay the start of the next sound segment.
+            ProcessPendingSysExDisplayEvents(currentSongTimeMs);
         }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
@@ -2206,6 +2372,234 @@ namespace NeoBleeper
 
             // Accumulate the real elapsed difference (can be positive or negative)
             driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
+        }
+
+
+        private static byte[] ExtractSysExData(SysexEvent sysexEvent)
+        {
+            if (sysexEvent == null)
+            {
+                return Array.Empty<byte>();
+            }
+
+            try
+            {
+                if (SysExDataProperty?.GetValue(sysexEvent) is byte[] propertyData &&
+                    propertyData.Length > 0)
+                {
+                    return (byte[])propertyData.Clone();
+                }
+
+                // NAudio 2.x stores MIDI-file SysEx bytes in a private field named "data".
+                if (SysExDataField?.GetValue(sysexEvent) is byte[] fieldData &&
+                    fieldData.Length > 0)
+                {
+                    return (byte[])fieldData.Clone();
+                }
+
+                // Last-resort compatibility path for a future NAudio build that changes
+                // the backing member but keeps the hexadecimal ToString representation.
+                string eventText = sysexEvent.ToString();
+                int bytesMarker = eventText.IndexOf("bytes", StringComparison.OrdinalIgnoreCase);
+                if (bytesMarker >= 0)
+                {
+                    string hexadecimalText = eventText.Substring(bytesMarker + 5);
+                    MatchCollection matches = Regex.Matches(
+                        hexadecimalText,
+                        @"(?<![0-9A-Fa-f])[0-9A-Fa-f]{2}(?![0-9A-Fa-f])");
+
+                    if (matches.Count > 0)
+                    {
+                        byte[] parsed = new byte[matches.Count];
+                        for (int i = 0; i < matches.Count; i++)
+                        {
+                            parsed[i] = Convert.ToByte(matches[i].Value, 16);
+                        }
+
+                        return parsed;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Unable to read SysEx data: {ex.Message}", Logger.LogTypes.Warning);
+            }
+
+            return Array.Empty<byte>();
+        }
+
+        /// <summary>
+        /// Applies every supported display SysEx event whose MIDI time has
+        /// been reached by the playback stopwatch. This does not add frames
+        /// or otherwise participate in audio timing.
+        /// </summary>
+        private void ProcessPendingSysExDisplayEvents(double songTimeMs)
+        {
+            bool repaint = false;
+            bool[,] pixels = null;
+            bool hasVisibleContent = false;
+
+            lock (_sysExDisplayLock)
+            {
+                while (_nextSysExDisplayEventIndex < _sysExDisplayEventTimes.Count)
+                {
+                    long eventTick =
+                        _sysExDisplayEventTimes[_nextSysExDisplayEventIndex];
+
+                    double eventTimeMs = TicksToMilliseconds(eventTick);
+                    if (eventTimeMs > songTimeMs)
+                    {
+                        break;
+                    }
+
+                    if (_sysExEventsByTime.TryGetValue(eventTick, out var messages))
+                    {
+                        foreach (byte[] message in messages)
+                        {
+                            if (_sysExDisplayDecoder.Apply(
+                                    message,
+                                    out bool visibleChanged))
+                            {
+                                repaint |= visibleChanged;
+                            }
+                        }
+                    }
+
+                    _nextSysExDisplayEventIndex++;
+                }
+
+                if (repaint)
+                {
+                    hasVisibleContent = _sysExDisplayDecoder.HasVisibleContent();
+                    pixels = hasVisibleContent ? _sysExDisplayDecoder.GetPixels() : null;
+                }
+            }
+
+            if (repaint)
+            {
+                if (hasVisibleContent)
+                {
+                    RenderSysExDisplay(pixels);
+                }
+                else
+                {
+                    ClearSysExDisplay();
+                }
+            }
+        }
+
+        private void RebuildSysExDisplayAtTick(long targetTick)
+        {
+            bool[,] pixels = null;
+            bool hasVisibleContent;
+
+            lock (_sysExDisplayLock)
+            {
+                _sysExDisplayDecoder.Reset();
+                _nextSysExDisplayEventIndex = 0;
+
+                while (_nextSysExDisplayEventIndex <
+                       _sysExDisplayEventTimes.Count)
+                {
+                    long eventTick =
+                        _sysExDisplayEventTimes[_nextSysExDisplayEventIndex];
+
+                    if (eventTick > targetTick)
+                    {
+                        break;
+                    }
+
+                    if (_sysExEventsByTime.TryGetValue(
+                            eventTick,
+                            out var messages))
+                    {
+                        foreach (byte[] message in messages)
+                        {
+                            _sysExDisplayDecoder.Apply(message, out _);
+                        }
+                    }
+
+                    _nextSysExDisplayEventIndex++;
+                }
+
+                hasVisibleContent = _sysExDisplayDecoder.HasVisibleContent();
+                if (hasVisibleContent)
+                {
+                    pixels = _sysExDisplayDecoder.GetPixels();
+                }
+            }
+
+            if (hasVisibleContent)
+            {
+                RenderSysExDisplay(pixels);
+            }
+            else
+            {
+                ClearSysExDisplay();
+            }
+        }
+
+        private void ResetSysExDisplayState()
+        {
+            lock (_sysExDisplayLock)
+            {
+                _sysExDisplayDecoder.Reset();
+                _nextSysExDisplayEventIndex = 0;
+            }
+
+            ClearSysExDisplay();
+        }
+
+        private void RenderCurrentSysExDisplay()
+        {
+            bool hasVisibleContent;
+            bool[,] pixels = null;
+
+            lock (_sysExDisplayLock)
+            {
+                hasVisibleContent = _sysExDisplayDecoder.HasVisibleContent();
+                if (hasVisibleContent)
+                {
+                    pixels = _sysExDisplayDecoder.GetPixels();
+                }
+            }
+
+            if (hasVisibleContent)
+            {
+                RenderSysExDisplay(pixels);
+            }
+            else
+            {
+                ClearSysExDisplay();
+            }
+        }
+
+        private void RenderSysExDisplay(bool[,] pixels)
+        {
+            SysExDisplayEmulator emulator = sysExDisplayEmulator;
+            if (emulator == null || emulator.IsDisposed || emulator.Disposing)
+            {
+                return;
+            }
+
+            emulator.SetDisplayContent(pixels);
+        }
+
+        /// <summary>
+        /// Explicitly clears the emulator display rather than repainting it with
+        /// an all-off pixel frame. This is used whenever the decoded content has
+        /// no lit pixels at all — for example right after a GS Reset, or when the
+        /// currently selected page was never written to by the MIDI file.
+        /// </summary>
+        private void ClearSysExDisplay()
+        {
+            SysExDisplayEmulator emulator = sysExDisplayEmulator;
+            if (emulator == null || emulator.IsDisposed || emulator.Disposing)
+            {
+                return;
+            }
+
+            emulator.ClearDisplayContent();
         }
 
 
@@ -2648,12 +3042,75 @@ namespace NeoBleeper
                     {
                         var noteEvent = (NoteOnEvent)midiEvent;
                         int instrument;
-                        if (noteEvent.Channel == 10) // Channel 10 (percussion)
-                            instrument = -1;
+                        if (noteEvent.Channel == 10)
+                        {
+                            instrument = noteEvent.NoteNumber;
+                        }
                         else
-                            instrument = lastPatchPerChannel.TryGetValue(noteEvent.Channel, out var patch) ? patch : 0;
+                        {
+                            if (!lastPatchPerChannel.TryGetValue(noteEvent.Channel, out instrument))
+                            {
+                                instrument = 0;
+                            }
+                        }
+                        _channelInstruments[noteEvent.Channel] = instrument;
                         _noteInstruments[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = instrument;
                     }
+                }
+            }
+        }
+
+        private static bool IsStandardOrGSResetPattern(byte[] payload)
+        {
+            if (payload == null || payload.Length < 3) return false;
+            if (payload[0] == 0x7E && payload[1] == 0x7F && payload.Length >= 4 && payload[2] == 0x09)
+                return true;
+            if (payload.Length >= 6 && payload[0] == 0x41 && payload[1] == 0x10 && payload[2] == 0x42 && payload[3] == 0x12 && payload[4] == 0x40 && payload[5] == 0x00)
+                return true;
+            return false;
+        }
+
+        private void checkBoxShowSysExDisplayEmulator_CheckedChanged(object sender, EventArgs e)
+        {
+            bool logging = !isDeciding;
+            if (!isDeciding)
+            {
+                sysExEmulatorEnabled = checkBoxShowSysExDisplayEmulator.Checked;
+            }
+
+            if (checkBoxShowSysExDisplayEmulator.Checked)
+            {
+                if (sysExDisplayEmulator == null || sysExDisplayEmulator.IsDisposed)
+                {
+                    sysExDisplayEmulator = new SysExDisplayEmulator(this);
+                }
+
+                if (!sysExDisplayEmulator.Visible)
+                {
+                    sysExDisplayEmulator.Show(this);
+                }
+
+                long displayTick = _frames != null && _frames.Count > 0
+                    ? _frames[Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1))].Time
+                    : (_sysExDisplayEventTimes.Count > 0 ? _sysExDisplayEventTimes[0] : 0);
+
+                RebuildSysExDisplayAtTick(displayTick);
+
+                if (logging)
+                {
+                    Logger.Log("SysEx display emulator enabled.", Logger.LogTypes.Info);
+                }
+            }
+            else
+            {
+                if (sysExDisplayEmulator != null && !sysExDisplayEmulator.IsDisposed)
+                {
+                    sysExDisplayEmulator.Hide();
+                }
+
+                if (logging)
+                {
+                    Logger.Log("SysEx display emulator disabled.", Logger.LogTypes.Info);
                 }
             }
         }
@@ -2742,6 +3199,7 @@ namespace NeoBleeper
                 lyricsOverlay.Hide();
             }
         }
+
         private void checkBox_show_lyrics_or_text_events_CheckedChanged(object sender, EventArgs e)
         {
             bool logging = !isDeciding;
@@ -2767,5 +3225,6 @@ namespace NeoBleeper
                 HideLyricsOverlay();
             }
         }
+
     }
 }

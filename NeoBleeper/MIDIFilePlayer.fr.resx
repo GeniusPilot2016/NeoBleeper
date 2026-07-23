@@ -150,7 +150,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAqAcAAAJNU0Z0AUkBTAIBAQIB
-        AAEQAQUBEAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEgAQUBIAEFARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AGcAAyMBMwHsAbUBLAH/AesBswErAf8B6gGxASkB/wHpAa8BKAH/Al8BIQH7mAABKwJ+AfwBLgHGAf4B
         /wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4B
         xgH+Af8BLgHGAf4B/wEuAcYB/gH/AS4BxgH+Af8BLgHGAf4B/xQAAe0BuQEvAf8B1gGTARgB/wHDAXgB
@@ -196,7 +196,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA2BcAAAJNU0Z0AUkBTAIBAQMB
-        AAEQAQUBEAEFARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
+        AAEgAQUBIAEFARoBAAEaAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABaAMAARoDAAEBAQABIAUAAUAB
         Kv8A/wD/AGkAAwYBBwJDAUIBdQM6AWAEAf8AkQADJQE2AcgBcAEDAf8ByAFwAQMB/wNSAaMDFQEcVAAD
         FwEfAmcBWQHvAcgBcAEDAf8ByAFwAQMB/wHIAXABAwH/AlkBVwG8EAADOAFcAm8BUQH3AcgBcAEDAf8B
         yAFwAQMB/wOAAf4CSwFKAYv4AAMoATsByAFwAQMB/wHIAXABAwH/AcgBcAEDAf8CYwFIAfYDOQFeAwUB
@@ -329,7 +329,7 @@ Les chaînes non sélectionnées seront ignorées.</value>
     <value>Parcourir le Fichier</value>
   </data>
   <data name="checkBox_play_each_note.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 506</value>
+    <value>7, 502</value>
   </data>
   <data name="checkBox_play_each_note.Size" type="System.Drawing.Size, System.Drawing">
     <value>321, 38</value>
@@ -338,13 +338,13 @@ Les chaînes non sélectionnées seront ignorées.</value>
     <value>Jouez chaque note une fois à la fois (ne continuez pas à alterner)</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 540</value>
+    <value>7, 536</value>
   </data>
   <data name="checkBox_make_each_cycle_last_30ms.Text" xml:space="preserve">
     <value>Essayez de faire durer chaque cycle 30 ms (avec un temps d'alternance maximal limité à 15 ms par note)</value>
   </data>
   <data name="checkBox_dont_update_grid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 586</value>
+    <value>7, 582</value>
   </data>
   <data name="checkBox_dont_update_grid.Size" type="System.Drawing.Size, System.Drawing">
     <value>244, 20</value>
@@ -377,7 +377,7 @@ Les chaînes non sélectionnées seront ignorées.</value>
     <value>315, 6</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 477</value>
+    <value>0, 473</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>344, 27</value>
@@ -404,7 +404,7 @@ Les chaînes non sélectionnées seront ignorées.</value>
     <value>Chargement du fichier MIDI. Veuillez patienter…</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 611</value>
+    <value>7, 607</value>
   </data>
   <data name="checkBox_show_lyrics_or_text_events.Size" type="System.Drawing.Size, System.Drawing">
     <value>281, 20</value>
@@ -412,8 +412,17 @@ Les chaînes non sélectionnées seront ignorées.</value>
   <data name="checkBox_show_lyrics_or_text_events.Text" xml:space="preserve">
     <value>Afficher les paroles ou les événements textuels</value>
   </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 633</value>
+  </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 20</value>
+  </data>
+  <data name="checkBoxShowSysExDisplayEmulator.Text" xml:space="preserve">
+    <value>Émulateur d'affichage SysEx</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>348, 639</value>
+    <value>348, 658</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Lire un Fichier MIDI</value>

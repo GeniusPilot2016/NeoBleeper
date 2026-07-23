@@ -146,8 +146,10 @@ namespace NeoBleeper
             checkBox_use_midi_output.Checked = TemporarySettings.MIDIDevices.useMIDIoutput;
             checkBoxClassicBleeperMode.Checked = Settings1.Default.ClassicBleeperMode;
             comboBoxLanguage.SelectedItem = Settings1.Default.preferredLanguage;
+            comboBox1.SelectedIndex = Settings1.Default.SysExEmulatorColor;
             UIFonts.SetFonts(this);
             SetTheme();
+            PrepareSysExDisplayPreview();
             RefreshMidiInputDevices();
             RefreshMidiOutputDevices();
             if (!CreateMusicWithAI.IsAvailableInCountry())
@@ -164,10 +166,10 @@ namespace NeoBleeper
             }
             try
             {
-                if(!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
+                if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
                 {
                     decryptedAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64);
-                }                
+                }
             }
             catch
             {
@@ -301,6 +303,9 @@ namespace NeoBleeper
             button_get_firmware.BackColor = Color.FromArgb(32, 32, 32);
             contextMenuStripSystemSpeakerTests.BackColor = Color.Black;
             contextMenuStripSystemSpeakerTests.ForeColor = Color.White;
+            comboBox1.BackColor = Color.Black;
+            comboBox1.ForeColor = Color.White;
+            groupBox1.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void LightTheme()
@@ -375,6 +380,9 @@ namespace NeoBleeper
             button_get_firmware.BackColor = Color.Transparent;
             contextMenuStripSystemSpeakerTests.BackColor = SystemColors.Window;
             contextMenuStripSystemSpeakerTests.ForeColor = SystemColors.WindowText;
+            comboBox1.BackColor = SystemColors.Window;
+            comboBox1.ForeColor = SystemColors.WindowText;
+            groupBox1.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
@@ -1532,7 +1540,7 @@ namespace NeoBleeper
 
         private void comboBox_midi_output_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox_midi_output_devices.SelectedIndex < 0)
+            if (comboBox_midi_output_devices.SelectedIndex < 0)
             {
                 return; // No device selected or deselected due to no available devices
             }
@@ -1543,14 +1551,14 @@ namespace NeoBleeper
 
         private void comboBox_midi_output_channel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox_midi_output_channel.SelectedIndex < 0)
+            if (comboBox_midi_output_channel.SelectedIndex < 0)
             {
                 return; // No channel selected or deselected due to no available devices
             }
             TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel = comboBox_midi_output_channel.SelectedIndex;
             Logger.Log("MIDI output channel selected: Channel " + ((comboBox_midi_output_channel.SelectedIndex + 1) != 10 ?
-                (comboBox_midi_output_channel.SelectedIndex + 1).ToString() : 
-                (comboBox_midi_output_channel.SelectedIndex + 1).ToString() + " (Percussion)"), 
+                (comboBox_midi_output_channel.SelectedIndex + 1).ToString() :
+                (comboBox_midi_output_channel.SelectedIndex + 1).ToString() + " (Percussion)"),
                 Logger.LogTypes.Info); // +1 to convert zero-based index to one-based channel number while logging
             if (TemporarySettings.MIDIDevices.MIDIOutputDeviceChannel == 9) // Percussion  channel
             {
@@ -1569,7 +1577,7 @@ namespace NeoBleeper
 
         private void comboBox_midi_output_instrument_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox_midi_output_instrument.SelectedIndex < 0)
+            if (comboBox_midi_output_instrument.SelectedIndex < 0)
             {
                 return; // No instrument selected or deselected by percussion channel or no available devices
             }
@@ -1976,6 +1984,179 @@ namespace NeoBleeper
             {
                 SystemSounds.Beep.Play(); // Play a simple beep sound to indicate that a test is already in progress
                 Logger.Log("System speaker test is already in progress. Ignoring additional test request.", Logger.LogTypes.Warning);
+            }
+        }
+        private Panel[,] _sysExPreviewCells;
+        private const int SysExPreviewGridSize = 16; // matches the real emulator's 16x16 resolution
+
+        /// <summary>
+        /// Builds a simple eighth-note glyph as a 16x16 boolean grid (true = pixel on).
+        /// Built programmatically instead of as literal ASCII-art strings to avoid
+        /// silent row-length mismatches that would throw mid-render and leave the
+        /// preview blank.
+        /// </summary>
+        private static bool[,] BuildSysExPreviewSampleBitmap()
+        {
+            bool[,] bitmap = new bool[SysExPreviewGridSize, SysExPreviewGridSize];
+
+            // Note stem (vertical line)
+            for (int y = 1; y <= 10; y++)
+            {
+                bitmap[9, y] = true;
+            }
+
+            // Flag at the top of the stem
+            bitmap[10, 1] = true;
+            bitmap[11, 2] = true;
+            bitmap[12, 3] = true;
+
+            // Note head (filled oval, approximated on the grid)
+            int[,] head = new int[,]
+            {
+        { 6, 11 }, { 7, 11 }, { 8, 11 }, { 9, 11 },
+        { 5, 12 }, { 6, 12 }, { 7, 12 }, { 8, 12 }, { 9, 12 }, { 10, 12 },
+        { 5, 13 }, { 6, 13 }, { 7, 13 }, { 8, 13 }, { 9, 13 }, { 10, 13 },
+        { 6, 14 }, { 7, 14 }, { 8, 14 }, { 9, 14 },
+            };
+
+            for (int i = 0; i < head.GetLength(0); i++)
+            {
+                bitmap[head[i, 0], head[i, 1]] = true;
+            }
+
+            return bitmap;
+        }
+
+        private static readonly bool[,] SysExPreviewSampleBitmap = BuildSysExPreviewSampleBitmap();
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedIndex == Settings1.Default.SysExEmulatorColor)
+            {
+                return; // No change in selection, exit the method
+            }
+            Settings1.Default.SysExEmulatorColor = comboBox1.SelectedIndex;
+            Settings1.Default.Save();
+            string normalizedColorName = string.Empty;
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    normalizedColorName = "Classic";
+                    break;
+                case 1:
+                    normalizedColorName = "Industrial";
+                    break;
+                case 2:
+                    normalizedColorName = "Cool White";
+                    break;
+                case 3:
+                    normalizedColorName = "Warm Amber";
+                    break;
+            }
+            Logger.Log($"SysEx Emulator color scheme changed to: {normalizedColorName}", Logger.LogTypes.Info);
+            PrepareSysExDisplayPreview();
+        }
+        /// <summary>
+        /// Builds and colors a small sample SysEx display inside tableLayoutPanel1 on the
+        /// Settings window, so the user can preview the selected color scheme immediately,
+        /// without needing to open the actual SysEx Display Emulator.
+        /// </summary>
+        private void PrepareSysExDisplayPreview()
+        {
+            if (tableLayoutPanel1 == null)
+            {
+                return;
+            }
+
+            Color background;
+            Color pixel;
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0: // Classic
+                    background = Color.FromArgb(173, 216, 23);
+                    pixel = Color.FromArgb(35, 43, 18);
+                    break;
+                case 1: // Industrial
+                    background = Color.FromArgb(110, 185, 240);
+                    pixel = Color.FromArgb(10, 25, 45);
+                    break;
+                case 2: // Cool White
+                    background = Color.FromArgb(220, 230, 242);
+                    pixel = Color.FromArgb(28, 32, 38);
+                    break;
+                case 3: // Warm Amber
+                    background = Color.FromArgb(245, 150, 20);
+                    pixel = Color.FromArgb(45, 25, 5);
+                    break;
+                default:
+                    background = Color.Black;
+                    pixel = Color.Lime;
+                    break;
+            }
+
+            tableLayoutPanel1.SuspendLayout();
+            try
+            {
+                // Rebuild the grid if it doesn't exist yet OR if a previous run left it
+                // in a mismatched state (defensive — avoids "gone" cells after an error).
+                bool needsRebuild = _sysExPreviewCells == null ||
+                                     tableLayoutPanel1.ColumnCount != SysExPreviewGridSize ||
+                                     tableLayoutPanel1.RowCount != SysExPreviewGridSize;
+
+                if (needsRebuild)
+                {
+                    tableLayoutPanel1.Controls.Clear();
+                    tableLayoutPanel1.ColumnStyles.Clear();
+                    tableLayoutPanel1.RowStyles.Clear();
+
+                    tableLayoutPanel1.ColumnCount = SysExPreviewGridSize;
+                    tableLayoutPanel1.RowCount = SysExPreviewGridSize;
+                    tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.None;
+
+                    // Ensure the panel actually has room to render 16x16 cells visibly.
+                    if (tableLayoutPanel1.Width < SysExPreviewGridSize || tableLayoutPanel1.Height < SysExPreviewGridSize)
+                    {
+                        tableLayoutPanel1.MinimumSize = new Size(160, 160);
+                    }
+
+                    for (int i = 0; i < SysExPreviewGridSize; i++)
+                    {
+                        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / SysExPreviewGridSize));
+                        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / SysExPreviewGridSize));
+                    }
+
+                    _sysExPreviewCells = new Panel[SysExPreviewGridSize, SysExPreviewGridSize];
+
+                    for (int y = 0; y < SysExPreviewGridSize; y++)
+                    {
+                        for (int x = 0; x < SysExPreviewGridSize; x++)
+                        {
+                            Panel cell = new Panel
+                            {
+                                Dock = DockStyle.Fill,
+                                Margin = Padding.Empty,
+                                TabStop = false
+                            };
+                            _sysExPreviewCells[x, y] = cell;
+                            tableLayoutPanel1.Controls.Add(cell, x, y);
+                        }
+                    }
+                }
+
+                for (int y = 0; y < SysExPreviewGridSize; y++)
+                {
+                    for (int x = 0; x < SysExPreviewGridSize; x++)
+                    {
+                        bool isOn = SysExPreviewSampleBitmap[x, y];
+                        _sysExPreviewCells[x, y].BackColor = isOn ? pixel : background;
+                    }
+                }
+
+                tableLayoutPanel1.BackColor = background;
+            }
+            finally
+            {
+                tableLayoutPanel1.ResumeLayout(true); // true forces an immediate layout pass
+                tableLayoutPanel1.Invalidate(true);   // force a repaint of the panel and all its children
             }
         }
     }

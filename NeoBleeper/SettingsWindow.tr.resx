@@ -137,7 +137,7 @@
     <value>Aygıtlar</value>
   </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 617</value>
+    <value>423, 642</value>
   </data>
   <data name="appearance.Text" xml:space="preserve">
     <value>Görünüm</value>
@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAFUAQgBVAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAFcAQgBXAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -482,7 +482,7 @@
 </value>
   </data>
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 652</value>
+    <value>431, 677</value>
   </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 607</value>
@@ -1276,7 +1276,7 @@ Arduino'da yön için 9 numaralı pini, adım için 10 numaralı pini, Raspberry
 Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol edebilirsiniz.</value>
   </data>
   <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 607</value>
+    <value>413, 632</value>
   </data>
   <data name="group_keyboard_colors.Text" xml:space="preserve">
     <value>Klavye Renkleri</value>
@@ -1597,8 +1597,41 @@ Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol 
     <value>Şarkı Sözü/Metin Etkinlikleri 
 Boyutu</value>
   </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 500</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>SysEx Ekranı Öyküncüsü</value>
+  </data>
+  <data name="comboBox1.Items" xml:space="preserve">
+    <value>Klasik</value>
+  </data>
+  <data name="comboBox1.Items1" xml:space="preserve">
+    <value>Endüstriyel</value>
+  </data>
+  <data name="comboBox1.Items2" xml:space="preserve">
+    <value>Soğuk Beyaz</value>
+  </data>
+  <data name="comboBox1.Items3" xml:space="preserve">
+    <value>Sıcak Amber</value>
+  </data>
+  <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>137, 28</value>
+  </data>
+  <data name="comboBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 24</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 25</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 34</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>SysEx Ekran Öyküncüsü Teması</value>
+  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>56, 501</value>
+    <value>56, 574</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 53</value>
@@ -1637,7 +1670,7 @@ Boyutu</value>
     <value>Gelişmiş sistem hoparlörü özelliklerini ve tanılamalarını test et</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>439, 660</value>
+    <value>439, 685</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1952,6 +1985,9 @@ Boyutu</value>
         iUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCK5YPx/FGDb+Y+IaKgAAAAASUVORK5C
         YII=
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>NeoBleeper Ayarları</value>
