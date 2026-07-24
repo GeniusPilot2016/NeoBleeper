@@ -43,6 +43,10 @@ namespace NeoBleeper
         private long _playbackStartTime;
         private long _nextFrameTime;
         private bool _isStopping = false;
+        private readonly object _stopTaskLock = new object();
+        private Task _activeStopTask = Task.CompletedTask;
+        private bool _isCompletingPlayback = false;
+        private bool _playRequestedAfterCompletion = false;
         private bool _isUpdatingLabels = false;
         private MidiFile _midiFile;
         private Stopwatch _playbackStopwatch;
@@ -394,12 +398,12 @@ namespace NeoBleeper
                 return true;
             }
 
-            // If line starts with "FD:", check if it contains actual lyric payloads after stripping the prefix
+            // FD is a hardware frame-display channel, not a lyric channel.
+            // Some files mirror the text written by SysEx as an FD meta event;
+            // allowing its payload through makes display text leak into lyrics.
             if (trimmed.StartsWith("FD:", StringComparison.OrdinalIgnoreCase))
             {
-                string strippedFD = Regex.Replace(trimmed, @"^FD:\s*(Page\s*\d+\s*:?)?\s*(UF)?", "", RegexOptions.IgnoreCase).Trim();
-                if (string.IsNullOrWhiteSpace(strippedFD)) return true;
-                return false;
+                return true;
             }
 
             // ==========================================
@@ -665,6 +669,9 @@ namespace NeoBleeper
 
                 foreach (byte[] message in messages)
                 {
+                    // Keep both the bytes written by this packet and the complete
+                    // display buffer after applying it. Roland files often split a
+                    // single caption over several address writes.
                     if (RolandGSStyleDisplayDecoder.TryGetDisplayTextWrite(
                             message,
                             out _,
@@ -693,12 +700,32 @@ namespace NeoBleeper
                 }
             }
 
+            if (signaturesByTick.Count == 0)
+            {
+                return;
+            }
+
+            // Duplicate meta events are not always stamped at the exact SysEx
+            // tick. Permit a small sequencer-quantization window, while keeping
+            // matching local enough not to remove genuine lyrics elsewhere.
+            long nearbyTickTolerance = Math.Max(
+                1L,
+                _ticksPerQuarterNote > 0
+                    ? _ticksPerQuarterNote / 16L
+                    : 1L);
+
+            long[] displayTextTicks =
+                signaturesByTick.Keys.OrderBy(value => value).ToArray();
+
             foreach (long tick in metaEvents.Keys.ToList())
             {
                 List<MetaEvent> eventsAtTick = metaEvents[tick];
-                signaturesByTick.TryGetValue(
-                    tick,
-                    out HashSet<string> sameTickSignatures);
+                HashSet<string> nearbySignatures =
+                    GetNearbySysExTextSignatures(
+                        signaturesByTick,
+                        displayTextTicks,
+                        tick,
+                        nearbyTickTolerance);
 
                 eventsAtTick.RemoveAll(metaEvent =>
                 {
@@ -709,26 +736,29 @@ namespace NeoBleeper
                         NormalizeSysExComparableText(
                             SanitizeLyricQuotes(rawText));
 
-                    bool matchesSameTick = ContainsSysExTextSignature(
-                        sameTickSignatures,
-                        normalizedText,
-                        normalizedDisplayedText);
-
-                    // A same-tick match is authoritative for either a Lyric or
-                    // TextEvent. Across the rest of the file, only generic
-                    // TextEvent duplicates are suppressed so genuine lyric
-                    // events with coincidentally matching words are retained.
-                    if (matchesSameTick)
+                    // Nearby display writes are authoritative for both Lyric and
+                    // TextEvent entries. Use containment as well as equality:
+                    // display text is frequently padded, split into chunks, or
+                    // represented as the complete 32-character LCD buffer.
+                    if (ContainsSysExTextSignature(
+                            nearbySignatures,
+                            normalizedText,
+                            normalizedDisplayedText,
+                            allowPartialMatch: true))
                     {
                         return true;
                     }
 
+                    // Away from the display-write tick, suppress only an exact
+                    // generic TextEvent duplicate. This preserves genuine lyric
+                    // events that happen to repeat a word shown on the display.
                     return metaEvent.MetaEventType ==
                                MetaEventType.TextEvent &&
                            ContainsSysExTextSignature(
                                allDisplayTextSignatures,
                                normalizedText,
-                               normalizedDisplayedText);
+                               normalizedDisplayedText,
+                               allowPartialMatch: false);
                 });
 
                 if (eventsAtTick.Count == 0)
@@ -738,19 +768,122 @@ namespace NeoBleeper
             }
         }
 
+        private static HashSet<string> GetNearbySysExTextSignatures(
+            Dictionary<long, HashSet<string>> signaturesByTick,
+            long[] orderedTicks,
+            long targetTick,
+            long tolerance)
+        {
+            var result = new HashSet<string>(
+                StringComparer.OrdinalIgnoreCase);
+
+            foreach (long displayTick in orderedTicks)
+            {
+                if (displayTick < targetTick - tolerance)
+                {
+                    continue;
+                }
+
+                if (displayTick > targetTick + tolerance)
+                {
+                    break;
+                }
+
+                if (signaturesByTick.TryGetValue(
+                        displayTick,
+                        out HashSet<string> signatures))
+                {
+                    result.UnionWith(signatures);
+                }
+            }
+
+            return result;
+        }
+
         private static bool ContainsSysExTextSignature(
             HashSet<string> signatures,
             string rawText,
-            string displayedText)
+            string displayedText,
+            bool allowPartialMatch)
         {
-            if (signatures == null)
+            if (signatures == null || signatures.Count == 0)
             {
                 return false;
             }
 
-            return rawText.Length > 0 && signatures.Contains(rawText) ||
-                   displayedText.Length > 0 &&
-                   signatures.Contains(displayedText);
+            foreach (string candidate in new[] { rawText, displayedText })
+            {
+                if (string.IsNullOrEmpty(candidate))
+                {
+                    continue;
+                }
+
+                if (signatures.Contains(candidate))
+                {
+                    return true;
+                }
+
+                if (!allowPartialMatch)
+                {
+                    continue;
+                }
+
+                foreach (string signature in signatures)
+                {
+                    if (AreSysExTextVariants(candidate, signature))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static bool AreSysExTextVariants(
+            string metaText,
+            string sysExText)
+        {
+            if (string.IsNullOrEmpty(metaText) ||
+                string.IsNullOrEmpty(sysExText))
+            {
+                return false;
+            }
+
+            string compactMeta = CompactSysExComparableText(metaText);
+            string compactSysEx = CompactSysExComparableText(sysExText);
+
+            // Avoid treating tiny/common lyric fragments as display duplicates.
+            if (compactMeta.Length < 4 || compactSysEx.Length < 4)
+            {
+                return false;
+            }
+
+            return compactMeta.Contains(
+                       compactSysEx,
+                       StringComparison.OrdinalIgnoreCase) ||
+                   compactSysEx.Contains(
+                       compactMeta,
+                       StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string CompactSysExComparableText(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            StringBuilder compact = new StringBuilder(text.Length);
+            foreach (char character in text)
+            {
+                if (char.IsLetterOrDigit(character))
+                {
+                    compact.Append(char.ToUpperInvariant(character));
+                }
+            }
+
+            return compact.ToString();
         }
 
         private static void AddSysExTextSignature(
@@ -1096,13 +1229,25 @@ namespace NeoBleeper
                         .Where(RolandGSStyleDisplayDecoder.ContainsDotGraphics)
                         .ToList();
 
-                    sysExEventCount = dotGraphicsPayloads.Count;
+                    // One Roland DT1 packet can cross 7-bit address boundaries
+                    // and populate several (or all ten) Frame Draw pages. Count
+                    // decoded pages rather than packets so bulk display dumps are
+                    // recognized correctly and the emulator is enabled for them.
+                    HashSet<int> dotGraphicsPages = dotGraphicsPayloads
+                        .SelectMany(payload =>
+                            RolandGSStyleDisplayDecoder
+                                .GetDotGraphicsPagesTouched(payload))
+                        .ToHashSet();
+
+                    sysExEventCount = dotGraphicsPages.Count;
 
                     if (dotGraphicsPayloads.Count > 0)
                     {
                         StringBuilder artBuilder = new StringBuilder();
                         artBuilder.AppendLine();
                         artBuilder.AppendLine("=== Isolated Pixel Art Frames ===");
+                        artBuilder.AppendLine(
+                            $"Decoded pages: {string.Join(", ", dotGraphicsPages.OrderBy(page => page))}");
 
                         foreach (byte[] payload in dotGraphicsPayloads)
                         {
@@ -1239,8 +1384,28 @@ namespace NeoBleeper
         {
             Logger.Log($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}", Logger.LogTypes.Info);
 
-            if (_isPlaying || _frames == null || _frames.Count == 0)
+            if (_frames == null || _frames.Count == 0)
                 return;
+
+            // Completion cleanup is asynchronous. Do not lose a Play click that
+            // arrives after the music has audibly ended but before Stop/Rewind has
+            // finished normalizing the state.
+            if (_isCompletingPlayback || _isStopping)
+            {
+                _playRequestedAfterCompletion = true;
+                Logger.Log("Play was requested during completion cleanup; restart queued.", Logger.LogTypes.Info);
+                return;
+            }
+
+            if (_isPlaying)
+                return;
+
+            // Be defensive when an earlier completion path left the frame cursor
+            // at EOF. A fresh Play click must always start from the beginning.
+            if (_currentFrameIndex >= _frames.Count)
+            {
+                await SetPosition(0.0);
+            }
 
             // Wait for any previous playback task to complete, with a timeout to avoid blocking indefinitely
             if (_playbackTask != null && !_playbackTask.IsCompleted)
@@ -1295,13 +1460,15 @@ namespace NeoBleeper
                 playbackTimer.Start();
 
                 Logger.Log("Timer-based playback started successfully", Logger.LogTypes.Info);
-                button_play.Enabled = false;
-                button_stop.Enabled = true;
+                SetPlaybackButtonState(isPlaying: true);
             }
             catch (Exception ex)
             {
                 MessageForm.Show(this, $"{Resources.MessagePlaybackStartingError} {ex.Message}");
                 _isPlaying = false;
+                playbackTimer.Stop();
+                _playbackStopwatch?.Stop();
+                SetPlaybackButtonState(isPlaying: false);
             }
             finally
             {
@@ -1318,44 +1485,84 @@ namespace NeoBleeper
         /// process are logged and not propagated to the caller.</remarks>
         public async void Stop()
         {
+            await StopAsync();
+        }
+
+        /// <summary>
+        /// Performs the complete stop operation and does not return until the
+        /// playback state and controls have been normalized.
+        /// </summary>
+        private Task StopAsync()
+        {
             Logger.Log($"Stop called. IsPlaying: {_isPlaying}", Logger.LogTypes.Info);
 
-            if (!_isPlaying)
+            // Every caller must observe the same stop transaction. Returning early
+            // while another StopAsync is running lets Rewind/Play mutate the cursor
+            // and token source before cleanup has finished, leaving the controls and
+            // playback state stuck.
+            lock (_stopTaskLock)
             {
-                ResetSysExDisplayState();
-                return;
-            }
+                if (!_activeStopTask.IsCompleted)
+                {
+                    SetPlaybackButtonState(isPlaying: false);
+                    return _activeStopTask;
+                }
 
+                _activeStopTask = StopCoreAsync();
+                return _activeStopTask;
+            }
+        }
+
+        private async Task StopCoreAsync()
+        {
             _isStopping = true;
             try
             {
                 playbackTimer.Stop();
                 _playbackStopwatch?.Stop();
+
                 _isPlaying = false;
                 _isAlternatingPlayback = false;
 
-                // Reset lyric state
+                // Restore the buttons immediately. Lengthy note cancellation or
+                // device cleanup must not leave the form looking as if it plays.
+                SetPlaybackButtonState(isPlaying: false);
+
                 _lastLyricTime = DateTime.MinValue;
                 _isInLyricSection = false;
 
-                // Cancel the playback task
-                _cancellationTokenSource?.Cancel();
-
-                // Wait for the playback task to complete asynchronously
-                if (_playbackTask != null && !_playbackTask.IsCompleted)
+                CancellationTokenSource cancellation = _cancellationTokenSource;
+                try
                 {
-                    await _playbackTask;
+                    cancellation?.Cancel();
+                }
+                catch (ObjectDisposedException)
+                {
+                    // A concurrent completion path may already have disposed it.
                 }
 
-                // Reset UI elements
-                button_play.Enabled = true;
-                button_stop.Enabled = false;
+                Task playbackTask = _playbackTask;
+                if (playbackTask != null && !playbackTask.IsCompleted)
+                {
+                    try
+                    {
+                        await playbackTask;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Expected while stopping.
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log($"Playback task ended while stopping: {ex.Message}", Logger.LogTypes.Error);
+                    }
+                }
+
                 UpdateNoteLabels(new HashSet<int>());
                 holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} (0)";
                 label_more_notes.Visible = false;
                 ClearLyrics();
                 ResetSysExDisplayState();
-                // Reset drifts 
                 driftMs = 0;
                 MIDIIOUtils.SendNoteOffToAllNotes();
             }
@@ -1365,11 +1572,52 @@ namespace NeoBleeper
             }
             finally
             {
-                _isStopping = false;
-                try { _cancellationTokenSource?.Dispose(); } catch { }
+                _isPlaying = false;
+                _isAlternatingPlayback = false;
+                SetPlaybackButtonState(isPlaying: false);
+
+                try
+                {
+                    _cancellationTokenSource?.Dispose();
+                }
+                catch
+                {
+                }
+
                 _cancellationTokenSource = null;
+                _isStopping = false;
             }
         }
+
+        /// <summary>
+        /// Keeps the Play and Stop buttons synchronized with the real playback
+        /// state. It is safe to call from timer/task completion paths.
+        /// </summary>
+        private void SetPlaybackButtonState(bool isPlaying)
+        {
+            if (IsDisposed || Disposing)
+            {
+                return;
+            }
+
+            if (InvokeRequired)
+            {
+                try
+                {
+                    BeginInvoke(new Action<bool>(SetPlaybackButtonState), isPlaying);
+                }
+                catch (InvalidOperationException)
+                {
+                    // The form handle was destroyed while playback was ending.
+                }
+
+                return;
+            }
+
+            button_play.Enabled = !isPlaying;
+            button_stop.Enabled = isPlaying;
+        }
+
         // Add this field to track the current playback task
         private Task _playbackTask = Task.CompletedTask;
         private bool _wasPlayingBeforeScroll = false;
@@ -1396,15 +1644,9 @@ namespace NeoBleeper
                 _wasPlayingBeforeScroll = _isPlaying;
 
             // Stop current playback if any
-            if (_isPlaying)
+            if (_isPlaying || _isStopping)
             {
-                Stop();
-
-                if (_playbackTask != null && !_playbackTask.IsCompleted)
-                {
-                    try { await Task.WhenAny(_playbackTask, Task.Delay(1000)); }
-                    catch (Exception ex) { Logger.Log($"Error waiting for playback task: {ex.Message}", Logger.LogTypes.Error); }
-                }
+                await StopAsync();
             }
 
             // Map percent [0..100] -> frame index [0..count-1] with rounding
@@ -1438,6 +1680,16 @@ namespace NeoBleeper
         /// <param name="activeNotes">A set of MIDI note numbers that are currently active. Each integer represents a MIDI note to be displayed.</param>
         private void UpdateNoteLabelsSync(HashSet<int> activeNotes)
         {
+            // The first file can be opened before the form Load event has created
+            // the note-label cache. Playback cleanup must therefore be harmless
+            // while the controls are still uninitialized.
+            if (_noteLabels == null || _noteLabels.Length == 0)
+            {
+                _lastDrawnNotes = new HashSet<int>(activeNotes ?? new HashSet<int>());
+                return;
+            }
+
+            activeNotes ??= new HashSet<int>();
             if (_lastDrawnNotes.SetEquals(activeNotes))
                 return;
 
@@ -1448,6 +1700,8 @@ namespace NeoBleeper
             for (int i = 0; i < _noteLabels.Length; i++)
             {
                 Label label = _noteLabels[i];
+                if (label == null) continue;
+
                 if (i < sortedNotes.Count)
                 {
                     int noteNumber = sortedNotes[i];
@@ -1823,7 +2077,7 @@ namespace NeoBleeper
         /// <remarks>If playback was active before rewinding, playback resumes automatically after the
         /// operation completes. All lyric timing and progress indicators are reset to their initial states.</remarks>
         /// <returns>A task that represents the asynchronous rewind operation.</returns>
-        private async Task Rewind()
+        private async Task Rewind(bool resumePreviousPlayback = true)
         {
             // Reset lyric state
             _lastLyricTime = DateTime.MinValue;
@@ -1835,10 +2089,12 @@ namespace NeoBleeper
             UpdateTimeAndPercentPosition(_currentFrameIndex);
             driftMs = 0; // Reset drifts
             ResetLabelsAndTrackBar();
-            if (_wasPlayingBeforeScroll)
+            bool shouldResume = resumePreviousPlayback && _wasPlayingBeforeScroll;
+            _wasPlayingBeforeScroll = false;
+
+            if (shouldResume)
             {
                 Play();
-                _wasPlayingBeforeScroll = false;
             }
             Logger.Log("Rewind completed", Logger.LogTypes.Info);
         }
@@ -1878,6 +2134,16 @@ namespace NeoBleeper
         /// correspond to a valid MIDI note.</param>
         private void UpdateNoteLabels(HashSet<int> activeNotes)
         {
+            // Opening the first MIDI file can trigger Stop/Reset before
+            // InitializeNoteLabels runs in the Load event. Nothing needs to be
+            // painted until the label cache exists.
+            if (_noteLabels == null || _noteLabels.Length == 0)
+            {
+                _previousActiveNotes = new HashSet<int>(activeNotes ?? new HashSet<int>());
+                return;
+            }
+
+            activeNotes ??= new HashSet<int>();
             if (_isUpdatingLabels) return; _isUpdatingLabels = true; try
             { // Sort notes once, outside the UI update action
                 var sortedNotes = activeNotes.OrderBy(note => note).ToList();
@@ -1898,6 +2164,7 @@ namespace NeoBleeper
                     {
                         int noteNumber = sortedNotes[i];
                         Label label = _noteLabels[i];
+                        if (label == null) continue;
 
                         // Convert note number to note name
                         string noteName = MidiNoteToName(noteNumber);
@@ -2334,15 +2601,11 @@ namespace NeoBleeper
             // Playback is complete after every audio/lyric frame is processed.
             if (_currentFrameIndex >= _frames.Count)
             {
+                // Apply anything already due, but never keep the musical playback
+                // state alive for a future SysEx event or a display timeout. Some
+                // files contain late/malformed display timestamps, which previously
+                // left _isPlaying true forever and made Stop/Rewind/Play appear dead.
                 ProcessPendingSysExDisplayEvents(currentSongTimeMs);
-
-                // Audio/lyrics can finish before the final SysEx image or its display
-                // timeout. Keep the timer alive until the visual timeline is complete.
-                if (HasPendingSysExDisplayWork(currentSongTimeMs))
-                {
-                    return;
-                }
-
                 HandlePlaybackComplete();
                 return;
             }
@@ -2579,8 +2842,21 @@ namespace NeoBleeper
                 fragment != null &&
                 fragment.Length > 0 &&
                 fragment[0] == 0xF7;
+            bool fragmentStartsRolandDt1 =
+                RolandGSStyleDisplayDecoder
+                    .LooksLikeRolandDt1PacketStart(fragment);
 
-            if ((isContinuation || fragmentStartsWithF7) && pending != null)
+            // NAudio's SysEx payload omits F0/F7 and some versions expose
+            // both SMF F0 and F7 events with the same Sysex command code.
+            // A fragment without a new Roland header therefore continues the
+            // pending packet instead of incorrectly flushing it as a new one.
+            bool continuesPendingPacket = pending != null &&
+                (isContinuation ||
+                 fragmentStartsWithF7 ||
+                 (!fragmentStartsWithF0 &&
+                  !fragmentStartsRolandDt1));
+
+            if (continuesPendingPacket)
             {
                 pendingLastTick = sysexEvent.AbsoluteTime;
                 AppendSysExFragment(
@@ -2588,7 +2864,9 @@ namespace NeoBleeper
                     fragment,
                     stripLeadingStatusByte: fragmentStartsWithF7);
             }
-            else if (isStart || fragmentStartsWithF0)
+            else if (isStart ||
+                     fragmentStartsWithF0 ||
+                     fragmentStartsRolandDt1)
             {
                 // A new F0 starts a new packet. Preserve a previous malformed or
                 // checksum-tolerant packet rather than silently dropping it.
@@ -3270,13 +3548,21 @@ namespace NeoBleeper
         /// <returns>A task that represents the asynchronous wait operation.</returns>
         private async Task WaitPreciseWithCancellation(int milliseconds, CancellationToken cancellationToken)
         {
+            if (milliseconds <= 0)
+                return;
+
+            // Silent frames do not need high-precision speaker timing. Use the
+            // framework delay here because it guarantees that Stop/Rewind can
+            // interrupt a long rest immediately through the cancellation token.
+            cancellationToken.ThrowIfCancellationRequested();
+
             try
             {
-                await HighPrecisionSleep.SleepAsync(milliseconds, cancellationToken);
+                await Task.Delay(milliseconds, cancellationToken).ConfigureAwait(false);
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-                Logger.Log($"Silent frame wait was canceled after {milliseconds}ms", Logger.LogTypes.Info);
+                Logger.Log($"Silent frame wait was canceled before {milliseconds}ms elapsed", Logger.LogTypes.Info);
                 throw;
             }
         }
@@ -3400,9 +3686,27 @@ namespace NeoBleeper
         /// </summary>
         private async void HandlePlaybackComplete()
         {
+            // Timer ticks can observe EOF more than once before this async handler
+            // reaches its first awaited cleanup operation. Only one completion
+            // transaction may run at a time.
+            if (_isCompletingPlayback)
+            {
+                return;
+            }
+
+            _isCompletingPlayback = true;
             try
             {
                 if (!_isPlaying) return;
+
+                // Atomically leave the playing state before any asynchronous cleanup.
+                // This prevents additional timer ticks and makes Stop/Rewind safe even
+                // when clicked at the exact end of the file. Play clicks are queued by
+                // Play() while _isCompletingPlayback remains true.
+                _isPlaying = false;
+                playbackTimer.Stop();
+                _playbackStopwatch?.Stop();
+                SetPlaybackButtonState(isPlaying: false);
 
                 // Ensure UI shows final position (100%)
                 try
@@ -3444,25 +3748,46 @@ namespace NeoBleeper
                 if (checkBox_loop.Checked)
                 {
                     Logger.Log("Playback loop enabled. Rewinding.", Logger.LogTypes.Info);
-                    await Rewind();
+                    await Rewind(resumePreviousPlayback: false);
                     Play();
                 }
                 else
                 {
                     Logger.Log("Playback finished.", Logger.LogTypes.Info);
-                    Stop();
-                    await Rewind();
+                    // Natural EOF must never inherit a scroll-resume request.
+                    // Otherwise Rewind() can restart playback even when Loop is off.
+                    _wasPlayingBeforeScroll = false;
+                    await StopAsync();
+                    await Rewind(resumePreviousPlayback: false);
                     ResetSysExDisplayState();
                 }
             }
             catch (Exception ex)
             {
                 Logger.Log($"An error occurred in HandlePlaybackComplete: {ex.Message}", Logger.LogTypes.Error);
-                Stop();
+                await StopAsync();
             }
             finally
             {
+                _isCompletingPlayback = false;
                 Logger.Log("Timer-based playback completed", Logger.LogTypes.Info);
+
+                // Honor a click made while StopAsync/Rewind was still running.
+                // Clear the flag before calling Play so another genuine click can
+                // be queued independently if startup encounters cleanup again.
+                if (_playRequestedAfterCompletion &&
+                    !_isPlaying &&
+                    !_isStopping &&
+                    !IsDisposed &&
+                    !Disposing)
+                {
+                    _playRequestedAfterCompletion = false;
+                    Play();
+                }
+                else if (!_isStopping)
+                {
+                    _playRequestedAfterCompletion = false;
+                }
             }
         }
 

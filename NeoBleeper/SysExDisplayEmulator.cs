@@ -830,6 +830,10 @@ namespace NeoBleeper
 
         private const int PageCount = 10;
         private const int BytesPerPage = 64;
+        private const int DotAddressMidStart = 0x01;
+        private const int DotAddressMidEnd = 0x05;
+        private const int DotAddressBlockSize = 0x80;
+        private const int TotalDotBytes = PageCount * BytesPerPage;
         private const int DefaultDisplayTimeValue = 0x06;
         private const int FullFrameWithoutLastColumnBytes = 48;
 
@@ -933,7 +937,7 @@ namespace NeoBleeper
                     message,
                     out byte modelId,
                     out int address,
-                    out _,
+                    out byte[] data,
                     out _))
             {
                 return false;
@@ -941,11 +945,66 @@ namespace NeoBleeper
 
             int addressMsb = (address >> 16) & 0x7F;
             int addressMid = (address >> 8) & 0x7F;
+            int addressLsb = address & 0x7F;
+            int dotStartOffset = GetDotLinearAddress(
+                addressMid,
+                addressLsb);
 
             return modelId == 0x45 &&
                    addressMsb == 0x10 &&
-                   addressMid >= 0x01 &&
-                   addressMid <= 0x05;
+                   dotStartOffset >= 0 &&
+                   dotStartOffset < TotalDotBytes &&
+                   data.Length > 0;
+        }
+
+        /// <summary>
+        /// Returns every Frame Draw page touched by a dot-data DT1 packet.
+        /// A single packet may cross 7-bit address boundaries and populate
+        /// several or all of the ten pages.
+        /// </summary>
+        public static IReadOnlyList<int> GetDotGraphicsPagesTouched(
+            byte[] message)
+        {
+            if (!TryParseRolandDt1(
+                    message,
+                    out byte modelId,
+                    out int address,
+                    out byte[] data,
+                    out _) ||
+                modelId != 0x45)
+            {
+                return Array.Empty<int>();
+            }
+
+            int addressMsb = (address >> 16) & 0x7F;
+            int addressMid = (address >> 8) & 0x7F;
+            int addressLsb = address & 0x7F;
+            int dotStartOffset = GetDotLinearAddress(
+                addressMid,
+                addressLsb);
+
+            if (addressMsb != 0x10 ||
+                dotStartOffset < 0 ||
+                dotStartOffset >= TotalDotBytes ||
+                data.Length == 0)
+            {
+                return Array.Empty<int>();
+            }
+
+            int dotEndExclusive = Math.Min(
+                TotalDotBytes,
+                dotStartOffset + data.Length);
+            int firstPage = (dotStartOffset / BytesPerPage) + 1;
+            int lastPage =
+                ((dotEndExclusive - 1) / BytesPerPage) + 1;
+
+            int[] pages = new int[lastPage - firstPage + 1];
+            for (int i = 0; i < pages.Length; i++)
+            {
+                pages[i] = firstPage + i;
+            }
+
+            return pages;
         }
 
         /// <summary>
@@ -1008,6 +1067,30 @@ namespace NeoBleeper
         /// checksum proves that the current fragment contains a complete DT1.
         /// A terminating F7 also proves completion, including framing-only clears.
         /// </summary>
+        /// <summary>
+        /// Detects the beginning of a Roland DT1 packet without requiring the
+        /// checksum or terminator to be present. NAudio exposes SysEx payloads
+        /// without F0/F7, so this is used only to distinguish a new packet from
+        /// an SMF F7 continuation fragment.
+        /// </summary>
+        public static bool LooksLikeRolandDt1PacketStart(
+            byte[] message)
+        {
+            if (message == null || message.Length == 0)
+            {
+                return false;
+            }
+
+            int header =
+                message[0] == 0xF0 || message[0] == 0xF7
+                    ? 1
+                    : 0;
+
+            return header + 6 < message.Length &&
+                   message[header] == 0x41 &&
+                   message[header + 3] == 0x12;
+        }
+
         public static bool IsCompleteDisplayPacket(byte[] message)
         {
             if (message == null || message.Length == 0)
@@ -1104,20 +1187,25 @@ namespace NeoBleeper
                     }
                 }
 
-                CurrentPage = 0;
-                visibleChanged = changed || data.Length > 0;
+                // Display-letter writes update the independent text buffer.
+                // They must not switch the selected dot-graphics page to page 0
+                // or request a pixel repaint; doing so blanks the currently
+                // displayed pixel art whenever text arrives.
+                visibleChanged = false;
+
                 // Only model-45 display-letter DT1 packets set this flag.
                 // Lyrics, MIDI meta text and dot-picture data never reach it.
                 textChanged = changed || data.Length > 0;
                 return true;
             }
 
-            if (addressMid >= 0x01 && addressMid <= 0x05)
+            int dotStartOffset = GetDotLinearAddress(
+                addressMid,
+                addressLsb);
+            if (dotStartOffset >= 0)
             {
-                int firstPageInPair = ((addressMid - 1) * 2) + 1;
                 PrepareAuthoritativeFrames(
-                    firstPageInPair,
-                    addressLsb,
+                    dotStartOffset,
                     data);
 
                 bool visiblePageWasAddressed = false;
@@ -1126,21 +1214,15 @@ namespace NeoBleeper
 
                 for (int i = 0; i < data.Length; i++)
                 {
-                    int pageRelativeAddress = addressLsb + i;
-                    if (pageRelativeAddress > 0x7F)
+                    int dotOffset = dotStartOffset + i;
+                    if (dotOffset >= TotalDotBytes)
                     {
                         break;
                     }
 
-                    int pageNumber = pageRelativeAddress < 0x40
-                        ? firstPageInPair
-                        : firstPageInPair + 1;
-                    int byteIndex = pageRelativeAddress & 0x3F;
-
-                    if (pageNumber < 1 || pageNumber > PageCount)
-                    {
-                        continue;
-                    }
+                    int pageNumber =
+                        (dotOffset / BytesPerPage) + 1;
+                    int byteIndex = dotOffset % BytesPerPage;
 
                     bool isVisiblePage = pageNumber == CurrentPage;
                     visiblePageWasAddressed |= isVisiblePage;
@@ -1208,26 +1290,28 @@ namespace NeoBleeper
         /// omitted bytes first. Shorter writes retain Roland's partial-write behavior.
         /// </summary>
         private void PrepareAuthoritativeFrames(
-            int firstPageInPair,
-            int addressLsb,
+            int dotStartOffset,
             byte[] data)
         {
             int dataOffset = 0;
-            int relativeAddress = addressLsb;
+            int dotOffset = dotStartOffset;
 
-            while (dataOffset < data.Length && relativeAddress <= 0x7F)
+            while (dataOffset < data.Length &&
+                   dotOffset < TotalDotBytes)
             {
-                int pageNumber = relativeAddress < 0x40
-                    ? firstPageInPair
-                    : firstPageInPair + 1;
-                int pageOffset = relativeAddress & 0x3F;
+                int pageNumber =
+                    (dotOffset / BytesPerPage) + 1;
+                int pageOffset = dotOffset % BytesPerPage;
                 int bytesAvailableInPage = BytesPerPage - pageOffset;
+                int bytesRemainingInDisplay =
+                    TotalDotBytes - dotOffset;
                 int segmentLength = Math.Min(
                     bytesAvailableInPage,
-                    data.Length - dataOffset);
+                    Math.Min(
+                        data.Length - dataOffset,
+                        bytesRemainingInDisplay));
 
-                if (pageNumber >= 1 && pageNumber <= PageCount &&
-                    pageOffset == 0 &&
+                if (pageOffset == 0 &&
                     segmentLength >= FullFrameWithoutLastColumnBytes)
                 {
                     Array.Clear(
@@ -1237,8 +1321,31 @@ namespace NeoBleeper
                 }
 
                 dataOffset += segmentLength;
-                relativeAddress += segmentLength;
+                dotOffset += segmentLength;
             }
+        }
+
+        /// <summary>
+        /// Converts Roland's 7-bit dot-memory address into a linear offset.
+        /// Address carry from 10 01 7F to 10 02 00 is significant because
+        /// one DT1 packet may contain more than a single page pair.
+        /// </summary>
+        private static int GetDotLinearAddress(
+            int addressMid,
+            int addressLsb)
+        {
+            if (addressMid < DotAddressMidStart ||
+                addressMid > DotAddressMidEnd ||
+                addressLsb < 0 ||
+                addressLsb >= DotAddressBlockSize)
+            {
+                return -1;
+            }
+
+            return
+                ((addressMid - DotAddressMidStart) *
+                 DotAddressBlockSize) +
+                addressLsb;
         }
 
         public bool ExpireDisplay()

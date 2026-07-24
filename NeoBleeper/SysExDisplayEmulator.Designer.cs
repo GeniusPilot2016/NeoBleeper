@@ -38,6 +38,7 @@
             resources.ApplyResources(sysexEmulatorBase, "sysexEmulatorBase");
             sysexEmulatorBase.BackColor = Color.FromArgb(173, 216, 23);
             sysexEmulatorBase.ForeColor = Color.DimGray;
+            sysexEmulatorBase.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
             sysexEmulatorBase.Name = "sysexEmulatorBase";
             // 
             // textBoxSysExText
@@ -51,7 +52,7 @@
             // SysExDisplayEmulator
             // 
             resources.ApplyResources(this, "$this");
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Dpi;
             ControlBox = false;
             Controls.Add(textBoxSysExText);
             Controls.Add(sysexEmulatorBase);
