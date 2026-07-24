@@ -966,6 +966,31 @@ namespace NeoBleeper
             typeof(SysexEvent).GetField("data", BindingFlags.Instance | BindingFlags.NonPublic) ??
             typeof(SysexEvent).GetField("_data", BindingFlags.Instance | BindingFlags.NonPublic);
 
+        CancellationTokenSource midiFileLoadCts = new CancellationTokenSource();
+
+        /// <summary>
+        /// Safely executes UI updates checking for handle availability and form disposal.
+        /// </summary>
+        private void SafeInvoke(Action action)
+        {
+            if (IsDisposed || Disposing || !IsHandleCreated) return;
+            try
+            {
+                if (InvokeRequired)
+                {
+                    BeginInvoke(action);
+                }
+                else
+                {
+                    action();
+                }
+            }
+            catch (Exception ex) when (ex is ObjectDisposedException || ex is InvalidOperationException)
+            {
+                // Form or control was disposed while marshaling to the UI thread
+            }
+        }
+
         /// <summary>
         /// Asynchronously loads a MIDI file and prepares it for playback and analysis.
         /// </summary>
@@ -976,84 +1001,102 @@ namespace NeoBleeper
         /// thread.</remarks>
         /// <param name="filename">The path to the MIDI file to load. Must refer to a valid, accessible MIDI file.</param>
         /// <returns>A task that represents the asynchronous load operation.</returns>
+        
         private async Task LoadMIDI(string filename)
         {
+            // 1. Cancel previous load operation safely
             try
             {
-                sysExEventCount = 0; // Reset the SysEx event counter variable.
-                lyricsChunkCount = 0; // Reset the chunk counter variable.
-                DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes during loading
-                panelLoading.Visible = true;
-                labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
-                progressBar1.Value = 0;
-                progressBar1.Maximum = 100;
-                progressBar1.Visible = true;
+                midiFileLoadCts?.Cancel();
+            }
+            catch (ObjectDisposedException) { }
+
+            var loadCts = new CancellationTokenSource();
+            midiFileLoadCts = loadCts;
+            CancellationToken loadToken = loadCts.Token;
+
+            try
+            {
+                if (loadToken.IsCancellationRequested) return;
+
+                // 2. Stop active playback before state reset
+                await StopAsync();
+
+                if (loadToken.IsCancellationRequested) return;
+
+                // Reset UI indicators safely
+                SafeInvoke(() =>
+                {
+                    sysExEventCount = 0;
+                    lyricsChunkCount = 0;
+                    DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled);
+
+                    panelLoading.Visible = true;
+                    labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = 100;
+                    progressBar1.Visible = true;
+                });
 
                 _currentFileName = filename;
-                Stop();
-                _noteChannels.Clear();
-                _metaEventsByTime.Clear();
-                _eventsByTime.Clear();
-                _sysExEventsByTime.Clear();
-                _sysExDisplayEventTimes.Clear();
-                _nextSysExDisplayEventIndex = 0;
-                ResetSysExDisplayState();
 
-                // Offload heavy processing to a background thread
+                // 3. Thread-local isolated staging variables
+                MidiFile localMidiFile = null;
+                int localTicksPerQuarterNote = 500;
+                var localTempoEvents = new List<(long time, int tempo)>();
+                var localNoteChannels = new Dictionary<int, int>();
+                var localEventsByTime = new Dictionary<long, List<MidiEvent>>();
+                var localMetaDict = new Dictionary<long, List<MetaEvent>>();
+                var localSysExDict = new Dictionary<long, List<byte[]>>();
+                var localFrames = new List<(long Time, HashSet<int> ActiveNotes)>();
+                var localRearticulatedNotes = new HashSet<(int NoteNumber, long Time)>();
+                int localLyricsCount = 0;
+                int localSysExCount = 0;
+
+                // 4. Background parsing task with boolean cancellation checks
                 await Task.Run(() =>
                 {
-                    var midiFile = new MidiFile(filename, false);
-                    _midiFile = midiFile;
-                    _ticksPerQuarterNote = midiFile.DeltaTicksPerQuarterNote;
-                    _tempoEvents = new List<(long time, int tempo)>();
+                    if (loadToken.IsCancellationRequested) return;
+                    localMidiFile = new MidiFile(filename, false);
+                    localTicksPerQuarterNote = localMidiFile.DeltaTicksPerQuarterNote;
 
-                    // Extract tempo information
-                    int trackCount = midiFile.Events.Tracks;
-
-                    foreach (var track in midiFile.Events)
+                    foreach (var track in localMidiFile.Events)
                     {
+                        if (loadToken.IsCancellationRequested) return;
                         foreach (var midiEvent in track)
                         {
                             if (midiEvent is TempoEvent tempoEvent)
                             {
-                                _tempoEvents.Add((tempoEvent.AbsoluteTime, tempoEvent.MicrosecondsPerQuarterNote));
+                                localTempoEvents.Add((tempoEvent.AbsoluteTime, tempoEvent.MicrosecondsPerQuarterNote));
                             }
 
-                            // Add events to dictionary by time
-                            if (!_eventsByTime.TryGetValue(midiEvent.AbsoluteTime, out var eventList))
+                            if (!localEventsByTime.TryGetValue(midiEvent.AbsoluteTime, out var eventList))
                             {
                                 eventList = new List<MidiEvent>();
-                                _eventsByTime[midiEvent.AbsoluteTime] = eventList;
+                                localEventsByTime[midiEvent.AbsoluteTime] = eventList;
                             }
                             eventList.Add(midiEvent);
                         }
                     }
-                    // Sort tempo events by time and add a default if none are found
-                    if (!_tempoEvents.Any())
+
+                    if (!localTempoEvents.Any())
                     {
-                        _tempoEvents.Add((0, 500000)); // Default to 120 BPM
+                        localTempoEvents.Add((0, 500000));
                     }
                     else
                     {
-                        _tempoEvents = _tempoEvents.OrderBy(t => t.time).ToList();
+                        localTempoEvents = localTempoEvents.OrderBy(t => t.time).ToList();
                     }
 
-
-                    // Collect MIDI events
-                    UpdateProgressBar(30, Resources.TextMIDIEventsAreBeingCollected);
+                    SafeUpdateProgressBar(30, Resources.TextMIDIEventsAreBeingCollected, loadToken);
                     var allEvents = new List<(long Time, int NoteNumber, bool IsNoteOn, int Channel)>();
-                    int totalTracks = midiFile.Events.Tracks;
+                    int totalTracks = localMidiFile.Events.Tracks;
                     int processedTracks = 0;
 
-                    // Local dictionaries for lyric/text and display SysEx events.
-                    var metaDict = new Dictionary<long, List<MetaEvent>>();
-                    var sysExDict = new Dictionary<long, List<byte[]>>();
-
-                    foreach (var track in midiFile.Events)
+                    foreach (var track in localMidiFile.Events)
                     {
-                        // Standard MIDI files may split one SysEx message into an F0
-                        // event followed by one or more F7 continuation events. Keep
-                        // fragments per track and publish only complete/reassembled packets.
+                        if (loadToken.IsCancellationRequested) return;
+
                         List<byte> pendingSysEx = null;
                         long pendingSysExStartTick = 0;
                         long pendingSysExLastTick = 0;
@@ -1064,120 +1107,99 @@ namespace NeoBleeper
                             {
                                 var noteEvent = (NoteOnEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
-                                _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
+                                localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
                             {
                                 var noteEvent = (NoteEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
-                                if (!_noteChannels.ContainsKey(noteEvent.NoteNumber))
+                                if (!localNoteChannels.ContainsKey(noteEvent.NoteNumber))
                                 {
-                                    _noteChannels[noteEvent.NoteNumber] = noteEvent.Channel; // or 0
+                                    localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                                 }
                             }
                             else if (midiEvent is SysexEvent sysexEvent)
                             {
-                                if (!TryExtractSysExData(
-                                        sysexEvent,
-                                        out byte[] sysExData))
+                                if (TryExtractSysExData(sysexEvent, out byte[] sysExData))
                                 {
-                                    continue;
+                                    CollectSysExFragment(
+                                        sysexEvent,
+                                        sysExData,
+                                        localSysExDict,
+                                        ref pendingSysEx,
+                                        ref pendingSysExStartTick,
+                                        ref pendingSysExLastTick);
                                 }
-
-                                CollectSysExFragment(
-                                    sysexEvent,
-                                    sysExData,
-                                    sysExDict,
-                                    ref pendingSysEx,
-                                    ref pendingSysExStartTick,
-                                    ref pendingSysExLastTick);
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.MetaEvent)
                             {
-                                // Collect lyric/text meta events so it can create frames at their times
                                 var meta = (MetaEvent)midiEvent;
                                 if (meta.MetaEventType == MetaEventType.Lyric || meta.MetaEventType == MetaEventType.TextEvent)
                                 {
                                     string rawText = ExtractLyricsFromMetaEvent(meta);
-
-                                    // Filter out system setup texts/junk and hardware commands
                                     if (!IsTextEventJunk(rawText))
                                     {
-                                        if (!metaDict.TryGetValue(meta.AbsoluteTime, out var list))
+                                        if (!localMetaDict.TryGetValue(meta.AbsoluteTime, out var list))
                                         {
                                             list = new List<MetaEvent>();
-                                            metaDict[meta.AbsoluteTime] = list;
+                                            localMetaDict[meta.AbsoluteTime] = list;
                                         }
                                         list.Add(meta);
-                                        lyricsChunkCount++;
                                     }
                                 }
                             }
                         }
 
                         FlushPendingSysExFragment(
-                            sysExDict,
+                            localSysExDict,
                             ref pendingSysEx,
                             ref pendingSysExStartTick,
                             ref pendingSysExLastTick);
 
                         processedTracks++;
-                        int percent = 30 + (int)(20.0 * processedTracks / totalTracks); // Between 30% and 50%
-                        UpdateProgressBar(percent, $"{Resources.TextEventsAreBeingCollected} ({processedTracks}/{totalTracks})");
+                        int percent = 30 + (int)(20.0 * processedTracks / Math.Max(1, totalTracks));
+                        SafeUpdateProgressBar(percent, $"{Resources.TextEventsAreBeingCollected} ({processedTracks}/{totalTracks})", loadToken);
                     }
 
-                    // Some files duplicate Roland display-letter SysEx as ordinary
-                    // MIDI lyric/text events. Keep that content exclusively in
-                    // textBoxSysExText instead of also sending it to the lyric overlay.
-                    RemoveSysExDisplayTextFromLyrics(metaDict, sysExDict);
-                    lyricsChunkCount = metaDict.Values.Sum(events => events.Count);
+                    RemoveSysExDisplayTextFromLyrics(localMetaDict, localSysExDict);
+                    localLyricsCount = localMetaDict.Values.Sum(events => events.Count);
 
-                    // Sort events by time
-                    UpdateProgressBar(55, Resources.TextEventsAreBeingSorted);
+                    SafeUpdateProgressBar(55, Resources.TextEventsAreBeingSorted, loadToken);
                     allEvents = allEvents.OrderBy(e => e.Time).ToList();
 
-                    // --- Detect rearticulated notes ---
-                    _rearticulatedNotes.Clear();
                     var noteEventsByTime = allEvents.GroupBy(e => e.Time);
                     foreach (var timeGroup in noteEventsByTime)
                     {
+                        if (loadToken.IsCancellationRequested) return;
                         var noteOffs = timeGroup.Where(e => !e.IsNoteOn).Select(e => e.NoteNumber).ToHashSet();
                         var noteOns = timeGroup.Where(e => e.IsNoteOn).Select(e => e.NoteNumber).ToHashSet();
-                        var rearticulated = noteOffs.Intersect(noteOns);
-                        foreach (var note in rearticulated)
+                        foreach (var note in noteOffs.Intersect(noteOns))
                         {
-                            _rearticulatedNotes.Add((note, timeGroup.Key));
+                            localRearticulatedNotes.Add((note, timeGroup.Key));
                         }
                     }
 
-                    // Audio frames must contain only note and lyric/text times.
-                    // Adding SysEx timestamps here splits held notes into tiny audio
-                    // segments and causes gaps or broken PC-speaker playback.
                     var timePoints = allEvents.Select(e => e.Time)
-                                              .Concat(metaDict.Keys)
+                                              .Concat(localMetaDict.Keys)
                                               .Distinct()
                                               .OrderBy(t => t)
                                               .ToList();
 
-                    // A MIDI file may contain only display SysEx events. Keep one
-                    // empty audio frame so the playback timer can still advance the
-                    // independent SysEx timeline.
                     if (timePoints.Count == 0 &&
-                        sysExDict.Values
-                            .SelectMany(events => events)
-                            .Any(RolandGSStyleDisplayDecoder.AffectsDisplayState))
+                        localSysExDict.Values.SelectMany(events => events).Any(RolandGSStyleDisplayDecoder.AffectsDisplayState))
                     {
                         timePoints.Add(0);
                     }
 
-                    // Create frames
-                    UpdateProgressBar(60, Resources.TextFramesAreBeingCreated);
-                    _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
+                    SafeUpdateProgressBar(60, Resources.TextFramesAreBeingCreated, loadToken);
                     HashSet<int> currentlyActiveNotes = new HashSet<int>();
                     int totalTimePoints = timePoints.Count;
 
+                    // Notice the check here: gracefully return without throwing an exception!
                     for (int i = 0; i < totalTimePoints; i++)
                     {
+                        if (i % 256 == 0 && loadToken.IsCancellationRequested) return;
+
                         var time = timePoints[i];
                         foreach (var evt in allEvents.Where(e => e.Time == time))
                         {
@@ -1186,113 +1208,119 @@ namespace NeoBleeper
                             else
                                 currentlyActiveNotes.Remove(evt.NoteNumber);
                         }
-                        _frames.Add((time, new HashSet<int>(currentlyActiveNotes)));
+                        localFrames.Add((time, new HashSet<int>(currentlyActiveNotes)));
 
-                        // Update progress bar every 5% of frames processed
                         if (i % Math.Max(1, totalTimePoints / 20) == 0)
                         {
-                            int percent = 60 + (int)(35.0 * i / totalTimePoints); // Between 60% and 95%
-                            UpdateProgressBar(percent, $"{Resources.TextFramesAreBeingCreated} ({i + 1}/{totalTimePoints})");
+                            int percent = 60 + (int)(35.0 * i / totalTimePoints);
+                            SafeUpdateProgressBar(percent, $"{Resources.TextFramesAreBeingCreated} ({i + 1}/{totalTimePoints})", loadToken);
                         }
                     }
 
-                    // Keep every command that can affect the Roland display state.
-                    // Short packets are important: page selection, page zero/clear,
-                    // display time and GS Reset packets are all small messages.
-                    foreach (var key in sysExDict.Keys.ToList())
+                    foreach (var key in localSysExDict.Keys.ToList())
                     {
-                        List<byte[]> displayMessages = sysExDict[key]
+                        if (loadToken.IsCancellationRequested) return;
+                        List<byte[]> displayMessages = localSysExDict[key]
                             .Where(RolandGSStyleDisplayDecoder.AffectsDisplayState)
                             .ToList();
 
                         if (displayMessages.Count == 0)
-                        {
-                            sysExDict.Remove(key);
-                        }
+                            localSysExDict.Remove(key);
                         else
-                        {
-                            sysExDict[key] = displayMessages;
-                        }
+                            localSysExDict[key] = displayMessages;
                     }
 
-                    // Publish the dictionary and ordered times only after filtering,
-                    // otherwise removed timestamps remain in the playback index.
-                    _metaEventsByTime = metaDict;
-                    _sysExEventsByTime = sysExDict;
-                    _sysExDisplayEventTimes = sysExDict.Keys
-                        .OrderBy(time => time)
-                        .ToList();
-                    _nextSysExDisplayEventIndex = 0;
-
-                    List<byte[]> dotGraphicsPayloads = sysExDict.Values
+                    HashSet<int> dotGraphicsPages = localSysExDict.Values
                         .SelectMany(events => events)
                         .Where(RolandGSStyleDisplayDecoder.ContainsDotGraphics)
-                        .ToList();
-
-                    // One Roland DT1 packet can cross 7-bit address boundaries
-                    // and populate several (or all ten) Frame Draw pages. Count
-                    // decoded pages rather than packets so bulk display dumps are
-                    // recognized correctly and the emulator is enabled for them.
-                    HashSet<int> dotGraphicsPages = dotGraphicsPayloads
-                        .SelectMany(payload =>
-                            RolandGSStyleDisplayDecoder
-                                .GetDotGraphicsPagesTouched(payload))
+                        .SelectMany(RolandGSStyleDisplayDecoder.GetDotGraphicsPagesTouched)
                         .ToHashSet();
 
-                    sysExEventCount = dotGraphicsPages.Count;
+                    localSysExCount = dotGraphicsPages.Count;
                 });
+
+                // If the task returned early due to cancellation, abort committing state
+                if (loadToken.IsCancellationRequested)
+                {
+                    Logger.Log($"Loading of '{filename}' was safely canceled.", Logger.LogTypes.Info);
+                    return;
+                }
+
+                // 5. Commit state atomically on UI thread
+                _midiFile = localMidiFile;
+                _ticksPerQuarterNote = localTicksPerQuarterNote;
+                _tempoEvents = localTempoEvents;
+                _noteChannels = localNoteChannels;
+                _eventsByTime = localEventsByTime;
+                _metaEventsByTime = localMetaDict;
+                _sysExEventsByTime = localSysExDict;
+                _sysExDisplayEventTimes = localSysExDict.Keys.OrderBy(t => t).ToList();
+                _frames = localFrames;
+                _rearticulatedNotes = localRearticulatedNotes;
+                lyricsChunkCount = localLyricsCount;
+                sysExEventCount = localSysExCount;
+
                 _currentFrameIndex = 0;
                 _isPlaying = false;
 
-                UpdateEnabledChannels();
-
-                progressBar1.Value = 100;
-                labelStatus.Text = Resources.TextMIDIFileLoaded;
-                await Task.Delay(300);
-                progressBar1.Visible = false;
-                PrecomputeTempoTimes();
-                AssignInstrumentsToNotes(_midiFile);
-                groupBox1.Enabled = true; // Enable controls after successful load
-
-                // Restore the display immediately after loading. The emulator must not
-                // remain on its reset/blank image until an audio frame happens to run.
-                if (checkBoxShowSysExDisplayEmulator.Checked &&
-                    sysExDisplayEmulator != null &&
-                    !sysExDisplayEmulator.IsDisposed)
+                SafeInvoke(() =>
                 {
-                    long displayTick = _frames != null && _frames.Count > 0
-                        ? _frames[Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1))].Time
-                        : (_sysExDisplayEventTimes.Count > 0 ? _sysExDisplayEventTimes[0] : 0);
+                    UpdateEnabledChannels();
+                    progressBar1.Value = 100;
+                    labelStatus.Text = Resources.TextMIDIFileLoaded;
+                    progressBar1.Visible = false;
 
-                    RebuildSysExDisplayAtTick(displayTick);
-                }
-                else
-                {
-                    // Clear the display emulator if no SysEx is found or it is disabled
-                    ClearSysExDisplay();
-                }
+                    PrecomputeTempoTimes();
+                    AssignInstrumentsToNotes(_midiFile);
+                    groupBox1.Enabled = true;
 
+                    if (checkBoxShowSysExDisplayEmulator.Checked && sysExDisplayEmulator != null && !sysExDisplayEmulator.IsDisposed)
+                    {
+                        long displayTick = _frames.Count > 0 ? _frames[0].Time : 0;
+                        RebuildSysExDisplayAtTick(displayTick);
+                    }
+                    else
+                    {
+                        ClearSysExDisplay();
+                    }
 
-                NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleMIDIFileLoaded, Resources.NotificationMessageMIDIFileLoaded, ToolTipIcon.Info, 3000);
-                DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, sysExEventCount, _noteChannels, lyricsEnabled);
+                    NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleMIDIFileLoaded, Resources.NotificationMessageMIDIFileLoaded, ToolTipIcon.Info, 3000);
+                    DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, sysExEventCount, _noteChannels, lyricsEnabled);
+                    ResetLabelsAndTrackBar();
+                    panelLoading.Visible = false;
+                });
             }
             catch (Exception ex)
             {
-                DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled); // Disable checkboxes on error
-                labelStatus.Text = Resources.TextMIDIFileLoadingError;
-                progressBar1.Visible = false;
-                progressBar1.Value = 0;
-                groupBox1.Enabled = false; // Disable controls on error
-                MessageForm.Show(this, $"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
+                // Handling actual unexpected file parsing errors
+                SafeInvoke(() =>
+                {
+                    DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled);
+                    labelStatus.Text = Resources.TextMIDIFileLoadingError;
+                    progressBar1.Visible = false;
+                    progressBar1.Value = 0;
+                    groupBox1.Enabled = false;
+                    panelLoading.Visible = false;
+                    MessageForm.Show(this, $"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
+                });
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Logger.Log($"Error loading MIDI file: {ex.Message}", Logger.LogTypes.Error);
             }
-            finally
+        }
+        private void SafeUpdateProgressBar(int percent, string text, CancellationToken token)
+        {
+            if (token.IsCancellationRequested) return;
+            SafeInvoke(() =>
             {
-                _currentFrameIndex = 0; // Reset frame index
-                ResetLabelsAndTrackBar(); // Reset UI elements
-                panelLoading.Visible = false;
-            }
+                if (progressBar1 != null && !progressBar1.IsDisposed)
+                {
+                    progressBar1.Value = Math.Clamp(percent, progressBar1.Minimum, progressBar1.Maximum);
+                }
+                if (labelStatus != null && !labelStatus.IsDisposed)
+                {
+                    labelStatus.Text = text;
+                }
+            });
         }
 
         /// <summary>
