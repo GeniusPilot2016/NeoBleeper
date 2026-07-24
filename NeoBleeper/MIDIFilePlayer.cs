@@ -1240,31 +1240,6 @@ namespace NeoBleeper
                         .ToHashSet();
 
                     sysExEventCount = dotGraphicsPages.Count;
-
-                    if (dotGraphicsPayloads.Count > 0)
-                    {
-                        StringBuilder artBuilder = new StringBuilder();
-                        artBuilder.AppendLine();
-                        artBuilder.AppendLine("=== Isolated Pixel Art Frames ===");
-                        artBuilder.AppendLine(
-                            $"Decoded pages: {string.Join(", ", dotGraphicsPages.OrderBy(page => page))}");
-
-                        foreach (byte[] payload in dotGraphicsPayloads)
-                        {
-                            artBuilder.AppendLine($"--- Payload Size: {payload.Length} bytes ---");
-
-                            foreach (byte b in payload)
-                            {
-                                string binaryString = Convert.ToString(b, 2).PadLeft(7, '0');
-                                string asciiArtRow = binaryString.Replace("1", "██").Replace("0", "..");
-                                artBuilder.AppendLine($"{b:X2} | {asciiArtRow}");
-                            }
-
-                            artBuilder.AppendLine("----------------------------------");
-                        }
-
-                        Logger.Log(artBuilder.ToString(), Logger.LogTypes.Info);
-                    }
                 });
                 _currentFrameIndex = 0;
                 _isPlaying = false;
