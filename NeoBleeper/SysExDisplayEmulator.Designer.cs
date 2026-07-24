@@ -51,7 +51,7 @@
             // SysExDisplayEmulator
             // 
             resources.ApplyResources(this, "$this");
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.Dpi;
             ControlBox = false;
             Controls.Add(textBoxSysExText);
             Controls.Add(sysexEmulatorBase);
