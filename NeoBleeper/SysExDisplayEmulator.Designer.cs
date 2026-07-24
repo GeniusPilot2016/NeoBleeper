@@ -43,9 +43,9 @@
             // 
             // labelSysExText
             // 
+            resources.ApplyResources(labelSysExText, "labelSysExText");
             labelSysExText.BackColor = Color.Black;
             labelSysExText.BorderStyle = BorderStyle.FixedSingle;
-            resources.ApplyResources(labelSysExText, "labelSysExText");
             labelSysExText.ForeColor = Color.White;
             labelSysExText.Name = "labelSysExText";
             // 

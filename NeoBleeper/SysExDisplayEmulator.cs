@@ -1,4 +1,19 @@
-﻿using System;
+﻿// NeoBleeper - AI-enabled tune creation software using the system speaker (aka PC Speaker) on the motherboard
+// Copyright (C) 2023 GeniusPilot2016
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -104,10 +119,18 @@ namespace NeoBleeper
             _sysExTextMarqueeTimer.Interval = SysExTextMarqueeIntervalMilliseconds;
             _sysExTextMarqueeTimer.Tick += SysExTextMarqueeTimer_Tick;
             labelSysExText.SizeChanged += LabelSysExText_SizeChanged;
+
+            // Force the label to actually go blank at startup, independent of
+            // whatever placeholder text the designer left on the control. This
+            // writes straight to labelSysExText.Text (bypassing the "already
+            // matches _sysExTextSource" guard in SetDisplayedSysExText) so a
+            // stale design-time string can never survive into a real session.
+            ApplyLabelText(string.Empty);
         }
+
         private void SysExDisplayEmulator_Disposed(
-    object sender,
-    EventArgs e)
+            object sender,
+            EventArgs e)
         {
             _sysExTextMarqueeTimer.Stop();
             _sysExTextMarqueeTimer.Tick -= SysExTextMarqueeTimer_Tick;
@@ -123,6 +146,22 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Public entry point used by MIDIFilePlayer to push decoded SysEx display
+        /// text into this emulator. Routes through SetDisplayedSysExText so fit
+        /// checking and the marquee are always applied, regardless of caller thread.
+        /// </summary>
+        public void SetSysExText(string text)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<string>(SetSysExText), text);
+                return;
+            }
+
+            SetDisplayedSysExText(text);
+        }
+
+        /// <summary>
         /// Sets the text shown in the SysEx display line. If it fits inside the
         /// display at the control's current width it's shown statically. If not,
         /// instead of letting the control clip it (or show an ellipsis) it scrolls
@@ -132,7 +171,17 @@ namespace NeoBleeper
         {
             string safeText = text ?? string.Empty;
 
-            if (_sysExTextSource == safeText)
+            // Skip work only if the logical source is unchanged AND the label is
+            // already showing the right thing (marquee already running for it, or
+            // its static text already matches). Comparing the cached source alone
+            // is not enough: the label can start out of sync with _sysExTextSource
+            // (e.g. leftover designer placeholder text before the first real
+            // update), and a mismatch must self-heal instead of silently no-op'ing
+            // — this is also what previously prevented "clear" commands (empty
+            // string) from actually blanking the label.
+            bool sourceUnchanged = _sysExTextSource == safeText;
+            if (sourceUnchanged &&
+                (_sysExTextMarqueeTimer.Enabled || labelSysExText.Text == safeText))
             {
                 return;
             }
@@ -231,7 +280,9 @@ namespace NeoBleeper
 
         /// <summary>
         /// Writes labelSysExText.Text while keeping the existing
-        /// _settingSysExMarqueeText guard around it.
+        /// _settingSysExMarqueeText guard around it. This checks the live
+        /// control value (not any cached field), so it always reflects
+        /// what is actually painted on screen.
         /// </summary>
         private void ApplyLabelText(string text)
         {
@@ -804,6 +855,26 @@ namespace NeoBleeper
         public string DisplayedText => new string(_displayedText).TrimEnd();
 
         /// <summary>
+        /// Clears the complete 32-character display-letter buffer.
+        /// Returns true when at least one visible character was removed.
+        /// </summary>
+        private bool ClearDisplayedTextBuffer()
+        {
+            bool changed = false;
+
+            for (int i = 0; i < _displayedText.Length; i++)
+            {
+                if (_displayedText[i] != ' ')
+                {
+                    _displayedText[i] = ' ';
+                    changed = true;
+                }
+            }
+
+            return changed;
+        }
+
+        /// <summary>
         /// Roland defines values 0-15 as 0-7.2 seconds, in 0.48-second steps.
         /// The factory/default value is 06 (2.88 seconds).
         /// </summary>
@@ -827,10 +898,7 @@ namespace NeoBleeper
                 Array.Clear(page, 0, page.Length);
             }
 
-            for (int i = 0; i < _displayedText.Length; i++)
-            {
-                _displayedText[i] = ' ';
-            }
+            ClearDisplayedTextBuffer();
 
             CurrentPage = 0;
             _displayTimeValue = DefaultDisplayTimeValue;
@@ -1084,6 +1152,19 @@ namespace NeoBleeper
             {
                 CurrentPage = 0;
                 visibleChanged = true;
+
+                // A framing-only SysEx (just F0/F7, no payload) is used by many
+                // files as a generic "clear display" command. That must blank
+                // the 32-char text buffer too, not just the dot-graphics page —
+                // otherwise stale text is left on screen indefinitely after the
+                // pixels are cleared.
+                ClearDisplayedTextBuffer();
+
+                // A hide command is authoritative even when the decoder already
+                // believes the buffer is blank. Publishing the clear again also
+                // repairs a UI label that may have become out of sync.
+                textChanged = true;
+
                 return true;
             }
 
@@ -1125,6 +1206,17 @@ namespace NeoBleeper
             if (addressMid == 0x00 && addressLsb <= 0x1F)
             {
                 bool changed = false;
+
+                // Address 10 00 00 is the start of one complete displayed-letter
+                // string. A shorter replacement (including a one-byte blank/hide
+                // write) must discard the previous suffix instead of leaving stale
+                // characters visible. Non-zero starts are retained as a tolerant
+                // partial-write path for non-standard files.
+                if (addressLsb == 0)
+                {
+                    changed |= ClearDisplayedTextBuffer();
+                }
+
                 for (int i = 0; i < data.Length; i++)
                 {
                     int textIndex = addressLsb + i;
@@ -1219,6 +1311,15 @@ namespace NeoBleeper
                     CurrentPage = requestedPage;
                     visibleChanged = true;
                     restartDisplayTimeout = requestedPage > 0;
+
+                    // Page 00 is Roland's Bar Display / hide command. The text
+                    // occupies a separate UI control in the emulator, so it must
+                    // be explicitly cleared and published as well as the pixels.
+                    if (requestedPage == 0)
+                    {
+                        ClearDisplayedTextBuffer();
+                        textChanged = true;
+                    }
                 }
 
                 return true;
@@ -1302,15 +1403,15 @@ namespace NeoBleeper
                 addressLsb;
         }
 
-        public bool ExpireDisplay()
+        public bool ExpireDisplay(out bool textChanged)
         {
-            if (CurrentPage == 0)
-            {
-                return false;
-            }
-
+            bool pageChanged = CurrentPage != 0;
             CurrentPage = 0;
-            return true;
+
+            // Expiration is another hide transition. Clear the separate text
+            // surface too, and tell the player to publish the empty value.
+            textChanged = ClearDisplayedTextBuffer();
+            return pageChanged;
         }
 
         public bool[,] GetPixels()

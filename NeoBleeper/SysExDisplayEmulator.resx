@@ -156,6 +156,9 @@
   <data name="sysexEmulatorBase.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25" /&gt;&lt;Rows Styles="Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
+  <data name="labelSysExText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="labelSysExText.Font" type="System.Drawing.Font, System.Drawing">
     <value>Cascadia Code, 13.8pt, style=Bold</value>
   </data>

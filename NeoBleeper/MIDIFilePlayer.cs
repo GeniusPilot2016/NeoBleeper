@@ -3025,7 +3025,14 @@ namespace NeoBleeper
                         break;
                     }
 
-                    repaint |= ExpireSysExDisplayIfDue(eventTimeMs);
+                    repaint |= ExpireSysExDisplayIfDue(
+                        eventTimeMs,
+                        out bool textExpiredBeforeEvent);
+                    if (textExpiredBeforeEvent)
+                    {
+                        publishSysExText = true;
+                        sysExText = string.Empty;
+                    }
 
                     if (_sysExEventsByTime.TryGetValue(
                             eventTick,
@@ -3058,7 +3065,14 @@ namespace NeoBleeper
                     _nextSysExDisplayEventIndex++;
                 }
 
-                repaint |= ExpireSysExDisplayIfDue(songTimeMs);
+                repaint |= ExpireSysExDisplayIfDue(
+                    songTimeMs,
+                    out bool textExpiredAfterEvents);
+                if (textExpiredAfterEvents)
+                {
+                    publishSysExText = true;
+                    sysExText = string.Empty;
+                }
 
                 if (repaint)
                 {
@@ -3112,8 +3126,12 @@ namespace NeoBleeper
             _sysExDisplayClearAtMs = eventTimeMs + timeoutMs;
         }
 
-        private bool ExpireSysExDisplayIfDue(double songTimeMs)
+        private bool ExpireSysExDisplayIfDue(
+            double songTimeMs,
+            out bool textChanged)
         {
+            textChanged = false;
+
             if (!_sysExDisplayClearAtMs.HasValue ||
                 songTimeMs < _sysExDisplayClearAtMs.Value)
             {
@@ -3121,7 +3139,7 @@ namespace NeoBleeper
             }
 
             _sysExDisplayClearAtMs = null;
-            return _sysExDisplayDecoder.ExpireDisplay();
+            return _sysExDisplayDecoder.ExpireDisplay(out textChanged);
         }
 
         private void RebuildSysExDisplayAtTick(long targetTick)
@@ -3150,7 +3168,7 @@ namespace NeoBleeper
                     }
 
                     double eventTimeMs = TicksToMilliseconds(eventTick);
-                    ExpireSysExDisplayIfDue(eventTimeMs);
+                    ExpireSysExDisplayIfDue(eventTimeMs, out _);
 
                     if (_sysExEventsByTime.TryGetValue(
                             eventTick,
@@ -3175,7 +3193,7 @@ namespace NeoBleeper
                     _nextSysExDisplayEventIndex++;
                 }
 
-                ExpireSysExDisplayIfDue(targetTimeMs);
+                ExpireSysExDisplayIfDue(targetTimeMs, out _);
                 hasAppliedState = _hasAppliedSysExDisplayState;
                 sysExText = _sysExDisplayDecoder.DisplayedText;
 
@@ -3214,8 +3232,8 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Writes only decoded Roland display-letter SysEx data to the existing
-        /// textBoxSysExText control. MIDI lyrics and meta text use separate code
+        /// Writes only decoded Roland display-letter SysEx data to the emulator's
+        /// marquee-capable label. MIDI lyrics and meta text use separate code
         /// paths and never call this method.
         /// </summary>
         private void RenderSysExText(string text)
@@ -3233,30 +3251,15 @@ namespace NeoBleeper
                 return;
             }
 
-            TextBox targetTextBox = Controls
-                .Find("textBoxSysExText", true)
-                .OfType<TextBox>()
-                .FirstOrDefault();
-
+            // Route directly through the emulator's own SetSysExText entry
+            // point instead of searching Controls for a named TextBox. That
+            // previous Controls.Find("textBoxSysExText", ...) lookup targeted
+            // a control name that does not match labelSysExText, so updates
+            // (including clears) were silently dropped.
             SysExDisplayEmulator emulator = sysExDisplayEmulator;
-            if (targetTextBox == null &&
-                emulator != null &&
-                !emulator.IsDisposed &&
-                !emulator.Disposing)
+            if (emulator != null && !emulator.IsDisposed && !emulator.Disposing)
             {
-                targetTextBox = emulator.Controls
-                    .Find("textBoxSysExText", true)
-                    .OfType<TextBox>()
-                    .FirstOrDefault();
-            }
-
-            if (targetTextBox != null &&
-                !string.Equals(
-                    targetTextBox.Text,
-                    normalizedText,
-                    StringComparison.Ordinal))
-            {
-                targetTextBox.Text = normalizedText;
+                emulator.SetSysExText(normalizedText);
             }
         }
 
