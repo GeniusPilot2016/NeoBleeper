@@ -156,31 +156,28 @@
   <data name="sysexEmulatorBase.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls /&gt;&lt;Columns Styles="Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25,Percent,6,25" /&gt;&lt;Rows Styles="Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353,Percent,5,882353" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
-  <data name="textBoxSysExText.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="textBoxSysExText.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="labelSysExText.Font" type="System.Drawing.Font, System.Drawing">
     <value>Cascadia Code, 13.8pt, style=Bold</value>
   </data>
-  <data name="textBoxSysExText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
+  <data name="labelSysExText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 9</value>
   </data>
-  <data name="textBoxSysExText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>289, 29</value>
+  <data name="labelSysExText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 30</value>
   </data>
-  <data name="textBoxSysExText.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="labelSysExText.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;textBoxSysExText.Name" xml:space="preserve">
-    <value>textBoxSysExText</value>
+  <data name="&gt;&gt;labelSysExText.Name" xml:space="preserve">
+    <value>labelSysExText</value>
   </data>
-  <data name="&gt;&gt;textBoxSysExText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;labelSysExText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBoxSysExText.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelSysExText.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;textBoxSysExText.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelSysExText.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

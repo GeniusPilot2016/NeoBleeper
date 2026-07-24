@@ -97,204 +97,158 @@ namespace NeoBleeper
             InitializeComponent();
             midiFilePlayer = owner;
             Owner = owner;
-            ConfigureSysExTextBox();
             SetTheme();
             InitializeDisplayCells();
             ClearDisplayContent();
+
+            _sysExTextMarqueeTimer.Interval = SysExTextMarqueeIntervalMilliseconds;
+            _sysExTextMarqueeTimer.Tick += SysExTextMarqueeTimer_Tick;
+            labelSysExText.SizeChanged += LabelSysExText_SizeChanged;
         }
-
-        private void ConfigureSysExTextBox()
-        {
-            // Keep the TextBox enabled so its existing appearance is preserved.
-            textBoxSysExText.ReadOnly = true;
-            textBoxSysExText.TabStop = false;
-            textBoxSysExText.ShortcutsEnabled = false;
-            textBoxSysExText.Cursor = Cursors.Default;
-
-            _sysExTextSelectionFilter =
-                new SysExTextSelectionFilter(textBoxSysExText);
-            Application.AddMessageFilter(_sysExTextSelectionFilter);
-
-            _sysExTextMarqueeTimer.Interval =
-                SysExTextMarqueeIntervalMilliseconds;
-            _sysExTextMarqueeTimer.Tick +=
-                SysExTextMarqueeTimer_Tick;
-
-            textBoxSysExText.TextChanged +=
-                TextBoxSysExText_TextChanged;
-            textBoxSysExText.SizeChanged +=
-                TextBoxSysExText_LayoutChanged;
-            textBoxSysExText.FontChanged +=
-                TextBoxSysExText_LayoutChanged;
-            textBoxSysExText.GotFocus +=
-                TextBoxSysExText_GotFocus;
-
-            VisibleChanged +=
-                SysExDisplayEmulator_VisibleChanged;
-            Disposed +=
-                SysExDisplayEmulator_Disposed;
-
-            _sysExTextSource =
-                textBoxSysExText.Text ?? string.Empty;
-
-            UpdateSysExTextMarquee();
-        }
-
-        private void TextBoxSysExText_TextChanged(
-            object sender,
-            EventArgs e)
-        {
-            if (_settingSysExMarqueeText)
-            {
-                return;
-            }
-
-            // Only externally supplied decoded SysEx text becomes the source.
-            _sysExTextSource =
-                textBoxSysExText.Text ?? string.Empty;
-            _sysExTextMarqueeOffset = 0;
-
-            UpdateSysExTextMarquee();
-        }
-
-        private void TextBoxSysExText_LayoutChanged(
-            object sender,
-            EventArgs e)
-        {
-            _sysExTextMarqueeOffset = 0;
-            UpdateSysExTextMarquee();
-        }
-
-        private void TextBoxSysExText_GotFocus(
-            object sender,
-            EventArgs e)
-        {
-            ClearSysExTextSelection();
-
-            BeginInvoke(new Action(() =>
-            {
-                ClearSysExTextSelection();
-
-                if (ActiveControl == textBoxSysExText)
-                {
-                    ActiveControl = null;
-                }
-            }));
-        }
-
-        private void SysExDisplayEmulator_VisibleChanged(
-            object sender,
-            EventArgs e)
-        {
-            _sysExTextMarqueeOffset = 0;
-            UpdateSysExTextMarquee();
-        }
-
         private void SysExDisplayEmulator_Disposed(
-            object sender,
-            EventArgs e)
+    object sender,
+    EventArgs e)
         {
             _sysExTextMarqueeTimer.Stop();
+            _sysExTextMarqueeTimer.Tick -= SysExTextMarqueeTimer_Tick;
             _sysExTextMarqueeTimer.Dispose();
+
+            labelSysExText.SizeChanged -= LabelSysExText_SizeChanged;
 
             if (_sysExTextSelectionFilter != null)
             {
-                Application.RemoveMessageFilter(
-                    _sysExTextSelectionFilter);
+                Application.RemoveMessageFilter(_sysExTextSelectionFilter);
                 _sysExTextSelectionFilter = null;
             }
         }
 
-        private void SysExTextMarqueeTimer_Tick(
-            object sender,
-            EventArgs e)
-        {
-            if (!NeedsSysExTextMarquee())
-            {
-                UpdateSysExTextMarquee();
-                return;
-            }
-
-            string loopText =
-                _sysExTextSource + SysExTextMarqueeGap;
-
-            _sysExTextMarqueeOffset =
-                (_sysExTextMarqueeOffset + 1) %
-                loopText.Length;
-
-            SetDisplayedSysExText(
-                loopText.Substring(_sysExTextMarqueeOffset) +
-                loopText.Substring(
-                    0,
-                    _sysExTextMarqueeOffset));
-        }
-
-        private void UpdateSysExTextMarquee()
-        {
-            bool shouldRun =
-                Visible &&
-                NeedsSysExTextMarquee();
-
-            _sysExTextMarqueeTimer.Enabled = shouldRun;
-
-            if (!shouldRun)
-            {
-                _sysExTextMarqueeOffset = 0;
-            }
-
-            SetDisplayedSysExText(_sysExTextSource);
-        }
-
-        private bool NeedsSysExTextMarquee()
-        {
-            if (string.IsNullOrEmpty(_sysExTextSource) ||
-                textBoxSysExText.ClientSize.Width <= 0)
-            {
-                return false;
-            }
-
-            Size measuredSize = TextRenderer.MeasureText(
-                _sysExTextSource,
-                textBoxSysExText.Font,
-                new Size(int.MaxValue, int.MaxValue),
-                TextFormatFlags.NoPadding |
-                TextFormatFlags.SingleLine);
-
-            return measuredSize.Width >
-                   Math.Max(
-                       1,
-                       textBoxSysExText.ClientSize.Width - 4);
-        }
-
+        /// <summary>
+        /// Sets the text shown in the SysEx display line. If it fits inside the
+        /// display at the control's current width it's shown statically. If not,
+        /// instead of letting the control clip it (or show an ellipsis) it scrolls
+        /// continuously as a marquee until replaced or resized back to fitting.
+        /// </summary>
         private void SetDisplayedSysExText(string text)
         {
             string safeText = text ?? string.Empty;
 
-            if (textBoxSysExText.Text != safeText)
+            if (_sysExTextSource == safeText)
             {
-                _settingSysExMarqueeText = true;
-
-                try
-                {
-                    textBoxSysExText.Text = safeText;
-                }
-                finally
-                {
-                    _settingSysExMarqueeText = false;
-                }
+                return;
             }
 
-            ClearSysExTextSelection();
+            _sysExTextSource = safeText;
+            _sysExTextMarqueeOffset = 0;
+            _sysExTextMarqueeTimer.Stop();
+
+            if (string.IsNullOrEmpty(safeText) || TextFitsDisplay(safeText))
+            {
+                ApplyLabelText(safeText);
+            }
+            else
+            {
+                // Prime with the looped frame immediately so there's no blank/static
+                // tick before the first scroll step.
+                ApplyLabelText(BuildMarqueeFrame(safeText, 0));
+                _sysExTextMarqueeTimer.Start();
+            }
         }
 
-        private void ClearSysExTextSelection()
+        /// <summary>
+        /// Advances the marquee by one character per tick.
+        /// </summary>
+        private void SysExTextMarqueeTimer_Tick(object sender, EventArgs e)
         {
-            textBoxSysExText.SelectionStart = 0;
-            textBoxSysExText.SelectionLength = 0;
-
-            if (textBoxSysExText.IsHandleCreated)
+            if (string.IsNullOrEmpty(_sysExTextSource))
             {
-                HideCaret(textBoxSysExText.Handle);
+                _sysExTextMarqueeTimer.Stop();
+                return;
+            }
+
+            string loopUnit = _sysExTextSource + SysExTextMarqueeGap;
+            _sysExTextMarqueeOffset = (_sysExTextMarqueeOffset + 1) % loopUnit.Length;
+
+            ApplyLabelText(BuildMarqueeFrame(_sysExTextSource, _sysExTextMarqueeOffset));
+        }
+
+        /// <summary>
+        /// Builds the visible marquee window: (source + gap) doubled, then a
+        /// slice starting "offset" characters in, so it wraps seamlessly.
+        /// </summary>
+        private static string BuildMarqueeFrame(string source, int offset)
+        {
+            string loopUnit = source + SysExTextMarqueeGap;
+            string doubled = loopUnit + loopUnit;
+            return doubled.Substring(offset, loopUnit.Length);
+        }
+
+        /// <summary>
+        /// Re-checks fit when the display is resized (theme/DPI changes, etc.),
+        /// starting or stopping the marquee as needed.
+        /// </summary>
+        private void LabelSysExText_SizeChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_sysExTextSource))
+            {
+                return;
+            }
+
+            if (TextFitsDisplay(_sysExTextSource))
+            {
+                _sysExTextMarqueeTimer.Stop();
+                _sysExTextMarqueeOffset = 0;
+                ApplyLabelText(_sysExTextSource);
+            }
+            else if (!_sysExTextMarqueeTimer.Enabled)
+            {
+                ApplyLabelText(BuildMarqueeFrame(_sysExTextSource, 0));
+                _sysExTextMarqueeTimer.Start();
+            }
+        }
+
+        /// <summary>
+        /// True when "text" fits on one line at the display's current width —
+        /// i.e. when a control with AutoEllipsis would NOT need to show "...".
+        /// </summary>
+        private bool TextFitsDisplay(string text)
+        {
+            int availableWidth = labelSysExText.ClientSize.Width;
+            if (availableWidth <= 0)
+            {
+                return true;
+            }
+
+            Size measured = TextRenderer.MeasureText(
+                text,
+                labelSysExText.Font,
+                new Size(int.MaxValue, int.MaxValue),
+                TextFormatFlags.SingleLine |
+                TextFormatFlags.NoPadding |
+                TextFormatFlags.NoPrefix);
+
+            return measured.Width <= availableWidth;
+        }
+
+        /// <summary>
+        /// Writes labelSysExText.Text while keeping the existing
+        /// _settingSysExMarqueeText guard around it.
+        /// </summary>
+        private void ApplyLabelText(string text)
+        {
+            if (labelSysExText.Text == text)
+            {
+                return;
+            }
+
+            _settingSysExMarqueeText = true;
+
+            try
+            {
+                labelSysExText.Text = text;
+            }
+            finally
+            {
+                _settingSysExMarqueeText = false;
             }
         }
 

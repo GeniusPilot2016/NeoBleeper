@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SysExDisplayEmulator));
             sysexEmulatorBase = new TableLayoutPanel();
-            textBoxSysExText = new TextBox();
+            labelSysExText = new Label();
             SuspendLayout();
             // 
             // sysexEmulatorBase
@@ -41,20 +41,20 @@
             sysexEmulatorBase.GrowStyle = TableLayoutPanelGrowStyle.FixedSize;
             sysexEmulatorBase.Name = "sysexEmulatorBase";
             // 
-            // textBoxSysExText
+            // labelSysExText
             // 
-            resources.ApplyResources(textBoxSysExText, "textBoxSysExText");
-            textBoxSysExText.BackColor = Color.Black;
-            textBoxSysExText.ForeColor = Color.White;
-            textBoxSysExText.Name = "textBoxSysExText";
-            textBoxSysExText.ReadOnly = true;
+            labelSysExText.BackColor = Color.Black;
+            labelSysExText.BorderStyle = BorderStyle.FixedSingle;
+            resources.ApplyResources(labelSysExText, "labelSysExText");
+            labelSysExText.ForeColor = Color.White;
+            labelSysExText.Name = "labelSysExText";
             // 
             // SysExDisplayEmulator
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             ControlBox = false;
-            Controls.Add(textBoxSysExText);
+            Controls.Add(labelSysExText);
             Controls.Add(sysexEmulatorBase);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -63,12 +63,11 @@
             ShowIcon = false;
             FormClosing += SysExDisplayEmulator_FormClosing;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private TableLayoutPanel sysexEmulatorBase;
-        private TextBox textBoxSysExText;
+        private Label labelSysExText;
     }
 }
