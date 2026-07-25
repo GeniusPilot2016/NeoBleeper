@@ -1384,9 +1384,10 @@ namespace NeoBleeper
             markup_color.BackColor = Settings1.Default.markup_color = Color.LightBlue;
             Settings1.Default.lyricsSize = 32;
             numericUpDownLyricsSize.Value = 32;
+            comboBox1.SelectedIndex = 0;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
-            Logger.Log("Colors reset to default.", Logger.LogTypes.Info);
+            Logger.Log("Appearance settings reset to default values.", Logger.LogTypes.Info);
         }
 
         /// <summary>
