@@ -134,15 +134,13 @@ def analyze_pure_solder_and_beep():
                     connectivity = (dword >> 30) & 0x03
                     device_type = (dword >> 20) & 0x0F
 
-                    # Strictly filter out external jacks; evaluate internal fixed/soldered components only (0x01 Speaker or 0x0E PC Beep)
-                    if device_type in [0x01, 0x0E] and connectivity in [0x02, 0x03]:
-                        if device_type == 0x01:
-                            internal_speaker_found = True
-                        if device_type == 0x0E:
-                            internal_beep_found = True
+                    # Strictly evaluate internal fixed/soldered PC Beep components only (0x0E)
+                    if device_type == 0x0E and connectivity in [0x02, 0x03]:
+                        internal_beep_found = True
                         target_dword = dword
                 except struct.error:
                     continue
+
 
     if internal_speaker_found or internal_beep_found:
         hardware_solder_status = "PHYSICALLY SOLDERED (Internal Integrated Transducer / Fixed PCB Line)"
