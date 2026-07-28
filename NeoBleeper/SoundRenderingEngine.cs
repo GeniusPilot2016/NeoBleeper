@@ -841,10 +841,10 @@ namespace NeoBleeper
             private sealed class RapidGateSampleProvider : ISampleProvider
             {
                 private const double OpenGain = 0.15;
-                private const int RapidEdgeCount = 3;
+                private const int RapidEdgeCount = 2;
 
-                // Three or more edges, each no farther than 2 ms apart, identify the
-                // tight-loop gate pattern. A long pause returns adaptive calls to the
+                // The first adaptive edge enters the sample-accurate gate path; the
+                // reset timeout still separates distinct bursts. A long pause returns calls to the
                 // original direct-gain behavior.
                 private static readonly long RapidEdgeTicks =
                     Math.Max(1L, System.Diagnostics.Stopwatch.Frequency * 2L / 1000L);
@@ -899,8 +899,23 @@ namespace NeoBleeper
                 public RapidGateSampleProvider(SignalGenerator source)
                 {
                     this.source = source ?? throw new ArgumentNullException(nameof(source));
-                }
 
+                    int sampleRate = source.WaveFormat.SampleRate;
+
+                    // Small PC-speaker-style enclosure/cone resonance.
+                    speakerHighPass = BiQuadFilter.HighPassFilter(
+                        sampleRate,
+                        500.0f,
+                        0.75f);
+
+                    speakerResonance = BiQuadFilter.PeakingEQ(
+                        sampleRate,
+                        2400.0f,
+                        1.8f,
+                        7.0f);
+                }
+                private readonly BiQuadFilter speakerResonance;
+                private readonly BiQuadFilter speakerHighPass;
                 public WaveFormat WaveFormat => source.WaveFormat;
 
                 public bool IsMuted => requestedGateState == 0;
@@ -923,12 +938,12 @@ namespace NeoBleeper
 
                 /// <summary>
                 /// Directly gates isolated StartSynth/StopSynth calls. It switches to the
-                /// timestamped path only after detecting the tight multi-edge loop pattern.
+                /// timestamped path immediately so the first edge is never duplicated by direct Gain.
                 /// </summary>
                 public void SetAdaptiveGate(bool open)
                 {
                     int newState = open ? 1 : 0;
-                    long timestamp = System.Diagnostics.Stopwatch.GetTimestamp();
+                    long timestamp = Stopwatch.GetTimestamp();
 
                     lock (gateLock)
                     {
@@ -938,6 +953,7 @@ namespace NeoBleeper
                         }
 
                         int previousState = requestedGateState;
+
                         long edgeGap = lastTransitionTimestamp == 0
                             ? long.MaxValue
                             : timestamp - lastTransitionTimestamp;
@@ -948,8 +964,8 @@ namespace NeoBleeper
                         {
                             if (edgeGap > RapidResetTicks)
                             {
-                                // The rapid burst has ended. Restore the original direct
-                                // gate before handling this new, isolated transition.
+                                // End the previous rapid burst and handle this as
+                                // the beginning of a new possible burst.
                                 LeavePreciseModeLocked(previousState);
                                 ApplyDirectGainLocked(newState);
                                 BeginCandidateLocked(previousState, timestamp, newState);
@@ -963,8 +979,7 @@ namespace NeoBleeper
                             return;
                         }
 
-                        // This is the untouched regular-pulse behavior until a true rapid
-                        // sequence has been identified.
+                        // Preserve the natural direct response for the first edge.
                         ApplyDirectGainLocked(newState);
 
                         if (edgeGap > RapidEdgeTicks)
@@ -982,6 +997,7 @@ namespace NeoBleeper
                             lastTransitionTimestamp = timestamp;
                         }
 
+                        // Enter precise mode only after confirming an actual rapid pair.
                         if (rapidCandidate.Count >= RapidEdgeCount)
                         {
                             EnterPreciseModeLocked();
@@ -1069,7 +1085,9 @@ namespace NeoBleeper
                     }
 
                     int gateState = renderedGateState;
+                    int previousGateState = gateState;
                     int commandIndex = 0;
+                    int edgeFramesRemaining = 0;
 
                     for (int frame = 0; frame < frameCount; frame++)
                     {
@@ -1082,13 +1100,19 @@ namespace NeoBleeper
                             commandIndex++;
                         }
 
-                        if (gateState == 0)
+                        int sampleIndex = offset + frame * channels;
+
+                        for (int channel = 0; channel < channels; channel++)
                         {
-                            int sampleIndex = offset + (frame * channels);
-                            for (int channel = 0; channel < channels; channel++)
-                            {
-                                buffer[sampleIndex + channel] = 0.0f;
-                            }
+                            float sample = gateState != 0
+                                ? buffer[sampleIndex + channel]
+                                : 0.0f;
+
+                            sample = speakerHighPass.Transform(sample);
+                            sample = speakerResonance.Transform(sample);
+
+                            buffer[sampleIndex + channel] =
+                                Math.Clamp(sample, -1.0f, 1.0f);
                         }
                     }
 
@@ -1181,11 +1205,6 @@ namespace NeoBleeper
 
             private static volatile bool isWaveOutRunning = false;
             private static volatile bool isInitialized = false;
-
-            // PlayWave uses the original direct Gain path. The loop-based pulse path
-            // remains adaptive and enters precise scheduling only after rapid edges.
-            [ThreadStatic]
-            private static bool forceDirectRegularBeepGate;
 
             // FMOD? That's a F-problem, so we use NAudio instead.
 
@@ -1327,30 +1346,41 @@ namespace NeoBleeper
             /// </summary>
             public static void PlayWave(SignalGeneratorType type, int freq, int ms, bool nonStopping)
             {
-                bool previousDirectMode = forceDirectRegularBeepGate;
-                forceDirectRegularBeepGate = true;
+                EnsureInitialized();
 
-                try
+                if (currentProvider != rapidSignalGate)
                 {
-                    SetWaveTypeFrequencyAndVolume(type, freq);
-                    PlaySound(ms, nonStopping);
+                    SetCurrentProvider(rapidSignalGate);
                 }
-                finally
+
+                if (signalGenerator.Frequency != freq)
                 {
-                    forceDirectRegularBeepGate = previousDirectMode;
+                    signalGenerator.Frequency = freq;
+                }
+
+                if (signalGenerator.Type != type)
+                {
+                    signalGenerator.Type = type;
+                }
+
+                // Normal row tones use the direct gate so an immediate OFF -> ON row
+                // transition is never mistaken for tight-loop pulse modulation.
+                rapidSignalGate.SetDirectGate(true);
+
+                if (ms > 0)
+                {
+                    HighPrecisionSleep.Sleep(ms);
+                }
+
+                if (!nonStopping)
+                {
+                    rapidSignalGate.SetDirectGate(false);
                 }
             }
 
             private static void SetSignalGate(bool open)
             {
-                if (forceDirectRegularBeepGate)
-                {
-                    rapidSignalGate.SetDirectGate(open);
-                }
-                else
-                {
-                    rapidSignalGate.SetAdaptiveGate(open);
-                }
+                rapidSignalGate.SetAdaptiveGate(open);
             }
 
             private static void SetWaveTypeFrequencyAndVolume(SignalGeneratorType type, int freq)
@@ -1368,7 +1398,7 @@ namespace NeoBleeper
 
             /// <summary>
             /// Starts audio synthesis. Isolated calls retain the original direct Gain
-            /// behavior; only a detected rapid gate burst is applied inside Read.
+            /// behavior; adaptive calls are applied sample-accurately inside Read.
             /// </summary>
             public static void StartSynth(SignalGeneratorType type, int freq, int offset = 0)
             {

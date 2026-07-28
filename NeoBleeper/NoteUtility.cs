@@ -666,16 +666,6 @@ namespace NeoBleeper
 
         private static void RenderGatedNoise(PercussionOutputChoice output, int sid, double baseFreq, int totalDurationMs, double noiseVol, double holdRatio, int originalDurationMs, CancellationToken ct)
         {
-            // For SoundDevice, start the noise source once to avoid re-triggering (the "beep" artifact).
-            if (output == PercussionOutputChoice.SoundDevice)
-            {
-                StartPulse(output, (int)baseFreq, SynthWave.Noise, sid);
-                PreciseWaitMs(totalDurationMs, ct);
-                StopPulse(output, sid);
-                return;
-            }
-
-            // Existing loop for SystemSpeaker (which requires toggling to simulate noise)
             double sampleFreq = baseFreq < 3500 ? baseFreq + 5000 : baseFreq + 1200;
             double sampleDurMs = 1000.0 / (sampleFreq + 0.25);
 

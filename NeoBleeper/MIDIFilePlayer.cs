@@ -991,6 +991,8 @@ namespace NeoBleeper
             }
         }
 
+        private HashSet<int> _channelsWithNotes = new HashSet<int>();
+
         /// <summary>
         /// Asynchronously loads a MIDI file and prepares it for playback and analysis.
         /// </summary>
@@ -1001,7 +1003,7 @@ namespace NeoBleeper
         /// thread.</remarks>
         /// <param name="filename">The path to the MIDI file to load. Must refer to a valid, accessible MIDI file.</param>
         /// <returns>A task that represents the asynchronous load operation.</returns>
-        
+
         private async Task LoadMIDI(string filename)
         {
             // 1. Cancel previous load operation safely
@@ -1029,8 +1031,7 @@ namespace NeoBleeper
                 {
                     sysExEventCount = 0;
                     lyricsChunkCount = 0;
-                    DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled);
-
+                    DecideCheckboxesThatWillBeEnabled(0, 0, new HashSet<int>(), lyricsEnabled);
                     panelLoading.Visible = true;
                     labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
                     progressBar1.Value = 0;
@@ -1045,6 +1046,7 @@ namespace NeoBleeper
                 int localTicksPerQuarterNote = 500;
                 var localTempoEvents = new List<(long time, int tempo)>();
                 var localNoteChannels = new Dictionary<int, int>();
+                var localChannelsWithNotes = new HashSet<int>();
                 var localEventsByTime = new Dictionary<long, List<MidiEvent>>();
                 var localMetaDict = new Dictionary<long, List<MetaEvent>>();
                 var localSysExDict = new Dictionary<long, List<byte[]>>();
@@ -1108,6 +1110,7 @@ namespace NeoBleeper
                                 var noteEvent = (NoteOnEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
                                 localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
+                                localChannelsWithNotes.Add(noteEvent.Channel);
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
                             {
@@ -1117,6 +1120,7 @@ namespace NeoBleeper
                                 {
                                     localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                                 }
+                                localChannelsWithNotes.Add(noteEvent.Channel);
                             }
                             else if (midiEvent is SysexEvent sysexEvent)
                             {
@@ -1251,6 +1255,7 @@ namespace NeoBleeper
                 _ticksPerQuarterNote = localTicksPerQuarterNote;
                 _tempoEvents = localTempoEvents;
                 _noteChannels = localNoteChannels;
+                _channelsWithNotes = localChannelsWithNotes;
                 _eventsByTime = localEventsByTime;
                 _metaEventsByTime = localMetaDict;
                 _sysExEventsByTime = localSysExDict;
@@ -1285,7 +1290,7 @@ namespace NeoBleeper
                     }
 
                     NotificationUtils.CreateAndShowNotificationIfObscured(this, Resources.NotificationTitleMIDIFileLoaded, Resources.NotificationMessageMIDIFileLoaded, ToolTipIcon.Info, 3000);
-                    DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, sysExEventCount, _noteChannels, lyricsEnabled);
+                    DecideCheckboxesThatWillBeEnabled(lyricsChunkCount, sysExEventCount, _channelsWithNotes, lyricsEnabled);
                     ResetLabelsAndTrackBar();
                     panelLoading.Visible = false;
                 });
@@ -1295,7 +1300,7 @@ namespace NeoBleeper
                 // Handling actual unexpected file parsing errors
                 SafeInvoke(() =>
                 {
-                    DecideCheckboxesThatWillBeEnabled(0, 0, new Dictionary<int, int>(), lyricsEnabled);
+                    DecideCheckboxesThatWillBeEnabled(0, 0, new HashSet<int>(), lyricsEnabled);
                     labelStatus.Text = Resources.TextMIDIFileLoadingError;
                     progressBar1.Visible = false;
                     progressBar1.Value = 0;
@@ -1326,25 +1331,20 @@ namespace NeoBleeper
         /// <summary>
         /// Determines which checkboxes in the user interface should be enabled based on the presence of lyrics and note channels in the loaded MIDI file.
         /// </summary>
-        private void DecideCheckboxesThatWillBeEnabled(int textChunkCount, int sysExEventCount, Dictionary<int, int> channels, bool lyricsEnabled)
+        private void DecideCheckboxesThatWillBeEnabled(int textChunkCount, int sysExEventCount, HashSet<int> channelsWithNotes, bool lyricsEnabled)
         {
             isDeciding = true;
             checkBox_show_lyrics_or_text_events.Enabled = textChunkCount > 0;
             checkBox_show_lyrics_or_text_events.Checked = textChunkCount > 0 && lyricsEnabled;
             checkBoxShowSysExDisplayEmulator.Enabled = sysExEventCount > 0;
             checkBoxShowSysExDisplayEmulator.Checked = sysExEventCount > 0 && sysExEmulatorEnabled;
-            int[] nonEmptyChannels = new int[] { };
-            foreach (var kvp in channels)
-            {
-                int channel = kvp.Value;
-                Array.Resize(ref nonEmptyChannels, nonEmptyChannels.Length + 1);
-                nonEmptyChannels[nonEmptyChannels.Length - 1] = channel;
-            }
+
             foreach (var checkBox in Controls.OfType<CheckBox>().Where(cb => cb.Name.StartsWith("checkBox_channel_")))
             {
                 int channelNumber = int.Parse(checkBox.Name.Split('_').Last());
-                checkBox.Enabled = nonEmptyChannels.Contains(channelNumber);
-                checkBox.Checked = nonEmptyChannels.Contains(channelNumber);
+                bool hasNotes = channelsWithNotes.Contains(channelNumber);
+                checkBox.Enabled = hasNotes;
+                checkBox.Checked = hasNotes;
             }
             isDeciding = false;
         }
@@ -1891,7 +1891,7 @@ namespace NeoBleeper
         {
             if (duration <= 0) return;
 
-            if (!percussion.HasValue)
+            if (!percussion.HasValue || TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
                 if (frequencies.Length == 0)
                 {
