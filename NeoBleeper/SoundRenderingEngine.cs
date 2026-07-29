@@ -913,9 +913,52 @@ namespace NeoBleeper
                         2400.0f,
                         1.8f,
                         7.0f);
+
+                    // Extra high-Q peaks above the cone resonance: this is what makes a
+                    // cheap magnetic system speaker sound "tinny"/metallic rather than
+                    // like a clean small woofer. The thin metal diaphragm/case rings at
+                    // these upper-mid/high bands under a hard on/off pulse drive.
+                    metallicRing1 = BiQuadFilter.PeakingEQ(
+                        sampleRate,
+                        3800.0f,
+                        5.0f,
+                        9.0f);
+
+                    metallicRing2 = BiQuadFilter.PeakingEQ(
+                        sampleRate,
+                        6200.0f,
+                        6.0f,
+                        6.0f);
+
+                    // Short feedback delay line -> a metallic "ring"/comb resonance,
+                    // similar to the buzzy overtones a tiny speaker/case adds to a
+                    // hard square pulse. Length picked to sit around ~2.5 kHz spacing.
+                    metallicCombDelaySamples = Math.Max(
+                        4,
+                        (int)Math.Round(sampleRate * MetallicCombDelayMs / 1000.0));
+
+                    int channels = source.WaveFormat.Channels;
+                    metallicCombBuffers = new float[channels][];
+                    metallicCombIndices = new int[channels];
+                    for (int ch = 0; ch < channels; ch++)
+                    {
+                        metallicCombBuffers[ch] = new float[metallicCombDelaySamples];
+                    }
                 }
                 private readonly BiQuadFilter speakerResonance;
                 private readonly BiQuadFilter speakerHighPass;
+
+                // --- Metallic character additions ---
+                private const double MetallicCombDelayMs = 0.42; // ~2.4 kHz comb spacing
+                private const float MetallicCombFeedback = 0.42f;
+                private const float MetallicOutputTrim = 0.82f; // keeps the added ring from clipping/over-loudening
+                private readonly BiQuadFilter metallicRing1;
+                private readonly BiQuadFilter metallicRing2;
+                private readonly float[][] metallicCombBuffers;
+                private readonly int[] metallicCombIndices;
+                private readonly int metallicCombDelaySamples;
+                // --- end metallic character additions ---
+
                 public WaveFormat WaveFormat => source.WaveFormat;
 
                 public bool IsMuted => requestedGateState == 0;
@@ -1017,6 +1060,7 @@ namespace NeoBleeper
                         renderedGateState = 0;
                         source.Gain = 0.0;
                         renderedFrames = 0;
+                        ResetMetallicCombState();
                     }
                 }
 
@@ -1111,6 +1155,16 @@ namespace NeoBleeper
                             sample = speakerHighPass.Transform(sample);
                             sample = speakerResonance.Transform(sample);
 
+                            // Metallic character: extra high-Q resonant peaks plus a
+                            // short feedback comb, layered on top of the existing
+                            // enclosure/cone filtering. Only applied in precise gate
+                            // mode, i.e. exactly where the tight-loop pulse noise is
+                            // already being shaped, so regular beeps are unaffected.
+                            sample = metallicRing1.Transform(sample);
+                            sample = metallicRing2.Transform(sample);
+                            sample = ApplyMetallicComb(channel, sample);
+                            sample *= MetallicOutputTrim;
+
                             buffer[sampleIndex + channel] =
                                 Math.Clamp(sample, -1.0f, 1.0f);
                         }
@@ -1119,6 +1173,29 @@ namespace NeoBleeper
                     renderedGateState = gateState;
                     renderedFrames = frameAfterBuffer;
                     return read;
+                }
+
+                private float ApplyMetallicComb(int channel, float sample)
+                {
+                    float[] delayBuffer = metallicCombBuffers[channel];
+                    int index = metallicCombIndices[channel];
+
+                    float delayed = delayBuffer[index];
+                    float output = sample + delayed * MetallicCombFeedback;
+
+                    delayBuffer[index] = output;
+                    metallicCombIndices[channel] = index + 1 >= metallicCombDelaySamples ? 0 : index + 1;
+
+                    return output;
+                }
+
+                private void ResetMetallicCombState()
+                {
+                    for (int ch = 0; ch < metallicCombBuffers.Length; ch++)
+                    {
+                        Array.Clear(metallicCombBuffers[ch], 0, metallicCombBuffers[ch].Length);
+                        metallicCombIndices[ch] = 0;
+                    }
                 }
 
                 private void BeginCandidateLocked(int stateBeforeEdge, long timestamp, int newState)
@@ -1142,6 +1219,7 @@ namespace NeoBleeper
                     rapidCandidate.Clear();
                     clockStarted = false;
                     scheduleDelayFrames = 0;
+                    ResetMetallicCombState();
 
                     // The oscillator must remain available while Read applies the queued
                     // ON/OFF mask at individual sample frames.
@@ -1158,6 +1236,7 @@ namespace NeoBleeper
                     preciseGateMode = false;
                     renderedGateState = stableState;
                     source.Gain = stableState != 0 ? OpenGain : 0.0;
+                    ResetMetallicCombState();
                 }
 
                 private void CancelPreciseModeLocked()
