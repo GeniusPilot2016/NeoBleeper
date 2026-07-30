@@ -869,10 +869,15 @@ namespace NeoBleeper
                 private int renderedGateState;
                 private volatile int requestedGateState;
 
-                // --- Ultra-Low DC Blocker (Sub-Audible Cutoff ~3.5 Hz) ---
-                private readonly float[] dcX;
-                private readonly float[] dcY;
-                private const float DcR = 0.9995f; // 100% passthrough for all audio frequencies (20Hz-20kHz)
+                // --- Dual-Engine State ---
+                // 1. Tone Generator Ramp (Smooth start/stop for full tones)
+                private float toneGainLevel = 0.0f;
+                private readonly float slewStepPerSample;
+
+                // 2. 1-Bit Click Impulse Engine (Punchy, loud transient spikes for 1-bit clicks)
+                private float clickImpulseLevel = 0.0f;
+                private const float ClickPeakAmplitude = 0.35f; // Loud, crisp click volume
+                private const float ClickDecayRate = 0.65f;     // ~0.2ms decay per click edge
 
                 private readonly struct GateCommand
                 {
@@ -901,9 +906,10 @@ namespace NeoBleeper
                 public RapidGateSampleProvider(SignalGenerator source)
                 {
                     this.source = source ?? throw new ArgumentNullException(nameof(source));
-                    int channels = source.WaveFormat.Channels;
-                    dcX = new float[channels];
-                    dcY = new float[channels];
+
+                    // Ramp rate for standard tone generator mode (~0.09 ms)
+                    int slewSamples = Math.Max(2, (int)(source.WaveFormat.SampleRate * 0.00009));
+                    slewStepPerSample = (float)(OpenGain / slewSamples);
                 }
 
                 public WaveFormat WaveFormat => source.WaveFormat;
@@ -993,8 +999,8 @@ namespace NeoBleeper
                         renderedGateState = 0;
                         source.Gain = 0.0;
                         renderedFrames = 0;
-                        Array.Clear(dcX, 0, dcX.Length);
-                        Array.Clear(dcY, 0, dcY.Length);
+                        toneGainLevel = 0.0f;
+                        clickImpulseLevel = 0.0f;
                     }
                 }
 
@@ -1060,6 +1066,7 @@ namespace NeoBleeper
                     for (int frame = 0; frame < frameCount; frame++)
                     {
                         long absoluteFrame = firstFrame + frame;
+                        int previousState = gateState;
 
                         if (dueCommands.Count > 0)
                         {
@@ -1071,35 +1078,46 @@ namespace NeoBleeper
                             }
                         }
 
-                        int sampleIndex = offset + frame * channels;
+                        // Trigger a high-energy transient impulse on every 1-bit state transition edge
+                        if (preciseGateMode && gateState != previousState)
+                        {
+                            clickImpulseLevel = (gateState > previousState)
+                                ? ClickPeakAmplitude
+                                : -ClickPeakAmplitude;
+                        }
 
+                        int sampleIndex = offset + frame * channels;
+                        float targetGain = (gateState != 0) ? (float)OpenGain : 0.0f;
+
+                        // Smooth tone gain calculation for non-precise mode
+                        if (toneGainLevel < targetGain)
+                        {
+                            toneGainLevel = Math.Min(targetGain, toneGainLevel + slewStepPerSample);
+                        }
+                        else if (toneGainLevel > targetGain)
+                        {
+                            toneGainLevel = Math.Max(targetGain, toneGainLevel - slewStepPerSample);
+                        }
+
+                        // Sample rendering
                         for (int channel = 0; channel < channels; channel++)
                         {
-                            float rawSample;
                             if (preciseGateMode)
                             {
-                                // Direct 1-bit DC step logic during rapid toggling
-                                rawSample = (gateState != 0) ? (float)OpenGain : 0.0f;
+                                // 1-Bit PC Speaker mode: render loud, punchy impulse transient
+                                buffer[sampleIndex + channel] = clickImpulseLevel;
                             }
                             else
                             {
-                                // Pure waveform generator passthrough (Square, Sine, Saw, Tri)
-                                rawSample = (gateState != 0) ? buffer[sampleIndex + channel] : 0.0f;
+                                // Standard tone generator mode: render clean, unmuffled audio wave
+                                float gainScalar = (float)(OpenGain > 0 ? toneGainLevel / OpenGain : 0.0);
+                                buffer[sampleIndex + channel] *= gainScalar;
                             }
-
-                            // Sub-audible DC Blocker (R = 0.9995f)
-                            // Eliminates DC pop/thump without rounding pulse edges or muffling transients
-                            float x = rawSample;
-                            float y = x - dcX[channel] + DcR * dcY[channel];
-
-                            // Denormal protection during silence decay
-                            if (Math.Abs(y) < 1e-9f) y = 0.0f;
-
-                            dcX[channel] = x;
-                            dcY[channel] = y;
-
-                            buffer[sampleIndex + channel] = Math.Clamp(y, -1.0f, 1.0f);
                         }
+
+                        // Exponential impulse decay (~0.2ms snap)
+                        clickImpulseLevel *= ClickDecayRate;
+                        if (Math.Abs(clickImpulseLevel) < 1e-5f) clickImpulseLevel = 0.0f;
                     }
 
                     renderedGateState = gateState;
