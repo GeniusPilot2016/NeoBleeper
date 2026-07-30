@@ -838,18 +838,15 @@ namespace NeoBleeper
             /// behavior. Only a rapid sequence of gate edges is replayed sample-accurately
             /// inside Read, so the tight-loop pulse noise is not reduced to a faint beep.
             /// </summary>
-            private sealed class RapidGateSampleProvider : ISampleProvider
+            public sealed class RapidGateSampleProvider : ISampleProvider
             {
                 private const double OpenGain = 0.15;
                 private const int RapidEdgeCount = 2;
 
-                // The first adaptive edge enters the sample-accurate gate path; the
-                // reset timeout still separates distinct bursts. A long pause returns calls to the
-                // original direct-gain behavior.
                 private static readonly long RapidEdgeTicks =
-                    Math.Max(1L, System.Diagnostics.Stopwatch.Frequency * 2L / 1000L);
+                    Math.Max(1L, Stopwatch.Frequency * 2L / 1000L);
                 private static readonly long RapidResetTicks =
-                    Math.Max(1L, System.Diagnostics.Stopwatch.Frequency * 10L / 1000L);
+                    Math.Max(1L, Stopwatch.Frequency * 10L / 1000L);
 
                 private readonly SignalGenerator source;
                 private readonly object gateLock = new object();
@@ -871,6 +868,11 @@ namespace NeoBleeper
                 private int candidateStartState;
                 private int renderedGateState;
                 private volatile int requestedGateState;
+
+                // --- Ultra-Low DC Blocker (Sub-Audible Cutoff ~3.5 Hz) ---
+                private readonly float[] dcX;
+                private readonly float[] dcY;
+                private const float DcR = 0.9995f; // 100% passthrough for all audio frequencies (20Hz-20kHz)
 
                 private readonly struct GateCommand
                 {
@@ -899,73 +901,15 @@ namespace NeoBleeper
                 public RapidGateSampleProvider(SignalGenerator source)
                 {
                     this.source = source ?? throw new ArgumentNullException(nameof(source));
-
-                    int sampleRate = source.WaveFormat.SampleRate;
-
-                    // Small PC-speaker-style enclosure/cone resonance.
-                    speakerHighPass = BiQuadFilter.HighPassFilter(
-                        sampleRate,
-                        500.0f,
-                        0.75f);
-
-                    speakerResonance = BiQuadFilter.PeakingEQ(
-                        sampleRate,
-                        2400.0f,
-                        1.8f,
-                        7.0f);
-
-                    // Extra high-Q peaks above the cone resonance: this is what makes a
-                    // cheap magnetic system speaker sound "tinny"/metallic rather than
-                    // like a clean small woofer. The thin metal diaphragm/case rings at
-                    // these upper-mid/high bands under a hard on/off pulse drive.
-                    metallicRing1 = BiQuadFilter.PeakingEQ(
-                        sampleRate,
-                        3800.0f,
-                        5.0f,
-                        9.0f);
-
-                    metallicRing2 = BiQuadFilter.PeakingEQ(
-                        sampleRate,
-                        6200.0f,
-                        6.0f,
-                        6.0f);
-
-                    // Short feedback delay line -> a metallic "ring"/comb resonance,
-                    // similar to the buzzy overtones a tiny speaker/case adds to a
-                    // hard square pulse. Length picked to sit around ~2.5 kHz spacing.
-                    metallicCombDelaySamples = Math.Max(
-                        4,
-                        (int)Math.Round(sampleRate * MetallicCombDelayMs / 1000.0));
-
                     int channels = source.WaveFormat.Channels;
-                    metallicCombBuffers = new float[channels][];
-                    metallicCombIndices = new int[channels];
-                    for (int ch = 0; ch < channels; ch++)
-                    {
-                        metallicCombBuffers[ch] = new float[metallicCombDelaySamples];
-                    }
+                    dcX = new float[channels];
+                    dcY = new float[channels];
                 }
-                private readonly BiQuadFilter speakerResonance;
-                private readonly BiQuadFilter speakerHighPass;
-
-                // --- Metallic character additions ---
-                private const double MetallicCombDelayMs = 0.42; // ~2.4 kHz comb spacing
-                private const float MetallicCombFeedback = 0.42f;
-                private const float MetallicOutputTrim = 0.82f; // keeps the added ring from clipping/over-loudening
-                private readonly BiQuadFilter metallicRing1;
-                private readonly BiQuadFilter metallicRing2;
-                private readonly float[][] metallicCombBuffers;
-                private readonly int[] metallicCombIndices;
-                private readonly int metallicCombDelaySamples;
-                // --- end metallic character additions ---
 
                 public WaveFormat WaveFormat => source.WaveFormat;
 
                 public bool IsMuted => requestedGateState == 0;
 
-                /// <summary>
-                /// Exact legacy path for regular beeps. No edge queue is involved.
-                /// </summary>
                 public void SetDirectGate(bool open)
                 {
                     int newState = open ? 1 : 0;
@@ -979,10 +923,6 @@ namespace NeoBleeper
                     }
                 }
 
-                /// <summary>
-                /// Directly gates isolated StartSynth/StopSynth calls. It switches to the
-                /// timestamped path immediately so the first edge is never duplicated by direct Gain.
-                /// </summary>
                 public void SetAdaptiveGate(bool open)
                 {
                     int newState = open ? 1 : 0;
@@ -1007,8 +947,6 @@ namespace NeoBleeper
                         {
                             if (edgeGap > RapidResetTicks)
                             {
-                                // End the previous rapid burst and handle this as
-                                // the beginning of a new possible burst.
                                 LeavePreciseModeLocked(previousState);
                                 ApplyDirectGainLocked(newState);
                                 BeginCandidateLocked(previousState, timestamp, newState);
@@ -1022,7 +960,6 @@ namespace NeoBleeper
                             return;
                         }
 
-                        // Preserve the natural direct response for the first edge.
                         ApplyDirectGainLocked(newState);
 
                         if (edgeGap > RapidEdgeTicks)
@@ -1040,7 +977,6 @@ namespace NeoBleeper
                             lastTransitionTimestamp = timestamp;
                         }
 
-                        // Enter precise mode only after confirming an actual rapid pair.
                         if (rapidCandidate.Count >= RapidEdgeCount)
                         {
                             EnterPreciseModeLocked();
@@ -1048,9 +984,6 @@ namespace NeoBleeper
                     }
                 }
 
-                /// <summary>
-                /// Clears stale state while WaveOut is stopped and this provider is selected.
-                /// </summary>
                 public void ResetClosed()
                 {
                     lock (gateLock)
@@ -1060,20 +993,14 @@ namespace NeoBleeper
                         renderedGateState = 0;
                         source.Gain = 0.0;
                         renderedFrames = 0;
-                        ResetMetallicCombState();
+                        Array.Clear(dcX, 0, dcX.Length);
+                        Array.Clear(dcY, 0, dcY.Length);
                     }
                 }
 
                 public int Read(float[] buffer, int offset, int count)
                 {
                     int read = source.Read(buffer, offset, count);
-
-                    // In normal mode the source Gain is changed exactly as in the original
-                    // engine, and this provider does not alter a single regular-beep sample.
-                    if (!preciseGateMode)
-                    {
-                        return read;
-                    }
 
                     int channels = WaveFormat.Channels;
                     int frameCount = read / channels;
@@ -1087,115 +1014,97 @@ namespace NeoBleeper
                     long frameAfterBuffer = firstFrame + frameCount;
                     dueCommands.Clear();
 
-                    lock (gateLock)
+                    if (preciseGateMode)
                     {
-                        if (!preciseGateMode)
+                        lock (gateLock)
                         {
-                            return read;
-                        }
-
-                        if (!clockStarted && commands.Count != 0)
-                        {
-                            GateCommand first = commands.Peek();
-                            clockOriginTimestamp = first.Timestamp;
-                            clockOriginFrame = firstFrame;
-                            scheduleDelayFrames = 0;
-                            clockStarted = true;
-                        }
-
-                        while (clockStarted && commands.Count != 0)
-                        {
-                            GateCommand command = commands.Peek();
-                            long relativeFrames = TimestampDeltaToFrames(
-                                command.Timestamp - clockOriginTimestamp);
-                            long targetFrame = clockOriginFrame + relativeFrames + scheduleDelayFrames;
-
-                            // WaveOut can already be ahead of the control thread. Shift the
-                            // pending burst forward while preserving every edge interval.
-                            if (targetFrame < firstFrame)
+                            if (preciseGateMode)
                             {
-                                scheduleDelayFrames += firstFrame - targetFrame;
-                                targetFrame = firstFrame;
-                            }
+                                if (!clockStarted && commands.Count != 0)
+                                {
+                                    GateCommand first = commands.Peek();
+                                    clockOriginTimestamp = first.Timestamp;
+                                    clockOriginFrame = firstFrame;
+                                    scheduleDelayFrames = 0;
+                                    clockStarted = true;
+                                }
 
-                            if (targetFrame >= frameAfterBuffer)
-                            {
-                                break;
-                            }
+                                while (clockStarted && commands.Count != 0)
+                                {
+                                    GateCommand command = commands.Peek();
+                                    long relativeFrames = TimestampDeltaToFrames(
+                                        command.Timestamp - clockOriginTimestamp);
+                                    long targetFrame = clockOriginFrame + relativeFrames + scheduleDelayFrames;
 
-                            commands.Dequeue();
-                            dueCommands.Add(new RenderedGateCommand(targetFrame, command.State));
+                                    if (targetFrame < firstFrame)
+                                    {
+                                        scheduleDelayFrames += firstFrame - targetFrame;
+                                        targetFrame = firstFrame;
+                                    }
+
+                                    if (targetFrame >= frameAfterBuffer)
+                                    {
+                                        break;
+                                    }
+
+                                    commands.Dequeue();
+                                    dueCommands.Add(new RenderedGateCommand(targetFrame, command.State));
+                                }
+                            }
                         }
                     }
 
                     int gateState = renderedGateState;
-                    int previousGateState = gateState;
                     int commandIndex = 0;
-                    int edgeFramesRemaining = 0;
 
                     for (int frame = 0; frame < frameCount; frame++)
                     {
                         long absoluteFrame = firstFrame + frame;
 
-                        while (commandIndex < dueCommands.Count &&
-                               dueCommands[commandIndex].Frame <= absoluteFrame)
+                        if (dueCommands.Count > 0)
                         {
-                            gateState = dueCommands[commandIndex].State;
-                            commandIndex++;
+                            while (commandIndex < dueCommands.Count &&
+                                   dueCommands[commandIndex].Frame <= absoluteFrame)
+                            {
+                                gateState = dueCommands[commandIndex].State;
+                                commandIndex++;
+                            }
                         }
 
                         int sampleIndex = offset + frame * channels;
 
                         for (int channel = 0; channel < channels; channel++)
                         {
-                            float sample = gateState != 0
-                                ? buffer[sampleIndex + channel]
-                                : 0.0f;
+                            float rawSample;
+                            if (preciseGateMode)
+                            {
+                                // Direct 1-bit DC step logic during rapid toggling
+                                rawSample = (gateState != 0) ? (float)OpenGain : 0.0f;
+                            }
+                            else
+                            {
+                                // Pure waveform generator passthrough (Square, Sine, Saw, Tri)
+                                rawSample = (gateState != 0) ? buffer[sampleIndex + channel] : 0.0f;
+                            }
 
-                            sample = speakerHighPass.Transform(sample);
-                            sample = speakerResonance.Transform(sample);
+                            // Sub-audible DC Blocker (R = 0.9995f)
+                            // Eliminates DC pop/thump without rounding pulse edges or muffling transients
+                            float x = rawSample;
+                            float y = x - dcX[channel] + DcR * dcY[channel];
 
-                            // Metallic character: extra high-Q resonant peaks plus a
-                            // short feedback comb, layered on top of the existing
-                            // enclosure/cone filtering. Only applied in precise gate
-                            // mode, i.e. exactly where the tight-loop pulse noise is
-                            // already being shaped, so regular beeps are unaffected.
-                            sample = metallicRing1.Transform(sample);
-                            sample = metallicRing2.Transform(sample);
-                            sample = ApplyMetallicComb(channel, sample);
-                            sample *= MetallicOutputTrim;
+                            // Denormal protection during silence decay
+                            if (Math.Abs(y) < 1e-9f) y = 0.0f;
 
-                            buffer[sampleIndex + channel] =
-                                Math.Clamp(sample, -1.0f, 1.0f);
+                            dcX[channel] = x;
+                            dcY[channel] = y;
+
+                            buffer[sampleIndex + channel] = Math.Clamp(y, -1.0f, 1.0f);
                         }
                     }
 
                     renderedGateState = gateState;
                     renderedFrames = frameAfterBuffer;
                     return read;
-                }
-
-                private float ApplyMetallicComb(int channel, float sample)
-                {
-                    float[] delayBuffer = metallicCombBuffers[channel];
-                    int index = metallicCombIndices[channel];
-
-                    float delayed = delayBuffer[index];
-                    float output = sample + delayed * MetallicCombFeedback;
-
-                    delayBuffer[index] = output;
-                    metallicCombIndices[channel] = index + 1 >= metallicCombDelaySamples ? 0 : index + 1;
-
-                    return output;
-                }
-
-                private void ResetMetallicCombState()
-                {
-                    for (int ch = 0; ch < metallicCombBuffers.Length; ch++)
-                    {
-                        Array.Clear(metallicCombBuffers[ch], 0, metallicCombBuffers[ch].Length);
-                        metallicCombIndices[ch] = 0;
-                    }
                 }
 
                 private void BeginCandidateLocked(int stateBeforeEdge, long timestamp, int newState)
@@ -1219,10 +1128,7 @@ namespace NeoBleeper
                     rapidCandidate.Clear();
                     clockStarted = false;
                     scheduleDelayFrames = 0;
-                    ResetMetallicCombState();
 
-                    // The oscillator must remain available while Read applies the queued
-                    // ON/OFF mask at individual sample frames.
                     source.Gain = OpenGain;
                     preciseGateMode = true;
                 }
@@ -1236,7 +1142,6 @@ namespace NeoBleeper
                     preciseGateMode = false;
                     renderedGateState = stableState;
                     source.Gain = stableState != 0 ? OpenGain : 0.0;
-                    ResetMetallicCombState();
                 }
 
                 private void CancelPreciseModeLocked()
@@ -1263,7 +1168,7 @@ namespace NeoBleeper
 
                     return (long)Math.Round(
                         timestampDelta * (double)WaveFormat.SampleRate /
-                        System.Diagnostics.Stopwatch.Frequency);
+                        Stopwatch.Frequency);
                 }
             }
 
