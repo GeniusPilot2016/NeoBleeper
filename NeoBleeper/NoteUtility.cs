@@ -232,30 +232,86 @@ namespace NeoBleeper
     {
         public enum MidiPercussion : byte
         {
-            Laser = 27, Whip = 28, ScratchPush = 29, ScratchPull = 30, StickClick = 31,
-            SquareClick = 32, MetronomeClick = 33, MetronomeBell = 34,
+            Laser = 27,
+            Whip = 28,
+            ScratchPush = 29,
+            ScratchPull = 30,
+            StickClick = 31,
+            SquareClick = 32,
+            MetronomeClick = 33,
+            MetronomeBell = 34,
 
-            BassDrum = 35, KickDrum = 36, LowTom = 45, LowMidTom = 47, HighMidTom = 48,
-            HighTom = 50, FloorTom1 = 43, FloorTom2 = 41,
+            BassDrum = 35,
+            KickDrum = 36,
 
-            SideStick = 37, SnareCrossStick = 37, SnareDrum = 38, ElectricSnareDrum = 40,
-            SnareDrumRod = 91, SnareDrumBrush = 93,
+            SideStick = 37,
+            SnareCrossStick = SideStick,
 
-            HiHatClosed = 42, HiHatOpen = 46, HiHatFoot = 44, CrashCymbal = 49,
-            CrashCymbal2 = 57, RideCymbal = 51, RideCymbal2 = 59, ChinaCymbal = 52,
-            SplashCymbal = 55, RideBell = 53,
+            SnareDrum = 38,
+            HandClap = 39,
+            ElectricSnareDrum = 40,
 
-            HandClap = 39, Tambourine = 54, Vibraslap = 58, Cowbell = 56,
-            HighBongo = 60, LowBongo = 61, CongaDeadStroke = 62, Conga = 63, Tumba = 64,
-            HighTimbale = 65, LowTimbale = 66, HighAgogo = 67, LowAgogo = 68,
-            Cabasa = 69, Maracas = 70, Shaker = 82, SleighBell = 83, BellTree = 84,
-            Castanets = 85, SurduDeadStroke = 86, Surdu = 87, CuicaHigh = 78, CuicaLow = 79,
+            FloorTom2 = 41,
+            HiHatClosed = 42,
+            FloorTom1 = 43,
+            HiHatFoot = 44,
+            LowTom = 45,
+            HiHatOpen = 46,
+            LowMidTom = 47,
+            HighMidTom = 48,
+            CrashCymbal = 49,
+            HighTom = 50,
+            RideCymbal = 51,
+            ChinaCymbal = 52,
+            RideBell = 53,
+            Tambourine = 54,
+            SplashCymbal = 55,
+            Cowbell = 56,
+            CrashCymbal2 = 57,
+            Vibraslap = 58,
+            RideCymbal2 = 59,
 
-            GuiroShort = 73, GuiroLong = 74, Güiro = 73, Claves = 75, Clave = 75,
-            HighWoodblock = 76, LowWoodblock = 77, WoodBlock = 76,
+            HighBongo = 60,
+            LowBongo = 61,
+            CongaDeadStroke = 62,
+            Conga = 63,
+            Tumba = 64,
+            HighTimbale = 65,
+            LowTimbale = 66,
+            HighAgogo = 67,
+            LowAgogo = 68,
+            Cabasa = 69,
+            Maracas = 70,
+            WhistleShort = 71,
+            WhistleLong = 72,
 
-            WhistleShort = 71, WhistleLong = 72, TriangleMute = 80, TriangleOpen = 81,
-            OceanDrum = 92
+            GuiroShort = 73,
+            Güiro = GuiroShort,
+
+            GuiroLong = 74,
+
+            Claves = 75,
+            Clave = Claves,
+
+            HighWoodblock = 76,
+            WoodBlock = HighWoodblock,
+
+            LowWoodblock = 77,
+            CuicaHigh = 78,
+            CuicaLow = 79,
+            TriangleMute = 80,
+            TriangleOpen = 81,
+
+            Shaker = 82,
+            SleighBell = 83,
+            BellTree = 84,
+            Castanets = 85,
+            SurduDeadStroke = 86,
+            Surdu = 87,
+
+            SnareDrumRod = 91,
+            OceanDrum = 92,
+            SnareDrumBrush = 93
         }
 
         public enum PercussionOutputChoice { SystemSpeaker, SoundDevice }
@@ -334,127 +390,444 @@ namespace NeoBleeper
         }
 
         // --- CORE PERCUSSION PROFILES ---
-        // DRUMS UPDATED FOR BETTER AUDIBILITY AND SPEAKER RESPONSE
-        // --- CORE PERCUSSION PROFILES ---
-        // REALISTIC PERCUSSION PROFILES (NATURAL DRUM RESONANCE & TIMING)
-        private static PercussionProfile GetProfile(MidiPercussion p, PercussionOutputChoice output) => p switch
+        private static PercussionProfile GetProfile(
+    MidiPercussion percussion,
+    PercussionOutputChoice output)
         {
-            // Kick / Bass Drum: Ultra-fast drop to fundamental sub/bass frequencies (160 Hz -> 55 Hz in 45ms)
-            MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
-                new PercussionProfile(SynthWave.Square, true, 160, 55, 45, holdRatio: 0.08),
+            // Very short sounds can disappear when rendering is block/buffer based.
+            // Give every one-shot enough time to reach the output device.
+            static PercussionProfile Profile(
+                SynthWave wave,
+                bool pitchSweep,
+                int startFrequency,
+                int endFrequency,
+                int durationMs,
+                double density = 1.0,
+                int hits = 1,
+                int gap = 0,
+                double holdRatio = 0.10)
+            {
+                const int minimumAudibleDurationMs = 45;
+                const int minimumTailAfterLastHitMs = 35;
 
-            // Toms: Deep fundamental resonances with rapid initial pitch drop
-            MidiPercussion.HighTom =>
-                new PercussionProfile(SynthWave.Square, true, 280, 180, 55, holdRatio: 0.10),
-            MidiPercussion.LowTom or MidiPercussion.HighMidTom or MidiPercussion.LowMidTom =>
-                new PercussionProfile(SynthWave.Square, true, 210, 130, 65, holdRatio: 0.10),
-            MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 =>
-                new PercussionProfile(SynthWave.Square, true, 150, 90, 80, holdRatio: 0.10),
+                hits = Math.Max(1, hits);
+                gap = Math.Max(0, gap);
 
-            // Snares: Crisp noise bursts matched to drumhead snap
-            MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum =>
-                new PercussionProfile(SynthWave.Noise, false, 3200, 3200, 75, density: 0.90, holdRatio: 0.10),
-            MidiPercussion.SnareDrumRod =>
-                new PercussionProfile(SynthWave.Noise, false, 2800, 2800, 60, density: 0.70, holdRatio: 0.10),
-            MidiPercussion.SnareDrumBrush =>
-                new PercussionProfile(SynthWave.Noise, false, 2400, 2400, 140, density: 0.45, holdRatio: 0.15),
+                var repeatedHitDuration =
+                    ((hits - 1) * gap) + minimumTailAfterLastHitMs;
 
-            MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 =>
-                new PercussionProfile(SynthWave.Noise, false, 5500, 5500, 850, density: 0.45, holdRatio: 0.04),
-            MidiPercussion.ChinaCymbal =>
-                new PercussionProfile(SynthWave.Noise, false, 6200, 6200, 650, density: 0.55, holdRatio: 0.04),
-            MidiPercussion.SplashCymbal =>
-                new PercussionProfile(SynthWave.Noise, false, 6000, 6000, 220, density: 0.45, holdRatio: 0.05),
-            MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
-                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 900, density: 0.25, holdRatio: 0.05),
+                var safeDuration = Math.Max(
+                    durationMs,
+                    Math.Max(minimumAudibleDurationMs, repeatedHitDuration));
 
-            MidiPercussion.HiHatClosed =>
-                new PercussionProfile(SynthWave.Noise, false, 7500, 7500, 25, density: 0.80, holdRatio: 0.12),
-            MidiPercussion.HiHatOpen =>
-                new PercussionProfile(SynthWave.Noise, false, 7000, 7000, 300, density: 0.30, holdRatio: 0.05),
-            MidiPercussion.HiHatFoot =>
-                new PercussionProfile(SynthWave.Noise, false, 2800, 2800, 35, density: 0.60, holdRatio: 0.10),
+                return new PercussionProfile(
+                    wave,
+                    pitchSweep,
+                    Math.Max(1, startFrequency),
+                    Math.Max(1, endFrequency),
+                    safeDuration,
+                    density: Math.Clamp(density, 0.01, 1.0),
+                    hits: hits,
+                    gap: gap,
+                    holdRatio: Math.Clamp(holdRatio, 0.01, 0.95));
+            }
 
-            MidiPercussion.HandClap =>
-                new PercussionProfile(SynthWave.Noise, false, 2200, 2200, 35, density: 0.70, hits: 3, gap: 6, holdRatio: 0.10),
-            MidiPercussion.Vibraslap =>
-                new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 600, density: 0.20, holdRatio: 0.08),
+            // Remove this line when output-specific profiles are implemented.
+            _ = output;
 
-            MidiPercussion.SideStick or MidiPercussion.SnareCrossStick or MidiPercussion.StickClick or
-            MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.MetronomeBell =>
-                new PercussionProfile(SynthWave.Triangle, false, 1400, 1400, 18, holdRatio: 0.15),
+            return percussion switch
+            {
+                MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
+                    Profile(SynthWave.Square, true, 160, 55, 45, holdRatio: 0.08),
 
-            MidiPercussion.Claves or MidiPercussion.Clave or MidiPercussion.Castanets =>
-                new PercussionProfile(SynthWave.Triangle, false, 2400, 2400, 30, holdRatio: 0.10),
-            MidiPercussion.HighWoodblock =>
-                new PercussionProfile(SynthWave.Triangle, false, 1800, 1800, 45, holdRatio: 0.10),
-            MidiPercussion.LowWoodblock or MidiPercussion.WoodBlock =>
-                new PercussionProfile(SynthWave.Triangle, false, 1200, 1200, 60, holdRatio: 0.10),
+                MidiPercussion.HighTom =>
+                    Profile(SynthWave.Square, true, 280, 180, 55),
+                MidiPercussion.LowTom or MidiPercussion.HighMidTom or MidiPercussion.LowMidTom =>
+                    Profile(SynthWave.Square, true, 210, 130, 65),
+                MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 =>
+                    Profile(SynthWave.Square, true, 150, 90, 80),
+                MidiPercussion.SideStick or
+                MidiPercussion.StickClick or
+                MidiPercussion.SquareClick or
+                MidiPercussion.MetronomeClick or
+                MidiPercussion.MetronomeBell =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        1400,
+                        1400,
+                        18,
+                        holdRatio: 0.15),
 
-            MidiPercussion.HighBongo =>
-                new PercussionProfile(SynthWave.Triangle, true, 280, 220, 50, holdRatio: 0.12),
-            MidiPercussion.LowBongo =>
-                new PercussionProfile(SynthWave.Triangle, true, 200, 150, 65, holdRatio: 0.12),
-            MidiPercussion.CongaDeadStroke =>
-                new PercussionProfile(SynthWave.Triangle, true, 220, 190, 30, holdRatio: 0.08),
-            MidiPercussion.Conga =>
-                new PercussionProfile(SynthWave.Triangle, true, 230, 170, 80, holdRatio: 0.12),
-            MidiPercussion.Tumba =>
-                new PercussionProfile(SynthWave.Triangle, true, 170, 120, 100, holdRatio: 0.12),
-            MidiPercussion.HighTimbale =>
-                new PercussionProfile(SynthWave.Triangle, true, 450, 350, 60, holdRatio: 0.10),
-            MidiPercussion.LowTimbale =>
-                new PercussionProfile(SynthWave.Triangle, true, 340, 240, 75, holdRatio: 0.10),
-            MidiPercussion.SurduDeadStroke =>
-                new PercussionProfile(SynthWave.Triangle, true, 130, 100, 40, holdRatio: 0.08),
-            MidiPercussion.Surdu =>
-                new PercussionProfile(SynthWave.Triangle, true, 120, 75, 120, holdRatio: 0.12),
+                MidiPercussion.Claves or MidiPercussion.Castanets =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        2400,
+                        2400,
+                        30,
+                        holdRatio: 0.10),
 
-            MidiPercussion.Cowbell =>
-                new PercussionProfile(SynthWave.Triangle, false, 820, 820, 140, holdRatio: 0.08),
-            MidiPercussion.RideBell =>
-                new PercussionProfile(SynthWave.Triangle, false, 1250, 1250, 280, holdRatio: 0.08),
-            MidiPercussion.HighAgogo =>
-                new PercussionProfile(SynthWave.Triangle, false, 900, 900, 90, holdRatio: 0.08),
-            MidiPercussion.LowAgogo =>
-                new PercussionProfile(SynthWave.Triangle, false, 650, 650, 120, holdRatio: 0.08),
-            MidiPercussion.TriangleMute =>
-                new PercussionProfile(SynthWave.Triangle, false, 3400, 3400, 30, holdRatio: 0.15),
-            MidiPercussion.TriangleOpen =>
-                new PercussionProfile(SynthWave.Triangle, false, 3400, 3400, 800, holdRatio: 0.05),
-            MidiPercussion.SleighBell or MidiPercussion.BellTree =>
-                new PercussionProfile(SynthWave.Triangle, false, 2400, 2400, 80, hits: 3, gap: 10, holdRatio: 0.10),
+                MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum =>
+                    Profile(SynthWave.Noise, false, 3200, 3200, 75, density: 0.90),
+                MidiPercussion.SnareDrumRod =>
+                    Profile(SynthWave.Noise, false, 2800, 2800, 60, density: 0.70),
+                MidiPercussion.SnareDrumBrush =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        2400,
+                        2400,
+                        140,
+                        density: 0.45,
+                        holdRatio: 0.15),
 
-            MidiPercussion.Maracas =>
-                new PercussionProfile(SynthWave.Noise, false, 5000, 5000, 55, density: 0.35, holdRatio: 0.12),
-            MidiPercussion.Cabasa =>
-                new PercussionProfile(SynthWave.Noise, false, 4500, 4500, 70, density: 0.45, holdRatio: 0.10),
-            MidiPercussion.Shaker or MidiPercussion.Tambourine =>
-                new PercussionProfile(SynthWave.Noise, false, 5500, 5500, 85, density: 0.30, holdRatio: 0.10),
-            MidiPercussion.GuiroShort or MidiPercussion.Güiro =>
-                new PercussionProfile(SynthWave.Noise, false, 3200, 3200, 65, density: 0.55, holdRatio: 0.12),
-            MidiPercussion.GuiroLong =>
-                new PercussionProfile(SynthWave.Noise, false, 3200, 3200, 50, density: 0.55, hits: 4, gap: 10, holdRatio: 0.10),
-            MidiPercussion.ScratchPush or MidiPercussion.ScratchPull =>
-                new PercussionProfile(SynthWave.Noise, false, 3800, 3800, 70, density: 0.40, holdRatio: 0.12),
-            MidiPercussion.OceanDrum =>
-                new PercussionProfile(SynthWave.Noise, false, 1600, 1600, 1200, density: 0.12, holdRatio: 0.12),
+                MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        5500,
+                        5500,
+                        850,
+                        density: 0.45,
+                        holdRatio: 0.04),
+                MidiPercussion.ChinaCymbal =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        6200,
+                        6200,
+                        650,
+                        density: 0.55,
+                        holdRatio: 0.04),
+                MidiPercussion.SplashCymbal =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        6000,
+                        6000,
+                        220,
+                        density: 0.45,
+                        holdRatio: 0.05),
+                MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        5000,
+                        5000,
+                        900,
+                        density: 0.25,
+                        holdRatio: 0.05),
 
-            MidiPercussion.WhistleShort =>
-                new PercussionProfile(SynthWave.Square, false, 1800, 1800, 110, holdRatio: 0.20),
-            MidiPercussion.WhistleLong =>
-                new PercussionProfile(SynthWave.Square, false, 1800, 1800, 600, holdRatio: 0.25),
-            MidiPercussion.Laser =>
-                new PercussionProfile(SynthWave.Square, true, 1800, 200, 150, holdRatio: 0.08),
-            MidiPercussion.Whip =>
-                new PercussionProfile(SynthWave.Square, true, 1400, 150, 90, holdRatio: 0.08),
-            MidiPercussion.CuicaHigh =>
-                new PercussionProfile(SynthWave.Triangle, true, 750, 480, 100, holdRatio: 0.12),
-            MidiPercussion.CuicaLow =>
-                new PercussionProfile(SynthWave.Triangle, true, 420, 230, 130, holdRatio: 0.12),
+                MidiPercussion.HiHatClosed =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        7500,
+                        7500,
+                        25,
+                        density: 0.80,
+                        holdRatio: 0.12),
+                MidiPercussion.HiHatOpen =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        7000,
+                        7000,
+                        300,
+                        density: 0.30,
+                        holdRatio: 0.05),
+                MidiPercussion.HiHatFoot =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        2800,
+                        2800,
+                        35,
+                        density: 0.60),
 
-            _ => new PercussionProfile(SynthWave.Square, false, 300, 300, 25, holdRatio: 0.15)
-        };
+                MidiPercussion.HandClap =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        2200,
+                        2200,
+                        35,
+                        density: 0.70,
+                        hits: 3,
+                        gap: 6),
+                MidiPercussion.Vibraslap =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        1800,
+                        1800,
+                        600,
+                        density: 0.20,
+                        holdRatio: 0.08),
+                MidiPercussion.HighWoodblock =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        1800,
+                        1800,
+                        45,
+                        holdRatio: 0.10),
+
+                MidiPercussion.LowWoodblock =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        1200,
+                        1200,
+                        60,
+                        holdRatio: 0.10),
+
+
+
+                MidiPercussion.HighBongo =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        280,
+                        220,
+                        50,
+                        holdRatio: 0.12),
+                MidiPercussion.LowBongo =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        200,
+                        150,
+                        65,
+                        holdRatio: 0.12),
+                MidiPercussion.CongaDeadStroke =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        220,
+                        190,
+                        30,
+                        holdRatio: 0.08),
+                MidiPercussion.Conga =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        230,
+                        170,
+                        80,
+                        holdRatio: 0.12),
+                MidiPercussion.Tumba =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        170,
+                        120,
+                        100,
+                        holdRatio: 0.12),
+                MidiPercussion.HighTimbale =>
+                    Profile(SynthWave.Triangle, true, 450, 350, 60),
+                MidiPercussion.LowTimbale =>
+                    Profile(SynthWave.Triangle, true, 340, 240, 75),
+                MidiPercussion.SurduDeadStroke =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        130,
+                        100,
+                        40,
+                        holdRatio: 0.08),
+                MidiPercussion.Surdu =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        120,
+                        75,
+                        120,
+                        holdRatio: 0.12),
+
+                MidiPercussion.Cowbell =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        820,
+                        820,
+                        140,
+                        holdRatio: 0.08),
+                MidiPercussion.RideBell =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        1250,
+                        1250,
+                        280,
+                        holdRatio: 0.08),
+                MidiPercussion.HighAgogo =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        900,
+                        900,
+                        90,
+                        holdRatio: 0.08),
+                MidiPercussion.LowAgogo =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        650,
+                        650,
+                        120,
+                        holdRatio: 0.08),
+                MidiPercussion.TriangleMute =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        3400,
+                        3400,
+                        30,
+                        holdRatio: 0.15),
+                MidiPercussion.TriangleOpen =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        3400,
+                        3400,
+                        800,
+                        holdRatio: 0.05),
+                MidiPercussion.SleighBell or MidiPercussion.BellTree =>
+                    Profile(
+                        SynthWave.Triangle,
+                        false,
+                        2400,
+                        2400,
+                        80,
+                        hits: 3,
+                        gap: 10),
+
+                MidiPercussion.Maracas =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        5000,
+                        5000,
+                        55,
+                        density: 0.35,
+                        holdRatio: 0.12),
+                MidiPercussion.Cabasa =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        4500,
+                        4500,
+                        70,
+                        density: 0.45),
+                MidiPercussion.Shaker or MidiPercussion.Tambourine =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        5500,
+                        5500,
+                        85,
+                        density: 0.30),
+
+                MidiPercussion.GuiroShort =>
+                Profile(
+                    SynthWave.Noise,
+                    false,
+                    3200,
+                    3200,
+                    65,
+                    density: 0.55,
+                    holdRatio: 0.12),
+                MidiPercussion.GuiroLong =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        3200,
+                        3200,
+                        50,
+                        density: 0.55,
+                        hits: 4,
+                        gap: 10),
+                MidiPercussion.ScratchPush or MidiPercussion.ScratchPull =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        3800,
+                        3800,
+                        70,
+                        density: 0.40,
+                        holdRatio: 0.12),
+                MidiPercussion.OceanDrum =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        1600,
+                        1600,
+                        1200,
+                        density: 0.12,
+                        holdRatio: 0.12),
+
+                MidiPercussion.WhistleShort =>
+                    Profile(
+                        SynthWave.Square,
+                        false,
+                        1800,
+                        1800,
+                        110,
+                        holdRatio: 0.20),
+                MidiPercussion.WhistleLong =>
+                    Profile(
+                        SynthWave.Square,
+                        false,
+                        1800,
+                        1800,
+                        600,
+                        holdRatio: 0.25),
+                MidiPercussion.Laser =>
+                    Profile(
+                        SynthWave.Square,
+                        true,
+                        1800,
+                        200,
+                        150,
+                        holdRatio: 0.08),
+                MidiPercussion.Whip =>
+                    Profile(
+                        SynthWave.Square,
+                        true,
+                        1400,
+                        150,
+                        90,
+                        holdRatio: 0.08),
+                MidiPercussion.CuicaHigh =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        750,
+                        480,
+                        100,
+                        holdRatio: 0.12),
+                MidiPercussion.CuicaLow =>
+                    Profile(
+                        SynthWave.Triangle,
+                        true,
+                        420,
+                        230,
+                        130,
+                        holdRatio: 0.12),
+
+                // An audible generic percussion sound for unrecognized values.
+                _ => Profile(
+                    SynthWave.Noise,
+                    false,
+                    2200,
+                    2200,
+                    80,
+                    density: 0.65,
+                    holdRatio: 0.15)
+            };
+        }
 
         // --- PLAYBACK ENGINE ---
 
