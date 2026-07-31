@@ -322,7 +322,33 @@ namespace NeoBleeper
         private static int _activeDeviceSession = 0;
         private static readonly object _hardwareLock = new object();
 
+        private const int MinimumSystemSpeakerHitMs = 20;
+        private const int MinimumSoundDeviceHitMs = 20;
+        private const int MinimumSoundDeviceAttackMs = 12;
+
         private static int ClampPercussionFrequency(double frequency) => (int)Math.Round(Math.Clamp(frequency, 37.0, 15000.0));
+
+        private static int EnsureAudibleDuration(PercussionOutputChoice output, int durationMs)
+        {
+            int minimum = output == PercussionOutputChoice.SoundDevice
+                ? MinimumSoundDeviceHitMs
+                : MinimumSystemSpeakerHitMs;
+            return Math.Max(minimum, durationMs);
+        }
+
+        private static int GetSoundDeviceAttackDuration(
+            int totalDurationMs, double requestedRatio, int maximumAttackMs)
+        {
+            if (totalDurationMs <= 0) return 0;
+
+            int minimum = Math.Min(MinimumSoundDeviceAttackMs, totalDurationMs);
+            int maximum = Math.Clamp(maximumAttackMs, minimum, totalDurationMs);
+            int requested = (int)Math.Round(
+                totalDurationMs * Math.Clamp(requestedRatio, 0.0, 1.0),
+                MidpointRounding.AwayFromZero);
+
+            return Math.Clamp(requested, minimum, maximum);
+        }
 
         private static bool IsSessionActive(PercussionOutputChoice choice, int sessionId) =>
             choice == PercussionOutputChoice.SystemSpeaker ? Volatile.Read(ref _activeSpeakerSession) == sessionId : Volatile.Read(ref _activeDeviceSession) == sessionId;
@@ -432,32 +458,47 @@ namespace NeoBleeper
                     holdRatio: Math.Clamp(holdRatio, 0.01, 0.95));
             }
 
-            // Remove this line when output-specific profiles are implemented.
-            _ = output;
+            // Triangle waves retain the drum pitch sweep on normal audio
+            // devices without the buzzy, PC-speaker-like edge of a square wave.
+            SynthWave drumBodyWave = output == PercussionOutputChoice.SoundDevice
+                ? SynthWave.Triangle
+                : SynthWave.Square;
 
             return percussion switch
             {
                 MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
-                    Profile(SynthWave.Square, true, 160, 55, 45, holdRatio: 0.08),
+                    Profile(drumBodyWave, true, 160, 55, 45, holdRatio: 0.08),
 
                 MidiPercussion.HighTom =>
-                    Profile(SynthWave.Square, true, 280, 180, 55),
+                    Profile(drumBodyWave, true, 280, 180, 55),
                 MidiPercussion.LowTom or MidiPercussion.HighMidTom or MidiPercussion.LowMidTom =>
-                    Profile(SynthWave.Square, true, 210, 130, 65),
+                    Profile(drumBodyWave, true, 210, 130, 65),
                 MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 =>
-                    Profile(SynthWave.Square, true, 150, 90, 80),
+                    Profile(drumBodyWave, true, 150, 90, 80),
+                // A fixed-frequency triangle is heard as a tiny plain beep on a
+                // buffered sound device. Use a compact noise transient for clicks.
                 MidiPercussion.SideStick or
                 MidiPercussion.StickClick or
                 MidiPercussion.SquareClick or
-                MidiPercussion.MetronomeClick or
+                MidiPercussion.MetronomeClick =>
+                    Profile(
+                        SynthWave.Noise,
+                        false,
+                        7200,
+                        7200,
+                        18,
+                        density: 0.32,
+                        holdRatio: 0.04),
+
+                // Keep the explicitly pitched metronome bell separate from clicks.
                 MidiPercussion.MetronomeBell =>
                     Profile(
                         SynthWave.Triangle,
-                        false,
-                        1400,
-                        1400,
-                        18,
-                        holdRatio: 0.15),
+                        true,
+                        1900,
+                        1450,
+                        28,
+                        holdRatio: 0.04),
 
                 MidiPercussion.Claves or MidiPercussion.Castanets =>
                     Profile(
@@ -565,23 +606,28 @@ namespace NeoBleeper
                         600,
                         density: 0.20,
                         holdRatio: 0.08),
+                // Pure triangle woodblocks sound like ordinary beeps. These
+                // compact noise knocks preserve a dry attack; the low block is
+                // slightly longer and denser so the two remain distinguishable.
                 MidiPercussion.HighWoodblock =>
                     Profile(
-                        SynthWave.Triangle,
+                        SynthWave.Noise,
                         false,
-                        1800,
-                        1800,
-                        45,
-                        holdRatio: 0.10),
+                        6200,
+                        6200,
+                        26,
+                        density: 0.28,
+                        holdRatio: 0.03),
 
                 MidiPercussion.LowWoodblock =>
                     Profile(
-                        SynthWave.Triangle,
+                        SynthWave.Noise,
                         false,
-                        1200,
-                        1200,
-                        60,
-                        holdRatio: 0.10),
+                        3600,
+                        3600,
+                        42,
+                        density: 0.72,
+                        holdRatio: 0.06),
 
 
 
@@ -831,10 +877,15 @@ namespace NeoBleeper
 
         // --- PLAYBACK ENGINE ---
 
-        private static void EnforceCleanOnset(PercussionOutputChoice output)
+        private static bool EnforceCleanOnset(PercussionOutputChoice output, int sessionId)
         {
             lock (_hardwareLock)
             {
+                // A queued, stale playback task must never stop a newer hit.
+                // This race is especially visible with very short drum frames.
+                if (!IsSessionActive(output, sessionId))
+                    return false;
+
                 switch (output)
                 {
                     case PercussionOutputChoice.SystemSpeaker:
@@ -844,6 +895,8 @@ namespace NeoBleeper
                         SoundRenderingEngine.WaveSynthEngine.StopSynth();
                         break;
                 }
+
+                return IsSessionActive(output, sessionId);
             }
         }
 
@@ -865,12 +918,11 @@ namespace NeoBleeper
         {
             if (!IsSessionActive(output, sid)) return;
 
-            EnforceCleanOnset(output);
+            if (!EnforceCleanOnset(output, sid)) return;
 
             var prof = GetProfile(p, output);
 
-            int finalDuration = Math.Min(maxMs, prof.DurationMs);
-            if (finalDuration < 20) finalDuration = 20;
+            int finalDuration = EnsureAudibleDuration(output, Math.Min(maxMs, prof.DurationMs));
 
             try
             {
@@ -882,7 +934,6 @@ namespace NeoBleeper
         public static Task PlayPercussionForDurationAsync(MidiPercussion p, int durationMs, CancellationToken ct = default, int velocity = 100)
         {
             if (durationMs <= 0) return Task.CompletedTask;
-            if (durationMs < 20) durationMs = 20;
             int sid = Interlocked.Increment(ref _globalSessionId);
 
             var output = TemporarySettings.CreatingSounds.createBeepWithSoundDevice ?
@@ -893,6 +944,7 @@ namespace NeoBleeper
             else
                 Interlocked.Exchange(ref _activeDeviceSession, sid);
 
+            durationMs = EnsureAudibleDuration(output, durationMs);
             return Task.Run(() => ExecutePercussionPlaybackForDuration(p, sid, ct, durationMs, velocity, output), ct);
         }
 
@@ -900,7 +952,7 @@ namespace NeoBleeper
         {
             if (!IsSessionActive(output, sid)) return;
 
-            EnforceCleanOnset(output);
+            if (!EnforceCleanOnset(output, sid)) return;
 
             var prof = GetProfile(p, output);
 
@@ -1031,6 +1083,24 @@ namespace NeoBleeper
         private static void RenderGatedNoise(PercussionOutputChoice output, int sid, double baseFreq, int totalDurationMs, double noiseVol, double holdRatio, int originalDurationMs, CancellationToken ct)
         {
             double sampleFreq = baseFreq < 3500 ? baseFreq + 5000 : baseFreq + 1200;
+
+            // Buffered devices cannot reproduce the sub-millisecond PWM used
+            // by the PC speaker. Use one compact white-noise transient instead.
+            if (output == PercussionOutputChoice.SoundDevice)
+            {
+                double attackRatio = Math.Max(holdRatio, Math.Min(0.65, noiseVol * 0.50));
+                int maximumAttackMs = totalDurationMs <= 100
+                    ? Math.Min(32, totalDurationMs)
+                    : Math.Min(60, totalDurationMs);
+                int audibleAttackMs = GetSoundDeviceAttackDuration(
+                    totalDurationMs, attackRatio, maximumAttackMs);
+
+                StartPulse(output, (int)sampleFreq, SynthWave.Noise, sid);
+                PreciseWaitMs(audibleAttackMs, ct);
+                StopPulse(output, sid);
+                return;
+            }
+
             double sampleDurMs = 1000.0 / (sampleFreq + 0.25);
 
             var sw = Stopwatch.StartNew();
@@ -1084,12 +1154,18 @@ namespace NeoBleeper
         {
             var sw = Stopwatch.StartNew();
 
-            // Optimized SoundDevice pathway to prevent volume drop during PWM gating
+            // Preserve the profile's short attack instead of holding every
+            // sound for most of its frame, which makes clicks and drums beep.
             if (output == PercussionOutputChoice.SoundDevice)
             {
+                int maximumAttackMs = totalDurationMs <= 100
+                    ? Math.Min(18, totalDurationMs)
+                    : Math.Min(120, totalDurationMs);
+                int audibleAttackMs = GetSoundDeviceAttackDuration(
+                    totalDurationMs, holdRatio, maximumAttackMs);
+
                 StartPulse(output, frequency, waveType, sid);
-                int holdTime = (int)(totalDurationMs * holdRatio);
-                PreciseWaitMs(holdTime, ct);
+                PreciseWaitMs(audibleAttackMs, ct);
                 StopPulse(output, sid);
                 return;
             }
@@ -1145,18 +1221,33 @@ namespace NeoBleeper
         {
             var sw = Stopwatch.StartNew();
 
-            // Optimized SoundDevice pitch glide without duty-cycle slicing
+            // A single 45 ms midpoint tone sounds like a beep. Render only the
+            // attack portion as a compact downward glide with 8-12 ms steps.
             if (output == PercussionOutputChoice.SoundDevice)
             {
-                int steps = Math.Max(5, totalDurationMs / 10);
-                double stepTime = (double)totalDurationMs / steps;
+                double attackRatio = Math.Max(prof.HoldRatio, 0.30);
+                int maximumSweepMs = totalDurationMs <= 100
+                    ? Math.Min(28, totalDurationMs)
+                    : Math.Min(120, totalDurationMs);
+                int audibleSweepMs = GetSoundDeviceAttackDuration(
+                    totalDurationMs, attackRatio, maximumSweepMs);
+                audibleSweepMs = Math.Max(
+                    Math.Min(20, totalDurationMs), audibleSweepMs);
+
+                // Two points are enough for the shortest kick while avoiding a
+                // sustained midpoint pitch. Longer attacks receive more points.
+                int steps = Math.Clamp(
+                    (int)Math.Ceiling(audibleSweepMs / 10.0), 2, 12);
+                double stepTime = (double)audibleSweepMs / steps;
 
                 for (int i = 0; i < steps; i++)
                 {
                     if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
 
-                    double progress = (double)i / steps;
-                    int freq = (int)(prof.BodyStartFreq - ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
+                    double progress = (double)i / (steps - 1);
+                    int freq = (int)Math.Round(
+                        prof.BodyStartFreq -
+                        ((prof.BodyStartFreq - prof.BodyEndFreq) * progress));
 
                     StartPulse(output, freq, prof.BodyWave, sid);
                     PreciseWaitMs(stepTime, ct);
