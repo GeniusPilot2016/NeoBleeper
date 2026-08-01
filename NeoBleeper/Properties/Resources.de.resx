@@ -123,6 +123,9 @@
   <data name="MessageFailedPrecondition" xml:space="preserve">
     <value>Die kostenlose Version der Google Gemini™ API ist in Ihrem Land/Ihrer Region nicht verfügbar. Bitte erwägen Sie ein Upgrade auf einen kostenpflichtigen Tarif, um den Dienst nutzen zu können.</value>
   </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>Die Anfrage enthält ungültige Parameter. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
+  </data>
   <data name="MessageRequestTimeout" xml:space="preserve">
     <value>Die Anfrage konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.</value>
   </data>
@@ -133,14 +136,25 @@
   <data name="TitlePermissionDenied" xml:space="preserve">
     <value>Zugriff verweigert</value>
   </data>
+  <data name="Issues" xml:space="preserve">
+    <value>
+Probleme: 
+</value>
+  </data>
   <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
     <value>Leere Notizenliste kann nicht in einen Beep-Befehl für Linux konvertiert werden.</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Fehlergründe: </value>
   </data>
   <data name="TitleOutOfRange" xml:space="preserve">
     <value>Außerhalb des zulässigen Bereichs</value>
   </data>
   <data name="StatusDisplayResolutionCheck" xml:space="preserve">
     <value>Bildschirmauflösung wird überprüft...</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>Systemlautsprecher-Eingabe nicht gefunden</value>
   </data>
   <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,6 +164,12 @@
   </data>
   <data name="HarmonyOS_Sans_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Erstelle ein rhythmisches Muster mit synkopierten Schlägen</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Generiere einen Retro-8-Bit-Chiptune-Soundtrack inspiriert von klassischen Videospielen</value>
   </data>
   <data name="TitleDataLoss" xml:space="preserve">
     <value>Datenverlust</value>
@@ -169,11 +189,17 @@
   <data name="SpiccatoArticulation" xml:space="preserve">
     <value>Spi</value>
   </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Timer-Countdown-Prüfung fehlgeschlagen.</value>
+  </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
     <value>Sie haben Ihr API-Anfragekontingent überschritten oder die API ist in Ihrem Tarif nicht verfügbar. Bitte versuchen Sie es später erneut oder aktualisieren Sie Ihren Tarif.</value>
   </data>
-  <data name="UseVoiceSystemHelp" xml:space="preserve">
-    <value>Diese Funktion ermöglicht es dem Programm, das Sprachsystem zu nutzen, um Sprachformanten nachzuahmen und so ausgewählte Töne so klingen zu lassen, als ob jemand singt.</value>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>Keine der grundlegenden Überprüfungen bestanden. </value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Geschwindigkeitsmessung des Rückkopplungssignals: </value>
   </data>
   <data name="TitleAborted" xml:space="preserve">
     <value>Abgebrochen</value>
@@ -193,6 +219,9 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Erstelle eine Blues-Progression mit ausdrucksvollen Noten</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Komponiere einen zeremoniellen Marsch mit gleichmäßigem Tempo</value>
   </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>Die Google Gemini™ API ist in Ihrem Land nicht verfügbar. Bitte überprüfen Sie die Liste der unterstützten Länder.</value>
@@ -227,6 +256,9 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="TitleDeadlineExceeded" xml:space="preserve">
     <value>Frist abgelaufen</value>
   </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Einige grundlegende Prüfungen bestanden: </value>
+  </data>
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -260,11 +292,23 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Die von Ihnen per Drag-and-Drop übertragene Datei wird vom NeoBleeper MIDI-Player nicht unterstützt oder ist beschädigt.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="MessageAICreationCooldown" xml:space="preserve">
+    <value>Bitte warten Sie einen Moment, bevor Sie erneut Musik mit KI erstellen.</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Spielen Sie einen Beat-Sound ab</value>
   </data>
+  <data name="UseVoiceSystemHelp" xml:space="preserve">
+    <value>Diese Funktion ermöglicht es dem Programm, das Sprachsystem zu nutzen, um Sprachformanten nachzuahmen und so ausgewählte Töne so klingen zu lassen, als ob jemand singt.</value>
+  </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
     <value>Systemlautsprecher für betroffene Chipsätze werden aktiviert... (möglicherweise sind Klick-/"Knackgeräusche zu hören)</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>Timer-Einrichtung fehlgeschlagen.</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Systeminformationen werden erfasst.</value>
@@ -275,14 +319,14 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MessageFailedToCut" xml:space="preserve">
+    <value>Fehler beim Kopieren in die Zwischenablage.</value>
+  </data>
   <data name="MessageNoInternet" xml:space="preserve">
     <value>Die Internetverbindung ist nicht verfügbar. Bitte überprüfen Sie Ihre Verbindung.</value>
   </data>
   <data name="TitleInternalError" xml:space="preserve">
     <value>Interner Fehler</value>
-  </data>
-  <data name="TitleFailedPrecondition" xml:space="preserve">
-    <value>Vorbedingung nicht erfüllt</value>
   </data>
   <data name="EighthNote" xml:space="preserve">
     <value>Achtel</value>
@@ -296,17 +340,26 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Dienst/Modell nicht verfügbar oder überlastet</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Es wurden keine Noten generiert</value>
+  </data>
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Der Firmware-Code wird in die Zwischenablage kopiert</value>
   </data>
-  <data name="MessageAlreadyExists" xml:space="preserve">
-    <value>Die Ressource ist bereits vorhanden.</value>
+  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WholeNote" xml:space="preserve">
     <value>Ganze</value>
   </data>
   <data name="TextNotFound" xml:space="preserve">
     <value>(Nicht gefunden)</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Der elektrische Rückkopplungstest ist fehlgeschlagen.</value>
   </data>
   <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
     <value>Das Format des API-Schlüssels ist ungültig. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
@@ -330,8 +383,11 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
   <data name="MessageGCodeExported" xml:space="preserve">
     <value>GCode-Datei erfolgreich exportiert!</value>
   </data>
-  <data name="StatusHDDStorageType" xml:space="preserve">
-    <value>HDD-Speicher erkannt. Resonanzfrequenz von {value} Hz wird vermieden.</value>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>Die Musik wird bereits abgespielt. Bitte stoppen Sie die Wiedergabe, bevor Sie mit dem Warten beginnen.</value>
+  </data>
+  <data name="MessageFailedToCopy" xml:space="preserve">
+    <value>Fehler beim Kopieren in die Zwischenablage.</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Fehler beim Konvertieren in G-Code:</value>
@@ -342,8 +398,14 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Der Google Gemini™ API-Schlüssel funktioniert nicht. Bitte überprüfen und ersetzen Sie den API-Schlüssel im Tab „Allgemein“ der Einstellungen.</value>
+  </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Schreibe eine melancholische Klavierballade</value>
+  </data>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>InpOutx64.dll ist vorhanden und gültig.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
     <value>Es ist ein Systemlautsprecherausgang vorhanden, aber es handelt sich um einen kompakten Computer. NeoBleeper verwendet die Soundkarte zur Signaltonerzeugung, um Probleme mit kompakten Computern zu vermeiden.</value>
@@ -385,6 +447,9 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="MessageFailedToOpenLink" xml:space="preserve">
+    <value>Der Link konnte nicht geöffnet werden. Die URL ist möglicherweise ungültig oder es liegt ein Problem mit dem Standard-Webbrowser vor.</value>
+  </data>
   <data name="icons8-mute-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -396,6 +461,9 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Komponiere eine fröhliche Volksmelodie mit Akkordeon</value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Timer-Statusprüfung: </value>
   </data>
   <data name="StatusInpOutX64Placed" xml:space="preserve">
     <value>InpOutx64.dll wurde erfolgreich platziert.</value>
@@ -460,8 +528,14 @@ Klicken Sie erneut, um ihn wieder anzuzeigen.</value>
   <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
     <value>Um diese Funktion nutzen zu können, müssen Sie mindestens 18 Jahre alt sein.</value>
   </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>Erkennung des Rückkopplungssignals des Systemlautsprechers: </value>
+  </data>
   <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Stabilität des Rückkopplungssignals bei Deaktivierung: </value>
   </data>
   <data name="ExamplePrompt29" xml:space="preserve">
     <value>Erzeuge einen eleganten Walzer im 3/4-Takt</value>
@@ -472,8 +546,8 @@ Klicken Sie erneut, um ihn wieder anzuzeigen.</value>
   <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
     <value>Die Bildschirmauflösung wird nicht unterstützt. NeoBleeper benötigt eine Mindestauflösung von 1024 x 768, um ordnungsgemäß zu funktionieren.</value>
   </data>
-  <data name="ExamplePrompt24" xml:space="preserve">
-    <value>Erstelle einen energiegeladenen elektronischen Tanzrhythmus</value>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Kurzer, stiller Aktivierungsimpuls fehlgeschlagen.</value>
   </data>
   <data name="ExamplePrompt17" xml:space="preserve">
     <value>Erzeuge eine ruhige Klangkulisse zur Entspannung</value>
@@ -487,11 +561,14 @@ Klicken Sie erneut, um ihn wieder anzuzeigen.</value>
   <data name="CtrlKey" xml:space="preserve">
     <value>Strg</value>
   </data>
-  <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>Es ist keine gespeicherte Version vorhanden, auf die zurückgespult werden kann.</value>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>Ein-/Ausschalten des Systemlautsprecher-Gates: </value>
   </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Der Google Gemini™ API-Schlüssel funktioniert nicht. Bitte überprüfen und ersetzen Sie den API-Schlüssel im Tab „Allgemein“ der Einstellungen.</value>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Timer-Setup-Test</value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Timer-Countdown-Prüfung: </value>
   </data>
   <data name="SpaceKey" xml:space="preserve">
     <value>Leertaste</value>
@@ -536,6 +613,12 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   <data name="MessageBeepCommandSaved" xml:space="preserve">
     <value>Der Beep-Befehl wurde erfolgreich als Shell-Skript gespeichert.</value>
   </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>Die Geschwindigkeit des Rückkopplungssignals liegt außerhalb der erwarteten Toleranz.</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>Die Feedback-Erkennung ist fehlgeschlagen.</value>
+  </data>
   <data name="ButtonIgnore" xml:space="preserve">
     <value>&amp;Ignorieren</value>
   </data>
@@ -569,17 +652,27 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
     <value>Eine leere Notizenliste kann nicht exportiert werden.</value>
   </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Rückkopplungsgeschwindigkeit außerhalb des erwarteten Bereichs
+</value>
+  </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Hören Sie auf zu warten</value>
   </data>
   <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
     <value>Die MIDI-Datei wird geladen...</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Die ausgewählte Datei existiert nicht.</value>
+  </data>
   <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonAbort" xml:space="preserve">
     <value>&amp;Abbrechen</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>Die Zeilenliste ist leer. Bitte fügen Sie vor dem Abspielen Noten hinzu.</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Sprachsteuerung verwenden</value>
@@ -611,6 +704,9 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   <data name="PortamentoHelpTitle" xml:space="preserve">
     <value>Bleeper-Portamento</value>
   </data>
+  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HarmonyOS_Sans_Thin_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -619,6 +715,9 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   </data>
   <data name="TextWarning" xml:space="preserve">
     <value>Warnung</value>
+  </data>
+  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
+    <value>Es ist ein Systemlautsprecherausgang vorhanden, aber es handelt sich um einen unbekannten Computertyp. NeoBleeper verwendet die Soundkarte zur Signaltonerzeugung, um Probleme mit unbekannten Computertypen zu vermeiden.</value>
   </data>
   <data name="ToastMessageNotesCopy" xml:space="preserve">
     <value>Die Notizen wurden in die Zwischenablage kopiert.</value>
@@ -629,14 +728,17 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   <data name="MessageProhibitedContent" xml:space="preserve">
     <value>Die Antwort wurde aufgrund verbotener Inhalte blockiert.</value>
   </data>
-  <data name="QuarterNote" xml:space="preserve">
-    <value>Viertel</value>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>Es wurden keine Noten ausgegeben. Bitte versuchen Sie es erneut mit einer anderen Eingabeaufforderung oder anderen Einstellungen.</value>
   </data>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper beginnt mit der Sprache: </value>
   </data>
   <data name="MessageFileNotFoundError" xml:space="preserve">
     <value>Die Datei wurde nicht gefunden:</value>
+  </data>
+  <data name="TitlePleaseWait" xml:space="preserve">
+    <value>Bitte warten</value>
   </data>
   <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -652,6 +754,9 @@ Klicken Sie erneut, um ihn auszublenden.</value>
   </data>
   <data name="TitleNotFound" xml:space="preserve">
     <value>Nicht gefunden</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>Fehler beim Ablesen des Timer-Status (unerwarteter Zugriff/Modus/BCD).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Das Auflisten des KI-Modells ist fehlgeschlagen. Bitte überprüfen Sie Ihren Google Gemini™ API-Schlüssel und Ihre Internetverbindung.</value>
@@ -670,6 +775,9 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
     <value>Die Datei InpOutx64.dll fehlt oder ist beschädigt. InpOutx64.dll wird platziert...</value>
   </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Die Ressource ist bereits vorhanden.</value>
+  </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -679,23 +787,17 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageAnErrorOccurred" xml:space="preserve">
-    <value>Während des Programmdurchlaufs ist ein Fehler aufgetreten:</value>
-  </data>
-  <data name="TitleRequestTimeout" xml:space="preserve">
-    <value>Zeitüberschreitung bei der Anfrage</value>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>Die Timergeschwindigkeit liegt außerhalb des erwarteten Bereichs.</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Position:</value>
   </data>
-  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
-    <value>KI-Musik erstellt</value>
-  </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Der Google Gemini™ API-Schlüssel wurde erfolgreich gespeichert.</value>
   </data>
-  <data name="ExamplePrompt28" xml:space="preserve">
-    <value>Komponiere einen zeremoniellen Marsch mit gleichmäßigem Tempo</value>
+  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
+    <value>Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 1/2...</value>
   </data>
   <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -721,14 +823,14 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
+    <value>Prüfung auf Vorhandensein eines Systemlautsprecher-Ausgangs (PC-Lautsprecher) in Schritt 2/2... (möglicherweise hören Sie ein Klick-/Knackgeräusch)</value>
+  </data>
   <data name="MessageLanguageChanged" xml:space="preserve">
     <value>Die Sprache wurde geändert. Die Anwendung wird nun neu gestartet, um die neue Sprache anzuwenden. Änderungen an offenen Projekten werden dabei nicht gespeichert.</value>
   </data>
-  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
-    <value>Beat-Anzeigen nicht aktualisieren</value>
-  </data>
-  <data name="ExamplePrompt21" xml:space="preserve">
-    <value>Erstelle eine jazzinspirierte Melodie mit Swing-Rhythmus</value>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Es ist ein unbekannter Fehler aufgetreten.</value>
   </data>
   <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
     <value>Der Chipsatz {chipset} weist bekanntermaßen Probleme mit dem Systemlautsprecher auf. Der Systemlautsprecher wird möglicherweise nicht erkannt oder funktioniert nicht ordnungsgemäß.</value>
@@ -774,6 +876,9 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Der klassische Bleeper-Modus ist deaktiviert. NeoBleeper läuft im Standardmodus.</value>
   </data>
+  <data name="StatusHDDStorageType" xml:space="preserve">
+    <value>HDD-Speicher erkannt. Resonanzfrequenz von {value} Hz wird vermieden.</value>
+  </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -789,6 +894,9 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="StatusInitializationCompleted" xml:space="preserve">
     <value>Die NeoBleeper-Initialisierung ist abgeschlossen</value>
   </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Das Rückkopplungssignal ist im deaktivierten Zustand nicht stabil (Signalinstabilität festgestellt).</value>
+  </data>
   <data name="StatusModularComputerDetected" xml:space="preserve">
     <value>Es ist ein Systemlautsprecherausgang vorhanden, und es handelt sich um einen modularen Computer. NeoBleeper verwendet den Systemlautsprecher zur Signaltonerzeugung.</value>
   </data>
@@ -797,6 +905,9 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   </data>
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>Der konvertierte Beep-Befehl wird in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Hafenstabilitätstest</value>
   </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Speichertyp unbekannt. Resonanzvermeidung wird aus Sicherheitsgründen bei wahrscheinlichen Resonanzfrequenzen angewendet.</value>
@@ -837,8 +948,9 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="MessageErrorFileOpening" xml:space="preserve">
     <value>Fehler beim Öffnen der Datei:</value>
   </data>
-  <data name="MessageUnknownError" xml:space="preserve">
-    <value>Es ist ein unbekannter Fehler aufgetreten.</value>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Rückkopplungssignal nicht erkannt
+</value>
   </data>
   <data name="MessageAnErrorOccurredWhileStoppingMusic" xml:space="preserve">
     <value>Beim Stoppen der Musik ist ein Fehler aufgetreten: </value>
@@ -855,11 +967,14 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>Ereignisse werden gesammelt...</value>
   </data>
-  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
-    <value>Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 1/2...</value>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Vorbedingung nicht erfüllt</value>
   </data>
   <data name="HarmonyOS_Sans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Der Dateiname ist leer.</value>
   </data>
   <data name="ButtonRetry" xml:space="preserve">
     <value>&amp;Wiederholen</value>
@@ -879,14 +994,24 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="InpOutX64PlaceError" xml:space="preserve">
     <value>Fehler beim Platzieren von InpOutx64.dll: </value>
   </data>
-  <data name="ExamplePrompt13" xml:space="preserve">
-    <value>Generiere einen Retro-8-Bit-Chiptune-Soundtrack inspiriert von klassischen Videospielen</value>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>Verständlichkeit des Systemlautsprecherausgangs: </value>
   </data>
   <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
     <value>Versuchen Sie, die Geräte-Liste zu aktualisieren.</value>
   </data>
   <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>Es ist keine gespeicherte Version vorhanden, auf die zurückgespult werden kann.</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>Systemlautsprecher-Eingabe in diesem System gefunden.
+</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Erstelle einen energiegeladenen elektronischen Tanzrhythmus</value>
   </data>
   <data name="MessageErrorRewinding" xml:space="preserve">
     <value>Fehler beim Zurücksetzen auf die gespeicherte Version:</value>
@@ -900,8 +1025,11 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="OverallResult" xml:space="preserve">
     <value>Gesamtergebnis: </value>
   </data>
-  <data name="TextMessage" xml:space="preserve">
-    <value>Nachricht</value>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Timer-Geschwindigkeitstest: </value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Erstelle eine jazzinspirierte Melodie mit Swing-Rhythmus</value>
   </data>
   <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
     <value>Fehler beim Konvertieren in den Beep-Befehl für Linux: </value>
@@ -909,8 +1037,11 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="ExamplePrompt12" xml:space="preserve">
     <value>Komponiere eine ruhige Ambient-Klanglandschaft für Entspannung und Meditation</value>
   </data>
-  <data name="MessageInvalidArgument" xml:space="preserve">
-    <value>Die Anfrage enthält ungültige Parameter. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Während des Programmdurchlaufs ist ein Fehler aufgetreten:</value>
+  </data>
+  <data name="QuarterNote" xml:space="preserve">
+    <value>Viertel</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
     <value>Erzeuge einen Jazz-Song mit Improvisationscharakter</value>
@@ -920,6 +1051,9 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   </data>
   <data name="icons8-new-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-new-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>UNSICHER</value>
   </data>
   <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
     <value>Der Systemlautsprecherausgang ist nicht vorhanden. Das Audiogerät wird zur Signaltonausgabe verwendet.</value>
@@ -933,17 +1067,14 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Es sind keine gültigen Google Gemini™-Modelle verfügbar.</value>
   </data>
-  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
   </data>
-  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Prüfung auf Vorhandensein eines Systemlautsprecher-Ausgangs (PC-Lautsprecher) in Schritt 2/2... (möglicherweise hören Sie ein Klick-/Knackgeräusch)</value>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Zeitüberschreitung bei der Anfrage</value>
   </data>
-  <data name="ExamplePrompt18" xml:space="preserve">
-    <value>Erstelle ein rhythmisches Muster mit synkopierten Schlägen</value>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Die KI-generierte Musik wurde erfolgreich erstellt.</value>
   </data>
   <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
     <value>Die geöffnete Datei wird von NeoBleeper nicht unterstützt oder ist beschädigt.</value>
@@ -951,8 +1082,8 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="TitleUnknownError" xml:space="preserve">
     <value>Unbekannter Fehler</value>
   </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>InpOutx64.dll ist vorhanden und gültig.</value>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Kurzer, stiller Aktivierungsimpuls: </value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Diese Funktion ermöglicht die Synchronisierung der Wiedergabe mehrerer NeoBleeper-Instanzen. Sie kann auch auf mehreren Computern gleichzeitig ausgeführt werden, vorausgesetzt, die Systemuhren sind korrekt eingestellt.
@@ -961,8 +1092,8 @@ Deshalb empfiehlt es sich, die Systemuhren vor der Nutzung dieser Funktion zu sy
 
 Über dieses Fenster können Sie die Wiedergabe aller NeoBleeper-Instanzen auf Ihrem Computer steuern.</value>
   </data>
-  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
-    <value>Die KI-generierte Musik wurde erfolgreich erstellt.</value>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>Systemlautsprecher-Eingang im System gefunden.</value>
   </data>
   <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
     <value>Die Antwort der KI ist leer oder nicht vorhanden.</value>
@@ -989,9 +1120,6 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="StatusAPIKeyValidating" xml:space="preserve">
     <value>Google Gemini™ API-Schlüssel wird validiert...</value>
   </data>
-  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Der erweiterte Systemlautsprechertest wurde gestartet.</value>
   </data>
@@ -1010,29 +1138,41 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
     <value>Ungültige oder beschädigte Musikdatei</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>KI-Musik erstellt</value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Timer-Einstellungen: </value>
+  </data>
   <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
     <value>Der Systemlautsprecherausgang ist vorhanden. Die Signaltonausgabe erfolgt über den Systemlautsprecher.</value>
   </data>
   <data name="MessageUnavailable" xml:space="preserve">
     <value>Dieser Dienst/dieses Modell ist momentan nicht verfügbar oder überlastet. Bitte versuchen Sie es später erneut.</value>
   </data>
-  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Der Stabilitätstest des Hafenzustands ist fehlgeschlagen.</value>
   </data>
-  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>Es ist ein Systemlautsprecherausgang vorhanden, aber es handelt sich um einen unbekannten Computertyp. NeoBleeper verwendet die Soundkarte zur Signaltonerzeugung, um Probleme mit unbekannten Computertypen zu vermeiden.</value>
+  <data name="MessageFailedToPaste" xml:space="preserve">
+    <value>Fehler beim Einfügen aus der Zwischenablage.</value>
   </data>
   <data name="FermataArticulation" xml:space="preserve">
     <value>Fer</value>
   </data>
+  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Elektrische Rückkopplungsprüfung</value>
   </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleUnavailable" xml:space="preserve">
-    <value>Dienst/Modell nicht verfügbar oder überlastet</value>
+  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
+    <value>Beat-Anzeigen nicht aktualisieren</value>
   </data>
   <data name="TextPercent" xml:space="preserve">
     <value>{number}%</value>
@@ -1064,150 +1204,16 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="icons8-redo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-redo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageAICreationCooldown" xml:space="preserve">
-    <value>Bitte warten Sie einen Moment, bevor Sie erneut Musik mit KI erstellen.</value>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Nachricht</value>
   </data>
-  <data name="TitlePleaseWait" xml:space="preserve">
-    <value>Bitte warten</value>
+  <data name="WarningSensitiveInformation" xml:space="preserve">
+    <value>In der Eingabeaufforderung wurden sensible Informationen gefunden. Bitte entfernen Sie alle persönlichen oder sensiblen Daten und versuchen Sie es erneut.</value>
   </data>
-  <data name="MessageFileDoesNotExist" xml:space="preserve">
-    <value>Die ausgewählte Datei existiert nicht.</value>
-  </data>
-  <data name="MessageFileNameIsEmpty" xml:space="preserve">
-    <value>Der Dateiname ist leer.</value>
-  </data>
-  <data name="MessageNoNotesGenerated" xml:space="preserve">
-    <value>Es wurden keine Noten ausgegeben. Bitte versuchen Sie es erneut mit einer anderen Eingabeaufforderung oder anderen Einstellungen.</value>
-  </data>
-  <data name="TitleNoNotesGenerated" xml:space="preserve">
-    <value>Es wurden keine Noten generiert</value>
-  </data>
-  <data name="ErrorLineIsEmpty" xml:space="preserve">
-    <value>Die Zeilenliste ist leer. Bitte fügen Sie vor dem Abspielen Noten hinzu.</value>
-  </data>
-  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
-    <value>Die Musik wird bereits abgespielt. Bitte stoppen Sie die Wiedergabe, bevor Sie mit dem Warten beginnen.</value>
-  </data>
-  <data name="MessageFailedToCopy" xml:space="preserve">
-    <value>Fehler beim Kopieren in die Zwischenablage.</value>
-  </data>
-  <data name="MessageFailedToPaste" xml:space="preserve">
-    <value>Fehler beim Einfügen aus der Zwischenablage.</value>
-  </data>
-  <data name="MessageFailedToCut" xml:space="preserve">
-    <value>Fehler beim Kopieren in die Zwischenablage.</value>
-  </data>
-  <data name="MessageFailedToOpenLink" xml:space="preserve">
-    <value>Der Link konnte nicht geöffnet werden. Die URL ist möglicherweise ungültig oder es liegt ein Problem mit dem Standard-Webbrowser vor.</value>
-  </data>
-  <data name="TextVersion" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
-    <value>Verständlichkeit des Systemlautsprecherausgangs: </value>
-  </data>
-  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
-    <value>Ein-/Ausschalten des Systemlautsprecher-Gates: </value>
-  </data>
-  <data name="TimerSetup" xml:space="preserve">
-    <value>Timer-Einstellungen: </value>
-  </data>
-  <data name="TimerCountdownCheck" xml:space="preserve">
-    <value>Timer-Countdown-Prüfung: </value>
-  </data>
-  <data name="TimerStatusCheck" xml:space="preserve">
-    <value>Timer-Statusprüfung: </value>
-  </data>
-  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
-    <value>Erkennung des Rückkopplungssignals des Systemlautsprechers: </value>
-  </data>
-  <data name="FeedbackSignalStability" xml:space="preserve">
-    <value>Stabilität des Rückkopplungssignals bei Deaktivierung: </value>
-  </data>
-  <data name="ShortSilentEnablePulse" xml:space="preserve">
-    <value>Kurzer, stiller Aktivierungsimpuls: </value>
-  </data>
-  <data name="TimerSpeedTest" xml:space="preserve">
-    <value>Timer-Geschwindigkeitstest: </value>
-  </data>
-  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
-    <value>Geschwindigkeitsmessung des Rückkopplungssignals: </value>
-  </data>
-  <data name="TextUncertain" xml:space="preserve">
-    <value>UNSICHER</value>
-  </data>
-  <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Systemlautsprecher-Eingang im System gefunden.</value>
-  </data>
-  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
-    <value>Systemlautsprecher-Eingabe nicht gefunden</value>
-  </data>
-  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
-    <value>Der elektrische Rückkopplungstest ist fehlgeschlagen.</value>
-  </data>
-  <data name="PortStateStabilityTestFailed" xml:space="preserve">
-    <value>Der Stabilitätstest des Hafenzustands ist fehlgeschlagen.</value>
-  </data>
-  <data name="TimerSetupFailed" xml:space="preserve">
-    <value>Timer-Einrichtung fehlgeschlagen.</value>
-  </data>
-  <data name="TimerCountdownCheckFailed" xml:space="preserve">
-    <value>Timer-Countdown-Prüfung fehlgeschlagen.</value>
-  </data>
-  <data name="UnexpectedReadBack" xml:space="preserve">
-    <value>Fehler beim Ablesen des Timer-Status (unerwarteter Zugriff/Modus/BCD).</value>
-  </data>
-  <data name="FeedbackDetectionFailed" xml:space="preserve">
-    <value>Die Feedback-Erkennung ist fehlgeschlagen.</value>
-  </data>
-  <data name="FeedbackSignalNotStable" xml:space="preserve">
-    <value>Das Rückkopplungssignal ist im deaktivierten Zustand nicht stabil (Signalinstabilität festgestellt).</value>
-  </data>
-  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
-    <value>Kurzer, stiller Aktivierungsimpuls fehlgeschlagen.</value>
-  </data>
-  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
-    <value>Die Geschwindigkeit des Rückkopplungssignals liegt außerhalb der erwarteten Toleranz.</value>
-  </data>
-  <data name="FailureReasons" xml:space="preserve">
-    <value>Fehlergründe: </value>
-  </data>
-  <data name="TimerSpeedOutOfRange" xml:space="preserve">
-    <value>Die Timergeschwindigkeit liegt außerhalb des erwarteten Bereichs.</value>
-  </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Elektrische Rückkopplungsprüfung</value>
-  </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Hafenstabilitätstest</value>
-  </data>
-  <data name="TimerSetupTest" xml:space="preserve">
-    <value>Timer-Setup-Test</value>
-  </data>
-  <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Einige grundlegende Prüfungen bestanden: </value>
-  </data>
-  <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Keine der grundlegenden Überprüfungen bestanden. </value>
-  </data>
-  <data name="FeedbackSignalNotDetected" xml:space="preserve">
-    <value>Rückkopplungssignal nicht erkannt
-</value>
-  </data>
-  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
-    <value>Rückkopplungsgeschwindigkeit außerhalb des erwarteten Bereichs
-</value>
-  </data>
-  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Systemlautsprecher-Eingabe in diesem System gefunden.
-</value>
-  </data>
-  <data name="Issues" xml:space="preserve">
-    <value>
-Probleme: 
-</value>
+  <data name="WarningSensitiveInformationTitle" xml:space="preserve">
+    <value>Sensible Informationen erkannt</value>
   </data>
 </root>

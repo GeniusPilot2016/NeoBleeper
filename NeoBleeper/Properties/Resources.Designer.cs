@@ -3441,6 +3441,24 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Sensitive information detected in the prompt. Please remove any personal or sensitive data and try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string WarningSensitiveInformation {
+            get {
+                return ResourceManager.GetString("WarningSensitiveInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sensitive Information Detected benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string WarningSensitiveInformationTitle {
+            get {
+                return ResourceManager.GetString("WarningSensitiveInformationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Whole benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string WholeNote {

@@ -71,7 +71,7 @@ namespace NeoBleeper
                 }
                 SynchronizeSettings();
                 bool shouldRun = false;
-                Thread.CurrentThread.Priority = ThreadPriority.Highest;
+                Thread.CurrentThread.Priority = ThreadPriority.Lowest;
                 Logger.Log("NeoBleeper is starting up.", LogTypes.Info);
                 SetStatusForClassicBleeperModeAndLanguage();
                 // Initialize audio after application configuration

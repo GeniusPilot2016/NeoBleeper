@@ -14,21 +14,89 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace NeoBleeper
 {
     public static class Logger
     {
-        // Out with legacy "logenable" file without extension to enable logging, in with "DebugLog.txt" that always logs.
-        static string logText = string.Empty;
-        private static readonly object _logLock = new();
+        private readonly struct LogEntry
+        {
+            public LogEntry(long timestamp, string message, LogTypes type)
+            {
+                Timestamp = timestamp;
+                Message = message;
+                Type = type;
+            }
+
+            public long Timestamp { get; }
+            public string Message { get; }
+            public LogTypes Type { get; }
+        }
+
+        // Log() deliberately performs no file I/O and no kernel wake-up.
+        // The dedicated writer polls this lock-free queue in short intervals.
+        private static readonly ConcurrentQueue<LogEntry> _pendingLogs = new();
+        private static readonly AutoResetEvent _shutdownEvent = new(false);
+        private static readonly Thread _writerThread;
+        private static readonly string _logPath;
+        private static readonly DateTime _clockBaseTime;
+        private static readonly long _clockBaseTimestamp;
+
+        private const int PollIntervalMilliseconds = 10;
+        private const int FlushIntervalMilliseconds = 50;
+        private const int MaximumBatchSize = 4096;
+
+        // Debug output is produced by the background writer, never by Log(),
+        // so an attached debugger does not block timing-sensitive callers.
+        private static volatile bool _mirrorEntriesToDebugOutput = true;
+
+        /// <summary>
+        /// Enables or disables mirroring formatted entries to the debugger output.
+        /// File logging is always enabled.
+        /// </summary>
+        public static bool MirrorEntriesToDebugOutput
+        {
+            get => _mirrorEntriesToDebugOutput;
+            set => _mirrorEntriesToDebugOutput = value;
+        }
+        private static readonly Lazy<(Regex Regex, string Replacement)[]> _maskRules =
+            new(CreateMaskRules, LazyThreadSafetyMode.ExecutionAndPublication);
+
+        private static int _shutdownStarted;
 
         static Logger()
         {
+            _clockBaseTimestamp = Stopwatch.GetTimestamp();
+            _clockBaseTime = DateTime.Now;
+
+            string exePath = AppContext.BaseDirectory
+                ?? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                ?? ".";
+
+            _logPath = Path.Combine(exePath, "DebugLog.txt");
+            _writerThread = new Thread(WriterLoop)
+            {
+                IsBackground = true,
+                Name = "NeoBleeper log writer",
+                Priority = ThreadPriority.BelowNormal
+            };
+            _writerThread.Start();
+
+            AppDomain.CurrentDomain.ProcessExit += static (_, _) => Shutdown();
+        }
+
+        private static string BuildHeader()
+        {
+            string logText = string.Empty;
+
             logText += "\r\n  _   _            ____  _                           \r\n" +
                 " | \\ | |          |  _ \\| |                          \r\n" +
                 " |  \\| | ___  ___ | |_) | | ___  ___ _ __   ___ _ __ \r\n" +
@@ -171,9 +239,10 @@ namespace NeoBleeper
             };
             int funFactIndex = new Random().Next(funFacts.Length);
             logText += $"\r\nFun Fact: {funFacts[funFactIndex]}\r\n\r\n";
-            Debug.WriteLine(logText);
-            WriteLogToFile(logText.TrimEnd());
+            return logText.TrimEnd();
         }
+
+
 
         /// <summary>
         /// Specifies the severity level of a log entry.
@@ -188,123 +257,482 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Writes a log entry with the specified message and log type to the log file and debug output.
+        /// Forces the logger type to initialize before entering timing-sensitive code.
+        /// Call this once during application startup.
         /// </summary>
-        /// <remarks>The log entry is timestamped and appended to the log file as well as written to the
-        /// debug output. Use this method to record application events, warnings, or errors for diagnostic
-        /// purposes.</remarks>
-        /// <param name="message">The message to include in the log entry. This value can be any string to describe the event or information
-        /// to log.</param>
-        /// <param name="logTypes">The type of log entry to write. Specifies whether the message is informational, a warning, or an error.</param>
-        public static void Log(string message, LogTypes logTypes)
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void Initialize()
         {
-            string LoggingType;
-            switch (logTypes)
-            {
-                case LogTypes.Info:
-                    LoggingType = "Info";
-                    break;
-                case LogTypes.Warning:
-                    LoggingType = "Warning";
-                    break;
-                case LogTypes.Error:
-                    LoggingType = "Error";
-                    break;
-                default:
-                    LoggingType = "Info";
-                    break;
-            }
-            message = MaskSensitiveInformations(message); 
-            string logMessage = $"[{DateTime.Now:HH:mm:ss}] - [{LoggingType}] {message}";
-            lock (_logLock)
-            {
-                logText += logMessage + "\r\n";
-                // Prevent race conditions by locking the log text update and file writing operations together.
-                WriteLogToFile(logText);
-            }
-            Debug.WriteLine(logMessage);
+            // Calling this method triggers the static constructor before this body runs.
         }
 
         /// <summary>
-        /// Writes the specified log content to a file named 'DebugLog.txt' in the application's directory. Overwrites
-        /// any existing log file with the new content.
+        /// Enqueues a log entry without performing file I/O, masking, formatting, or signaling.
         /// </summary>
-        /// <remarks>If an error occurs during file writing, the exception is logged to the debug output
-        /// and the application continues running.</remarks>
-        /// <param name="content">The log content to be written to the file. Cannot be null.</param>
-        private static void WriteLogToFile(string content)
+        /// <param name="message">The message to write to DebugLog.txt.</param>
+        /// <param name="logTypes">The severity of the entry.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Log(string message, LogTypes logTypes)
+        {
+            if (Volatile.Read(ref _shutdownStarted) != 0)
+            {
+                return;
+            }
+
+            // Stopwatch.GetTimestamp() is substantially cheaper than DateTime.Now.
+            // No event is signaled here: avoiding a kernel transition is important for
+            // audio/render loops and other latency-sensitive callers.
+            _pendingLogs.Enqueue(
+                new LogEntry(Stopwatch.GetTimestamp(), message ?? string.Empty, logTypes));
+        }
+
+        /// <summary>
+        /// Processes queued log entries on a dedicated thread and writes them to DebugLog.txt.
+        /// </summary>
+        private static void WriterLoop()
         {
             try
             {
-                string exePath = AppContext.BaseDirectory ?? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ".";
-                string logPath = Path.Combine(exePath, "DebugLog.txt");
-                lock (_logLock)
+                using FileStream stream = new FileStream(
+                    _logPath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.ReadWrite,
+                    bufferSize: 64 * 1024,
+                    options: FileOptions.SequentialScan);
+
+                using StreamWriter writer = new StreamWriter(
+                    stream,
+                    new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+                    bufferSize: 64 * 1024)
                 {
-                    using (FileStream fs = new FileStream(logPath, FileMode.Create, FileAccess.Write, FileShare.Read))
-                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                    AutoFlush = false
+                };
+
+                string header;
+                try
+                {
+                    header = BuildHeader();
+                }
+                catch (Exception ex)
+                {
+                    header = "NeoBleeper Debug Log";
+                    WriteDebugLine(
+                        $"Logger: header generation error: {ex.GetType().Name}: {ex.Message}");
+                }
+
+                writer.WriteLine(header);
+                if (_mirrorEntriesToDebugOutput)
+                {
+                    WriteDebugLine(header);
+                }
+                writer.Flush();
+
+                var batch = new StringBuilder(64 * 1024);
+                var flushTimer = Stopwatch.StartNew();
+                bool hasUnflushedData = false;
+
+                while (Volatile.Read(ref _shutdownStarted) == 0 || !_pendingLogs.IsEmpty)
+                {
+                    batch.Clear();
+                    int processed = 0;
+
+                    while (processed < MaximumBatchSize &&
+                           _pendingLogs.TryDequeue(out LogEntry entry))
                     {
-                        writer.Write(content);
+                        string message;
+                        try
+                        {
+                            message = MaskSensitiveInformations(entry.Message);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Never write the unmasked source text when masking fails.
+                            message = "[REDACTED_MASKING_ERROR]";
+                            WriteDebugLine(
+                                $"Logger: masking error: {ex.GetType().Name}: {ex.Message}");
+                        }
+
+                        DateTime timestamp = ConvertTimestamp(entry.Timestamp);
+                        string typeName = GetLogTypeName(entry.Type);
+
+                        batch.Append('[')
+                             .Append(timestamp.ToString("HH:mm:ss"))
+                             .Append("] - [")
+                             .Append(typeName)
+                             .Append("] ")
+                             .Append(message)
+                             .Append("\r\n");
+
+                        if (_mirrorEntriesToDebugOutput)
+                        {
+                            WriteDebugLine(
+                                $"[{timestamp:HH:mm:ss}] - [{typeName}] {message}");
+                        }
+
+                        processed++;
+                    }
+
+                    if (processed != 0)
+                    {
+                        // One write per batch dramatically lowers StreamWriter overhead.
+                        writer.Write(batch);
+                        hasUnflushedData = true;
+                    }
+
+                    bool shuttingDown = Volatile.Read(ref _shutdownStarted) != 0;
+
+                    // Flushing less often is important. Flush() is performed entirely on
+                    // this background thread, and DebugLog.txt is still updated promptly.
+                    if (hasUnflushedData &&
+                        (shuttingDown || flushTimer.ElapsedMilliseconds >= FlushIntervalMilliseconds))
+                    {
+                        writer.Flush();
+                        hasUnflushedData = false;
+                        flushTimer.Restart();
+                    }
+
+                    if (processed == 0 && !shuttingDown)
+                    {
+                        // Log() never signals this event. It is used only to wake the
+                        // polling writer immediately during shutdown.
+                        _shutdownEvent.WaitOne(PollIntervalMilliseconds);
+                    }
+                    else if (processed == MaximumBatchSize)
+                    {
+                        // Let latency-sensitive application threads run between large batches.
+                        Thread.Yield();
                     }
                 }
+
+                writer.Flush();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Logger: file write error: {ex.GetType().Name}: {ex.Message}");
+                WriteDebugLine($"Logger: file write error: {ex.GetType().Name}: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Writes to Visual Studio's Debug output without blocking Log().
+        /// In Release builds, Debug.WriteLine calls are normally removed, so
+        /// Debugger.Log is used when a debugger is attached.
+        /// </summary>
+        private static void WriteDebugLine(string message)
+        {
+#if DEBUG
+            Debug.WriteLine(message);
+#else
+            if (Debugger.IsAttached)
+            {
+                Debugger.Log(0, "NeoBleeper", message + Environment.NewLine);
+            }
+#endif
+        }
+
+        private static DateTime ConvertTimestamp(long timestamp)
+        {
+            long elapsedStopwatchTicks = timestamp - _clockBaseTimestamp;
+            double elapsedSeconds = elapsedStopwatchTicks / (double)Stopwatch.Frequency;
+            return _clockBaseTime.AddSeconds(elapsedSeconds);
+        }
+
+        private static string GetLogTypeName(LogTypes type)
+        {
+            return type switch
+            {
+                LogTypes.Warning => "Warning",
+                LogTypes.Error => "Error",
+                _ => "Info"
+            };
+        }
+
+        /// <summary>
+        /// Flushes queued log entries and stops the background file writer.
+        /// This is called automatically during normal process shutdown.
+        /// </summary>
+        public static void Shutdown()
+        {
+            if (Interlocked.Exchange(ref _shutdownStarted, 1) != 0)
+            {
+                return;
+            }
+
+            _shutdownEvent.Set();
+
+            if (Thread.CurrentThread != _writerThread)
+            {
+                _writerThread.Join();
             }
         }
 
 
         /// <summary>
-        /// Masks sensitive information such as API keys, email addresses, file paths, and other identifiable data
-        /// within the specified text.
+        /// Builds the compiled masking rules once, on the background writer thread.
         /// </summary>
-        /// <remarks>This method identifies and masks common patterns of sensitive data, including API
-        /// keys, email addresses, file paths, UUIDs, base64 strings, tokens, credit card numbers, and IPv4 addresses.
-        /// The method is intended to help prevent accidental exposure of confidential information in logs or output.
-        /// The masking is based on pattern matching and may not cover all possible sensitive data formats.</remarks>
-        /// <param name="text">The input text that may contain sensitive information to be masked. Can be null or empty.</param>
-        /// <returns>A string with sensitive information replaced by placeholder values. If no sensitive data is detected,
-        /// returns the original text.</returns>
-        private static string MaskSensitiveInformations(string text)
+        private static (Regex Regex, string Replacement)[] CreateMaskRules()
         {
-            if (string.IsNullOrEmpty(text))
+            var patterns = new (string Pattern, string Replacement, RegexOptions Options)[]
             {
-                return text;
-            }
-            var patterns = new (string pattern, string replacement)[]
-            {
-                // Google API key format
-                (@"\bAIzaSy[A-Za-z0-9_\-]{33}\b", "[REDACTED_API_KEY]"),
-                // OpenAI style keys (sk-...)
-                (@"\bsk-[A-Za-z0-9_\-]{24,}\b", "[REDACTED_API_KEY]"),
-                // UUID
-                (@"\b[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\b", "[REDACTED_UUID]"),
-                // E-posta addresses
-                (@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "[REDACTED_EMAIL]"),
-                // Windows full paths
-                (@"[A-Za-z]:\\(?:[^\\/:*?""<>|&#x0a;]+\\)*[^\\/:*?""<>|&#x0a;]*", "[REDACTED_PATH]"),
-                // Long base64 strings
-                (@"(?<=\s|^)[A-Za-z0-9+/]{40,}={0,2}(?=\s|$)", "[REDACTED_BASE64]"),
-                // Potential tokens/keys
-                (@"(?<=\s|^)[A-Za-z0-9_\-]{40,}(?=\s|$)", "[REDACTED_SECRET]"),
-                // Credit card number-like strings
-                (@"\b(?:\d[ -]*?){13,19}\b", "[REDACTED_NUMBER]"),
-                // IPv4 addresses
-                (@"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b", "[REDACTED_IP]"),
-            }; string result = text;
-            foreach (var (pattern, replacement) in patterns)
+        // Private key headers
+        (
+            @"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----",
+            "[REDACTED_PRIVATE_KEY]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Passwords, secrets, and tokens assigned in configuration/code
+        (
+            @"\b(?:password|passwd|pwd|secret|token|api[_-]?key|" +
+            @"client[_-]?secret)\s*[:=]\s*[""']?" +
+            @"[A-Za-z0-9._~+/=-]{8,}[""']?",
+            "[REDACTED_SECRET]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Google API keys
+        (
+            @"\bAIzaSy[A-Za-z0-9_-]{33}\b",
+            "[REDACTED_API_KEY]",
+            RegexOptions.None
+        ),
+
+        // OpenAI-style keys
+        (
+            @"\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{20,}\b",
+            "[REDACTED_API_KEY]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // AWS access key IDs
+        (
+            @"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b",
+            "[REDACTED_AWS_KEY]",
+            RegexOptions.None
+        ),
+
+        // Bearer tokens
+        (
+            @"\bBearer\s+[A-Za-z0-9._~+/=-]{20,}",
+            "Bearer [REDACTED_TOKEN]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // JSON Web Tokens
+        (
+            @"(?<![A-Za-z0-9_-])" +
+            @"eyJ[A-Za-z0-9_-]{5,}\." +
+            @"[A-Za-z0-9_-]{5,}\." +
+            @"[A-Za-z0-9_-]{5,}" +
+            @"(?![A-Za-z0-9_-])",
+            "[REDACTED_JWT]",
+            RegexOptions.None
+        ),
+
+        // Email addresses
+        (
+            @"(?<![A-Za-z0-9._%+-])" +
+            @"[A-Za-z0-9._%+-]+@" +
+            @"[A-Za-z0-9.-]+\.[A-Za-z]{2,}" +
+            @"(?![A-Za-z0-9._%+-])",
+            "[REDACTED_EMAIL]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // UUIDs
+        (
+            @"\b[0-9A-F]{8}-[0-9A-F]{4}-" +
+            @"[1-5][0-9A-F]{3}-[89AB][0-9A-F]{3}-" +
+            @"[0-9A-F]{12}\b",
+            "[REDACTED_UUID]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Windows full paths
+        (
+            @"[A-Za-z]:\\" +
+            @"(?:[^\\/:*?""<>|\r\n]+\\)*" +
+            @"[^\\/:*?""<>|\r\n]*",
+            "[REDACTED_PATH]",
+            RegexOptions.None
+        ),
+
+        // Unix/macOS user home paths
+        (
+            @"(?<!\w)/(?:home|Users)/" +
+            @"[^/\s]+(?:/[^\s""']*)?",
+            "[REDACTED_PATH]",
+            RegexOptions.None
+        ),
+
+        // Credit-card-number-like strings
+        (
+            @"(?<!\d)\d(?:[ -]?\d){12,18}(?!\d)",
+            "[REDACTED_NUMBER]",
+            RegexOptions.None
+        ),
+
+        // IPv4 addresses
+        (
+            @"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}" +
+            @"(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b",
+            "[REDACTED_IP]",
+            RegexOptions.None
+        ),
+
+        // MAC addresses
+        (
+            @"\b(?:[0-9A-F]{2}[:-]){5}[0-9A-F]{2}\b",
+            "[REDACTED_MAC]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Long Base64 values
+        (
+            @"(?<![A-Za-z0-9+/=])" +
+            @"[A-Za-z0-9+/]{40,}={0,2}" +
+            @"(?![A-Za-z0-9+/=])",
+            "[REDACTED_BASE64]",
+            RegexOptions.None
+        ),
+
+        // Generic long tokens or keys
+        (
+            @"(?<![A-Za-z0-9_-])" +
+            @"[A-Za-z0-9_-]{40,}" +
+            @"(?![A-Za-z0-9_-])",
+            "[REDACTED_SECRET]",
+            RegexOptions.None
+        )
+            };
+
+            var rules = new List<(Regex Regex, string Replacement)>(patterns.Length);
+            TimeSpan timeout = TimeSpan.FromMilliseconds(250);
+
+            foreach (var (pattern, replacement, options) in patterns)
             {
                 try
                 {
-                    result = Regex.Replace(result, pattern, replacement, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+                    rules.Add((
+                        new Regex(
+                            pattern,
+                            options | RegexOptions.Compiled | RegexOptions.CultureInvariant,
+                            timeout),
+                        replacement));
                 }
-                catch
+                catch (ArgumentException)
                 {
-                    // Use original text if failed
+                    // Skip invalid patterns without disabling the logger.
+                }
+            }
+
+            return rules.ToArray();
+        }
+
+        /// <summary>
+        /// Masks sensitive information before it is written to the log file.
+        /// </summary>
+        /// <param name="text">The log message to sanitize.</param>
+        /// <returns>The sanitized log message.</returns>
+        private static string MaskSensitiveInformations(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text) || !MayContainSensitiveInformation(text))
+            {
+                return text;
+            }
+
+            string result = text;
+
+            foreach (var (regex, replacement) in _maskRules.Value)
+            {
+                try
+                {
+                    result = regex.Replace(result, replacement);
+                }
+                catch (RegexMatchTimeoutException)
+                {
+                    // Skip only the pattern that timed out.
                 }
             }
 
             return result;
         }
+        /// <summary>
+        /// Avoids running every regular expression for ordinary log messages.
+        /// This check is intentionally conservative: uncertain messages still go
+        /// through the complete masking pipeline.
+        /// </summary>
+        private static bool MayContainSensitiveInformation(string text)
+        {
+            int digitCount = 0;
+            int tokenRun = 0;
+            bool hasDot = false;
+            bool hasHyphen = false;
+            bool hasColon = false;
+
+            foreach (char character in text)
+            {
+                if (char.IsDigit(character))
+                {
+                    digitCount++;
+                }
+
+                if (char.IsLetterOrDigit(character) ||
+                    character is '_' or '-' or '+' or '/' or '=')
+                {
+                    tokenRun++;
+                    if (tokenRun >= 40)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    tokenRun = 0;
+                }
+
+                switch (character)
+                {
+                    case '@':
+                    case '\\':
+                        return true;
+                    case '.':
+                        hasDot = true;
+                        break;
+                    case '-':
+                        hasHyphen = true;
+                        break;
+                    case ':':
+                        hasColon = true;
+                        break;
+                }
+            }
+
+            if (digitCount >= 13 ||
+                (digitCount >= 4 && (hasDot || hasColon || hasHyphen)))
+            {
+                return true;
+            }
+
+            return text.IndexOf("-----BEGIN", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("password", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("passwd", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("pwd", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("secret", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("token", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("api_key", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("api-key", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("client_secret", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("client-secret", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("Bearer ", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("AIzaSy", StringComparison.Ordinal) >= 0 ||
+                   text.IndexOf("AKIA", StringComparison.Ordinal) >= 0 ||
+                   text.IndexOf("ASIA", StringComparison.Ordinal) >= 0 ||
+                   text.IndexOf("sk-", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   text.IndexOf("eyJ", StringComparison.Ordinal) >= 0 ||
+                   text.IndexOf("/home/", StringComparison.Ordinal) >= 0 ||
+                   text.IndexOf("/Users/", StringComparison.Ordinal) >= 0;
+        }
+
     }
 }
