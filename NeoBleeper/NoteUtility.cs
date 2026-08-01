@@ -1082,60 +1082,52 @@ namespace NeoBleeper
 
         private static void RenderGatedNoise(PercussionOutputChoice output, int sid, double baseFreq, int totalDurationMs, double noiseVol, double holdRatio, int originalDurationMs, CancellationToken ct)
         {
+            // --- Shared parameters, computed once, used identically by both outputs ---
             double sampleFreq = baseFreq < 3500 ? baseFreq + 5000 : baseFreq + 1200;
 
-            // Buffered devices cannot reproduce the sub-millisecond PWM used
-            // by the PC speaker. Use one compact white-noise transient instead.
+            double attackRatio = Math.Max(holdRatio, Math.Min(0.65, noiseVol * 0.50));
+            int maximumAttackMs = totalDurationMs <= 100
+                ? Math.Min(32, totalDurationMs)
+                : Math.Min(60, totalDurationMs);
+            int audibleAttackMs = GetSoundDeviceAttackDuration(
+                totalDurationMs, attackRatio, maximumAttackMs);
+
             if (output == PercussionOutputChoice.SoundDevice)
             {
-                double attackRatio = Math.Max(holdRatio, Math.Min(0.65, noiseVol * 0.50));
-                int maximumAttackMs = totalDurationMs <= 100
-                    ? Math.Min(32, totalDurationMs)
-                    : Math.Min(60, totalDurationMs);
-                int audibleAttackMs = GetSoundDeviceAttackDuration(
-                    totalDurationMs, attackRatio, maximumAttackMs);
-
+                // True white noise burst for the duration both branches agree on.
                 StartPulse(output, (int)sampleFreq, SynthWave.Noise, sid);
                 PreciseWaitMs(audibleAttackMs, ct);
                 StopPulse(output, sid);
                 return;
             }
 
+            // --- System speaker: same attack window and frequency center as the
+            // sound-device branch, approximated with gated, frequency-jittered
+            // square pulses (the PC speaker can't render true broadband noise).
+            // A single unchanging pulse frequency reads to the ear as a pitched
+            // tone rather than noise — jittering it each on-transition spreads
+            // energy across a band instead, which is what fixes the high-pitched
+            // cymbal issue while keeping the same overall duration/density as
+            // the sound-device path.
             double sampleDurMs = 1000.0 / (sampleFreq + 0.25);
 
             var sw = Stopwatch.StartNew();
             double nextSampleMs = 0;
             bool speakerOn = false;
-            double initialNoiseVol = noiseVol;
 
-            int envelopeDurationMs = Math.Min(originalDurationMs, Math.Max(1, totalDurationMs));
-
-            while (sw.Elapsed.TotalMilliseconds < totalDurationMs)
+            while (sw.Elapsed.TotalMilliseconds < audibleAttackMs)
             {
                 if (ct.IsCancellationRequested || !IsSessionActive(output, sid)) break;
 
-                double elapsed = sw.Elapsed.TotalMilliseconds;
-                double progress = elapsed / envelopeDurationMs;
-
-                if (progress >= 1.0) break;
-
-                double currentNoiseVol;
-                if (progress < holdRatio)
-                {
-                    currentNoiseVol = initialNoiseVol;
-                }
-                else
-                {
-                    double decayProgress = (progress - holdRatio) / (1.0 - holdRatio);
-                    currentNoiseVol = initialNoiseVol * (1.0 - Math.Clamp(decayProgress, 0.0, 1.0));
-                }
-
-                if (currentNoiseVol < 0.04) break;
-
-                bool wantOn = Random.Shared.NextDouble() < currentNoiseVol;
+                bool wantOn = Random.Shared.NextDouble() < noiseVol;
                 if (wantOn != speakerOn)
                 {
-                    if (wantOn) StartPulse(output, (int)sampleFreq, SynthWave.Square, sid);
+                    if (wantOn)
+                    {
+                        double jitter = 0.6 + (Random.Shared.NextDouble() * 0.8); // 0.6x - 1.4x
+                        int jitteredFreq = (int)Math.Round(sampleFreq * jitter);
+                        StartPulse(output, jitteredFreq, SynthWave.Square, sid);
+                    }
                     else StopPulse(output, sid);
                     speakerOn = wantOn;
                 }
