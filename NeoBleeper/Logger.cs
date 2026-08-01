@@ -267,40 +267,168 @@ namespace NeoBleeper
         /// returns the original text.</returns>
         private static string MaskSensitiveInformations(string text)
         {
-            if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 return text;
             }
-            var patterns = new (string pattern, string replacement)[]
+
+            var patterns = new (string Pattern, string Replacement, RegexOptions Options)[]
             {
-                // Google API key format
-                (@"\bAIzaSy[A-Za-z0-9_\-]{33}\b", "[REDACTED_API_KEY]"),
-                // OpenAI style keys (sk-...)
-                (@"\bsk-[A-Za-z0-9_\-]{24,}\b", "[REDACTED_API_KEY]"),
-                // UUID
-                (@"\b[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}\b", "[REDACTED_UUID]"),
-                // E-posta addresses
-                (@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "[REDACTED_EMAIL]"),
-                // Windows full paths
-                (@"[A-Za-z]:\\(?:[^\\/:*?""<>|&#x0a;]+\\)*[^\\/:*?""<>|&#x0a;]*", "[REDACTED_PATH]"),
-                // Long base64 strings
-                (@"(?<=\s|^)[A-Za-z0-9+/]{40,}={0,2}(?=\s|$)", "[REDACTED_BASE64]"),
-                // Potential tokens/keys
-                (@"(?<=\s|^)[A-Za-z0-9_\-]{40,}(?=\s|$)", "[REDACTED_SECRET]"),
-                // Credit card number-like strings
-                (@"\b(?:\d[ -]*?){13,19}\b", "[REDACTED_NUMBER]"),
-                // IPv4 addresses
-                (@"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b", "[REDACTED_IP]"),
-            }; string result = text;
-            foreach (var (pattern, replacement) in patterns)
+        // Private key headers
+        (
+            @"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----",
+            "[REDACTED_PRIVATE_KEY]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Passwords, secrets, and tokens assigned in configuration/code
+        (
+            @"\b(?:password|passwd|pwd|secret|token|api[_-]?key|" +
+            @"client[_-]?secret)\s*[:=]\s*[""']?" +
+            @"[A-Za-z0-9._~+/=-]{8,}[""']?",
+            "[REDACTED_SECRET]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Google API keys
+        (
+            @"\bAIzaSy[A-Za-z0-9_-]{33}\b",
+            "[REDACTED_API_KEY]",
+            RegexOptions.None
+        ),
+
+        // OpenAI-style keys
+        (
+            @"\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{20,}\b",
+            "[REDACTED_API_KEY]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // AWS access key IDs
+        (
+            @"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b",
+            "[REDACTED_AWS_KEY]",
+            RegexOptions.None
+        ),
+
+        // Bearer tokens
+        (
+            @"\bBearer\s+[A-Za-z0-9._~+/=-]{20,}",
+            "Bearer [REDACTED_TOKEN]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // JSON Web Tokens
+        (
+            @"(?<![A-Za-z0-9_-])" +
+            @"eyJ[A-Za-z0-9_-]{5,}\." +
+            @"[A-Za-z0-9_-]{5,}\." +
+            @"[A-Za-z0-9_-]{5,}" +
+            @"(?![A-Za-z0-9_-])",
+            "[REDACTED_JWT]",
+            RegexOptions.None
+        ),
+
+        // Email addresses
+        (
+            @"(?<![A-Za-z0-9._%+-])" +
+            @"[A-Za-z0-9._%+-]+@" +
+            @"[A-Za-z0-9.-]+\.[A-Za-z]{2,}" +
+            @"(?![A-Za-z0-9._%+-])",
+            "[REDACTED_EMAIL]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // UUIDs
+        (
+            @"\b[0-9A-F]{8}-[0-9A-F]{4}-" +
+            @"[1-5][0-9A-F]{3}-[89AB][0-9A-F]{3}-" +
+            @"[0-9A-F]{12}\b",
+            "[REDACTED_UUID]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Windows full paths
+        (
+            @"[A-Za-z]:\\" +
+            @"(?:[^\\/:*?""<>|\r\n]+\\)*" +
+            @"[^\\/:*?""<>|\r\n]*",
+            "[REDACTED_PATH]",
+            RegexOptions.None
+        ),
+
+        // Unix/macOS user home paths
+        (
+            @"(?<!\w)/(?:home|Users)/" +
+            @"[^/\s]+(?:/[^\s""']*)?",
+            "[REDACTED_PATH]",
+            RegexOptions.None
+        ),
+
+        // Credit-card-number-like strings
+        (
+            @"(?<!\d)\d(?:[ -]?\d){12,18}(?!\d)",
+            "[REDACTED_NUMBER]",
+            RegexOptions.None
+        ),
+
+        // IPv4 addresses
+        (
+            @"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}" +
+            @"(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b",
+            "[REDACTED_IP]",
+            RegexOptions.None
+        ),
+
+        // MAC addresses
+        (
+            @"\b(?:[0-9A-F]{2}[:-]){5}[0-9A-F]{2}\b",
+            "[REDACTED_MAC]",
+            RegexOptions.IgnoreCase
+        ),
+
+        // Long Base64 values
+        (
+            @"(?<![A-Za-z0-9+/=])" +
+            @"[A-Za-z0-9+/]{40,}={0,2}" +
+            @"(?![A-Za-z0-9+/=])",
+            "[REDACTED_BASE64]",
+            RegexOptions.None
+        ),
+
+        // Generic long tokens or keys
+        (
+            @"(?<![A-Za-z0-9_-])" +
+            @"[A-Za-z0-9_-]{40,}" +
+            @"(?![A-Za-z0-9_-])",
+            "[REDACTED_SECRET]",
+            RegexOptions.None
+        )
+            };
+
+            string result = text;
+            TimeSpan timeout = TimeSpan.FromMilliseconds(250);
+
+            foreach (var (pattern, replacement, options) in patterns)
             {
                 try
                 {
-                    result = Regex.Replace(result, pattern, replacement, RegexOptions.Compiled | RegexOptions.CultureInvariant);
+                    result = Regex.Replace(
+                        result,
+                        pattern,
+                        replacement,
+                        options |
+                        RegexOptions.Compiled |
+                        RegexOptions.CultureInvariant,
+                        timeout);
                 }
-                catch
+                catch (RegexMatchTimeoutException)
                 {
-                    // Use original text if failed
+                    // Skip only the pattern that timed out.
+                }
+                catch (ArgumentException)
+                {
+                    // Skip invalid regex patterns.
                 }
             }
 

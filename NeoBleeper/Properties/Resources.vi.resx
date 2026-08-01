@@ -123,6 +123,9 @@
   <data name="MessageFailedPrecondition" xml:space="preserve">
     <value>Gói miễn phí của Google Gemini™ API không khả dụng tại quốc gia/khu vực của bạn. Vui lòng cân nhắc nâng cấp lên gói trả phí để sử dụng dịch vụ.</value>
   </data>
+  <data name="MessageInvalidArgument" xml:space="preserve">
+    <value>Yêu cầu chứa tham số không hợp lệ. Vui lòng kiểm tra thông tin đầu vào và thử lại.</value>
+  </data>
   <data name="MessageRequestTimeout" xml:space="preserve">
     <value>Yêu cầu đã bị hết thời gian chờ trước khi hoàn thành. Vui lòng thử lại.</value>
   </data>
@@ -133,14 +136,25 @@
   <data name="TitlePermissionDenied" xml:space="preserve">
     <value>Quyền bị từ chối</value>
   </data>
+  <data name="Issues" xml:space="preserve">
+    <value>
+Vấn đề: 
+</value>
+  </data>
   <data name="MessageEmptyNoteListCannotBeExportedAsLinuxBeep" xml:space="preserve">
     <value>Không thể chuyển đổi danh sách nốt trống thành lệnh Beep cho Linux</value>
+  </data>
+  <data name="FailureReasons" xml:space="preserve">
+    <value>Nguyên nhân thất bại: </value>
   </data>
   <data name="TitleOutOfRange" xml:space="preserve">
     <value>Ngoài phạm vi</value>
   </data>
   <data name="StatusDisplayResolutionCheck" xml:space="preserve">
     <value>Đang kiểm tra độ phân giải màn hình...</value>
+  </data>
+  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
+    <value>Không tìm thấy mục loa hệ thống trên hệ thống.</value>
   </data>
   <data name="icons8-open-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-open-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,6 +164,12 @@
   </data>
   <data name="HarmonyOS_Sans_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ExamplePrompt18" xml:space="preserve">
+    <value>Sáng tác một mẫu nhịp điệu với nhịp đảo phách</value>
+  </data>
+  <data name="ExamplePrompt13" xml:space="preserve">
+    <value>Tạo ra một nhạc nền chiptune 8-bit retro lấy cảm hứng từ trò chơi điện tử cổ điển</value>
   </data>
   <data name="TitleDataLoss" xml:space="preserve">
     <value>Mất dữ liệu</value>
@@ -169,11 +189,17 @@
   <data name="SpiccatoArticulation" xml:space="preserve">
     <value>Spi</value>
   </data>
+  <data name="TimerCountdownCheckFailed" xml:space="preserve">
+    <value>Kiểm tra bộ đếm ngược thời gian thất bại.</value>
+  </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
     <value>Bạn đã vượt quá hạn mức yêu cầu API hoặc không khả dụng trong gói dịch vụ của mình. Vui lòng thử lại sau hoặc nâng cấp gói dịch vụ.</value>
   </data>
-  <data name="UseVoiceSystemHelp" xml:space="preserve">
-    <value>Tính năng này cho phép chương trình sử dụng hệ thống giọng nói để mô phỏng các dạng giọng nói nhằm làm cho các nốt nhạc được chọn bắt chước "tiếng hát".</value>
+  <data name="NoBasicChecksPassed" xml:space="preserve">
+    <value>Không vượt qua được các bước kiểm tra cơ bản.</value>
+  </data>
+  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
+    <value>Đo tốc độ tín hiệu phản hồi: </value>
   </data>
   <data name="TitleAborted" xml:space="preserve">
     <value>Đã hủy</value>
@@ -193,6 +219,9 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Tạo một tiến trình blues với các nốt biểu cảm</value>
+  </data>
+  <data name="ExamplePrompt28" xml:space="preserve">
+    <value>Sáng tác một bản hành khúc lễ nghi với nhịp độ đều đặn</value>
   </data>
   <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
     <value>API Google Gemini™ không khả dụng ở quốc gia của bạn. Vui lòng kiểm tra danh sách các quốc gia được hỗ trợ.</value>
@@ -227,6 +256,9 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="TitleDeadlineExceeded" xml:space="preserve">
     <value>Đã quá hạn</value>
   </data>
+  <data name="SomeBasicChecksPassed" xml:space="preserve">
+    <value>Một số bước kiểm tra cơ bản đã được thông qua: </value>
+  </data>
   <data name="icons8-sustainable-energy-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-sustainable-energy-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -257,11 +289,23 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="MessageMIDIFilePlayerNonSupportedFile" xml:space="preserve">
     <value>Tệp bạn kéo không được trình phát MIDI NeoBleeper hỗ trợ hoặc bị hỏng.</value>
   </data>
+  <data name="TextVersion" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="MessageAICreationCooldown" xml:space="preserve">
+    <value>Vui lòng đợi một lát trước khi tạo nhạc với AI lần nữa.</value>
+  </data>
   <data name="PlayBeatSoundHelpTitle" xml:space="preserve">
     <value>Phát âm thanh nhịp điệu</value>
   </data>
+  <data name="UseVoiceSystemHelp" xml:space="preserve">
+    <value>Tính năng này cho phép chương trình sử dụng hệ thống giọng nói để mô phỏng các dạng giọng nói nhằm làm cho các nốt nhạc được chọn bắt chước "tiếng hát".</value>
+  </data>
   <data name="StatusWakingUpSystemSpeaker" xml:space="preserve">
     <value>Đang kích hoạt loa hệ thống cho các chipset bị ảnh hưởng... (bạn có thể nghe thấy tiếng lách cách/lụp bụp)</value>
+  </data>
+  <data name="TimerSetupFailed" xml:space="preserve">
+    <value>Thiết lập hẹn giờ thất bại.</value>
   </data>
   <data name="StatusSystemInformationsGathered" xml:space="preserve">
     <value>Thông tin hệ thống đang được thu thập.</value>
@@ -272,14 +316,14 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="neobleeper_background_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_background_dark1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MessageFailedToCut" xml:space="preserve">
+    <value>Không thể sao chép vào clipboard.</value>
+  </data>
   <data name="MessageNoInternet" xml:space="preserve">
     <value>Không có kết nối Internet. Vui lòng kiểm tra lại kết nối.</value>
   </data>
   <data name="TitleInternalError" xml:space="preserve">
     <value>Lỗi nội bộ</value>
-  </data>
-  <data name="TitleFailedPrecondition" xml:space="preserve">
-    <value>Điều kiện tiên quyết không đạt</value>
   </data>
   <data name="EighthNote" xml:space="preserve">
     <value>Nốt móc đơn</value>
@@ -293,17 +337,26 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="icons8-1-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-1-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="TitleUnavailable" xml:space="preserve">
+    <value>Dịch vụ/Mô hình không khả dụng hoặc quá tải</value>
+  </data>
+  <data name="TitleNoNotesGenerated" xml:space="preserve">
+    <value>Không có nốt nào được tạo ra.</value>
+  </data>
   <data name="MessageFirmwareCopied" xml:space="preserve">
     <value>Mã chương trình cơ sở được sao chép vào bảng tạm</value>
   </data>
-  <data name="MessageAlreadyExists" xml:space="preserve">
-    <value>Tài nguyên đã tồn tại.</value>
+  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WholeNote" xml:space="preserve">
     <value>Nốt tròn</value>
   </data>
   <data name="TextNotFound" xml:space="preserve">
     <value>(Không tìm thấy)</value>
+  </data>
+  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
+    <value>Thử nghiệm phản hồi điện thất bại.</value>
   </data>
   <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
     <value>Định dạng khóa API không hợp lệ. Vui lòng kiểm tra và thử lại.</value>
@@ -327,8 +380,11 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
   <data name="MessageGCodeExported" xml:space="preserve">
     <value>Tệp GCode đã được xuất thành công!</value>
   </data>
-  <data name="StatusHDDStorageType" xml:space="preserve">
-    <value>Đã phát hiện bộ nhớ HDD. Tránh tần số cộng hưởng {value} Hz.</value>
+  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
+    <value>Nhạc đang phát. Vui lòng dừng phát nhạc trước khi bắt đầu chờ.</value>
+  </data>
+  <data name="MessageFailedToCopy" xml:space="preserve">
+    <value>Sao chép vào clipboard không thành công.</value>
   </data>
   <data name="MessageConvertToGCodeError" xml:space="preserve">
     <value>Lỗi khi chuyển đổi sang GCode:</value>
@@ -339,8 +395,14 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Khóa API Google Gemini™ không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "Chung" trong cài đặt.</value>
+  </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Tạo một bản piano thư giãn</value>
+  </data>
+  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
+    <value>InpOutx64.dll hiện diện và hợp lệ.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
     <value>Loa hệ thống có sẵn, nhưng đây là máy tính nhỏ gọn. NeoBleeper sẽ sử dụng card âm thanh để tạo tiếng bíp nhằm tránh sự cố với máy tính nhỏ gọn.</value>
@@ -382,6 +444,9 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="MessageFailedToOpenLink" xml:space="preserve">
+    <value>Không thể mở liên kết. URL có thể không hợp lệ hoặc có thể có vấn đề với trình duyệt web mặc định.</value>
+  </data>
   <data name="icons8-mute-48 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-mute-48 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -393,6 +458,9 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Sáng tác một bản nhạc dân ca với đàn tranh</value>
+  </data>
+  <data name="TimerStatusCheck" xml:space="preserve">
+    <value>Kiểm tra trạng thái hẹn giờ: </value>
   </data>
   <data name="StatusInpOutX64Placed" xml:space="preserve">
     <value>InpOutx64.dll đã được đặt thành công.</value>
@@ -457,8 +525,14 @@ Nhấp lại để hiển thị.</value>
   <data name="AISettingsAgeRestrictionWarning" xml:space="preserve">
     <value>Bạn phải ít nhất 18 tuổi mới có thể sử dụng tính năng này.</value>
   </data>
+  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
+    <value>Phát hiện tín hiệu phản hồi loa hệ thống: </value>
+  </data>
   <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FeedbackSignalStability" xml:space="preserve">
+    <value>Độ ổn định tín hiệu phản hồi khi bị vô hiệu hóa: </value>
   </data>
   <data name="ExamplePrompt29" xml:space="preserve">
     <value>Tạo một bản valse trang nhã theo nhịp 3/4</value>
@@ -469,8 +543,8 @@ Nhấp lại để hiển thị.</value>
   <data name="StatusDisplayResolutionNotSupported" xml:space="preserve">
     <value>Độ phân giải màn hình không được hỗ trợ. NeoBleeper yêu cầu độ phân giải tối thiểu là 1024x768 để chạy bình thường.</value>
   </data>
-  <data name="ExamplePrompt24" xml:space="preserve">
-    <value>Tạo một nhịp nhạc điện tử sôi động</value>
+  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
+    <value>Lỗi xung kích hoạt im lặng ngắn.</value>
   </data>
   <data name="ExamplePrompt17" xml:space="preserve">
     <value>Tạo một bản nhạc ambient yên tĩnh để thư giãn</value>
@@ -484,11 +558,14 @@ Nhấp lại để hiển thị.</value>
   <data name="CtrlKey" xml:space="preserve">
     <value>Ctrl</value>
   </data>
-  <data name="MessageNoSavedVersion" xml:space="preserve">
-    <value>Không có phiên bản đã lưu để tua lại.</value>
+  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
+    <value>Bật/tắt cổng loa hệ thống: </value>
   </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Khóa API Google Gemini™ không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "Chung" trong cài đặt.</value>
+  <data name="TimerSetupTest" xml:space="preserve">
+    <value>Kiểm tra thiết lập hẹn giờ</value>
+  </data>
+  <data name="TimerCountdownCheck" xml:space="preserve">
+    <value>Kiểm tra đếm ngược thời gian: </value>
   </data>
   <data name="SpaceKey" xml:space="preserve">
     <value>Space</value>
@@ -533,6 +610,12 @@ Nhấp lại để ẩn khóa.</value>
   <data name="MessageBeepCommandSaved" xml:space="preserve">
     <value>Lệnh Beep dưới dạng tập lệnh shell đã được lưu thành công.</value>
   </data>
+  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
+    <value>Tốc độ tín hiệu phản hồi không nằm trong phạm vi dung sai cho phép.</value>
+  </data>
+  <data name="FeedbackDetectionFailed" xml:space="preserve">
+    <value>Quá trình phát hiện phản hồi đã thất bại.</value>
+  </data>
   <data name="ButtonIgnore" xml:space="preserve">
     <value>&amp;Phớt lờ</value>
   </data>
@@ -566,17 +649,27 @@ Nhấp lại để ẩn khóa.</value>
   <data name="MessageGCodeEmptyNoteList" xml:space="preserve">
     <value>Không thể xuất danh sách ghi chú trống.</value>
   </data>
+  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
+    <value>Швидкість зворотного зв'язку поза очікуваним діапазоном
+</value>
+  </data>
   <data name="TextStopWaiting" xml:space="preserve">
     <value>Đừng chờ đợi nữa</value>
   </data>
   <data name="TextTheMIDIFileIsBeingLoaded" xml:space="preserve">
     <value>Tệp MIDI đang được tải...</value>
   </data>
+  <data name="MessageFileDoesNotExist" xml:space="preserve">
+    <value>Tệp đã chọn không tồn tại.</value>
+  </data>
   <data name="icons8-3-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonAbort" xml:space="preserve">
     <value>H&amp;ủy bỏ</value>
+  </data>
+  <data name="ErrorLineIsEmpty" xml:space="preserve">
+    <value>Danh sách dòng trống. Vui lòng thêm ghi chú trước khi bắt đầu phát lại.</value>
   </data>
   <data name="UseVoiceSystemHelpTitle" xml:space="preserve">
     <value>Sử dụng Hệ thống giọng nói</value>
@@ -608,6 +701,9 @@ Nhấp lại để ẩn khóa.</value>
   <data name="PortamentoHelpTitle" xml:space="preserve">
     <value>Bleeper Portamento</value>
   </data>
+  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HarmonyOS_Sans_Thin_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Thin_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -616,6 +712,9 @@ Nhấp lại để ẩn khóa.</value>
   </data>
   <data name="TextWarning" xml:space="preserve">
     <value>Cảnh báo</value>
+  </data>
+  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
+    <value>Loa hệ thống có sẵn, nhưng không rõ loại máy tính nào. NeoBleeper sẽ sử dụng card âm thanh để tạo tiếng bíp nhằm tránh sự cố với các loại máy tính không rõ.</value>
   </data>
   <data name="ToastMessageNotesCopy" xml:space="preserve">
     <value>Nốt được sao chép vào bảng tạm.</value>
@@ -626,14 +725,17 @@ Nhấp lại để ẩn khóa.</value>
   <data name="MessageProhibitedContent" xml:space="preserve">
     <value>Phản hồi đã bị chặn do nội dung bị cấm.</value>
   </data>
-  <data name="QuarterNote" xml:space="preserve">
-    <value>Nốt đen</value>
+  <data name="MessageNoNotesGenerated" xml:space="preserve">
+    <value>Không có nốt nào được tạo ra trong kết quả. Vui lòng thử lại với lời nhắc hoặc cài đặt khác.</value>
   </data>
   <data name="StatusProgramLanguage" xml:space="preserve">
     <value>NeoBleeper bắt đầu bằng ngôn ngữ: </value>
   </data>
   <data name="MessageFileNotFoundError" xml:space="preserve">
     <value>Không tìm thấy tập tin:</value>
+  </data>
+  <data name="TitlePleaseWait" xml:space="preserve">
+    <value>Vui lòng đợi</value>
   </data>
   <data name="neobleeper_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -649,6 +751,9 @@ Nhấp lại để ẩn khóa.</value>
   </data>
   <data name="TitleNotFound" xml:space="preserve">
     <value>Không tìm thấy</value>
+  </data>
+  <data name="UnexpectedReadBack" xml:space="preserve">
+    <value>Việc đọc lại trạng thái bộ hẹn giờ đã thất bại (truy cập/chế độ/BCD không mong muốn).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
     <value>Danh sách mô hình AI không thành công. Vui lòng kiểm tra khóa API Google Gemini™ và kết nối internet của bạn.</value>
@@ -667,6 +772,9 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
     <value>InpOutx64.dll bị thiếu hoặc bị hỏng. Đang đặt InpOutx64.dll...</value>
   </data>
+  <data name="MessageAlreadyExists" xml:space="preserve">
+    <value>Tài nguyên đã tồn tại.</value>
+  </data>
   <data name="HarmonyOS_Sans_Bold_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -676,23 +784,17 @@ Bạn có muốn mở tệp này không?</value>
   <data name="icons8-ai-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-ai-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageAnErrorOccurred" xml:space="preserve">
-    <value>Đã xảy ra lỗi:</value>
-  </data>
-  <data name="TitleRequestTimeout" xml:space="preserve">
-    <value>Yêu cầu bị hết thời gian chờ</value>
+  <data name="TimerSpeedOutOfRange" xml:space="preserve">
+    <value>Tốc độ kiểm tra bộ hẹn giờ nằm ​​ngoài phạm vi dự kiến.</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Vị trí:</value>
   </data>
-  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
-    <value>Âm nhạc do AI tạo ra</value>
-  </data>
   <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
     <value>Đã lưu khóa API Google Gemini™ thành công.</value>
   </data>
-  <data name="ExamplePrompt28" xml:space="preserve">
-    <value>Sáng tác một bản hành khúc lễ nghi với nhịp độ đều đặn</value>
+  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
+    <value>Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 1/2...</value>
   </data>
   <data name="HarmonyOS_Sans_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -718,14 +820,14 @@ Bạn có muốn mở tệp này không?</value>
   <data name="icons8-paste-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-paste-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
+    <value>Kiểm tra sự hiện diện của âm thanh đầu ra từ loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy một tiếng lách cách/lụp bụp)</value>
+  </data>
   <data name="MessageLanguageChanged" xml:space="preserve">
     <value>Ngôn ngữ đã được thay đổi và ứng dụng sẽ khởi động lại để áp dụng ngôn ngữ mới, đồng thời những thay đổi trong các dự án đang mở sẽ bị loại bỏ.</value>
   </data>
-  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
-    <value>Không cập nhật màn hình nhịp điệu</value>
-  </data>
-  <data name="ExamplePrompt21" xml:space="preserve">
-    <value>Tạo một giai điệu jazz với nhịp swing</value>
+  <data name="MessageUnknownError" xml:space="preserve">
+    <value>Đã xảy ra lỗi không xác định.</value>
   </data>
   <data name="StatusChipsetHasKnownIssues" xml:space="preserve">
     <value>Chipset {chipset} được biết là có vấn đề với loa hệ thống. Loa hệ thống có thể không được phát hiện hoặc không hoạt động bình thường.</value>
@@ -771,6 +873,9 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusClassicBleeperModeDisabled" xml:space="preserve">
     <value>Chế độ Bleeper Cổ điển đã bị tắt. NeoBleeper sẽ chạy ở chế độ tiêu chuẩn.</value>
   </data>
+  <data name="StatusHDDStorageType" xml:space="preserve">
+    <value>Đã phát hiện bộ nhớ HDD. Tránh tần số cộng hưởng {value} Hz.</value>
+  </data>
   <data name="HarmonyOS_Sans_Medium_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Medium_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -786,6 +891,9 @@ Bạn có muốn mở tệp này không?</value>
   <data name="StatusInitializationCompleted" xml:space="preserve">
     <value>Quá trình khởi tạo NeoBleeper đã hoàn tất</value>
   </data>
+  <data name="FeedbackSignalNotStable" xml:space="preserve">
+    <value>Tín hiệu phản hồi không ổn định khi bị vô hiệu hóa (phát hiện tín hiệu không ổn định).</value>
+  </data>
   <data name="StatusModularComputerDetected" xml:space="preserve">
     <value>Có loa hệ thống và đây là máy tính dạng mô-đun. NeoBleeper sẽ sử dụng loa hệ thống để tạo ra tiếng bíp.</value>
   </data>
@@ -794,6 +902,9 @@ Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="MessageConvertedBeepCommandCopied" xml:space="preserve">
     <value>Lệnh Beep đã chuyển đổi được sao chép vào bảng tạm.</value>
+  </data>
+  <data name="PortStateStabilityTest" xml:space="preserve">
+    <value>Kiểm tra độ ổn định trạng thái cổng</value>
   </data>
   <data name="StatusUnknownStorageType" xml:space="preserve">
     <value>Không xác định được loại bộ nhớ. Tính năng ngăn ngừa cộng hưởng được áp dụng ở các tần số cộng hưởng có thể xảy ra để đảm bảo an toàn.</value>
@@ -834,8 +945,9 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageErrorFileOpening" xml:space="preserve">
     <value>Lỗi khi mở tệp:</value>
   </data>
-  <data name="MessageUnknownError" xml:space="preserve">
-    <value>Đã xảy ra lỗi không xác định.</value>
+  <data name="FeedbackSignalNotDetected" xml:space="preserve">
+    <value>Không phát hiện thấy tín hiệu phản hồi
+</value>
   </data>
   <data name="MessageAnErrorOccurredWhileStoppingMusic" xml:space="preserve">
     <value>Đã xảy ra lỗi khi dừng nhạc: </value>
@@ -852,11 +964,14 @@ Bạn có muốn mở tệp này không?</value>
   <data name="TextEventsAreBeingCollected" xml:space="preserve">
     <value>Các sự kiện đang được thu thập...</value>
   </data>
-  <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
-    <value>Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 1/2...</value>
+  <data name="TitleFailedPrecondition" xml:space="preserve">
+    <value>Điều kiện tiên quyết không đạt</value>
   </data>
   <data name="HarmonyOS_Sans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="MessageFileNameIsEmpty" xml:space="preserve">
+    <value>Tên tệp tin trống.</value>
   </data>
   <data name="ButtonRetry" xml:space="preserve">
     <value>&amp;Thử lại</value>
@@ -876,14 +991,24 @@ Bạn có muốn mở tệp này không?</value>
   <data name="InpOutX64PlaceError" xml:space="preserve">
     <value>Không thể đặt InpOutx64.dll: </value>
   </data>
-  <data name="ExamplePrompt13" xml:space="preserve">
-    <value>Tạo ra một nhạc nền chiptune 8-bit retro lấy cảm hứng từ trò chơi điện tử cổ điển</value>
+  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
+    <value>Khả năng đọc tín hiệu đầu ra loa hệ thống: </value>
   </data>
   <data name="MessageStartMIDIInputDeviceErrorPart2" xml:space="preserve">
     <value>Hãy thử làm mới danh sách thiết bị.</value>
   </data>
   <data name="icons8-2-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-2-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MessageNoSavedVersion" xml:space="preserve">
+    <value>Không có phiên bản đã lưu để tua lại.</value>
+  </data>
+  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
+    <value>Đã tìm thấy mục loa hệ thống trong hệ thống này
+</value>
+  </data>
+  <data name="ExamplePrompt24" xml:space="preserve">
+    <value>Tạo một nhịp nhạc điện tử sôi động</value>
   </data>
   <data name="MessageErrorRewinding" xml:space="preserve">
     <value>Lỗi khi tua lại phiên bản đã lưu:</value>
@@ -897,8 +1022,11 @@ Bạn có muốn mở tệp này không?</value>
   <data name="OverallResult" xml:space="preserve">
     <value>Kết quả chung cuộc: </value>
   </data>
-  <data name="TextMessage" xml:space="preserve">
-    <value>Tin nhắn</value>
+  <data name="TimerSpeedTest" xml:space="preserve">
+    <value>Kiểm tra tốc độ hẹn giờ:</value>
+  </data>
+  <data name="ExamplePrompt21" xml:space="preserve">
+    <value>Tạo một giai điệu jazz với nhịp swing</value>
   </data>
   <data name="MessageLinuxBeepCommandConvertError" xml:space="preserve">
     <value>Lỗi khi chuyển đổi sang lệnh Beep cho Linux: </value>
@@ -906,8 +1034,11 @@ Bạn có muốn mở tệp này không?</value>
   <data name="ExamplePrompt12" xml:space="preserve">
     <value>Sáng tác một khung cảnh âm thanh ambient yên tĩnh để thư giãn và thiền định</value>
   </data>
-  <data name="MessageInvalidArgument" xml:space="preserve">
-    <value>Yêu cầu chứa tham số không hợp lệ. Vui lòng kiểm tra thông tin đầu vào và thử lại.</value>
+  <data name="MessageAnErrorOccurred" xml:space="preserve">
+    <value>Đã xảy ra lỗi:</value>
+  </data>
+  <data name="QuarterNote" xml:space="preserve">
+    <value>Nốt đen</value>
   </data>
   <data name="ExamplePrompt7" xml:space="preserve">
     <value>Tạo nhạc nền cho game phiêu lưu</value>
@@ -917,6 +1048,9 @@ Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="icons8-new-file-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-new-file-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TextUncertain" xml:space="preserve">
+    <value>KHÔNG CHẮC CHẮN</value>
   </data>
   <data name="StatusSystemSpeakerOutputNotPresent" xml:space="preserve">
     <value>Không có ngõ ra loa hệ thống. Thiết bị âm thanh sẽ được sử dụng để tạo tiếng bíp.</value>
@@ -930,17 +1064,14 @@ Bạn có muốn mở tệp này không?</value>
   <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
     <value>Không có mẫu Google Gemini™ nào hợp lệ.</value>
   </data>
-  <data name="icons8-pause-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-pause-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
   </data>
-  <data name="StatusSystemSpeakerSensorStep2" xml:space="preserve">
-    <value>Kiểm tra sự hiện diện của âm thanh đầu ra từ loa hệ thống (loa máy tính) ở bước 2/2... (bạn có thể nghe thấy một tiếng lách cách/lụp bụp)</value>
+  <data name="TitleRequestTimeout" xml:space="preserve">
+    <value>Yêu cầu bị hết thời gian chờ</value>
   </data>
-  <data name="ExamplePrompt18" xml:space="preserve">
-    <value>Sáng tác một mẫu nhịp điệu với nhịp đảo phách</value>
+  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
+    <value>Âm nhạc do AI tạo ra đã được tạo thành công.</value>
   </data>
   <data name="MessageNonSupportedOpenedFile" xml:space="preserve">
     <value>Tệp bạn đã mở không được NeoBleeper hỗ trợ hoặc đã bị hỏng.</value>
@@ -948,8 +1079,8 @@ Bạn có muốn mở tệp này không?</value>
   <data name="TitleUnknownError" xml:space="preserve">
     <value>Lỗi không xác định</value>
   </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>InpOutx64.dll hiện diện và hợp lệ.</value>
+  <data name="ShortSilentEnablePulse" xml:space="preserve">
+    <value>Xung kích hoạt im lặng ngắn: </value>
   </data>
   <data name="SynchronizedPlayHelp" xml:space="preserve">
     <value>Tính năng này cho phép bạn đồng bộ hóa việc phát lại nhiều phiên bản NeoBleeper.
@@ -961,8 +1092,8 @@ Khi bạn bật tính năng này, một cửa sổ mới sẽ mở ra, hiển th
 
 Sau đó, bạn có thể sử dụng cửa sổ này để điều khiển việc phát lại tất cả các phiên bản NeoBleeper trên máy tính của mình.</value>
   </data>
-  <data name="NotificationMessageAIMusicCreated" xml:space="preserve">
-    <value>Âm nhạc do AI tạo ra đã được tạo thành công.</value>
+  <data name="SystemSpeakerEntryFound" xml:space="preserve">
+    <value>Đã tìm thấy mục loa hệ thống trên hệ thống.</value>
   </data>
   <data name="MessageAIResponseNullOrEmpty" xml:space="preserve">
     <value>Phản hồi của AI là null hoặc trống.</value>
@@ -989,9 +1120,6 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="StatusAPIKeyValidating" xml:space="preserve">
     <value>Khóa API Google Gemini™ đang được xác thực...</value>
   </data>
-  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Kiểm tra loa hệ thống nâng cao đã bắt đầu.</value>
   </data>
@@ -1010,29 +1138,41 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="MessageInvalidOrCorruptedMusicFile" xml:space="preserve">
     <value>Tệp nhạc không hợp lệ hoặc bị hỏng</value>
   </data>
+  <data name="NotificationTitleAIMusicCreated" xml:space="preserve">
+    <value>Âm nhạc do AI tạo ra</value>
+  </data>
+  <data name="TimerSetup" xml:space="preserve">
+    <value>Thiết lập hẹn giờ: </value>
+  </data>
   <data name="StatusSystemSpeakerOutputPresent" xml:space="preserve">
     <value>Có ngõ ra loa hệ thống. Loa hệ thống sẽ được sử dụng để tạo tiếng bíp.</value>
   </data>
   <data name="MessageUnavailable" xml:space="preserve">
     <value>Dịch vụ/mô hình hiện không khả dụng hoặc quá tải. Vui lòng thử lại sau.</value>
   </data>
-  <data name="icons8-resolution-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-resolution-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PortStateStabilityTestFailed" xml:space="preserve">
+    <value>Kiểm tra độ ổn định trạng thái cổng đã thất bại.</value>
   </data>
-  <data name="StatusUnknownComputerTypeDetected" xml:space="preserve">
-    <value>Loa hệ thống có sẵn, nhưng không rõ loại máy tính nào. NeoBleeper sẽ sử dụng card âm thanh để tạo tiếng bíp nhằm tránh sự cố với các loại máy tính không rõ.</value>
+  <data name="MessageFailedToPaste" xml:space="preserve">
+    <value>Không thể dán từ clipboard.</value>
   </data>
   <data name="FermataArticulation" xml:space="preserve">
     <value>Fer</value>
   </data>
+  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icons8-undo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-undo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ElectricalFeedbackTest" xml:space="preserve">
+    <value>Kiểm tra phản hồi điện</value>
   </data>
   <data name="icons8-3d-printer-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-3d-printer-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TitleUnavailable" xml:space="preserve">
-    <value>Dịch vụ/Mô hình không khả dụng hoặc quá tải</value>
+  <data name="DoNotUpdateHelpTitle" xml:space="preserve">
+    <value>Không cập nhật màn hình nhịp điệu</value>
   </data>
   <data name="TextPercent" xml:space="preserve">
     <value>{number}%</value>
@@ -1064,150 +1204,16 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="icons8-redo-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-redo-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-rewind-button-round-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-rewind-button-round-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-eraser-tool-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-eraser-tool-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageAICreationCooldown" xml:space="preserve">
-    <value>Vui lòng đợi một lát trước khi tạo nhạc với AI lần nữa.</value>
+  <data name="TextMessage" xml:space="preserve">
+    <value>Tin nhắn</value>
   </data>
-  <data name="TitlePleaseWait" xml:space="preserve">
-    <value>Vui lòng đợi</value>
+  <data name="WarningSensitiveInformation" xml:space="preserve">
+    <value>Phát hiện thông tin nhạy cảm trong lời nhắc. Vui lòng xóa bất kỳ dữ liệu cá nhân hoặc nhạy cảm nào và thử lại.</value>
   </data>
-  <data name="MessageFileDoesNotExist" xml:space="preserve">
-    <value>Tệp đã chọn không tồn tại.</value>
-  </data>
-  <data name="MessageFileNameIsEmpty" xml:space="preserve">
-    <value>Tên tệp tin trống.</value>
-  </data>
-  <data name="MessageNoNotesGenerated" xml:space="preserve">
-    <value>Không có nốt nào được tạo ra trong kết quả. Vui lòng thử lại với lời nhắc hoặc cài đặt khác.</value>
-  </data>
-  <data name="TitleNoNotesGenerated" xml:space="preserve">
-    <value>Không có nốt nào được tạo ra.</value>
-  </data>
-  <data name="ErrorLineIsEmpty" xml:space="preserve">
-    <value>Danh sách dòng trống. Vui lòng thêm ghi chú trước khi bắt đầu phát lại.</value>
-  </data>
-  <data name="ErrorMusicIsAlreadyPlaying" xml:space="preserve">
-    <value>Nhạc đang phát. Vui lòng dừng phát nhạc trước khi bắt đầu chờ.</value>
-  </data>
-  <data name="MessageFailedToCopy" xml:space="preserve">
-    <value>Sao chép vào clipboard không thành công.</value>
-  </data>
-  <data name="MessageFailedToPaste" xml:space="preserve">
-    <value>Không thể dán từ clipboard.</value>
-  </data>
-  <data name="MessageFailedToCut" xml:space="preserve">
-    <value>Không thể sao chép vào clipboard.</value>
-  </data>
-  <data name="MessageFailedToOpenLink" xml:space="preserve">
-    <value>Không thể mở liên kết. URL có thể không hợp lệ hoặc có thể có vấn đề với trình duyệt web mặc định.</value>
-  </data>
-  <data name="TextVersion" xml:space="preserve">
-    <value>Version</value>
-  </data>
-  <data name="SystemSpeakerOutputReadability" xml:space="preserve">
-    <value>Khả năng đọc tín hiệu đầu ra loa hệ thống: </value>
-  </data>
-  <data name="SystemSpeakerGateTurnOnOff" xml:space="preserve">
-    <value>Bật/tắt cổng loa hệ thống: </value>
-  </data>
-  <data name="TimerSetup" xml:space="preserve">
-    <value>Thiết lập hẹn giờ: </value>
-  </data>
-  <data name="TimerCountdownCheck" xml:space="preserve">
-    <value>Kiểm tra đếm ngược thời gian: </value>
-  </data>
-  <data name="TimerStatusCheck" xml:space="preserve">
-    <value>Kiểm tra trạng thái hẹn giờ: </value>
-  </data>
-  <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
-    <value>Phát hiện tín hiệu phản hồi loa hệ thống: </value>
-  </data>
-  <data name="FeedbackSignalStability" xml:space="preserve">
-    <value>Độ ổn định tín hiệu phản hồi khi bị vô hiệu hóa: </value>
-  </data>
-  <data name="ShortSilentEnablePulse" xml:space="preserve">
-    <value>Xung kích hoạt im lặng ngắn: </value>
-  </data>
-  <data name="TimerSpeedTest" xml:space="preserve">
-    <value>Kiểm tra tốc độ hẹn giờ:</value>
-  </data>
-  <data name="FeedbeckSignalSpeedMeasurement" xml:space="preserve">
-    <value>Đo tốc độ tín hiệu phản hồi: </value>
-  </data>
-  <data name="TextUncertain" xml:space="preserve">
-    <value>KHÔNG CHẮC CHẮN</value>
-  </data>
-  <data name="SystemSpeakerEntryFound" xml:space="preserve">
-    <value>Đã tìm thấy mục loa hệ thống trên hệ thống.</value>
-  </data>
-  <data name="SystemSpeakerEntryNotFound" xml:space="preserve">
-    <value>Không tìm thấy mục loa hệ thống trên hệ thống.</value>
-  </data>
-  <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
-    <value>Thử nghiệm phản hồi điện thất bại.</value>
-  </data>
-  <data name="PortStateStabilityTestFailed" xml:space="preserve">
-    <value>Kiểm tra độ ổn định trạng thái cổng đã thất bại.</value>
-  </data>
-  <data name="TimerSetupFailed" xml:space="preserve">
-    <value>Thiết lập hẹn giờ thất bại.</value>
-  </data>
-  <data name="TimerCountdownCheckFailed" xml:space="preserve">
-    <value>Kiểm tra bộ đếm ngược thời gian thất bại.</value>
-  </data>
-  <data name="UnexpectedReadBack" xml:space="preserve">
-    <value>Việc đọc lại trạng thái bộ hẹn giờ đã thất bại (truy cập/chế độ/BCD không mong muốn).</value>
-  </data>
-  <data name="FeedbackDetectionFailed" xml:space="preserve">
-    <value>Quá trình phát hiện phản hồi đã thất bại.</value>
-  </data>
-  <data name="FeedbackSignalNotStable" xml:space="preserve">
-    <value>Tín hiệu phản hồi không ổn định khi bị vô hiệu hóa (phát hiện tín hiệu không ổn định).</value>
-  </data>
-  <data name="ShortSilentPulseEnableFailed" xml:space="preserve">
-    <value>Lỗi xung kích hoạt im lặng ngắn.</value>
-  </data>
-  <data name="FeedbackNotWithinTolerance" xml:space="preserve">
-    <value>Tốc độ tín hiệu phản hồi không nằm trong phạm vi dung sai cho phép.</value>
-  </data>
-  <data name="FailureReasons" xml:space="preserve">
-    <value>Nguyên nhân thất bại: </value>
-  </data>
-  <data name="TimerSpeedOutOfRange" xml:space="preserve">
-    <value>Tốc độ kiểm tra bộ hẹn giờ nằm ​​ngoài phạm vi dự kiến.</value>
-  </data>
-  <data name="ElectricalFeedbackTest" xml:space="preserve">
-    <value>Kiểm tra phản hồi điện</value>
-  </data>
-  <data name="PortStateStabilityTest" xml:space="preserve">
-    <value>Kiểm tra độ ổn định trạng thái cổng</value>
-  </data>
-  <data name="TimerSetupTest" xml:space="preserve">
-    <value>Kiểm tra thiết lập hẹn giờ</value>
-  </data>
-  <data name="SomeBasicChecksPassed" xml:space="preserve">
-    <value>Một số bước kiểm tra cơ bản đã được thông qua: </value>
-  </data>
-  <data name="NoBasicChecksPassed" xml:space="preserve">
-    <value>Không vượt qua được các bước kiểm tra cơ bản.</value>
-  </data>
-  <data name="FeedbackSignalNotDetected" xml:space="preserve">
-    <value>Không phát hiện thấy tín hiệu phản hồi
-</value>
-  </data>
-  <data name="FeedbackSpeedIsOutOfRange" xml:space="preserve">
-    <value>Швидкість зворотного зв'язку поза очікуваним діапазоном
-</value>
-  </data>
-  <data name="SystemSpeakerEntryFoundInThisSystem" xml:space="preserve">
-    <value>Đã tìm thấy mục loa hệ thống trong hệ thống này
-</value>
-  </data>
-  <data name="Issues" xml:space="preserve">
-    <value>
-Vấn đề: 
-</value>
+  <data name="WarningSensitiveInformationTitle" xml:space="preserve">
+    <value>Phát hiện thông tin nhạy cảm</value>
   </data>
 </root>

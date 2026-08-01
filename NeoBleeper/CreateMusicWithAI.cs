@@ -19,6 +19,7 @@ using NeoBleeper.Properties;
 using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -220,13 +221,13 @@ namespace NeoBleeper
                     }
                 }
 
-                if(filteredDisplayNames.Count > 0 && 
+                if (filteredDisplayNames.Count > 0 &&
                     IsModelExtendedThinkingCapable(AIModel))
                 {
                     checkBoxExtendedThinking.Checked = extendedThinking; // Set the checkbox state based on the current setting
                     checkBoxExtendedThinking.Enabled = true; // Enable extended thinking mode for capable models
                 }
-                
+
                 buttonCreate.Enabled = true; // Enable the create button after loading models
                 comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
                 textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
@@ -1092,8 +1093,16 @@ namespace NeoBleeper
             {
                 try
                 {
+                    // Check for sensitive information in the prompt before proceeding
+                    if (SensitiveInformationDetector.IsTextContainsSensitiveInformation(textBoxPrompt.Text))
+                    {
+                        Logger.Log("Sensitive information detected in the prompt. Please remove any personal or sensitive data and try again.", Logger.LogTypes.Warning);
+                        MessageForm.Show(this, Resources.WarningSensitiveInformation, Resources.WarningSensitiveInformationTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        textBoxPrompt.Text = string.Empty; // Clear the prompt to prevent accidental resubmission
+                        return;
+                    }
                     // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
-                    string startMessage = IsModelExtendedThinkingCapable(AIModel) ? 
+                    string startMessage = IsModelExtendedThinkingCapable(AIModel) ?
                         (checkBoxExtendedThinking.Checked == true ? "Starting music generation with AI using extended thinking..." : "Starting music generation with AI without using extended thinking...") :
                             "Starting music generation with AI...";
                     Logger.Log(startMessage, Logger.LogTypes.Info);
@@ -1281,7 +1290,7 @@ namespace NeoBleeper
                     googleModel.SystemInstruction = systemInstructions;
 
                     // If the model supports extended thinking, set the thinking level based on the checkbox
-                    if (IsModelExtendedThinkingCapable(AIModel)){
+                    if (IsModelExtendedThinkingCapable(AIModel)) {
                         // Config
                         if (googleModel.Config == null)
                         {
@@ -4168,11 +4177,368 @@ namespace NeoBleeper
 
         private void checkBoxExtendedThinking_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBoxExtendedThinking.Enabled) // Only save the setting if the checkbox is enabled 
+            if (checkBoxExtendedThinking.Enabled) // Only save the setting if the checkbox is enabled 
             {
                 extendedThinking = checkBoxExtendedThinking.Checked;
                 Settings1.Default.DefaultExtendedThinkingMode = extendedThinking;
                 Settings1.Default.Save();
+            }
+        }
+        public enum SensitiveInformationType
+        {
+            EmailAddress,
+            PhoneNumber,
+            CreditCardNumber,
+            Iban,
+            ApiKey,
+            AwsAccessKey,
+            BearerToken,
+            Jwt,
+            PrivateKey,
+            PasswordOrSecret,
+            IpAddress,
+            MacAddress,
+            Uuid,
+            WindowsPath,
+            UnixHomePath,
+            Base64Value,
+            LongToken
+        }
+
+        public readonly record struct SensitiveInformationMatch(
+            SensitiveInformationType Type,
+            int Index,
+            int Length);
+
+        public static class SensitiveInformationDetector
+        {
+            private static readonly TimeSpan RegexTimeout =
+                TimeSpan.FromMilliseconds(250);
+
+            private sealed record DetectionRule(
+                SensitiveInformationType Type,
+                Regex Regex,
+                Func<string, bool>? Validator = null);
+
+            private static Regex CreateRegex(
+                string pattern,
+                RegexOptions options = RegexOptions.None)
+            {
+                return new Regex(
+                    pattern,
+                    options |
+                    RegexOptions.Compiled |
+                    RegexOptions.CultureInvariant,
+                    RegexTimeout);
+            }
+
+            private static readonly DetectionRule[] Rules =
+            {
+        // Private key headers
+        new(
+            SensitiveInformationType.PrivateKey,
+            CreateRegex(
+                @"-----BEGIN (?:RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----",
+                RegexOptions.IgnoreCase)),
+
+        // Passwords, secrets and tokens assigned in configuration/code
+        new(
+            SensitiveInformationType.PasswordOrSecret,
+            CreateRegex(
+                @"\b(?:password|passwd|pwd|secret|token|api[_-]?key|" +
+                @"client[_-]?secret)\s*[:=]\s*[""']?" +
+                @"[A-Za-z0-9._~+/=-]{8,}[""']?",
+                RegexOptions.IgnoreCase)),
+
+        // Google API keys
+        new(
+            SensitiveInformationType.ApiKey,
+            CreateRegex(@"\bAIzaSy[A-Za-z0-9_-]{33}\b")),
+
+        // Common OpenAI-style secret keys.
+        // Provider key formats can change, so do not rely on this exclusively.
+        new(
+            SensitiveInformationType.ApiKey,
+            CreateRegex(
+                @"\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{20,}\b",
+                RegexOptions.IgnoreCase)),
+
+        // AWS access key IDs
+        new(
+            SensitiveInformationType.AwsAccessKey,
+            CreateRegex(@"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b")),
+
+        // Authorization: Bearer ...
+        new(
+            SensitiveInformationType.BearerToken,
+            CreateRegex(
+                @"\bBearer\s+[A-Za-z0-9._~+/=-]{20,}",
+                RegexOptions.IgnoreCase)),
+
+        // JSON Web Tokens
+        new(
+            SensitiveInformationType.Jwt,
+            CreateRegex(
+                @"(?<![A-Za-z0-9_-])" +
+                @"eyJ[A-Za-z0-9_-]{5,}\." +
+                @"[A-Za-z0-9_-]{5,}\." +
+                @"[A-Za-z0-9_-]{5,}" +
+                @"(?![A-Za-z0-9_-])")),
+
+        // Email addresses
+        new(
+            SensitiveInformationType.EmailAddress,
+            CreateRegex(
+                @"(?<![A-Za-z0-9._%+-])" +
+                @"[A-Za-z0-9._%+-]+@" +
+                @"[A-Za-z0-9.-]+\.[A-Za-z]{2,}" +
+                @"(?![A-Za-z0-9._%+-])",
+                RegexOptions.IgnoreCase)),
+
+        // International-looking telephone numbers
+        new(
+            SensitiveInformationType.PhoneNumber,
+            CreateRegex(
+                @"(?<![\w.])" +
+                @"(?:\+?\d{1,3}[\s.-]?)?" +
+                @"(?:\(?\d{2,4}\)?[\s.-]?)?" +
+                @"\d{3,4}[\s.-]?\d{3,4}" +
+                @"(?![\w.])"),
+            IsPossiblePhoneNumber),
+
+        // Credit card candidates, verified using the Luhn checksum
+        new(
+            SensitiveInformationType.CreditCardNumber,
+            CreateRegex(@"(?<!\d)\d(?:[ -]?\d){12,18}(?!\d)"),
+            IsValidCreditCardNumber),
+
+        // IBAN candidates, verified using MOD-97
+        new(
+            SensitiveInformationType.Iban,
+            CreateRegex(
+                @"\b[A-Z]{2}\d{2}(?:[ ]?[A-Z0-9]){11,30}\b",
+                RegexOptions.IgnoreCase),
+            IsValidIban),
+
+        // IPv4
+        new(
+            SensitiveInformationType.IpAddress,
+            CreateRegex(
+                @"\b(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}" +
+                @"(?:25[0-5]|2[0-4]\d|1?\d{1,2})\b"),
+            value => IsIpAddress(value, AddressFamily.InterNetwork)),
+
+        // IPv6 candidate, verified using IPAddress.TryParse
+        new(
+            SensitiveInformationType.IpAddress,
+            CreateRegex(
+                @"(?<![A-F0-9:])" +
+                @"(?:[A-F0-9]{0,4}:){2,7}[A-F0-9]{0,4}" +
+                @"(?![A-F0-9:])",
+                RegexOptions.IgnoreCase),
+            value => IsIpAddress(value, AddressFamily.InterNetworkV6)),
+
+        // MAC addresses
+        new(
+            SensitiveInformationType.MacAddress,
+            CreateRegex(
+                @"\b(?:[0-9A-F]{2}[:-]){5}[0-9A-F]{2}\b",
+                RegexOptions.IgnoreCase)),
+
+        // UUIDs
+        new(
+            SensitiveInformationType.Uuid,
+            CreateRegex(
+                @"\b[0-9A-F]{8}-[0-9A-F]{4}-" +
+                @"[1-5][0-9A-F]{3}-[89AB][0-9A-F]{3}-" +
+                @"[0-9A-F]{12}\b",
+                RegexOptions.IgnoreCase)),
+
+        // Windows paths
+        new(
+            SensitiveInformationType.WindowsPath,
+            CreateRegex(
+                @"[A-Za-z]:\\" +
+                @"(?:[^\\/:*?""<>|\r\n]+\\)*" +
+                @"[^\\/:*?""<>|\r\n]*")),
+
+        // Unix/macOS home paths
+        new(
+            SensitiveInformationType.UnixHomePath,
+            CreateRegex(
+                @"(?<!\w)/(?:home|Users)/" +
+                @"[^/\s]+(?:/[^\s""']*)?")),
+
+        // Long Base64 values
+        new(
+            SensitiveInformationType.Base64Value,
+            CreateRegex(
+                @"(?<![A-Za-z0-9+/=])" +
+                @"[A-Za-z0-9+/]{40,}={0,2}" +
+                @"(?![A-Za-z0-9+/=])")),
+
+        // Generic long token candidates
+        new(
+            SensitiveInformationType.LongToken,
+            CreateRegex(
+                @"(?<![A-Za-z0-9_-])" +
+                @"[A-Za-z0-9_-]{40,}" +
+                @"(?![A-Za-z0-9_-])"))
+    };
+
+            public static bool IsTextContainsSensitiveInformation(string? text)
+            {
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    return false;
+                }
+
+                foreach (DetectionRule rule in Rules)
+                {
+                    try
+                    {
+                        foreach (Match match in rule.Regex.Matches(text))
+                        {
+                            if (rule.Validator == null ||
+                                rule.Validator(match.Value))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    catch (RegexMatchTimeoutException)
+                    {
+                        // Skip only the rule that exceeded the timeout.
+                    }
+                }
+
+                return false;
+            }
+
+            public static IReadOnlyList<SensitiveInformationMatch>
+                FindSensitiveInformation(string? text)
+            {
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    return Array.Empty<SensitiveInformationMatch>();
+                }
+
+                var results = new List<SensitiveInformationMatch>();
+
+                foreach (DetectionRule rule in Rules)
+                {
+                    try
+                    {
+                        foreach (Match match in rule.Regex.Matches(text))
+                        {
+                            if (rule.Validator != null &&
+                                !rule.Validator(match.Value))
+                            {
+                                continue;
+                            }
+
+                            results.Add(
+                                new SensitiveInformationMatch(
+                                    rule.Type,
+                                    match.Index,
+                                    match.Length));
+                        }
+                    }
+                    catch (RegexMatchTimeoutException)
+                    {
+                        // Continue with the remaining rules.
+                    }
+                }
+
+                return results
+                    .Distinct()
+                    .OrderBy(result => result.Index)
+                    .ToArray();
+            }
+
+            private static bool IsPossiblePhoneNumber(string value)
+            {
+                int digitCount = value.Count(char.IsDigit);
+                return digitCount is >= 7 and <= 15;
+            }
+
+            private static bool IsIpAddress(
+                string value,
+                AddressFamily expectedFamily)
+            {
+                return IPAddress.TryParse(value, out IPAddress? address) &&
+                       address.AddressFamily == expectedFamily;
+            }
+
+            private static bool IsValidCreditCardNumber(string value)
+            {
+                string digits = new(value.Where(char.IsDigit).ToArray());
+
+                if (digits.Length is < 13 or > 19)
+                {
+                    return false;
+                }
+
+                int sum = 0;
+                bool doubleDigit = false;
+
+                for (int index = digits.Length - 1; index >= 0; index--)
+                {
+                    int digit = digits[index] - '0';
+
+                    if (doubleDigit)
+                    {
+                        digit *= 2;
+
+                        if (digit > 9)
+                        {
+                            digit -= 9;
+                        }
+                    }
+
+                    sum += digit;
+                    doubleDigit = !doubleDigit;
+                }
+
+                return sum % 10 == 0;
+            }
+
+            private static bool IsValidIban(string value)
+            {
+                string iban = new(
+                    value
+                        .Where(character => !char.IsWhiteSpace(character))
+                        .Select(char.ToUpperInvariant)
+                        .ToArray());
+
+                if (iban.Length is < 15 or > 34 ||
+                    !char.IsLetter(iban[0]) ||
+                    !char.IsLetter(iban[1]) ||
+                    !char.IsDigit(iban[2]) ||
+                    !char.IsDigit(iban[3]) ||
+                    iban.Any(character => !char.IsLetterOrDigit(character)))
+                {
+                    return false;
+                }
+
+                string rearranged = iban[4..] + iban[..4];
+                int remainder = 0;
+
+                foreach (char character in rearranged)
+                {
+                    if (char.IsDigit(character))
+                    {
+                        remainder = (remainder * 10 + character - '0') % 97;
+                        continue;
+                    }
+
+                    int numericValue = character - 'A' + 10;
+
+                    remainder = (remainder * 10 + numericValue / 10) % 97;
+                    remainder = (remainder * 10 + numericValue % 10) % 97;
+                }
+
+                return remainder == 1;
             }
         }
     }
