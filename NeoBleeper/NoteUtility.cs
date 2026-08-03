@@ -511,8 +511,7 @@ namespace NeoBleeper
             // the next rapid percussion event.
             var worker = new System.Threading.Thread(ProcessPercussionQueue)
             {
-                IsBackground = true,
-                Name = "NeoBleeper Percussion Queue"
+                IsBackground = true
             };
             worker.Start();
         }
