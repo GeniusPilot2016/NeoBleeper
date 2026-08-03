@@ -3462,7 +3462,6 @@ namespace NeoBleeper
             // Important: Play sound on high-priority thread
             ThreadPool.QueueUserWorkItem(state =>
             {
-                Thread.CurrentThread.Priority = ThreadPriority.Highest;
                 PlayMetronomeSoundFromMIDIOutput(frequency, 15, isAccent);
                 NotePlayer.PlayNote(frequency, 15);
             });
