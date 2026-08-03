@@ -968,10 +968,10 @@ namespace NeoBleeper
         }
 
         private static void GetPlaybackSignalCore(
-            PercussionRequest request,
-            double elapsedMs,
-            out int frequency,
-            out bool audible)
+    PercussionRequest request,
+    double elapsedMs,
+    out int frequency,
+    out bool audible)
         {
             var prof = request.Profile;
             double duration = System.Math.Max(1.0, request.DurationMs);
@@ -983,13 +983,21 @@ namespace NeoBleeper
             {
                 double smoothDecay = System.Math.Max(0.0, 1.0 - (progress * 1.4));
                 frequency = ClampPercussionFrequency(prof.BodyStartFreq * (0.95 + 0.1 * smoothDecay));
-                audible = progress < 0.80 && smoothDecay > 0.05;
+                // Velocity now affects click audibility window too — a pp stick click shouldn't
+                // ring as long as a ff one.
+                double clickCutoff = 0.55 + 0.30 * velocity01;
+                audible = progress < clickCutoff && smoothDecay > 0.05;
                 return;
             }
 
             if (elapsedMs < prof.AttackMs)
             {
-                frequency = ClampPercussionFrequency(prof.AttackFrequency * (0.98 + 0.04 * velocity01));
+                // Attack punch now scales meaningfully with velocity instead of a token ±4%.
+                // A soft hit's attack is quieter/duller (lower relative frequency), a hard hit's
+                // attack is brighter — this is the main lever a single-voice beeper has for
+                // conveying "hit strength" since it can't do amplitude.
+                double attackVelocityScale = 0.80 + 0.35 * velocity01;
+                frequency = ClampPercussionFrequency(prof.AttackFrequency * attackVelocityScale);
                 audible = true;
                 return;
             }
@@ -1012,31 +1020,45 @@ namespace NeoBleeper
                 }
             }
 
-            if (duration > 100.0)
-            {
-                double decayThresh = System.Math.Pow(1.0 - progress, prof.DecayShape);
-                double slotSizeMs = System.Math.Clamp(duration / 12.0, 0.4, 1.25);
-                int mSlotCheck = (int)(elapsedMs / slotSizeMs);
-                uint sHash = unchecked((uint)(request.RandomSeed + mSlotCheck * 2654435761u));
-                double sRandom = ((sHash & 0xFFFF) / 65535.0);
+            // --- Pulse-density body, now velocity-aware and duration-normalized ---
+            //
+            // Old behavior conditioned the gate on absolute duration ("if duration > 100ms"),
+            // so a fast MIDI file (mostly short notes) always got 100% density regardless of
+            // how quiet the note was, and a slow MIDI file (long notes) decayed against its own
+            // literal length, often collapsing to silence well before the note ended. Both read
+            // as broken loudness. Fixing this means: (1) always let velocity set the density
+            // ceiling, and (2) run the decay envelope against a fixed perceptual timescale
+            // instead of the hit's raw duration, then clamp to a floor/ceiling so no hit is
+            // ever fully silent or fully solid.
+            const double perceptualDecayReferenceMs = 260.0; // fixed "typical note" timescale
+            double decayProgress = System.Math.Clamp(elapsedMs / System.Math.Min(duration, perceptualDecayReferenceMs), 0.0, 1.0);
+            double decayEnvelope = System.Math.Pow(1.0 - decayProgress, prof.DecayShape);
 
-                if (sRandom > decayThresh)
-                {
-                    frequency = 0;
-                    audible = false;
-                    return;
-                }
-            }
+            // Density ceiling/floor driven by velocity: soft hits (low velocity01) top out lower
+            // and fall to a lower floor; hard hits get a higher ceiling and higher floor so they
+            // stay clearly audible through the whole body instead of buzzing at 100% then vanishing.
+            double densityCeiling = System.Math.Clamp(0.45 + 0.45 * velocity01, 0.45, 0.90);
+            double densityFloor = System.Math.Clamp(0.10 + 0.20 * velocity01, 0.10, 0.30);
+            double targetDensity = densityFloor + (densityCeiling - densityFloor) * decayEnvelope;
 
             double slotSizeMsJitter = System.Math.Clamp(duration / 12.0, 0.4, 1.25);
             int mSlot = (int)(elapsedMs / slotSizeMsJitter);
             uint h = unchecked((uint)(request.RandomSeed ^ (mSlot * 1103515245u)));
             double jitter = ((h & 0xFF) / 255.0);
 
+            // Separate salted hash for the audibility gate so density decisions don't stay
+            // phase-locked to the frequency-jitter grid.
+            uint gateHash = unchecked((uint)(request.RandomSeed + mSlot * 2654435761u));
+            gateHash = (gateHash ^ (gateHash >> 15)) * 2246822519u;
+            gateHash ^= gateHash >> 13;
+            double gateRandom = (gateHash & 0xFFFF) / 65535.0;
+
             if (IsMetalCymbal(request.Percussion))
             {
-                double cymbalFreq = (jitter > 0.5) ? 3800.0 : 2800.0; // Lowered to prevent squeaky highs
+                double cymbalFreq = (jitter > 0.5) ? 3800.0 : 2800.0;
                 frequency = ClampPercussionFrequency(cymbalFreq + (jitter - 0.5) * 400.0);
+                audible = gateRandom <= targetDensity;
+                return;
             }
             else if (request.Percussion == MidiPercussion.HandClap || request.Percussion == MidiPercussion.Tambourine || request.Percussion == MidiPercussion.Shaker)
             {
@@ -1047,25 +1069,29 @@ namespace NeoBleeper
                     double multiPeak = System.Math.Exp(-System.Math.Abs(t - 15.0) / 30.0) + 0.7 * System.Math.Exp(-System.Math.Abs(t - 45.0) / 40.0);
                     familyEnvelope *= System.Math.Clamp(multiPeak, 0.2, 1.0);
                 }
+                // Scale the family envelope threshold by velocity too, so quiet claps/shakers
+                // cut off earlier instead of ringing at full length regardless of hit strength.
+                double familyThreshold = 0.02 + 0.06 * (1.0 - velocity01);
 
-                frequency = ClampPercussionFrequency(1100.0 + (jitter * 250.0)); // Adjusted band
-                audible = familyEnvelope > 0.04 && progress < 0.98;
+                frequency = ClampPercussionFrequency(1100.0 + (jitter * 250.0));
+                audible = familyEnvelope > familyThreshold && gateRandom <= targetDensity && progress < 0.98;
                 return;
             }
             else if (IsClick(request.Percussion))
             {
                 frequency = ClampPercussionFrequency(prof.BodyStartFreq * (0.95 + 0.1 * jitter));
-                audible = progress < 0.75;
+                double clickCutoff = 0.55 + 0.25 * velocity01;
+                audible = progress < clickCutoff;
                 return;
             }
             else
             {
                 double bodyDensity = System.Math.Clamp(prof.NoiseDensity, 0.15, 1.0);
-                double snareFreq = 900.0 + jitter * 300.0 + (1.0 - bodyDensity) * 100.0; // Warm mid band
+                double snareFreq = 900.0 + jitter * 300.0 + (1.0 - bodyDensity) * 100.0;
                 frequency = ClampPercussionFrequency(snareFreq);
+                audible = gateRandom <= targetDensity;
+                return;
             }
-
-            audible = progress < 0.98;
         }
 
         private static void PreciseWaitMs(double ms, CancellationToken ct)
