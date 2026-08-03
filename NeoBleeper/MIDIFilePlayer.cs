@@ -1967,8 +1967,9 @@ namespace NeoBleeper
                 return Math.Min(availableFrameMs,
                     PercussionSounds.GetNaturalDurationMs(percussion));
 
-            // Noise cymbals require a slightly longer slice than drums to avoid becoming
-            // a single click, but melody always receives part of any sufficiently long frame.
+            // Noise cymbals already have a richer wash, while other percussion hits need a
+            // slightly longer slice to avoid turning into a barely audible click when melody
+            // is also playing. Their sound-device tails continue separately.
             bool cymbal = percussion is
                 PercussionSounds.MidiPercussion.HiHatClosed or
                 PercussionSounds.MidiPercussion.HiHatFoot or
@@ -1981,11 +1982,8 @@ namespace NeoBleeper
                 PercussionSounds.MidiPercussion.SplashCymbal or
                 PercussionSounds.MidiPercussion.RideBell;
 
-            // Long slots audibly punch holes in sustained notes. Six milliseconds is enough
-            // for drum attacks; short/noise cymbals receive ten milliseconds so their wash
-            // begins before the melody resumes. Their sound-device tails continue separately.
-            int desired = cymbal ? 10 : 6;
-            int melodyReserve = availableFrameMs >= 6 ? 3 : 1;
+            int desired = cymbal ? 12 : 14;
+            int melodyReserve = availableFrameMs >= 8 ? 4 : 1;
             return Math.Clamp(
                 Math.Min(desired, availableFrameMs - melodyReserve),
                 1, availableFrameMs);
@@ -2775,7 +2773,7 @@ namespace NeoBleeper
                 {
                     if (_enabledChannels.Contains(noteOn.Channel))
                     {
-                        _noteInstruments.TryGetValue((noteOn.NoteNumber, currentTime), out int instrument);
+                        _noteInstruments.TryGetValue((noteOn.Channel, noteOn.NoteNumber, currentTime), out int instrument);
                         MIDIIOUtils.SendNoteOn(noteOn.NoteNumber, instrument, noteOn.Channel - 1);
                     }
                 }
@@ -3855,7 +3853,8 @@ namespace NeoBleeper
             SetTheme();
         }
         private Dictionary<int, int> _channelInstruments = new();
-        private Dictionary<(int note, long time), int> _noteInstruments = new();
+        // Added Channel to the dictionary key tuple to prevent collisions
+        private Dictionary<(int Channel, int NoteNumber, long Time), int> _noteInstruments = new();
 
         /// <summary>
         /// Assigns instrument identifiers to each note event in the specified MIDI file based on the most recent
@@ -3864,40 +3863,35 @@ namespace NeoBleeper
         /// <param name="midiFile">The MIDI file whose note events will be analyzed and assigned instrument identifiers.</param>
         private void AssignInstrumentsToNotes(MidiFile midiFile)
         {
-            var lastPatchPerChannel = new Dictionary<int, int>();
+            _noteInstruments.Clear();
+            if (midiFile == null) return;
+
+            var channelPrograms = new Dictionary<int, int>();
 
             foreach (var track in midiFile.Events)
             {
                 foreach (var midiEvent in track)
                 {
-                    if (midiEvent.CommandCode == MidiCommandCode.PatchChange)
+                    if (midiEvent is PatchChangeEvent patchChange)
                     {
-                        var patch = (PatchChangeEvent)midiEvent;
-                        lastPatchPerChannel[patch.Channel] = patch.Patch;
+                        if (patchChange.Channel != 9)
+                        {
+                            channelPrograms[patchChange.Channel] = patchChange.Patch;
+                        }
                     }
-                    else if (midiEvent.CommandCode == MidiCommandCode.NoteOn)
+                    else if (midiEvent is NoteOnEvent noteOn && noteOn.Velocity > 0)
                     {
-                        var noteEvent = (NoteOnEvent)midiEvent;
-                        int instrument;
-                        if (noteEvent.Channel == 10)
-                        {
-                            instrument = noteEvent.NoteNumber;
-                        }
-                        else
-                        {
-                            if (!lastPatchPerChannel.TryGetValue(noteEvent.Channel, out instrument))
-                            {
-                                instrument = 0;
-                            }
-                        }
-                        _channelInstruments[noteEvent.Channel] = instrument;
-                        _noteInstruments[(noteEvent.NoteNumber, noteEvent.AbsoluteTime)] = instrument;
+                        // Channel 10 (0-indexed as 9) is percussion -> assign -1
+                        int program = (noteOn.Channel == 9)
+                            ? -1
+                            : (channelPrograms.TryGetValue(noteOn.Channel, out int p) ? p : 0);
+
+                        // Include noteOn.Channel in the dictionary key
+                        _noteInstruments[(noteOn.Channel, noteOn.NoteNumber, noteOn.AbsoluteTime)] = program;
                     }
                 }
             }
         }
-
-
         private void checkBoxShowSysExDisplayEmulator_CheckedChanged(object sender, EventArgs e)
         {
             bool logging = !isDeciding;
