@@ -1887,29 +1887,29 @@ namespace NeoBleeper
         /// <param name="duration">The total duration, in milliseconds, of the frame slot to fill.</param>
         /// <param name="token">A cancellation token that aborts playback early.</param>
         /// <returns>A task that completes when the full duration has been filled.</returns>
-        private async Task PlayNotesAndPercussionAlternatingAsync(int[] frequencies, PercussionSounds.MidiPercussion? percussion, int duration, CancellationToken token)
+        private async Task PlayNotesAndPercussionAlternatingAsync(
+            int[] frequencies,
+            PercussionSounds.MidiPercussion? percussion,
+            int duration,
+            CancellationToken token)
         {
-            if (duration <= 0) return;
+            if (duration <= 0)
+                return;
+
+            frequencies ??= Array.Empty<int>();
 
             if (!percussion.HasValue || TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
-                if (frequencies.Length == 0)
-                {
-                    await WaitPreciseWithCancellation(duration, token);
-                }
-                else if (frequencies.Length == 1)
-                {
-                    await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], duration), token);
-                }
-                else
-                {
-                    await PlayMultipleNotesAsync(frequencies, duration, token);
-                }
+                await PlayMelodySliceAsync(frequencies, duration, token).ConfigureAwait(false);
                 return;
             }
 
+            // Both outputs use the same ownership schedule: percussion receives a short,
+            // protected attack slot and melody receives the remainder of the frame. The
+            // percussion renderer may keep an already-submitted sound-device tail alive in
+            // its independent mixer, but it cannot retain or reclaim scheduler ownership.
             bool melodyAlsoPlaying = frequencies.Length > 0;
-            int percussionMs = PercussionSounds.GetMidiFrameDurationMs(
+            int percussionSliceMs = GetSharedPercussionSliceMs(
                 percussion.Value, duration, melodyAlsoPlaying);
 
             int percussionLabelIndex = -1;
@@ -1921,35 +1921,28 @@ namespace NeoBleeper
 
             try
             {
-                try
+                if (percussionSliceMs > 0)
                 {
-                    await PercussionSounds.PlayPercussionForDurationAsync(
-                        percussion.Value, percussionMs, token);
-                }
-                finally
-                {
-                    if (percussionLabelIndex >= 0)
-                        UnHighlightNoteLabel(percussionLabelIndex);
+                    try
+                    {
+                        await PercussionSounds.PlayPercussionSliceAsync(
+                            percussion.Value,
+                            percussionSliceMs,
+                            token).ConfigureAwait(false);
+                    }
+                    finally
+                    {
+                        if (percussionLabelIndex >= 0)
+                            UnHighlightNoteLabel(percussionLabelIndex);
+                    }
                 }
 
-                int remaining = Math.Max(0, duration - percussionMs);
-                if (remaining <= 0) return;
-
-                token.ThrowIfCancellationRequested();
-
-                if (frequencies.Length == 0)
+                int melodySliceMs = Math.Max(0, duration - percussionSliceMs);
+                if (melodySliceMs > 0)
                 {
-                    // A GM percussion note is a one-shot event. Once its natural envelope has
-                    // finished, keep the remainder of the MIDI frame silent instead of stretching it.
-                    await WaitPreciseWithCancellation(remaining, token);
-                }
-                else if (frequencies.Length == 1)
-                {
-                    await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[0], remaining), token);
-                }
-                else
-                {
-                    await PlayMultipleNotesAsync(frequencies, remaining, token);
+                    token.ThrowIfCancellationRequested();
+                    await PlayMelodySliceAsync(
+                        frequencies, melodySliceMs, token).ConfigureAwait(false);
                 }
             }
             catch (OperationCanceledException)
@@ -1958,7 +1951,67 @@ namespace NeoBleeper
             }
             catch (Exception ex)
             {
-                Logger.Log($"Error during percussion/melody hand-off: {ex.Message}", Logger.LogTypes.Error);
+                Logger.Log($"Error during protected percussion/melody hand-off: {ex.Message}", Logger.LogTypes.Error);
+            }
+        }
+
+        private static int GetSharedPercussionSliceMs(
+            PercussionSounds.MidiPercussion percussion,
+            int availableFrameMs,
+            bool melodyAlsoPlaying)
+        {
+            if (availableFrameMs <= 0)
+                return 0;
+
+            if (!melodyAlsoPlaying)
+                return Math.Min(availableFrameMs,
+                    PercussionSounds.GetNaturalDurationMs(percussion));
+
+            // Noise cymbals require a slightly longer slice than drums to avoid becoming
+            // a single click, but melody always receives part of any sufficiently long frame.
+            bool cymbal = percussion is
+                PercussionSounds.MidiPercussion.HiHatClosed or
+                PercussionSounds.MidiPercussion.HiHatFoot or
+                PercussionSounds.MidiPercussion.HiHatOpen or
+                PercussionSounds.MidiPercussion.CrashCymbal or
+                PercussionSounds.MidiPercussion.CrashCymbal2 or
+                PercussionSounds.MidiPercussion.RideCymbal or
+                PercussionSounds.MidiPercussion.RideCymbal2 or
+                PercussionSounds.MidiPercussion.ChinaCymbal or
+                PercussionSounds.MidiPercussion.SplashCymbal or
+                PercussionSounds.MidiPercussion.RideBell;
+
+            // Long slots audibly punch holes in sustained notes. Six milliseconds is enough
+            // for drum attacks; short/noise cymbals receive ten milliseconds so their wash
+            // begins before the melody resumes. Their sound-device tails continue separately.
+            int desired = cymbal ? 10 : 6;
+            int melodyReserve = availableFrameMs >= 6 ? 3 : 1;
+            return Math.Clamp(
+                Math.Min(desired, availableFrameMs - melodyReserve),
+                1, availableFrameMs);
+        }
+
+        private async Task PlayMelodySliceAsync(
+            int[] frequencies,
+            int duration,
+            CancellationToken token)
+        {
+            if (duration <= 0)
+                return;
+
+            if (frequencies.Length == 0)
+            {
+                await WaitPreciseWithCancellation(duration, token).ConfigureAwait(false);
+            }
+            else if (frequencies.Length == 1)
+            {
+                await Task.Run(
+                    () => NotePlayer.PlayNoteWithoutGap(frequencies[0], duration),
+                    token).ConfigureAwait(false);
+            }
+            else
+            {
+                await PlayMultipleNotesAsync(frequencies, duration, token).ConfigureAwait(false);
             }
         }
 
