@@ -53,7 +53,7 @@ namespace NeoBleeper
                 }
                 // Initialize application configuration
                 ApplicationConfiguration.Initialize();
-                Thread.CurrentThread.Priority = ThreadPriority.Lowest;
+                Thread.CurrentThread.Priority = ThreadPriority.Highest;
                 // Load settings first so ConfigureApplication can apply the correct language/theme
                 LoadSettingsIfNeeded(); // Load settings if needed (upgrade from previous versions)
                 EncryptionHelper encryptionHelper1 = new EncryptionHelper();
