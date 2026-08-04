@@ -540,52 +540,159 @@ namespace NeoBleeper
         {
             return percussion switch
             {
-                MidiPercussion.KickDrum or MidiPercussion.BassDrum =>
-                    new PercussionProfile(SynthWave.Noise, true, 160, 65, 110, density: 0.95, holdRatio: 0.02, attackFrequency: 180, attackMs: 1.5, decayShape: 3.2, pitchJitter: 0.005),
+                MidiPercussion.Laser =>
+                    new PercussionProfile(SynthWave.Square, true, 2200, 300, 350, holdRatio: 0.05, attackFrequency: 2200, attackMs: 0.5, decayShape: 1.2, pitchJitter: 0.02),
 
-                MidiPercussion.HighTom =>
-                    new PercussionProfile(SynthWave.Noise, true, 220, 120, 110, density: 0.9, holdRatio: 0.05, attackFrequency: 240, attackMs: 1.5, decayShape: 2.5, pitchJitter: 0.01),
-                MidiPercussion.LowTom or MidiPercussion.HighMidTom or MidiPercussion.LowMidTom =>
-                    new PercussionProfile(SynthWave.Noise, true, 180, 95, 125, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 2.3, pitchJitter: 0.01),
-                MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 =>
-                    new PercussionProfile(SynthWave.Noise, true, 140, 75, 140, density: 0.9, holdRatio: 0.06, attackFrequency: 160, attackMs: 2.0, decayShape: 2.0, pitchJitter: 0.01),
+                MidiPercussion.Whip =>
+                    new PercussionProfile(SynthWave.Noise, true, 1800, 300, 180, density: 0.8, holdRatio: 0.02, attackFrequency: 2000, attackMs: 0.8, decayShape: 1.5, pitchJitter: 0.1),
+
+                MidiPercussion.ScratchPush =>
+                    new PercussionProfile(SynthWave.Noise, true, 900, 1600, 140, density: 0.75, holdRatio: 0.05, attackFrequency: 1000, attackMs: 1.5, decayShape: 1.8, pitchJitter: 0.15),
+                MidiPercussion.ScratchPull =>
+                    new PercussionProfile(SynthWave.Noise, true, 1600, 900, 140, density: 0.75, holdRatio: 0.05, attackFrequency: 1600, attackMs: 1.5, decayShape: 1.8, pitchJitter: 0.15),
+
+                MidiPercussion.StickClick or MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.Castanets =>
+                    new PercussionProfile(SynthWave.Noise, false, 1000, 1000, 30, density: 0.9, holdRatio: 0.01, attackFrequency: 1200, attackMs: 0.4, decayShape: 4.5, pitchJitter: 0.03),
+
+                // Ringing tonal instruments -> now NOISE-BASED (filtered/ringing noise instead of beeper tone)
+                MidiPercussion.MetronomeBell =>
+                    new PercussionProfile(SynthWave.Noise, true, 1600, 1500, 300, density: 0.5, holdRatio: 0.3, attackFrequency: 1900, attackMs: 0.6, decayShape: 1.3, pitchJitter: 0.03),
+
+                MidiPercussion.BassDrum or MidiPercussion.KickDrum =>
+                    new PercussionProfile(SynthWave.Noise, true, 160, 55, 150, density: 0.95, holdRatio: 0.02, attackFrequency: 180, attackMs: 1.5, decayShape: 2.4, pitchJitter: 0.005),
+
+                MidiPercussion.SideStick =>
+                    new PercussionProfile(SynthWave.Noise, false, 900, 900, 40, density: 0.9, holdRatio: 0.01, attackFrequency: 1100, attackMs: 0.4, decayShape: 4.0, pitchJitter: 0.03),
 
                 MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or MidiPercussion.SnareDrumRod or MidiPercussion.SnareDrumBrush =>
                     new PercussionProfile(SynthWave.Noise, false, 400, 400, 120, density: 0.85, holdRatio: 0.02, attackFrequency: 500, attackMs: 1.2, decayShape: 2.8, pitchJitter: 0.06),
 
-                MidiPercussion.SideStick or MidiPercussion.StickClick or MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.Castanets =>
-                    new PercussionProfile(SynthWave.Noise, false, 1000, 1000, 30, density: 0.9, holdRatio: 0.01, attackFrequency: 1200, attackMs: 0.4, decayShape: 4.5, pitchJitter: 0.03),
+                MidiPercussion.HandClap =>
+                    new PercussionProfile(SynthWave.Noise, false, 900, 900, 140, density: 0.85, holdRatio: 0.02, attackFrequency: 1100, attackMs: 0.5, decayShape: 2.0, pitchJitter: 0.12),
 
-                MidiPercussion.Cowbell =>
-                    new PercussionProfile(SynthWave.Sine, false, 750, 750, 120, holdRatio: 0.05, attackFrequency: 900, attackMs: 0.8, decayShape: 2.2, pitchJitter: 0.01),
-
-                MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal or MidiPercussion.SplashCymbal =>
-                    new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 600, density: 0.7, holdRatio: 0.01, attackFrequency: 2200, attackMs: 1.2, decayShape: 1.6, pitchJitter: 0.1),
-                MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
-                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 500, density: 0.6, holdRatio: 0.01, attackFrequency: 2000, attackMs: 1.0, decayShape: 1.7, pitchJitter: 0.08),
+                MidiPercussion.FloorTom2 =>
+                    new PercussionProfile(SynthWave.Noise, true, 140, 65, 200, density: 0.9, holdRatio: 0.06, attackFrequency: 160, attackMs: 2.0, decayShape: 1.7, pitchJitter: 0.01),
 
                 MidiPercussion.HiHatClosed =>
                     new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 80, density: 0.85, holdRatio: 0.02, attackFrequency: 2200, attackMs: 0.5, decayShape: 3.0, pitchJitter: 0.06),
-                MidiPercussion.HiHatOpen =>
-                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 350, density: 0.6, holdRatio: 0.01, attackFrequency: 2000, attackMs: 1.2, decayShape: 1.8, pitchJitter: 0.08),
+                MidiPercussion.FloorTom1 =>
+                    new PercussionProfile(SynthWave.Noise, true, 140, 65, 200, density: 0.9, holdRatio: 0.06, attackFrequency: 160, attackMs: 2.0, decayShape: 1.7, pitchJitter: 0.01),
                 MidiPercussion.HiHatFoot =>
                     new PercussionProfile(SynthWave.Noise, false, 1900, 1900, 90, density: 0.8, holdRatio: 0.02, attackFrequency: 2100, attackMs: 0.6, decayShape: 2.8, pitchJitter: 0.05),
+                MidiPercussion.LowTom =>
+                    new PercussionProfile(SynthWave.Noise, true, 180, 85, 180, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 1.9, pitchJitter: 0.01),
+                MidiPercussion.HiHatOpen =>
+                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 350, density: 0.6, holdRatio: 0.01, attackFrequency: 2000, attackMs: 1.2, decayShape: 1.8, pitchJitter: 0.08),
+                MidiPercussion.LowMidTom =>
+                    new PercussionProfile(SynthWave.Noise, true, 180, 85, 180, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 1.9, pitchJitter: 0.01),
+                MidiPercussion.HighMidTom =>
+                    new PercussionProfile(SynthWave.Noise, true, 180, 85, 180, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 1.9, pitchJitter: 0.01),
 
-                MidiPercussion.HandClap =>
-                    new PercussionProfile(SynthWave.Noise, false, 900, 900, 140, density: 0.85, holdRatio: 0.02, attackFrequency: 1100, attackMs: 0.5, decayShape: 2.0, pitchJitter: 0.12),
+                MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal or MidiPercussion.SplashCymbal =>
+                    new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 600, density: 0.7, holdRatio: 0.01, attackFrequency: 2200, attackMs: 1.2, decayShape: 1.6, pitchJitter: 0.1),
+                MidiPercussion.HighTom =>
+                    new PercussionProfile(SynthWave.Noise, true, 220, 110, 160, density: 0.9, holdRatio: 0.05, attackFrequency: 240, attackMs: 1.5, decayShape: 2.0, pitchJitter: 0.01),
+                MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
+                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 500, density: 0.6, holdRatio: 0.01, attackFrequency: 2000, attackMs: 1.0, decayShape: 1.7, pitchJitter: 0.08),
+
+                MidiPercussion.RideBell =>
+                    new PercussionProfile(SynthWave.Noise, false, 2400, 2400, 400, density: 0.5, holdRatio: 0.15, attackFrequency: 2600, attackMs: 0.8, decayShape: 1.4, pitchJitter: 0.04),
+
+                MidiPercussion.Tambourine =>
+                    new PercussionProfile(SynthWave.Noise, false, 2400, 2400, 220, density: 0.65, holdRatio: 0.02, attackFrequency: 2600, attackMs: 0.8, decayShape: 2.0, pitchJitter: 0.15),
+
+                MidiPercussion.Cowbell =>
+                    new PercussionProfile(SynthWave.Noise, true, 800, 720, 320, density: 0.55, holdRatio: 0.1, attackFrequency: 950, attackMs: 1.0, decayShape: 1.3, pitchJitter: 0.04),
+
+                MidiPercussion.Vibraslap =>
+                    new PercussionProfile(SynthWave.Noise, false, 1200, 1200, 450, density: 0.5, holdRatio: 0.05, attackFrequency: 1400, attackMs: 1.5, decayShape: 1.3, pitchJitter: 0.2),
+
+                MidiPercussion.HighBongo =>
+                    new PercussionProfile(SynthWave.Noise, true, 500, 350, 100, density: 0.85, holdRatio: 0.05, attackFrequency: 550, attackMs: 1.2, decayShape: 2.5, pitchJitter: 0.02),
+                MidiPercussion.LowBongo =>
+                    new PercussionProfile(SynthWave.Noise, true, 350, 220, 110, density: 0.85, holdRatio: 0.05, attackFrequency: 380, attackMs: 1.3, decayShape: 2.4, pitchJitter: 0.02),
+                MidiPercussion.CongaDeadStroke =>
+                    new PercussionProfile(SynthWave.Noise, true, 320, 260, 70, density: 0.85, holdRatio: 0.03, attackFrequency: 340, attackMs: 1.0, decayShape: 3.5, pitchJitter: 0.02),
+                MidiPercussion.Conga =>
+                    new PercussionProfile(SynthWave.Noise, true, 300, 200, 140, density: 0.85, holdRatio: 0.06, attackFrequency: 320, attackMs: 1.4, decayShape: 2.0, pitchJitter: 0.02),
+                MidiPercussion.Tumba =>
+                    new PercussionProfile(SynthWave.Noise, true, 250, 160, 150, density: 0.85, holdRatio: 0.06, attackFrequency: 270, attackMs: 1.5, decayShape: 1.9, pitchJitter: 0.02),
+                MidiPercussion.HighTimbale =>
+                    new PercussionProfile(SynthWave.Noise, true, 700, 550, 130, density: 0.8, holdRatio: 0.04, attackFrequency: 750, attackMs: 1.0, decayShape: 2.2, pitchJitter: 0.02),
+                MidiPercussion.LowTimbale =>
+                    new PercussionProfile(SynthWave.Noise, true, 500, 380, 150, density: 0.8, holdRatio: 0.04, attackFrequency: 540, attackMs: 1.2, decayShape: 2.0, pitchJitter: 0.02),
+
+                MidiPercussion.HighAgogo =>
+                    new PercussionProfile(SynthWave.Noise, true, 950, 880, 220, density: 0.55, holdRatio: 0.08, attackFrequency: 1100, attackMs: 0.8, decayShape: 1.4, pitchJitter: 0.04),
+                MidiPercussion.LowAgogo =>
+                    new PercussionProfile(SynthWave.Noise, true, 650, 600, 260, density: 0.55, holdRatio: 0.08, attackFrequency: 780, attackMs: 0.9, decayShape: 1.3, pitchJitter: 0.04),
+
+                MidiPercussion.Cabasa =>
+                    new PercussionProfile(SynthWave.Noise, false, 3000, 3000, 130, density: 0.55, holdRatio: 0.02, attackFrequency: 3200, attackMs: 0.5, decayShape: 2.5, pitchJitter: 0.1),
+                MidiPercussion.Maracas =>
+                    new PercussionProfile(SynthWave.Noise, false, 3200, 3200, 100, density: 0.5, holdRatio: 0.02, attackFrequency: 3400, attackMs: 0.4, decayShape: 2.8, pitchJitter: 0.1),
+
+                MidiPercussion.WhistleShort =>
+                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 160, density: 0.4, holdRatio: 0.35, attackFrequency: 1800, attackMs: 3.0, decayShape: 1.5, pitchJitter: 0.02),
+                MidiPercussion.WhistleLong =>
+                    new PercussionProfile(SynthWave.Noise, true, 1800, 1600, 500, density: 0.4, holdRatio: 0.35, attackFrequency: 1800, attackMs: 5.0, decayShape: 1.1, pitchJitter: 0.02),
+
+                MidiPercussion.GuiroShort =>
+                    new PercussionProfile(SynthWave.Noise, true, 1400, 1000, 90, density: 0.7, holdRatio: 0.05, attackFrequency: 1500, attackMs: 1.0, decayShape: 2.0, pitchJitter: 0.05),
+                MidiPercussion.GuiroLong =>
+                    new PercussionProfile(SynthWave.Noise, true, 1400, 800, 350, density: 0.7, holdRatio: 0.1, attackFrequency: 1500, attackMs: 2.0, decayShape: 1.2, pitchJitter: 0.05),
+
+                MidiPercussion.Claves =>
+                    new PercussionProfile(SynthWave.Noise, false, 2200, 2200, 40, density: 0.85, holdRatio: 0.02, attackFrequency: 2400, attackMs: 0.4, decayShape: 4.0, pitchJitter: 0.02),
+
+                MidiPercussion.HighWoodblock =>
+                    new PercussionProfile(SynthWave.Noise, false, 1600, 1600, 45, density: 0.85, holdRatio: 0.02, attackFrequency: 1750, attackMs: 0.4, decayShape: 3.8, pitchJitter: 0.02),
+                MidiPercussion.LowWoodblock =>
+                    new PercussionProfile(SynthWave.Noise, false, 1000, 1000, 50, density: 0.85, holdRatio: 0.02, attackFrequency: 1100, attackMs: 0.5, decayShape: 3.6, pitchJitter: 0.02),
+
+                MidiPercussion.CuicaHigh =>
+                    new PercussionProfile(SynthWave.Noise, true, 700, 350, 220, density: 0.7, holdRatio: 0.08, attackFrequency: 750, attackMs: 2.0, decayShape: 1.6, pitchJitter: 0.05),
+                MidiPercussion.CuicaLow =>
+                    new PercussionProfile(SynthWave.Noise, true, 400, 200, 260, density: 0.7, holdRatio: 0.08, attackFrequency: 430, attackMs: 2.2, decayShape: 1.5, pitchJitter: 0.05),
+
+                MidiPercussion.TriangleMute =>
+                    new PercussionProfile(SynthWave.Noise, false, 4200, 4200, 60, density: 0.4, holdRatio: 0.05, attackFrequency: 4200, attackMs: 0.5, decayShape: 3.0, pitchJitter: 0.03),
+                MidiPercussion.TriangleOpen =>
+                    new PercussionProfile(SynthWave.Noise, false, 4200, 4200, 500, density: 0.35, holdRatio: 0.4, attackFrequency: 4200, attackMs: 1.0, decayShape: 1.0, pitchJitter: 0.02),
+
+                MidiPercussion.Shaker =>
+                    new PercussionProfile(SynthWave.Noise, false, 2800, 2800, 110, density: 0.55, holdRatio: 0.02, attackFrequency: 3000, attackMs: 0.5, decayShape: 2.6, pitchJitter: 0.1),
+
+                MidiPercussion.SleighBell =>
+                    new PercussionProfile(SynthWave.Noise, false, 3500, 3500, 200, density: 0.5, holdRatio: 0.1, attackFrequency: 3700, attackMs: 0.6, decayShape: 1.8, pitchJitter: 0.15),
+
+                MidiPercussion.BellTree =>
+                    new PercussionProfile(SynthWave.Noise, true, 3000, 1200, 550, density: 0.45, holdRatio: 0.25, attackFrequency: 3000, attackMs: 1.0, decayShape: 1.1, pitchJitter: 0.06),
+
+                MidiPercussion.SurduDeadStroke =>
+                    new PercussionProfile(SynthWave.Noise, true, 130, 90, 90, density: 0.9, holdRatio: 0.03, attackFrequency: 140, attackMs: 1.5, decayShape: 3.0, pitchJitter: 0.01),
+                MidiPercussion.Surdu =>
+                    new PercussionProfile(SynthWave.Noise, true, 130, 60, 220, density: 0.9, holdRatio: 0.06, attackFrequency: 145, attackMs: 2.0, decayShape: 2.0, pitchJitter: 0.01),
+
+                MidiPercussion.OceanDrum =>
+                    new PercussionProfile(SynthWave.Noise, false, 500, 500, 700, density: 0.45, holdRatio: 0.5, attackFrequency: 600, attackMs: 8.0, decayShape: 1.0, pitchJitter: 0.08),
 
                 _ => new PercussionProfile(SynthWave.Noise, false, 400, 400, 100, density: 0.6, holdRatio: 0.02, attackFrequency: 500, attackMs: 1.2, decayShape: 2.5, pitchJitter: 0.06)
             };
         }
 
-        private static bool IsKick(MidiPercussion p) => p is MidiPercussion.KickDrum or MidiPercussion.BassDrum;
-        private static bool IsTomOrBongo(MidiPercussion p) => p is MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 or MidiPercussion.LowTom or MidiPercussion.LowMidTom or MidiPercussion.HighMidTom or MidiPercussion.HighTom;
-        private static bool IsSnare(MidiPercussion p) => p is MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or MidiPercussion.SnareDrumRod or MidiPercussion.SnareDrumBrush;
-        private static bool IsClick(MidiPercussion p) => p is MidiPercussion.SideStick or MidiPercussion.StickClick or MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.Castanets or MidiPercussion.Claves or MidiPercussion.WoodBlock;
-        private static bool IsCymbalOrLongRing(MidiPercussion p) => p is MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 or MidiPercussion.ChinaCymbal or MidiPercussion.SplashCymbal or MidiPercussion.HiHatOpen;
-        private static bool IsShortCymbal(MidiPercussion p) => p is MidiPercussion.HiHatClosed or MidiPercussion.HiHatFoot or MidiPercussion.TriangleMute;
-        private static bool IsMetalCymbal(MidiPercussion p) => IsCymbalOrLongRing(p) || IsShortCymbal(p);
-        private static bool IsTonalNonCymbal(MidiPercussion p) => p is MidiPercussion.Cowbell or MidiPercussion.MetronomeBell or MidiPercussion.HighAgogo or MidiPercussion.LowAgogo;
+        private static bool IsKick(MidiPercussion p) => p is MidiPercussion.KickDrum or MidiPercussion.BassDrum or MidiPercussion.Surdu or MidiPercussion.SurduDeadStroke;
+        private static bool IsTomOrBongo(MidiPercussion p) => p is MidiPercussion.FloorTom1 or MidiPercussion.FloorTom2 or MidiPercussion.LowTom or MidiPercussion.LowMidTom or MidiPercussion.HighMidTom or MidiPercussion.HighTom
+            or MidiPercussion.HighBongo or MidiPercussion.LowBongo or MidiPercussion.Conga or MidiPercussion.CongaDeadStroke or MidiPercussion.Tumba
+            or MidiPercussion.HighTimbale or MidiPercussion.LowTimbale or MidiPercussion.CuicaHigh or MidiPercussion.CuicaLow;
+        private static bool IsSnare(MidiPercussion p) => p is MidiPercussion.SnareDrum or MidiPercussion.ElectricSnareDrum or MidiPercussion.SnareDrumRod or MidiPercussion.SnareDrumBrush or MidiPercussion.SideStick;
+        private static bool IsClick(MidiPercussion p) => p is MidiPercussion.SideStick or MidiPercussion.StickClick or MidiPercussion.SquareClick or MidiPercussion.MetronomeClick or MidiPercussion.Castanets
+            or MidiPercussion.Claves or MidiPercussion.WoodBlock or MidiPercussion.HighWoodblock or MidiPercussion.LowWoodblock;
+        private static bool IsCymbalOrLongRing(MidiPercussion p) => p is MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2
+            or MidiPercussion.ChinaCymbal or MidiPercussion.SplashCymbal or MidiPercussion.HiHatOpen or MidiPercussion.RideBell;
+        private static bool IsShortCymbal(MidiPercussion p) => p is MidiPercussion.HiHatClosed or MidiPercussion.HiHatFoot or MidiPercussion.TriangleMute or MidiPercussion.Tambourine;
+        private static bool IsMetalCymbal(MidiPercussion p) => IsCymbalOrLongRing(p) || IsShortCymbal(p) || p is MidiPercussion.SleighBell or MidiPercussion.Shaker or MidiPercussion.Cabasa or MidiPercussion.Maracas;
+        private static bool IsTonalNonCymbal(MidiPercussion p) => p is MidiPercussion.Laser;
 
         public static void PlayPercussion(MidiPercussion p, CancellationToken ct = default, int maxMs = 5000, int velocity = 100)
         {
@@ -752,7 +859,7 @@ namespace NeoBleeper
                         firstAudibleStartMs = -1;
                     }
                 }
-                else if (!started || !currentOutput.HasValue || frequency != lastFrequency)
+                else if (!started || !currentOutput.HasValue || frequency != lastFrequency || lastFrequency == int.MinValue)
                 {
                     StartOrUpdatePulse(PercussionOutputChoice.SystemSpeaker, frequency, SynthWave.Square, ref currentOutput);
                     lastFrequency = frequency;
@@ -778,10 +885,22 @@ namespace NeoBleeper
         {
             if (request.Profile.BodyWave == SynthWave.Noise || IsMetalCymbal(request.Percussion))
             {
-                // Dynamic time-step jitter (0.6ms - 1.2ms) breaks hardware clock resonance
                 uint tHash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 5.1) * 1103515245u + 12345u)));
                 double tJitter = ((tHash & 0x00FFFFFF) / 16777215.0);
                 return 0.6 + tJitter * 0.6;
+            }
+
+            bool isPureTonal = request.Profile.BodyWave == SynthWave.Square || request.Profile.BodyWave == SynthWave.Sine;
+            if (isPureTonal)
+            {
+                if (elapsedMs < request.Profile.AttackMs)
+                    return Math.Max(0.5, request.Profile.AttackMs - elapsedMs);
+
+                // Fine-grained stepping (0.8-1.2ms) so duty-cycle gating actually
+                // produces perceivable on/off gaps instead of a near-continuous tone.
+                uint hash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 3.7) * 1664525u + 1013904223u)));
+                double jitter = ((hash & 0x00FFFFFF) / 16777215.0);
+                return 0.8 + jitter * 0.4;
             }
 
             if (elapsedMs < request.Profile.AttackMs)
@@ -800,7 +919,7 @@ namespace NeoBleeper
             double duration = Math.Max(1.0, request.DurationMs);
             double progress = Math.Clamp(elapsedMs / duration, 0.0, 1.0);
 
-            // 1. Pure Tonal Instruments (Cowbell, Agogo, Metronome Bell)
+            // 1. Pure Tonal Instruments (Cowbell, Agogo, MetronomeBell, Whistle, Triangle, BellTree)
             bool isPureTonal = prof.BodyWave == SynthWave.Square || prof.BodyWave == SynthWave.Sine;
             if (isPureTonal)
             {
@@ -811,33 +930,69 @@ namespace NeoBleeper
                     return;
                 }
 
+                double baseFreq = prof.BodyStartFreq;
                 if (prof.DoesSweep)
                 {
                     double logSweep = 1.0 - Math.Pow(progress, 0.45);
-                    double baseFreq = prof.BodyEndFreq + (prof.BodyStartFreq - prof.BodyEndFreq) * logSweep;
-                    frequency = ClampPercussionFrequency(baseFreq);
+                    baseFreq = prof.BodyEndFreq + (prof.BodyStartFreq - prof.BodyEndFreq) * logSweep;
                 }
-                else
-                {
-                    frequency = ClampPercussionFrequency(prof.BodyStartFreq);
-                }
-                audible = progress < 0.95;
+
+                // Overtone shimmer: alternate to a detuned partial so it isn't a flat single pitch
+                double shimmerRate = 18.0 - progress * 12.0;
+                int shimmerSlot = (int)(elapsedMs / Math.Max(4.0, shimmerRate));
+                bool onOvertone = (shimmerSlot % 3 == 0) && progress < 0.7;
+                frequency = ClampPercussionFrequency(onOvertone ? baseFreq * 1.5 : baseFreq);
+
+                // Duty-cycle thinning simulates amplitude decay/ring-out (beeper can't do true envelopes).
+                // Sustained instruments (whistle, triangle open, bell tree) decay slower via HoldRatio;
+                // struck ones (cowbell, agogo) thin out faster so they read as a hit, not a held note.
+                uint gateHash = unchecked((uint)(request.RandomSeed ^ (shimmerSlot * 2246822519u)));
+                double gateRoll = ((gateHash & 0x00FFFFFF) / 16777215.0);
+                double sustainWindow = Math.Clamp(prof.HoldRatio * 2.0, 0.05, 0.6);
+                double decayProgress = Math.Clamp((progress - sustainWindow) / Math.Max(0.01, 1.0 - sustainWindow), 0.0, 1.0);
+                double keepProbability = progress < sustainWindow ? 1.0 : Math.Pow(1.0 - decayProgress, prof.DecayShape);
+
+                audible = gateRoll < keepProbability && progress < 0.97;
                 return;
             }
 
             // 2. Kicks & Toms (Low pitch sweep with low-range jitter)
             if (prof.DoesSweep)
             {
-                double logSweep = 1.0 - Math.Pow(progress, 0.5);
-                double centerFreq = prof.BodyEndFreq + (prof.BodyStartFreq - prof.BodyEndFreq) * logSweep;
+                // Very short pitched "thump" transient only — mimics the head strike, not a tone
+                double thumpWindowMs = Math.Min(18.0, duration * 0.25);
 
-                int slot = (int)(elapsedMs / 1.5);
+                if (elapsedMs < thumpWindowMs)
+                {
+                    double thumpProgress = elapsedMs / thumpWindowMs;
+                    double logSweep = 1.0 - Math.Pow(thumpProgress, 0.35);
+                    double centerFreq = prof.BodyEndFreq + (prof.BodyStartFreq - prof.BodyEndFreq) * logSweep;
+                    frequency = ClampPercussionFrequency(centerFreq);
+                    audible = true;
+                    return;
+                }
+
+                // Body: fast noise-like frequency hopping in the low end, decaying amplitude
+                // simulated via increasingly sparse audibility (duty-cycle thinning) rather
+                // than a held tone, so it reads as decaying noise, not a beep.
+                double bodyProgress = Math.Clamp((elapsedMs - thumpWindowMs) / Math.Max(1.0, duration - thumpWindowMs), 0.0, 1.0);
+
+                int slot = (int)(elapsedMs / 1.3);
                 uint hash = unchecked((uint)(request.RandomSeed ^ (slot * 1664525u + 1013904223u)));
                 double j = ((hash & 0x00FFFFFF) / 16777215.0);
 
-                double factor = 0.65 + j * 0.45;
-                frequency = ClampPercussionFrequency(centerFreq * factor);
-                audible = progress < 0.95;
+                // Low-frequency noise-ish hop instead of smooth pitch glide
+                double lowFloor = prof.BodyEndFreq * 0.7;
+                double lowCeil = prof.BodyStartFreq * 0.9;
+                double hoppedFreq = lowFloor + j * (lowCeil - lowFloor);
+                frequency = ClampPercussionFrequency(hoppedFreq);
+
+                // Duty-cycle thinning: as decay progresses, skip more cycles to simulate
+                // amplitude falloff on a beeper that can't do true amplitude envelopes
+                uint gateHash = unchecked((uint)(request.RandomSeed ^ (slot * 2246822519u)));
+                double gateRoll = ((gateHash & 0x00FFFFFF) / 16777215.0);
+                double keepProbability = Math.Pow(1.0 - bodyProgress, prof.DecayShape);
+                audible = gateRoll < keepProbability && bodyProgress < 0.92;
                 return;
             }
 
@@ -911,10 +1066,12 @@ namespace NeoBleeper
         private static double GetMinimumBodyMs(MidiPercussion p)
         {
             if (IsClick(p)) return 20.0;
-            if (IsKick(p)) return 45.0;
+            if (IsKick(p)) return 60.0;
+            if (IsTomOrBongo(p)) return 55.0;
             if (IsSnare(p)) return 45.0;
             if (IsShortCymbal(p)) return 35.0;
             if (IsCymbalOrLongRing(p)) return 60.0;
+            if (IsTonalNonCymbal(p)) return 80.0;
             return 30.0;
         }
     }
