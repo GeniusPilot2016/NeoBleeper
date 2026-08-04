@@ -1888,10 +1888,10 @@ namespace NeoBleeper
         /// <param name="token">A cancellation token that aborts playback early.</param>
         /// <returns>A task that completes when the full duration has been filled.</returns>
         private async Task PlayNotesAndPercussionAlternatingAsync(
-            int[] frequencies,
-            PercussionSounds.MidiPercussion? percussion,
-            int duration,
-            CancellationToken token)
+    int[] frequencies,
+    PercussionSounds.MidiPercussion? percussion,
+    int duration,
+    CancellationToken token)
         {
             if (duration <= 0)
                 return;
@@ -1904,10 +1904,11 @@ namespace NeoBleeper
                 return;
             }
 
-            // Both outputs use the same ownership schedule: percussion receives a short,
-            // protected attack slot and melody receives the remainder of the frame. The
-            // percussion renderer may keep an already-submitted sound-device tail alive in
-            // its independent mixer, but it cannot retain or reclaim scheduler ownership.
+            // PercussionSounds.PlayPercussionSliceAsync already branches internally on
+            // TemporarySettings.CreatingSounds.createBeepWithSoundDevice (System Speaker vs
+            // Sound Device), so the caller does not need its own mode branch here. Both modes
+            // still go through the same protected-slice-then-melody handoff so the single-voice
+            // PWM/beeper timing model is never violated by one mode overlapping and the other not.
             bool melodyAlsoPlaying = frequencies.Length > 0;
             int percussionSliceMs = GetSharedPercussionSliceMs(
                 percussion.Value, duration, melodyAlsoPlaying);
