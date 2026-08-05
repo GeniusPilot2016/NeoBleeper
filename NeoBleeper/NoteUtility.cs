@@ -582,21 +582,23 @@ namespace NeoBleeper
                 MidiPercussion.LowTom =>
                     new PercussionProfile(SynthWave.Noise, true, 180, 85, 180, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 1.9, pitchJitter: 0.01),
                 MidiPercussion.HiHatOpen =>
-                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 350, density: 0.6, holdRatio: 0.01, attackFrequency: 2000, attackMs: 1.2, decayShape: 1.8, pitchJitter: 0.08),
+                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 650, density: 0.6, holdRatio: 0.05, attackFrequency: 2000, attackMs: 1.2, decayShape: 2.2, pitchJitter: 0.08),
                 MidiPercussion.LowMidTom =>
                     new PercussionProfile(SynthWave.Noise, true, 180, 85, 180, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 1.9, pitchJitter: 0.01),
                 MidiPercussion.HighMidTom =>
                     new PercussionProfile(SynthWave.Noise, true, 180, 85, 180, density: 0.9, holdRatio: 0.05, attackFrequency: 200, attackMs: 1.8, decayShape: 1.9, pitchJitter: 0.01),
 
+                // Long-ring cymbals: extended duration + a real sustain (HoldRatio) so the gated
+                // decay in GetPlaybackSignalCore has something to hold before thinning out.
                 MidiPercussion.CrashCymbal or MidiPercussion.CrashCymbal2 or MidiPercussion.ChinaCymbal or MidiPercussion.SplashCymbal =>
-                    new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 600, density: 0.7, holdRatio: 0.01, attackFrequency: 2200, attackMs: 1.2, decayShape: 1.6, pitchJitter: 0.1),
+                    new PercussionProfile(SynthWave.Noise, false, 2000, 2000, 1400, density: 0.7, holdRatio: 0.08, attackFrequency: 2200, attackMs: 1.2, decayShape: 2.2, pitchJitter: 0.1),
                 MidiPercussion.HighTom =>
                     new PercussionProfile(SynthWave.Noise, true, 220, 110, 160, density: 0.9, holdRatio: 0.05, attackFrequency: 240, attackMs: 1.5, decayShape: 2.0, pitchJitter: 0.01),
                 MidiPercussion.RideCymbal or MidiPercussion.RideCymbal2 =>
-                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 500, density: 0.6, holdRatio: 0.01, attackFrequency: 2000, attackMs: 1.0, decayShape: 1.7, pitchJitter: 0.08),
+                    new PercussionProfile(SynthWave.Noise, false, 1800, 1800, 1100, density: 0.6, holdRatio: 0.10, attackFrequency: 2000, attackMs: 1.0, decayShape: 2.0, pitchJitter: 0.08),
 
                 MidiPercussion.RideBell =>
-                    new PercussionProfile(SynthWave.Noise, false, 2400, 2400, 400, density: 0.5, holdRatio: 0.15, attackFrequency: 2600, attackMs: 0.8, decayShape: 1.4, pitchJitter: 0.04),
+                    new PercussionProfile(SynthWave.Noise, false, 2400, 2400, 900, density: 0.5, holdRatio: 0.15, attackFrequency: 2600, attackMs: 0.8, decayShape: 1.8, pitchJitter: 0.04),
 
                 MidiPercussion.Tambourine =>
                     new PercussionProfile(SynthWave.Noise, false, 2400, 2400, 220, density: 0.65, holdRatio: 0.02, attackFrequency: 2600, attackMs: 0.8, decayShape: 2.0, pitchJitter: 0.15),
@@ -885,9 +887,15 @@ namespace NeoBleeper
         {
             if (request.Profile.BodyWave == SynthWave.Noise || IsMetalCymbal(request.Percussion))
             {
+                // Long-ring cymbals hop a little faster than short noise hits while they're
+                // still in their sustain window, since a slower hop rate next to a held
+                // "audible=true" stretch is what reads as a plain beep instead of a shimmer.
+                double baseIntervalMs = IsCymbalOrLongRing(request.Percussion) ? 0.45 : 0.6;
+                double spreadMs = IsCymbalOrLongRing(request.Percussion) ? 0.45 : 0.6;
+
                 uint tHash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 5.1) * 1103515245u + 12345u)));
                 double tJitter = ((tHash & 0x00FFFFFF) / 16777215.0);
-                return 0.6 + tJitter * 0.6;
+                return baseIntervalMs + tJitter * spreadMs;
             }
 
             bool isPureTonal = request.Profile.BodyWave == SynthWave.Square || request.Profile.BodyWave == SynthWave.Sine;
@@ -919,7 +927,7 @@ namespace NeoBleeper
             double duration = Math.Max(1.0, request.DurationMs);
             double progress = Math.Clamp(elapsedMs / duration, 0.0, 1.0);
 
-            // 1. Pure Tonal Instruments (Cowbell, Agogo, MetronomeBell, Whistle, Triangle, BellTree)
+            // 1. Pure Tonal Instruments (Laser)
             bool isPureTonal = prof.BodyWave == SynthWave.Square || prof.BodyWave == SynthWave.Sine;
             if (isPureTonal)
             {
@@ -944,8 +952,6 @@ namespace NeoBleeper
                 frequency = ClampPercussionFrequency(onOvertone ? baseFreq * 1.5 : baseFreq);
 
                 // Duty-cycle thinning simulates amplitude decay/ring-out (beeper can't do true envelopes).
-                // Sustained instruments (whistle, triangle open, bell tree) decay slower via HoldRatio;
-                // struck ones (cowbell, agogo) thin out faster so they read as a hit, not a held note.
                 uint gateHash = unchecked((uint)(request.RandomSeed ^ (shimmerSlot * 2246822519u)));
                 double gateRoll = ((gateHash & 0x00FFFFFF) / 16777215.0);
                 double sustainWindow = Math.Clamp(prof.HoldRatio * 2.0, 0.05, 0.6);
@@ -1006,7 +1012,35 @@ namespace NeoBleeper
                 // Continuous spectrum spread across 700 Hz - 2300 Hz
                 double baseF = 700.0 + jitter * 1600.0;
                 frequency = ClampPercussionFrequency(baseF);
-                audible = progress < 0.90;
+
+                if (IsCymbalOrLongRing(request.Percussion))
+                {
+                    // Sustained ring: a short fully-audible strike (HoldRatio window), then a
+                    // long GATED decay tail — never a solid unbroken tone, even while "held",
+                    // or it reads as a wavering beep instead of a ringing/sizzling cymbal.
+                    double sustainWindow = Math.Clamp(prof.HoldRatio, 0.03, 0.25);
+
+                    if (progress < sustainWindow)
+                    {
+                        // Even the sustain phase is duty-cycled (high keep-probability) so the
+                        // rapid frequency hops actually register as noise texture, not a beep.
+                        uint sustainGateHash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 9.7) * 2654435761u)));
+                        double sustainGateRoll = ((sustainGateHash & 0x00FFFFFF) / 16777215.0);
+                        audible = sustainGateRoll < 0.90;
+                    }
+                    else
+                    {
+                        uint gateHash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 4.3) * 2246822519u)));
+                        double gateRoll = ((gateHash & 0x00FFFFFF) / 16777215.0);
+                        double decayProgress = Math.Clamp((progress - sustainWindow) / Math.Max(0.01, 1.0 - sustainWindow), 0.0, 1.0);
+                        double keepProbability = Math.Pow(1.0 - decayProgress, prof.DecayShape);
+                        audible = gateRoll < keepProbability && progress < 0.98;
+                    }
+                }
+                else
+                {
+                    audible = progress < 0.70; // short cymbals (closed hat, mute triangle, tambourine) stay tight
+                }
             }
             else if (IsClick(request.Percussion))
             {
@@ -1070,7 +1104,7 @@ namespace NeoBleeper
             if (IsTomOrBongo(p)) return 55.0;
             if (IsSnare(p)) return 45.0;
             if (IsShortCymbal(p)) return 35.0;
-            if (IsCymbalOrLongRing(p)) return 60.0;
+            if (IsCymbalOrLongRing(p)) return 180.0; // was 60.0 — let the ring actually sustain
             if (IsTonalNonCymbal(p)) return 80.0;
             return 30.0;
         }
