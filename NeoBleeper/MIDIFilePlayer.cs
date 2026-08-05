@@ -1887,72 +1887,116 @@ namespace NeoBleeper
         /// <param name="duration">The total duration, in milliseconds, of the frame slot to fill.</param>
         /// <param name="token">A cancellation token that aborts playback early.</param>
         /// <returns>A task that completes when the full duration has been filled.</returns>
-        private async Task PlayNotesAndPercussionAlternatingAsync(
-    int[] frequencies,
-    PercussionSounds.MidiPercussion? percussion,
-    int duration,
-    CancellationToken token)
-        {
-            if (duration <= 0)
-                return;
+        private static PercussionSounds.MidiPercussion? _lastPercussion;
+        private static long _lastPercussionTick = 0;
+        private static readonly TimeSpan PercussionCooldown = TimeSpan.FromMilliseconds(80); // Prevents re-triggering the same hit across rapid frames
 
+        /// <summary>
+        /// Plays melody and percussion safely by ensuring percussion transients only fire once per strike (debounced).
+        /// Subsequent frames prioritize 100% pure melody playback to eliminate note blocking.
+        /// </summary>
+        private async Task PlayNotesAndPercussionAlternatingAsync(
+            int[] frequencies,
+            PercussionSounds.MidiPercussion? percussion,
+            int duration,
+            CancellationToken token)
+        {
+            if (duration <= 0) return;
             frequencies ??= Array.Empty<int>();
 
+            // 1. Standard fallbacks if only one type of sound is active
             if (!percussion.HasValue || TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
                 await PlayMelodySliceAsync(frequencies, duration, token).ConfigureAwait(false);
                 return;
             }
 
-            // PercussionSounds.PlayPercussionSliceAsync already branches internally on
-            // TemporarySettings.CreatingSounds.createBeepWithSoundDevice (System Speaker vs
-            // Sound Device), so the caller does not need its own mode branch here. Both modes
-            // still go through the same protected-slice-then-melody handoff so the single-voice
-            // PWM/beeper timing model is never violated by one mode overlapping and the other not.
-            bool melodyAlsoPlaying = frequencies.Length > 0;
-            int percussionSliceMs = GetSharedPercussionSliceMs(
-                percussion.Value, duration, melodyAlsoPlaying);
-
-            int percussionLabelIndex = -1;
-            if (_noteToLabelMap.TryGetValue((int)percussion.Value, out int foundLabelIndex))
+            if (frequencies.Length == 0)
             {
-                percussionLabelIndex = foundLabelIndex;
-                HighlightNoteLabel(percussionLabelIndex);
+                await PlayOnlyPercussionAsync(percussion.Value, duration, token).ConfigureAwait(false);
+                return;
+            }
+
+            // 2. Both melody and percussion are active.
+            // Check if this is a brand new percussion hit or a continuation of an ongoing one.
+            long currentTick = Environment.TickCount64;
+            bool isNewHit = _lastPercussion != percussion.Value || (currentTick - _lastPercussionTick) > PercussionCooldown.Milliseconds;
+
+            if (isNewHit)
+            {
+                // Register this hit to prevent duplicate triggers on subsequent frames
+                _lastPercussion = percussion.Value;
+                _lastPercussionTick = currentTick;
+
+                // Give the new hit a tiny, non-intrusive transient click (max 3ms) 
+                // so it marks the beat without stealing time from the melody note's attack.
+                int percWindow = Math.Min(duration, 3);
+                int melodyWindow = Math.Max(0, duration - percWindow);
+
+                int percussionLabelIndex = -1;
+                if (_noteToLabelMap.TryGetValue((int)percussion.Value, out int foundLabel))
+                {
+                    percussionLabelIndex = foundLabel;
+                    HighlightNoteLabel(percussionLabelIndex);
+                }
+
+                try
+                {
+                    if (percWindow > 0)
+                    {
+                        await PercussionSounds.PlayPercussionSliceAsync(percussion.Value, percWindow, token).ConfigureAwait(false);
+                    }
+
+                    if (melodyWindow > 0)
+                    {
+                        await PlayMelodySliceAsync(frequencies, melodyWindow, token).ConfigureAwait(false);
+                    }
+                }
+                finally
+                {
+                    if (percussionLabelIndex >= 0)
+                    {
+                        UnHighlightNoteLabel(percussionLabelIndex);
+                    }
+                }
+            }
+            else
+            {
+                // If the percussion is already ringing from a previous frame, 
+                // dedicate 100% of the frame duration to the melody to completely prevent note blocking.
+                await PlayMelodySliceAsync(frequencies, duration, token).ConfigureAwait(false);
+            }
+        }
+
+        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token)
+        {
+            int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
+            int playDuration = Math.Min(duration, naturalDuration);
+
+            int labelIndex = -1;
+            if (_noteToLabelMap.TryGetValue((int)percussion, out int found))
+            {
+                labelIndex = found;
+                HighlightNoteLabel(labelIndex);
             }
 
             try
             {
-                if (percussionSliceMs > 0)
+                if (playDuration > 0)
                 {
-                    try
-                    {
-                        await PercussionSounds.PlayPercussionSliceAsync(
-                            percussion.Value,
-                            percussionSliceMs,
-                            token).ConfigureAwait(false);
-                    }
-                    finally
-                    {
-                        if (percussionLabelIndex >= 0)
-                            UnHighlightNoteLabel(percussionLabelIndex);
-                    }
+                    await PercussionSounds.PlayPercussionSliceAsync(percussion, playDuration, token).ConfigureAwait(false);
                 }
 
-                int melodySliceMs = Math.Max(0, duration - percussionSliceMs);
-                if (melodySliceMs > 0)
+                int silence = Math.Max(0, duration - playDuration);
+                if (silence > 0)
                 {
-                    token.ThrowIfCancellationRequested();
-                    await PlayMelodySliceAsync(
-                        frequencies, melodySliceMs, token).ConfigureAwait(false);
+                    await HighPrecisionSleep.SleepAsync(silence).ConfigureAwait(false);
                 }
             }
-            catch (OperationCanceledException)
+            finally
             {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"Error during protected percussion/melody hand-off: {ex.Message}", Logger.LogTypes.Error);
+                if (labelIndex >= 0)
+                    UnHighlightNoteLabel(labelIndex);
             }
         }
 
