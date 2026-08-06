@@ -1876,7 +1876,7 @@ namespace NeoBleeper
                 _isAlternatingPlayback = false;
             }
         }
-
+        private bool _alternatePercussionTurn = false;
         /// <summary>
         /// Alternates the single-voice speaker output between a percussion hit and one or more held
         /// melody notes so that both remain audible within the same frame slot, instead of a drum hit
@@ -1891,10 +1891,6 @@ namespace NeoBleeper
         private static long _lastPercussionTick = 0;
         private static readonly TimeSpan PercussionCooldown = TimeSpan.FromMilliseconds(80); // Prevents re-triggering the same hit across rapid frames
 
-        /// <summary>
-        /// Plays melody and percussion safely by ensuring percussion transients only fire once per strike (debounced).
-        /// Subsequent frames prioritize 100% pure melody playback to eliminate note blocking.
-        /// </summary>
         private async Task PlayNotesAndPercussionAlternatingAsync(
             int[] frequencies,
             PercussionSounds.MidiPercussion? percussion,
@@ -1904,67 +1900,58 @@ namespace NeoBleeper
             if (duration <= 0) return;
             frequencies ??= Array.Empty<int>();
 
-            // 1. Standard fallbacks if only one type of sound is active
+            // 1. If no percussion or playback is muted, play melody exclusively.
             if (!percussion.HasValue || TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
                 await PlayMelodySliceAsync(frequencies, duration, token).ConfigureAwait(false);
                 return;
             }
 
+            // 2. If no melody notes are held, play percussion exclusively.
             if (frequencies.Length == 0)
             {
                 await PlayOnlyPercussionAsync(percussion.Value, duration, token).ConfigureAwait(false);
                 return;
             }
 
-            // 2. Both melody and percussion are active.
-            // Check if this is a brand new percussion hit or a continuation of an ongoing one.
-            long currentTick = Environment.TickCount64;
-            bool isNewHit = _lastPercussion != percussion.Value || (currentTick - _lastPercussionTick) > PercussionCooldown.Milliseconds;
+            // 3. Both melody and percussion are active. 
+            // Balance time proportionally so percussion sounds natural (not too short) 
+            // and melody never receives a swallowed micro-slice (< 10ms) that causes interruptions.
+            int percWindow = Math.Clamp(duration / 2, 20, 35); // Target 20ms to 35ms for a natural percussion hit
+            int melodyWindow = duration - percWindow;
 
-            if (isNewHit)
+            // If the frame is too tight, split 50/50 to guarantee safe minimum slices for both
+            if (melodyWindow < 10)
             {
-                // Register this hit to prevent duplicate triggers on subsequent frames
-                _lastPercussion = percussion.Value;
-                _lastPercussionTick = currentTick;
+                melodyWindow = duration / 2;
+                percWindow = duration - melodyWindow;
+            }
 
-                // Give the new hit a tiny, non-intrusive transient click (max 3ms) 
-                // so it marks the beat without stealing time from the melody note's attack.
-                int percWindow = Math.Min(duration, 3);
-                int melodyWindow = Math.Max(0, duration - percWindow);
+            int percussionLabelIndex = -1;
+            if (_noteToLabelMap.TryGetValue((int)percussion.Value, out int foundLabel))
+            {
+                percussionLabelIndex = foundLabel;
+                HighlightNoteLabel(percussionLabelIndex);
+            }
 
-                int percussionLabelIndex = -1;
-                if (_noteToLabelMap.TryGetValue((int)percussion.Value, out int foundLabel))
+            try
+            {
+                if (percWindow > 0)
                 {
-                    percussionLabelIndex = foundLabel;
-                    HighlightNoteLabel(percussionLabelIndex);
+                    await PercussionSounds.PlayPercussionSliceAsync(percussion.Value, percWindow, token).ConfigureAwait(false);
                 }
 
-                try
+                if (melodyWindow > 0)
                 {
-                    if (percWindow > 0)
-                    {
-                        await PercussionSounds.PlayPercussionSliceAsync(percussion.Value, percWindow, token).ConfigureAwait(false);
-                    }
-
-                    if (melodyWindow > 0)
-                    {
-                        await PlayMelodySliceAsync(frequencies, melodyWindow, token).ConfigureAwait(false);
-                    }
-                }
-                finally
-                {
-                    if (percussionLabelIndex >= 0)
-                    {
-                        UnHighlightNoteLabel(percussionLabelIndex);
-                    }
+                    await PlayMelodySliceAsync(frequencies, melodyWindow, token).ConfigureAwait(false);
                 }
             }
-            else
+            finally
             {
-                // If the percussion is already ringing from a previous frame, 
-                // dedicate 100% of the frame duration to the melody to completely prevent note blocking.
-                await PlayMelodySliceAsync(frequencies, duration, token).ConfigureAwait(false);
+                if (percussionLabelIndex >= 0)
+                {
+                    UnHighlightNoteLabel(percussionLabelIndex);
+                }
             }
         }
 
