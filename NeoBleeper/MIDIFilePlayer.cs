@@ -1885,56 +1885,40 @@ namespace NeoBleeper
 
         private async Task PlayNotesAndPercussionAlternatingAsync(
             int[] frequencies,
-            PercussionSounds.MidiPercussion? percussion,
-            int duration,
+            PercussionSounds.MidiPercussion percussion,
+            int totalDurationMs,
+            long currentTick,
             CancellationToken token)
         {
-            if (duration <= 0) return;
-            frequencies ??= Array.Empty<int>();
-
-            // 1. If no percussion or playback is muted, play melody exclusively.
-            if (!percussion.HasValue || TemporarySettings.CreatingSounds.isPlaybackMuted)
-            {
-                await PlayMelodySliceAsync(frequencies, duration, token).ConfigureAwait(false);
+            if (totalDurationMs <= 0)
                 return;
-            }
 
-            // 2. If no melody notes are held, play percussion exclusively.
             if (frequencies.Length == 0)
             {
-                await PlayOnlyPercussionAsync(percussion.Value, duration, token).ConfigureAwait(false);
+                await PlayOnlyPercussionAsync(percussion, totalDurationMs, token).ConfigureAwait(false);
                 return;
             }
 
-            // 3. Both melody and percussion are active. 
-            // Balance time proportionally so percussion sounds natural (not too short) 
-            // and melody never receives a swallowed micro-slice (< 10ms) that causes interruptions.
-            int percWindow = Math.Clamp(duration / 2, 20, 35); // Target 20ms to 35ms for a natural percussion hit
-            int melodyWindow = duration - percWindow;
-
-            // If the frame is too tight, split 50/50 to guarantee safe minimum slices for both
-            if (melodyWindow < 10)
+            int percussionSlice = GetSharedPercussionSliceMs(percussion, totalDurationMs);
+            if (percussionSlice <= 0)
             {
-                melodyWindow = duration / 2;
-                percWindow = duration - melodyWindow;
+                await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
+                return;
             }
 
-            try
-            {
-                if (percWindow > 0)
-                {
-                    await PercussionSounds.PlayPercussionSliceAsync(percussion.Value, percWindow, token).ConfigureAwait(false);
-                }
+            _lastPercussion = percussion;
+            _lastPercussionTick = currentTick;
 
-                if (melodyWindow > 0)
-                {
-                    await PlayMelodySliceAsync(frequencies, melodyWindow, token).ConfigureAwait(false);
-                }
-            }
-            finally
+            await PlayOnlyPercussionAsync(percussion, percussionSlice, token).ConfigureAwait(false);
+
+            // Force a clean edge before retriggering melody, so it never depends on
+            // NotePlayer's internal "already playing this frequency" bookkeeping.
+            NotePlayer.StopAllNotes();
+
+            int remainingMelodyMs = totalDurationMs - percussionSlice;
+            if (remainingMelodyMs > 0)
             {
-                // Percussion labels are rendered by the frame UI path. Avoid
-                // direct label mutation here because it races UpdateNoteLabelsSync.
+                await PlayMelodySliceAsync(frequencies, remainingMelodyMs, token).ConfigureAwait(false);
             }
         }
 
@@ -1995,75 +1979,6 @@ namespace NeoBleeper
             return Math.Max(1, Math.Min(candidate, frameDurationMs));
         }
 
-        private async Task PlayNotesAndPercussionAlternatingAsync(
-            int[] frequencies,
-            PercussionSounds.MidiPercussion percussion,
-            int totalDurationMs,
-            long currentTick,
-            CancellationToken token)
-        {
-            if (totalDurationMs <= 0)
-                return;
-
-            if (frequencies.Length == 0)
-            {
-                await PlayOnlyPercussionAsync(percussion, totalDurationMs, token).ConfigureAwait(false);
-                return;
-            }
-
-            bool wasSameTick = (_lastPercussionTick == currentTick);
-            bool isSamePercussion = (_lastPercussion == percussion);
-
-            if (wasSameTick && isSamePercussion)
-            {
-                await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
-                return;
-            }
-
-            int percussionSlice = GetSharedPercussionSliceMs(percussion, totalDurationMs);
-            if (percussionSlice <= 0)
-            {
-                await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
-                return;
-            }
-
-            bool allowPercussionTurn = true;
-            if (_alternatePercussionTurn && wasSameTick)
-            {
-                allowPercussionTurn = false;
-            }
-
-            if (allowPercussionTurn)
-            {
-                _lastPercussion = percussion;
-                _lastPercussionTick = currentTick;
-                _alternatePercussionTurn = false;
-
-                await PlayOnlyPercussionAsync(percussion, percussionSlice, token).ConfigureAwait(false);
-
-                int remainingMelodyMs = totalDurationMs - percussionSlice;
-                if (remainingMelodyMs > 0)
-                {
-                    await PlayMelodySliceAsync(frequencies, remainingMelodyMs, token).ConfigureAwait(false);
-                }
-            }
-            else
-            {
-                _alternatePercussionTurn = true;
-
-                int melodySlice = totalDurationMs - percussionSlice;
-                if (melodySlice > 0)
-                {
-                    await PlayMelodySliceAsync(frequencies, melodySlice, token).ConfigureAwait(false);
-                    await PlayOnlyPercussionAsync(percussion, percussionSlice, token).ConfigureAwait(false);
-                }
-                else
-                {
-                    await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
-                }
-            }
-        }
-
         private async Task PlayMelodySliceAsync(
             int[] frequencies,
             int duration,
@@ -2074,7 +1989,7 @@ namespace NeoBleeper
 
             if (frequencies.Length == 0)
             {
-                await WaitPreciseWithCancellation(duration, token).ConfigureAwait(false);
+                await Task.Delay(duration, token).ConfigureAwait(false);
             }
             else if (frequencies.Length == 1)
             {
@@ -3324,7 +3239,7 @@ namespace NeoBleeper
             _sysExDisplayClearAtMs = null;
             return _sysExDisplayDecoder.ExpireDisplay(out textChanged);
         }
-        
+
 
         private void RebuildSysExDisplayAtTick(long targetTick)
         {
@@ -3446,7 +3361,6 @@ namespace NeoBleeper
                 emulator.SetSysExText(normalizedText);
             }
         }
-
         private void ClearSysExText()
         {
             RenderSysExText(string.Empty);

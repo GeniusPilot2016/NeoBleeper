@@ -836,7 +836,15 @@ namespace NeoBleeper
 
                 double elapsedMs = ElapsedMilliseconds(startedAt);
 
-                if (!completionSignaled && elapsedMs >= request.CompletionDelayMs)
+                // Signal completion once the hardware loop has actually finished
+                // touching the speaker (DurationMs = audible body length), not at
+                // CompletionDelayMs. CompletionDelayMs can be shorter than
+                // DurationMs (audibleDurationMs is clamped up to each instrument's
+                // minimum body length in PlayPercussionForDurationAsync), so
+                // signaling early let callers like PlayOnlyPercussionAsync think
+                // the speaker was free and start a melody note - which this loop's
+                // still-running StopCurrentPulse then cut off moments later.
+                if (!completionSignaled && elapsedMs >= request.DurationMs)
                 {
                     request.Completion?.TrySetResult(true);
                     completionSignaled = true;
@@ -880,8 +888,6 @@ namespace NeoBleeper
                 double noiseRoll = (rng & 0x00FFFFFF) / 16777215.0;
 
                 // 4. Pulse Density / PWM 1-Bit State Selection
-                // If noise roll is within current amplitude threshold -> Speaker ON (Ultrasonic)
-                // Otherwise -> Speaker OFF (Mute)
                 if (noiseRoll < amplitude)
                 {
                     StartOrUpdatePulse(request.Output, UltrasonicCarrierFreq, SynthWave.Square, ref currentOutput);
