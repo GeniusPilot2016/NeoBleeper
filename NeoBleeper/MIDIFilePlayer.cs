@@ -1423,45 +1423,24 @@ namespace NeoBleeper
                 await SetPosition(0.0);
             }
 
-            // Wait for any previous playback task to complete, with a timeout to avoid blocking indefinitely
-            if (_playbackTask != null && !_playbackTask.IsCompleted)
-            {
-                try
-                {
-                    await Task.WhenAny(_playbackTask, Task.Delay(5000)); // 5-second timeout
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log($"Error waiting for previous playback task: {ex.Message}", Logger.LogTypes.Error);
-                }
-            }
-
             try
             {
-                _isPlaying = true;
-
-                // Improve CTS management: cancel/wait/dispose existing before creating new one
+                // Cancel existing cancellation token source immediately without blocking playback startup
                 if (_cancellationTokenSource != null)
                 {
                     try
                     {
                         _cancellationTokenSource.Cancel();
-                        if (_playbackTask != null && !_playbackTask.IsCompleted)
-                        {
-                            HandleLyricsDisplay(_frames[_currentFrameIndex].Time); // Update lyrics immediately for current frame
-                            await Task.WhenAny(_playbackTask, Task.Delay(1000));
-                        }
+                        _cancellationTokenSource.Dispose();
                     }
                     catch { }
-                    finally
-                    {
-                        try { _cancellationTokenSource.Dispose(); } catch { }
-                        _cancellationTokenSource = null;
-                    }
+                    _cancellationTokenSource = null;
                 }
 
                 // Reinitialize the cancellation token source
                 _cancellationTokenSource = new CancellationTokenSource();
+
+                _isPlaying = true;
 
                 if (_currentFrameIndex < _frames.Count)
                 {
@@ -1474,6 +1453,9 @@ namespace NeoBleeper
                 _playbackStopwatch.Restart();
 
                 playbackTimer.Start();
+
+                // Trigger initial tick immediately so audio playback starts with zero timer interval delay
+                playbackTimer_Tick(this, EventArgs.Empty);
 
                 Logger.Log("Timer-based playback started successfully", Logger.LogTypes.Info);
                 SetPlaybackButtonState(isPlaying: true);
@@ -1889,7 +1871,6 @@ namespace NeoBleeper
                 _isAlternatingPlayback = false;
             }
         }
-        private bool _alternatePercussionTurn = false;
         /// <summary>
         /// Alternates the single-voice speaker output between a percussion hit and one or more held
         /// melody notes so that both remain audible within the same frame slot, instead of a drum hit
@@ -1900,8 +1881,6 @@ namespace NeoBleeper
         /// <param name="duration">The total duration, in milliseconds, of the frame slot to fill.</param>
         /// <param name="token">A cancellation token that aborts playback early.</param>
         /// <returns>A task that completes when the full duration has been filled.</returns>
-        private static PercussionSounds.MidiPercussion? _lastPercussion;
-        private static long _lastPercussionTick = 0;
         private static readonly TimeSpan PercussionCooldown = TimeSpan.FromMilliseconds(80); // Prevents re-triggering the same hit across rapid frames
 
         private async Task PlayNotesAndPercussionAlternatingAsync(
@@ -1961,6 +1940,15 @@ namespace NeoBleeper
 
         private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token)
         {
+            if (TemporarySettings.CreatingSounds.isPlaybackMuted)
+            {
+                if (duration > 0)
+                {
+                    await HighPrecisionSleep.SleepAsync(duration).ConfigureAwait(false);
+                }
+                return;
+            }
+
             int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
             int playDuration = Math.Min(duration, naturalDuration);
 
@@ -1979,42 +1967,101 @@ namespace NeoBleeper
             }
             finally
             {
-                // Percussion labels are rendered by the frame UI path.
             }
         }
 
+        private bool _alternatePercussionTurn = false;
+        private PercussionSounds.MidiPercussion? _lastPercussion = null;
+        private long _lastPercussionTick = -1;
+        private const int PercussionCooldownMs = 120;
+
         private static int GetSharedPercussionSliceMs(
             PercussionSounds.MidiPercussion percussion,
-            int availableFrameMs,
-            bool melodyAlsoPlaying)
+            int frameDurationMs)
         {
-            if (availableFrameMs <= 0)
+            int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
+            int candidate = Math.Min(frameDurationMs, naturalDuration);
+
+            if (candidate <= 0)
+            {
                 return 0;
+            }
 
-            if (!melodyAlsoPlaying)
-                return Math.Min(availableFrameMs,
-                    PercussionSounds.GetNaturalDurationMs(percussion));
+            if (frameDurationMs > 30)
+            {
+                return Math.Clamp(candidate, 12, 28);
+            }
 
-            // Noise cymbals already have a richer wash, while other percussion hits need a
-            // slightly longer slice to avoid turning into a barely audible click when melody
-            // is also playing. Their sound-device tails continue separately.
-            bool cymbal = percussion is
-                PercussionSounds.MidiPercussion.HiHatClosed or
-                PercussionSounds.MidiPercussion.HiHatFoot or
-                PercussionSounds.MidiPercussion.HiHatOpen or
-                PercussionSounds.MidiPercussion.CrashCymbal or
-                PercussionSounds.MidiPercussion.CrashCymbal2 or
-                PercussionSounds.MidiPercussion.RideCymbal or
-                PercussionSounds.MidiPercussion.RideCymbal2 or
-                PercussionSounds.MidiPercussion.ChinaCymbal or
-                PercussionSounds.MidiPercussion.SplashCymbal or
-                PercussionSounds.MidiPercussion.RideBell;
+            return Math.Max(1, Math.Min(candidate, frameDurationMs));
+        }
 
-            int desired = cymbal ? 12 : 14;
-            int melodyReserve = availableFrameMs >= 8 ? 4 : 1;
-            return Math.Clamp(
-                Math.Min(desired, availableFrameMs - melodyReserve),
-                1, availableFrameMs);
+        private async Task PlayNotesAndPercussionAlternatingAsync(
+            int[] frequencies,
+            PercussionSounds.MidiPercussion percussion,
+            int totalDurationMs,
+            long currentTick,
+            CancellationToken token)
+        {
+            if (totalDurationMs <= 0)
+                return;
+
+            if (frequencies.Length == 0)
+            {
+                await PlayOnlyPercussionAsync(percussion, totalDurationMs, token).ConfigureAwait(false);
+                return;
+            }
+
+            bool wasSameTick = (_lastPercussionTick == currentTick);
+            bool isSamePercussion = (_lastPercussion == percussion);
+
+            if (wasSameTick && isSamePercussion)
+            {
+                await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
+                return;
+            }
+
+            int percussionSlice = GetSharedPercussionSliceMs(percussion, totalDurationMs);
+            if (percussionSlice <= 0)
+            {
+                await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
+                return;
+            }
+
+            bool allowPercussionTurn = true;
+            if (_alternatePercussionTurn && wasSameTick)
+            {
+                allowPercussionTurn = false;
+            }
+
+            if (allowPercussionTurn)
+            {
+                _lastPercussion = percussion;
+                _lastPercussionTick = currentTick;
+                _alternatePercussionTurn = false;
+
+                await PlayOnlyPercussionAsync(percussion, percussionSlice, token).ConfigureAwait(false);
+
+                int remainingMelodyMs = totalDurationMs - percussionSlice;
+                if (remainingMelodyMs > 0)
+                {
+                    await PlayMelodySliceAsync(frequencies, remainingMelodyMs, token).ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                _alternatePercussionTurn = true;
+
+                int melodySlice = totalDurationMs - percussionSlice;
+                if (melodySlice > 0)
+                {
+                    await PlayMelodySliceAsync(frequencies, melodySlice, token).ConfigureAwait(false);
+                    await PlayOnlyPercussionAsync(percussion, percussionSlice, token).ConfigureAwait(false);
+                }
+                else
+                {
+                    await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
+                }
+            }
         }
 
         private async Task PlayMelodySliceAsync(
@@ -2912,10 +2959,24 @@ namespace NeoBleeper
                 .Select(note => NoteToFrequency(note))
                 .ToArray();
 
-            await PlayNotesAndPercussionAlternatingAsync(
-                frequenciesToPlay, percussionToPlay, totalFrameDuration, token);
+            if (percussionToPlay.HasValue && frequenciesToPlay.Length > 0)
+            {
+                await PlayNotesAndPercussionAlternatingAsync(
+                    frequenciesToPlay,
+                    percussionToPlay.Value,
+                    totalFrameDuration,
+                    currentTime,
+                    token).ConfigureAwait(false);
+            }
+            else if (percussionToPlay.HasValue)
+            {
+                await PlayOnlyPercussionAsync(percussionToPlay.Value, totalFrameDuration, token).ConfigureAwait(false);
+            }
+            else
+            {
+                await PlayMelodySliceAsync(frequenciesToPlay, totalFrameDuration, token).ConfigureAwait(false);
+            }
 
-            // Accumulate the real elapsed difference (can be positive or negative)
             driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
         }
 
@@ -3263,6 +3324,7 @@ namespace NeoBleeper
             _sysExDisplayClearAtMs = null;
             return _sysExDisplayDecoder.ExpireDisplay(out textChanged);
         }
+        
 
         private void RebuildSysExDisplayAtTick(long targetTick)
         {

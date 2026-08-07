@@ -793,7 +793,8 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        PlayQueuedRequestSystemSpeaker(request, ref currentOutput);
+                        // Direct pulse generation using common core evaluation
+                        PlayQueuedRequestCommon(request, ref currentOutput);
                     }
                 }
             }
@@ -804,13 +805,7 @@ namespace NeoBleeper
             }
         }
 
-        // Non-harmonic prime frequency table across wide octaves (destroys pitch perception)
-        private static readonly int[] NoisePrimeTable = new int[]
-        {
-    137, 269, 419, 593, 761, 997, 1229, 1487, 1753, 2039, 2381, 2741, 3121, 3517
-        };
-
-        private static void PlayQueuedRequestSystemSpeaker(PercussionRequest request, ref PercussionOutputChoice? currentOutput)
+        private static void PlayQueuedRequestCommon(PercussionRequest request, ref PercussionOutputChoice? currentOutput)
         {
             if (request.CancellationToken.IsCancellationRequested)
             {
@@ -822,12 +817,18 @@ namespace NeoBleeper
 
             long startedAt = Stopwatch.GetTimestamp();
             bool completionSignaled = false;
-            uint stateSeed = unchecked((uint)request.RandomSeed);
 
-            // Detect if this instrument relies on high-frequency noise (Cymbals, Hats, Shakers, Clicks)
-            bool isHighPitch = IsMetalCymbal(request.Percussion)
-                            || IsClick(request.Percussion)
-                            || request.Profile.BodyStartFreq > 700;
+            // Local PRNG seed for white noise generation
+            uint rng = unchecked((uint)request.RandomSeed);
+
+            // Velocity gain scalar matching Sound Device mode
+            double velocity01 = request.Velocity / 127.0;
+            double masterGain = 0.70 + velocity01 * 0.40;
+
+            bool isPureTonal = request.Profile.BodyWave == SynthWave.Square || request.Profile.BodyWave == SynthWave.Sine;
+
+            // Ultrasonic frequency (18 kHz) acts as an inaudible DC "HIGH" logic state
+            const int UltrasonicCarrierFreq = 18000;
 
             while (true)
             {
@@ -843,62 +844,61 @@ namespace NeoBleeper
 
                 if (elapsedMs >= request.DurationMs) break;
 
-                double decayFactor = 1.0 - (elapsedMs / request.DurationMs);
+                double progress = Math.Clamp(elapsedMs / request.DurationMs, 0.0, 1.0);
 
-                // LCG Pseudo-random step
-                stateSeed = unchecked(stateSeed * 1664525u + 1013904223u);
-                double roll = (stateSeed & 0xFFFF) / 65535.0;
-
-                // Dynamic silence gating
-                double gateThreshold = isHighPitch ? (decayFactor * 0.80) : (decayFactor * 0.65);
-                if (roll > gateThreshold)
+                // 1. Pure tonal profiles (e.g. Laser sweeps) retain frequency pitch
+                if (isPureTonal)
                 {
-                    StopCurrentPulse(ref currentOutput);
-
-                    // Micro-gaps between noise grains
-                    // 1. Your exact non-periodic gap formula
-                    double silenceGap = isHighPitch
-                        ? 0.40 + ((stateSeed & 0xFF) / 255.0) * 0.10   // 0.40ms - 0.50ms (Metallic/Hi-Hat)
-                        : 0.60 + ((stateSeed & 0xFF) / 255.0) * 0.075; // 0.60ms - 0.675ms (Snap/Snare)
-
-                    // 2. Shortest grain duration (pulse ON time) for realistic noise:
-                    // 0.01ms - 0.02ms gives pure acoustic impulse transients without tonal buzz
-                    double grainDuration = isHighPitch ? 0.01 : 0.02;
-
-                    PreciseWaitMs(silenceGap, request.CancellationToken);
+                    GetPlaybackSignalCore(request, elapsedMs, out int baseFreq, out bool audible);
+                    if (audible)
+                    {
+                        StartOrUpdatePulse(request.Output, baseFreq, request.Profile.BodyWave, ref currentOutput);
+                        PreciseWaitMs(0.5, request.CancellationToken);
+                    }
+                    else
+                    {
+                        StopCurrentPulse(ref currentOutput);
+                        PreciseWaitMs(0.5, request.CancellationToken);
+                    }
                     continue;
                 }
 
-                int targetFreq;
+                // 2. Compute dynamic DSP envelope amplitude (derived from Sound Device mode)
+                double body = Math.Exp(-elapsedMs / Math.Max(25.0, request.DurationMs * 0.5));
+                double tail = Math.Pow(Math.Max(0.0, 1.0 - progress), request.Profile.DecayShape);
 
-                if (isHighPitch)
+                double envelope = (IsMetalCymbal(request.Percussion) || IsSnare(request.Percussion))
+                    ? tail
+                    : body;
+
+                double amplitude = Math.Clamp(envelope * masterGain, 0.0, 1.0);
+
+                // 3. PRNG Galois Shift for White Noise
+                rng ^= rng << 13;
+                rng ^= rng >> 17;
+                rng ^= rng << 5;
+                double noiseRoll = (rng & 0x00FFFFFF) / 16777215.0;
+
+                // 4. Pulse Density / PWM 1-Bit State Selection
+                // If noise roll is within current amplitude threshold -> Speaker ON (Ultrasonic)
+                // Otherwise -> Speaker OFF (Mute)
+                if (noiseRoll < amplitude)
                 {
-                    // High-frequency prime hopping (2200Hz - 4200Hz) for fine, crisp noise
-                    int primeIdx = (int)(stateSeed % (uint)NoisePrimeTable.Length);
-                    targetFreq = NoisePrimeTable[primeIdx];
-                    if (targetFreq < 2000) targetFreq += 2000;
+                    StartOrUpdatePulse(request.Output, UltrasonicCarrierFreq, SynthWave.Square, ref currentOutput);
                 }
                 else
                 {
-                    // Low sounds / Toms / Kicks
-                    bool highPolarity = (stateSeed & 0x10000) != 0;
-                    targetFreq = highPolarity
-                        ? 2200 + (int)(stateSeed & 0x3FF)
-                        : 110 + (int)(stateSeed & 0x7F);
+                    StopCurrentPulse(ref currentOutput);
                 }
 
-                StartOrUpdatePulse(PercussionOutputChoice.SystemSpeaker, targetFreq, SynthWave.Square, ref currentOutput);
+                // 5. Random Micro-Jitter Slices (0.10ms - 0.35ms) to construct White Noise
+                rng ^= rng << 13;
+                rng ^= rng >> 17;
+                rng ^= rng << 5;
+                double jitter = (rng & 0x00FFFFFF) / 16777215.0;
+                double sliceMs = 0.10 + jitter * 0.25;
 
-                // ULTRA-FINE GRAIN DURATION:
-                // 0.04ms to 0.12ms (40-120 us) for high noise, 0.08ms to 0.20ms for low percussion
-                double pulseDur = isHighPitch
-                    ? 0.04 + ((stateSeed & 0xFF) / 255.0) * 0.08
-                    : 0.08 + ((stateSeed & 0xFF) / 255.0) * 0.12;
-
-                PreciseWaitMs(pulseDur, request.CancellationToken);
-
-                // Instantly kill pulse to preserve crisp grain boundaries
-                StopCurrentPulse(ref currentOutput);
+                PreciseWaitMs(sliceMs, request.CancellationToken);
             }
 
             StopCurrentPulse(ref currentOutput);
@@ -1011,7 +1011,7 @@ namespace NeoBleeper
             // 3. Wideband Random Phase Chaos (Static Noise Generation)
             int noiseSlot = (int)(elapsedMs / 1.8);
 
-            // Highly chaotic frequency hopping across broad spectrum destroys game pitch tone
+            // Highly chaotic frequency hopping across broad spectrum destroys pitch tone perception
             uint nHash = unchecked((uint)(request.RandomSeed ^ (noiseSlot * 2654435761u)));
             double jitter = ((nHash & 0x00FFFFFF) / 16777215.0);
 
