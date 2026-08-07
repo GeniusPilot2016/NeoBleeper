@@ -1199,7 +1199,15 @@ namespace NeoBleeper
                     HashSet<int> currentlyActiveNotes = new HashSet<int>();
                     int totalTimePoints = timePoints.Count;
 
-                    // Notice the check here: gracefully return without throwing an exception!
+                    // System-speaker audio frames contain melody only. Percussion is
+                    // handled separately from the real channel-10 NoteOn events in
+                    // ProcessCurrentFrame().
+                    //
+                    // Keeping channel-10 notes in this note-number-only HashSet is
+                    // incorrect: a percussion NoteOff can remove a held melodic note
+                    // with the same MIDI note number. That makes the following frame
+                    // appear silent only in PC-speaker mode, while MIDI output remains
+                    // correct because MIDI output processes channel-aware events.
                     for (int i = 0; i < totalTimePoints; i++)
                     {
                         if (i % 256 == 0 && loadToken.IsCancellationRequested) return;
@@ -1207,6 +1215,11 @@ namespace NeoBleeper
                         var time = timePoints[i];
                         foreach (var evt in allEvents.Where(e => e.Time == time))
                         {
+                            // Channel 10 is percussion and must never participate in
+                            // the persistent melodic ActiveNotes state.
+                            if (evt.Channel == 10)
+                                continue;
+
                             if (evt.IsNoteOn)
                                 currentlyActiveNotes.Add(evt.NoteNumber);
                             else
@@ -1927,13 +1940,6 @@ namespace NeoBleeper
                 percWindow = duration - melodyWindow;
             }
 
-            int percussionLabelIndex = -1;
-            if (_noteToLabelMap.TryGetValue((int)percussion.Value, out int foundLabel))
-            {
-                percussionLabelIndex = foundLabel;
-                HighlightNoteLabel(percussionLabelIndex);
-            }
-
             try
             {
                 if (percWindow > 0)
@@ -1948,10 +1954,8 @@ namespace NeoBleeper
             }
             finally
             {
-                if (percussionLabelIndex >= 0)
-                {
-                    UnHighlightNoteLabel(percussionLabelIndex);
-                }
+                // Percussion labels are rendered by the frame UI path. Avoid
+                // direct label mutation here because it races UpdateNoteLabelsSync.
             }
         }
 
@@ -1959,13 +1963,6 @@ namespace NeoBleeper
         {
             int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
             int playDuration = Math.Min(duration, naturalDuration);
-
-            int labelIndex = -1;
-            if (_noteToLabelMap.TryGetValue((int)percussion, out int found))
-            {
-                labelIndex = found;
-                HighlightNoteLabel(labelIndex);
-            }
 
             try
             {
@@ -1982,8 +1979,7 @@ namespace NeoBleeper
             }
             finally
             {
-                if (labelIndex >= 0)
-                    UnHighlightNoteLabel(labelIndex);
+                // Percussion labels are rendered by the frame UI path.
             }
         }
 
@@ -2674,13 +2670,39 @@ namespace NeoBleeper
                 if (currentFrameIndexForUI < _frames.Count)
                 {
                     var currentFrameForUI = _frames[currentFrameIndexForUI];
-                    HashSet<int> filteredNotes = new HashSet<int>();
+                    HashSet<int> melodicNotesForUI = new HashSet<int>();
                     foreach (var note in currentFrameForUI.ActiveNotes)
                     {
-                        if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
-                            filteredNotes.Add(note);
+                        if (_noteChannels.TryGetValue(note, out int channel) &&
+                            _enabledChannels.Contains(channel))
+                        {
+                            melodicNotesForUI.Add(note);
+                        }
                     }
-                    UpdateAllUISync(currentFrameIndexForUI, filteredNotes);
+
+                    // ActiveNotes intentionally excludes channel-10 percussion.
+                    // Add only percussion NoteOn events from this exact frame for
+                    // visual display; do not count them as held melodic notes.
+                    HashSet<int> displayNotesForUI =
+                        new HashSet<int>(melodicNotesForUI);
+
+                    if (_enabledChannels.Contains(10) &&
+                        _eventsByTime.TryGetValue(
+                            currentFrameForUI.Time,
+                            out var uiEventsAtThisTime))
+                    {
+                        foreach (var drumNote in uiEventsAtThisTime
+                            .OfType<NoteOnEvent>()
+                            .Where(n => n.Velocity > 0 && n.Channel == 10))
+                        {
+                            displayNotesForUI.Add(drumNote.NoteNumber);
+                        }
+                    }
+
+                    UpdateAllUISync(
+                        currentFrameIndexForUI,
+                        displayNotesForUI,
+                        melodicNotesForUI.Count);
                 }
             }
 
@@ -2815,23 +2837,12 @@ namespace NeoBleeper
             HashSet<int> filteredNotes = new HashSet<int>();
             foreach (var note in currentFrame.ActiveNotes)
             {
-                // Check all events occurring at this time to see if any correspond to this note
-                bool isPercussion = false;
-
-                if (eventsAtThisTime != null)
+                // ActiveNotes is melody-only; channel-10 percussion is handled
+                // independently below from the actual events at this tick.
+                if (_noteChannels.TryGetValue(note, out int channel) &&
+                    _enabledChannels.Contains(channel))
                 {
-                    // Check if this note number is being triggered on Channel 10 at this exact time
-                    isPercussion = eventsAtThisTime.OfType<NoteOnEvent>()
-                        .Any(n => n.NoteNumber == note && n.Channel == 10);
-                }
-
-                if (!isPercussion)
-                {
-                    // Only add to melodic notes if it's not a Channel 10 percussion hit
-                    if (_noteChannels.TryGetValue(note, out int channel) && _enabledChannels.Contains(channel))
-                    {
-                        filteredNotes.Add(note);
-                    }
+                    filteredNotes.Add(note);
                 }
             }
 
@@ -3695,11 +3706,18 @@ namespace NeoBleeper
         /// </summary>
         /// <param name="frameIndex">The zero-based index of the frame to display.</param>
         /// <param name="filteredNotes">A set of note identifiers to be displayed or highlighted in the UI.</param>
-        private void UpdateAllUISync(int frameIndex, HashSet<int> filteredNotes)
+        private void UpdateAllUISync(
+            int frameIndex,
+            HashSet<int> displayNotes,
+            int heldMelodicNoteCount)
         {
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(new Action(() => UpdateAllUISync(frameIndex, filteredNotes)));
+                this.BeginInvoke(new Action(() =>
+                    UpdateAllUISync(
+                        frameIndex,
+                        displayNotes,
+                        heldMelodicNoteCount)));
                 return;
             }
 
@@ -3731,10 +3749,13 @@ namespace NeoBleeper
 
             if (!checkBox_dont_update_grid.Checked)
             {
-                UpdateNoteLabelsSync(filteredNotes);
+                // displayNotes may contain a transient channel-10 percussion hit,
+                // while heldMelodicNoteCount remains melody-only.
+                UpdateNoteLabelsSync(displayNotes);
             }
 
-            holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} ({filteredNotes.Count})";
+            holded_note_label.Text =
+                $"{Properties.Resources.TextHeldNotes} ({heldMelodicNoteCount})";
         }
 
         /// <summary>
