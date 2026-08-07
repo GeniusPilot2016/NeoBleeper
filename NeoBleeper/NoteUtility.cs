@@ -30,6 +30,7 @@ namespace NeoBleeper
     public class NoteUtility
     {
         Random fermataRnd = new Random(); // Random instance for fermata duration variation
+
         public static class BaseNoteFrequencyIn4thOctave
         {
             public static double C = 261.63;
@@ -44,6 +45,24 @@ namespace NeoBleeper
             public static double A = 440.00;
             public static double AS = 466.16;
             public static double B = 493.88;
+        }
+
+        /// <summary>
+        /// Converts a MIDI velocity value (0 to 127) to a normalized gain scalar (0.0 to 1.0).
+        /// </summary>
+        public static double VelocityToGain(int velocity)
+        {
+            int clamped = Math.Clamp(velocity, 0, 127);
+            return clamped / 127.0;
+        }
+
+        /// <summary>
+        /// Converts a MIDI velocity value to a 1-bit system speaker pulse duty cycle (0.05 to 0.50).
+        /// </summary>
+        public static double VelocityToDutyCycle(int velocity)
+        {
+            double gain = VelocityToGain(velocity);
+            return Math.Clamp(0.05 + gain * 0.45, 0.01, 0.50);
         }
     }
 
@@ -139,6 +158,12 @@ namespace NeoBleeper
         public static (int totalRhythm_int, int noteSound_int) CalculateNoteDurations(
             string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio)
         {
+            return CalculateNoteDurations(lengthName, bpm, modifier, articulation, noteSilenceRatio, 127);
+        }
+
+        public static (int totalRhythm_int, int noteSound_int) CalculateNoteDurations(
+            string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio, int velocity)
+        {
             if (bpm == 0)
                 bpm = 1;
 
@@ -147,6 +172,9 @@ namespace NeoBleeper
 
             double totalRhythm_double = FixRoundingErrors(
                 CalculateLineLength(bpm, lengthName_checked, modifier_checked));
+
+            double velocityFactor = Math.Clamp(velocity / 127.0, 0.3, 1.0);
+            double effectiveSilenceRatio = noteSilenceRatio * velocityFactor;
 
             double noteSound_double = FixRoundingErrors(
                 CalculateNoteLength(totalRhythm_double, articulation_checked));
@@ -159,7 +187,7 @@ namespace NeoBleeper
                     CalculateNoteLength(totalRhythm_double, articulation_checked));
             }
 
-            noteSound_double *= noteSilenceRatio;
+            noteSound_double *= effectiveSilenceRatio;
 
             int totalRhythm_int = (int)Math.Round(totalRhythm_double, MidpointRounding.AwayFromZero);
             int noteSound_int = (int)Math.Round(noteSound_double, MidpointRounding.AwayFromZero);
@@ -173,6 +201,13 @@ namespace NeoBleeper
         public static (int totalRhythm_int, int noteSound_int, double nextCursorMs) CalculateNoteDurationsAtPosition(
             string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio,
             double cursorMs)
+        {
+            return CalculateNoteDurationsAtPosition(lengthName, bpm, modifier, articulation, noteSilenceRatio, cursorMs, 127);
+        }
+
+        public static (int totalRhythm_int, int noteSound_int, double nextCursorMs) CalculateNoteDurationsAtPosition(
+            string lengthName, int bpm, string modifier, string articulation, double noteSilenceRatio,
+            double cursorMs, int velocity)
         {
             if (bpm == 0)
                 bpm = 1;
@@ -189,8 +224,11 @@ namespace NeoBleeper
                 totalRhythm_double += extra;
             }
 
+            double velocityFactor = Math.Clamp(velocity / 127.0, 0.3, 1.0);
+            double effectiveSilenceRatio = noteSilenceRatio * velocityFactor;
+
             double noteSound_double = FixRoundingErrors(
-                CalculateNoteLength(totalRhythm_double, articulation_checked)) * noteSilenceRatio;
+                CalculateNoteLength(totalRhythm_double, articulation_checked)) * effectiveSilenceRatio;
 
             double nextCursor = cursorMs + totalRhythm_double;
             int totalRhythm_int = (int)Math.Round(nextCursor) - (int)Math.Round(cursorMs);
@@ -836,14 +874,6 @@ namespace NeoBleeper
 
                 double elapsedMs = ElapsedMilliseconds(startedAt);
 
-                // Signal completion once the hardware loop has actually finished
-                // touching the speaker (DurationMs = audible body length), not at
-                // CompletionDelayMs. CompletionDelayMs can be shorter than
-                // DurationMs (audibleDurationMs is clamped up to each instrument's
-                // minimum body length in PlayPercussionForDurationAsync), so
-                // signaling early let callers like PlayOnlyPercussionAsync think
-                // the speaker was free and start a melody note - which this loop's
-                // still-running StopCurrentPulse then cut off moments later.
                 if (!completionSignaled && elapsedMs >= request.DurationMs)
                 {
                     request.Completion?.TrySetResult(true);
@@ -1077,11 +1107,11 @@ namespace NeoBleeper
             }
         }
 
-        public static void GetPlaybackSignalCore(MidiPercussion percussion, double elapsedMs, out int frequency, out bool audible)
+        public static void GetPlaybackSignalCore(MidiPercussion percussion, double elapsedMs, out int frequency, out bool audible, int velocity = 100)
         {
             var output = GetPercussionPlaybackOutput();
             var prof = GetProfile(percussion);
-            var dummyReq = new PercussionRequest(percussion, CancellationToken.None, prof.DurationMs, prof.DurationMs, output, prof, 100, null);
+            var dummyReq = new PercussionRequest(percussion, CancellationToken.None, prof.DurationMs, prof.DurationMs, output, prof, velocity, null);
             GetPlaybackSignalCore(dummyReq, elapsedMs, out frequency, out audible);
         }
 
