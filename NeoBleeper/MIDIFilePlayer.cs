@@ -1888,7 +1888,8 @@ namespace NeoBleeper
             PercussionSounds.MidiPercussion percussion,
             int totalDurationMs,
             long currentTick,
-            CancellationToken token)
+            CancellationToken token,
+            int percussionVelocity = 100)
         {
             if (totalDurationMs <= 0)
                 return;
@@ -1909,7 +1910,12 @@ namespace NeoBleeper
             _lastPercussion = percussion;
             _lastPercussionTick = currentTick;
 
-            await PlayOnlyPercussionAsync(percussion, percussionSlice, token).ConfigureAwait(false);
+            await PlayOnlyPercussionAsync(
+                percussion,
+                percussionSlice,
+                token,
+                enforceMinimumAudibleBody: false,
+                velocity: percussionVelocity).ConfigureAwait(false);
 
             // Force a clean edge before retriggering melody, so it never depends on
             // NotePlayer's internal "already playing this frequency" bookkeeping.
@@ -1922,7 +1928,7 @@ namespace NeoBleeper
             }
         }
 
-        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token)
+        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, bool enforceMinimumAudibleBody = true, int velocity = 100)
         {
             if (TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
@@ -1940,7 +1946,11 @@ namespace NeoBleeper
             {
                 if (playDuration > 0)
                 {
-                    await PercussionSounds.PlayPercussionSliceAsync(percussion, playDuration, token).ConfigureAwait(false);
+                    await PercussionSounds.PlayPercussionSliceImmediateAsync(
+                        percussion,
+                        playDuration,
+                        token,
+                        enforceMinimumAudibleBody: enforceMinimumAudibleBody).ConfigureAwait(false);
                 }
 
                 int silence = Math.Max(0, duration - playDuration);
@@ -1960,8 +1970,8 @@ namespace NeoBleeper
         private const int PercussionCooldownMs = 120;
 
         private static int GetSharedPercussionSliceMs(
-            PercussionSounds.MidiPercussion percussion,
-            int frameDurationMs)
+    PercussionSounds.MidiPercussion percussion,
+    int frameDurationMs)
         {
             int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
             int candidate = Math.Min(frameDurationMs, naturalDuration);
@@ -1976,7 +1986,12 @@ namespace NeoBleeper
                 return Math.Clamp(candidate, 12, 28);
             }
 
-            return Math.Max(1, Math.Min(candidate, frameDurationMs));
+            // Even in a short frame, always leave at least a sliver of time for the
+            // melody note — otherwise a drum hit consumes the whole frame and the
+            // note is silently dropped instead of alternated.
+            const int minMelodyReserveMs = 4;
+            int maxPercussionSlice = Math.Max(1, frameDurationMs - minMelodyReserveMs);
+            return Math.Clamp(candidate, 1, maxPercussionSlice);
         }
 
         private async Task PlayMelodySliceAsync(
@@ -2881,11 +2896,16 @@ namespace NeoBleeper
                     percussionToPlay.Value,
                     totalFrameDuration,
                     currentTime,
-                    token).ConfigureAwait(false);
+                    token,
+                    drumEvent.Velocity).ConfigureAwait(false);
             }
             else if (percussionToPlay.HasValue)
             {
-                await PlayOnlyPercussionAsync(percussionToPlay.Value, totalFrameDuration, token).ConfigureAwait(false);
+                await PlayOnlyPercussionAsync(
+                    percussionToPlay.Value,
+                    totalFrameDuration,
+                    token,
+                    velocity: drumEvent.Velocity).ConfigureAwait(false);
             }
             else
             {
@@ -3409,11 +3429,16 @@ namespace NeoBleeper
         }
 
 
+        // PC-speaker playback is monophonic, so when several percussion NoteOns
+        // occur at the same tick we keep the strongest/most important hit. Do not
+        // round-robin these events: doing so changes the MIDI dynamics by selecting
+        // quiet secondary hits that were never intended to be the audible hit.
         private static NoteOnEvent PickBestDrumEvent(IEnumerable<NoteOnEvent> drumEvents)
         {
             return drumEvents
                 .OrderByDescending(e => GetPercussionPriority(e.NoteNumber))
                 .ThenByDescending(e => e.Velocity)
+                .ThenBy(e => e.NoteNumber)
                 .FirstOrDefault();
         }
 

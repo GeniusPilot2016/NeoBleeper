@@ -744,6 +744,18 @@ namespace NeoBleeper
 
         public static Task PlayPercussionForDurationAsync(MidiPercussion p, int durationMs, CancellationToken ct = default, int velocity = 100)
         {
+            return PlayPercussionForDurationAsync(p, durationMs, ct, velocity, enforceMinimumAudibleBody: true);
+        }
+
+        /// <summary>
+        /// Queued (background-worker) percussion playback. Suitable for solo/fire-and-forget
+        /// hits that don't need to interleave with a melody note on the same frame. Do NOT use
+        /// this from the melody+percussion alternating playback path — use
+        /// <see cref="PlayPercussionSliceImmediateAsync"/> instead, since queued requests from
+        /// different callers can be processed out of order relative to per-frame expectations.
+        /// </summary>
+        public static Task PlayPercussionForDurationAsync(MidiPercussion p, int durationMs, CancellationToken ct, int velocity, bool enforceMinimumAudibleBody)
+        {
             if (ct.IsCancellationRequested) return Task.FromCanceled(ct);
 
             var output = GetPercussionPlaybackOutput();
@@ -751,8 +763,7 @@ namespace NeoBleeper
 
             if (durationMs <= 0) return Task.CompletedTask;
 
-            int minBodyMs = (int)Math.Ceiling(GetMinimumBodyMs(p));
-            int audibleDurationMs = Math.Max(durationMs, minBodyMs);
+            int audibleDurationMs = ResolveAudibleDurationMs(p, durationMs, output, enforceMinimumAudibleBody);
 
             var completion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
             EnqueuePercussion(new PercussionRequest(p, ct, audibleDurationMs, durationMs, output, prof, velocity, completion));
@@ -761,7 +772,107 @@ namespace NeoBleeper
 
         public static Task PlayPercussionSliceAsync(MidiPercussion p, int sliceDurationMs, CancellationToken ct = default, int velocity = 100)
         {
-            return PlayPercussionForDurationAsync(p, sliceDurationMs, ct, velocity);
+            return PlayPercussionForDurationAsync(p, sliceDurationMs, ct, velocity, enforceMinimumAudibleBody: true);
+        }
+
+        /// <summary>
+        /// Plays a percussion hit for a frame slice that must interleave, on the same physical
+        /// single-voice output, with a melody note the caller is about to play immediately
+        /// afterward. Unlike the queued entry points above, this NEVER goes through the shared
+        /// background worker/queue: it runs the hit directly, using its own fully local hardware
+        /// state (no <c>ref</c> state shared with a concurrently running queued request), so it
+        /// can never be delayed behind, or have its oscillator state clobbered by, unrelated
+        /// queued hits. This is what fixes both "notes suppressed after some percussion" (hits
+        /// no longer wait in a FIFO behind other hits) and "the wrong percussion sound plays"
+        /// (no shared mutable state to race on).
+        /// </summary>
+        public static async Task PlayPercussionSliceImmediateAsync(
+            MidiPercussion p,
+            int sliceDurationMs,
+            CancellationToken ct = default,
+            int velocity = 100,
+            bool enforceMinimumAudibleBody = true)
+        {
+            if (ct.IsCancellationRequested) return;
+            if (sliceDurationMs <= 0) return;
+
+            var output = GetPercussionPlaybackOutput();
+            var prof = GetProfile(p);
+            int audibleDurationMs = ResolveAudibleDurationMs(p, sliceDurationMs, output, enforceMinimumAudibleBody);
+
+            var completion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            var request = new PercussionRequest(p, ct, audibleDurationMs, sliceDurationMs, output, prof, velocity, completion);
+
+            if (output == PercussionOutputChoice.SoundDevice)
+            {
+                // Mixing is additive and independent of anything else playing, so this can be
+                // fired directly without touching the shared queue at all.
+                QueueMixedSoundDeviceHit(request);
+                _ = Task.Delay(request.CompletionDelayMs, ct).ContinueWith(t =>
+                {
+                    if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
+                    else completion.TrySetResult(true);
+                }, TaskContinuationOptions.ExecuteSynchronously);
+            }
+            else
+            {
+                // Run on the calling thread with fully local oscillator state. This deliberately
+                // bypasses _pendingRequests / ProcessPercussionQueue so that:
+                //  - this hit can never be stuck behind previously queued, unrelated hits
+                //    (ordering/suppression bug), and
+                //  - it can never interleave StartOrUpdatePulse/StopPulseDirect calls with a
+                //    queue-worker thread that is simultaneously processing a different request
+                //    using its own separate `ref currentOutput` (wrong-instrument bug), since
+                //    only ONE PercussionRequest is ever "in flight" for this call.
+                await Task.Run(() =>
+                {
+                    PercussionOutputChoice? localOutputState = null;
+                    try
+                    {
+                        PlayQueuedRequestCommon(request, ref localOutputState);
+                    }
+                    finally
+                    {
+                        StopCurrentPulse(ref localOutputState);
+                    }
+                }, ct).ConfigureAwait(false);
+            }
+
+            await completion.Task.ConfigureAwait(false);
+        }
+
+        public static Task PlayPercussionSliceAsync(
+            MidiPercussion p,
+            int sliceDurationMs,
+            CancellationToken ct,
+            int velocity,
+            bool enforceMinimumAudibleBody)
+        {
+            return PlayPercussionSliceImmediateAsync(p, sliceDurationMs, ct, velocity, enforceMinimumAudibleBody);
+        }
+
+        private static int ResolveAudibleDurationMs(
+            MidiPercussion p,
+            int requestedDurationMs,
+            PercussionOutputChoice output,
+            bool enforceMinimumAudibleBody)
+        {
+            // Sound Device hits are mixed independently of everything else, so stretching a
+            // short slice up to a minimum audible body never costs melody anything and should
+            // always happen there. System Speaker has one physical oscillator: stretching here
+            // blocks whoever is waiting (melody) for the stretched length, not just the slice
+            // it was given. Callers sharing the speaker with melody pass
+            // enforceMinimumAudibleBody:false so a drum hit never eats into time budgeted for a
+            // note.
+            bool shouldEnforceMinimumBody = enforceMinimumAudibleBody || output == PercussionOutputChoice.SoundDevice;
+
+            if (!shouldEnforceMinimumBody)
+            {
+                return requestedDurationMs;
+            }
+
+            int minBodyMs = (int)Math.Ceiling(GetMinimumBodyMs(p));
+            return Math.Max(requestedDurationMs, minBodyMs);
         }
 
         private static void EnqueuePercussion(PercussionRequest request)
