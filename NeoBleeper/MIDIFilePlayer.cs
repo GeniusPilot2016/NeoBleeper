@@ -1896,11 +1896,11 @@ namespace NeoBleeper
 
             if (frequencies.Length == 0)
             {
-                await PlayOnlyPercussionAsync(percussion, totalDurationMs, token).ConfigureAwait(false);
+                await PlayOnlyPercussionAsync(percussion, totalDurationMs, token, velocity: percussionVelocity).ConfigureAwait(false);
                 return;
             }
 
-            int percussionSlice = GetSharedPercussionSliceMs(percussion, totalDurationMs);
+            int percussionSlice = GetSharedPercussionSliceMs(percussion, totalDurationMs, percussionVelocity);
             if (percussionSlice <= 0)
             {
                 await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
@@ -1917,8 +1917,6 @@ namespace NeoBleeper
                 enforceMinimumAudibleBody: false,
                 velocity: percussionVelocity).ConfigureAwait(false);
 
-            // Force a clean edge before retriggering melody, so it never depends on
-            // NotePlayer's internal "already playing this frequency" bookkeeping.
             NotePlayer.StopAllNotes();
 
             int remainingMelodyMs = totalDurationMs - percussionSlice;
@@ -1970,11 +1968,17 @@ namespace NeoBleeper
         private const int PercussionCooldownMs = 120;
 
         private static int GetSharedPercussionSliceMs(
-    PercussionSounds.MidiPercussion percussion,
-    int frameDurationMs)
+            PercussionSounds.MidiPercussion percussion,
+            int frameDurationMs,
+            int velocity = 100)
         {
             int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
-            int candidate = Math.Min(frameDurationMs, naturalDuration);
+
+            // Scale noise slice length with velocity for dynamic impact in sound device mode
+            double velocityFactor = Math.Clamp(velocity / 127.0, 0.5, 1.25);
+            int scaledNaturalDuration = (int)Math.Round(naturalDuration * velocityFactor);
+
+            int candidate = Math.Min(frameDurationMs, scaledNaturalDuration);
 
             if (candidate <= 0)
             {
@@ -1983,12 +1987,10 @@ namespace NeoBleeper
 
             if (frameDurationMs > 30)
             {
-                return Math.Clamp(candidate, 12, 28);
+                return Math.Clamp(candidate, 8, 30);
             }
 
-            // Even in a short frame, always leave at least a sliver of time for the
-            // melody note — otherwise a drum hit consumes the whole frame and the
-            // note is silently dropped instead of alternated.
+            // In short frames, reserve a slice for held melody notes to prevent drum dropouts
             const int minMelodyReserveMs = 4;
             int maxPercussionSlice = Math.Max(1, frameDurationMs - minMelodyReserveMs);
             return Math.Clamp(candidate, 1, maxPercussionSlice);
@@ -3435,11 +3437,69 @@ namespace NeoBleeper
         // quiet secondary hits that were never intended to be the audible hit.
         private static NoteOnEvent PickBestDrumEvent(IEnumerable<NoteOnEvent> drumEvents)
         {
+            if (drumEvents == null || !drumEvents.Any())
+                return null;
+
             return drumEvents
-                .OrderByDescending(e => GetPercussionPriority(e.NoteNumber))
-                .ThenByDescending(e => e.Velocity)
-                .ThenBy(e => e.NoteNumber)
+                .OrderByDescending(e => GetDrumPriorityScore(e.NoteNumber, e.Velocity))
                 .FirstOrDefault();
+        }
+
+        private static double GetDrumPriorityScore(int noteNumber, int velocity)
+        {
+            int basePriority;
+
+            switch (noteNumber)
+            {
+                // Bass Drum / Kick (Highest priority to maintain rhythmic drive)
+                case 35: // Acoustic Bass Drum
+                case 36: // Bass Drum 1
+                    basePriority = 100;
+                    break;
+
+                // Snare Drums & Rimshots (High priority for backbeat)
+                case 38: // Acoustic Snare
+                case 40: // Electric Snare
+                case 37: // Side Stick
+                case 39: // Hand Clap
+                    basePriority = 90;
+                    break;
+
+                // Cymbals & Primary Accents
+                case 49: // Crash Cymbal 1
+                case 57: // Crash Cymbal 2
+                case 51: // Ride Cymbal 1
+                case 59: // Ride Cymbal 2
+                case 52: // Chinese Cymbal
+                case 55: // Splash Cymbal
+                    basePriority = 75;
+                    break;
+
+                // Toms
+                case 41: // Low Floor Tom
+                case 43: // High Floor Tom
+                case 45: // Low Tom
+                case 47: // Low-Mid Tom
+                case 48: // Hi-Mid Tom
+                case 50: // High Tom
+                    basePriority = 65;
+                    break;
+
+                // Hi-Hats
+                case 46: // Open Hi-Hat
+                case 42: // Closed Hi-Hat
+                case 44: // Pedal Hi-Hat
+                    basePriority = 55;
+                    break;
+
+                // Latin & Auxiliary Percussion
+                default:
+                    basePriority = 40;
+                    break;
+            }
+
+            // Weight priority score against note velocity (1..127)
+            return basePriority * (velocity / 127.0);
         }
 
         private static int GetPercussionPriority(int noteNumber)
