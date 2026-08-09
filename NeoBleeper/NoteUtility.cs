@@ -365,8 +365,8 @@ namespace NeoBleeper
             }
         }
 
-        private static int ClampPercussionFrequency(double frequency) =>
-            (int)Math.Round(Math.Clamp(frequency, 120.0, 1200.0));
+        private static int ClampPercussionFrequency(double frequency, double minHz = 120.0, double maxHz = 1200.0) =>
+            (int)Math.Round(Math.Clamp(frequency, minHz, maxHz));
 
         private static void StartPulseDirect(PercussionOutputChoice outputChoice, int frequency, SynthWave waveType)
         {
@@ -1009,30 +1009,40 @@ namespace NeoBleeper
             return ticks * 1000.0 / Stopwatch.Frequency;
         }
 
-        // Variable sub-millisecond to 2ms timing breaks arpeggios and produces true white/pink noise static sound
+        // Variable sub-millisecond to 2ms timing breaks arpeggios and produces true white/pink noise static sound.
+        // Step length is now shaped per instrument family so each one has a distinct texture
+        // instead of every percussion sound sharing the same duty-cycle rhythm.
         private static double GetTimeUntilSignalChangeMs(PercussionRequest request, double elapsedMs, bool isAudibleState)
         {
             double rawVel = Math.Clamp(request.Velocity / 127.0, 0.01, 1.0);
             double normVelocity = 0.20 + (0.80 * Math.Sqrt(rawVel));
+
+            bool metalCymbal = IsMetalCymbal(request.Percussion);
+            bool snare = IsSnare(request.Percussion);
+            bool kickOrTom = IsKick(request.Percussion) || IsTomOrBongo(request.Percussion);
 
             if (isAudibleState)
             {
                 uint h = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 100.0) * 1664525u)));
                 double jitter = (h & 0x00FFFFFF) / 16777215.0;
 
-                // Keep speaker coil driven for maximum RMS energy during active state
-                return (1.0 + jitter * 0.8) * (0.8 + 0.6 * normVelocity);
+                // Cymbals/hi-hats need the fastest on/off switching to read as a continuous
+                // hiss rather than individual clicks. Kicks/toms are presenting a single low
+                // tone, not noise, so they can hold each step longer for a steadier pitch.
+                double baseHoldMs = metalCymbal ? 0.35 : kickOrTom ? 1.3 : 0.7;
+                return baseHoldMs * (1.0 + jitter * 0.8) * (0.8 + 0.6 * normVelocity);
             }
 
             // Silence gaps between noise bursts
             uint sHash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 100.0) * 1013904223u)));
             double gapJitter = (sHash & 0x00FFFFFF) / 16777215.0;
 
-            // Tight silence gaps prevent the physical piezo element from settling down to zero SPL
             double gapScalar = Math.Max(0.05, 1.3 - (1.0 * normVelocity));
 
-            if (IsMetalCymbal(request.Percussion) || IsSnare(request.Percussion))
-                return (0.1 + gapJitter * 0.2) * gapScalar;
+            // Tighter gaps on snares/cymbals give a denser, crisper texture instead of an
+            // audibly gappy buzz.
+            if (metalCymbal || snare)
+                return (0.08 + gapJitter * 0.18) * gapScalar;
 
             return (0.2 + gapJitter * 0.3) * gapScalar;
         }
@@ -1051,25 +1061,75 @@ namespace NeoBleeper
             double rawVel = Math.Clamp(request.Velocity / 127.0, 0.01, 1.0);
             double normVelocity = 0.20 + (0.80 * Math.Sqrt(rawVel));
 
+            bool kick = IsKick(request.Percussion);
+            bool tom = IsTomOrBongo(request.Percussion);
+            bool snare = IsSnare(request.Percussion);
+            bool click = IsClick(request.Percussion);
+            bool metalCymbal = IsMetalCymbal(request.Percussion);
+            bool shortCymbal = IsShortCymbal(request.Percussion);
+            bool isPureTonal = prof.BodyWave == SynthWave.Square || prof.BodyWave == SynthWave.Sine;
+
             // ------------------------------------------------------------------
-            // 1. MAX RESONANCE ATTACK SNAP (Forces maximum speaker SPL)
+            // 1. INSTRUMENT-SHAPED ATTACK TRANSIENT
+            // Every hit used to open with the exact same 1200-3200Hz click no matter what it
+            // was, so a kick, a snare and a cymbal all "clicked" identically for their first
+            // few ms. Each family now gets its own snap range/length so the very start of the
+            // hit already carries some of that instrument's identity.
             // ------------------------------------------------------------------
-            double attackSnapMs = Math.Min(12.0 * normVelocity, duration * 0.25);
-            if (elapsedMs < attackSnapMs)
+            double attackSnapMs = 0.0;
+            if (!isPureTonal)
             {
-                // Drive directly into piezo peak SPL zone (1200Hz - 3200Hz)
-                double snapProgress = elapsedMs / attackSnapMs;
-                double snapSweep = 1.0 - Math.Pow(snapProgress, 0.25);
-                double maxSplFreq = (1200.0 + (1000.0 * normVelocity)) + (1000.0 * snapSweep);
-                frequency = ClampPercussionFrequency(maxSplFreq);
-                audible = true;
-                return;
+                double snapStartHz, snapEndHz;
+                if (kick)
+                {
+                    // Short, low, punchy "thwack" - a tiny speaker can't move enough air for
+                    // true sub-bass, so the impact is faked with a fast downward slide through
+                    // the low-mid range instead of trying to hit true kick-drum pitch.
+                    attackSnapMs = Math.Min(9.0 * normVelocity, duration * 0.3);
+                    snapStartHz = 320.0 + 220.0 * normVelocity;
+                    snapEndHz = 90.0 + 60.0 * normVelocity;
+                }
+                else if (tom)
+                {
+                    attackSnapMs = Math.Min(7.0 * normVelocity, duration * 0.3);
+                    snapStartHz = 420.0 + 260.0 * normVelocity;
+                    snapEndHz = 160.0 + 100.0 * normVelocity;
+                }
+                else if (snare || click)
+                {
+                    // Fast, bright crack
+                    attackSnapMs = Math.Min(3.0 * normVelocity, duration * 0.35);
+                    snapStartHz = 2600.0 + 900.0 * normVelocity;
+                    snapEndHz = 1400.0 + 500.0 * normVelocity;
+                }
+                else if (metalCymbal)
+                {
+                    // Bright shimmer, held a touch longer than a snare crack
+                    attackSnapMs = Math.Min(5.0 * normVelocity, duration * 0.3);
+                    snapStartHz = 3800.0 + 1600.0 * normVelocity;
+                    snapEndHz = 2200.0 + 900.0 * normVelocity;
+                }
+                else
+                {
+                    attackSnapMs = Math.Min(6.0 * normVelocity, duration * 0.3);
+                    snapStartHz = 1200.0 + 600.0 * normVelocity;
+                    snapEndHz = 700.0 + 300.0 * normVelocity;
+                }
+
+                if (elapsedMs < attackSnapMs && attackSnapMs > 0.01)
+                {
+                    double snapProgress = elapsedMs / attackSnapMs;
+                    double snapSweep = 1.0 - Math.Pow(snapProgress, 0.35);
+                    double snapFreq = snapEndHz + (snapStartHz - snapEndHz) * snapSweep;
+                    frequency = ClampPercussionFrequency(snapFreq, 70.0, 6000.0);
+                    audible = true;
+                    return;
+                }
             }
 
             // ------------------------------------------------------------------
-            // 2. PURE TONAL PERCUSSIONS (Cowbell, Woodblock, Triangle, Synth)
+            // 2. PURE TONAL PERCUSSIONS (currently: Laser)
             // ------------------------------------------------------------------
-            bool isPureTonal = prof.BodyWave == SynthWave.Square || prof.BodyWave == SynthWave.Sine;
             if (isPureTonal)
             {
                 double baseFreq = prof.BodyStartFreq;
@@ -1079,8 +1139,7 @@ namespace NeoBleeper
                     baseFreq = prof.BodyEndFreq + (prof.BodyStartFreq - prof.BodyEndFreq) * logSweep;
                 }
 
-                // Elevate fundamental tone slightly for maximum diaphragm excitation
-                frequency = ClampPercussionFrequency(baseFreq * (0.85 + 0.35 * normVelocity));
+                frequency = ClampPercussionFrequency(baseFreq * (0.85 + 0.35 * normVelocity), 90.0, 2200.0);
 
                 double sustainWindow = Math.Clamp(prof.HoldRatio * normVelocity, 0.15, 0.90);
                 double decayProgress = Math.Clamp((progress - sustainWindow) / Math.Max(0.01, 1.0 - sustainWindow), 0.0, 1.0);
@@ -1095,21 +1154,22 @@ namespace NeoBleeper
             }
 
             // ------------------------------------------------------------------
-            // 3. KICKS & TOMS (Pitch-swept resonant bodies)
+            // 3. KICKS & TOMS (pitch-swept resonant bodies, past the attack)
             // ------------------------------------------------------------------
-            if (prof.DoesSweep)
+            if (kick || tom)
             {
                 double bodyProgress = Math.Clamp((elapsedMs - attackSnapMs) / Math.Max(1.0, duration - attackSnapMs), 0.0, 1.0);
 
-                int slot = (int)(elapsedMs / 1.2);
+                int slot = (int)(elapsedMs / (kick ? 1.6 : 1.2));
                 uint hash = unchecked((uint)(request.RandomSeed ^ (slot * 1664525u + 1013904223u)));
                 double j = ((hash & 0x00FFFFFF) / 16777215.0);
 
-                // Elevate sub-bass into piezo harmonic range (220Hz - 650Hz) for full body volume
-                double lowFloor = Math.Max(220.0, prof.BodyEndFreq * 3.0);
-                double lowCeil = Math.Max(450.0, prof.BodyStartFreq * (1.1 + 0.6 * normVelocity));
+                // Kicks stay noticeably lower than toms so the two remain distinguishable,
+                // while staying inside a range a small speaker driver can actually reproduce.
+                double lowFloor = kick ? (75.0 + 25.0 * normVelocity) : (150.0 + 60.0 * normVelocity);
+                double lowCeil = kick ? (220.0 + 120.0 * normVelocity) : (420.0 + 160.0 * normVelocity);
                 double hoppedFreq = lowFloor + j * (lowCeil - lowFloor);
-                frequency = ClampPercussionFrequency(hoppedFreq);
+                frequency = ClampPercussionFrequency(hoppedFreq, 60.0, 700.0);
 
                 uint gateHash = unchecked((uint)(request.RandomSeed ^ (slot * 2246822519u)));
                 double gateRoll = ((gateHash & 0x00FFFFFF) / 16777215.0);
@@ -1126,35 +1186,41 @@ namespace NeoBleeper
 
             uint nHash = unchecked((uint)(request.RandomSeed ^ (noiseSlot * 2654435761u)));
             double jitter = ((nHash & 0x00FFFFFF) / 16777215.0);
+            // Second, independently-mixed hash stream blended into the frequency pick so it
+            // doesn't trace the exact same pattern as the gate roll below - reduces the
+            // "buzzy comb" artifact of driving both from one shared hash source.
+            uint nHash2 = unchecked((uint)(request.RandomSeed * 2246822519u ^ (uint)(noiseSlot * 668265263u)));
+            double jitter2 = ((nHash2 & 0x00FFFFFF) / 16777215.0);
 
             uint gateHash2 = unchecked((uint)(request.RandomSeed ^ (noiseSlot * 1013904223u)));
             double gateRoll2 = ((gateHash2 & 0x00FFFFFF) / 16777215.0);
 
-            if (IsMetalCymbal(request.Percussion))
+            if (metalCymbal)
             {
-                // Metallic noise in optimal acoustic window (1200Hz - 3800Hz)
-                double minF = 1200.0 + (400.0 * normVelocity);
-                double maxF = minF + (1500.0 + 1200.0 * normVelocity);
-                double baseF = minF + jitter * (maxF - minF);
-                frequency = ClampPercussionFrequency(baseF);
+                // Cymbal/hi-hat character lives above ~3kHz. The old 1200Hz ceiling forced
+                // every metal hit into the same low buzzy band, which read as a dull thud
+                // instead of a shimmer - the working band is pushed up here instead.
+                double minF = 2800.0 + (900.0 * normVelocity);
+                double maxF = minF + (2200.0 + 1800.0 * normVelocity);
+                double baseF = minF + (0.6 * jitter + 0.4 * jitter2) * (maxF - minF);
+                frequency = ClampPercussionFrequency(baseF, 1500.0, 8000.0);
 
-                // Dense pulse fill for maximum continuous acoustic pressure
                 double activeDensityThreshold = 0.05 + (0.30 * (1.0 - normVelocity));
-                audible = gateRoll2 > activeDensityThreshold && progress < (0.90 * normVelocity);
+                double sustainLimit = shortCymbal ? (0.85 * normVelocity) : (0.95 * normVelocity);
+                audible = gateRoll2 > activeDensityThreshold && progress < sustainLimit;
             }
-            else if (IsClick(request.Percussion))
+            else if (click)
             {
-                double baseF = 1000.0 + jitter * (1800.0 * normVelocity);
-                frequency = ClampPercussionFrequency(baseF);
-                audible = progress < (0.60 * normVelocity);
+                double baseF = 1400.0 + jitter * (2200.0 * normVelocity);
+                frequency = ClampPercussionFrequency(baseF, 700.0, 4000.0);
+                audible = progress < (0.55 * normVelocity);
             }
             else // Snares / Claps
             {
-                // High-power snare snap band (600Hz - 2600Hz)
-                double minF = 600.0 + (200.0 * normVelocity);
-                double maxF = minF + (1000.0 + 1000.0 * normVelocity);
-                double baseF = minF + jitter * (maxF - minF);
-                frequency = ClampPercussionFrequency(baseF);
+                double minF = 500.0 + (250.0 * normVelocity);
+                double maxF = minF + (1300.0 + 1100.0 * normVelocity);
+                double baseF = minF + (0.6 * jitter + 0.4 * jitter2) * (maxF - minF);
+                frequency = ClampPercussionFrequency(baseF, 350.0, 3200.0);
 
                 double activeDensityThreshold = 0.02 + (0.35 * (1.0 - normVelocity));
                 audible = gateRoll2 > activeDensityThreshold && progress < (0.90 * normVelocity);
