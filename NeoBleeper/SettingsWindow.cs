@@ -1996,35 +1996,45 @@ namespace NeoBleeper
         /// silent row-length mismatches that would throw mid-render and leave the
         /// preview blank.
         /// </summary>
+        /// <summary>
+        /// Builds a cute round mascot face as a 16x16 boolean grid (true = pixel on).
+        /// Drop-in replacement for BuildSysExPreviewSampleBitmap() — swap the method body
+        /// (and rename SysExPreviewSampleBitmap's initializer) to preview the mascot
+        /// instead of the eighth-note glyph in the Settings window's SysEx emulator sample.
+        /// </summary>
         private static bool[,] BuildSysExPreviewSampleBitmap()
         {
+            // Same row-per-string layout used to design the mascot earlier:
+            // '1' = pixel on, '0' = pixel off. Indexed as [x, y] to match the
+            // existing SysExPreviewSampleBitmap / _sysExPreviewCells convention.
+            string[] rows =
+            {
+        "0000111111110000",
+        "0011111111111100",
+        "0111111111111110",
+        "0111011110111110",
+        "1110011001111111",
+        "1110011001111111",
+        "1111011110111111",
+        "1111111111111111",
+        "1101111111111011",
+        "1100111111110011",
+        "1110011111100111",
+        "0111001111001110",
+        "0111100000111110",
+        "0011111111111100",
+        "0001111111110000",
+        "0000011111000000",
+    };
+
             bool[,] bitmap = new bool[SysExPreviewGridSize, SysExPreviewGridSize];
-
-            // Note stem (vertical line)
-            for (int y = 1; y <= 10; y++)
+            for (int y = 0; y < SysExPreviewGridSize; y++)
             {
-                bitmap[9, y] = true;
+                for (int x = 0; x < SysExPreviewGridSize; x++)
+                {
+                    bitmap[x, y] = rows[y][x] == '1';
+                }
             }
-
-            // Flag at the top of the stem
-            bitmap[10, 1] = true;
-            bitmap[11, 2] = true;
-            bitmap[12, 3] = true;
-
-            // Note head (filled oval, approximated on the grid)
-            int[,] head = new int[,]
-            {
-        { 6, 11 }, { 7, 11 }, { 8, 11 }, { 9, 11 },
-        { 5, 12 }, { 6, 12 }, { 7, 12 }, { 8, 12 }, { 9, 12 }, { 10, 12 },
-        { 5, 13 }, { 6, 13 }, { 7, 13 }, { 8, 13 }, { 9, 13 }, { 10, 13 },
-        { 6, 14 }, { 7, 14 }, { 8, 14 }, { 9, 14 },
-            };
-
-            for (int i = 0; i < head.GetLength(0); i++)
-            {
-                bitmap[head[i, 0], head[i, 1]] = true;
-            }
-
             return bitmap;
         }
 
