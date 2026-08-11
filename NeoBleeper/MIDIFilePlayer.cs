@@ -2665,19 +2665,6 @@ namespace NeoBleeper
                     HashSet<int> displayNotesForUI =
                         new HashSet<int>(melodicNotesForUI);
 
-                    if (_enabledChannels.Contains(10) &&
-                        _eventsByTime.TryGetValue(
-                            currentFrameForUI.Time,
-                            out var uiEventsAtThisTime))
-                    {
-                        foreach (var drumNote in uiEventsAtThisTime
-                            .OfType<NoteOnEvent>()
-                            .Where(n => n.Velocity > 0 && n.Channel == 10))
-                        {
-                            displayNotesForUI.Add(drumNote.NoteNumber);
-                        }
-                    }
-
                     UpdateAllUISync(
                         currentFrameIndexForUI,
                         displayNotesForUI,
