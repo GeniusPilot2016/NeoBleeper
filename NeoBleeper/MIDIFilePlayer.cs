@@ -2375,6 +2375,7 @@ namespace NeoBleeper
             if (!_isUserScrolling)
             {
                 _isUserScrolling = true;
+                ShowTime();
             }
 
             ClearLyrics();
@@ -3811,25 +3812,38 @@ namespace NeoBleeper
 
             if (InvokeRequired)
             {
-                BeginInvoke(new Action<double>(UpdatePlaybackProgressFromClock), songTimeMs);
+                BeginInvoke(
+                    new Action<double>(UpdatePlaybackProgressFromClock),
+                    songTimeMs);
                 return;
             }
 
             double totalDurationMs = GetTotalPlaybackDurationMs();
-            if (totalDurationMs <= 0.0)
-                return;
 
-            double clampedMs = Math.Clamp(songTimeMs, 0.0, totalDurationMs);
+            if (totalDurationMs <= 0.0 ||
+                double.IsNaN(totalDurationMs) ||
+                double.IsInfinity(totalDurationMs))
+            {
+                return;
+            }
+
+            double clampedMs = Math.Clamp(
+                songTimeMs,
+                0.0,
+                totalDurationMs);
+
+            // Seekbar is still represented by 1000 discrete positions.
             int part = Math.Clamp(
-                (int)Math.Round(clampedMs * PlaybackSeekParts / totalDurationMs),
+                (int)Math.Round(
+                    clampedMs * PlaybackSeekParts / totalDurationMs),
                 0,
                 PlaybackSeekParts);
 
-            // Never fight the mouse while the user is seeking.
             if (!_isTrackBarBeingDragged)
             {
                 if (trackBar1.Minimum != 0)
                     trackBar1.Minimum = 0;
+
                 if (trackBar1.Maximum != PlaybackSeekParts)
                     trackBar1.Maximum = PlaybackSeekParts;
 
@@ -3840,10 +3854,19 @@ namespace NeoBleeper
                 }
             }
 
-            double percent = part / 10.0;
-            label_percentage.Text = Resources.TextPercent.Replace(
-                "{number}",
-                percent.ToString("0.00", CultureInfo.CurrentCulture));
+            // Percentage comes DIRECTLY from playback time,
+            // not from the quantized seekbar position.
+            double percent =
+                (clampedMs / totalDurationMs) * 100.0;
+
+            percent = Math.Clamp(percent, 0.0, 100.0);
+
+            label_percentage.Text =
+                Resources.TextPercent.Replace(
+                    "{number}",
+                    percent.ToString(
+                        "0.00",
+                        CultureInfo.CurrentCulture));
 
             UpdatePositionLabel(clampedMs);
         }
@@ -4224,5 +4247,92 @@ namespace NeoBleeper
             }
         }
 
+        private TimeSpan GetTimeFromTrackBarValue(int trackBarValue)
+        {
+            double totalDurationMs = GetTotalPlaybackDurationMs();
+            int clampedValue = Math.Clamp(trackBarValue, 0, PlaybackSeekParts);
+
+            double timeMs =
+                clampedValue * totalDurationMs / PlaybackSeekParts;
+
+            if (double.IsNaN(timeMs) ||
+                double.IsInfinity(timeMs) ||
+                timeMs < 0)
+            {
+                timeMs = 0;
+            }
+
+            return TimeSpan.FromMilliseconds(timeMs);
+        }
+
+        private void trackBar1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point thumbPosition = GetTrackBarThumbPosition(trackBar1);
+
+            const int hoverRadius = 12;
+
+            bool isOverThumb =
+                Math.Abs(e.X - thumbPosition.X) <= hoverRadius &&
+                Math.Abs(e.Y - thumbPosition.Y) <= hoverRadius;
+
+            if (isOverThumb)
+            {
+                ShowTime();
+            }
+            else
+            {
+                toolTipTime.Hide(trackBar1);
+            }
+        }
+
+        private void trackBar1_MouseLeave(object sender, EventArgs e)
+        {
+            toolTipTime.Hide(trackBar1);
+        }
+
+        private void ShowTime()
+        {
+            Point thumbLocation = GetTrackBarThumbPosition(trackBar1);
+
+            TimeSpan time = GetTimeFromTrackBarValue(trackBar1.Value);
+
+            string timeText =
+                $"{(int)time.TotalMinutes:D2}:{time.Seconds:D2}.{time.Milliseconds / 10:D2}";
+
+            toolTipTime.Show(
+                timeText,
+                trackBar1,
+                thumbLocation.X - 32,
+                thumbLocation.Y - 50,
+                1000);
+        }
+        private Point GetTrackBarThumbPosition(TrackBar bar)
+        {
+            // Calculate usable slider width/height minus margin padding
+            int padding = 10;
+            int usableWidth = bar.Width - (padding * 2);
+
+            // Prevent division by zero if Min equals Max
+            float range = bar.Maximum - bar.Minimum;
+            if (range == 0) return new Point(bar.Width / 2, bar.Height / 2);
+
+            // Calculate percentage across the track
+            float percent = (bar.Value - bar.Minimum) / range;
+
+            if (bar.Orientation == Orientation.Horizontal)
+            {
+                int x = padding + (int)(percent * usableWidth);
+                int y = bar.Height / 2; // Center vertically
+                return new Point(x, y);
+            }
+            else // Vertical orientation
+            {
+                int usableHeight = bar.Height - (padding * 2);
+                int x = bar.Width / 2; // Center horizontally
+                // Vertical trackbars fill from bottom to top
+                int y = bar.Height - padding - (int)(percent * usableHeight);
+                return new Point(x, y);
+            }
+        }
     }
 }
