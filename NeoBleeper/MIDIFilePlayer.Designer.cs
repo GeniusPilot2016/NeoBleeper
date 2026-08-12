@@ -229,6 +229,7 @@
             trackBar1.Name = "trackBar1";
             trackBar1.TickFrequency = 10;
             trackBar1.Scroll += trackBar1_Scroll;
+            trackBar1.MouseDown += trackBar1_MouseDown;
             trackBar1.MouseMove += trackBar1_MouseMove;
             // 
             // label4
@@ -769,7 +770,6 @@
             AllowDrop = true;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
-            Controls.Add(panelLoading);
             Controls.Add(checkBoxShowSysExDisplayEmulator);
             Controls.Add(checkBox_show_lyrics_or_text_events);
             Controls.Add(flowLayoutPanel2);
@@ -798,6 +798,7 @@
             Controls.Add(label4);
             Controls.Add(label1);
             Controls.Add(textBox1);
+            Controls.Add(panelLoading);
             Controls.Add(groupBox1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
