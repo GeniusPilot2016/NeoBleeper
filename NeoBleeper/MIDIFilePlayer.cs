@@ -1420,7 +1420,7 @@ namespace NeoBleeper
             // at EOF. A fresh Play click must always start from the beginning.
             if (_currentFrameIndex >= _frames.Count)
             {
-                await SetPosition(0.0);
+                await SetPosition(0);
             }
 
             try
@@ -1620,51 +1620,101 @@ namespace NeoBleeper
         private Task _playbackTask = Task.CompletedTask;
         private bool _wasPlayingBeforeScroll = false;
 
+        private const int PlaybackSeekParts = 1000;
+
+        private double GetTotalPlaybackDurationMs()
+        {
+            if (_midiFile == null)
+                return 0.0;
+
+            long lastTick = _midiFile.Events
+                .SelectMany(track => track)
+                .Select(e => e.AbsoluteTime)
+                .DefaultIfEmpty(0)
+                .Max();
+
+            return TicksToMilliseconds(lastTick);
+        }
+
+        private int GetSeekPartFromTime(double timeMs)
+        {
+            double totalMs = GetTotalPlaybackDurationMs();
+            if (totalMs <= 0.0)
+                return 0;
+
+            return Math.Clamp(
+                (int)Math.Round((timeMs / totalMs) * PlaybackSeekParts),
+                0,
+                PlaybackSeekParts);
+        }
+
+        private int FindNearestFrameIndexForTime(double targetMs)
+        {
+            if (_frames == null || _frames.Count == 0)
+                return 0;
+
+            int low = 0;
+            int high = _frames.Count - 1;
+
+            while (low < high)
+            {
+                int mid = low + ((high - low) / 2);
+                double midMs = TicksToMilliseconds(_frames[mid].Time);
+
+                if (midMs < targetMs)
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
+
+            int upper = low;
+            int lower = Math.Max(0, upper - 1);
+
+            double upperMs = TicksToMilliseconds(_frames[upper].Time);
+            double lowerMs = TicksToMilliseconds(_frames[lower].Time);
+
+            return Math.Abs(targetMs - lowerMs) <= Math.Abs(upperMs - targetMs)
+                ? lower
+                : upper;
+        }
+
         /// <summary>
-        /// Sets the current playback position to the specified percentage of the total duration.
+        /// Sets playback to one of 1000 equal time-based parts of the song.
         /// </summary>
-        /// <remarks>If playback is in progress, it is temporarily stopped while the position is updated.
-        /// The method does not resume playback automatically after setting the position. If the specified percentage is
-        /// outside the valid range, it is clamped to the nearest valid value.</remarks>
-        /// <param name="positionPercent">The desired playback position as a percentage of the total duration. Must be between 0.0 and 100.0, where
-        /// 0.0 represents the start and 100.0 represents the end.</param>
-        /// <returns>A task that represents the asynchronous operation of setting the playback position.</returns>
-        public async Task SetPosition(double positionPercent)
+        /// <param name="positionPart">Position from 0 to 1000.</param>
+        public async Task SetPosition(int positionPart)
         {
             if (_frames == null || _frames.Count == 0)
                 return;
 
-            if (positionPercent < 0.0) positionPercent = 0.0;
-            if (positionPercent > 100.0) positionPercent = 100.0;
+            positionPart = Math.Clamp(positionPart, 0, PlaybackSeekParts);
 
-            // Store playing state
             if (!_wasPlayingBeforeScroll)
                 _wasPlayingBeforeScroll = _isPlaying;
 
-            // Stop current playback if any
             if (_isPlaying || _isStopping)
             {
                 await StopAsync();
             }
 
-            // Map percent [0..100] -> frame index [0..count-1] with rounding
-            int maxIndex = Math.Max(0, _frames.Count - 1);
-            _currentFrameIndex = (int)Math.Round((positionPercent / 100.0) * maxIndex);
-            _currentFrameIndex = Math.Max(0, Math.Min(_currentFrameIndex, _frames.Count - 1));
+            double totalDurationMs = GetTotalPlaybackDurationMs();
+            double targetMs = totalDurationMs * positionPart / PlaybackSeekParts;
 
-            // Reset the playback offset to exact frame time
-            _playbackStartOffsetMs = (_currentFrameIndex < _frames.Count)
-                ? TicksToMilliseconds(_frames[_currentFrameIndex].Time)
-                : 0;
+            _currentFrameIndex = FindNearestFrameIndexForTime(targetMs);
+            _currentFrameIndex = Math.Clamp(_currentFrameIndex, 0, _frames.Count - 1);
 
+            // Keep the playback clock at the exact requested 1/1000 position.
+            // Frame selection is only used to choose which MIDI events/state are active.
+            _playbackStartOffsetMs = targetMs;
             _playbackStopwatch?.Reset();
 
-            long displayTick = _currentFrameIndex < _frames.Count
-                ? _frames[_currentFrameIndex].Time
-                : 0;
+            long displayTick = _frames[_currentFrameIndex].Time;
             RebuildSysExDisplayAtTick(displayTick);
 
-            Logger.Log($"Position set to {positionPercent:0.00}% (frame {_currentFrameIndex} of {_frames.Count}, offset: {_playbackStartOffsetMs:0.00}ms)", Logger.LogTypes.Info);
+            Logger.Log(
+                $"Position set to part {positionPart}/{PlaybackSeekParts} " +
+                $"(frame {_currentFrameIndex} of {_frames.Count}, exact time: {_playbackStartOffsetMs:0.00}ms)",
+                Logger.LogTypes.Info);
         }
         // Update note labels with synchronization
         private HashSet<int> _lastDrawnNotes = new HashSet<int>();
@@ -1752,11 +1802,10 @@ namespace NeoBleeper
                 }
                 else
                 {
-                    // Use 0-based denominator so last frame maps to 100%
-                    int denom = Math.Max(1, _frames.Count - 1);
-                    double currentPositionPercent = ((double)_currentFrameIndex / denom) * 100.0;
+                    double currentTimeMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
+                    int currentPositionPart = GetSeekPartFromTime(currentTimeMs);
                     bool wasPlaying = _isPlaying;
-                    await SetPosition(currentPositionPercent);
+                    await SetPosition(currentPositionPart);
                     if (wasPlaying && !_isPlaying)
                     {
                         Play();
@@ -2110,9 +2159,8 @@ namespace NeoBleeper
 
             double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
 
-            // Use consistent denominator for percent display
-            int denom = Math.Max(1, _frames.Count - 1);
-            double percent = ((double)frameIndex / denom) * 100.0;
+            int positionPart = GetSeekPartFromTime(currentTimeMs);
+            double percent = positionPart / 10.0;
 
             string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
             string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
@@ -2145,8 +2193,7 @@ namespace NeoBleeper
             _isInLyricSection = false;
             ClearLyrics();
             trackBar1.Value = 0;
-            int positionPercent = trackBar1.Value / 10;
-            await SetPosition(positionPercent);
+            await SetPosition(0);
             UpdateTimeAndPercentPosition(_currentFrameIndex);
             driftMs = 0; // Reset drifts
             ResetLabelsAndTrackBar();
@@ -2321,7 +2368,7 @@ namespace NeoBleeper
         private bool _isUserScrolling = false; // To seperate user scroll from program scroll
 
         private CancellationTokenSource _scrollDebounceCts;
-        private double _pendingPositionPercent;
+        private int _pendingPositionPart;
 
         private async void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -2340,12 +2387,12 @@ namespace NeoBleeper
                 _wasPlayingBeforeScroll = true;
             }
 
-            double positionPercent = (double)trackBar1.Value / trackBar1.Maximum * 100.0;
+            int positionPart = Math.Clamp(trackBar1.Value, 0, PlaybackSeekParts);
 
             // Cancel any existing debounce task
             try { _scrollDebounceCts?.Cancel(); } catch { }
             _scrollDebounceCts = new CancellationTokenSource();
-            _pendingPositionPercent = positionPercent;
+            _pendingPositionPart = positionPart;
 
             var token = _scrollDebounceCts.Token;
 
@@ -2362,7 +2409,7 @@ namespace NeoBleeper
                         try
                         {
                             // Start SetPosition but do not block UI; observe errors
-                            var setTask = SetPosition(_pendingPositionPercent);
+                            var setTask = SetPosition(_pendingPositionPart);
                             setTask.ContinueWith(t =>
                             {
                                 if (t.IsFaulted)
@@ -2374,15 +2421,11 @@ namespace NeoBleeper
                             // Update the UI labels (guard frames)
                             if (_frames != null && _frames.Count > 0)
                             {
-                                // Map percent -> frame index using 0-based denominator so last frame corresponds to 100%
-                                int denomForIndex = Math.Max(1, _frames.Count - 1);
-                                int frameIndex = (int)Math.Round((_pendingPositionPercent / 100.0) * denomForIndex);
-                                frameIndex = Math.Max(0, Math.Min(frameIndex, _frames.Count - 1));
-
-                                long frameTick = _frames[frameIndex].Time;
-                                double currentTimeMs = TicksToMilliseconds(frameTick);
+                                double totalDurationMs = GetTotalPlaybackDurationMs();
+                                double currentTimeMs = totalDurationMs * _pendingPositionPart / PlaybackSeekParts;
+                                double percent = _pendingPositionPart / 10.0;
                                 string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
-                                string percentagestr = Resources.TextPercent.Replace("{number}", _pendingPositionPercent.ToString("0.00", CultureInfo.CurrentCulture));
+                                string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
 
                                 label_percentage.Text = percentagestr;
                                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
@@ -2638,9 +2681,13 @@ namespace NeoBleeper
             if (_isStopping || !_isPlaying || _frames == null)
                 return;
 
-            // SysEx uses the same stopwatch, but it is not part of the audio frames.
+            // The playback clock is authoritative for seekbar progress.
+            // Update it on EVERY timer tick, independently from MIDI frame changes,
+            // so it keeps moving during sustained beeps and silent delays.
             double currentSongTimeMs =
                 _playbackStartOffsetMs + _playbackStopwatch.Elapsed.TotalMilliseconds;
+
+            UpdatePlaybackProgressFromClock(currentSongTimeMs);
 
             // --- UI Update Block ---
             if (IsHandleCreated && Visible)
@@ -2668,7 +2715,8 @@ namespace NeoBleeper
                     UpdateAllUISync(
                         currentFrameIndexForUI,
                         displayNotesForUI,
-                        melodicNotesForUI.Count);
+                        melodicNotesForUI.Count,
+                        currentSongTimeMs);
                 }
             }
 
@@ -3726,7 +3774,9 @@ namespace NeoBleeper
                 return;
             }
 
-            // Prevent the conflict during trackBar update
+            // The seekbar always represents 1000 equal parts of total song time.
+            trackBar1.Minimum = 0;
+            trackBar1.Maximum = PlaybackSeekParts;
             trackBar1.Value = 0;
 
             // Update the percentage label
@@ -3750,6 +3800,55 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Updates the 0..1000 playback seekbar directly from the playback clock.
+        /// This is deliberately independent of _currentFrameIndex because a single
+        /// MIDI frame can last for a long beep or a long silent rest.
+        /// </summary>
+        private void UpdatePlaybackProgressFromClock(double songTimeMs)
+        {
+            if (IsDisposed || Disposing || !IsHandleCreated)
+                return;
+
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action<double>(UpdatePlaybackProgressFromClock), songTimeMs);
+                return;
+            }
+
+            double totalDurationMs = GetTotalPlaybackDurationMs();
+            if (totalDurationMs <= 0.0)
+                return;
+
+            double clampedMs = Math.Clamp(songTimeMs, 0.0, totalDurationMs);
+            int part = Math.Clamp(
+                (int)Math.Round(clampedMs * PlaybackSeekParts / totalDurationMs),
+                0,
+                PlaybackSeekParts);
+
+            // Never fight the mouse while the user is seeking.
+            if (!_isTrackBarBeingDragged)
+            {
+                if (trackBar1.Minimum != 0)
+                    trackBar1.Minimum = 0;
+                if (trackBar1.Maximum != PlaybackSeekParts)
+                    trackBar1.Maximum = PlaybackSeekParts;
+
+                if (trackBar1.Value != part)
+                {
+                    _isUserScrolling = false;
+                    trackBar1.Value = part;
+                }
+            }
+
+            double percent = part / 10.0;
+            label_percentage.Text = Resources.TextPercent.Replace(
+                "{number}",
+                percent.ToString("0.00", CultureInfo.CurrentCulture));
+
+            UpdatePositionLabel(clampedMs);
+        }
+
+        /// <summary>
         /// Synchronizes all relevant UI elements to reflect the specified frame index and filtered notes.
         /// </summary>
         /// <param name="frameIndex">The zero-based index of the frame to display.</param>
@@ -3757,7 +3856,8 @@ namespace NeoBleeper
         private void UpdateAllUISync(
             int frameIndex,
             HashSet<int> displayNotes,
-            int heldMelodicNoteCount)
+            int heldMelodicNoteCount,
+            double currentSongTimeMs)
         {
             if (this.InvokeRequired)
             {
@@ -3765,35 +3865,13 @@ namespace NeoBleeper
                     UpdateAllUISync(
                         frameIndex,
                         displayNotes,
-                        heldMelodicNoteCount)));
+                        heldMelodicNoteCount,
+                        currentSongTimeMs)));
                 return;
             }
 
             if (_frames == null || _frames.Count == 0)
                 return;
-
-            // Prevent the conflict during trackBar update
-            if (!_isTrackBarBeingDragged)
-            {
-                int denom = Math.Max(1, _frames.Count - 1);
-                int trackbarValue = (int)Math.Round((double)trackBar1.Maximum * frameIndex / denom);
-                trackbarValue = Math.Clamp(trackbarValue, 0, trackBar1.Maximum);
-
-                if (trackbarValue != trackBar1.Value)
-                {
-                    _isUserScrolling = false; // State that it's a program update
-                    trackBar1.Value = trackbarValue;
-                }
-            }
-
-            // Update the percentage label using consistent denominator
-            int denomForPercent = Math.Max(1, _frames.Count - 1);
-            double percent = ((double)frameIndex / denomForPercent) * 100.0;
-            string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
-            label_percentage.Text = percentagestr;
-
-            // Update the position label
-            UpdatePositionLabel();
 
             if (!checkBox_dont_update_grid.Checked)
             {
@@ -3809,14 +3887,11 @@ namespace NeoBleeper
         /// <summary>
         /// Updates the position label to display the current playback time in minutes, seconds, and hundredths of a second.
         /// </summary>
-        private void UpdatePositionLabel()
+        private void UpdatePositionLabel(double songTimeMs)
         {
             if (!_isPlaying) return;
 
-            // Prefer stopwatch-based song time as authoritative for playback
-            double songTimeMs = _playbackStartOffsetMs + _playbackStopwatch.ElapsedMilliseconds;
-
-            TimeSpan timeSpan = TimeSpan.FromMilliseconds(songTimeMs);
+            TimeSpan timeSpan = TimeSpan.FromMilliseconds(Math.Max(0.0, songTimeMs));
             int minutes = timeSpan.Minutes;
             int seconds = timeSpan.Seconds;
             int milliseconds = timeSpan.Milliseconds / 10;
