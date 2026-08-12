@@ -4206,21 +4206,26 @@ namespace NeoBleeper
                     }
                 }
             }
-
-            Point thumbPosition = GetTrackBarThumbPosition(trackBar1);
-            const int hoverRadius = 12;
-
-            bool isOverThumb =
-                Math.Abs(e.X - thumbPosition.X) <= hoverRadius &&
-                Math.Abs(e.Y - thumbPosition.Y) <= hoverRadius;
-
-            if (isOverThumb)
+            using (Graphics g = this.CreateGraphics())
             {
-                ShowTime();
-            }
-            else
-            {
-                toolTipTime.Hide(trackBar1);
+                g.PageUnit = GraphicsUnit.Pixel;
+                g.PageScale = g.DpiX / 96.0f; // Adjust for DPI scaling
+
+                Point thumbPosition = GetTrackBarThumbPosition(trackBar1);
+                int hoverRadius = (int)(6 * g.PageScale);
+
+                bool isOverThumb =
+                    Math.Abs(e.X - thumbPosition.X) <= hoverRadius &&
+                    Math.Abs(e.Y - thumbPosition.Y) <= hoverRadius;
+
+                if (isOverThumb)
+                {
+                    ShowTime();
+                }
+                else
+                {
+                    toolTipTime.Hide(trackBar1);
+                }
             }
         }
 
