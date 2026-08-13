@@ -1398,10 +1398,23 @@ namespace NeoBleeper
         /// begin.</remarks>
         public async void Play()
         {
-            Logger.Log($"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}", Logger.LogTypes.Info);
+            Logger.Log(
+                $"Play called. IsPlaying: {_isPlaying}, Frames count: {_frames?.Count ?? 0}",
+                Logger.LogTypes.Info);
 
             if (_frames == null || _frames.Count == 0)
                 return;
+
+            // Never start playback while the user is seeking/scrolling.
+            if (_isSeeking ||
+                _isTrackBarBeingDragged ||
+                _isUserScrolling)
+            {
+                Logger.Log(
+                    "Play ignored because a seek/scroll operation is active.",
+                    Logger.LogTypes.Info);
+                return;
+            }
 
             // Completion cleanup is asynchronous. Do not lose a Play click that
             // arrives after the music has audibly ended but before Stop/Rewind has
@@ -1686,9 +1699,6 @@ namespace NeoBleeper
                 return;
 
             positionPart = Math.Clamp(positionPart, 0, PlaybackSeekParts);
-
-            if (!_wasPlayingBeforeScroll)
-                _wasPlayingBeforeScroll = _isPlaying;
 
             if (_isPlaying || _isStopping)
             {
@@ -2190,22 +2200,34 @@ namespace NeoBleeper
         /// <returns>A task that represents the asynchronous rewind operation.</returns>
         private async Task Rewind(bool resumePreviousPlayback = true)
         {
-            // Reset lyric state
+            // Capture this BEFORE SetPosition(), because SetPosition()
+            // will stop playback.
+            bool wasPlaying = _isPlaying;
+
             _lastLyricTime = DateTime.MinValue;
             _isInLyricSection = false;
             ClearLyrics();
+
             trackBar1.Value = 0;
+
             await SetPosition(0);
+
             UpdateTimeAndPercentPosition(_currentFrameIndex);
-            driftMs = 0; // Reset drifts
+
+            driftMs = 0;
             ResetLabelsAndTrackBar();
-            bool shouldResume = resumePreviousPlayback && _wasPlayingBeforeScroll;
+
+            bool shouldResume =
+                resumePreviousPlayback &&
+                (wasPlaying || _wasPlayingBeforeScroll);
+
             _wasPlayingBeforeScroll = false;
 
             if (shouldResume)
             {
                 Play();
             }
+
             Logger.Log("Rewind completed", Logger.LogTypes.Info);
         }
 
@@ -2327,6 +2349,28 @@ namespace NeoBleeper
 
         private async void button_rewind_Click(object sender, EventArgs e)
         {
+            try
+            {
+                _scrollDebounceCts?.Cancel();
+            }
+            catch { }
+
+            lock (_playbackRestartTimerLock)
+            {
+                try
+                {
+                    _playbackRestartTimer?.Stop();
+                    _playbackRestartTimer?.Dispose();
+                }
+                catch { }
+
+                _playbackRestartTimer = null;
+            }
+
+            _isSeeking = false;
+            _isTrackBarBeingDragged = false;
+            _isUserScrolling = false;
+
             await Rewind();
         }
 
@@ -2392,31 +2436,34 @@ namespace NeoBleeper
         /// scrolling or dragging the track bar.</remarks>
         /// <param name="sender">The source of the event, typically the timer that initiated the callback.</param>
         /// <param name="e">An ElapsedEventArgs object that contains the event data.</param>
-        private async void OnPlaybackRestartTimer(object sender, System.Timers.ElapsedEventArgs e)
+        private void OnPlaybackRestartTimer(
+    object sender,
+    System.Timers.ElapsedEventArgs e)
         {
-            if (_scrollDebounceCts != null && _scrollDebounceCts.IsCancellationRequested)
-                return; // a newer scroll superseded this restart
+            if (_scrollDebounceCts != null &&
+                _scrollDebounceCts.IsCancellationRequested)
+            {
+                return;
+            }
 
             lock (_playbackRestartTimerLock)
             {
-                try { _playbackRestartTimer?.Stop(); _playbackRestartTimer?.Dispose(); } catch { }
+                try
+                {
+                    _playbackRestartTimer?.Stop();
+                    _playbackRestartTimer?.Dispose();
+                }
+                catch { }
+
                 _playbackRestartTimer = null;
             }
 
-            this.BeginInvoke(new Action(() =>
-            {
-                _isTrackBarBeingDragged = false;
-                _isUserScrolling = false;
+            if (IsDisposed || Disposing || !IsHandleCreated)
+                return;
 
-                if (_wasPlayingBeforeScroll && !_isPlaying)
-                {
-                    _wasPlayingBeforeScroll = false;
-                    Play();
-                }
-                else
-                {
-                    _wasPlayingBeforeScroll = false;
-                }
+            BeginInvoke(new Action(() =>
+            {
+                EndSeeking();
             }));
         }
 
@@ -4182,6 +4229,7 @@ namespace NeoBleeper
 
             return TimeSpan.FromMilliseconds(timeMs);
         }
+        private bool _isSeeking = false;
 
         private void trackBar1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -4209,16 +4257,17 @@ namespace NeoBleeper
             using (Graphics g = this.CreateGraphics())
             {
                 g.PageUnit = GraphicsUnit.Pixel;
-                g.PageScale = g.DpiX / 96.0f; // Adjust for DPI scaling
+                g.PageScale = g.DpiX / 96.0f;
 
                 Point thumbPosition = GetTrackBarThumbPosition(trackBar1);
-                int hoverRadius = (int)(6 * g.PageScale);
 
-                bool isOverThumb =
-                    Math.Abs(e.X - thumbPosition.X) <= hoverRadius &&
-                    Math.Abs(e.Y - thumbPosition.Y) <= hoverRadius;
+                int thumbWidth = (int)(20 * g.PageScale);
+                int thumbHeight = (int)(20 * g.PageScale);
 
-                if (isOverThumb)
+                Rectangle thumbBounds =
+    GetTrackBarThumbBounds(trackBar1);
+
+                if (thumbBounds.Contains(e.Location))
                 {
                     ShowTime();
                 }
@@ -4236,15 +4285,20 @@ namespace NeoBleeper
 
         private void ShowTime()
         {
-            int dpi = 96; // Default DPI
+            int dpi = 96;
+
             using (Graphics g = this.CreateGraphics())
             {
                 dpi = (int)g.DpiX;
             }
-            double scale = dpi / 96.0;
-            Point thumbLocation = GetTrackBarThumbPosition(trackBar1);
 
-            TimeSpan time = GetTimeFromTrackBarValue(trackBar1.Value);
+            double scale = dpi / 96.0;
+
+            Point thumbLocation =
+                GetTrackBarThumbPosition(trackBar1);
+
+            TimeSpan time =
+                GetTimeFromTrackBarValue(trackBar1.Value);
 
             string timeText =
                 $"{(int)time.TotalMinutes:D2}:{time.Seconds:D2}.{time.Milliseconds / 10:D2}";
@@ -4256,33 +4310,74 @@ namespace NeoBleeper
                 thumbLocation.Y - (int)(scale * 50),
                 1000);
         }
-        private Point GetTrackBarThumbPosition(TrackBar bar)
+        private Rectangle GetTrackBarThumbBounds(TrackBar bar)
         {
-            // Calculate usable slider width/height minus margin padding
-            int padding = 10;
-            int usableWidth = bar.Width - (padding * 2);
+            int thumbWidth = 20;
+            int thumbHeight = 20;
 
-            // Prevent division by zero if Min equals Max
             float range = bar.Maximum - bar.Minimum;
-            if (range == 0) return new Point(bar.Width / 2, bar.Height / 2);
 
-            // Calculate percentage across the track
-            float percent = (bar.Value - bar.Minimum) / range;
+            if (range <= 0)
+            {
+                return new Rectangle(
+                    (bar.ClientSize.Width - thumbWidth) / 2,
+                    (bar.ClientSize.Height - thumbHeight) / 2,
+                    thumbWidth,
+                    thumbHeight);
+            }
+
+            double percent =
+                (double)(bar.Value - bar.Minimum) / range;
 
             if (bar.Orientation == Orientation.Horizontal)
             {
-                int x = padding + (int)(percent * usableWidth);
-                int y = bar.Height / 2; // Center vertically
-                return new Point(x, y);
+                // Important:
+                // The native TrackBar's thumb center does not reach
+                // thumbWidth / 2 from each outer edge.
+                const int edgeInset = 13;
+
+                int startX = edgeInset;
+                int endX = bar.ClientSize.Width - edgeInset;
+
+                int centerX = (int)Math.Round(
+                    startX + percent * (endX - startX));
+
+                int centerY = bar.ClientSize.Height / 2;
+
+                return new Rectangle(
+                    centerX - thumbWidth / 2,
+                    centerY - thumbHeight / 2,
+                    thumbWidth,
+                    thumbHeight);
             }
-            else // Vertical orientation
+            else
             {
-                int usableHeight = bar.Height - (padding * 2);
-                int x = bar.Width / 2; // Center horizontally
-                // Vertical trackbars fill from bottom to top
-                int y = bar.Height - padding - (int)(percent * usableHeight);
-                return new Point(x, y);
+                const int edgeInset = 13;
+
+                int startY = bar.ClientSize.Height - edgeInset;
+                int endY = edgeInset;
+
+                int centerY = (int)Math.Round(
+                    startY + percent * (endY - startY));
+
+                int centerX = bar.ClientSize.Width / 2;
+
+                return new Rectangle(
+                    centerX - thumbWidth / 2,
+                    centerY - thumbHeight / 2,
+                    thumbWidth,
+                    thumbHeight);
             }
+        }
+
+        private Point GetTrackBarThumbPosition(TrackBar bar)
+        {
+            Rectangle bounds =
+                GetTrackBarThumbBounds(bar);
+
+            return new Point(
+                bounds.Left + bounds.Width / 2,
+                bounds.Top + bounds.Height / 2);
         }
 
         private bool _suppressNextScrollEvent = false;
@@ -4293,123 +4388,224 @@ namespace NeoBleeper
         {
             _suppressNextScrollEvent = true;
 
-            if (trackBar1.Width <= 0) return;
+            if (trackBar1.Width <= 0)
+                return;
 
-            double clickedPercentage = (double)e.X / trackBar1.Width;
-            int range = trackBar1.Maximum - trackBar1.Minimum;
-            int newValue = trackBar1.Minimum + (int)Math.Round(clickedPercentage * range);
-            newValue = Math.Clamp(newValue, trackBar1.Minimum, trackBar1.Maximum);
+            double clickedPercentage =
+                (double)e.X / trackBar1.Width;
 
-            int mySeek = System.Threading.Interlocked.Increment(ref _seekGeneration);
+            int range =
+                trackBar1.Maximum - trackBar1.Minimum;
 
-            BeginInvoke(new Action(async () => await JumpTrackBarToClickedPosition(newValue, mySeek)));
+            int newValue =
+                trackBar1.Minimum +
+                (int)Math.Round(clickedPercentage * range);
+
+            newValue = Math.Clamp(
+                newValue,
+                trackBar1.Minimum,
+                trackBar1.Maximum);
+
+            int mySeek =
+                Interlocked.Increment(ref _seekGeneration);
+
+            BeginInvoke(new Action(async () =>
+            {
+                await JumpTrackBarToClickedPosition(
+                    newValue,
+                    mySeek);
+            }));
         }
 
-        private async Task JumpTrackBarToClickedPosition(int newValue, int mySeek)
+        private async Task JumpTrackBarToClickedPosition(
+    int newValue,
+    int mySeek)
         {
-            if (mySeek != _seekGeneration) return; // a later click already superseded this one
+            if (mySeek != _seekGeneration)
+                return;
 
-            _isTrackBarBeingDragged = true;
+            await BeginSeekingAsync();
+
+            if (mySeek != _seekGeneration)
+                return;
+
             ClearLyrics();
-
-            if (!_wasPlayingBeforeScroll && _isPlaying)
-                _wasPlayingBeforeScroll = true;
 
             trackBar1.Value = newValue;
 
             await SetPosition(newValue);
 
-            // Check again after every await - a fast second click may have landed
-            // while SetPosition/StopAsync was running.
-            if (mySeek != _seekGeneration) return;
+            // Another seek occurred while Stop/SetPosition was running.
+            if (mySeek != _seekGeneration)
+                return;
 
-            _isTrackBarBeingDragged = false;
             UpdateTimeAndPercentPosition(_currentFrameIndex);
 
-            bool shouldResume = _wasPlayingBeforeScroll;
-            _wasPlayingBeforeScroll = false;
-
-            if (shouldResume && mySeek == _seekGeneration)
-                Play();
+            EndSeeking();
         }
-        private void ExecuteDebouncedSeek(int positionPart)
+        private async void ExecuteDebouncedSeek(int positionPart)
         {
-            if (!_isUserScrolling)
+            if (!_isSeeking)
             {
-                _isUserScrolling = true;
-                ShowTime();
+                await BeginSeekingAsync();
             }
 
             ClearLyrics();
             _lastTrackBarScrollTime = DateTime.Now;
-            _isTrackBarBeingDragged = true;
 
-            if (!_wasPlayingBeforeScroll && _isPlaying)
+            try
             {
-                _wasPlayingBeforeScroll = true;
+                _scrollDebounceCts?.Cancel();
             }
+            catch { }
 
-            // Cancel any previous pending seek debounce tasks
-            try { _scrollDebounceCts?.Cancel(); } catch { }
             _scrollDebounceCts = new CancellationTokenSource();
-            var token = _scrollDebounceCts.Token;
-            _pendingPositionPart = positionPart;
 
+            CancellationToken token =
+                _scrollDebounceCts.Token;
+
+            _pendingPositionPart = positionPart;
             int capturedPart = positionPart;
 
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 try
                 {
                     await Task.Delay(100, token);
 
-                    if (token.IsCancellationRequested) return;
+                    if (token.IsCancellationRequested)
+                        return;
 
-                    this.BeginInvoke(new Action(async () =>
+                    BeginInvoke(new Action(async () =>
                     {
-                        if (token.IsCancellationRequested) return;
+                        if (token.IsCancellationRequested)
+                            return;
 
                         try
                         {
                             await SetPosition(capturedPart);
 
-                            if (token.IsCancellationRequested) return;
+                            if (token.IsCancellationRequested)
+                                return;
 
-                            if (_frames != null && _frames.Count > 0)
+                            if (_frames != null &&
+                                _frames.Count > 0)
                             {
-                                double totalDurationMs = GetTotalPlaybackDurationMs();
-                                double currentTimeMs = totalDurationMs * capturedPart / PlaybackSeekParts;
-                                double percent = capturedPart / 10.0;
-                                string timeStr = TimeSpan.FromMilliseconds(currentTimeMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
-                                string percentagestr = Resources.TextPercent.Replace("{number}", percent.ToString("0.00", CultureInfo.CurrentCulture));
-                                label_percentage.Text = percentagestr;
-                                label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
+                                double totalDurationMs =
+                                    GetTotalPlaybackDurationMs();
+
+                                double currentTimeMs =
+                                    totalDurationMs *
+                                    capturedPart /
+                                    PlaybackSeekParts;
+
+                                double percent =
+                                    capturedPart / 10.0;
+
+                                string timeStr =
+                                    TimeSpan
+                                        .FromMilliseconds(currentTimeMs)
+                                        .ToString(
+                                            @"mm\:ss\.ff",
+                                            CultureInfo.CurrentCulture);
+
+                                string percentagestr =
+                                    Resources.TextPercent.Replace(
+                                        "{number}",
+                                        percent.ToString(
+                                            "0.00",
+                                            CultureInfo.CurrentCulture));
+
+                                label_percentage.Text =
+                                    percentagestr;
+
+                                label_position.Text =
+                                    $"{Properties.Resources.TextPosition} {timeStr}";
                             }
 
-                            lock (_playbackRestartTimerLock)
-                            {
-                                try
-                                {
-                                    _playbackRestartTimer?.Stop();
-                                    _playbackRestartTimer?.Dispose();
-                                }
-                                catch { }
-                                _playbackRestartTimer = new System.Timers.Timer(300);
-                                _playbackRestartTimer.Elapsed += OnPlaybackRestartTimer;
-                                _playbackRestartTimer.AutoReset = false;
-                                _playbackRestartTimer.Start();
-                            }
+                            StartSeekRestartTimer();
                         }
                         catch (Exception ex)
                         {
-                            Logger.Log($"Error in debounced trackBar1_Scroll UI update: {ex.Message}", Logger.LogTypes.Error);
+                            Logger.Log(
+                                $"Error in debounced seek: {ex.Message}",
+                                Logger.LogTypes.Error);
                         }
-
-                        _isUserScrolling = false;
                     }));
                 }
-                catch (OperationCanceledException) { }
+                catch (OperationCanceledException)
+                {
+                }
             }, token);
+        }
+
+        private void StartSeekRestartTimer()
+        {
+            lock (_playbackRestartTimerLock)
+            {
+                try
+                {
+                    _playbackRestartTimer?.Stop();
+                    _playbackRestartTimer?.Dispose();
+                }
+                catch { }
+
+                _playbackRestartTimer =
+                    new System.Timers.Timer(300);
+
+                _playbackRestartTimer.AutoReset = false;
+                _playbackRestartTimer.Elapsed +=
+                    OnPlaybackRestartTimer;
+
+                _playbackRestartTimer.Start();
+            }
+        }
+
+        private async Task BeginSeekingAsync()
+        {
+            if (_isSeeking)
+                return;
+
+            _isSeeking = true;
+            _isTrackBarBeingDragged = true;
+            _isUserScrolling = true;
+
+            // Remember playback state only once, at the beginning of seeking.
+            if (_isPlaying)
+            {
+                _wasPlayingBeforeScroll = true;
+
+                // Playback must be completely stopped before changing position.
+                await StopAsync();
+            }
+
+            // Stop any old delayed restart.
+            lock (_playbackRestartTimerLock)
+            {
+                try
+                {
+                    _playbackRestartTimer?.Stop();
+                    _playbackRestartTimer?.Dispose();
+                }
+                catch { }
+
+                _playbackRestartTimer = null;
+            }
+        }
+
+        private void EndSeeking()
+        {
+            _isSeeking = false;
+            _isTrackBarBeingDragged = false;
+            _isUserScrolling = false;
+
+            bool shouldResume = _wasPlayingBeforeScroll;
+            _wasPlayingBeforeScroll = false;
+
+            if (shouldResume)
+            {
+                Play();
+            }
         }
     }
 }
