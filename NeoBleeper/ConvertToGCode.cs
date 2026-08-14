@@ -343,7 +343,7 @@ namespace NeoBleeper
         private NBPMLFile.NeoBleeperProjectFile? DeserializeXMLFromString(StringReader stringReader)
         {
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(typeof(NBPMLFile.NeoBleeperProjectFile));
-            return (NBPMLFile.NeoBleeperProjectFile)serializer.Deserialize(stringReader);
+            return serializer.Deserialize(stringReader) as NBPMLFile.NeoBleeperProjectFile;
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -793,7 +793,6 @@ namespace NeoBleeper
                 gcodeBuilder.AppendLine($"G4 P{length}");
                 return length;
             }
-            return elapsedTime;
         }
         private void ConvertToGCode_SystemColorsChanged(object sender, EventArgs e)
         {

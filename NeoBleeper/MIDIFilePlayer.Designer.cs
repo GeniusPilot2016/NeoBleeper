@@ -231,6 +231,7 @@
             trackBar1.Scroll += trackBar1_Scroll;
             trackBar1.MouseDown += trackBar1_MouseDown;
             trackBar1.MouseMove += trackBar1_MouseMove;
+            trackBar1.MouseUp += trackBar1_MouseUp;
             // 
             // label4
             // 

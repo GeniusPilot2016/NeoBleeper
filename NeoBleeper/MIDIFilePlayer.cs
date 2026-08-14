@@ -2349,23 +2349,10 @@ namespace NeoBleeper
 
         private async void button_rewind_Click(object sender, EventArgs e)
         {
-            try
-            {
-                _scrollDebounceCts?.Cancel();
-            }
-            catch { }
-
-            lock (_playbackRestartTimerLock)
-            {
-                try
-                {
-                    _playbackRestartTimer?.Stop();
-                    _playbackRestartTimer?.Dispose();
-                }
-                catch { }
-
-                _playbackRestartTimer = null;
-            }
+            // Invalidate any seek currently in flight so a stale RequestSeek can't
+            // overwrite the position Rewind() is about to set, or resume playback
+            // after Rewind() has already decided the outcome.
+            Interlocked.Increment(ref _seekGeneration);
 
             _isSeeking = false;
             _isTrackBarBeingDragged = false;
@@ -2379,12 +2366,6 @@ namespace NeoBleeper
             try
             {
                 Stop();
-                lock (_playbackRestartTimerLock)
-                {
-                    _playbackRestartTimer?.Stop();
-                    _playbackRestartTimer?.Dispose();
-                    _playbackRestartTimer = null;
-                }
                 try { lyricsOverlay?.Dispose(); } catch { }
             }
             catch (Exception ex)
@@ -2421,50 +2402,11 @@ namespace NeoBleeper
             if (_suppressNextScrollEvent)
             {
                 _suppressNextScrollEvent = false;
-                return; // Suppress native WinForms scroll event when triggered by manual value assignment
+                return;
             }
 
             int positionPart = Math.Clamp(trackBar1.Value, 0, PlaybackSeekParts);
-            ExecuteDebouncedSeek(positionPart);
-        }
-
-        /// <summary>
-        /// Handles the timer event that triggers playback restart after user interaction with the playback controls.
-        /// </summary>
-        /// <remarks>This method is intended to be used as an event handler for a System.Timers.Timer. It
-        /// resets relevant playback state and resumes playback if it was previously interrupted by user actions such as
-        /// scrolling or dragging the track bar.</remarks>
-        /// <param name="sender">The source of the event, typically the timer that initiated the callback.</param>
-        /// <param name="e">An ElapsedEventArgs object that contains the event data.</param>
-        private void OnPlaybackRestartTimer(
-    object sender,
-    System.Timers.ElapsedEventArgs e)
-        {
-            if (_scrollDebounceCts != null &&
-                _scrollDebounceCts.IsCancellationRequested)
-            {
-                return;
-            }
-
-            lock (_playbackRestartTimerLock)
-            {
-                try
-                {
-                    _playbackRestartTimer?.Stop();
-                    _playbackRestartTimer?.Dispose();
-                }
-                catch { }
-
-                _playbackRestartTimer = null;
-            }
-
-            if (IsDisposed || Disposing || !IsHandleCreated)
-                return;
-
-            BeginInvoke(new Action(() =>
-            {
-                EndSeeking();
-            }));
+            RequestSeek(positionPart);
         }
 
         private Label[] _noteLabels;
@@ -4235,6 +4177,10 @@ namespace NeoBleeper
         {
             if (e.Button == MouseButtons.Left)
             {
+                // With Capture = true, e.X/e.Y are still relative to trackBar1 even
+                // when the cursor is outside its bounds, so this clamp is what keeps
+                // the seek anchored to the nearest valid position instead of the
+                // handler simply never firing.
                 const int padding = 10;
                 int trackWidth = trackBar1.Width - (2 * padding);
 
@@ -4249,23 +4195,18 @@ namespace NeoBleeper
                     if (trackBar1.Value != valueAtCursor)
                     {
                         trackBar1.Value = valueAtCursor;
-                        _suppressNextScrollEvent = true; // Prevent redundant native scroll event
-                        ExecuteDebouncedSeek(valueAtCursor); // Run seek directly
+                        _suppressNextScrollEvent = true;
+                        RequestSeek(valueAtCursor);
                     }
                 }
             }
+
             using (Graphics g = this.CreateGraphics())
             {
                 g.PageUnit = GraphicsUnit.Pixel;
                 g.PageScale = g.DpiX / 96.0f;
 
-                Point thumbPosition = GetTrackBarThumbPosition(trackBar1);
-
-                int thumbWidth = (int)(20 * g.PageScale);
-                int thumbHeight = (int)(20 * g.PageScale);
-
-                Rectangle thumbBounds =
-    GetTrackBarThumbBounds(trackBar1);
+                Rectangle thumbBounds = GetTrackBarThumbBounds(trackBar1);
 
                 if (thumbBounds.Contains(e.Location))
                 {
@@ -4381,7 +4322,6 @@ namespace NeoBleeper
         }
 
         private bool _suppressNextScrollEvent = false;
-
         private volatile int _seekGeneration = 0;
 
         private void trackBar1_MouseDown(object sender, MouseEventArgs e)
@@ -4391,173 +4331,112 @@ namespace NeoBleeper
             if (trackBar1.Width <= 0)
                 return;
 
-            double clickedPercentage =
-                (double)e.X / trackBar1.Width;
+            // Capture the mouse so drag movement is still reported even if the
+            // cursor leaves the trackbar's bounds while the button is held - without
+            // this, MouseMove stops firing once the cursor exits the control, the
+            // seek session is left open, and playback can resume while the user is
+            // still mid-drag outside the trackbar.
+            trackBar1.Capture = true;
 
-            int range =
-                trackBar1.Maximum - trackBar1.Minimum;
-
-            int newValue =
-                trackBar1.Minimum +
-                (int)Math.Round(clickedPercentage * range);
-
-            newValue = Math.Clamp(
-                newValue,
-                trackBar1.Minimum,
-                trackBar1.Maximum);
-
-            int mySeek =
-                Interlocked.Increment(ref _seekGeneration);
-
-            BeginInvoke(new Action(async () =>
-            {
-                await JumpTrackBarToClickedPosition(
-                    newValue,
-                    mySeek);
-            }));
-        }
-
-        private async Task JumpTrackBarToClickedPosition(
-    int newValue,
-    int mySeek)
-        {
-            if (mySeek != _seekGeneration)
-                return;
-
-            await BeginSeekingAsync();
-
-            if (mySeek != _seekGeneration)
-                return;
-
-            ClearLyrics();
+            double clickedPercentage = (double)e.X / trackBar1.Width;
+            int range = trackBar1.Maximum - trackBar1.Minimum;
+            int newValue = trackBar1.Minimum + (int)Math.Round(clickedPercentage * range);
+            newValue = Math.Clamp(newValue, trackBar1.Minimum, trackBar1.Maximum);
 
             trackBar1.Value = newValue;
+            RequestSeek(newValue);
+        }
 
-            await SetPosition(newValue);
 
-            // Another seek occurred while Stop/SetPosition was running.
-            if (mySeek != _seekGeneration)
+        /// <summary>
+        /// Finalizes the seek the instant the mouse button is released, regardless
+        /// of whether the cursor is still over the trackbar. Without this, releasing
+        /// the button outside the control's bounds fires neither MouseUp on
+        /// trackBar1 nor any further MouseMove, so the seek session (_isSeeking)
+        /// could be left open indefinitely, or only resolve later via the 100ms
+        /// debounce - during which the position/playback state is stale.
+        /// </summary>
+        private async void trackBar1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (trackBar1.Capture)
+                trackBar1.Capture = false;
+
+            // Wait for the in-flight RequestSeek (position + StopAsync) to actually
+            // finish before deciding whether to resume - otherwise Play() could fire
+            // before SetPosition ran, get immediately stopped again by it, and never
+            // resume, since _wasPlayingBeforeScroll would already be consumed.
+            await _activeSeekTask;
+
+            if (!_isSeeking && !_wasPlayingBeforeScroll)
                 return;
 
-            UpdateTimeAndPercentPosition(_currentFrameIndex);
+            bool shouldResume = _wasPlayingBeforeScroll;
+            _wasPlayingBeforeScroll = false;
+            _isSeeking = false;
+            _isTrackBarBeingDragged = false;
+            _isUserScrolling = false;
 
-            EndSeeking();
-        }
-        private async void ExecuteDebouncedSeek(int positionPart)
-        {
-            if (!_isSeeking)
+            if (shouldResume)
             {
-                await BeginSeekingAsync();
+                Play();
             }
+        }
 
-            ClearLyrics();
-            _lastTrackBarScrollTime = DateTime.Now;
+        private volatile Task _activeSeekTask = Task.CompletedTask;
+
+        /// <summary>
+        /// Single entry point for EVERY seek source - click (MouseDown), drag
+        /// (MouseMove) and the native Scroll event. Previously MouseDown and
+        /// MouseMove/Scroll ran through two independent pipelines, each with its
+        /// own notion of "the current seek" (a _seekGeneration counter on one
+        /// side, a separate CancellationTokenSource on the other). A single
+        /// click-drag gesture fires both pipelines at once, and whichever one
+        /// finished first called EndSeeking() - consuming _wasPlayingBeforeScroll
+        /// and resuming playback - while the other pipeline was still mid-flight
+        /// and about to call SetPosition() again. SetPosition() stops playback
+        /// whenever _isPlaying is true, so that second, stale call silently
+        /// stopped the just-resumed playback - and because _wasPlayingBeforeScroll
+        /// had already been consumed by the first pipeline, nothing resumed it
+        /// again. That was the source of both the trackbar "getting back" to an
+        /// old position and playback silently stopping after a seek.
+        ///
+        /// Every call here increments the single shared _seekGeneration. Only the
+        /// call that is still the latest generation after its own 100ms debounce
+        /// window (and after the awaited SetPosition/StopAsync calls) is allowed
+        /// to touch the trackbar/playback state or end the seeking session - so a
+        /// burst of MouseMove events during a drag naturally collapses to exactly
+        /// one winner, regardless of which handler produced it.
+        /// </summary>
+        private async void RequestSeek(int positionPart)
+        {
+            int mySeek = Interlocked.Increment(ref _seekGeneration);
+            var tcs = new TaskCompletionSource();
+            _activeSeekTask = tcs.Task;
 
             try
             {
-                _scrollDebounceCts?.Cancel();
+                if (!_isSeeking)
+                {
+                    try { _cancellationTokenSource?.Cancel(); } catch (ObjectDisposedException) { }
+                    await BeginSeekingAsync();
+                }
+
+                if (mySeek != _seekGeneration) return;
+
+                ClearLyrics();
+                _lastTrackBarScrollTime = DateTime.Now;
+
+                await Task.Delay(100);
+                if (mySeek != _seekGeneration) return;
+
+                await SetPosition(positionPart);
+                if (mySeek != _seekGeneration) return;
+
+                UpdateTimeAndPercentPosition(_currentFrameIndex);
             }
-            catch { }
-
-            _scrollDebounceCts = new CancellationTokenSource();
-
-            CancellationToken token =
-                _scrollDebounceCts.Token;
-
-            _pendingPositionPart = positionPart;
-            int capturedPart = positionPart;
-
-            _ = Task.Run(async () =>
+            finally
             {
-                try
-                {
-                    await Task.Delay(100, token);
-
-                    if (token.IsCancellationRequested)
-                        return;
-
-                    BeginInvoke(new Action(async () =>
-                    {
-                        if (token.IsCancellationRequested)
-                            return;
-
-                        try
-                        {
-                            await SetPosition(capturedPart);
-
-                            if (token.IsCancellationRequested)
-                                return;
-
-                            if (_frames != null &&
-                                _frames.Count > 0)
-                            {
-                                double totalDurationMs =
-                                    GetTotalPlaybackDurationMs();
-
-                                double currentTimeMs =
-                                    totalDurationMs *
-                                    capturedPart /
-                                    PlaybackSeekParts;
-
-                                double percent =
-                                    capturedPart / 10.0;
-
-                                string timeStr =
-                                    TimeSpan
-                                        .FromMilliseconds(currentTimeMs)
-                                        .ToString(
-                                            @"mm\:ss\.ff",
-                                            CultureInfo.CurrentCulture);
-
-                                string percentagestr =
-                                    Resources.TextPercent.Replace(
-                                        "{number}",
-                                        percent.ToString(
-                                            "0.00",
-                                            CultureInfo.CurrentCulture));
-
-                                label_percentage.Text =
-                                    percentagestr;
-
-                                label_position.Text =
-                                    $"{Properties.Resources.TextPosition} {timeStr}";
-                            }
-
-                            StartSeekRestartTimer();
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.Log(
-                                $"Error in debounced seek: {ex.Message}",
-                                Logger.LogTypes.Error);
-                        }
-                    }));
-                }
-                catch (OperationCanceledException)
-                {
-                }
-            }, token);
-        }
-
-        private void StartSeekRestartTimer()
-        {
-            lock (_playbackRestartTimerLock)
-            {
-                try
-                {
-                    _playbackRestartTimer?.Stop();
-                    _playbackRestartTimer?.Dispose();
-                }
-                catch { }
-
-                _playbackRestartTimer =
-                    new System.Timers.Timer(300);
-
-                _playbackRestartTimer.AutoReset = false;
-                _playbackRestartTimer.Elapsed +=
-                    OnPlaybackRestartTimer;
-
-                _playbackRestartTimer.Start();
+                tcs.SetResult();
             }
         }
 
@@ -4570,26 +4449,10 @@ namespace NeoBleeper
             _isTrackBarBeingDragged = true;
             _isUserScrolling = true;
 
-            // Remember playback state only once, at the beginning of seeking.
             if (_isPlaying)
             {
                 _wasPlayingBeforeScroll = true;
-
-                // Playback must be completely stopped before changing position.
                 await StopAsync();
-            }
-
-            // Stop any old delayed restart.
-            lock (_playbackRestartTimerLock)
-            {
-                try
-                {
-                    _playbackRestartTimer?.Stop();
-                    _playbackRestartTimer?.Dispose();
-                }
-                catch { }
-
-                _playbackRestartTimer = null;
             }
         }
 
@@ -4598,14 +4461,6 @@ namespace NeoBleeper
             _isSeeking = false;
             _isTrackBarBeingDragged = false;
             _isUserScrolling = false;
-
-            bool shouldResume = _wasPlayingBeforeScroll;
-            _wasPlayingBeforeScroll = false;
-
-            if (shouldResume)
-            {
-                Play();
-            }
         }
     }
 }
