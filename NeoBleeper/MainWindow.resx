@@ -1185,7 +1185,7 @@
         HwHAAQEC/wH8AeEB8AEHAcABAQHxAccB+AHDAeEBwwL/AfEBxwHwAYMBxwHjAv8B8QHHAcABAQHPAfAC
         /wHxAccBwAEBAf8B4AHAAQEB8QHHAcABAQHfAfkC/wHxAccBwAEBAYcD/wHxAccBwAEBAY8B+wL/AfEB
         xwHwAYMBxwHxAcABAQHxAccB4AHDAuMC/wHxAccBxAHnAeABBwL/AfEBxwGOAf8B+AEPAcABAQHxAccB
-        nw//FgAL
+        nw//Cw==
 </value>
   </data>
   <data name="&gt;&gt;MIDIRestartBeepTimer.Name" xml:space="preserve">
@@ -1713,8 +1713,8 @@
   <data name="button_b4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="add_as_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="checkBox_dotted.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
   </data>
   <data name="&gt;&gt;numericUpDown_bpm.Name" xml:space="preserve">
     <value>numericUpDown_bpm</value>
@@ -1779,8 +1779,8 @@
   <data name="&gt;&gt;button_d4.Parent" xml:space="preserve">
     <value>keyboard_panel</value>
   </data>
-  <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
+  <data name="&gt;&gt;checkBox_triplet.ZOrder" xml:space="preserve">
+    <value>27</value>
   </data>
   <data name="button_c3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
@@ -2981,8 +2981,8 @@
   <data name="&gt;&gt;position_table.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 22</value>
+  <data name="lbl_g3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 18</value>
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
@@ -3329,8 +3329,8 @@
   <data name="&gt;&gt;radioButtonPlay_alternating_notes2.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
-  <data name="&gt;&gt;lbl_note_silence_ratio.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="lbl_c4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 163</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note3_clicked.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -3584,7 +3584,7 @@
   <data name="button_g5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
-  <data name="button_e3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="button_clear_note4.Font" type="System.Drawing.Font, System.Drawing">
@@ -3989,8 +3989,8 @@
   <data name="&gt;&gt;button_c5.Name" xml:space="preserve">
     <value>button_c5</value>
   </data>
-  <data name="button_e5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;button_d3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lbl_f5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -4739,8 +4739,8 @@
   <data name="&gt;&gt;button_blank_line.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+  <data name="&gt;&gt;lbl_b5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button_b4.ToolTip" xml:space="preserve">
     <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
@@ -4982,7 +4982,7 @@
   <data name="&gt;&gt;lbl_a5.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="add_as_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="add_as_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
@@ -5003,8 +5003,8 @@
   <data name="lbl_a4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBox_do_not_update.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="checkBox_replace.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="button_g3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -6877,8 +6877,8 @@
   <data name="&gt;&gt;button_clear_note2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="lbl_c3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 19</value>
+  <data name="&gt;&gt;button_synchronized_play_help.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button_use_voice_system_help.TabIndex" type="System.Int32, mscorlib">
     <value>89</value>
@@ -7672,8 +7672,8 @@
   <data name="button_synchronized_play_help.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioButtonPlay_alternating_notes2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="lbl_beat_traditional_value.ToolTip" xml:space="preserve">
     <value />
