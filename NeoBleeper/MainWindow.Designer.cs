@@ -2323,9 +2323,6 @@
         private Label lbl_beat;
         private Label lbl_measure;
         private TableLayoutPanel position_table;
-        private Label lbl_measure_value;
-        private Label lbl_beat_value;
-        private Label lbl_beat_traditional_value;
         private Button button_a5;
         private Button button_f5;
         private Button button_e5;
@@ -2453,5 +2450,8 @@
         public RadioButton radioButtonPlay_alternating_notes2;
         public RadioButton radioButtonPlay_alternating_notes1;
         private NotifyIcon notifyIconNeoBleeper;
+        public Label lbl_measure_value;
+        public Label lbl_beat_value;
+        public Label lbl_beat_traditional_value;
     }
 }

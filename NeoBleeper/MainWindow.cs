@@ -187,7 +187,7 @@ namespace NeoBleeper
             AskForSavingIfModified(() => { Application.Exit(); });
         }
 
-        private void ResizeColumn()
+        public void ResizeColumn()
         {
             listViewNotes.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             if (listViewNotes.Columns.Count > 0)
@@ -2165,9 +2165,7 @@ namespace NeoBleeper
         {
             double oldValue = Variables.noteSilenceRatio;
             Variables.noteSilenceRatio = (Convert.ToDouble(trackBar_note_silence_ratio.Value) / 100);
-            string percentText = Resources.TextPercent;
-            percentText = percentText.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
-            lbl_note_silence_ratio.Text = percentText;
+            SyncTrackbarValues();
             if (!variableIsChanging)
             {
                 double newValue = Variables.noteSilenceRatio;
@@ -2193,7 +2191,7 @@ namespace NeoBleeper
         {
             int oldValue = Variables.timeSignature;
             Variables.timeSignature = trackBar_time_signature.Value;
-            lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
+            SyncTrackbarValues();
             if (!variableIsChanging)
             {
                 int newValue = Variables.timeSignature;
@@ -2212,6 +2210,13 @@ namespace NeoBleeper
                 }
             }
             Logger.Log($"Time signature is set to {trackBar_time_signature.Value}", Logger.LogTypes.Info);
+        }
+
+        public void SyncTrackbarValues() {
+            string percentText = Resources.TextPercent;
+            percentText = percentText.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
+            lbl_note_silence_ratio.Text = percentText;
+            lbl_time_signature.Text = trackBar_time_signature.Value.ToString();
         }
 
         /// <summary>
@@ -4184,7 +4189,6 @@ namespace NeoBleeper
             }
         }
         int beatLength = 0; // Length of the beat sound in milliseconds for adding corrected note length to prevent irregularities
-
         /// <summary>
         /// Updates the measure and beat display values based on the specified line index, and optionally plays a beat
         /// sound depending on user interaction and settings.
@@ -4198,7 +4202,7 @@ namespace NeoBleeper
         private void UpdateDisplays(int Line, bool clicked = false)
         {
             if (listViewNotes.Items.Count > 0)
-            {
+            { 
                 int measure = 1;
                 double beat = 0;
                 double beatNumber = 1;
@@ -4654,7 +4658,7 @@ namespace NeoBleeper
         {
             StopPlaying();
             StopAllSounds();
-            if (isModified == true && !SettingsWindow.willRestartForChanges)  // Ask for saving only if there are unsaved changes and not restarting for settings change
+            if (isModified == true)  // Ask for saving only if there are unsaved changes 
             {
                 var result = MessageForm.Show(this, Resources.MessageUnsavedChanges, Resources.TitleUnsavedChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)

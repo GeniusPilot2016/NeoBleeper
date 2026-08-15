@@ -1,6 +1,11 @@
 ﻿using Microsoft.Win32;
 using NeoBleeper;
+using System.Collections;
+using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
+using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 public static class UIHelper
 {
@@ -485,7 +490,7 @@ public static class UIHelper
             {
                 trackBar.BackColor = form.BackColor;
             }
-            if(ctrl.HasChildren)
+            if (ctrl.HasChildren)
             {
                 ChangeTrackbarColorsRecursive(ctrl, form.BackColor);
             }
@@ -519,6 +524,1557 @@ public static class UIHelper
         DwmSetWindowAttribute(form.Handle, 35, ref cachedColorRef, 4);
         form.BackColor = darkMode ? Color.FromArgb(32, 32, 32) : SystemColors.Control;
         form.TransparencyKey = Color.Empty;
+    }
+    public static void ApplyLanguageChangeToUI()
+    {
+        System.Windows.Forms.Form[] forms =
+            System.Windows.Forms.Application.OpenForms
+            .Cast<System.Windows.Forms.Form>()
+            .ToArray();
+
+        foreach (System.Windows.Forms.Form form in forms)
+        {
+            if (form == null || form.IsDisposed)
+                continue;
+
+            float dpiFactor = form.DeviceDpi / 96.0f;
+
+            form.SuspendLayout();
+
+            try
+            {
+                System.ComponentModel.ComponentResourceManager resources =
+                    new System.ComponentModel.ComponentResourceManager(
+                        form.GetType());
+
+                // ====================================================
+                // FORM
+                // ====================================================
+
+                LocalizeForm(
+                    form,
+                    resources,
+                    dpiFactor);
+
+                // ====================================================
+                // CONTROLS
+                // ====================================================
+
+                LocalizeControlTree(
+                    form,
+                    resources,
+                    dpiFactor);
+
+                // ====================================================
+                // TOOL TIPS
+                // ====================================================
+
+                LocalizeToolTips(
+                    form,
+                    resources);
+
+                // ====================================================
+                // OTHER COMPONENTS
+                // ====================================================
+
+                LocalizeComponents(
+                    form,
+                    resources);
+            }
+            finally
+            {
+                form.ResumeLayout(true);
+                form.PerformLayout();
+            }
+        }
+    }
+
+
+    // =================================================================
+    // FORM
+    // =================================================================
+
+    private static void LocalizeForm(
+        System.Windows.Forms.Form form,
+        System.ComponentModel.ComponentResourceManager resources,
+        float dpiFactor)
+    {
+        string text =
+            resources.GetString("$this.Text");
+
+        if (text != null)
+            form.Text = text;
+
+        object sizeObject =
+            resources.GetObject("$this.Size");
+
+        if (sizeObject is System.Drawing.Size size)
+        {
+            form.Size =
+                new System.Drawing.Size(
+                    (int)System.Math.Round(
+                        size.Width * dpiFactor),
+                    (int)System.Math.Round(
+                        size.Height * dpiFactor));
+        }
+
+        object locationObject =
+            resources.GetObject("$this.Location");
+
+        if (locationObject is System.Drawing.Point location)
+        {
+            form.Location =
+                new System.Drawing.Point(
+                    (int)System.Math.Round(
+                        location.X * dpiFactor),
+                    (int)System.Math.Round(
+                        location.Y * dpiFactor));
+        }
+
+        object minimumSizeObject =
+            resources.GetObject("$this.MinimumSize");
+
+        if (minimumSizeObject is System.Drawing.Size minimumSize)
+        {
+            form.MinimumSize =
+                new System.Drawing.Size(
+                    (int)System.Math.Round(
+                        minimumSize.Width * dpiFactor),
+                    (int)System.Math.Round(
+                        minimumSize.Height * dpiFactor));
+        }
+
+        object maximumSizeObject =
+            resources.GetObject("$this.MaximumSize");
+
+        if (maximumSizeObject is System.Drawing.Size maximumSize)
+        {
+            form.MaximumSize =
+                new System.Drawing.Size(
+                    (int)System.Math.Round(
+                        maximumSize.Width * dpiFactor),
+                    (int)System.Math.Round(
+                        maximumSize.Height * dpiFactor));
+        }
+
+        string accessibleName =
+            resources.GetString(
+                "$this.AccessibleName");
+
+        if (accessibleName != null)
+            form.AccessibleName = accessibleName;
+
+        string accessibleDescription =
+            resources.GetString(
+                "$this.AccessibleDescription");
+
+        if (accessibleDescription != null)
+            form.AccessibleDescription =
+                accessibleDescription;
+    }
+
+
+    // =================================================================
+    // CONTROL TREE
+    // =================================================================
+
+    private static void LocalizeControlTree(
+        System.Windows.Forms.Control parent,
+        System.ComponentModel.ComponentResourceManager resources,
+        float dpiFactor)
+    {
+        if (parent == null)
+            return;
+
+        foreach (System.Windows.Forms.Control control
+            in parent.Controls)
+        {
+            if (control == null)
+                continue;
+
+            string name = control.Name;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                // ====================================================
+                // COMBOBOX
+                // ====================================================
+
+                if (control is System.Windows.Forms.ComboBox comboBox)
+                {
+                    LocalizeComboBox(
+                        comboBox,
+                        name,
+                        resources);
+                }
+                else
+                {
+                    // =================================================
+                    // NORMAL CONTROL TEXT
+                    // =================================================
+
+                    LocalizeControlText(
+                        control,
+                        name,
+                        resources);
+                }
+
+                // ====================================================
+                // SIZE / LOCATION
+                // ====================================================
+
+                LocalizeGeometry(
+                    control,
+                    name,
+                    resources,
+                    dpiFactor);
+
+                // ====================================================
+                // TOOLTIP
+                // ====================================================
+
+                LocalizeControlToolTip(
+                    control,
+                    name,
+                    resources);
+
+                // ====================================================
+                // LISTBOX
+                // ====================================================
+
+                if (control is System.Windows.Forms.CheckedListBox checkedList)
+                {
+                    LocalizeCheckedListBox(
+                        checkedList,
+                        name,
+                        resources);
+                }
+                else if (control is System.Windows.Forms.ListBox listBox)
+                {
+                    LocalizeListBox(
+                        listBox,
+                        name,
+                        resources);
+                }
+
+                // ====================================================
+                // DATAGRIDVIEW
+                // ====================================================
+
+                if (control is System.Windows.Forms.DataGridView dataGridView)
+                {
+                    LocalizeDataGridView(
+                        dataGridView,
+                        resources);
+                }
+
+                // ====================================================
+                // LISTVIEW
+                // ====================================================
+
+                if (control is System.Windows.Forms.ListView listView)
+                {
+                    LocalizeListView(
+                        listView,
+                        resources,
+                        listView.FindForm());
+                }
+
+                // ====================================================
+                // TREEVIEW
+                // ====================================================
+
+                if (control is System.Windows.Forms.TreeView treeView)
+                {
+                    LocalizeTreeView(
+                        treeView,
+                        resources);
+                }
+
+                // ====================================================
+                // TOOLSTRIP
+                // ====================================================
+
+                if (control is System.Windows.Forms.ToolStrip toolStrip)
+                {
+                    LocalizeToolStrip(
+                        toolStrip,
+                        resources);
+                }
+
+                // ====================================================
+                // CONTEXT MENU
+                // ====================================================
+
+                if (control.ContextMenuStrip != null)
+                {
+                    LocalizeContextMenu(
+                        control.ContextMenuStrip,
+                        resources);
+                }
+            }
+
+            // ========================================================
+            // TAB CONTROL
+            // ========================================================
+
+            if (control is System.Windows.Forms.TabControl tabControl)
+            {
+                foreach (System.Windows.Forms.TabPage page
+                    in tabControl.TabPages)
+                {
+                    if (!string.IsNullOrEmpty(page.Name))
+                    {
+                        string pageText =
+                            resources.GetString(
+                                page.Name + ".Text");
+
+                        if (pageText != null)
+                            page.Text = pageText;
+
+                        string accessibleName =
+                            resources.GetString(
+                                page.Name +
+                                ".AccessibleName");
+
+                        if (accessibleName != null)
+                            page.AccessibleName =
+                                accessibleName;
+
+                        string accessibleDescription =
+                            resources.GetString(
+                                page.Name +
+                                ".AccessibleDescription");
+
+                        if (accessibleDescription != null)
+                            page.AccessibleDescription =
+                                accessibleDescription;
+                    }
+
+                    LocalizeControlTree(
+                        page,
+                        resources,
+                        dpiFactor);
+                }
+            }
+            else if (control.HasChildren)
+            {
+                LocalizeControlTree(
+                    control,
+                    resources,
+                    dpiFactor);
+            }
+        }
+    }
+
+
+    // =================================================================
+    // NORMAL CONTROL TEXT
+    // =================================================================
+
+    private static void LocalizeControlText(
+        System.Windows.Forms.Control control,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (control == null)
+            return;
+
+        string text =
+            resources.GetString(
+                name + ".Text");
+
+        if (text != null)
+            control.Text = text;
+
+        string accessibleName =
+            resources.GetString(
+                name + ".AccessibleName");
+
+        if (accessibleName != null)
+            control.AccessibleName =
+                accessibleName;
+
+        string accessibleDescription =
+            resources.GetString(
+                name + ".AccessibleDescription");
+
+        if (accessibleDescription != null)
+            control.AccessibleDescription =
+                accessibleDescription;
+    }
+
+
+    // =================================================================
+    // COMBOBOX
+    //
+    // Supported resource formats:
+    //
+    //     comboBox1.Items
+    //     comboBox1.Items0
+    //     comboBox1.Items1
+    //     comboBox1.Items2
+    //
+    //     comboBox1.Item0
+    //     comboBox1.Item1
+    //     comboBox1.Item2
+    //
+    //     comboBox1.Item.0
+    //     comboBox1.Item.1
+    //
+    //     comboBox1.Items.0
+    //     comboBox1.Items.1
+    //
+    // Most importantly:
+    //
+    //     comboBox1.Items
+    //
+    // can be the FIRST ITEM as a string.
+    //
+    // A string is NEVER enumerated.
+    // =================================================================
+
+    private static void LocalizeComboBox(
+        System.Windows.Forms.ComboBox comboBox,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (comboBox == null)
+            return;
+
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+
+        int originalCount =
+            comboBox.Items.Count;
+
+        if (originalCount == 0)
+            return;
+
+        int selectedIndex =
+            comboBox.SelectedIndex;
+
+        System.Collections.Generic.List<string> localizedItems =
+            new System.Collections.Generic.List<string>();
+
+        // ============================================================
+        // First check whether .Items is an actual collection.
+        // ============================================================
+
+        object itemsObject = null;
+
+        try
+        {
+            itemsObject =
+                resources.GetObject(
+                    name + ".Items");
+        }
+        catch
+        {
+            itemsObject = null;
+        }
+
+        // ============================================================
+        // CASE 1:
+        //
+        // .Items is STRING[]
+        // ============================================================
+
+        if (itemsObject is string[] stringArray)
+        {
+            foreach (string item in stringArray)
+            {
+                localizedItems.Add(
+                    item ?? string.Empty);
+            }
+        }
+
+        // ============================================================
+        // CASE 2:
+        //
+        // .Items is OBJECT[]
+        // ============================================================
+
+        else if (itemsObject is object[] objectArray)
+        {
+            foreach (object item in objectArray)
+            {
+                localizedItems.Add(
+                    item?.ToString()
+                    ?? string.Empty);
+            }
+        }
+
+        // ============================================================
+        // CASE 3:
+        //
+        // .Items is another collection.
+        //
+        // IMPORTANT:
+        // string is NOT processed here.
+        // ============================================================
+
+        else if (itemsObject != null &&
+                 itemsObject is
+                     System.Collections.IEnumerable enumerable &&
+                 !(itemsObject is string))
+        {
+            foreach (object item in enumerable)
+            {
+                localizedItems.Add(
+                    item?.ToString()
+                    ?? string.Empty);
+            }
+        }
+
+        // ============================================================
+        // CASE 4:
+        //
+        // .Items itself is a STRING.
+        //
+        // THIS IS THE IMPORTANT FIX.
+        //
+        // Treat it as item ZERO / first item.
+        //
+        // DO NOT enumerate it.
+        // ============================================================
+
+        else if (itemsObject is string firstItem)
+        {
+            localizedItems.Add(firstItem);
+
+            // --------------------------------------------------------
+            // Then search for the remaining items.
+            // --------------------------------------------------------
+
+            for (int i = 1;
+                 i < originalCount;
+                 i++)
+            {
+                string value =
+                    GetComboBoxResourceItem(
+                        name,
+                        i,
+                        resources);
+
+                if (value == null)
+                {
+                    // Keep original untranslated item.
+                    value =
+                        comboBox.Items[i]
+                        ?.ToString()
+                        ?? string.Empty;
+                }
+
+                localizedItems.Add(value);
+            }
+        }
+
+        // ============================================================
+        // CASE 5:
+        //
+        // No usable .Items resource.
+        //
+        // Search every item individually.
+        // ============================================================
+
+        if (localizedItems.Count == 0)
+        {
+            for (int i = 0;
+                 i < originalCount;
+                 i++)
+            {
+                string value =
+                    GetComboBoxResourceItem(
+                        name,
+                        i,
+                        resources);
+
+                if (value == null)
+                {
+                    value =
+                        comboBox.Items[i]
+                        ?.ToString()
+                        ?? string.Empty;
+                }
+
+                localizedItems.Add(value);
+            }
+        }
+
+        // ============================================================
+        // SAFETY
+        // ============================================================
+
+        if (localizedItems.Count == 0)
+            return;
+
+        // ============================================================
+        // Do not destroy a multi-item ComboBox because only one
+        // translation was found.
+        // ============================================================
+
+        if (originalCount > 1 &&
+            localizedItems.Count == 1)
+        {
+            return;
+        }
+
+        // ============================================================
+        // If fewer localized items were found, preserve the remaining
+        // original items.
+        // ============================================================
+
+        while (localizedItems.Count < originalCount)
+        {
+            int index =
+                localizedItems.Count;
+
+            string original =
+                comboBox.Items[index]
+                ?.ToString()
+                ?? string.Empty;
+
+            localizedItems.Add(original);
+        }
+
+        // ============================================================
+        // Replace items
+        // ============================================================
+
+        comboBox.BeginUpdate();
+
+        try
+        {
+            comboBox.Items.Clear();
+
+            foreach (string item
+                in localizedItems)
+            {
+                comboBox.Items.Add(item);
+            }
+
+            // ========================================================
+            // Restore selection
+            // ========================================================
+
+            if (selectedIndex >= 0 &&
+                selectedIndex <
+                comboBox.Items.Count)
+            {
+                comboBox.SelectedIndex =
+                    selectedIndex;
+            }
+            else if (comboBox.Items.Count > 0)
+            {
+                comboBox.SelectedIndex = 0;
+            }
+        }
+        finally
+        {
+            comboBox.EndUpdate();
+        }
+
+        // ============================================================
+        // Set displayed text from selected localized item.
+        // ============================================================
+
+        if (comboBox.SelectedIndex >= 0 &&
+            comboBox.SelectedIndex <
+            comboBox.Items.Count)
+        {
+            comboBox.Text =
+                comboBox.Items[
+                    comboBox.SelectedIndex]
+                ?.ToString()
+                ?? string.Empty;
+        }
+    }
+
+
+    // =================================================================
+    // GET COMBOBOX ITEM RESOURCE
+    //
+    // Handles all common resource naming variations.
+    // =================================================================
+
+    private static string GetComboBoxResourceItem(
+        string name,
+        int index,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        string value;
+
+        // ============================================================
+        // ZERO-BASED
+        // ============================================================
+
+        value =
+            resources.GetString(
+                name + ".Items" + index);
+
+        if (value != null)
+            return value;
+
+        value =
+            resources.GetString(
+                name + ".Item" + index);
+
+        if (value != null)
+            return value;
+
+        value =
+            resources.GetString(
+                name + ".Items." + index);
+
+        if (value != null)
+            return value;
+
+        value =
+            resources.GetString(
+                name + ".Item." + index);
+
+        if (value != null)
+            return value;
+
+        // ============================================================
+        // ONE-BASED
+        //
+        // Only useful if zero-based did not exist.
+        // ============================================================
+
+        int oneBased =
+            index + 1;
+
+        value =
+            resources.GetString(
+                name + ".Items" + oneBased);
+
+        if (value != null)
+            return value;
+
+        value =
+            resources.GetString(
+                name + ".Item" + oneBased);
+
+        if (value != null)
+            return value;
+
+        value =
+            resources.GetString(
+                name + ".Items." + oneBased);
+
+        if (value != null)
+            return value;
+
+        value =
+            resources.GetString(
+                name + ".Item." + oneBased);
+
+        if (value != null)
+            return value;
+
+        return null;
+    }
+
+
+    // =================================================================
+    // GEOMETRY - MULTI-MONITOR & FACTOR SAFE
+    // =================================================================
+
+    private static void LocalizeGeometry(
+        System.Windows.Forms.Control control,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources,
+        float dpiFactor)
+    {
+        // Mevcut (çalışma zamanındaki) konum ve boyutu baz alıyoruz
+        int currentX = control.Location.X;
+        int currentY = control.Location.Y;
+        int currentWidth = control.Size.Width;
+        int currentHeight = control.Size.Height;
+
+        object locationObject = resources.GetObject(name + ".Location");
+        if (locationObject is System.Drawing.Point location)
+        {
+            // Kayan noktalı matematik kullanarak piksel kaymalarını engelliyoruz
+            currentX = (int)System.Math.Round(location.X * dpiFactor);
+            currentY = (int)System.Math.Round(location.Y * dpiFactor);
+        }
+
+        object sizeObject = resources.GetObject(name + ".Size");
+        if (sizeObject is System.Drawing.Size size)
+        {
+            currentWidth = (int)System.Math.Round(size.Width * dpiFactor);
+            currentHeight = (int)System.Math.Round(size.Height * dpiFactor);
+        }
+
+        // Minimum ve Maximum sınırları layout hesaplamasından önce korumaya alıyoruz
+        object minimumSizeObject = resources.GetObject(name + ".MinimumSize");
+        if (minimumSizeObject is System.Drawing.Size minimumSize)
+        {
+            control.MinimumSize = new System.Drawing.Size(
+                (int)System.Math.Round(minimumSize.Width * dpiFactor),
+                (int)System.Math.Round(minimumSize.Height * dpiFactor));
+        }
+
+        object maximumSizeObject = resources.GetObject(name + ".MaximumSize");
+        if (maximumSizeObject is System.Drawing.Size maximumSize)
+        {
+            control.MaximumSize = new System.Drawing.Size(
+                (int)System.Math.Round(maximumSize.Width * dpiFactor),
+                (int)System.Math.Round(maximumSize.Height * dpiFactor));
+        }
+
+        // BUG FIX: .Location ve .Size özelliklerine ayrı ayrı ham piksel set etmek,
+        // her atamada WinForms Layout Engine'i tetikler ve Anchor/Dock/Padding kuralları
+        // yüzünden nesnelerin ekrandan dışarı taşmasına veya kaybolmasına (corruption) neden olur.
+        // SetBounds metodu tüm yeni geometriyi tek bir atomik operasyonda uygulayarak bug'ı çözer.
+        control.SetBounds(
+            currentX,
+            currentY,
+            currentWidth,
+            currentHeight,
+            System.Windows.Forms.BoundsSpecified.All);
+    }
+
+
+    // =================================================================
+    // CONTROL TOOLTIP
+    // =================================================================
+
+    private static void LocalizeControlToolTip(
+        System.Windows.Forms.Control control,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        System.Reflection.PropertyInfo property =
+            control.GetType().GetProperty(
+                "ToolTipText",
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.Public);
+
+        if (property == null)
+            return;
+
+        if (!property.CanWrite)
+            return;
+
+        if (property.PropertyType != typeof(string))
+            return;
+
+        string text =
+            resources.GetString(
+                name + ".ToolTipText");
+
+        if (text == null)
+        {
+            text =
+                resources.GetString(
+                    name + ".ToolTip");
+        }
+
+        if (text != null)
+        {
+            try
+            {
+                property.SetValue(
+                    control,
+                    text,
+                    null);
+            }
+            catch
+            {
+            }
+        }
+    }
+
+
+    // =================================================================
+    // TOOLTIP COMPONENT
+    // =================================================================
+
+    private static void LocalizeToolTips(
+        System.Windows.Forms.Form form,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        System.Reflection.FieldInfo[] fields =
+            form.GetType().GetFields(
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Public);
+
+        foreach (System.Reflection.FieldInfo field
+            in fields)
+        {
+            object value;
+
+            try
+            {
+                value =
+                    field.GetValue(form);
+            }
+            catch
+            {
+                continue;
+            }
+
+            if (value is System.Windows.Forms.ToolTip toolTip)
+            {
+                LocalizeToolTipTree(
+                    form,
+                    toolTip,
+                    resources);
+            }
+        }
+    }
+
+
+    // =================================================================
+    // TOOLTIP TREE
+    // =================================================================
+
+    private static void LocalizeToolTipTree(
+        System.Windows.Forms.Control parent,
+        System.Windows.Forms.ToolTip toolTip,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        foreach (System.Windows.Forms.Control control
+            in parent.Controls)
+        {
+            if (control == null)
+                continue;
+
+            if (!string.IsNullOrEmpty(control.Name))
+            {
+                string text =
+                    resources.GetString(
+                        control.Name +
+                        ".ToolTipText");
+
+                if (text == null)
+                {
+                    text =
+                        resources.GetString(
+                            control.Name +
+                            ".ToolTip");
+                }
+
+                if (text != null)
+                {
+                    toolTip.SetToolTip(
+                        control,
+                        text);
+                }
+            }
+
+            if (control.HasChildren)
+            {
+                LocalizeToolTipTree(
+                    control,
+                    toolTip,
+                    resources);
+            }
+        }
+    }
+
+
+    // =================================================================
+    // COMPONENTS
+    // =================================================================
+
+    private static void LocalizeComponents(
+        System.Windows.Forms.Form form,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        System.Reflection.FieldInfo[] fields =
+            form.GetType().GetFields(
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Public);
+
+        foreach (System.Reflection.FieldInfo field
+            in fields)
+        {
+            object component;
+
+            try
+            {
+                component =
+                    field.GetValue(form);
+            }
+            catch
+            {
+                continue;
+            }
+
+            if (component is System.Windows.Forms.ToolStrip toolStrip)
+            {
+                LocalizeToolStrip(
+                    toolStrip,
+                    resources);
+            }
+
+            if (component is System.Windows.Forms.ContextMenuStrip contextMenu)
+            {
+                LocalizeContextMenu(
+                    contextMenu,
+                    resources);
+            }
+        }
+    }
+
+
+    // =================================================================
+    // TOOLSTRIP
+    // =================================================================
+
+    private static void LocalizeToolStrip(
+        System.Windows.Forms.ToolStrip toolStrip,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (toolStrip == null)
+            return;
+
+        foreach (System.Windows.Forms.ToolStripItem item
+            in toolStrip.Items)
+        {
+            LocalizeToolStripItem(
+                item,
+                resources);
+        }
+    }
+
+
+    // =================================================================
+    // TOOLSTRIP ITEM
+    // =================================================================
+
+    private static void LocalizeToolStripItem(
+        System.Windows.Forms.ToolStripItem item,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (item == null)
+            return;
+
+        if (!string.IsNullOrEmpty(item.Name))
+        {
+            string text =
+                resources.GetString(
+                    item.Name + ".Text");
+
+            if (text != null)
+                item.Text = text;
+
+            string toolTip =
+                resources.GetString(
+                    item.Name + ".ToolTipText");
+
+            if (toolTip != null)
+                item.ToolTipText = toolTip;
+
+            string accessibleName =
+                resources.GetString(
+                    item.Name +
+                    ".AccessibleName");
+
+            if (accessibleName != null)
+                item.AccessibleName =
+                    accessibleName;
+
+            string accessibleDescription =
+                resources.GetString(
+                    item.Name +
+                    ".AccessibleDescription");
+
+            if (accessibleDescription != null)
+                item.AccessibleDescription =
+                    accessibleDescription;
+        }
+
+        if (item is System.Windows.Forms.ToolStripDropDownItem dropDownItem)
+        {
+            foreach (System.Windows.Forms.ToolStripItem child
+                in dropDownItem.DropDownItems)
+            {
+                LocalizeToolStripItem(
+                    child,
+                    resources);
+            }
+        }
+    }
+
+
+    // =================================================================
+    // CONTEXT MENU
+    // =================================================================
+
+    private static void LocalizeContextMenu(
+        System.Windows.Forms.ContextMenuStrip contextMenu,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (contextMenu == null)
+            return;
+
+        foreach (System.Windows.Forms.ToolStripItem item
+            in contextMenu.Items)
+        {
+            LocalizeToolStripItem(
+                item,
+                resources);
+        }
+    }
+
+
+    // =================================================================
+    // LISTBOX
+    // =================================================================
+
+    private static void LocalizeListBox(
+        System.Windows.Forms.ListBox listBox,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        int count =
+            listBox.Items.Count;
+
+        if (count == 0)
+            return;
+
+        int selectedIndex =
+            listBox.SelectedIndex;
+
+        System.Collections.Generic.List<string> localized =
+            new System.Collections.Generic.List<string>();
+
+        for (int i = 0;
+             i < count;
+             i++)
+        {
+            string value =
+                resources.GetString(
+                    name + ".Item" + i);
+
+            if (value == null)
+            {
+                value =
+                    resources.GetString(
+                        name + ".Items" + i);
+            }
+
+            if (value == null)
+            {
+                value =
+                    resources.GetString(
+                        name + ".Item." + i);
+            }
+
+            if (value == null)
+            {
+                value =
+                    resources.GetString(
+                        name + ".Items." + i);
+            }
+
+            if (value == null)
+            {
+                value =
+                    listBox.Items[i]
+                    ?.ToString()
+                    ?? string.Empty;
+            }
+
+            localized.Add(value);
+        }
+
+        listBox.BeginUpdate();
+
+        try
+        {
+            listBox.Items.Clear();
+
+            foreach (string item in localized)
+                listBox.Items.Add(item);
+
+            if (selectedIndex >= 0 &&
+                selectedIndex <
+                listBox.Items.Count)
+            {
+                listBox.SelectedIndex =
+                    selectedIndex;
+            }
+        }
+        finally
+        {
+            listBox.EndUpdate();
+        }
+    }
+
+
+    // =================================================================
+    // CHECKED LISTBOX
+    // =================================================================
+
+    private static void LocalizeCheckedListBox(
+        System.Windows.Forms.CheckedListBox list,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        int count =
+            list.Items.Count;
+
+        if (count == 0)
+            return;
+
+        bool[] checkedStates =
+            new bool[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            checkedStates[i] =
+                list.GetItemChecked(i);
+        }
+
+        int selectedIndex =
+            list.SelectedIndex;
+
+        System.Collections.Generic.List<string> localized =
+            new System.Collections.Generic.List<string>();
+
+        for (int i = 0;
+             i < count;
+             i++)
+        {
+            string value =
+                resources.GetString(
+                    name + ".Item" + i);
+
+            if (value == null)
+            {
+                value =
+                    resources.GetString(
+                        name + ".Items" + i);
+            }
+
+            if (value == null)
+            {
+                value =
+                    resources.GetString(
+                        name + ".Item." + i);
+            }
+
+            if (value == null)
+            {
+                value =
+                    resources.GetString(
+                        name + ".Items." + i);
+            }
+
+            if (value == null)
+            {
+                value =
+                    list.Items[i]
+                    ?.ToString()
+                    ?? string.Empty;
+            }
+
+            localized.Add(value);
+        }
+
+        list.BeginUpdate();
+
+        try
+        {
+            list.Items.Clear();
+
+            foreach (string item in localized)
+                list.Items.Add(item);
+
+            for (int i = 0;
+                 i < checkedStates.Length &&
+                 i < list.Items.Count;
+                 i++)
+            {
+                list.SetItemChecked(
+                    i,
+                    checkedStates[i]);
+            }
+
+            if (selectedIndex >= 0 &&
+                selectedIndex <
+                list.Items.Count)
+            {
+                list.SelectedIndex =
+                    selectedIndex;
+            }
+        }
+        finally
+        {
+            list.EndUpdate();
+        }
+    }
+
+
+    // =================================================================
+    // DATAGRIDVIEW
+    // =================================================================
+
+    private static void LocalizeDataGridView(
+        System.Windows.Forms.DataGridView dataGridView,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        foreach (System.Windows.Forms.DataGridViewColumn column
+            in dataGridView.Columns)
+        {
+            if (string.IsNullOrEmpty(column.Name))
+                continue;
+
+            string header =
+                resources.GetString(
+                    column.Name +
+                    ".HeaderText");
+
+            if (header != null)
+                column.HeaderText = header;
+
+            string toolTip =
+                resources.GetString(
+                    column.Name +
+                    ".ToolTipText");
+
+            if (toolTip != null)
+                column.ToolTipText =
+                    toolTip;
+        }
+    }
+
+
+    // =================================================================
+    // LISTVIEW
+    // =================================================================
+
+    private static void LocalizeListView(
+    System.Windows.Forms.ListView listView,
+    System.ComponentModel.ComponentResourceManager resources,
+    System.Windows.Forms.Form form)
+    {
+        if (listView == null || resources == null)
+            return;
+
+        // ================================================================
+        // LISTVIEW COLUMNS
+        // ================================================================
+
+        foreach (System.Windows.Forms.ColumnHeader column
+            in listView.Columns)
+        {
+            if (column == null)
+                continue;
+
+            bool localized = false;
+
+            // ------------------------------------------------------------
+            // FIRST:
+            // Find the actual designer field corresponding to this
+            // ColumnHeader.
+            //
+            // Example:
+            //
+            // private ColumnHeader columnHeader1;
+            //
+            // resources.ApplyResources(this.columnHeader1,
+            //                           "columnHeader1");
+            // ------------------------------------------------------------
+
+            if (form != null)
+            {
+                System.Reflection.FieldInfo[] fields =
+                    form.GetType().GetFields(
+                        System.Reflection.BindingFlags.Instance |
+                        System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Public);
+
+                foreach (System.Reflection.FieldInfo field in fields)
+                {
+                    if (!typeof(System.Windows.Forms.ColumnHeader)
+                        .IsAssignableFrom(field.FieldType))
+                    {
+                        continue;
+                    }
+
+                    System.Windows.Forms.ColumnHeader fieldColumn;
+
+                    try
+                    {
+                        fieldColumn =
+                            field.GetValue(form)
+                            as System.Windows.Forms.ColumnHeader;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    if (!ReferenceEquals(fieldColumn, column))
+                        continue;
+
+                    // ----------------------------------------------------
+                    // We have found the EXACT designer field.
+                    // ----------------------------------------------------
+
+                    try
+                    {
+                        resources.ApplyResources(
+                            column,
+                            field.Name);
+
+                        localized = true;
+                    }
+                    catch
+                    {
+                    }
+
+                    // ----------------------------------------------------
+                    // Explicit Text lookup as a fallback.
+                    // ----------------------------------------------------
+
+                    string text =
+                        resources.GetString(
+                            field.Name + ".Text");
+
+                    if (text != null)
+                    {
+                        column.Text = text;
+                        localized = true;
+                    }
+
+                    break;
+                }
+            }
+
+            // ============================================================
+            // SECOND:
+            // Fallback to ColumnHeader.Name
+            // ============================================================
+
+            if (!localized &&
+                !string.IsNullOrEmpty(column.Name))
+            {
+                try
+                {
+                    resources.ApplyResources(
+                        column,
+                        column.Name);
+                }
+                catch
+                {
+                }
+
+                string text =
+                    resources.GetString(
+                        column.Name + ".Text");
+
+                if (text != null)
+                {
+                    column.Text = text;
+                    localized = true;
+                }
+            }
+        }
+
+        // ================================================================
+        // LISTVIEW ITEMS
+        // ================================================================
+
+        foreach (System.Windows.Forms.ListViewItem item
+            in listView.Items)
+        {
+            if (item == null)
+                continue;
+
+            if (string.IsNullOrEmpty(item.Name))
+                continue;
+
+            try
+            {
+                resources.ApplyResources(
+                    item,
+                    item.Name);
+            }
+            catch
+            {
+            }
+
+            string text =
+                resources.GetString(
+                    item.Name + ".Text");
+
+            if (text != null)
+                item.Text = text;
+        }
+
+        // ================================================================
+        // FORCE REDRAW
+        // ================================================================
+
+        listView.BeginUpdate();
+
+        try
+        {
+            listView.Invalidate(true);
+            listView.Update();
+            listView.Refresh();
+        }
+        finally
+        {
+            listView.EndUpdate();
+        }
+    }
+
+
+    // =================================================================
+    // TREEVIEW
+    // =================================================================
+
+    private static void LocalizeTreeView(
+        System.Windows.Forms.TreeView treeView,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        foreach (System.Windows.Forms.TreeNode node
+            in treeView.Nodes)
+        {
+            LocalizeTreeNode(
+                node,
+                resources);
+        }
+    }
+
+
+    // =================================================================
+    // TREE NODE
+    // =================================================================
+
+    private static void LocalizeTreeNode(
+        System.Windows.Forms.TreeNode node,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (!string.IsNullOrEmpty(node.Name))
+        {
+            string text =
+                resources.GetString(
+                    node.Name + ".Text");
+
+            if (text != null)
+                node.Text = text;
+        }
+
+        foreach (System.Windows.Forms.TreeNode child
+            in node.Nodes)
+        {
+            LocalizeTreeNode(
+                child,
+                resources);
+        }
     }
 }
 

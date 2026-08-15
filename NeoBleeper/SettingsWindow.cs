@@ -16,8 +16,10 @@
 
 using NAudio.Midi;
 using NeoBleeper.Properties;
+using System.Globalization;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -1937,23 +1939,182 @@ namespace NeoBleeper
                 MessageForm.Show(this, $"{Resources.MessageAnErrorOccurred} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public static bool willRestartForChanges = false; // Flag to indicate if the application will restart for changes to take effect
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxLanguage.SelectedItem.ToString() != Settings1.Default.preferredLanguage)
+            if (comboBoxLanguage.SelectedItem == null)
+                return;
+
+            string selectedLanguage = comboBoxLanguage.SelectedItem.ToString();
+
+            if (selectedLanguage == Settings1.Default.preferredLanguage)
+                return;
+
+            // Capture the current semantic values BEFORE changing the language.
+            var noteProperties = GetNoteProperties(mainWindow.listViewNotes);
+            var copiedDisplayValues = CopyPositionDisplayValues();
+            var synchronizedSettings = SynchronizedSettings.Load();
+
+            Settings1.Default.preferredLanguage = selectedLanguage;
+            Settings1.Default.Save();
+
+            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
             {
-                var synchronizedSettings = SynchronizedSettings.Load();
-                Settings1.Default.preferredLanguage = comboBoxLanguage.SelectedItem.ToString();
-                Settings1.Default.Save();
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
-                {
-                    // Also update synchronized settings for Beep Stopper if not on ARM64 architecture
-                    synchronizedSettings.Language = Settings1.Default.preferredLanguage;
-                }
-                willRestartForChanges = true; // Set the flag to true to indicate restart is needed
-                MessageForm.Show(this, Resources.MessageLanguageChanged, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Application.Restart(); // Restart the application to apply the new language
+                synchronizedSettings.Language = selectedLanguage;
             }
+
+            // Change resource language.
+            UIHelper.SetLanguageByName(selectedLanguage);
+
+            // Update all controls in the UI.
+            UIHelper.ApplyLanguageChangeToUI();
+
+            // Sync trackbar values
+            mainWindow.SyncTrackbarValues();
+
+            // Re-translate the position display values using the new language.
+            RetranslatePositionDisplayValues(copiedDisplayValues);
+
+            // Re-translate the ListView values using the new language.
+            RetranslateNoteProperties(mainWindow.listViewNotes, noteProperties);
+        }
+        private List<(string Length, string Modifier, string Articulation)> GetNoteProperties(ListView listView)
+        {
+            var result = new List<(string Length, string Modifier, string Articulation)>();
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                string length = item.SubItems[0].Text;
+                string modifier = item.SubItems[5].Text;
+                string articulation = item.SubItems[6].Text;
+
+                result.Add((
+                    StandardizeLength(length),
+                    StandardizeModifier(modifier),
+                    StandardizeArticulation(articulation)
+                ));
+            }
+
+            return result;
+        }
+        string StandardizeLength(string value)
+        {
+            if (value == Resources.WholeNote)
+                return "Whole";
+
+            if (value == Resources.HalfNote)
+                return "Half";
+
+            if (value == Resources.QuarterNote)
+                return "Quarter";
+
+            if (value == Resources.EighthNote)
+                return "1/8";
+
+            if (value == Resources.SixteenthNote)
+                return "1/16";
+
+            if (value == Resources.ThirtySecondNote)
+                return "1/32";
+
+            return "Quarter";
+        }
+
+        private string StandardizeModifier(string value)
+        {
+            if (value == Resources.DottedModifier)
+                return "Dot";
+
+            if (value == Resources.TripletModifier)
+                return "Tri";
+
+            return string.Empty;
+        }
+
+        private string StandardizeArticulation(string value)
+        {
+            if (value == Resources.StaccatoArticulation)
+                return "Sta";
+
+            if (value == Resources.SpiccatoArticulation)
+                return "Spi";
+
+            if (value == Resources.FermataArticulation)
+                return "Fer";
+
+            return string.Empty;
+        }
+        private string TranslateLength(string value)
+        {
+            return value switch
+            {
+                "Whole" => Resources.WholeNote,
+                "Half" => Resources.HalfNote,
+                "Quarter" => Resources.QuarterNote,
+                "1/8" => Resources.EighthNote,
+                "1/16" => Resources.SixteenthNote,
+                "1/32" => Resources.ThirtySecondNote,
+                _ => Resources.QuarterNote
+            };
+        }
+
+        private string TranslateModifier(string value)
+        {
+            return value switch
+            {
+                "Dot" => Resources.DottedModifier,
+                "Tri" => Resources.TripletModifier,
+                _ => string.Empty
+            };
+        }
+
+        private string TranslateArticulation(string value)
+        {
+            return value switch
+            {
+                "Sta" => Resources.StaccatoArticulation,
+                "Spi" => Resources.SpiccatoArticulation,
+                "Fer" => Resources.FermataArticulation,
+                _ => string.Empty
+            };
+        }
+        
+        private void RetranslateNoteProperties(
+    ListView listView,
+    List<(string Length, string Modifier, string Articulation)> noteProperties)
+        {
+            int count = Math.Min(listView.Items.Count, noteProperties.Count);
+
+            for (int i = 0; i < count; i++)
+            {
+                var properties = noteProperties[i];
+
+                listView.Items[i].SubItems[0].Text =
+                    TranslateLength(properties.Length);
+
+                listView.Items[i].SubItems[5].Text =
+                    TranslateModifier(properties.Modifier);
+
+                listView.Items[i].SubItems[6].Text =
+                    TranslateArticulation(properties.Articulation);
+            }
+            mainWindow.ResizeColumn(); // Resize the columns to fit the new text after translation
+        }
+
+        private (string measure, string beat, string traditionalBeat) CopyPositionDisplayValues()
+        {
+            // Copy the values from the main window's labels to local variables
+            string copiedMeasure = mainWindow.lbl_measure_value.Text;
+            string copiedBeat = mainWindow.lbl_beat_value.Text;
+            string copiedTraditionalBeat = mainWindow.lbl_beat_traditional_value.Text;
+            copiedTraditionalBeat = copiedTraditionalBeat.Replace(Resources.TextBeatError, "(Error)"); // Replace the localized "(Error)" with a standard representation
+            return (copiedMeasure, copiedBeat, copiedTraditionalBeat); // Return the values as a tuple
+        }
+
+        private void RetranslatePositionDisplayValues((string measure, string beat, string traditionalBeat) positionValues)
+        {
+            mainWindow.lbl_measure_value.Text = positionValues.measure;
+            mainWindow.lbl_beat_value.Text = positionValues.beat;
+            mainWindow.lbl_beat_traditional_value.Text = positionValues.traditionalBeat.Replace("(Error)", Resources.TextBeatError); // Replace the standard "(Error)" with the localized version
         }
 
         private void button_get_firmware_Click(object sender, EventArgs e)
