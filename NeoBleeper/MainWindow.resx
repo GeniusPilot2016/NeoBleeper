@@ -118,6 +118,431 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_c_s3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_c_s3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_c_s3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="button_c_s3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_c_s3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_c_s3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>35, 5</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button_c_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_c_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_c_s3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_c_s3.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="button_c_s3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>574, 33</value>
+  </metadata>
+  <data name="button_c_s3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_c_s3.Name" xml:space="preserve">
+    <value>button_c_s3</value>
+  </data>
+  <data name="&gt;&gt;button_c_s3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_c_s3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_c_s3.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="button_d_s3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_d_s3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_d_s3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_d_s3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_d_s3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_d_s3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>79, 5</value>
+  </data>
+  <data name="button_d_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_d_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_d_s3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_d_s3.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="button_d_s3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_d_s3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_d_s3.Name" xml:space="preserve">
+    <value>button_d_s3</value>
+  </data>
+  <data name="&gt;&gt;button_d_s3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_d_s3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_d_s3.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="button_f_s3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_f_s3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_f_s3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_f_s3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_f_s3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_f_s3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>170, 5</value>
+  </data>
+  <data name="button_f_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_f_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_f_s3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_f_s3.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="button_f_s3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_f_s3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_f_s3.Name" xml:space="preserve">
+    <value>button_f_s3</value>
+  </data>
+  <data name="&gt;&gt;button_f_s3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_f_s3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_f_s3.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="button_g_s3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_g_s3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_g_s3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_g_s3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_g_s3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_g_s3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>215, 5</value>
+  </data>
+  <data name="button_g_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_g_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_g_s3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_g_s3.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="button_g_s3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_g_s3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_g_s3.Name" xml:space="preserve">
+    <value>button_g_s3</value>
+  </data>
+  <data name="&gt;&gt;button_g_s3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_g_s3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_g_s3.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="button_a_s3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_a_s3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_a_s3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_a_s3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_a_s3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_a_s3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>260, 5</value>
+  </data>
+  <data name="button_a_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_a_s3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_a_s3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_a_s3.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="button_a_s3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_a_s3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_a_s3.Name" xml:space="preserve">
+    <value>button_a_s3</value>
+  </data>
+  <data name="&gt;&gt;button_a_s3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_a_s3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_a_s3.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="button_a_s4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_a_s4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_a_s4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_a_s4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_a_s4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_a_s4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>574, 5</value>
+  </data>
+  <data name="button_a_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_a_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_a_s4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_a_s4.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="button_a_s4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_a_s4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_a_s4.Name" xml:space="preserve">
+    <value>button_a_s4</value>
+  </data>
+  <data name="&gt;&gt;button_a_s4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_a_s4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_a_s4.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="button_g_s4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_g_s4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_g_s4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_g_s4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_g_s4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_g_s4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>530, 5</value>
+  </data>
+  <data name="button_g_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_g_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_g_s4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_g_s4.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="button_g_s4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_g_s4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_g_s4.Name" xml:space="preserve">
+    <value>button_g_s4</value>
+  </data>
+  <data name="&gt;&gt;button_g_s4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_g_s4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_g_s4.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="button_f_s4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_f_s4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_f_s4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_f_s4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_f_s4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_f_s4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>485, 5</value>
+  </data>
+  <data name="button_f_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_f_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_f_s4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_f_s4.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="button_f_s4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_f_s4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_f_s4.Name" xml:space="preserve">
+    <value>button_f_s4</value>
+  </data>
+  <data name="&gt;&gt;button_f_s4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_f_s4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_f_s4.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="button_d_s4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_d_s4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_d_s4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_d_s4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_d_s4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_d_s4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>395, 5</value>
+  </data>
+  <data name="button_d_s4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_d_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 20</value>
+  </data>
+  <data name="button_d_s4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 120</value>
+  </data>
+  <data name="button_d_s4.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="button_d_s4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+=========
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lbl_a4.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
@@ -535,431 +960,6 @@
   <data name="lbl_c3.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 163</value>
   </data>
-  <data name="&gt;&gt;btn_octave_decrease.ZOrder" xml:space="preserve">
-    <value>51</value>
-  </data>
-  <data name="label_time_signature.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 16</value>
-  </data>
-  <data name="button_d_s5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="&gt;&gt;button_f3.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="saveToolStripMenuItem.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="button_f_s4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 20</value>
-  </data>
-  <data name="button_b4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 190</value>
-  </data>
-  <data name="button_clear_note4.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="lbl_time_signature.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBox_mute_playback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
-  </data>
-  <data name="&gt;&gt;checkBox_mute_playback.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;lbl_measure_value.Parent" xml:space="preserve">
-    <value>position_table</value>
-  </data>
-  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
-    <value>117</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="undoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Undo</value>
-  </data>
-  <data name="copyToClipboardToolStripMenuItem.Text" xml:space="preserve">
-    <value>Copy To Clipboard</value>
-  </data>
-  <data name="button_f3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 1</value>
-  </data>
-  <data name="lbl_g3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;checkBox_spiccato.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="checkBox_do_not_update.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="button_erase_line.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button_g_s3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 120</value>
-  </data>
-  <data name="lbl_d3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 163</value>
-  </data>
-  <data name="lbl_d5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="button_clear_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="button_g_s5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomCenter</value>
-  </data>
-  <data name="&gt;&gt;label_alternating_notes_switch.Name" xml:space="preserve">
-    <value>label_alternating_notes_switch</value>
-  </data>
-  <data name="lbl_beat_traditional.TabIndex" type="System.Int32, mscorlib">
-    <value>113</value>
-  </data>
-  <data name="&gt;&gt;label_note_silence_ratio.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lbl_c3.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="trackBar_note_silence_ratio.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Settings</value>
-  </data>
-  <data name="button_g_s3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 5</value>
-  </data>
-  <data name="&gt;&gt;redoToolStripMenuItem.Name" xml:space="preserve">
-    <value>redoToolStripMenuItem</value>
-  </data>
-  <data name="undoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>316, 22</value>
-  </data>
-  <data name="lbl_time_signature.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="button_use_keyboard_as_piano_help.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;lbl_a4.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="button_d3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="button_g3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 32</value>
-  </data>
-  <data name="&gt;&gt;button_f_s5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="numericUpDown_bpm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 19</value>
-  </data>
-  <data name="newToolStripMenuItem1.Text" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="&gt;&gt;group_line_clicked.Name" xml:space="preserve">
-    <value>group_line_clicked</value>
-  </data>
-  <data name="lbl_f5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="position_table.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="lbl_b5.Text" xml:space="preserve">
-    <value>B5</value>
-  </data>
-  <data name="&gt;&gt;label_bpm.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_beat_traditional.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;note1.Name" xml:space="preserve">
-    <value>note1</value>
-  </data>
-  <data name="lbl_b4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="add_as_note2.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label_time_signature.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="radioButtonPlay_alternating_notes2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="&gt;&gt;lbl_time_signature.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="checkBox_play_note2_played.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;lbl_g5.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="lbl_a5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>869, 163</value>
-  </data>
-  <data name="lbl_beat_traditional_value.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;lbl_f4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_d4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="button_f4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="add_as_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 39</value>
-  </data>
-  <data name="add_as_note1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;button_d_s3.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="&gt;&gt;button_g3.Name" xml:space="preserve">
-    <value>button_g3</value>
-  </data>
-  <data name="lbl_alternating_note_options.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="group_line_clicked.Text" xml:space="preserve">
-    <value>When a line is clicked</value>
-  </data>
-  <data name="&gt;&gt;button_play_beat_sound_help.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button_g4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button_a4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="checkBox_play_note1_clicked.Text" xml:space="preserve">
-    <value>Play Note 1</value>
-  </data>
-  <data name="button_d5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;listViewNotes.Name" xml:space="preserve">
-    <value>listViewNotes</value>
-  </data>
-  <data name="lbl_beat_traditional_value.Size" type="System.Drawing.Size, System.Drawing">
-    <value>14, 16</value>
-  </data>
-  <data name="note1.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="button_d_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="&gt;&gt;add_as_note1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>880, 302</value>
-  </data>
-  <data name="&gt;&gt;lbl_note_silence_ratio.Name" xml:space="preserve">
-    <value>lbl_note_silence_ratio</value>
-  </data>
-  <data name="&gt;&gt;button_a3.Name" xml:space="preserve">
-    <value>button_a3</value>
-  </data>
-  <data name="lbl_time_signature.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;button_d_s5.Name" xml:space="preserve">
-    <value>button_d_s5</value>
-  </data>
-  <data name="label_bpm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 16</value>
-  </data>
-  <data name="group_notes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="lbl_f5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>96, 96</value>
-  </data>
-  <data name="label_note_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;lbl_a5.Name" xml:space="preserve">
-    <value>lbl_a5</value>
-  </data>
-  <data name="&gt;&gt;checkBox_replace_length.Name" xml:space="preserve">
-    <value>checkBox_replace_length</value>
-  </data>
-  <data name="group_adding_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
-  </data>
-  <data name="&gt;&gt;button_c4.Name" xml:space="preserve">
-    <value>button_c4</value>
-  </data>
-  <data name="&gt;&gt;button_clear_note1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
-    <value>saveToolStripMenuItem</value>
-  </data>
-  <data name="lbl_g4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9.75pt</value>
-  </data>
-  <data name="lbl_g5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 18</value>
-  </data>
-  <data name="notifyIconNeoBleeper.Text" xml:space="preserve">
-    <value>NeoBleeper</value>
-  </data>
-  <data name="button_e4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="&gt;&gt;lbl_beat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_measure_value.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="checkBox_use_voice_system.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button_synchronized_play_help.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 20</value>
-  </data>
-  <data name="label_bpm.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;label_note.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_b5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>914, 163</value>
-  </data>
-  <data name="label_mods.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 16</value>
-  </data>
-  <data name="button_erase_line.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
-    <value>692, 319</value>
-  </data>
-  <data name="lbl_g3.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="checkBox_fermata.ToolTip" xml:space="preserve">
-    <value>Extend the duration of a note by an indefinite amount</value>
-  </data>
-  <data name="button_play_all.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="checkBox_play_note4_played.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lbl_ms.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="checkBox_replace_length.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="red_felt.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lbl_f3.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;button_d_s4.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="&gt;&gt;lbl_alternating_note_options.Name" xml:space="preserve">
-    <value>lbl_alternating_note_options</value>
-  </data>
-  <data name="&gt;&gt;checkBox_play_note3_played.Parent" xml:space="preserve">
-    <value>group_music_played</value>
-  </data>
-  <data name="&gt;&gt;button_c_s5.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="&gt;&gt;button_c_s5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;lbl_b5.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="button_c5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomCenter</value>
-  </data>
-  <data name="button_play_beat_sound_help.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;keyboard_panel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_b3.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="checkBox_dotted.Font" type="System.Drawing.Font, System.Drawing">
-    <value>HarmonyOS Sans, 9pt</value>
-  </data>
-  <data name="lbl_g4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;checkBox_staccato.Name" xml:space="preserve">
-    <value>checkBox_staccato</value>
-  </data>
-  <data name="keyboard_panel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="lbl_a4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="trackBar_note_silence_ratio.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="button_use_voice_system_help.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="checkBox_replace_length.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;button_d5.Parent" xml:space="preserve">
-    <value>keyboard_panel</value>
-  </data>
-  <data name="checkBox_play_note4_clicked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>17, 76</value>
-  </data>
-  <data name="lbl_beat_traditional_value.Text" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="lbl_measure.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>NeoBleeper</value>
-  </data>
-  <data name="imageList_main_window.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
       AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
       LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
       SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGjQAAAJNU0Z0AUkBTAIBARIB
@@ -1188,6 +1188,436 @@
       nw//FgAL
     </value>
   </data>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="button_d_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;add_as_note1.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="button_clear_note1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>880, 302</value>
+  </data>
+  <data name="&gt;&gt;lbl_note_silence_ratio.Name" xml:space="preserve">
+    <value>lbl_note_silence_ratio</value>
+  </data>
+  <data name="&gt;&gt;button_a3.Name" xml:space="preserve">
+    <value>button_a3</value>
+  </data>
+  <data name="lbl_time_signature.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;button_d_s5.Name" xml:space="preserve">
+    <value>button_d_s5</value>
+  </data>
+  <data name="label_bpm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>32, 16</value>
+  </data>
+  <data name="group_notes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="lbl_f5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>96, 96</value>
+  </data>
+  <data name="label_note_length.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;lbl_a5.Name" xml:space="preserve">
+    <value>lbl_a5</value>
+  </data>
+  <data name="&gt;&gt;checkBox_replace_length.Name" xml:space="preserve">
+    <value>checkBox_replace_length</value>
+  </data>
+  <data name="group_adding_note.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="&gt;&gt;button_c4.Name" xml:space="preserve">
+    <value>button_c4</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveToolStripMenuItem</value>
+  </data>
+  <data name="lbl_g4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_g5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 18</value>
+  </data>
+  <data name="notifyIconNeoBleeper.Text" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
+  <data name="button_e4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_measure_value.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBox_use_voice_system.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_synchronized_play_help.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 20</value>
+  </data>
+  <data name="label_bpm.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;label_note.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_b5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>914, 163</value>
+  </data>
+  <data name="label_mods.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 16</value>
+  </data>
+  <data name="button_erase_line.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
+    <value>692, 319</value>
+  </data>
+  <data name="lbl_g3.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="checkBox_fermata.ToolTip" xml:space="preserve">
+    <value>Extend the duration of a note by an indefinite amount</value>
+  </data>
+  <data name="button_play_all.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="checkBox_play_note4_played.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_ms.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="checkBox_replace_length.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="red_felt.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lbl_f3.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;button_d_s4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_alternating_note_options.Name" xml:space="preserve">
+    <value>lbl_alternating_note_options</value>
+  </data>
+  <data name="&gt;&gt;checkBox_play_note3_played.Parent" xml:space="preserve">
+    <value>group_music_played</value>
+  </data>
+  <data name="&gt;&gt;button_c_s5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_c_s5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;lbl_b5.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="button_c5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_play_beat_sound_help.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;keyboard_panel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_b3.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="checkBox_dotted.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="lbl_g4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;checkBox_staccato.Name" xml:space="preserve">
+    <value>checkBox_staccato</value>
+  </data>
+  <data name="keyboard_panel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_a4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="trackBar_note_silence_ratio.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="button_use_voice_system_help.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="checkBox_replace_length.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;button_d5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="checkBox_play_note4_clicked.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 76</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_measure.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
+  <data name="imageList_main_window.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
+<<<<<<<<< Temporary merge branch 1
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGDQAAAJNU0Z0AUkBTAIBARIB
+        AAFIAS0BSAEtARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+=========
+        SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGjQAAAJNU0Z0AUkBTAIBARIB
+        AAFQAS0BYAEtARABAAEQAQAE/wEhARAI/wFCAU0BNgcAATYDAAEoAwABQAMAAVADAAEBAQABIAYAAVD/
+>>>>>>>>> Temporary merge branch 2
+        ACcAAxQBGwHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/AmUBXgHiMAADXAHDsAAB4wGdARwB
+        /wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04B
+        lCQAAysBQQGeAZcBjwH/DAACWgFXAcICYAFdAc6YAAHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/wHiAZoB
+        GQH/AeABlwEXAf8B1wGPARQB/wHeAZEBEwH/Ad0BjgERAf8B3AGLAQ8B/wHaAYgBDAH/A04BlBwAAw8B
+        FAGGAX0BcgH/AZ8BmAGQAf8IAAJaAVcBwgH/AeYBUAL/AeYBUAH/AycBOpAAAk8BTgGXAecBpwEiAf8B
+        5QGkASAB/wHkAaABHgH/AeMBnQEcAf8B2wGuAV4F/wHWAY4BFAH/Ad4BkQETAf8B3QGOAREB/wHcAYsB
+        DwH/AdoBiAEMAf8YAAQBAYYBfQFyAf8BhgF9AXIB/wGhAZoBkgH/BAADUQGeAfEBwQE1Af8B8QHBATUC
+        /wHmAVAC/wHmAVAB/5AAAekBrQEmAf8B6AGqASQB/wHnAacBIgH/AeUBpAEgAf8B5AGgAR4B/wHjAZ0B
+        HAH/AdYBkgEYAf8B4AGXARcB/wHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wHcAYsBDwH/A2IB4QwAAWUC
+        YAHjAWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BowGcAZMB/wJaAVcBwgHiAZ0BGwH/Al8B
+        WwHTAfEBwQE1Af8DWgG/Af8B5gFQAf8DCQEMjAAB6gGwASkB/wHpAa0BJgH/AegBqgEkAf8B5wGnASIB
+        /wHlAaQBIAH/AdoBqwFTBf8B4gGaARkB/wHgAZcBFwH/Ad8BlAEVAf8B3gGRARMB/wHdAY4BEQH/AdwB
+        iwEPAf8MAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BpQGdAZUB/wHUAXgB
+        AAH/AeIBnQEbAf8B4gGdARsB/wHxAcEBNQH/AfEBwQE1Av8B5gFQAf8CVwFVAbGMAAHrAbMBKwH/AeoB
+        sAEpAf8B6QGtASYB/wHoAaoBJAH/AecBpwEiAf8B2AGbAR4F/wHXAacBTQH/AeIBmgEZAf8B4AGXARcB
+        /wHfAZQBFQH/Ad4BkQETAf8B3QGOAREB/wwAAWkBYwFcAf8BaQFjAVwB/wGGAX0BcgH/AYYBfQFyAf8B
+        hgF9AXIB/wGnAZ8BlgH/AdQBeAEAAf8B4gGdARsB/wHiAZ0BGwH/AfEBwQE1Af8B8QHBATUC/wHmAVAB
+        /wJ8AVwB+IwAAe0BtgEtAf8B6wGzASsB/wHqAbABKQH/AekBrQEmAf8B6AGqASQB/wHnAacBIgH/AdcB
+        pQE/Bf8B1AGZAS0B/wHiAZoBGQH/AeABlwEXAf8B3wGUARUB/wHeAZEBEwH/DAABaQFjAVwB/wFpAWMB
+        XAH/AYYBfQFyAf8BhgF9AXIB/wGGAX0BcgH/AakBoQGYAf8B1AF4AQAB/wHiAZ0BGwH/AeIBnQEbAf8B
+        8QHBATUB/wHxAcEBNQL/AeYBUAH/Al8BWwHYjAAB7gG5AS8B/wHtAbYBLQH/AesBswErAf8B6gGwASkB
+        /wHXAaEBJgH/AeIBpgEjAf8B5QGmASIF/wH3Ae4B3QH/AeMBnQEcAf8B4gGaARkB/wHgAZcBFwH/Ad8B
+        lAEVAf8MAAFpAWMBXAH/AWkBYwFcAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BqgGiAZoB/wHiAZ0B
+        GwH/AeIBnQEbAf8CXwFbAdgB8QHBATUB/wJjAV0B3wH/AeYBUAH/AzEBTIwAAmoBQQH5Ae4BuQEvAf8B
+        7QG2AS0B/wHrAbMBKwH/AdgBowEpDf8B1wGjAToB/wHkAaABHgH/AeMBnQEcAf8B4gGaARkB/wMWAR4U
+        AANLAY0BhgF9AXIB/wGGAX0BcgH/AawBpAGbAf8EAAHiAZ0BGwH/AfEBwQE1Af8B8QHBATUC/wHmAVAC
+        /wHmAVAB/5QAAe8BvAExAf8B7gG5AS8B/wHtAbYBLQH/AesBswErAf8B4QGpASgB/wHXAaABIwH/AeIB
+        pQEjAf8B5wGnASIB/wHlAaQBIAH/AeQBoAEeAf8B4wGdARwB/xwAA10BzAGGAX0BcgH/Aa4BpgGdAf8I
+        AAHxAcEBNQH/AlwBWgHEAf8B5gFQAf8CYQFcAdaUAAMIAQoB7wG8ATEB/wHuAbkBLwH/Ae0BtgEtAf8B
+        6wGzASsB/wHqAbABKQH/AekBrQEmAf8B6AGqASQB/wHnAacBIgH/AeUBpAEgAf8kAANrAfIBsAGnAZ4B
+        /wwAAf8B5gFQAv8B5gFQAf+gAAJqAUEB+QHuAbkBLwH/Ae0BtgEtAf8B6wGzASsB/wHqAbABKQH/AekB
+        rQEmAf8CTwFOAZcsAAGyAakBoAH//wD/AP8A9wAB8AHKAaYC/wGZATMB/wHwAcoBpgH/qAADsgH/BAAD
+        wAH/BAAB/wGZATMC/wHMAQAD/wEzAv8BzAEzAv8BmQEACf8DsgH/A7IB/xAAAf8B7AHMAv8BzAEzAv8B
+        zAEzAv8BmQEzAv8BmQEzAv8BzAEzAv8B7AHMAf+gAAGkAqAB/wQAAaQCoAL/AewBzAH/AwAB/wMAAf8D
+        AAH/AwAB/wMAAv8BmQEAAf8EAAGkAqAB/xAABf8BzAFmAv8BzAEzAv8BzAEzAv8BzAEzAv8BzAEzAv8B
+        mQEzAv8BmQEzBf8YAAGNAYYBfwH/AYwBhQF+Af8BiwGEAX0B/wGKAYMBfQH/AYkBggF8Af8BiAGBAXsB
+        /wGIAYEBegH/AYcBgAF5Af8BhgF/AXkB/wGFAX4BeAH/AYUBfgF4Af8BhQF+AXgB/wGFAX4BeAH/AYUB
+        fgF4Af8DZQHiBAABngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8B
+        ngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcBjwH/AZ4BlwGPAf8BngGXAY8B/wGeAZcB
+        jwH/AZ4BlwGPAf8IAAH/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAH/AwAB/wMAAf8DAAH/AwAB/wMAAv8B
+        zAEzAf8EAAGkAqAB/xAAAf8BzAFmAv8BzAFmAv8BzAFmAv8BzAEzAv8BzAEzAv8BzAEzAv8BzAEzAv8B
+        mQEzAv8BmQEzAf8YAAGOAYcBgAH/AdkB0gHKAf8BjQGGAX8B/wHZAdIBygH/AYsBhAF9Af8B2QHSAcoB
+        /wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AYYBfwF5Af8B2QHSAcoB/wGFAX4BeAH/AdkB
+        0gHKAf8BhQF+AXgB/wQAAZMBjQGFAf8B5AHhAd4B/wHkAeIB3wH/AeQB4QHfAf8B4wHgAd0B/wHiAeAB
+        3QH/AeQB4QHfAf8B5AHiAd8B/wHkAeEB3gH/AZMBjQGFAf8B4wHgAd4B/wHXAdUB0wH/AaUBowGiAf8B
+        4wHhAd4B/wGgAZkBkQH/CAABzAGZAQAB/wHMAZkBAAH/AZkBZgEAAf8BzAGZAQAB/wMAAf8DAAH/AwAB
+        /wMAAf8DAAP/ATMB/wQAAaQCoAH/EAAB/wHMAWYC/wHMAWYC/wHMAWYB/wMAAv8BzAEzAv8BzAEzAv8B
+        zAEzAv8BzAEzAv8BmQEzAv8BzAEzBf8QAAGQAYkBggH/AdkB0gHKAf8BjwGIAYEB/wHZAdIBygH/AY0B
+        hgF/Af8B2QHSAcoB/wHZAdIBygH/AdkB0gHKAf8B2QHSAcoB/wHZAdIBygH/AYgBgQF6Af8B2QHSAcoB
+        /wGGAX8BeQH/AdkB0gHKAf8BhQF+AXgB/wQAAZUBjwGHAf8B6QHmAeQB/wHcAdgB1gH/AekB5wHlAf8B
+        5wHlAeMB/wHnAeUB4gH/AekB5wHlAf8B3wHcAdoB/wHpAeYB5AH/AZUBjwGHAf8B6AHmAeMB/wHpAecB
+        5QH/A1MB/wHoAeYB4wH/AaIBmwGTAf8IAAHMAZkBAAH/AcwBmQEAAf8BzAGZAQAC/wHMATMB/wMAAf8D
+        AAH/AwAB/wMAAf8DAAL/AcwBAAH/BAABpAKgAf8QAAH/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/AcwB
+        mQEAAf8BmQFmAQAC/wHMATMC/wHMATMC/wHMATMB/wPXAv8BzAEzAv8B7AHMAf8MAAGSAYsBhAH/AdkB
+        0gHKAf8B2QHSAcoB/wGPAYgBgQH/AdkB0gHKAf8BjgGHAYAB/wHZAdIBygH/AYwBhQF+Af8B2QHSAcoB
+        /wGKAYMBfQH/AdkB0gHKAf8BiAGBAXsB/wHZAdIBygH/AdkB0gHKAf8BhgF/AXkB/wQAAZYBkAGIAf8B
+        igGGAYQB/wHiAeAB3wH/AVIBTgFKAf8B7AHqAegB/wHrAekB5wH/AVIBTgFKAf8B4gHfAd4B/wGZAZYB
+        kgH/AZYBkAGIAf8B7AHqAekB/wNgAf8DYAH/Ae0B6wHpAf8BpAGcAZQB/wgAAcwBmQEAAf8BzAGZAQAB
+        /wHMAZkBAAH/AZkBZgEAAv8BzAEzAf8DAAH/AwAB/wMAA/8BMwL/AcwBZgH/BAABpAKgAf8D8QH/A/EB
+        /wsAAv8BzAFmAv8BzAFmAv8BzAFmAv8BzAFmAf8BmQFmAQAB/wHMAZkBAAL/AcwBMwL/AcwBMwH/A90B
+        /wPXAv8BzAEzAf8MAAGUAY0BhQH/AdkB0gHKAf8B2QHSAcoB/wGRAYoBgwH/AdkB0gHKAf8BjwGIAYEB
+        /wHZAdIBygH/AY4BhwGAAf8B2QHSAcoB/wGMAYUBfgH/AdkB0gHKAf8BigGDAX0B/wHZAdIBygH/AdkB
+        0gHKAf8BiAGBAXoB/wQAAZgBkgGKAf8BUgFOAUoB/wH0AvIB/wFSAU4BSgH/Ae8B7gHsAf8B7wHtAewB
+        /wFSAU4BSgH/AfQC8gH/AVIBTgFKAf8BmAGSAYoB/wHwAe8B7QH/AfMB8gHxAf8B9AHyAfEB/wHxAe8B
+        7gH/AaYBngGWAf8IAAHMAZkBMwH/AcwBmQEAAf8BzAGZAQAB/wHMAZkBAAH/AZkBZgEAAv8BzAEzAv8B
+        zAEzAv8BzAEzAv8B7AHMAf8IAAGkAqAB/wGkAqAB/xAAAv8BmQH/AwAC/wHMAWYC/wHMAWYC/wHMAWYB
+        /wHMAZkBAAH/AcwBmQEAAf8D6gH/AfABygGmAf8D3QP/AWYD/wGZAf8IAAGWAY8BhwH/AdkB0gHKAf8B
+        lAGNAYUB/wHZAdIBygH/AZIBiwGEAf8B2QHSAcoB/wGQAYkBggH/AdkB0gHKAf8BjwGIAYEB/wHZAdIB
+        ygH/AY0BhgF/Af8B2QHSAcoB/wGLAYQBfQH/AdkB0gHKAf8BiQGCAXwB/wQAAZoBkwGLAf8BigGIAYQB
+        /wH3AfYB9QH/AVIBTgFKAf8B8gHwAe8B/wHxAe8B7gH/AVIBTgFKAf8B+AL3Af8BfgF7AXgB/wGaAZMB
+        iwH/AfMB8QHwAf8B+AL2Af8B+AH3AfYB/wHzAfIB8QH/AagBoAGXAf8IAAGZAWYBAAH/AZkBZgEAAf8B
+        mQFmAQAB/wHMAZkBMwH/AcwBmQEAAf8YAAGkAqAB/xgAAv8BmQH/AwAC/wHMAWYC/wHMAWYC/wHMAWYB
+        /wGZAWYBAAH/AZkBZgEAAf8BmQFmAQAB/wPjAf8D3QL/AcwBZgH/CAABlwGQAYgB/wHZAdIBygH/AZYB
+        jwGHAf8B2QHSAcoB/wGUAY0BhQH/AdkB0gHKAf8BkgGLAYQB/wHZAdIBygH/AZABiQGCAf8B2QHSAcoB
+        /wGPAYgBgQH/AdkB0gHKAf8BjQGGAX8B/wHZAdIBygH/AYsBhAF9Af8EAAGcAZUBjQH/AfQC8gH/AbkB
+        tQGzAf8B9gL0Af8B8QHvAe4B/wHxAe8B7gH/AfUB9AHzAf8BsgGvAa0B/wH0AfMB8gH/AZwBlQGNAf8B
+        8gHxAfAB/wGZApgB/wGaApkB/wHzAfEB8AH/AaoBogGZAf8IAAH/AcwBAAL/AcwBAAL/AcwBAAL/AcwB
+        AAL/AcwBAAH/EAABmQHMAv8D6gX/IAAB/wHMATMB/wP4Af8D+AL/AewBzAH/AZkBZgEAAf8BmQFmAQAB
+        /wPqAv8BzAGZAv8B7AHMAf8IAAGYAZEBiQH/AckBwwG7Af8BygHDAboB/wGWAY8BiAH/AZYBjwGHAf8B
+        yQHCAboB/wHJAcIBuQH/AZMBjAGEAf8BkgGLAYQB/wHIAcEBuQH/AcgBwQG5Af8BjwGIAYEB/wGPAYgB
+        gQH/AccBwAG5Af8BjQGGAX8B/wQAAZ4BlgGPAf8B8AHvAe0B/wHyAfEB8AH/AfIB8AHvAf8B7gHtAesB
+        /wHuAewB6wH/AfEB8AHvAf8B8gHxAfAB/wHxAe8B7gH/AZ4BlgGPAf8B7wHuAewB/wNKAf8DSgH/AfAB
+        7gHsAf8BrAGjAZsB/zAAAZkBzAL/ATMBzAL/IAAB/wHMATMB/wPxBf8D+AH/A/EB/wPxAf8D6gL/AcwB
+        ZgH/DAABmAGRAYkB/wGYAZEBiQH/AZgBkQGJAf8BmAGRAYkB/wGXAZABiAH/AZYBjwGIAf8BlgGPAYcB
+        /wGVAY4BhgH/AZQBjQGFAf8BkwGMAYQB/wGSAYsBhAH/AZEBigGDAf8BkAGJAYIB/wGPAYgBgQH/AY8B
+        iAGBAf8EAAGpAaABlwH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8BoQGYAZAB/wGhAZgB
+        kAH/AaEBmAGQAf8BoQGYAZAB/wGpAaABlwH/AaEBmAGQAf8BoQGYAZAB/wGhAZgBkAH/AaEBmAGQAf8B
+        rgGlAZwB/1wAAf8BmQEzAv8B7AHMAf8D+AH/A/EB/wPxAv8BzAFmAv8B7AHMAf/oAAH/AcwBMwL/AcwB
+        MwH/AwAC/wHMAWYF//8A/wD/AJcAAZkBzAL/AWYBzAL/AWYBzAL/ATMBzAL/AWYBzAL/AWYBzAL/AWYB
+        zAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/AWYBzAL/GAAD8QH/AQABZgHMAf8BAAFmAcwB/wEAAWYB
+        mQH/AQABZgGZAf8BAAFmAZkB/wEAAWYBmQH/AQABZgGZAf8oAAFmAcwC/wQAAWYBzAL/BAABZgHMAv9c
+        AAT/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMBzAL/ATMB
+        zAL/ATMBzAL/GAACmQHMAf8BMwFmAcwB/wEAAWYBzAH/AQABZgHMAf8BAAFmAcwB/wEAAWYBmQH/AQAB
+        ZgGZAf8BAAFmAZkB/xwAAZkBzAEzAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BMwGZAQAB/wFmAZkB
+        AAH/AWYBmQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8D6gH/EAABmQJmAf8BmQJmAf8BmQJmAf8B
+        mQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8BmQJmAf8DlgH/EAAB
+        MwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
+        MwHMAv8YAAPqAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8BMwFmAcwB/wEAAWYBzAH/AQABZgHMAf8B
+        AAFmAcwB/xwAAZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/ATMB
+        mQEAAf8BZgGZAQAB/wFmAZkBAAH/AWYBmQEAAf8BZgGZAQAB/xAAA3cB/wN3Af8DdwH/A3cB/wN3Af8D
+        wAH/A9cB/wGkAqAB/wN3Af8DdwH/A3cB/wN3Af8DdwH/EAABMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8B
+        MwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8BMwHMAv8CzAL/HQABZgHMAf8BAAFmAcwB/wEzAWYB
+        zAH/ATMBZgHMAf8BMwFmAcwB/wEzAWYBzAH/ATMBZgHMAf8cAAGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB
+        /wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/AZkBzAEAAf8BmQHMAQAB/wEzAZkBAAH/AWYB
+        mQEAAf8QAAN3Af8DdwH/AZkCZgH/A9cB/wPXAf8D1wH/ATMCmQH/A9cB/wPXAf8BpAKgAf8DdwH/A3cB
+        /wN3Af8QAAFmAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwG/xwAATMCZgH/ATMCZgH/AjMBZgH/AZkCzAH/ATMCZgH/ATMCZgH/ATMCZgH/GAABMwHMAv8B
+        mQHMAQAB/wGZAcwBAAH/AWYBmQEzAf8DQgH/A0IB/wNCAf8DQgH/A0IB/wEzAZkBAAH/AZkBzAEAAf8B
+        mQHMAQAB/wFmAcwC/wwAApkBZgH/ApkBZgH/A9cB/wPdAf8D3QH/A90B/wFmAZkBzAH/A90B/wPdAf8D
+        3QH/A5YB/wKZAWYB/wKZAWYB/xAAAswC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/wEzAcwC/wEzAcwC/yAAATMCZgH/AjMBZgH/ATMBZgGZAf8CzAL/ATMCZgH/ATMCZgH/ATMC
+        ZgH/HAABmQHMAQAB/wGZAcwBAAH/A0IB/wNCAf8DQgH/A0IB/wNCAf8DQgH/ATMBmQEAAf8BmQHMAQAB
+        /wGZAcwBAAH/EAADgAH/A3cB/wPdAf8D3QH/A90B/wPdAf8BZgGZAcwB/wPdAf8D3QH/A90B/wPdAf8C
+        mQFmAf8DgAH/EAAE/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC/wEzAcwC
+        /wEzAcwC/yEAATMBZgH/ATMBZgGZAf8BMwJmAf8CzAL/ATMCZgH/ATMCZgH/ApkBzAH/GAABMwHMAv8B
+        mQHMAQAB/wGZAcwBAAH/A00B/wNNAf8DTQH/A00B/wNNAf8DTQH/ATMBmQEAAf8BmQHMAQAB/wGZAcwB
+        AAH/AWYBzAL/DAADgAH/A8AB/wPdAf8D4wH/A+MB/wPjAf8BZgGZAcwB/wPjAf8D4wH/A+MB/wPdAf8D
+        dwH/A4AB/xQAAZkBZgEAAf8BzAGZATMB/wHMAZkBAAH/AcwBmQEAAf8BzAGZAQAB/wHMAZkBAAH/AcwB
+        mQEAAf8BmQFmAQAB/wGZAWYBAAH/HAADhgH/ATMCZgH/ATMCZgH/AZkBzAL/AswC/wEzAmYB/wEzAmYF
+        /xwAAZkBzAEzAf8BmQHMATMB/wNNAf8DTQH/A00B/wNNAf8DTQH/A00B/wEzAZkBAAH/AZkBzAEAAf8B
+        mQHMAQAB/xAAApkBZgH/A90B/wPjAf8D4wH/A+oB/wNNAf8DIgH/A+oB/wPjAf8D4wH/A+MB/wN3Af8D
+        hgH/FAAB/wHMAWYB/wKZATMB/wGZAWYBAAH/AZkBZgEAAf8BmQFmAQAB/wHMAZkBAAH/AcwBmQEAAf8B
+        zAGZAQAB/wPjAf8YAAIzAZkB/wJmAZkB/wFmAZkBzAH/AjMBmQH/AjMBmQH/AswC/wIzAZkB/wIzAZkB
+        /xwAATMBzAL/AZkBzAEzAf8BmQHMATMB/wKZATMB/wNVAf8DVQH/A1UB/wNVAf8DVQH/ATMBmQEAAf8B
+        mQHMAQAB/wGZAcwBAAH/AWYBzAL/DAADhgH/A7IB/wPjAf8DVQH/A1UB/wPqAf8D6gH/A00B/wPqAf8D
+        6gH/A+MB/wOAAf8DwAH/IAABmQFmAQAB/wGZAWYBAAH/KAAE/wQABP8CMwGZAf8CMwGZAf8CzAL/AjMB
+        mQH/AjMBmQH/IAABmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEAAf8BmQHMAQAB/wGZAcwBAAH/EAABpAKgAf8DgAH/A+oB/wPqAf8D
+        6gH/A/EB/wPxAf8D8QH/A00B/wPqAf8D6gH/A4YB/yUAAZkBzAH/AQABmQHMAf80AAIzAZkB/wHGAdYB
+        7wH/AswC/wIzAZkB/wIzAZkB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/xQAAswBZgH/A7IB
+        /wPqAf8D8QH/A/EB/wPxAf8D8QH/A/EB/wPqAf8DgAH/AswBZgH/JQACzAH/AQACzAH/NQABZgHMAf8B
+        AAFmAcwB/wEAAWYBzAH/AQABZgHMAf8BMwFmAcwB/yAAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB
+        /xQAA+oB/wOWAf8BpAKgAf8D8QH/A/EB/wP4Af8D8QH/A/EB/wOAAf8DlgH/A00B/yUAAswB/wEAAswB
+        /zkAAWYBzAH/AQABZgHMAf8BMwFmAcwB/zAAATMBzAL/BAABMwHMAv8EAAEzAcwC/yQAA/EB/wOWAf8D
+        gAH/A4YB/wOAAf8DhgH/A5YB/wOWAf8DTQH/A8AB/yQAATMCzAH/AQACzAH/PAABZgGZAcwB/3QAA/EB
+        /wOyAf8DlgH/A8AB//8A/wAqAAH/AZkBMwH/QAABgAF8Av8BgAF8Av98AAGZAWYBzAH/AZkBZgHMAf8B
+        mQFmAcwB/ywAAf8BZgEAAv8BZgEAAv8B7AHMAf80AAGAAXwC/wGAAXwC/wPdAf8BgAF8Av8oAAGZAmYB
+        /0gAAZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwB/ygAAf8BZgEAAv8BZgEAAv8B
+        ZgEAAv8BZgEAAf8sAAGAAXwC/wGAAXwC/wPjAf8BgAF8Av8CMwL/AjMC/2QAAZkB/wEAAf8BmQH/AQAB
+        /wGZAf8BAAH/AZkBZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8BmQFmAcwC/wHMAWYC/wHMAWYC
+        /wHMAWYC/wHMAWYC/wHMAWYB/xQAAf8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAv8BZgEAAf8B8AHKAaYB
+        /yAAAYABfAL/AYABfAL/A+MB/wGAAXwC/wIzAv8CMwL/AjMC/wIzAv8gAAOZAf9IAAGZAWYBzAH/AZkB
+        ZgHMAf8BmQFmAcwB/wGZAWYBzAH/AZkBZgHMAf8oAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYB
+        AAL/AWYBAAL/AWYBAAX/GAABgAF8Av8D6gH/AYABfAL/ATMBZgHMAf8CMwL/AjMC/wIzAv8CMwL/AjMC
+        /xwAAaQCoAH/PAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAB/wGZAWYBzAH/AZkBZgHMAf8B
+        mQFmAcwB/wGZAWYBzAL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wFmAQAC/wFmAQAC
+        /wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wFmAQAC/wGZATMB/xQAAdYC5wH/AYABfAL/ATMB
+        ZgHMAf8CUAL/ATMBZgHMAf8CMwL/AjMC/wIzAv8BzAFmAQAB/wHMAWYBAAH/WAABmQH/AQAB/wGZAf8B
+        AAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB/wGZAWYBzAH/AZkBZgHMAv8BzAFmAv8BzAFmAv8B
+        zAFmAv8BzAFmAv8BzAFmAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYBAAL/AWYB
+        AAL/AWYBAAL/AWYBAAL/AWYBAAH/FAABxgHWAe8B/wJQAv8BMwFmAcwB/wJQAv8BMwFmAcwB/wIzAv8B
+        zAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/2wAAZkBZgHMAf8BmQFmAcwB/ygAAf8BmQEAAv8B
+        mQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEAAv8BmQEABf8YAAKZAv8CUAL/ATMB
+        ZgHMAf8CUAP/AZkBMwL/AZkBAAH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBZgEAAf8QAAOZAf88
+        AAGZAf8BAAH/AZkB/wEAAf8BmQH/AQAB/wGZAf8BAAL/AcwBZgL/AcwBZgH/AZkBZgL/AZkBZgP/AcwB
+        ZgL/AcwBZgL/AcwBZgL/AcwBZgL/AcwBZgH/FAAB/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAC/wGZAQAC
+        /wGZAQAC/wGZAQAC/wHMAWYB/yQAApkC/wJQA/8BmQEzAv8BmQEzAv8BmQEzAv8BmQEAAf8BzAFmAQAB
+        /wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/wwAAaQCoAH/VAABmQFmAv8BmQFmAv8oAAH/AZkBAAL/AZkB
+        AAL/AZkBAAL/AZkBAAL/AZkBAAL/AZkBAAX/LAAB8AHKAaYC/wFmATMC/wGZATMC/wGZATMC/wGZATMC
+        /wGZAQAB/wHMAWYBAAH/AcwBZgEAAf8BzAFmAQAB/2QAAZkBZgL/AZkBZgL/KAAB/wGZAQAC/wGZAQAC
+        /wGZAQAC/wGZAQAB/wHwAcoBpgH/OwAC/wFmATMC/wGZATMC/wGZATMC/wGZATMC/wGZAQAB/wHMAWYB
+        AAL/AewBzAH/TAABmQH/AQAB/wGZAf8BAAH/AZkB/wEAAf8BmQH/AQAC/wHMAWYC/wHMAWYB/wGZAWYC
+        /wGZAWYC/wFmATMBzAH/AWYBMwHMAv8BzAFmAv8BzAFmAv8BzAFmAf8UAAH/AZkBAAL/AZkBAAL/AZkB
+        AAH/RwAC/wFmATMC/wGZATMC/wGZATMC/wGZATMC/wHsAcwB/xAAAZkCZgH/VAABmQFmAv8BmQFmAv8B
+        ZgEzAcwB/wFmATMBzAH/IAAB/wGZAQAB/wPqAf9PAAL/AWYBMwL/AZkBMwL/AewBzAH/FAAD6gH/AZkC
+        ZgH/CAABpAKgAf8DmQH/CAABpAKgAf8DmQH/BAABmQJmAf8oAAT/AZkBZgL/AWYBMwHMAf8BZgEzAcwB
+        /3gAA90C/wHsAcwB//8A/wCuAAPAAf8UAAT/AjMC/xgAA/EC/wHMATMC/wHMATMC/wHMATMC/wGZATMC
+        /wHMAQAB/xwAAWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYB
+        zAEAAf8BZgHMAQAB/wFmAcwBAAH/AWYBzAEAAf8BZgHMAQAB/wFmAcwBAAH/AcwB/wFmAf9cAAPqAf8D
+        lgH/DAAB/wGZAWYC/wHMATMB/wIzBv8UAAH/AcwBMwL/AcwBMwH/AcwBmQEzAf8BzAGZATMC/wHMAQAC
+        /wGZATMC/wHMAQAC/wHMAQAC/wGZAWYB/xQAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        MwH/AZkBzAEzAf8UAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB/yAABP8D
+        hgH/A5kB/wgAAswBZgL/AWYBAAH/AjMC/wPxAf8UAAH/AWYBAAH/AcwBmQEzAf8BzAFmAQAF/wwAAf8B
+        mQFmAv8BzAEAAv8BzAEzAv8BmQFmAf9YAAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC
+        /wFmAQAB/xwABP8DhgH/A4YB/wOZAf8EAAHwAcoBpgL/AcwBAAH/AjMD/wFmAQAC/wFmAQAB/xAAAfAB
+        ygGmAv8BZgEAAv8BzAFmAf8YAAX/AcwBMwL/AcwBAAH/WAAB/wFmAQAC/wFmAQAC/wFmAQAB/wwAAf8B
+        ZgEAAv8BZgEAAv8BZgEAAf8UAAOGAf8DZgH/A4YB/wOGAf8DhgH/A5kD/wFmAv8BzAEzAf8CMwP/AcwB
+        MwL/AcwBZgL/AWYBAAX/DAABzAGZATMC/wGZATMB/yAAAf8BzAEzAv8BzAEAAv8BmQEzAv8BzAEzAf9Q
+        AAH/AWYBAAL/AWYBAAL/AWYBAAH/DAAB/wFmAQAC/wFmAQAC/wFmAQAB/xQAA2YB/wNmAf8DhgH/A4YB
+        /wOGAf8DmQH/AwAB/wIzA/8BzAEzAv8BzAEAAv8BzAEAAv8BZgEAAf8CzAFmAf8wAAX/AcwBMwL/AcwB
+        AAL/AcwBMwX/CAABmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/xQAAf8B
+        ZgEAAv8BZgEAAv8BZgEAAf8MAAH/AWYBAAL/AWYBAAL/AWYBAAH/FAADZgH/A2YB/wOGAf8DhgH/A4YB
+        /wOZAf8CMwP/AcwBMwL/AcwBMwL/AcwBAAL/AcwBAAL/AWYBAAH/AcwBmQEzAf8MAAH/AcwBMwH/KAAB
+        /wHMAQAC/wHMATMB/1QAAf8BZgEAAv8BZgEAAv8BZgEAAf8MAAH/AWYBAAL/AWYBAAL/AWYBAAH/FAAD
+        ZgH/A2YB/wOGAf8DhgH/A4YB/wIzAv8DAAL/AcwBMwL/AcwBMwL/AcwBAAL/AcwBAAL/AWYBAAL/AcwB
+        MwH/CAAB/wHMAZkC/wHMATMC/wHMATMC/wHMATMB/3wAAf8BmQEAAv8BmQEAAv8BmQEAAf8MAAH/AZkB
+        AAL/AZkBAAL/AZkBAAH/FAADZgH/A2YB/wOGAf8DhgH/AjMC/wGkAqAC/wHMATMC/wHMATMC/wHMAWYC
+        /wHMAQAC/wHMATMC/wFmAQAD/wHMAf8IAAH/AcwBMwL/AcwBMwL/AcwBMwH/JAACzAGZAf9YAAH/AZkB
+        AAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xwAA8wB/wIzAv8DhgH/AaQCoAH/BAAB
+        /wHMATMC/wHMAQAC/wHMAQAC/wFmAQAC/wFmAQAB/xAAAf8BzAEzAv8BzAEzAv8BmQEzAf8cAALMAWYC
+        /wFmAQAF/wwAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkB
+        zAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8UAAH/AZkB
+        AAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xgABP8CMwL/AaQCoAH/A4YB/wGkAqAB
+        /wgAAf8BzAEAAv8BzAFmAv8BZgEAAv8BzAEzAf8UAAH/AcwBMwL/AcwBMwL/AZkBMwH/FAACgAEAAv8B
+        ZgEAAv8BZgEAAf9YAAH/AZkBAAL/AZkBAAL/AZkBAAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xQABP8C
+        Mwb/BAACzAFmAf8BpAKgAf8MAAH/AWYBAAL/AWYBAAH/GAAF/wHMATMC/wHMATMC/wHMATMB/wHMAZkB
+        MwH/AcwBZgEAAf8BzAFmAQAB/wHMAWYBAAH/AcwBmQEzAv8BmQEAAf9cAAH/AZkBAAL/AZkBAAL/AZkB
+        AAH/DAAB/wGZAQAC/wGZAQAC/wGZAQAB/xAABP8CMwb/DAADsgH/NAAB/wHMATMC/wHMATMC/wGZATMC
+        /wHMAQAC/wHMAQAC/wHMATMC/wHMAWYB/xgAAZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8B
+        mQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwBMwH/AZkBzAEzAf8BmQHMATMB/wGZAcwB
+        MwH/AZkBzAEzAf8UAAH/AZkBAAL/AZkBAAH/AcwBmQEzAf8MAAH/AZkBAAL/AZkBAAH/AcwBmQEzAf8Q
+        AAj//wD1AAFCAU0BPgcAAT4DAAEoAwABQAMAAVADAAEBAQABAQUAAYABAhYAA/8BAAT/BAAB+AEfAf4B
+        /wQAAfABBwH8AecEAAHgAQMB+AHDBAABwAEDAfABgwQAAcABAQHAAQEEAAHAAQEBwAEBBAABwAEBAcAB
+        AQQAAcABAQHAAQEEAAHAAQEBwAEBBAABwAEBAfABgwQAAeABAwH4AcMEAAHgAQcB/AHnBAAB+AEPAf4B
+        /wQABP8EAAT/BAAK/wH4Bf8B1AEBAeABPwT/AdABCwHAAR8BgAEAAYABAAHAAQsBwAEfAYABAAGAAQAB
+        wAELAcABBwGAAQABgAEAAcABCwHAAQMBgAEAAYABAAHAAQgBwAEDAYABAAGAAQABwAEZAeABAQGAAQAB
+        gAEAAcEB+wHwAQEBgAEAAYABAAHBAeMB/AEBAYABAAGAAQAB/wHzAfwBAwGAAQABgAEAAv8B/gEDB/8B
+        Bxz/AcABAwHwAQ8B/QFfAv8BwAEDAfABDwHgAQMBwAEBAeABAwHwAQ8B4AEDAcABAQHgAQMB+AEPAeAB
+        AwHAAQEB4AEDAfgBDwHAAQEBwAEBAeABBwH4AQ8B4AEDAcABAQHgAQcB+AEPAcABAQHAAQEB8AEHAfAB
+        DwHgAQMBwAEBAfABBwHgAR8BwAEBAcABAQH+AX8B6AEfAeABAwHAAQMB/gF/AfwBHwHgAQMB4AEDAf4B
+        fwH8AR8B4AEDAeABAwH+AX8B/gE/Af0BXwHwAQMB/gF/Af8BfwL/AfwBPxD/AfcB/wH5A/8B/AF/AfEB
+        /wHwAf8B3wH/AfgBPwHwAf8B4AF/Av8BwAEBAfABPwHAAT8B3wH/AfgBPwHwAQ8BwAEfAd8B/wHAAQEB
+        8AEHAcABDwL/AcABAQHwAQMB4AEHA/8BPwHwAQMB8AEDAd8B/wHAAQEB8AEPAfgBAQHfAv8BPwHwAR8B
+        /AEBA/8BPwHwAX8B/gEBAv8BwAEBAfEC/wEDAd8C/wEPAfMC/wGHAcwBywH/AQ8D/wHPFP8B/gH5AfgB
+        HwHAAQEC/wH8AeEB8AEHAcABAQHxAccB+AHDAeEBwwL/AfEBxwHwAYMBxwHjAv8B8QHHAcABAQHPAfAC
+        /wHxAccBwAEBAf8B4AHAAQEB8QHHAcABAQHfAfkC/wHxAccBwAEBAYcD/wHxAccBwAEBAY8B+wL/AfEB
+        xwHwAYMBxwHxAcABAQHxAccB4AHDAuMC/wHxAccBxAHnAeABBwL/AfEBxwGOAf8B+AEPAcABAQHxAccB
+        nw//Cw==
+</value>
+  </data>
   <data name="&gt;&gt;MIDIRestartBeepTimer.Name" xml:space="preserve">
     <value>MIDIRestartBeepTimer</value>
   </data>
@@ -1221,12 +1651,1091 @@
   <data name="lbl_d4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
+<<<<<<<<< Temporary merge branch 1
+  <data name="lbl_d4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 18</value>
+  </data>
+  <data name="lbl_d4.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="lbl_d4.Text" xml:space="preserve">
+    <value>D4</value>
+  </data>
+  <data name="&gt;&gt;lbl_d4.Name" xml:space="preserve">
+    <value>lbl_d4</value>
+  </data>
+  <data name="&gt;&gt;lbl_d4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_d4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_d4.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="lbl_c4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_c4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_c4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_c4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_c4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 163</value>
+  </data>
+  <data name="lbl_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_c4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 18</value>
+  </data>
+  <data name="lbl_c4.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="lbl_c4.Text" xml:space="preserve">
+    <value>C4</value>
+  </data>
+  <data name="&gt;&gt;lbl_c4.Name" xml:space="preserve">
+    <value>lbl_c4</value>
+  </data>
+  <data name="&gt;&gt;lbl_c4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_c4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_c4.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="lbl_g5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_g5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_g5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_g5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_g5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>824, 163</value>
+  </data>
+  <data name="lbl_g5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_g5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="lbl_g5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 18</value>
+  </data>
+  <data name="lbl_g5.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="lbl_g5.Text" xml:space="preserve">
+    <value>G5</value>
+  </data>
+  <data name="lbl_g5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl_g5.Name" xml:space="preserve">
+    <value>lbl_g5</value>
+  </data>
+  <data name="&gt;&gt;lbl_g5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_g5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_g5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lbl_e5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_e5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_e5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_e5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_e5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>734, 163</value>
+  </data>
+  <data name="lbl_e5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_e5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="lbl_e5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 18</value>
+  </data>
+  <data name="lbl_e5.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="lbl_e5.Text" xml:space="preserve">
+    <value>E5</value>
+  </data>
+  <data name="lbl_e5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl_e5.Name" xml:space="preserve">
+    <value>lbl_e5</value>
+  </data>
+  <data name="&gt;&gt;lbl_e5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_e5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_e5.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lbl_d5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_d5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_d5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_d5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_d5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>689, 163</value>
+  </data>
+  <data name="lbl_d5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_d5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="lbl_d5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 18</value>
+  </data>
+  <data name="lbl_d5.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="lbl_d5.Text" xml:space="preserve">
+    <value>D5</value>
+  </data>
+  <data name="lbl_d5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl_d5.Name" xml:space="preserve">
+    <value>lbl_d5</value>
+  </data>
+  <data name="&gt;&gt;lbl_d5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_d5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_d5.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lbl_c5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="lbl_c5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_c5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9.75pt</value>
+  </data>
+  <data name="lbl_c5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_c5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>645, 163</value>
+  </data>
+  <data name="lbl_c5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_c5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="lbl_c5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 18</value>
+  </data>
+  <data name="lbl_c5.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="lbl_c5.Text" xml:space="preserve">
+    <value>C5</value>
+  </data>
+  <data name="lbl_c5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopCenter</value>
+  </data>
+  <data name="&gt;&gt;lbl_c5.Name" xml:space="preserve">
+    <value>lbl_c5</value>
+  </data>
+  <data name="&gt;&gt;lbl_c5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_c5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;lbl_c5.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="button_clear_note4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="button_clear_note4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="button_clear_note4.ImageIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="button_clear_note4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_clear_note4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>880, 380</value>
+  </data>
+  <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_clear_note4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 25</value>
+  </data>
+  <data name="button_clear_note4.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="button_clear_note4.Text" xml:space="preserve">
+    <value>Clear Note &amp;4</value>
+  </data>
+  <data name="button_clear_note4.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="button_clear_note4.ToolTip" xml:space="preserve">
+    <value>Make the "Note 4" of the selected line blank
+</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note4.Name" xml:space="preserve">
+    <value>button_clear_note4</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note4.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="button_clear_note3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="button_clear_note3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="button_clear_note3.ImageIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+=========
   <data name="add_as_note2.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
   <data name="button_clear_note3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+<<<<<<<<< Temporary merge branch 1
+  <data name="button_clear_note3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>880, 354</value>
+  </data>
+  <data name="button_clear_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_clear_note3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>109, 25</value>
+  </data>
+  <data name="button_clear_note3.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="button_clear_note3.Text" xml:space="preserve">
+    <value>Clear Note &amp;3</value>
+  </data>
+  <data name="button_clear_note3.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageBeforeText</value>
+  </data>
+  <data name="button_clear_note3.ToolTip" xml:space="preserve">
+    <value>Make the "Note 3" of the selected line blank
+</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note3.Name" xml:space="preserve">
+    <value>button_clear_note3</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;button_clear_note3.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="checkBox_spiccato.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="checkBox_spiccato.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="checkBox_spiccato.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBox_spiccato.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt</value>
+  </data>
+  <data name="checkBox_spiccato.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBox_spiccato.Location" type="System.Drawing.Point, System.Drawing">
+    <value>692, 319</value>
+  </data>
+  <data name="checkBox_spiccato.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="checkBox_spiccato.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 26</value>
+  </data>
+  <data name="checkBox_spiccato.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="checkBox_spiccato.Text" xml:space="preserve">
+    <value>Spiccato</value>
+  </data>
+  <data name="checkBox_spiccato.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="checkBox_spiccato.ToolTip" xml:space="preserve">
+    <value>Make the note shorter and seperate, half way through Staccato</value>
+  </data>
+  <data name="&gt;&gt;checkBox_spiccato.Name" xml:space="preserve">
+    <value>checkBox_spiccato</value>
+  </data>
+  <data name="&gt;&gt;checkBox_spiccato.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox_spiccato.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;checkBox_spiccato.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="lbl_beat.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_beat.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="lbl_beat.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_beat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 22</value>
+  </data>
+  <data name="lbl_beat.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_beat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 16</value>
+  </data>
+  <data name="lbl_beat.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="lbl_beat.Text" xml:space="preserve">
+    <value>Beat</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat.Name" xml:space="preserve">
+    <value>lbl_beat</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat.Parent" xml:space="preserve">
+    <value>position_table</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_beat_traditional.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="lbl_beat_traditional.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_beat_traditional.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 39</value>
+  </data>
+  <data name="lbl_beat_traditional.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_beat_traditional.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>78, 32</value>
+  </data>
+  <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 32</value>
+  </data>
+  <data name="lbl_beat_traditional.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="lbl_beat_traditional.Text" xml:space="preserve">
+    <value>Beat (Traditional)
+</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional.Name" xml:space="preserve">
+    <value>lbl_beat_traditional</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional.Parent" xml:space="preserve">
+    <value>position_table</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lbl_measure_value.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_measure_value.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="lbl_measure_value.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_measure_value.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 1</value>
+  </data>
+  <data name="lbl_measure_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_measure_value.Size" type="System.Drawing.Size, System.Drawing">
+    <value>14, 16</value>
+  </data>
+  <data name="lbl_measure_value.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="lbl_measure_value.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_measure_value.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lbl_measure_value.Name" xml:space="preserve">
+    <value>lbl_measure_value</value>
+  </data>
+  <data name="&gt;&gt;lbl_measure_value.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_measure_value.Parent" xml:space="preserve">
+    <value>position_table</value>
+  </data>
+  <data name="&gt;&gt;lbl_measure_value.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lbl_beat_value.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_beat_value.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="lbl_beat_value.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_beat_value.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 22</value>
+  </data>
+  <data name="lbl_beat_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_beat_value.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 16</value>
+  </data>
+  <data name="lbl_beat_value.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="lbl_beat_value.Text" xml:space="preserve">
+    <value>0.0</value>
+  </data>
+  <data name="lbl_beat_value.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_value.Name" xml:space="preserve">
+    <value>lbl_beat_value</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_value.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_value.Parent" xml:space="preserve">
+    <value>position_table</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_value.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lbl_beat_traditional_value.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="lbl_beat_traditional_value.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Location" type="System.Drawing.Point, System.Drawing">
+    <value>92, 39</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Size" type="System.Drawing.Size, System.Drawing">
+    <value>14, 16</value>
+  </data>
+  <data name="lbl_beat_traditional_value.TabIndex" type="System.Int32, mscorlib">
+    <value>113</value>
+  </data>
+  <data name="lbl_beat_traditional_value.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_beat_traditional_value.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional_value.Name" xml:space="preserve">
+    <value>lbl_beat_traditional_value</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional_value.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional_value.Parent" xml:space="preserve">
+    <value>position_table</value>
+  </data>
+  <data name="&gt;&gt;lbl_beat_traditional_value.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="button_c3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_c3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_c3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_c3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 9pt, style=Bold</value>
+  </data>
+  <data name="button_c3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_c3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 1</value>
+  </data>
+  <data name="button_c3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_c3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_c3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_c3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="button_c3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_c3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_c3.Name" xml:space="preserve">
+    <value>button_c3</value>
+  </data>
+  <data name="&gt;&gt;button_c3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_c3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_c3.ZOrder" xml:space="preserve">
+    <value>37</value>
+  </data>
+  <data name="button_d3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_d3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_d3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_d3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_d3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_d3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 1</value>
+  </data>
+  <data name="button_d3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_d3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_d3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_d3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="button_d3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_d3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_d3.Name" xml:space="preserve">
+    <value>button_d3</value>
+  </data>
+  <data name="&gt;&gt;button_d3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_d3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_d3.ZOrder" xml:space="preserve">
+    <value>43</value>
+  </data>
+  <data name="button_e3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_e3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_e3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_e3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_e3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_e3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 1</value>
+  </data>
+  <data name="button_e3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_e3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_e3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_e3.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="button_e3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_e3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_e3.Name" xml:space="preserve">
+    <value>button_e3</value>
+  </data>
+  <data name="&gt;&gt;button_e3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_e3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_e3.ZOrder" xml:space="preserve">
+    <value>42</value>
+  </data>
+  <data name="button_f3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_f3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_f3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_f3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_f3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_f3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>138, 1</value>
+  </data>
+  <data name="button_f3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_f3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_f3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_f3.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="button_f3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_f3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_f3.Name" xml:space="preserve">
+    <value>button_f3</value>
+  </data>
+  <data name="&gt;&gt;button_f3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_f3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_f3.ZOrder" xml:space="preserve">
+    <value>44</value>
+  </data>
+  <data name="button_g3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_g3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_g3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_g3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_g3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_g3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>183, 1</value>
+  </data>
+  <data name="button_g3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_g3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_g3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_g3.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="button_g3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_g3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_g3.Name" xml:space="preserve">
+    <value>button_g3</value>
+  </data>
+  <data name="&gt;&gt;button_g3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_g3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_g3.ZOrder" xml:space="preserve">
+    <value>38</value>
+  </data>
+  <data name="button_a3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_a3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_a3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_a3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_a3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_a3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 1</value>
+  </data>
+  <data name="button_a3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_a3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_a3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_a3.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="button_a3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_a3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_a3.Name" xml:space="preserve">
+    <value>button_a3</value>
+  </data>
+  <data name="&gt;&gt;button_a3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_a3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_a3.ZOrder" xml:space="preserve">
+    <value>45</value>
+  </data>
+  <data name="button_b3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_b3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_b3.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_b3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_b3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_b3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>273, 1</value>
+  </data>
+  <data name="button_b3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_b3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_b3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_b3.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="button_b3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_b3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_b3.Name" xml:space="preserve">
+    <value>button_b3</value>
+  </data>
+  <data name="&gt;&gt;button_b3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_b3.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_b3.ZOrder" xml:space="preserve">
+    <value>46</value>
+  </data>
+  <data name="button_c4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_c4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_c4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_c4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_c4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_c4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>318, 1</value>
+  </data>
+  <data name="button_c4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_c4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_c4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_c4.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="button_c4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_c4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_c4.Name" xml:space="preserve">
+    <value>button_c4</value>
+  </data>
+  <data name="&gt;&gt;button_c4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_c4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_c4.ZOrder" xml:space="preserve">
+    <value>39</value>
+  </data>
+  <data name="button_d4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_d4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_d4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_d4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_d4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_d4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>363, 1</value>
+  </data>
+  <data name="button_d4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_d4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_d4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_d4.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="button_d4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_d4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_d4.Name" xml:space="preserve">
+    <value>button_d4</value>
+  </data>
+  <data name="&gt;&gt;button_d4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_d4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_d4.ZOrder" xml:space="preserve">
+    <value>47</value>
+  </data>
+  <data name="button_e4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_e4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_e4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_e4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_e4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_e4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>408, 1</value>
+  </data>
+  <data name="button_e4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_e4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_e4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_e4.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="button_e4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_e4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_e4.Name" xml:space="preserve">
+    <value>button_e4</value>
+  </data>
+  <data name="&gt;&gt;button_e4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_e4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_e4.ZOrder" xml:space="preserve">
+    <value>48</value>
+  </data>
+  <data name="button_a4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_a4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_a4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_a4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_a4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_a4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>543, 1</value>
+  </data>
+  <data name="button_a4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_a4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_a4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_a4.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+=========
   <data name="label_silence.TabIndex" type="System.Int32, mscorlib">
     <value>59</value>
   </data>
@@ -1347,6 +2856,307 @@
   <data name="button_a4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>BottomCenter</value>
   </data>
+<<<<<<<<< Temporary merge branch 1
+  <data name="button_a4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_a4.Name" xml:space="preserve">
+    <value>button_a4</value>
+  </data>
+  <data name="&gt;&gt;button_a4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_a4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_a4.ZOrder" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="button_b4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_b4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_b4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_b4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 8.249999pt, style=Bold</value>
+  </data>
+  <data name="button_b4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_b4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>588, 1</value>
+  </data>
+  <data name="button_b4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_b4.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_b4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_b4.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="button_b4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_b4.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_b4.Name" xml:space="preserve">
+    <value>button_b4</value>
+  </data>
+  <data name="&gt;&gt;button_b4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_b4.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_b4.ZOrder" xml:space="preserve">
+    <value>41</value>
+  </data>
+  <data name="button_c5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_c5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_c5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_c5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_c5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_c5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>633, 1</value>
+  </data>
+  <data name="button_c5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_c5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_c5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_c5.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="button_c5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_c5.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_c5.Name" xml:space="preserve">
+    <value>button_c5</value>
+  </data>
+  <data name="&gt;&gt;button_c5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_c5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_c5.ZOrder" xml:space="preserve">
+    <value>53</value>
+  </data>
+  <data name="button_d5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_d5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_d5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_d5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_d5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_d5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>678, 1</value>
+  </data>
+  <data name="button_d5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_d5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_d5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_d5.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="button_d5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_d5.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_d5.Name" xml:space="preserve">
+    <value>button_d5</value>
+  </data>
+  <data name="&gt;&gt;button_d5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_d5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_d5.ZOrder" xml:space="preserve">
+    <value>52</value>
+  </data>
+  <data name="button_e5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_e5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_e5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_e5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_e5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_e5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>723, 1</value>
+  </data>
+  <data name="button_e5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_e5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_e5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_e5.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="button_e5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_e5.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_e5.Name" xml:space="preserve">
+    <value>button_e5</value>
+  </data>
+  <data name="&gt;&gt;button_e5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_e5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_e5.ZOrder" xml:space="preserve">
+    <value>51</value>
+  </data>
+  <data name="button_f5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_f5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_f5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_f5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_f5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_f5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>768, 1</value>
+  </data>
+  <data name="button_f5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_f5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_f5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_f5.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="button_f5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_f5.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_f5.Name" xml:space="preserve">
+    <value>button_f5</value>
+  </data>
+  <data name="&gt;&gt;button_f5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_f5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+  </data>
+  <data name="&gt;&gt;button_f5.ZOrder" xml:space="preserve">
+    <value>54</value>
+  </data>
+  <data name="button_a5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="button_a5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="button_a5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="button_a5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>HarmonyOS Sans, 11.249998pt, style=Bold</value>
+  </data>
+  <data name="button_a5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button_a5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>858, 1</value>
+  </data>
+  <data name="button_a5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 3, 4, 3</value>
+  </data>
+  <data name="button_a5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 32</value>
+  </data>
+  <data name="button_a5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 190</value>
+  </data>
+  <data name="button_a5.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="button_a5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="button_a5.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
+  </data>
+  <data name="&gt;&gt;button_a5.Name" xml:space="preserve">
+    <value>button_a5</value>
+  </data>
+  <data name="&gt;&gt;button_a5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button_a5.Parent" xml:space="preserve">
+    <value>keyboard_panel</value>
+=========
   <data name="checkBox_play_beat_sound.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
@@ -1713,8 +3523,8 @@
   <data name="button_b4.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="add_as_note1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="checkBox_dotted.TabIndex" type="System.Int32, mscorlib">
+    <value>74</value>
   </data>
   <data name="&gt;&gt;numericUpDown_bpm.Name" xml:space="preserve">
     <value>numericUpDown_bpm</value>
@@ -1779,8 +3589,8 @@
   <data name="&gt;&gt;button_d4.Parent" xml:space="preserve">
     <value>keyboard_panel</value>
   </data>
-  <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 3, 4, 3</value>
+  <data name="&gt;&gt;checkBox_triplet.ZOrder" xml:space="preserve">
+    <value>27</value>
   </data>
   <data name="button_c3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 32</value>
@@ -2981,8 +4791,8 @@
   <data name="&gt;&gt;position_table.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 22</value>
+  <data name="lbl_g3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 18</value>
   </data>
   <data name="add_as_note2.Size" type="System.Drawing.Size, System.Drawing">
     <value>102, 20</value>
@@ -3329,8 +5139,8 @@
   <data name="&gt;&gt;radioButtonPlay_alternating_notes2.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
-  <data name="&gt;&gt;lbl_note_silence_ratio.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="lbl_c4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 163</value>
   </data>
   <data name="&gt;&gt;checkBox_play_note3_clicked.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -3584,7 +5394,7 @@
   <data name="button_g5.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
   </data>
-  <data name="button_e3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="button_clear_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="button_clear_note4.Font" type="System.Drawing.Font, System.Drawing">
@@ -3989,8 +5799,8 @@
   <data name="&gt;&gt;button_c5.Name" xml:space="preserve">
     <value>button_c5</value>
   </data>
-  <data name="button_e5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;button_d3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lbl_f5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
@@ -4739,8 +6549,8 @@
   <data name="&gt;&gt;button_blank_line.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="checkBox_play_note2_played.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+  <data name="&gt;&gt;lbl_b5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button_b4.ToolTip" xml:space="preserve">
     <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
@@ -4799,9 +6609,9 @@
   <data name="button_f_s5.Size" type="System.Drawing.Size, System.Drawing">
     <value>28, 120</value>
   </data>
-  <data name="button_e3.ToolTip" xml:space="preserve">
-    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
   </data>
+  <data name="&gt;&gt;group_music_played.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   <data name="lbl_f4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -4982,7 +6792,7 @@
   <data name="&gt;&gt;lbl_a5.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="add_as_note4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="add_as_note3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="checkBox_dotted.Size" type="System.Drawing.Size, System.Drawing">
@@ -5003,8 +6813,8 @@
   <data name="lbl_a4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;checkBox_do_not_update.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="checkBox_replace.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="button_g3.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 190</value>
@@ -5441,13 +7251,10 @@
     <value>button_a5</value>
   </data>
   <data name="button_g4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
   </data>
-  <data name="label_note.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="&gt;&gt;button_g_s3.Name" xml:space="preserve">
+    <value>button_g_s3</value>
     <value>620, 283</value>
-  </data>
-  <data name="button_play_beat_sound_help.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
   </data>
   <data name="button_c_s5.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -6609,9 +8416,83 @@
   </data>
   <data name="button_unselect.Text" xml:space="preserve">
     <value>&amp;Un-select Line</value>
+>>>>>>>>> Temporary merge branch 2
   </data>
-  <data name="&gt;&gt;group_music_played.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+<<<<<<<<< Temporary merge branch 1
+  <data name="&gt;&gt;newToolStripMenuItem1.Name" xml:space="preserve">
+    <value>newToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;newToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
+    <value>openToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openRecentToolStripMenuItem.Name" xml:space="preserve">
+    <value>openRecentToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openRecentToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveAsToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveAsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveAsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playMIDIFileToolStripMenuItem.Name" xml:space="preserve">
+    <value>playMIDIFileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;playMIDIFileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;createMusicWithAIToolStripMenuItem.Name" xml:space="preserve">
+    <value>createMusicWithAIToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;createMusicWithAIToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;convertToToolStripMenuItem.Name" xml:space="preserve">
+    <value>convertToToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;convertToToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;convertToGCodeToolStripMenuItem.Name" xml:space="preserve">
+    <value>convertToGCodeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;convertToGCodeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;convertToBeepCommandForLinuxToolStripMenuItem.Name" xml:space="preserve">
+    <value>convertToBeepCommandForLinuxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;convertToBeepCommandForLinuxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button_clear_note2.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>ImageBeforeText</value>
@@ -6877,8 +8758,8 @@
   <data name="&gt;&gt;button_clear_note2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="lbl_c3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 19</value>
+  <data name="&gt;&gt;button_synchronized_play_help.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button_use_voice_system_help.TabIndex" type="System.Int32, mscorlib">
     <value>89</value>
@@ -7251,10 +9132,241 @@
   </data>
   <data name="checkBox_synchronized_play.Location" type="System.Drawing.Point, System.Drawing">
     <value>271, 541</value>
+>>>>>>>>> Temporary merge branch 2
   </data>
-  <data name="&gt;&gt;button_g_s3.Name" xml:space="preserve">
-    <value>button_g_s3</value>
+  <data name="&gt;&gt;editToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+<<<<<<<<< Temporary merge branch 1
+  <data name="&gt;&gt;undoToolStripMenuItem.Name" xml:space="preserve">
+    <value>undoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;undoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;redoToolStripMenuItem.Name" xml:space="preserve">
+    <value>redoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;redoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rewindToSavedVersionToolStripMenuItem.Name" xml:space="preserve">
+    <value>rewindToSavedVersionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rewindToSavedVersionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>settingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;settingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;aboutNeoBleeperToolStripMenuItem.Name" xml:space="preserve">
+    <value>aboutNeoBleeperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;aboutNeoBleeperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpToolStripMenuItem.Name" xml:space="preserve">
+    <value>helpToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;helpToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imageList_main_window.Name" xml:space="preserve">
+    <value>imageList_main_window</value>
+  </data>
+  <data name="&gt;&gt;imageList_main_window.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;length.Name" xml:space="preserve">
+    <value>length</value>
+  </data>
+  <data name="&gt;&gt;length.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note1.Name" xml:space="preserve">
+    <value>note1</value>
+  </data>
+  <data name="&gt;&gt;note1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note2.Name" xml:space="preserve">
+    <value>note2</value>
+  </data>
+  <data name="&gt;&gt;note2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note3.Name" xml:space="preserve">
+    <value>note3</value>
+  </data>
+  <data name="&gt;&gt;note3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;note4.Name" xml:space="preserve">
+    <value>note4</value>
+  </data>
+  <data name="&gt;&gt;note4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mod.Name" xml:space="preserve">
+    <value>mod</value>
+  </data>
+  <data name="&gt;&gt;mod.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;art.Name" xml:space="preserve">
+    <value>art</value>
+  </data>
+  <data name="&gt;&gt;art.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;blankLineToolStripMenuItem.Name" xml:space="preserve">
+    <value>blankLineToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;blankLineToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearNotesToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearNotesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearNotesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearNote1ToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearNote1ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearNote1ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearNote2ToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearNote2ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearNote2ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearNote3ToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearNote3ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearNote3ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clearNote4ToolStripMenuItem.Name" xml:space="preserve">
+    <value>clearNote4ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;clearNote4ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;unselectLineToolStripMenuItem.Name" xml:space="preserve">
+    <value>unselectLineToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;unselectLineToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;eraseWholeLineToolStripMenuItem.Name" xml:space="preserve">
+    <value>eraseWholeLineToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;eraseWholeLineToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cutToolStripMenuItem.Name" xml:space="preserve">
+    <value>cutToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;cutToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;copyToClipboardToolStripMenuItem.Name" xml:space="preserve">
+    <value>copyToClipboardToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;copyToClipboardToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pasteToolStripMenuItem.Name" xml:space="preserve">
+    <value>pasteToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pasteToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkAllNotesToolStripMenuItem.Name" xml:space="preserve">
+    <value>checkAllNotesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;checkAllNotesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uncheckAllNotesToolStripMenuItem.Name" xml:space="preserve">
+    <value>uncheckAllNotesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;uncheckAllNotesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playbackControlsToolStripMenuItem.Name" xml:space="preserve">
+    <value>playbackControlsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;playbackControlsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playAllToolStripMenuItem.Name" xml:space="preserve">
+    <value>playAllToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;playAllToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;playFromSelectedLineToolStripMenuItem.Name" xml:space="preserve">
+    <value>playFromSelectedLineToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;playFromSelectedLineToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stopPlayingToolStripMenuItem.Name" xml:space="preserve">
+    <value>stopPlayingToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;stopPlayingToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;help_icon.Name" xml:space="preserve">
+    <value>help_icon</value>
+  </data>
+  <data name="&gt;&gt;help_icon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
+    <value>openFileDialog</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog.Name" xml:space="preserve">
+    <value>saveFileDialog</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MIDIRestartBeepTimer.Name" xml:space="preserve">
+    <value>MIDIRestartBeepTimer</value>
+  </data>
+  <data name="&gt;&gt;MIDIRestartBeepTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;notifyIconNeoBleeper.Name" xml:space="preserve">
+    <value>notifyIconNeoBleeper</value>
+  </data>
+  <data name="&gt;&gt;notifyIconNeoBleeper.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainWindow</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+=========
   <data name="button_a_s3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -7672,8 +9784,8 @@
   <data name="button_synchronized_play_help.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="radioButtonPlay_alternating_notes2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="lbl_beat_traditional_value.ToolTip" xml:space="preserve">
     <value />
