@@ -119,19 +119,19 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 617</value>
+    <value>423, 642</value>
   </data>
   <data name="general_settings.Text" xml:space="preserve">
     <value>Genel</value>
   </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 617</value>
+    <value>423, 642</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Ses Oluşturma</value>
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 617</value>
+    <value>423, 642</value>
   </data>
   <data name="devices_settings.Text" xml:space="preserve">
     <value>Aygıtlar</value>
@@ -147,7 +147,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAApE0AAAJNU0Z0AUkBTAIBARIB
-        AAFcAQgBXAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAFkAQgBZAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAvgAAlIBUQGkAfIB1AGbAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B
         9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHnAcgB
         oAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B/wgAARABxwH+Af8EAAM1AVUI
@@ -485,7 +485,7 @@
     <value>431, 677</value>
   </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 607</value>
+    <value>413, 632</value>
   </data>
   <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
     <value>Dil Ayarları</value>
@@ -494,7 +494,7 @@
     <value>36, 26</value>
   </data>
   <data name="comboBoxLanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 24</value>
+    <value>358, 24</value>
   </data>
   <data name="comboBoxLanguage.ToolTip" xml:space="preserve">
     <value>Programın dilini değiştir
@@ -537,7 +537,7 @@
     <value>52, 25</value>
   </data>
   <data name="comboBox_theme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>338, 24</value>
+    <value>342, 24</value>
   </data>
   <data name="comboBox_theme.ToolTip" xml:space="preserve">
     <value>Programın temasını değiştir</value>
@@ -571,7 +571,7 @@
 Eğer API anahtarını değiştirdiyseniz kaydetmeniz için bu düğmeye tıklamanız gerekir.</value>
   </data>
   <data name="buttonShowHide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>310, 43</value>
+    <value>314, 43</value>
   </data>
   <data name="buttonShowHide.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 28</value>
@@ -596,7 +596,7 @@ başkaları ile paylaşmayınız.</value>
     <value>Google Gemini™ API anahtarını buraya giriniz...</value>
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>296, 23</value>
+    <value>300, 23</value>
   </data>
   <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
     <value>Yapay zekâ destekli müzik oluşturma özelliğini kullanmak için API anahtarınızı buraya giriniz.
@@ -653,7 +653,7 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
     <value>Eğer hiçbir ses duymuyorsanız veya ses bozuksa, bilgisayarınızı uyku moduna alıp uyandırmayı deneyin. Bu, etkilenen yonga setlerinde sistem hoparlörünün yeniden başlatılmasına yardımcı olabilir.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 607</value>
+    <value>413, 632</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 20</value>
@@ -738,7 +738,7 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
     <value>Kare (Varsayılan)</value>
   </data>
   <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 607</value>
+    <value>413, 632</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 20</value>
@@ -1163,9 +1163,6 @@ Enstrüman tüm MIDI çıkışları için kullanılacaktır.</value>
   </data>
   <data name="comboBox_midi_output_channel.Items15" xml:space="preserve">
     <value>Kanal 16</value>
-  </data>
-  <data name="comboBox_midi_output_channel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>241, 24</value>
   </data>
   <data name="comboBox_midi_output_channel.ToolTip" xml:space="preserve">
     <value>Çıkış için MIDI kanalını seçiniz
@@ -1985,9 +1982,6 @@ Boyutu</value>
         iUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCK5YPx/FGDb+Y+IaKgAAAAASUVORK5C
         YII=
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>NeoBleeper Ayarları</value>
