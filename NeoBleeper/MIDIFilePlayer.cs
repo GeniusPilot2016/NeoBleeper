@@ -300,6 +300,7 @@ namespace NeoBleeper
 
             // Strips out "FD:", "FD: Page X", and "FD: Page X:" patterns wherever they occur
             result = Regex.Replace(result, @"FD:\s*(Page\s*\d+\s*:?)?", "", RegexOptions.IgnoreCase);
+            result = Regex.Replace(result, @"\bFD\d+\b", "", RegexOptions.IgnoreCase);
 
             // Clean out hardware display style bracket toggles (e.g., "(WOB)", "(BOW)", "(Ch01)")
             result = Regex.Replace(result, @"\([A-Z0-9]{3,4}\)", "", RegexOptions.IgnoreCase);
@@ -401,7 +402,8 @@ namespace NeoBleeper
             // FD is a hardware frame-display channel, not a lyric channel.
             // Some files mirror the text written by SysEx as an FD meta event;
             // allowing its payload through makes display text leak into lyrics.
-            if (trimmed.StartsWith("FD:", StringComparison.OrdinalIgnoreCase))
+            if (trimmed.StartsWith("FD:", StringComparison.OrdinalIgnoreCase) ||
+            Regex.IsMatch(trimmed, @"^FD\d+$", RegexOptions.IgnoreCase))
             {
                 return true;
             }
@@ -1141,7 +1143,18 @@ namespace NeoBleeper
                                 if (meta.MetaEventType == MetaEventType.Lyric || meta.MetaEventType == MetaEventType.TextEvent)
                                 {
                                     string rawText = ExtractLyricsFromMetaEvent(meta);
-                                    if (!IsTextEventJunk(rawText))
+                                    string trimmedForFD = rawText?.Trim() ?? string.Empty;
+
+                                    if (TryBuildFDPageSelectSysEx(trimmedForFD, out byte[] fdMessage))
+                                    {
+                                        long targetTick = meta.AbsoluteTime;
+                                        while (localSysExDict.ContainsKey(targetTick))
+                                        {
+                                            targetTick++;
+                                        }
+                                        AddSysExMessage(localSysExDict, targetTick, fdMessage);
+                                    }
+                                    else if (!IsTextEventJunk(rawText))
                                     {
                                         if (!localMetaDict.TryGetValue(meta.AbsoluteTime, out var list))
                                         {
@@ -1319,7 +1332,7 @@ namespace NeoBleeper
                     progressBar1.Value = 0;
                     groupBox1.Enabled = false;
                     panelLoading.Visible = false;
-                    MessageForm.Show(this, $"{Resources.MessageMIDIFileLoadingError} {ex.Message}");
+                    MessageForm.Show(this, $"{Resources.MessageMIDIFileLoadingError} {ex.Message}", string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 });
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Logger.Log($"Error loading MIDI file: {ex.Message}", Logger.LogTypes.Error);
@@ -2987,7 +3000,43 @@ namespace NeoBleeper
             pendingStartTick = 0;
             pendingLastTick = 0;
         }
+        private static readonly Regex FDNumberPattern =
+    new Regex(@"^FD(\d{1,2})$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+        /// <summary>
+        /// Converts a bare "FD{number}" text/lyric event (e.g. "FD1", "FD9") into a
+        /// synthetic Roland model-45 "Display Page" DT1 SysEx message, so it is routed
+        /// through the same decode/render pipeline as real Frame Draw SysEx instead of
+        /// being shown as a lyric or silently dropped.
+        /// </summary>
+        private static bool TryBuildFDPageSelectSysEx(string trimmedText, out byte[] message)
+        {
+            message = null;
+            Match match = FDNumberPattern.Match(trimmedText);
+            if (!match.Success || !int.TryParse(match.Groups[1].Value, out int pageNumber))
+                return false;
+
+            // Roland supports page 0 (bar display / hide) through page 10.
+            if (pageNumber < 0 || pageNumber > 10)
+                return false;
+
+            const byte addressMsb = 0x10;
+            const byte addressMid = 0x20;
+            const byte addressLsb = 0x00;
+            byte dataByte = (byte)(pageNumber & 0x7F);
+
+            int sum = addressMsb + addressMid + addressLsb + dataByte;
+            byte checksum = (byte)((128 - (sum & 0x7F)) & 0x7F);
+
+            // 41 10 45 12 <addrMSB> <addrMID> <addrLSB> <data> <checksum> F7
+            message = new byte[]
+            {
+        0x41, 0x10, 0x45, 0x12,
+        addressMsb, addressMid, addressLsb,
+        dataByte, checksum, 0xF7
+            };
+            return true;
+        }
         private static void AddSysExMessage(
             Dictionary<long, List<byte[]>> destination,
             long tick,
