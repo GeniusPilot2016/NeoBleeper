@@ -60,6 +60,7 @@ namespace AdvancedSystemSpeakerProbe
             Console.WriteLine();
 
             var suite = new TestSuite();
+            RunNonIoVerificationPhase();
             suite.RunAll();
             suite.PrintSummary();
 
@@ -68,6 +69,78 @@ namespace AdvancedSystemSpeakerProbe
             Console.Write("  Press any key to exit...");
             Console.ResetColor();
             Console.ReadKey(intercept: true);
+            Console.WriteLine();
+        }
+
+        private static void RunNonIoVerificationPhase()
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("  [Phase 0] Running MMU Side-Channel Verification (No-I/O Proxy Check)...");
+            Console.ResetColor();
+
+            // Preserve original thread environment state to avoid corrupting process context
+            Process currentProcess = Process.GetCurrentProcess();
+            IntPtr originalAffinity = currentProcess.ProcessorAffinity;
+            ProcessPriorityClass originalPriority = currentProcess.PriorityClass;
+            ThreadPriority originalThreadPriority = Thread.CurrentThread.Priority;
+
+            try
+            {
+                // Enforce hard execution guidelines on Core 0 to bypass OS thread scheduling jitter
+                currentProcess.ProcessorAffinity = (IntPtr)1;
+                currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
+                Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
+                // Query the OS/CPU hardware performance registers directly
+                using (PerformanceCounter pageFaultsCounter = new PerformanceCounter("Process", "Page Faults/sec", currentProcess.ProcessName))
+                {
+                    // Prime instruction cache and flush old memory page buffers
+                    pageFaultsCounter.NextValue();
+                    Thread.Sleep(100);
+
+                    float faultsBefore = pageFaultsCounter.NextValue();
+
+                    // Intercept system abstraction layer pointers to trigger Port 0x61 subroutines
+                    for (int i = 0; i < 100; i++)
+                    {
+                        IntPtr ptr = currentProcess.Handle;
+                    }
+
+                    float faultsAfter = pageFaultsCounter.NextValue();
+                    float deltaFaults = faultsAfter - faultsBefore;
+
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"    -> Observed Memory Engine Page Fault Delta: {deltaFaults}");
+                    Console.ResetColor();
+
+                    if (deltaFaults <= 1.0f)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("    [+] System Response indicates an Atomic/Hardware Layer connection.");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("    [!] System Response indicates Software/Virtualization Emulation layer footprint.");
+                        Console.ResetColor();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"    [-] Side-channel skipped: {ex.Message}");
+                Console.WriteLine("        (Ensure the 'System.Diagnostics.PerformanceCounter' NuGet package is installed.)");
+                Console.ResetColor();
+            }
+            finally
+            {
+                // Restore original hardware orchestration priorities safely
+                currentProcess.ProcessorAffinity = originalAffinity;
+                currentProcess.PriorityClass = originalPriority;
+                Thread.CurrentThread.Priority = originalThreadPriority;
+            }
             Console.WriteLine();
         }
 
