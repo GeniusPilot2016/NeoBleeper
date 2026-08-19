@@ -35,6 +35,12 @@ namespace NeoBleeper
     Also, percussions are playing as PWM-like noise to simulate the sound of percussions [inspired from BaWaMI by Robbi-985 (aka SomethingUnreal)].*/
     public partial class MIDIFilePlayer : Form
     {
+        private sealed class FrameAudioState
+        {
+            public HashSet<int> MelodicNotes { get; init; } = new HashSet<int>();
+            public List<NoteOnEvent> PercussionEvents { get; init; } = new List<NoteOnEvent>();
+        }
+
         bool darkTheme = false;
         private bool _isAlternatingPlayback = false;
         bool isPlaying = false;
@@ -1111,14 +1117,25 @@ namespace NeoBleeper
                             {
                                 var noteEvent = (NoteOnEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, noteEvent.Velocity > 0, noteEvent.Channel));
-                                localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
+                                // Channel 10 is percussion and must not own the channel mapping
+                                // used to filter persistent melodic notes. In BPKM.mid, melodic
+                                // B2 (note 35, channel 1) and bass drum (note 35, channel 10) share
+                                // the same note number. Letting channel 10 overwrite this entry
+                                // causes the melodic B2 to be filtered out while labels still show it.
+                                if (noteEvent.Channel != 10)
+                                {
+                                    localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
+                                }
                                 localChannelsWithNotes.Add(noteEvent.Channel);
                             }
                             else if (midiEvent.CommandCode == MidiCommandCode.NoteOff)
                             {
                                 var noteEvent = (NoteEvent)midiEvent;
                                 allEvents.Add((noteEvent.AbsoluteTime, noteEvent.NoteNumber, false, noteEvent.Channel));
-                                if (!localNoteChannels.ContainsKey(noteEvent.NoteNumber))
+                                // Do not let a channel-10 NoteOff establish ownership for a
+                                // melodic note number either.
+                                if (noteEvent.Channel != 10 &&
+                                    !localNoteChannels.ContainsKey(noteEvent.NoteNumber))
                                 {
                                     localNoteChannels[noteEvent.NoteNumber] = noteEvent.Channel;
                                 }
@@ -1468,7 +1485,14 @@ namespace NeoBleeper
 
                 _isPlaying = true;
 
-                if (_currentFrameIndex < _frames.Count)
+                if (_pendingExactSeekMs.HasValue)
+                {
+                    // SetPosition() already calculated the exact user-selected time.
+                    // Do NOT replace it with the current frame timestamp here; doing
+                    // so makes every scroll/seek jump back to the beginning of a frame.
+                    _playbackStartOffsetMs = _pendingExactSeekMs.Value;
+                }
+                else if (_currentFrameIndex < _frames.Count)
                 {
                     _playbackStartOffsetMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
                 }
@@ -1674,37 +1698,40 @@ namespace NeoBleeper
                 PlaybackSeekParts);
         }
 
-        private int FindNearestFrameIndexForTime(double targetMs)
+        private int FindFrameIndexAtOrBeforeTime(double targetMs)
         {
             if (_frames == null || _frames.Count == 0)
                 return 0;
 
+            // Seeking into the middle of a frame must select the frame whose state
+            // is active at targetMs, not whichever frame timestamp is numerically
+            // closest. Picking the next frame can skip a held note; picking the
+            // previous frame and preserving targetMs lets playback resume in-place.
             int low = 0;
             int high = _frames.Count - 1;
+            int result = 0;
 
-            while (low < high)
+            while (low <= high)
             {
                 int mid = low + ((high - low) / 2);
                 double midMs = TicksToMilliseconds(_frames[mid].Time);
 
-                if (midMs < targetMs)
+                if (midMs <= targetMs)
+                {
+                    result = mid;
                     low = mid + 1;
+                }
                 else
-                    high = mid;
+                {
+                    high = mid - 1;
+                }
             }
 
-            int upper = low;
-            int lower = Math.Max(0, upper - 1);
-
-            double upperMs = TicksToMilliseconds(_frames[upper].Time);
-            double lowerMs = TicksToMilliseconds(_frames[lower].Time);
-
-            return Math.Abs(targetMs - lowerMs) <= Math.Abs(upperMs - targetMs)
-                ? lower
-                : upper;
+            return result;
         }
 
         private volatile int _positionGeneration = 0;
+        private double? _pendingExactSeekMs = null;
 
         public async Task SetPosition(int positionPart)
         {
@@ -1723,7 +1750,7 @@ namespace NeoBleeper
             double totalDurationMs = GetTotalPlaybackDurationMs();
             double targetMs = totalDurationMs * positionPart / PlaybackSeekParts;
 
-            int newFrameIndex = FindNearestFrameIndexForTime(targetMs);
+            int newFrameIndex = FindFrameIndexAtOrBeforeTime(targetMs);
             newFrameIndex = Math.Clamp(newFrameIndex, 0, _frames.Count - 1);
 
             // Only commit if nothing newer has superseded this seek while we awaited StopAsync.
@@ -1731,6 +1758,7 @@ namespace NeoBleeper
 
             _currentFrameIndex = newFrameIndex;
             _playbackStartOffsetMs = targetMs;
+            _pendingExactSeekMs = targetMs;
             _playbackStopwatch?.Reset();
 
             long displayTick = _frames[_currentFrameIndex].Time;
@@ -1959,6 +1987,7 @@ namespace NeoBleeper
 
         private async Task PlayNotesAndPercussionAlternatingAsync(
             int[] frequencies,
+            HashSet<int> melodicNotes,
             PercussionSounds.MidiPercussion percussion,
             int totalDurationMs,
             long currentTick,
@@ -1970,19 +1999,35 @@ namespace NeoBleeper
 
             if (frequencies.Length == 0)
             {
-                await PlayOnlyPercussionAsync(percussion, totalDurationMs, token, velocity: percussionVelocity).ConfigureAwait(false);
+                UpdateAudioNoteIndicators(new HashSet<int>());
+                await PlayOnlyPercussionAsync(
+                    percussion,
+                    totalDurationMs,
+                    token,
+                    velocity: percussionVelocity).ConfigureAwait(false);
                 return;
             }
 
-            int percussionSlice = GetSharedPercussionSliceMs(percussion, totalDurationMs, percussionVelocity);
+            int percussionSlice = GetSharedPercussionSliceMs(
+                percussion,
+                totalDurationMs,
+                percussionVelocity);
+
             if (percussionSlice <= 0)
             {
-                await PlayMelodySliceAsync(frequencies, totalDurationMs, token).ConfigureAwait(false);
+                UpdateAudioNoteIndicators(melodicNotes);
+                await PlayMelodySliceAsync(
+                    frequencies,
+                    totalDurationMs,
+                    token).ConfigureAwait(false);
                 return;
             }
 
             _lastPercussion = percussion;
             _lastPercussionTick = currentTick;
+
+            // Percussion owns the speaker first, so do not show the melodic note yet.
+            UpdateAudioNoteIndicators(new HashSet<int>());
 
             await PlayOnlyPercussionAsync(
                 percussion,
@@ -1996,7 +2041,17 @@ namespace NeoBleeper
             int remainingMelodyMs = totalDurationMs - percussionSlice;
             if (remainingMelodyMs > 0)
             {
-                await PlayMelodySliceAsync(frequencies, remainingMelodyMs, token).ConfigureAwait(false);
+                // The melodic sound starts now; expose its labels at this exact boundary.
+                UpdateAudioNoteIndicators(melodicNotes);
+
+                await PlayMelodySliceAsync(
+                    frequencies,
+                    remainingMelodyMs,
+                    token).ConfigureAwait(false);
+            }
+            else
+            {
+                UpdateAudioNoteIndicators(new HashSet<int>());
             }
         }
 
@@ -2611,36 +2666,10 @@ namespace NeoBleeper
 
             UpdatePlaybackProgressFromClock(currentSongTimeMs);
 
-            // --- UI Update Block ---
-            if (IsHandleCreated && Visible)
-            {
-                var currentFrameIndexForUI = _currentFrameIndex;
-                if (currentFrameIndexForUI < _frames.Count)
-                {
-                    var currentFrameForUI = _frames[currentFrameIndexForUI];
-                    HashSet<int> melodicNotesForUI = new HashSet<int>();
-                    foreach (var note in currentFrameForUI.ActiveNotes)
-                    {
-                        if (_noteChannels.TryGetValue(note, out int channel) &&
-                            _enabledChannels.Contains(channel))
-                        {
-                            melodicNotesForUI.Add(note);
-                        }
-                    }
-
-                    // ActiveNotes intentionally excludes channel-10 percussion.
-                    // Add only percussion NoteOn events from this exact frame for
-                    // visual display; do not count them as held melodic notes.
-                    HashSet<int> displayNotesForUI =
-                        new HashSet<int>(melodicNotesForUI);
-
-                    UpdateAllUISync(
-                        currentFrameIndexForUI,
-                        displayNotesForUI,
-                        melodicNotesForUI.Count,
-                        currentSongTimeMs);
-                }
-            }
+            // Note labels are intentionally not updated from the playback clock.
+            // _currentFrameIndex can point at a frame before its audio slice is actually
+            // dispatched, which makes labels appear early. The seekbar/position remains
+            // clock-driven; note indicators are updated from the audio path below.
 
             // Playback is complete after every audio/lyric frame is processed.
             if (_currentFrameIndex >= _frames.Count)
@@ -2732,6 +2761,138 @@ namespace NeoBleeper
         /// sequence. It respects cancellation requests via the associated cancellation token. MIDI output and system
         /// speaker playback are performed based on user settings and enabled channels.</remarks>
         /// <returns>A task that represents the asynchronous operation of processing the current frame.</returns>
+        private FrameAudioState GetFrameAudioState(
+            long currentTime,
+            HashSet<int> activeNotes)
+        {
+            HashSet<int> melody = new HashSet<int>();
+
+            if (activeNotes != null)
+            {
+                foreach (int note in activeNotes)
+                {
+                    if (_noteChannels.TryGetValue(note, out int channel) &&
+                        channel != 10 &&
+                        _enabledChannels.Contains(channel))
+                    {
+                        melody.Add(note);
+                    }
+                }
+            }
+
+            List<NoteOnEvent> percussion = new List<NoteOnEvent>();
+
+            if (_eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime) &&
+                _enabledChannels.Contains(10))
+            {
+                percussion = eventsAtThisTime
+                    .OfType<NoteOnEvent>()
+                    .Where(e => e.Channel == 10 && e.Velocity > 0)
+                    .ToList();
+            }
+
+            return new FrameAudioState
+            {
+                MelodicNotes = melody,
+                PercussionEvents = percussion
+            };
+        }
+
+        private NoteOnEvent SelectPercussionForPcSpeaker(
+            IReadOnlyList<NoteOnEvent> percussionEvents,
+            HashSet<int> melodicNotes)
+        {
+            if (percussionEvents == null || percussionEvents.Count == 0)
+                return null;
+
+            List<NoteOnEvent> nonColliding = percussionEvents
+                .Where(drum => melodicNotes == null ||
+                               !melodicNotes.Contains(drum.NoteNumber))
+                .ToList();
+
+            IReadOnlyList<NoteOnEvent> candidates =
+                nonColliding.Count > 0
+                    ? nonColliding
+                    : percussionEvents;
+
+            return PickBestDrumEvent(candidates);
+        }
+
+        private async Task PlayPcSpeakerFrameAsync(
+            int[] frequencies,
+            HashSet<int> melodicNotes,
+            NoteOnEvent drumEvent,
+            int totalFrameDuration,
+            long currentTime,
+            CancellationToken token)
+        {
+            if (drumEvent != null && frequencies.Length > 0)
+            {
+                await PlayNotesAndPercussionAlternatingAsync(
+                    frequencies,
+                    melodicNotes,
+                    (PercussionSounds.MidiPercussion)drumEvent.NoteNumber,
+                    totalFrameDuration,
+                    currentTime,
+                    token,
+                    drumEvent.Velocity).ConfigureAwait(false);
+            }
+            else if (drumEvent != null)
+            {
+                UpdateAudioNoteIndicators(new HashSet<int>());
+
+                await PlayOnlyPercussionAsync(
+                    (PercussionSounds.MidiPercussion)drumEvent.NoteNumber,
+                    totalFrameDuration,
+                    token,
+                    velocity: drumEvent.Velocity).ConfigureAwait(false);
+            }
+            else
+            {
+                UpdateAudioNoteIndicators(melodicNotes);
+
+                await PlayMelodySliceAsync(
+                    frequencies,
+                    totalFrameDuration,
+                    token).ConfigureAwait(false);
+            }
+        }
+
+        private async Task PlayPolyphonicPercussionAsync(
+            IReadOnlyList<NoteOnEvent> percussionEvents,
+            int duration,
+            CancellationToken token)
+        {
+            if (percussionEvents == null ||
+                percussionEvents.Count == 0 ||
+                duration <= 0)
+            {
+                return;
+            }
+
+            Task[] tasks = percussionEvents
+                .Select(drum =>
+                {
+                    var percussion =
+                        (PercussionSounds.MidiPercussion)drum.NoteNumber;
+
+                    int naturalDuration =
+                        PercussionSounds.GetNaturalDurationMs(percussion);
+
+                    int playDuration =
+                        Math.Max(1, Math.Min(duration, naturalDuration));
+
+                    return PercussionSounds.PlayPercussionSliceImmediateAsync(
+                        percussion,
+                        playDuration,
+                        token,
+                        enforceMinimumAudibleBody: true);
+                })
+                .ToArray();
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+        }
+
         private async Task ProcessCurrentFrame()
         {
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
@@ -2768,50 +2929,78 @@ namespace NeoBleeper
                 }
             }
 
-            // --- Playing with system speaker (aka PC speaker) logic ---
-            HashSet<int> filteredNotes = new HashSet<int>();
-            foreach (var note in currentFrame.ActiveNotes)
-            {
-                // ActiveNotes is melody-only; channel-10 percussion is handled
-                // independently below from the actual events at this tick.
-                if (_noteChannels.TryGetValue(note, out int channel) &&
-                    _enabledChannels.Contains(channel))
-                {
-                    filteredNotes.Add(note);
-                }
-            }
+            // --- Common frame audio state ---
+            FrameAudioState frameAudio =
+                GetFrameAudioState(currentTime, currentFrame.ActiveNotes);
 
-            // Pick the drum hit from the actual events at this tick, not from ActiveNotes.
-            NoteOnEvent drumEvent = null;
-            if (eventsAtThisTime != null && _enabledChannels.Contains(10))
-            {
-                drumEvent = PickBestDrumEvent(
-                    eventsAtThisTime.OfType<NoteOnEvent>()
-                        .Where(n => n.Velocity > 0 && n.Channel == 10));
-            }
+            HashSet<int> filteredNotes =
+                frameAudio.MelodicNotes;
+
+            IReadOnlyList<NoteOnEvent> percussionEvents =
+                frameAudio.PercussionEvents;
+
+            // PC speaker is monophonic. Keep all percussion in the common frame
+            // representation, and reduce only here for this backend.
+            NoteOnEvent drumEvent =
+                SelectPercussionForPcSpeaker(
+                    percussionEvents,
+                    filteredNotes);
 
             // Calculate duration
-            double durationMs;
+            double frameStartMs = TicksToMilliseconds(currentFrame.Time);
+            double frameEndMs;
             if (_currentFrameIndex < _frames.Count - 1)
             {
                 var nextFrame = _frames[_currentFrameIndex + 1];
-                durationMs = TicksToMilliseconds(nextFrame.Time) - TicksToMilliseconds(currentFrame.Time);
+                frameEndMs = TicksToMilliseconds(nextFrame.Time);
             }
             else
             {
                 long lastTick = _midiFile.Events.SelectMany(t => t).Max(e => e.AbsoluteTime);
-                double totalDurationMs = TicksToMilliseconds(lastTick);
-                durationMs = totalDurationMs - TicksToMilliseconds(currentTime);
+                frameEndMs = TicksToMilliseconds(lastTick);
+            }
+
+            double durationMs = frameEndMs - frameStartMs;
+
+            // If playback was resumed by a seek into the middle of this frame, play
+            // only the part that remains after the requested timestamp. Otherwise a
+            // long sustained frame is replayed from its beginning even though the UI
+            // and playback clock are positioned later in the song.
+            if (_pendingExactSeekMs.HasValue)
+            {
+                double seekMs = _pendingExactSeekMs.Value;
+                if (seekMs > frameStartMs && seekMs < frameEndMs)
+                {
+                    durationMs = frameEndMs - seekMs;
+                }
+
+                _pendingExactSeekMs = null;
             }
 
             // --- Robust drift compensation (preserve fractional ms) ---
+            // Never pay timing debt by deleting an audible note frame. A previous
+            // frame can overrun enough that the old code reduced adjustedDuration
+            // to 0 ms; the note still appeared in the UI, but PlayMelodySliceAsync
+            // immediately returned and the note was never heard.
             double originalDuration = Math.Max(0.0, durationMs);
             double adjustedDuration;
+            bool hasAudibleContent = filteredNotes.Count > 0 || drumEvent != null;
+
+            // A few milliseconds are enough to guarantee that an event reaches the
+            // speaker path. Any remaining positive drift is carried to later frames
+            // instead of erasing this one completely.
+            const double MinAudibleFrameMs = 4.0;
 
             if (driftMs > 0.0)
             {
-                double consume = Math.Min(driftMs, originalDuration);
-                adjustedDuration = Math.Max(0.0, originalDuration - driftMs);
+                double minimumToKeep = hasAudibleContent
+                    ? Math.Min(MinAudibleFrameMs, originalDuration)
+                    : 0.0;
+
+                double maxDriftWeMayConsume = Math.Max(0.0, originalDuration - minimumToKeep);
+                double consume = Math.Min(driftMs, maxDriftWeMayConsume);
+
+                adjustedDuration = Math.Max(minimumToKeep, originalDuration - consume);
                 driftMs -= consume;
             }
             else if (driftMs < 0.0)
@@ -2825,7 +3014,16 @@ namespace NeoBleeper
             }
 
             int durationMsInt = (int)Math.Max(0, Math.Round(adjustedDuration));
-            if (durationMsInt <= 0 && filteredNotes.Count == 0 && drumEvent == null)
+
+            // Very short but real note frames can round below 0.5 ms to zero.
+            // Keep at least a 1 ms dispatch so a detected note is never converted
+            // into an intentional no-op solely by rounding.
+            if (hasAudibleContent && originalDuration > 0.0 && durationMsInt <= 0)
+            {
+                durationMsInt = 1;
+            }
+
+            if (durationMsInt <= 0 && !hasAudibleContent)
             {
                 driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
                 return;
@@ -2851,6 +3049,7 @@ namespace NeoBleeper
             {
                 await PlayNotesAndPercussionAlternatingAsync(
                     frequenciesToPlay,
+                    new HashSet<int>(filteredNotes),
                     percussionToPlay.Value,
                     totalFrameDuration,
                     currentTime,
@@ -2859,6 +3058,8 @@ namespace NeoBleeper
             }
             else if (percussionToPlay.HasValue)
             {
+                UpdateAudioNoteIndicators(new HashSet<int>());
+
                 await PlayOnlyPercussionAsync(
                     percussionToPlay.Value,
                     totalFrameDuration,
@@ -2867,7 +3068,12 @@ namespace NeoBleeper
             }
             else
             {
-                await PlayMelodySliceAsync(frequenciesToPlay, totalFrameDuration, token).ConfigureAwait(false);
+                UpdateAudioNoteIndicators(filteredNotes);
+
+                await PlayMelodySliceAsync(
+                    frequenciesToPlay,
+                    totalFrameDuration,
+                    token).ConfigureAwait(false);
             }
 
             driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
@@ -3427,6 +3633,56 @@ namespace NeoBleeper
         // occur at the same tick we keep the strongest/most important hit. Do not
         // round-robin these events: doing so changes the MIDI dynamics by selecting
         // quiet secondary hits that were never intended to be the audible hit.
+        private async Task DispatchFrameAudioAsync(
+            FrameAudioState frameAudio,
+            int totalFrameDuration,
+            long currentTime,
+            CancellationToken token,
+            bool usePcSpeakerBackend,
+            bool usePolyphonicAudioBackend)
+        {
+            int[] frequencies = frameAudio.MelodicNotes
+                .Select(NoteToFrequency)
+                .ToArray();
+
+            if (usePcSpeakerBackend)
+            {
+                NoteOnEvent pcSpeakerDrum =
+                    SelectPercussionForPcSpeaker(
+                        frameAudio.PercussionEvents,
+                        frameAudio.MelodicNotes);
+
+                await PlayPcSpeakerFrameAsync(
+                    frequencies,
+                    frameAudio.MelodicNotes,
+                    pcSpeakerDrum,
+                    totalFrameDuration,
+                    currentTime,
+                    token).ConfigureAwait(false);
+
+                return;
+            }
+
+            if (usePolyphonicAudioBackend)
+            {
+                Task melodyTask =
+                    PlayMelodySliceAsync(
+                        frequencies,
+                        totalFrameDuration,
+                        token);
+
+                Task percussionTask =
+                    PlayPolyphonicPercussionAsync(
+                        frameAudio.PercussionEvents,
+                        totalFrameDuration,
+                        token);
+
+                await Task.WhenAll(
+                    melodyTask,
+                    percussionTask).ConfigureAwait(false);
+            }
+        }
+
         private static NoteOnEvent PickBestDrumEvent(IEnumerable<NoteOnEvent> drumEvents)
         {
             if (drumEvents == null || !drumEvents.Any())
@@ -3825,6 +4081,30 @@ namespace NeoBleeper
                         CultureInfo.CurrentCulture));
 
             UpdatePositionLabel(clampedMs);
+        }
+
+        /// <summary>
+        /// Updates note indicators from the actual audio-dispatch path.
+        /// This prevents labels from leading the PC-speaker sound when a frame
+        /// contains percussion, scheduling delay, or another audio slice first.
+        /// </summary>
+        private void UpdateAudioNoteIndicators(HashSet<int> melodicNotes)
+        {
+            HashSet<int> snapshot =
+                melodicNotes != null
+                    ? new HashSet<int>(melodicNotes)
+                    : new HashSet<int>();
+
+            SafeInvoke(() =>
+            {
+                if (!checkBox_dont_update_grid.Checked)
+                {
+                    UpdateNoteLabelsSync(snapshot);
+                }
+
+                holded_note_label.Text =
+                    $"{Properties.Resources.TextHeldNotes} ({snapshot.Count})";
+            });
         }
 
         /// <summary>

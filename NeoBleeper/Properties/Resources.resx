@@ -1251,4 +1251,7 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Sensitive Information Detected</value>
   </data>
+  <data name="PixeloidSans" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PixeloidSans.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

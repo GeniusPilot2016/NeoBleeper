@@ -2185,6 +2185,16 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static byte[] PixeloidSans {
+            get {
+                object obj = ResourceManager.GetObject("PixeloidSans", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   This feature allows you to play beat-like sounds from the system speaker/sound device. 
         ///
         ///You can choose the sound to play by clicking the &apos;Change Beat Sound&apos; button. benzeri yerelleştirilmiş bir dize arar.
