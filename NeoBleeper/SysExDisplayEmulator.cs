@@ -112,6 +112,7 @@ namespace NeoBleeper
             InitializeComponent();
             midiFilePlayer = owner;
             Owner = owner;
+            labelSysExText.Font = SysExEmulatorFonts.GetSysExEmulatorFont(labelSysExText.Font.Size);
             SetTheme();
             InitializeDisplayCells();
             ClearDisplayContent();

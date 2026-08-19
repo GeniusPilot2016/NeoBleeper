@@ -160,7 +160,7 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="labelSysExText.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Cascadia Code, 13.8pt, style=Bold</value>
+    <value>Pixeloid Sans, 13.8pt</value>
   </data>
   <data name="labelSysExText.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 9</value>

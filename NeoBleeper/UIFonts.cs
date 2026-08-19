@@ -16,6 +16,7 @@
 
 using NeoBleeper.Properties;
 using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {
@@ -347,6 +348,22 @@ namespace NeoBleeper
         {
             // Finalizer calls Dispose(false)
             Dispose(disposing: false);
+        }
+    }
+    public class SysExEmulatorFonts
+    {
+
+        public static Font GetSysExEmulatorFont(float size, FontStyle style = FontStyle.Regular)
+        {
+            byte[] fontData = Resources.PixeloidSans;
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+
+            PrivateFontCollection privateFonts = new PrivateFontCollection();
+            privateFonts.AddMemoryFont(fontPtr, fontData.Length);
+            Marshal.FreeCoTaskMem(fontPtr);
+
+            return new Font(privateFonts.Families[0], size, style, GraphicsUnit.Point);
         }
     }
 }
