@@ -370,13 +370,22 @@ namespace NeoBleeper
 
         private static void StartPulseDirect(PercussionOutputChoice outputChoice, int frequency, SynthWave waveType)
         {
-            frequency = ClampPercussionFrequency(frequency);
             switch (outputChoice)
             {
                 case PercussionOutputChoice.SystemSpeaker:
+                    // Small PC speaker drivers are weak at true bass but resonate fine well up into the
+                    // treble range - that asymmetry is the opposite of what a full-range speaker does, and
+                    // it's also exactly what the metal-cymbal frequency-hopping logic in
+                    // GetPlaybackSignalCore depends on: it jitters the tone rapidly across a wide high-Hz
+                    // band (up to ~8kHz) to fake a noise hiss on hardware that can only emit ONE square
+                    // wave tone at a time. Capping the ceiling too low collapses that jitter range down to
+                    // a narrow band, which is what was making cymbals sound dull instead of shimmery.
+                    frequency = (int)Math.Clamp(frequency, 100.0, 9000.0);
                     SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(frequency);
                     break;
+
                 case PercussionOutputChoice.SoundDevice:
+                    frequency = (int)Math.Clamp(frequency, 20.0, 12000.0);
                     var naudioWave = waveType switch
                     {
                         SynthWave.Noise => NAudio.Wave.SampleProviders.SignalGeneratorType.White,
@@ -1029,7 +1038,7 @@ namespace NeoBleeper
                 // Cymbals/hi-hats need the fastest on/off switching to read as a continuous
                 // hiss rather than individual clicks. Kicks/toms are presenting a single low
                 // tone, not noise, so they can hold each step longer for a steadier pitch.
-                double baseHoldMs = metalCymbal ? 0.35 : kickOrTom ? 1.3 : 0.7;
+                double baseHoldMs = metalCymbal ? 0.22 : kickOrTom ? 1.3 : 0.7;
                 return baseHoldMs * (1.0 + jitter * 0.8) * (0.8 + 0.6 * normVelocity);
             }
 
@@ -1197,13 +1206,18 @@ namespace NeoBleeper
 
             if (metalCymbal)
             {
-                // Cymbal/hi-hat character lives above ~3kHz. The old 1200Hz ceiling forced
-                // every metal hit into the same low buzzy band, which read as a dull thud
-                // instead of a shimmer - the working band is pushed up here instead.
-                double minF = 2800.0 + (900.0 * normVelocity);
-                double maxF = minF + (2200.0 + 1800.0 * normVelocity);
-                double baseF = minF + (0.6 * jitter + 0.4 * jitter2) * (maxF - minF);
-                frequency = ClampPercussionFrequency(baseF, 1500.0, 8000.0);
+                // Real cymbals have inharmonic partials (not integer-multiple overtones like a drum
+                // membrane) - that clash between unrelated frequencies IS what "metallic" sounds like.
+                // A single continuously-hopped frequency band (the old approach) just sounds like
+                // filtered noise, not metal. Snapping between a small set of deliberately non-integer-
+                // ratio partials, re-picked every slot, fakes that clash on hardware that can only
+                // emit one pure tone at a time.
+                double baseRegister = 2600.0 + 1400.0 * normVelocity;
+                double[] partialRatios = { 1.0, 1.41, 1.89, 2.63, 3.37, 4.18 }; // inharmonic, not 1x/2x/3x
+                int partialIdx = (int)((0.5 * jitter + 0.5 * jitter2) * partialRatios.Length);
+                partialIdx = Math.Clamp(partialIdx, 0, partialRatios.Length - 1);
+                double baseF = baseRegister * partialRatios[partialIdx];
+                frequency = ClampPercussionFrequency(baseF, 1500.0, 9000.0);
 
                 double activeDensityThreshold = 0.05 + (0.30 * (1.0 - normVelocity));
                 double sustainLimit = shortCymbal ? (0.85 * normVelocity) : (0.95 * normVelocity);
