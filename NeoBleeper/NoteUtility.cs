@@ -508,9 +508,18 @@ namespace NeoBleeper
                 lpMid += aMid * (white - lpMid);
                 lpHigh += aHigh * (white - lpHigh);
 
-                double lowBand = lpLow;
-                double midBand = lpMid - lpLow;
-                double highBand = white - lpHigh;
+                // One-pole leaky-integrator filters attenuate noise amplitude proportionally to
+                // sqrt(a/(2-a)) at steady state. Low cutoffs (kicks/toms) have tiny 'a' and were
+                // coming out at a fraction of the level of higher-cutoff bands (snares/cymbals),
+                // making low percussion nearly inaudible in Sound Device mode. Normalize each
+                // band back to full-scale noise amplitude before mixing so loudness is
+                // independent of the chosen cutoff frequency.
+                double normLow = Math.Sqrt((2.0 - aLow) / Math.Max(aLow, 1e-6));
+                double normMid = Math.Sqrt((2.0 - aMid) / Math.Max(aMid, 1e-6));
+
+                double lowBand = lpLow * normLow;
+                double midBand = (lpMid - lpLow) * normMid;
+                double highBand = white - lpHigh; // already near full scale; aHigh is large
 
                 double body = Math.Exp(-elapsedMs / Math.Max(25.0, request.DurationMs * 0.5));
                 double tail = Math.Pow(Math.Max(0.0, 1.0 - progress), request.Profile.DecayShape);
@@ -1177,6 +1186,19 @@ namespace NeoBleeper
                 // while staying inside a range a small speaker driver can actually reproduce.
                 double lowFloor = kick ? (75.0 + 25.0 * normVelocity) : (150.0 + 60.0 * normVelocity);
                 double lowCeil = kick ? (220.0 + 120.0 * normVelocity) : (420.0 + 160.0 * normVelocity);
+
+                // The System Speaker driver is weak at true bass and resonates far better
+                // higher up (see StartPulseDirect), so on that output the low end is
+                // nearly inaudible at the frequencies above. Shift the whole window up
+                // into a register the tiny driver can actually move air at. Sound Device
+                // keeps the original range since real bass reproduction works there.
+                if (request.Output == PercussionOutputChoice.SystemSpeaker)
+                {
+                    const double speakerBassLift = 140.0;
+                    lowFloor += speakerBassLift;
+                    lowCeil += speakerBassLift;
+                }
+
                 double hoppedFreq = lowFloor + j * (lowCeil - lowFloor);
                 frequency = ClampPercussionFrequency(hoppedFreq, 60.0, 700.0);
 
@@ -1184,6 +1206,15 @@ namespace NeoBleeper
                 double gateRoll = ((gateHash & 0x00FFFFFF) / 16777215.0);
 
                 double keepProbability = Math.Pow(1.0 - bodyProgress, Math.Max(0.05, prof.DecayShape / (2.0 * normVelocity)));
+
+                // On System Speaker, "not audible" means true silence (no mixed sample to fall
+                // back on like Sound Device has), so a low keepProbability here reads as the
+                // drum cutting out rather than just getting quieter. Give it a floor so kicks/
+                // toms stay perceptibly present for their whole natural body instead of
+                // flickering silent early when velocity is low.
+                if (request.Output == PercussionOutputChoice.SystemSpeaker)
+                    keepProbability = Math.Max(keepProbability, 0.35);
+
                 audible = gateRoll < keepProbability && bodyProgress < (0.95 * normVelocity);
                 return;
             }
