@@ -1487,7 +1487,7 @@ namespace NeoBleeper
 
             public static void TriangleWave(int freq, int ms, bool nonStopping)
             {
-                PlayWave(SignalGeneratorType.Triangle, freq, ms, nonStopping);
+                PlayWave(SignalGeneratorType.SawTooth, freq, ms, nonStopping);
             }
 
             public static void Noise(int freq, int ms, bool nonStopping)
