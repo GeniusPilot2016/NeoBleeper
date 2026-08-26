@@ -302,6 +302,13 @@ namespace NeoBleeper
         private static bool _queueWorkerRunning;
 
         private const int PercussionSampleRate = 44100;
+        // Sound Device PWM is emitted as a true binary carrier stream. 192 kHz / 24 kHz =
+        // exactly 8 output samples per PWM period, which gives a stable ultrasonic carrier
+        // while leaving enough duty-cycle resolution for the rendered percussion envelope.
+        private const int SoundDevicePwmSampleRate = 192000;
+        private const int SoundDevicePwmCarrierHz = 24000;
+        private const int SoundDevicePwmSamplesPerPeriod = SoundDevicePwmSampleRate / SoundDevicePwmCarrierHz;
+
         private static readonly object _soundDeviceLock = new object();
         private static NAudio.Wave.WaveOutEvent? _percussionWaveOut;
         private static NAudio.Wave.SampleProviders.MixingSampleProvider? _percussionMixer;
@@ -311,10 +318,10 @@ namespace NeoBleeper
             private readonly float[] _samples;
             private int _position;
 
-            public FloatArraySampleProvider(float[] samples)
+            public FloatArraySampleProvider(float[] samples, int sampleRate)
             {
                 _samples = samples ?? Array.Empty<float>();
-                WaveFormat = NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(PercussionSampleRate, 1);
+                WaveFormat = NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1);
             }
 
             public NAudio.Wave.WaveFormat WaveFormat { get; }
@@ -439,7 +446,7 @@ namespace NeoBleeper
                 if (_percussionWaveOut != null && _percussionMixer != null)
                     return;
 
-                var format = NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(PercussionSampleRate, 1);
+                var format = NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(SoundDevicePwmSampleRate, 1);
                 _percussionMixer = new NAudio.Wave.SampleProviders.MixingSampleProvider(format)
                 {
                     ReadFully = true
@@ -457,14 +464,48 @@ namespace NeoBleeper
 
         private static void QueueMixedSoundDeviceHit(PercussionRequest request)
         {
+            // Keep this helper on the exact same path as every other mode: synthesize with the
+            // Sound Device core, quantize to PCM, then convert that PCM to a one-bit PWM stream.
+            float[] rendered = RenderPercussionSamples(request);
+            byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(rendered);
+            PlayPCMSoundAsPWM(pcm8, PercussionOutputChoice.SoundDevice, request.Profile.BodyWave);
+        }
+
+        private static void QueueMixedSoundDevicePwmSamples(float[] pwmSamples)
+        {
             EnsurePercussionSoundDevice();
-            float[] samples = RenderPercussionSamples(request);
-            var hitProvider = new FloatArraySampleProvider(samples);
+            var hitProvider = new FloatArraySampleProvider(pwmSamples, SoundDevicePwmSampleRate);
 
             lock (_soundDeviceLock)
             {
                 _percussionMixer?.AddMixerInput(hitProvider);
             }
+        }
+
+        /// <summary>
+        /// Renders a percussion hit once with the Sound Device synthesis core, then routes that
+        /// exact rendered signal to the selected output. Both Sound Device and System Speaker
+        /// consume an unsigned 8-bit representation only as PWM duty-cycle information.
+        /// </summary>
+        private static void PlayRenderedPercussion(PercussionRequest request)
+        {
+            // Render once with the Sound Device synthesis core for every output mode. The common
+            // unsigned-8-bit representation is then routed through PlayPCMSoundAsPWM. Both output
+            // modes convert it to a binary PWM signal; neither mode reconstructs ordinary PCM.
+            float[] samples = RenderPercussionSamples(request);
+            byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
+            PlayPCMSoundAsPWM(pcm8, request.Output, request.Profile.BodyWave);
+        }
+
+        private static byte[] ConvertFloatSamplesToUnsigned8BitPcm(float[] samples)
+        {
+            var pcm = new byte[samples.Length];
+            for (int i = 0; i < samples.Length; i++)
+            {
+                double normalized = Math.Clamp(samples[i], -1.0f, 1.0f);
+                pcm[i] = (byte)Math.Round((normalized + 1.0) * 127.5, MidpointRounding.AwayFromZero);
+            }
+            return pcm;
         }
 
         private static float[] RenderPercussionSamples(PercussionRequest request)
@@ -823,9 +864,9 @@ namespace NeoBleeper
 
             if (output == PercussionOutputChoice.SoundDevice)
             {
-                // Mixing is additive and independent of anything else playing, so this can be
-                // fired directly without touching the shared queue at all.
-                QueueMixedSoundDeviceHit(request);
+                // The same renderer is used for every output. Sound Device can consume its float
+                // samples directly and mix them additively.
+                PlayRenderedPercussion(request);
                 _ = Task.Delay(request.CompletionDelayMs, ct).ContinueWith(t =>
                 {
                     if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
@@ -834,26 +875,11 @@ namespace NeoBleeper
             }
             else
             {
-                // Run on the calling thread with fully local oscillator state. This deliberately
-                // bypasses _pendingRequests / ProcessPercussionQueue so that:
-                //  - this hit can never be stuck behind previously queued, unrelated hits
-                //    (ordering/suppression bug), and
-                //  - it can never interleave StartOrUpdatePulse/StopPulseDirect calls with a
-                //    queue-worker thread that is simultaneously processing a different request
-                //    using its own separate `ref currentOutput` (wrong-instrument bug), since
-                //    only ONE PercussionRequest is ever "in flight" for this call.
-                await Task.Run(() =>
-                {
-                    PercussionOutputChoice? localOutputState = null;
-                    try
-                    {
-                        PlayQueuedRequestCommon(request, ref localOutputState);
-                    }
-                    finally
-                    {
-                        StopCurrentPulse(ref localOutputState);
-                    }
-                }, ct).ConfigureAwait(false);
+                // System Speaker playback is synchronous because the PCM waveform has to be
+                // converted into precisely-timed one-bit PWM pulses.
+                await Task.Run(() => PlayRenderedPercussion(request), ct).ConfigureAwait(false);
+                if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
+                else completion.TrySetResult(true);
             }
 
             await completion.Task.ConfigureAwait(false);
@@ -945,7 +971,7 @@ namespace NeoBleeper
 
                     if (request.Output == PercussionOutputChoice.SoundDevice)
                     {
-                        QueueMixedSoundDeviceHit(request);
+                        PlayRenderedPercussion(request);
                         if (request.Completion != null)
                         {
                             int delay = request.CompletionDelayMs;
@@ -960,8 +986,10 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        // Direct pulse generation using common core evaluation
-                        PlayQueuedRequestCommon(request, ref currentOutput);
+                        // Use the exact same synthesized waveform as Sound Device mode, converted
+                        // to one-bit PWM for the System Speaker.
+                        PlayRenderedPercussion(request);
+                        request.Completion?.TrySetResult(true);
                     }
                 }
             }
@@ -1323,5 +1351,179 @@ namespace NeoBleeper
             if (IsTonalNonCymbal(p)) return 80.0;
             return 30.0;
         }
+
+        private static void PlayPCMSoundAsPWM(byte[] pcmData, PercussionOutputChoice choice, SynthWave waveform)
+        {
+            if (pcmData == null || pcmData.Length == 0)
+                return;
+
+            // pcmData is unsigned 8-bit PCM generated from RenderPercussionSamples():
+            // 0 = minimum amplitude, 128 ~= zero, 255 = maximum amplitude.
+            // In BOTH output modes the byte value is used only as PWM duty cycle. The original
+            // multi-bit PCM sample is never reconstructed as an analog/float sample here.
+
+            if (choice == PercussionOutputChoice.SoundDevice)
+            {
+                // True software PWM for the normal audio device.
+                //
+                // The device runs at 192 kHz and the PWM carrier is 24 kHz, so each carrier
+                // period is exactly 8 binary samples. The source duty cycle is linearly
+                // interpolated from the 44.1-kHz synthesis output at the center of each PWM
+                // period. A small error accumulator preserves fractional duty over adjacent
+                // periods instead of permanently rounding every sample to one of only 9 levels.
+                double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
+                int pwmPeriodCount = Math.Max(1,
+                    (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
+
+                var pwm = new float[pwmPeriodCount * SoundDevicePwmSamplesPerPeriod];
+                double dutyError = 0.0;
+
+                for (int period = 0; period < pwmPeriodCount; period++)
+                {
+                    double t = (period + 0.5) / SoundDevicePwmCarrierHz;
+                    double sourcePosition = t * PercussionSampleRate;
+                    int i0 = Math.Clamp((int)Math.Floor(sourcePosition), 0, pcmData.Length - 1);
+                    int i1 = Math.Min(i0 + 1, pcmData.Length - 1);
+                    double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
+
+                    double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
+                    double dutyCycle = Math.Clamp(pcmValue / 255.0, 0.0, 1.0);
+
+                    double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
+                    int onSamples = Math.Clamp(
+                        (int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero),
+                        0,
+                        SoundDevicePwmSamplesPerPeriod);
+                    dutyError = wantedOnSamples - onSamples;
+
+                    int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
+
+                    // Edge-aligned PWM: binary HIGH first, then binary LOW for the rest of the
+                    // carrier period. These are deliberately only two values; no original PCM
+                    // amplitude is written to the sound device.
+                    for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
+                        pwm[baseIndex + j] = j < onSamples ? 1.0f : -1.0f;
+                }
+
+                QueueMixedSoundDevicePwmSamples(pwm);
+                return;
+            }
+
+            // Hardware PC-speaker PWM.
+            //
+            // Do NOT attempt one software PWM cell per 44.1-kHz source sample here. A 22.7-us
+            // userspace timing loop requires continuous busy-spinning and can consume an entire
+            // CPU core. Instead, resample the rendered envelope to a practical PWM control rate.
+            // The signal is still PWM: source amplitude controls only the ON width of each cell.
+            const int systemSpeakerToneHz = 9000;
+            const int systemSpeakerPwmRateHz = 4000;
+
+            double systemSpeakerDurationSeconds = pcmData.Length / (double)PercussionSampleRate;
+            int pwmCellCount = Math.Max(1,
+                (int)Math.Ceiling(systemSpeakerDurationSeconds * systemSpeakerPwmRateHz));
+
+            double cellDurationMs = 1000.0 / systemSpeakerPwmRateHz;
+            var sw = Stopwatch.StartNew();
+            double nextCellTimeMs = 0.0;
+            bool speakerOn = false;
+
+            try
+            {
+                for (int cell = 0; cell < pwmCellCount; cell++)
+                {
+                    // Sample the original 44.1-kHz duty envelope at the center of this PWM cell.
+                    // Linear interpolation avoids aliasing caused by simply skipping PCM samples.
+                    double t = (cell + 0.5) / systemSpeakerPwmRateHz;
+                    double sourcePosition = t * PercussionSampleRate;
+                    int i0 = Math.Clamp((int)Math.Floor(sourcePosition), 0, pcmData.Length - 1);
+                    int i1 = Math.Min(i0 + 1, pcmData.Length - 1);
+                    double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
+
+                    double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
+                    double dutyCycle = Math.Clamp(pcmValue / 255.0, 0.0, 1.0);
+
+                    double cellStartTimeMs = nextCellTimeMs;
+                    nextCellTimeMs += cellDurationMs;
+
+                    if (dutyCycle <= 0.001)
+                    {
+                        if (speakerOn)
+                        {
+                            StopPulseDirect(choice);
+                            speakerOn = false;
+                        }
+
+                        LowCpuWaitUntil(sw, nextCellTimeMs);
+                        continue;
+                    }
+
+                    if (!speakerOn)
+                    {
+                        StartPulseDirect(choice, systemSpeakerToneHz, waveform);
+                        speakerOn = true;
+                    }
+
+                    if (dutyCycle >= 0.999)
+                    {
+                        LowCpuWaitUntil(sw, nextCellTimeMs);
+                        continue;
+                    }
+
+                    double switchOffTimeMs =
+                        cellStartTimeMs + cellDurationMs * dutyCycle;
+
+                    LowCpuWaitUntil(sw, switchOffTimeMs);
+
+                    StopPulseDirect(choice);
+                    speakerOn = false;
+
+                    LowCpuWaitUntil(sw, nextCellTimeMs);
+                }
+            }
+            finally
+            {
+                if (speakerOn)
+                    StopPulseDirect(choice);
+            }
+        }
+
+        /// <summary>
+        /// Hybrid precision wait used by software PWM.
+        /// It yields the processor while enough time remains and busy-spins only for the final
+        /// short interval. This avoids pinning a CPU core for the entire percussion duration.
+        /// </summary>
+        private static void LowCpuWaitUntil(Stopwatch sw, double targetMs)
+        {
+            const double finalSpinWindowMs = 0.06;
+
+            while (true)
+            {
+                double remainingMs = targetMs - sw.Elapsed.TotalMilliseconds;
+                if (remainingMs <= 0.0)
+                    return;
+
+                // For genuinely long gaps, give the scheduler most of the interval.
+                if (remainingMs >= 2.0)
+                {
+                    int sleepMs = Math.Max(1, (int)Math.Floor(remainingMs - 1.0));
+                    Thread.Sleep(sleepMs);
+                    continue;
+                }
+
+                // A scheduler yield is much cheaper than burning the whole sub-ms interval.
+                // Once close enough to the edge, switch to a short precision spin.
+                if (remainingMs > finalSpinWindowMs)
+                {
+                    Thread.Yield();
+                    continue;
+                }
+
+                while (sw.Elapsed.TotalMilliseconds < targetMs)
+                    Thread.SpinWait(8);
+
+                return;
+            }
+        }
+
     }
 }
