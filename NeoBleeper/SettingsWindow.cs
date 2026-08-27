@@ -16,6 +16,7 @@
 
 using NAudio.Midi;
 using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Globalization;
 using System.Media;
 using System.Runtime.InteropServices;
@@ -71,7 +72,7 @@ namespace NeoBleeper
                 {
                     if (!TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
                     {
-                        label_test_system_speaker_message_2.Visible = true;
+                        label_open_sound_settings.Visible = true;
                         label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
                         button_show_reason.Visible = true;
                     }
@@ -87,9 +88,18 @@ namespace NeoBleeper
                     if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.Unknown ||
                         TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers)
                     {
-                        label_test_system_speaker_message_3.Visible = true;
-                        label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
-                        button_show_reason.Visible = true;
+                        if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers &&
+                            TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider)
+                        {
+                            label_open_sound_settings.Visible = true;
+                            openSoundSettingsButton.Visible = true;
+                        }
+                        else
+                        {
+                            label_test_system_speaker_message_3.Visible = true;
+                            label_create_beep_from_soundcard_automatically_activated_message_2.Visible = true;
+                            button_show_reason.Visible = true;
+                        }
                     }
                     else
                     {
@@ -308,6 +318,8 @@ namespace NeoBleeper
             comboBox1.BackColor = Color.Black;
             comboBox1.ForeColor = Color.White;
             groupBox1.ForeColor = Color.White;
+            openSoundSettingsButton.BackColor = Color.Black;
+            openSoundSettingsButton.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
         }
         private void LightTheme()
@@ -385,6 +397,8 @@ namespace NeoBleeper
             comboBox1.BackColor = SystemColors.Window;
             comboBox1.ForeColor = SystemColors.WindowText;
             groupBox1.ForeColor = SystemColors.ControlText;
+            openSoundSettingsButton.BackColor = Color.Transparent;
+            openSoundSettingsButton.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
         }
 
@@ -566,7 +580,8 @@ namespace NeoBleeper
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {
             if ((TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.Unknown ||
-                TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers) &&
+                (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers && 
+                TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider)) &&
                 TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent == true)
             {
                 if (checkBox_enable_create_beep_from_soundcard.Checked == false)
@@ -2077,7 +2092,7 @@ namespace NeoBleeper
                 _ => string.Empty
             };
         }
-        
+
         private void RetranslateNoteProperties(
     ListView listView,
     List<(string Length, string Modifier, string Articulation)> noteProperties)
@@ -2202,7 +2217,7 @@ namespace NeoBleeper
         private static readonly bool[,] SysExPreviewSampleBitmap = BuildSysExPreviewSampleBitmap();
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedIndex == Settings1.Default.SysExEmulatorColor)
+            if (comboBox1.SelectedIndex == Settings1.Default.SysExEmulatorColor)
             {
                 return; // No change in selection, exit the method
             }
@@ -2329,6 +2344,24 @@ namespace NeoBleeper
             {
                 tableLayoutPanel1.ResumeLayout(true); // true forces an immediate layout pass
                 tableLayoutPanel1.Invalidate(true);   // force a repaint of the panel and all its children
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {   
+                // Open the sound settings called mmsys.cpl using Process.Start with UseShellExecute set to true
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "mmsys.cpl",
+                    UseShellExecute = true
+                });
+            }
+            catch (System.Exception ex)
+            {
+                // Handle exception if file is missing or access is denied
+                Logger.Log("Error opening Sound settings: " + ex.Message, Logger.LogTypes.Error);
             }
         }
     }

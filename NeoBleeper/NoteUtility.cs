@@ -1349,6 +1349,18 @@ namespace NeoBleeper
             if (pcmData == null || pcmData.Length == 0)
                 return;
 
+            // Scan peak amplitude for exact peak normalization (brings soft samples to 100% full volume)
+            double maxDeviation = 0.001;
+            for (int i = 0; i < pcmData.Length; i++)
+            {
+                double dev = Math.Abs(pcmData[i] - 128.0);
+                if (dev > maxDeviation)
+                    maxDeviation = dev;
+            }
+
+            // Exact normalization factor: maps peak audio sample to maximum range (128.0) without hard over-clipping
+            double normFactor = 128.0 / maxDeviation;
+
             if (choice == PercussionOutputChoice.SoundDevice)
             {
                 // True software PWM for standard audio device
@@ -1367,7 +1379,15 @@ namespace NeoBleeper
                     double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
 
                     double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
-                    double dutyCycle = Math.Clamp(pcmValue / 255.0, 0.0, 1.0);
+
+                    // 1. Center normalize audio to -1.0 .. 1.0 using peak scale (preserves accurate decay dynamics)
+                    double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
+
+                    // 2. Soft-knee dynamic curve: keeps transients loud (1.5x) while allowing linear fade outs down to 0
+                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5;
+
+                    // 3. Map to duty cycle safely
+                    double dutyCycle = Math.Clamp(0.5 + (nonLinearAudio * 0.495), 0.0, 1.0);
 
                     double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
                     int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
@@ -1396,7 +1416,6 @@ namespace NeoBleeper
             {
                 for (int frame = 0; frame < totalFrames; frame++)
                 {
-                    // 1. Scan the PCM chunk for this frame to catch fast cymbal transients (prevents skipping)
                     int startSample = (int)((frame / (double)totalFrames) * pcmData.Length);
                     int endSample = (int)(((frame + 1) / (double)totalFrames) * pcmData.Length);
                     startSample = Math.Clamp(startSample, 0, pcmData.Length - 1);
@@ -1415,14 +1434,13 @@ namespace NeoBleeper
                         }
                     }
 
-                    // 2. Center-normalize the peak sample to -1.0 .. 1.0
-                    double normalized = (peakPcm - 128.0) / 128.0;
+                    // Apply peak normalization to hardware beeper frames
+                    double normAudio = Math.Clamp(((peakPcm - 128.0) * normFactor) / 128.0, -1.0, 1.0);
 
-                    // 3. Dynamic power expansion curve keeps hits loud while letting natural decays drop to zero
-                    double boosted = Math.Sign(normalized) * Math.Pow(Math.Abs(normalized), 0.65) * 1.35;
+                    // Natural exponential curve allowing smooth release to 50% duty cycle at frame ends
+                    double boosted = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5;
                     double dutyCycle = Math.Clamp(0.5 + (boosted * 0.495), 0.0, 1.0);
 
-                    // Vary pulse duration within the carrier period
                     double activeTimeMs = frameStepMs * dutyCycle;
                     double targetActiveMs = (frame * frameStepMs) + activeTimeMs;
                     double targetFrameEndMs = (frame + 1) * frameStepMs;

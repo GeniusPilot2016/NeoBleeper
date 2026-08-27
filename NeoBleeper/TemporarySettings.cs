@@ -20,6 +20,7 @@ namespace NeoBleeper
     {
         public static class EligibilityOfCreateBeepFromSystemSpeaker
         {
+            public static bool havePCBeepSlider;
             public static bool isSystemSpeakerPresent;
             public static bool isChipsetAffectedFromSystemSpeakerIssues;
             public static DeviceType deviceType = DeviceType.Unknown;

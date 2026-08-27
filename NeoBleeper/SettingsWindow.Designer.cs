@@ -53,8 +53,8 @@
             btn_test_system_speaker = new Button();
             label_test_system_speaker_message = new Label();
             panelSystemSpeakerWarnings = new Panel();
-            warning_system_speaker_access = new Label();
-            label_test_system_speaker_message_2 = new Label();
+            openSoundSettingsButton = new Button();
+            label_open_sound_settings = new Label();
             label_test_system_speaker_message_3 = new Label();
             label_test_system_speaker_message_4 = new Label();
             creating_sound_settings = new TabPage();
@@ -324,6 +324,7 @@
             imageList_settings.Images.SetKeyName(15, "icons8-preview-48.png");
             imageList_settings.Images.SetKeyName(16, "icons8-manual-48.png");
             imageList_settings.Images.SetKeyName(17, "icons8-bios-48.png");
+            imageList_settings.Images.SetKeyName(18, "icons8-laptop-settings-48.png");
             // 
             // buttonUpdateAPIKey
             // 
@@ -398,26 +399,28 @@
             // panelSystemSpeakerWarnings
             // 
             resources.ApplyResources(panelSystemSpeakerWarnings, "panelSystemSpeakerWarnings");
-            panelSystemSpeakerWarnings.Controls.Add(warning_system_speaker_access);
-            panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_2);
+            panelSystemSpeakerWarnings.Controls.Add(openSoundSettingsButton);
+            panelSystemSpeakerWarnings.Controls.Add(label_open_sound_settings);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_4);
             panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
             toolTip1.SetToolTip(panelSystemSpeakerWarnings, resources.GetString("panelSystemSpeakerWarnings.ToolTip"));
             // 
-            // warning_system_speaker_access
+            // openSoundSettingsButton
             // 
-            resources.ApplyResources(warning_system_speaker_access, "warning_system_speaker_access");
-            warning_system_speaker_access.ForeColor = Color.FromArgb(192, 0, 0);
-            warning_system_speaker_access.Name = "warning_system_speaker_access";
-            toolTip1.SetToolTip(warning_system_speaker_access, resources.GetString("warning_system_speaker_access.ToolTip"));
+            resources.ApplyResources(openSoundSettingsButton, "openSoundSettingsButton");
+            openSoundSettingsButton.ImageList = imageList_settings;
+            openSoundSettingsButton.Name = "openSoundSettingsButton";
+            toolTip1.SetToolTip(openSoundSettingsButton, resources.GetString("openSoundSettingsButton.ToolTip"));
+            openSoundSettingsButton.UseVisualStyleBackColor = true;
+            openSoundSettingsButton.Click += button1_Click;
             // 
-            // label_test_system_speaker_message_2
+            // label_open_sound_settings
             // 
-            resources.ApplyResources(label_test_system_speaker_message_2, "label_test_system_speaker_message_2");
-            label_test_system_speaker_message_2.ForeColor = Color.FromArgb(255, 128, 0);
-            label_test_system_speaker_message_2.Name = "label_test_system_speaker_message_2";
-            toolTip1.SetToolTip(label_test_system_speaker_message_2, resources.GetString("label_test_system_speaker_message_2.ToolTip"));
+            resources.ApplyResources(label_open_sound_settings, "label_open_sound_settings");
+            label_open_sound_settings.ForeColor = Color.DeepSkyBlue;
+            label_open_sound_settings.Name = "label_open_sound_settings";
+            toolTip1.SetToolTip(label_open_sound_settings, resources.GetString("label_open_sound_settings.ToolTip"));
             // 
             // label_test_system_speaker_message_3
             // 
@@ -1319,7 +1322,7 @@
         private ToolTip toolTip1;
         private GroupBox groupBox_appearance;
         public Label label_test_system_speaker_message;
-        public Label label_test_system_speaker_message_2;
+        public Label label_open_sound_settings;
         public GroupBox groupBox_system_speaker_test;
         private Button btn_test_system_speaker;
         private ImageList imageList_settings;
@@ -1419,12 +1422,12 @@
         private Panel note_indicator_color;
         private Label label11;
         private Label label7;
-        public Label label_test_system_speaker_message_4;
         public Label label_create_beep_from_soundcard_automatically_activated_message_3;
-        public Label warning_system_speaker_access;
         private GroupBox groupBox1;
         private ComboBox comboBox1;
         private Label label15;
         private TableLayoutPanel tableLayoutPanel1;
+        public Label label_test_system_speaker_message_4;
+        private Button openSoundSettingsButton;
     }
 }

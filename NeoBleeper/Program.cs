@@ -165,8 +165,9 @@ namespace NeoBleeper
                                                 }
                                             case GetInformations.computerTypes.CompactComputer:
                                                 {
+                                                    TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider = SoundRenderingEngine.SystemSpeakerBeepEngine.PCBeepSliderChecker.HasPcBeepOrPcSpeaker();
                                                     splashScreen.UpdateStatus(Resources.StatusCompactComputerDetected, 5);
-                                                    if (SoundRenderingEngine.SystemSpeakerBeepEngine.PCBeepSliderChecker.HasPcBeepOrPcSpeaker())
+                                                    if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider)
                                                     {
                                                         TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
                                                         TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
