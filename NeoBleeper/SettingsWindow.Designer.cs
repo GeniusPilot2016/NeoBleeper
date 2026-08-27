@@ -57,6 +57,7 @@
             label_open_sound_settings = new Label();
             label_test_system_speaker_message_3 = new Label();
             label_test_system_speaker_message_4 = new Label();
+            label14 = new Label();
             creating_sound_settings = new TabPage();
             flowLayoutPanelCreatingSoundSettings = new FlowLayoutPanel();
             checkBox_enable_create_beep_from_soundcard = new CheckBox();
@@ -403,6 +404,7 @@
             panelSystemSpeakerWarnings.Controls.Add(label_open_sound_settings);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_4);
+            panelSystemSpeakerWarnings.Controls.Add(label14);
             panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
             toolTip1.SetToolTip(panelSystemSpeakerWarnings, resources.GetString("panelSystemSpeakerWarnings.ToolTip"));
             // 
@@ -435,6 +437,13 @@
             label_test_system_speaker_message_4.ForeColor = Color.DeepSkyBlue;
             label_test_system_speaker_message_4.Name = "label_test_system_speaker_message_4";
             toolTip1.SetToolTip(label_test_system_speaker_message_4, resources.GetString("label_test_system_speaker_message_4.ToolTip"));
+            // 
+            // label14
+            // 
+            resources.ApplyResources(label14, "label14");
+            label14.ForeColor = Color.FromArgb(255, 128, 0);
+            label14.Name = "label14";
+            toolTip1.SetToolTip(label14, resources.GetString("label14.ToolTip"));
             // 
             // creating_sound_settings
             // 
@@ -1429,5 +1438,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         public Label label_test_system_speaker_message_4;
         private Button openSoundSettingsButton;
+        public Label label14;
     }
 }

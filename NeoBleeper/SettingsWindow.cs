@@ -72,7 +72,7 @@ namespace NeoBleeper
                 {
                     if (!TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
                     {
-                        label_open_sound_settings.Visible = true;
+                        label14.Visible = true;
                         label_create_beep_from_soundcard_automatically_activated_message_1.Visible = true;
                         button_show_reason.Visible = true;
                     }
