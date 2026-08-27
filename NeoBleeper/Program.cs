@@ -165,18 +165,35 @@ namespace NeoBleeper
                                                 }
                                             case GetInformations.computerTypes.CompactComputer:
                                                 {
-                                                    TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
-                                                    TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
-                                                    Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
                                                     splashScreen.UpdateStatus(Resources.StatusCompactComputerDetected, 5);
-                                                    if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                                    if (SoundRenderingEngine.SystemSpeakerBeepEngine.PCBeepSliderChecker.HasPcBeepOrPcSpeaker())
                                                     {
-                                                        shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
+                                                        TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
+                                                        TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
+                                                        shouldRun = true;
+                                                        if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
+                                                        {
+                                                            Logger.Log("The PC Beep slider is detected, but the chipset is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", Logger.LogTypes.Info);
+                                                        }
+                                                        else
+                                                        {
+                                                            Logger.Log("The PC Beep slider is detected and NeoBleeper is starting although it's a compact computer.", Logger.LogTypes.Info);
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        shouldRun = true;
-                                                        Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                        TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
+                                                        TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
+                                                        Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
+                                                        if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                                        {
+                                                            shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
+                                                        }
+                                                        else
+                                                        {
+                                                            shouldRun = true;
+                                                            Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                        }
                                                     }
                                                     break;
                                                 }

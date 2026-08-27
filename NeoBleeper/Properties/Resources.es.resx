@@ -405,7 +405,7 @@ Esta tecla reproduce este sonido de percusión: {percussionName}</value>
     <value>El archivo InpOutx64.dll está presente y es válido.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>El sistema tiene salida de altavoz, pero se trata de un ordenador compacto. NeoBleeper usará la tarjeta de sonido para generar pitidos y así evitar problemas con ordenadores compactos.</value>
+    <value>Este ordenador compacto dispone de salida de altavoz. NeoBleeper utilizará la salida PC Beep cuando esté disponible; de ​​lo contrario, utilizará la tarjeta de sonido para generar pitidos y garantizar la compatibilidad.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Comprobando el chipset por si hay problemas con los altavoces del sistema...</value>
