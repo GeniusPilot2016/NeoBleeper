@@ -167,7 +167,7 @@ namespace NeoBleeper
 
             [DllImport("inpoutx64.dll")]
             extern static void Out32(short PortAddress, short Data);
-            
+
             [DllImport("inpoutx64.dll")]
 
             extern static char Inp32(short PortAddress);
@@ -233,7 +233,7 @@ namespace NeoBleeper
                 int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
                 Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
                 Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
-                if(offset > 0)
+                if (offset > 0)
                 {
                     HighPrecisionSleep.Sleep(offset); // Optional offset before enabling the speaker, if specified
                 }
@@ -728,6 +728,7 @@ namespace NeoBleeper
                 {
                     return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                 }
+
             }
 
             /// <summary>
@@ -829,6 +830,395 @@ namespace NeoBleeper
             private static void StopBeepPawnIO()
             {
 
+            }
+
+            public static class PCBeepSliderChecker
+            {
+                private const uint CLSCTX_INPROC_SERVER = 0x1;
+
+                private static readonly Guid CLSID_MMDeviceEnumerator =
+                    new Guid("BCDE0395-E52F-467C-8E3D-C4579291692E");
+
+                private static readonly Guid IID_IDeviceTopology =
+                    new Guid("2A07407E-6497-4A18-9787-32F79BD0D98F");
+
+                private enum EDataFlow
+                {
+                    eRender = 0,
+                    eCapture = 1,
+                    eAll = 2
+                }
+
+                private enum ERole
+                {
+                    eConsole = 0,
+                    eMultimedia = 1,
+                    eCommunications = 2
+                }
+
+                private enum PartType
+                {
+                    Connector = 0,
+                    Subunit = 1
+                }
+
+                private enum ConnectorType
+                {
+                    Unknown_Connector = 0,
+                    Physical_Internal = 1,
+                    Physical_External = 2,
+                    Software_IO = 3,
+                    Software_Fixed = 4,
+                    Network = 5
+                }
+
+                private enum DataFlow
+                {
+                    In = 0,
+                    Out = 1
+                }
+
+                [ComImport]
+                [Guid("A95664D2-9614-4F35-A746-DE8DB63617E6")]
+                [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+                private interface IMMDeviceEnumerator
+                {
+                    [PreserveSig]
+                    int EnumAudioEndpoints(
+                        EDataFlow dataFlow,
+                        uint dwStateMask,
+                        out IntPtr ppDevices);
+
+                    [PreserveSig]
+                    int GetDefaultAudioEndpoint(
+                        EDataFlow dataFlow,
+                        ERole role,
+                        out IMMDevice ppEndpoint);
+
+                    [PreserveSig]
+                    int GetDevice(
+                        [MarshalAs(UnmanagedType.LPWStr)] string pwstrId,
+                        out IMMDevice ppDevice);
+
+                    [PreserveSig]
+                    int RegisterEndpointNotificationCallback(IntPtr pClient);
+
+                    [PreserveSig]
+                    int UnregisterEndpointNotificationCallback(IntPtr pClient);
+                }
+
+                [ComImport]
+                [Guid("D666063F-1587-4E43-81F1-B948E807363F")]
+                [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+                private interface IMMDevice
+                {
+                    [PreserveSig]
+                    int Activate(
+                        ref Guid iid,
+                        uint dwClsCtx,
+                        IntPtr pActivationParams,
+                        [MarshalAs(UnmanagedType.IUnknown)] out object ppInterface);
+
+                    [PreserveSig]
+                    int OpenPropertyStore(
+                        uint stgmAccess,
+                        out IntPtr ppProperties);
+
+                    [PreserveSig]
+                    int GetId(
+                        [MarshalAs(UnmanagedType.LPWStr)] out string ppstrId);
+
+                    [PreserveSig]
+                    int GetState(out uint pdwState);
+                }
+
+                [ComImport]
+                [Guid("2A07407E-6497-4A18-9787-32F79BD0D98F")]
+                [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+                private interface IDeviceTopology
+                {
+                    [PreserveSig]
+                    int GetConnectorCount(out uint pCount);
+
+                    [PreserveSig]
+                    int GetConnector(
+                        uint nIndex,
+                        out IConnector ppConnector);
+
+                    [PreserveSig]
+                    int GetSubunitCount(out uint pCount);
+
+                    [PreserveSig]
+                    int GetSubunit(
+                        uint nIndex,
+                        out ISubunit ppSubunit);
+
+                    [PreserveSig]
+                    int GetPartById(
+                        uint nId,
+                        out IPart ppPart);
+
+                    [PreserveSig]
+                    int GetDeviceId(
+                        [MarshalAs(UnmanagedType.LPWStr)] out string ppwstrDeviceId);
+
+                    [PreserveSig]
+                    int GetSignalPath(
+                        IPart pIPartFrom,
+                        IPart pIPartTo,
+                        [MarshalAs(UnmanagedType.Bool)] bool bRejectMixedPaths,
+                        out IntPtr ppParts);
+                }
+
+                [ComImport]
+                [Guid("9C2C4058-23F5-41DE-877A-DF3AF236A09E")]
+                [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+                private interface IConnector
+                {
+                    [PreserveSig]
+                    int GetType(out ConnectorType pType);
+
+                    [PreserveSig]
+                    int GetDataFlow(out DataFlow pFlow);
+
+                    [PreserveSig]
+                    int ConnectTo(IConnector pConnectTo);
+
+                    [PreserveSig]
+                    int Disconnect();
+
+                    [PreserveSig]
+                    int IsConnected(
+                        [MarshalAs(UnmanagedType.Bool)] out bool pbConnected);
+
+                    [PreserveSig]
+                    int GetConnectedTo(out IConnector ppConTo);
+
+                    [PreserveSig]
+                    int GetConnectorIdConnectedTo(
+                        [MarshalAs(UnmanagedType.LPWStr)] out string ppwstrConnectorId);
+
+                    [PreserveSig]
+                    int GetDeviceIdConnectedTo(
+                        [MarshalAs(UnmanagedType.LPWStr)] out string ppwstrDeviceId);
+                }
+
+                [ComImport]
+                [Guid("82149A85-DBA6-4487-86BB-EA8F7FEFCC71")]
+                [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+                private interface ISubunit
+                {
+                }
+
+                [ComImport]
+                [Guid("AE2DE0E4-5BCA-4F2D-AA46-5D13F8FDB3A9")]
+                [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+                private interface IPart
+                {
+                    [PreserveSig]
+                    int GetName(
+                        [MarshalAs(UnmanagedType.LPWStr)] out string ppwstrName);
+
+                    [PreserveSig]
+                    int GetLocalId(out uint pnId);
+
+                    [PreserveSig]
+                    int GetGlobalId(
+                        [MarshalAs(UnmanagedType.LPWStr)] out string ppwstrGlobalId);
+
+                    [PreserveSig]
+                    int GetPartType(out PartType pPartType);
+
+                    [PreserveSig]
+                    int GetSubType(out Guid pSubType);
+
+                    [PreserveSig]
+                    int GetControlInterfaceCount(out uint pCount);
+
+                    [PreserveSig]
+                    int GetControlInterface(
+                        uint nIndex,
+                        out IntPtr ppInterfaceDesc);
+
+                    [PreserveSig]
+                    int EnumPartsIncoming(out IntPtr ppParts);
+
+                    [PreserveSig]
+                    int EnumPartsOutgoing(out IntPtr ppParts);
+
+                    [PreserveSig]
+                    int GetTopologyObject(
+                        out IDeviceTopology ppTopology);
+
+                    [PreserveSig]
+                    int Activate(
+                        uint dwClsContext,
+                        ref Guid refiid,
+                        [MarshalAs(UnmanagedType.IUnknown)] out object ppvObject);
+
+                    [PreserveSig]
+                    int RegisterControlChangeCallback(
+                        ref Guid riid,
+                        IntPtr pNotify);
+
+                    [PreserveSig]
+                    int UnregisterControlChangeCallback(IntPtr pNotify);
+                }
+
+                /// <summary>
+                /// Returns true if the default playback device hardware topology
+                /// contains a node named "PC Beep" or "PC Speaker".
+                /// </summary>
+                public static bool HasPcBeepOrPcSpeaker()
+                {
+                    Type type = Type.GetTypeFromCLSID(CLSID_MMDeviceEnumerator);
+
+                    IMMDeviceEnumerator enumerator =
+                        (IMMDeviceEnumerator)Activator.CreateInstance(type);
+
+                    IMMDevice endpoint;
+
+                    int hr = enumerator.GetDefaultAudioEndpoint(
+                        EDataFlow.eRender,
+                        ERole.eMultimedia,
+                        out endpoint);
+
+                    if (hr != 0 || endpoint == null)
+                        return false;
+
+                    object topologyObject;
+                    Guid iid = IID_IDeviceTopology;
+
+                    hr = endpoint.Activate(
+                        ref iid,
+                        CLSCTX_INPROC_SERVER,
+                        IntPtr.Zero,
+                        out topologyObject);
+
+                    if (hr != 0 || topologyObject == null)
+                        return false;
+
+                    IDeviceTopology endpointTopology =
+                        (IDeviceTopology)topologyObject;
+
+                    uint connectorCount;
+
+                    hr = endpointTopology.GetConnectorCount(
+                        out connectorCount);
+
+                    if (hr != 0)
+                        return false;
+
+                    for (uint connectorIndex = 0;
+                         connectorIndex < connectorCount;
+                         connectorIndex++)
+                    {
+                        IConnector endpointConnector;
+
+                        hr = endpointTopology.GetConnector(
+                            connectorIndex,
+                            out endpointConnector);
+
+                        if (hr != 0 || endpointConnector == null)
+                            continue;
+
+                        IConnector hardwareConnector;
+
+                        hr = endpointConnector.GetConnectedTo(
+                            out hardwareConnector);
+
+                        if (hr != 0 || hardwareConnector == null)
+                            continue;
+
+                        IPart hardwarePart;
+
+                        try
+                        {
+                            hardwarePart = (IPart)hardwareConnector;
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+
+                        IDeviceTopology hardwareTopology;
+
+                        hr = hardwarePart.GetTopologyObject(
+                            out hardwareTopology);
+
+                        if (hr != 0 || hardwareTopology == null)
+                            continue;
+
+                        if (TopologyContainsPcBeep(hardwareTopology))
+                            return true;
+                    }
+
+                    return false;
+                }
+
+                private static bool TopologyContainsPcBeep(
+                    IDeviceTopology topology)
+                {
+                    uint count;
+
+                    int hr = topology.GetSubunitCount(out count);
+
+                    if (hr != 0)
+                        return false;
+
+                    for (uint i = 0; i < count; i++)
+                    {
+                        ISubunit subunit;
+
+                        hr = topology.GetSubunit(
+                            i,
+                            out subunit);
+
+                        if (hr != 0 || subunit == null)
+                            continue;
+
+                        IPart part;
+
+                        try
+                        {
+                            part = (IPart)subunit;
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+
+                        string name;
+
+                        hr = part.GetName(out name);
+
+                        if (hr != 0 ||
+                            String.IsNullOrWhiteSpace(name))
+                        {
+                            continue;
+                        }
+
+                        // Useful while testing NeoBleeper:
+                        Console.WriteLine(
+                            "Audio topology node: " + name);
+
+                        if (name.IndexOf(
+                                "PC Beep",
+                                StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+
+                        if (name.IndexOf(
+                                "PC Speaker",
+                                StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
             }
         }
         public static class WaveSynthEngine // Synthesize various waveforms of beeps and noises by emulating FMOD, that is used in Bleeper Music Maker, using NAudio

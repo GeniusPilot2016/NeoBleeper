@@ -1383,52 +1383,75 @@ namespace NeoBleeper
                 return;
             }
 
-            // Refined 1-Bit Sigma-Delta PDM Engine for Physical PC Speaker Hardware
+            // Hardware PWM with Peak-Transient Detection for Short Cymbals & Hi-Hats
+            const int carrierHz = 18000;
+            const double frameStepMs = 1000.0 / carrierHz;
             double totalDurationMs = (pcmData.Length / (double)PercussionSampleRate) * 1000.0;
-            const double frameStepMs = 0.8; // Faster 800us step to break up tonal alignment
             int totalFrames = Math.Max(1, (int)(totalDurationMs / frameStepMs));
 
             var sw = Stopwatch.StartNew();
-            double accumulator = 0.0;
+            bool isBeeping = false;
 
-            for (int frame = 0; frame < totalFrames; frame++)
+            try
             {
-                int sampleIdx = Math.Clamp((int)((frame / (double)totalFrames) * (pcmData.Length - 1)), 0, pcmData.Length - 1);
-
-                // Normalize 8-bit sample relative to zero-center (128)
-                double normalizedSample = pcmData[sampleIdx] / 255.0;
-                double amplitude = Math.Abs(normalizedSample - 0.5) * 2.0;
-
-                // Sigma-Delta accumulation
-                accumulator += amplitude;
-
-                // Tuned density threshold (0.22) for responsive transients and clean decays
-                if (accumulator >= 0.22 && amplitude > 0.03)
+                for (int frame = 0; frame < totalFrames; frame++)
                 {
-                    accumulator -= 0.22;
+                    // 1. Scan the PCM chunk for this frame to catch fast cymbal transients (prevents skipping)
+                    int startSample = (int)((frame / (double)totalFrames) * pcmData.Length);
+                    int endSample = (int)(((frame + 1) / (double)totalFrames) * pcmData.Length);
+                    startSample = Math.Clamp(startSample, 0, pcmData.Length - 1);
+                    endSample = Math.Clamp(endSample, startSample + 1, pcmData.Length);
 
-                    // Dual-hash pseudo-random distribution to destroy pitch resonance
-                    uint seed1 = unchecked((uint)(frame * 2654435761u + pcmData[sampleIdx] * 1013904223u));
-                    uint seed2 = unchecked((uint)(frame * 1664525u + 2246822519u));
-                    double noise1 = (seed1 & 0x00FFFFFF) / 16777215.0;
-                    double noise2 = (seed2 & 0x00FFFFFF) / 16777215.0;
+                    byte peakPcm = 128;
+                    double maxAbsVal = 0.0;
 
-                    // Wide multi-band frequency spread (120Hz to 4800Hz)
-                    double baseFreq = 120.0 + (amplitude * 1600.0);
-                    double jitterFreq = (noise1 * 2200.0) + (noise2 * 1000.0);
-                    int densityFreq = (int)Math.Clamp(baseFreq + jitterFreq, 100.0, 5000.0);
+                    for (int s = startSample; s < endSample; s++)
+                    {
+                        double val = Math.Abs((pcmData[s] - 128.0) / 128.0);
+                        if (val > maxAbsVal)
+                        {
+                            maxAbsVal = val;
+                            peakPcm = pcmData[s];
+                        }
+                    }
 
-                    SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(densityFreq);
+                    // 2. Center-normalize the peak sample to -1.0 .. 1.0
+                    double normalized = (peakPcm - 128.0) / 128.0;
+
+                    // 3. Dynamic power expansion curve keeps hits loud while letting natural decays drop to zero
+                    double boosted = Math.Sign(normalized) * Math.Pow(Math.Abs(normalized), 0.65) * 1.35;
+                    double dutyCycle = Math.Clamp(0.5 + (boosted * 0.495), 0.0, 1.0);
+
+                    // Vary pulse duration within the carrier period
+                    double activeTimeMs = frameStepMs * dutyCycle;
+                    double targetActiveMs = (frame * frameStepMs) + activeTimeMs;
+                    double targetFrameEndMs = (frame + 1) * frameStepMs;
+
+                    if (dutyCycle > 0.005)
+                    {
+                        if (!isBeeping)
+                        {
+                            SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(carrierHz);
+                            isBeeping = true;
+                        }
+                        LowCpuWaitUntil(sw, targetActiveMs);
+                    }
+
+                    if (dutyCycle < 0.995)
+                    {
+                        if (isBeeping)
+                        {
+                            SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                            isBeeping = false;
+                        }
+                        LowCpuWaitUntil(sw, targetFrameEndMs);
+                    }
                 }
-                else
-                {
-                    SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
-                }
-
-                LowCpuWaitUntil(sw, (frame + 1) * frameStepMs);
             }
-
-            SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+            finally
+            {
+                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+            }
         }
         /// <summary>
         /// Hybrid precision wait used by software PWM.

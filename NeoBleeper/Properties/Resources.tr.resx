@@ -405,7 +405,7 @@ Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
     <value>InpOutx64.dll mevcut ve geçerli.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışı mevcut, ancak bu bilgisayar kompakt bir bilgisayardır. NeoBleeper, kompakt bilgisayarlarda oluşabilecek sorunları önlemek için ses kartını kullanarak bip sesleri çıkaracaktır.</value>
+    <value>Bu kompakt bilgisayarda sistem hoparlör çıkışı mevcuttur. NeoBleeper, mevcut olduğunda PC Beep çıkışını kullanacak; aksi takdirde, uyumluluk için bip sesleri üretmek üzere ses kartını kullanacaktır.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Sistem hoparlörü sorunları için yonga seti kontrol ediliyor...</value>

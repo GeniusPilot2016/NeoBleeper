@@ -405,7 +405,7 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
     <value>InpOutx64.dll hiện diện và hợp lệ.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Loa hệ thống có sẵn, nhưng đây là máy tính nhỏ gọn. NeoBleeper sẽ sử dụng card âm thanh để tạo tiếng bíp nhằm tránh sự cố với máy tính nhỏ gọn.</value>
+    <value>Máy tính nhỏ gọn này có cổng xuất âm thanh từ loa hệ thống. NeoBleeper sẽ sử dụng đầu ra PC Beep khi có sẵn; nếu không, nó sẽ sử dụng card âm thanh để tạo ra tiếng bíp nhằm đảm bảo tính tương thích.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Đang kiểm tra chipset để tìm sự cố loa hệ thống...</value>

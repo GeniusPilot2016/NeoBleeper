@@ -408,7 +408,7 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
     <value>InpOutx64.dll ist vorhanden und gültig.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Es ist ein Systemlautsprecherausgang vorhanden, aber es handelt sich um einen kompakten Computer. NeoBleeper verwendet die Soundkarte zur Signaltonerzeugung, um Probleme mit kompakten Computern zu vermeiden.</value>
+    <value>Dieser Kompaktcomputer verfügt über einen Systemlautsprecherausgang. NeoBleeper nutzt diesen, sofern verfügbar; andernfalls werden der PC Beep aus Kompatibilitätsgründen über die Soundkarte erzeugt.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Überprüfung des Chipsatzes auf Systemlautsprecherprobleme...</value>

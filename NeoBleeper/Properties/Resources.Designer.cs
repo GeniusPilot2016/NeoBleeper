@@ -2416,7 +2416,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System speaker output is present, but it is a compact computer. NeoBleeper will use the sound card to create beeps to avoid issues with compact computers. benzeri yerelleştirilmiş bir dize arar.
+        ///   System speaker output is present on this compact computer. NeoBleeper will use the PC Beep output when available; otherwise, it will use the sound card to generate beeps for compatibility. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusCompactComputerDetected {
             get {

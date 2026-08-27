@@ -415,7 +415,7 @@ This key plays this percussion sound: {percussionName}</value>
     <value>InpOutx64.dll is present and valid.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>System speaker output is present, but it is a compact computer. NeoBleeper will use the sound card to create beeps to avoid issues with compact computers.</value>
+    <value>System speaker output is present on this compact computer. NeoBleeper will use the PC Beep output when available; otherwise, it will use the sound card to generate beeps for compatibility.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Checking chipset for system speaker issues...</value>

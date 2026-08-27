@@ -405,7 +405,7 @@ Cette touche permet de jouer ce son de percussion: {percussionName}</value>
     <value>Le fichier InpOutx64.dll est présent et valide.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>Une sortie haut-parleur système est présente, mais il s'agit d'un ordinateur compact. NeoBleeper utilisera la carte son pour émettre des bips afin d'éviter les problèmes avec les ordinateurs compacts.</value>
+    <value>Ce mini-ordinateur dispose d'une sortie haut-parleur. NeoBleeper utilisera la sortie PC Beep lorsqu'elle sera disponible ; sinon, il utilisera la carte son pour générer des bips afin d'assurer la compatibilité.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Vérification du chipset pour détecter d'éventuels problèmes de haut-parleurs système...</value>

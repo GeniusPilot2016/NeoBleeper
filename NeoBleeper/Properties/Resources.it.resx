@@ -405,7 +405,7 @@ Questo tasto riproduce questo suono di percussione: {percussionName}</value>
     <value>InpOutx64.dll è presente e valido.</value>
   </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
-    <value>L'uscita dell'altoparlante di sistema è presente, ma si tratta di un computer compatto. NeoBleeper utilizzerà la scheda audio per emettere segnali acustici, evitando così problemi con i computer compatti.</value>
+    <value>Questo computer compatto è dotato di uscita audio per gli altoparlanti di sistema. NeoBleeper utilizzerà l'uscita PC Beep quando disponibile; in caso contrario, utilizzerà la scheda audio per generare i segnali acustici, al fine di garantire la compatibilità.</value>
   </data>
   <data name="StatusCheckingChipsetForSystemSpeakerIssues" xml:space="preserve">
     <value>Controllo del chipset per problemi con gli altoparlanti di sistema...</value>
