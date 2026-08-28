@@ -1349,17 +1349,22 @@ namespace NeoBleeper
             if (pcmData == null || pcmData.Length == 0)
                 return;
 
-            // Scan peak amplitude for exact peak normalization (brings soft samples to 100% full volume)
-            double maxDeviation = 0.001;
+            // Robust peak detection: use the 99.5th percentile deviation instead of the
+            // absolute max, so a single glitch/click sample can't suppress normalization,
+            // while still capturing real (even narrow) transient peaks.
+            var deviations = new double[pcmData.Length];
             for (int i = 0; i < pcmData.Length; i++)
-            {
-                double dev = Math.Abs(pcmData[i] - 128.0);
-                if (dev > maxDeviation)
-                    maxDeviation = dev;
-            }
+                deviations[i] = Math.Abs(pcmData[i] - 128.0);
 
-            // Exact normalization factor: maps peak audio sample to maximum range (128.0) without hard over-clipping
+            Array.Sort(deviations);
+            int idx = Math.Clamp((int)(deviations.Length * 0.995), 0, deviations.Length - 1);
+            double maxDeviation = Math.Max(deviations[idx], 0.001);
+
+            // Exact normalization factor: maps the (robust) peak audio sample to maximum range
             double normFactor = 128.0 / maxDeviation;
+            normFactor = Math.Min(normFactor, 40.0); // avoid extreme gain on near-silent buffers
+
+
 
             if (choice == PercussionOutputChoice.SoundDevice)
             {
@@ -1383,12 +1388,15 @@ namespace NeoBleeper
                     // 1. Center normalize audio to -1.0 .. 1.0 using peak scale (preserves accurate decay dynamics)
                     double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
 
-                    // 2. Soft-knee dynamic curve: keeps transients loud (1.5x) while allowing linear fade outs down to 0
-                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5;
+                    // Apply extra gain boost for very short percussion (cymbals/hi-hats) whose
+                    // transient energy is easily diluted by frame-averaging or PWM interpolation.
+                    double durationMs = (pcmData.Length / (double)PercussionSampleRate) * 1000.0;
+                    double shortSoundBoost = durationMs < 80.0
+                        ? 1.0 + (80.0 - durationMs) / 80.0 * 0.58  // up to +85% extra gain for very short hits
+                        : 1.0;
 
-                    // 3. Map to duty cycle safely
-                    double dutyCycle = Math.Clamp(0.5 + (nonLinearAudio * 0.495), 0.0, 1.0);
-
+                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.7 * shortSoundBoost;
+                    double dutyCycle = Math.Clamp(0.5 + (nonLinearAudio * 0.5), 0.0, 1.0);
                     double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
                     int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
                     dutyError = wantedOnSamples - onSamples;
