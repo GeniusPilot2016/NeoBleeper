@@ -1392,7 +1392,7 @@ namespace NeoBleeper
                     // transient energy is easily diluted by frame-averaging or PWM interpolation.
                     double durationMs = (pcmData.Length / (double)PercussionSampleRate) * 1000.0;
                     double shortSoundBoost = durationMs < 80.0
-                        ? 1.0 + (80.0 - durationMs) / 80.0 * 0.58  // up to +85% extra gain for very short hits
+                        ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85  // up to +85% extra gain for very short hits
                         : 1.0;
 
                     double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.7 * shortSoundBoost;

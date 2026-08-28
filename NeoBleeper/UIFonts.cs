@@ -353,17 +353,41 @@ namespace NeoBleeper
     public class SysExEmulatorFonts
     {
 
-        public static Font GetSysExEmulatorFont(float size, FontStyle style = FontStyle.Regular)
+        private static readonly PrivateFontCollection _fonts = new();
+
+        private static readonly FontFamily _pixeloid;
+
+        static SysExEmulatorFonts()
         {
-            byte[] fontData = Resources.PixeloidSans;
-            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
-            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            byte[] data = Resources.PixeloidSans;
 
-            PrivateFontCollection privateFonts = new PrivateFontCollection();
-            privateFonts.AddMemoryFont(fontPtr, fontData.Length);
-            Marshal.FreeCoTaskMem(fontPtr);
+            // Write it temporarily so we know exactly what we're loading.
+            string path = Path.Combine(
+                Path.GetTempPath(),
+                "PixeloidSans.ttf");
 
-            return new Font(privateFonts.Families[0], size, style, GraphicsUnit.Point);
+            File.WriteAllBytes(path, data);
+
+            // Load directly from the TTF file.
+            _fonts.AddFontFile(path);
+
+            if (_fonts.Families.Length == 0)
+                throw new Exception("No font families were loaded.");
+
+            _pixeloid = _fonts.Families[0];
+
+            Console.WriteLine("Loaded font: " + _pixeloid.Name);
+        }
+
+        public static Font GetSysExEmulatorFont(
+            float size,
+            FontStyle style = FontStyle.Regular)
+        {
+            return new Font(
+                _pixeloid,
+                size,
+                style,
+                GraphicsUnit.Point);
         }
     }
 }
