@@ -195,6 +195,9 @@ namespace NeoBleeper
                         case 2: // M084MM3D (the user who reported the system speaker issue in some chipsets and completed missing data about can computers that have system speaker, but doesn't listed as PNP0800 device)
                             url = "https://www.youtube.com/@M084MM3D";
                             break;
+                        case 3: // namazso (the developer of PawnIO, a scriptable kernel-level I/O library for Windows that NeoBleeper will be using in the future to replace the current I/O library that controversial and not maintained anymore)
+                            url = "https://www.github.com/namazso";
+                            break;
                     }
                     LinkHelper.OpenLink(url, this); // Open the corresponding URL based on the selected contributor in the list view
                 }
