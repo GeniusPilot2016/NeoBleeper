@@ -7,7 +7,7 @@ namespace NeoBleeper
 {
     public class PawnIOWrapper
     {
-        // Alternative to InpOutx64 driver, which is cross-signed and can be potentially affected after April 2026 update of Windows 11 24H2 and above.
+        // Alternative to InpOutx64 driver, which is it has some claims about causes crashes or EXCEPTION_ACCESS_VIOLATION errors in some games and it'll be blocked in next releases of Windows 11.
         [DllImport("kernel32", SetLastError = true)]
         static extern IntPtr LoadLibrary(string lpFileName);
 
