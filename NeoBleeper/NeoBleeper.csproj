@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="PcSpeaker.bin" />
     <None Remove="sysspkr.bin" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <Content Include="PcSpeaker.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sysspkr.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

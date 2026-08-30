@@ -135,7 +135,7 @@ namespace NeoBleeper
             static PawnIOWrapper pawnIO;
             static SystemSpeakerBeepEngine()
             {
-                /*var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "sysspkr.bin"));
+                /*var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
                 pawnIO = new PawnIOWrapper(sysspkrModuleBytes);*/
                 // Safe stop to avoid stuck beeps on exit or crash
 
@@ -822,14 +822,14 @@ namespace NeoBleeper
                 }
                 return false; // Placeholder implementation, as PawnIO is not relevant in this context
             }
-            private static void StartBeep(int frequency)
+            private static void StartBeepPawnIO(int frequency)
             {
-
+                pawnIO.Execute("ioctl_start", new long[] { frequency }, 0);
             }
 
             private static void StopBeepPawnIO()
             {
-
+                pawnIO.Execute("ioctl_stop", Array.Empty<long>(), 0);
             }
 
             public static class PCBeepSliderChecker
