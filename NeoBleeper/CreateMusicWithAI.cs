@@ -155,7 +155,7 @@ namespace NeoBleeper
                 var models = await generativeAI.ListModelsAsync();
 
                 List<string> filteredDisplayNames = new List<string>();
-                string[] specialModelDefiners = { "computer-use", "robotics", "code", "image" }; // Special purpose models to exclude
+                string[] specialModelDefiners = { "computer-use", "robotics", "code", "image", "transcribe" }; // Special purpose models to exclude such as robotics, code generation, computer-use, image generation, and transcription models
                 string[] duplicateModelDefiners = { "001" }; // Duplicate models to exclude
                 string[] audioModels = { "tts", "audio" }; // Audio generation and text-to-speech models to exclude
                 string[] problematicModels = { "2.0" }; // Known problematic models to exclude

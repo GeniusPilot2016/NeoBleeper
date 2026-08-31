@@ -992,98 +992,6 @@ namespace NeoBleeper
             }
         }
 
-        private static void PlayQueuedRequestCommon(PercussionRequest request, ref PercussionOutputChoice? currentOutput)
-        {
-            if (request.CancellationToken.IsCancellationRequested)
-            {
-                request.Completion?.TrySetCanceled();
-                return;
-            }
-
-            StopCurrentPulse(ref currentOutput);
-
-            long startedAt = Stopwatch.GetTimestamp();
-            bool completionSignaled = false;
-
-            while (true)
-            {
-                if (request.CancellationToken.IsCancellationRequested) break;
-
-                double elapsedMs = ElapsedMilliseconds(startedAt);
-
-                if (!completionSignaled && elapsedMs >= request.DurationMs)
-                {
-                    request.Completion?.TrySetResult(true);
-                    completionSignaled = true;
-                }
-
-                if (elapsedMs >= request.DurationMs) break;
-
-                // 1. Evaluate frequency & max-RMS pulse gate
-                GetPlaybackSignalCore(request, elapsedMs, out int frequency, out bool audible);
-
-                // 2. Drive PC Speaker oscillator state
-                if (audible && frequency > 0)
-                {
-                    StartOrUpdatePulse(request.Output, frequency, request.Profile.BodyWave, ref currentOutput);
-                }
-                else
-                {
-                    StopCurrentPulse(ref currentOutput);
-                }
-
-                // 3. High-density duty-cycle step timing
-                double stepMs = GetTimeUntilSignalChangeMs(request, elapsedMs, audible);
-                PreciseWaitMs(stepMs, request.CancellationToken);
-            }
-
-            StopCurrentPulse(ref currentOutput);
-            if (!completionSignaled) request.Completion?.TrySetResult(true);
-        }
-
-        private static double ElapsedMilliseconds(long startedAt)
-        {
-            long ticks = Stopwatch.GetTimestamp() - startedAt;
-            return ticks * 1000.0 / Stopwatch.Frequency;
-        }
-
-        // Variable sub-millisecond to 2ms timing breaks arpeggios and produces true white/pink noise static sound.
-        // Step length is now shaped per instrument family so each one has a distinct texture
-        // instead of every percussion sound sharing the same duty-cycle rhythm.
-        private static double GetTimeUntilSignalChangeMs(PercussionRequest request, double elapsedMs, bool isAudibleState)
-        {
-            double rawVel = Math.Clamp(request.Velocity / 127.0, 0.01, 1.0);
-            double normVelocity = 0.20 + (0.80 * Math.Sqrt(rawVel));
-
-            bool metalCymbal = IsMetalCymbal(request.Percussion);
-            bool snare = IsSnare(request.Percussion);
-            bool kickOrTom = IsKick(request.Percussion) || IsTomOrBongo(request.Percussion);
-
-            if (isAudibleState)
-            {
-                uint h = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 100.0) * 1664525u)));
-                double jitter = (h & 0x00FFFFFF) / 16777215.0;
-
-                // Cymbals/hi-hats need the fastest on/off switching to read as a continuous
-                // hiss rather than individual clicks. Kicks/toms are presenting a single low
-                // tone, not noise, so they can hold each step longer for a steadier pitch.
-                double baseHoldMs = metalCymbal ? 0.22 : kickOrTom ? 1.3 : 0.7;
-                return baseHoldMs * (1.0 + jitter * 0.8) * (0.8 + 0.6 * normVelocity);
-            }
-
-            // Silence gaps between noise bursts
-            uint sHash = unchecked((uint)(request.RandomSeed ^ ((int)(elapsedMs * 100.0) * 1013904223u)));
-            double gapJitter = (sHash & 0x00FFFFFF) / 16777215.0;
-
-            double gapScalar = Math.Max(0.05, 1.3 - (1.0 * normVelocity));
-
-            // Tighter gaps on snares/cymbals give a denser, crisper texture instead of an
-            // audibly gappy buzz.
-            if (metalCymbal || snare)
-                return (0.08 + gapJitter * 0.18) * gapScalar;
-
-            return (0.2 + gapJitter * 0.3) * gapScalar;
-        }
 
         private static void GetPlaybackSignalCore(
             PercussionRequest request,
@@ -1291,20 +1199,6 @@ namespace NeoBleeper
                 audible = gateRoll2 > activeDensityThreshold && progress < (0.90 * normVelocity);
             }
         }
-
-        private static void PreciseWaitMs(double ms, CancellationToken ct)
-        {
-            if (ms <= 0 || ct.IsCancellationRequested) return;
-
-            long start = Stopwatch.GetTimestamp();
-            long targetTicks = start + (long)(ms * Stopwatch.Frequency / 1000.0);
-            while (Stopwatch.GetTimestamp() < targetTicks)
-            {
-                if (ct.IsCancellationRequested) return;
-                Thread.SpinWait(10);
-            }
-        }
-
         public static void GetPlaybackSignalCore(MidiPercussion percussion, double elapsedMs, out int frequency, out bool audible, int velocity = 100)
         {
             var output = GetPercussionPlaybackOutput();
@@ -1343,28 +1237,67 @@ namespace NeoBleeper
             if (IsTonalNonCymbal(p)) return 80.0;
             return 30.0;
         }
+        /// <summary>
+        /// Finds the value at the given percentile of |pcmData[i] - 128| without fully sorting.
+        /// Uses an in-place Quickselect (Hoare partition), O(n) average vs O(n log n) for a full
+        /// sort - this runs on every percussion hit, so avoiding the sort matters for CPU spikes
+        /// on dense hit patterns.
+        /// </summary>
+        private static double FindPercentileDeviation(byte[] pcmData, double percentile)
+        {
+            int n = pcmData.Length;
+            if (n == 0) return 0.0;
 
+            var deviations = new double[n];
+            for (int i = 0; i < n; i++)
+                deviations[i] = Math.Abs(pcmData[i] - 128.0);
+
+            int targetIdx = Math.Clamp((int)(n * percentile), 0, n - 1);
+            return QuickSelect(deviations, 0, n - 1, targetIdx);
+        }
+
+        private static double QuickSelect(double[] arr, int lo, int hi, int k)
+        {
+            while (lo < hi)
+            {
+                double pivot = arr[(lo + hi) / 2];
+                int i = lo, j = hi;
+                while (i <= j)
+                {
+                    while (arr[i] < pivot) i++;
+                    while (arr[j] > pivot) j--;
+                    if (i <= j)
+                    {
+                        (arr[i], arr[j]) = (arr[j], arr[i]);
+                        i++; j--;
+                    }
+                }
+                if (k <= j) hi = j;
+                else if (k >= i) lo = i;
+                else break; // k landed in the already-partitioned middle - arr[k] is the answer
+            }
+            return arr[k];
+        }
         private static void PlayPCMSoundAsPWM(byte[] pcmData, PercussionOutputChoice choice, SynthWave waveform)
         {
             if (pcmData == null || pcmData.Length == 0)
                 return;
+            float volume = 2.0f;
 
             // Robust peak detection: use the 99.5th percentile deviation instead of the
             // absolute max, so a single glitch/click sample can't suppress normalization,
             // while still capturing real (even narrow) transient peaks.
+            
             var deviations = new double[pcmData.Length];
             for (int i = 0; i < pcmData.Length; i++)
                 deviations[i] = Math.Abs(pcmData[i] - 128.0);
 
             Array.Sort(deviations);
             int idx = Math.Clamp((int)(deviations.Length * 0.995), 0, deviations.Length - 1);
-            double maxDeviation = Math.Max(deviations[idx], 0.001);
-
+            double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
             // Exact normalization factor: maps the (robust) peak audio sample to maximum range
             double normFactor = 128.0 / maxDeviation;
             normFactor = Math.Min(normFactor, 40.0); // avoid extreme gain on near-silent buffers
-
-
 
             if (choice == PercussionOutputChoice.SoundDevice)
             {
@@ -1395,7 +1328,8 @@ namespace NeoBleeper
                         ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85  // up to +85% extra gain for very short hits
                         : 1.0;
 
-                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.7 * shortSoundBoost;
+                    // Slightly hotter base curve (1.7 -> 1.9) plus user-controllable volume multiplier.
+                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.9 * shortSoundBoost * volume;
                     double dutyCycle = Math.Clamp(0.5 + (nonLinearAudio * 0.5), 0.0, 1.0);
                     double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
                     int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
@@ -1403,8 +1337,12 @@ namespace NeoBleeper
 
                     int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
 
+                    // Scale the bipolar amplitude itself by volume too, so low volume settings
+                    // actually reduce loudness rather than just narrowing duty-cycle swing.
+                    float amp = (float)Math.Clamp(volume, 0.0, 2.0);
+
                     for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
-                        pwm[baseIndex + j] = j < onSamples ? 1.0f : -1.0f;
+                        pwm[baseIndex + j] = j < onSamples ? amp : -amp;
                 }
 
                 QueueMixedSoundDevicePwmSamples(pwm);
@@ -1412,7 +1350,7 @@ namespace NeoBleeper
             }
 
             // Hardware PWM with Peak-Transient Detection for Short Cymbals & Hi-Hats
-            const int carrierHz = 18000;
+            const int carrierHz = 20000;
             const double frameStepMs = 1000.0 / carrierHz;
             double totalDurationMs = (pcmData.Length / (double)PercussionSampleRate) * 1000.0;
             int totalFrames = Math.Max(1, (int)(totalDurationMs / frameStepMs));
@@ -1445,8 +1383,10 @@ namespace NeoBleeper
                     // Apply peak normalization to hardware beeper frames
                     double normAudio = Math.Clamp(((peakPcm - 128.0) * normFactor) / 128.0, -1.0, 1.0);
 
-                    // Natural exponential curve allowing smooth release to 50% duty cycle at frame ends
-                    double boosted = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5;
+                    // Natural exponential curve allowing smooth release to 50% duty cycle at frame ends,
+                    // scaled by user volume. Note: a system speaker beeper is inherently on/off (no true
+                    // amplitude control), so volume here primarily affects duty-cycle swing/perceived loudness.
+                    double boosted = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5 * volume;
                     double dutyCycle = Math.Clamp(0.5 + (boosted * 0.495), 0.0, 1.0);
 
                     double activeTimeMs = frameStepMs * dutyCycle;
