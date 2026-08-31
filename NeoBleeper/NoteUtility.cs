@@ -1348,6 +1348,7 @@ namespace NeoBleeper
         {
             if (pcmData == null || pcmData.Length == 0)
                 return;
+            float volume = 2.0f;
 
             // Robust peak detection: use the 99.5th percentile deviation instead of the
             // absolute max, so a single glitch/click sample can't suppress normalization,
@@ -1363,8 +1364,6 @@ namespace NeoBleeper
             // Exact normalization factor: maps the (robust) peak audio sample to maximum range
             double normFactor = 128.0 / maxDeviation;
             normFactor = Math.Min(normFactor, 40.0); // avoid extreme gain on near-silent buffers
-
-
 
             if (choice == PercussionOutputChoice.SoundDevice)
             {
@@ -1395,7 +1394,8 @@ namespace NeoBleeper
                         ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85  // up to +85% extra gain for very short hits
                         : 1.0;
 
-                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.7 * shortSoundBoost;
+                    // Slightly hotter base curve (1.7 -> 1.9) plus user-controllable volume multiplier.
+                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.9 * shortSoundBoost * volume;
                     double dutyCycle = Math.Clamp(0.5 + (nonLinearAudio * 0.5), 0.0, 1.0);
                     double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
                     int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
@@ -1403,8 +1403,12 @@ namespace NeoBleeper
 
                     int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
 
+                    // Scale the bipolar amplitude itself by volume too, so low volume settings
+                    // actually reduce loudness rather than just narrowing duty-cycle swing.
+                    float amp = (float)Math.Clamp(volume, 0.0, 2.0);
+
                     for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
-                        pwm[baseIndex + j] = j < onSamples ? 1.0f : -1.0f;
+                        pwm[baseIndex + j] = j < onSamples ? amp : -amp;
                 }
 
                 QueueMixedSoundDevicePwmSamples(pwm);
@@ -1412,7 +1416,7 @@ namespace NeoBleeper
             }
 
             // Hardware PWM with Peak-Transient Detection for Short Cymbals & Hi-Hats
-            const int carrierHz = 18000;
+            const int carrierHz = 20000;
             const double frameStepMs = 1000.0 / carrierHz;
             double totalDurationMs = (pcmData.Length / (double)PercussionSampleRate) * 1000.0;
             int totalFrames = Math.Max(1, (int)(totalDurationMs / frameStepMs));
@@ -1445,8 +1449,10 @@ namespace NeoBleeper
                     // Apply peak normalization to hardware beeper frames
                     double normAudio = Math.Clamp(((peakPcm - 128.0) * normFactor) / 128.0, -1.0, 1.0);
 
-                    // Natural exponential curve allowing smooth release to 50% duty cycle at frame ends
-                    double boosted = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5;
+                    // Natural exponential curve allowing smooth release to 50% duty cycle at frame ends,
+                    // scaled by user volume. Note: a system speaker beeper is inherently on/off (no true
+                    // amplitude control), so volume here primarily affects duty-cycle swing/perceived loudness.
+                    double boosted = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.5 * volume;
                     double dutyCycle = Math.Clamp(0.5 + (boosted * 0.495), 0.0, 1.0);
 
                     double activeTimeMs = frameStepMs * dutyCycle;
