@@ -39,6 +39,15 @@ namespace NeoBleeper
         private Originator originator;
         private Memento initialMemento;
         private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        // Dedicated audio worker: avoids creating/scheduling a new ThreadPool task for every note.
+        private readonly System.Collections.Concurrent.BlockingCollection<Action> audioPlaybackQueue = new();
+        private Thread? audioPlaybackThread;
+
+        // O(1) playback-position lookup. Rebuilt once when playback starts.
+        private int[] playbackMeasureCache = Array.Empty<int>();
+        private double[] playbackBeatCache = Array.Empty<double>();
+        private int pendingPlaybackSelectionIndex = -1;
+        private bool playbackSelectionUpdatePending = false;
         public event EventHandler MusicStopped;
         public event EventHandler NotesChanged;
         private int lastNotesCount = 0;
@@ -95,6 +104,29 @@ namespace NeoBleeper
         public MainWindow()
         {
             InitializeComponent();
+
+            // Keep one warm playback thread instead of queueing one ThreadPool work item per note.
+            audioPlaybackThread = new Thread(() =>
+            {
+                foreach (Action work in audioPlaybackQueue.GetConsumingEnumerable())
+                {
+                    try
+                    {
+                        work();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log($"Audio playback worker error: {ex.Message}", Logger.LogTypes.Error);
+                    }
+                }
+            })
+            {
+                IsBackground = true,
+                Name = "NeoBleeper Audio Playback",
+                Priority = ThreadPriority.AboveNormal
+            };
+            audioPlaybackThread.Start();
+
             this.SuspendLayout();
             if (!Directory.Exists(defaultOpenAndSaveDirectory))
             {
@@ -2212,7 +2244,8 @@ namespace NeoBleeper
             Logger.Log($"Time signature is set to {trackBar_time_signature.Value}", Logger.LogTypes.Info);
         }
 
-        public void SyncTrackbarValues() {
+        public void SyncTrackbarValues()
+        {
             string percentText = Resources.TextPercent;
             percentText = percentText.Replace("{number}", trackBar_note_silence_ratio.Value.ToString());
             lbl_note_silence_ratio.Text = percentText;
@@ -2362,7 +2395,7 @@ namespace NeoBleeper
             {
                 Line.mod = string.Empty;
             }
-            if(listViewNotes.Items.Count < 1)
+            if (listViewNotes.Items.Count < 1)
             {
                 return;
             }
@@ -2742,12 +2775,17 @@ namespace NeoBleeper
         /// enabled and a note is selected.
         /// </summary>
         /// <param name="noteSoundDuration">The duration, in milliseconds, for which each MIDI note should be played.</param>
-        private void HandleMidiOutput(int noteSoundDuration)
+        private void HandleMidiOutput(int noteSoundDuration, int lineIndex = -1)
         {
-            if (TemporarySettings.MIDIDevices.useMIDIoutput && listViewNotes.SelectedIndices.Count > 0)
+            int effectiveIndex = lineIndex;
+            if (effectiveIndex < 0 && listViewNotes.SelectedIndices.Count > 0)
+                effectiveIndex = listViewNotes.SelectedIndices[0];
+
+            if (TemporarySettings.MIDIDevices.useMIDIoutput &&
+                effectiveIndex >= 0 && effectiveIndex < listViewNotes.Items.Count)
             {
                 PlayMidiNotesFromLineAsync(
-                    listViewNotes.SelectedIndices[0],
+                    effectiveIndex,
                     checkBox_play_note1_played.Checked,
                     checkBox_play_note2_played.Checked,
                     checkBox_play_note3_played.Checked,
@@ -2766,9 +2804,13 @@ namespace NeoBleeper
         /// <param name="rawNoteDuration">The original duration, in milliseconds, of the note before any processing or adjustments.</param>
         /// <param name="nonStopping">true to play notes without stopping ongoing playback; otherwise, false. The default is false.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
-        private async Task HandleStandardNotePlayback(int noteSoundDuration, int totalRhythm, bool nonStopping = false)
+        private async Task HandleStandardNotePlayback(int noteSoundDuration, int totalRhythm, bool nonStopping = false, int lineIndex = -1)
         {
-            if (listViewNotes.SelectedIndices.Count > 0)
+            int effectiveIndex = lineIndex;
+            if (effectiveIndex < 0 && listViewNotes.SelectedIndices.Count > 0)
+                effectiveIndex = listViewNotes.SelectedIndices[0];
+
+            if (effectiveIndex >= 0 && effectiveIndex < listViewNotes.Items.Count)
             {
                 if (checkBox_use_voice_system.Checked)
                 {
@@ -2778,7 +2820,7 @@ namespace NeoBleeper
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
                         noteSoundDuration, totalRhythm,
-                        nonStopping
+                        nonStopping, effectiveIndex
                     );
                 }
                 else
@@ -2789,7 +2831,7 @@ namespace NeoBleeper
                         checkBox_play_note3_played.Checked,
                         checkBox_play_note4_played.Checked,
                         noteSoundDuration,
-                        nonStopping);
+                        nonStopping, effectiveIndex);
                 }
             }
         }
@@ -2800,9 +2842,15 @@ namespace NeoBleeper
         /// <remarks>This method is typically used to check the state of the currently selected note in a
         /// list view. If no notes are selected, the method returns false.</remarks>
         /// <returns>true if at least one note is selected and the first selected note is checked; otherwise, false.</returns>
-        private bool IsSelectedNoteChecked()
+        private bool IsSelectedNoteChecked(int lineIndex = -1)
         {
-            return listViewNotes.SelectedIndices.Count > 0 && listViewNotes.SelectedItems[0].Checked;
+            int effectiveIndex = lineIndex;
+            if (effectiveIndex < 0 && listViewNotes.SelectedIndices.Count > 0)
+                effectiveIndex = listViewNotes.SelectedIndices[0];
+
+            return effectiveIndex >= 0 &&
+                   effectiveIndex < listViewNotes.Items.Count &&
+                   listViewNotes.Items[effectiveIndex].Checked;
         }
 
         /// <summary>
@@ -2832,22 +2880,22 @@ namespace NeoBleeper
         /// should play the notes.</param>
         /// <param name="nonStopping">true to prevent stopping currently playing notes before starting new ones; otherwise, false. Optional.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes.</returns>
-        private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, int totalRhythm, bool nonStopping = false) // Play note with voice in a line
+        private async Task PlayNotesOfLineWithVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, int totalRhythm, bool nonStopping = false, int lineIndex = -1) // Play note with voice in a line
         {
             // System speaker notes
-            bool systemSpeakerNote1 = (TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && playNote1;
-            bool systemSpeakerNote2 = (TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && playNote2;
-            bool systemSpeakerNote3 = (TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && playNote3;
-            bool systemSpeakerNote4 = (TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex == 1 || (!IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled())) && playNote4;
+            bool systemSpeakerNote1 = (TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 1 || (!IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled())) && playNote1;
+            bool systemSpeakerNote2 = (TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex == 1 || (!IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled())) && playNote2;
+            bool systemSpeakerNote3 = (TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex == 1 || (!IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled())) && playNote3;
+            bool systemSpeakerNote4 = (TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex == 1 || (!IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled())) && playNote4;
 
             // Voice system notes
-            bool voiceSystemNote1 = TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote1;
-            bool voiceSystemNote2 = TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote2;
-            bool voiceSystemNote3 = TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote3;
-            bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex == 0 && ((IsSelectedNoteChecked() && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote4;
+            bool voiceSystemNote1 = TemporarySettings.VoiceInternalSettings.note1OutputDeviceIndex == 0 && ((IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote1;
+            bool voiceSystemNote2 = TemporarySettings.VoiceInternalSettings.note2OutputDeviceIndex == 0 && ((IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote2;
+            bool voiceSystemNote3 = TemporarySettings.VoiceInternalSettings.note3OutputDeviceIndex == 0 && ((IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote3;
+            bool voiceSystemNote4 = TemporarySettings.VoiceInternalSettings.note4OutputDeviceIndex == 0 && ((IsSelectedNoteChecked(lineIndex) && IsPlayVoiceOnCheckedLineEnabled()) || !IsPlayVoiceOnCheckedLineEnabled()) && playNote4;
 
             // Play voice
-            StartVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, totalRhythm, nonStopping);
+            StartVoice(voiceSystemNote1, voiceSystemNote2, voiceSystemNote3, voiceSystemNote4, totalRhythm, nonStopping, lineIndex);
 
             // Play system speaker notes
             await PlayNotesOfLine(
@@ -2856,7 +2904,8 @@ namespace NeoBleeper
                  systemSpeakerNote3,
                  systemSpeakerNote4,
                  length,
-                 nonStopping
+                 nonStopping,
+                 lineIndex
                 );
         }
 
@@ -2874,15 +2923,17 @@ namespace NeoBleeper
         /// <param name="nonStopping">true to prevent stopping currently playing voices before starting new ones; otherwise, false. The default is
         /// false.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        private async Task StartVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false)
+        private async Task StartVoice(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false, int lineIndex = -1)
         {
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
             double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;
             String[] notes = new string[4];
-            if (listViewNotes.SelectedItems.Count > 0)
-            {
-                int selected_line = listViewNotes.SelectedIndices[0];
+            int selected_line = lineIndex;
+            if (selected_line < 0 && listViewNotes.SelectedIndices.Count > 0)
+                selected_line = listViewNotes.SelectedIndices[0];
 
+            if (selected_line >= 0 && selected_line < listViewNotes.Items.Count)
+            {
                 // Take music note names from the selected line
                 note1 = playNote1 ? listViewNotes.Items[selected_line].SubItems[1].Text : string.Empty;
                 note2 = playNote2 ? listViewNotes.Items[selected_line].SubItems[2].Text : string.Empty;
@@ -2983,54 +3034,116 @@ namespace NeoBleeper
             string standardizedLength = "Quarter"; // Default to quarter note if parsing fails
             string standardizedModifier = string.Empty;
             string standardizedArticulation = string.Empty;
-            if(length == Resources.WholeNote)
+            if (length == Resources.WholeNote)
             {
                 standardizedLength = "Whole";
             }
-            else if(length == Resources.HalfNote)
+            else if (length == Resources.HalfNote)
             {
                 standardizedLength = "Half";
             }
-            else if(length == Resources.QuarterNote)
+            else if (length == Resources.QuarterNote)
             {
                 standardizedLength = "Quarter";
             }
-            else if(length == Resources.EighthNote)
+            else if (length == Resources.EighthNote)
             {
                 standardizedLength = "1/8";
             }
-            else if(length == Resources.SixteenthNote)
+            else if (length == Resources.SixteenthNote)
             {
                 standardizedLength = "1/16";
             }
-            else if(length == Resources.ThirtySecondNote)
+            else if (length == Resources.ThirtySecondNote)
             {
                 standardizedLength = "1/32";
             }
 
-            if(modifier == Resources.DottedModifier)
+            if (modifier == Resources.DottedModifier)
             {
                 standardizedModifier = "Dot";
             }
-            else if(modifier == Resources.TripletModifier)
+            else if (modifier == Resources.TripletModifier)
             {
                 standardizedModifier = "Tri";
             }
 
-            if(articulation == Resources.StaccatoArticulation)
+            if (articulation == Resources.StaccatoArticulation)
             {
                 standardizedArticulation = "Sta";
             }
-            else if(articulation == Resources.SpiccatoArticulation)
+            else if (articulation == Resources.SpiccatoArticulation)
             {
                 standardizedArticulation = "Spi";
             }
-            else if(articulation == Resources.FermataArticulation)
+            else if (articulation == Resources.FermataArticulation)
             {
                 standardizedArticulation = "Fer";
             }
 
             return (standardizedLength, standardizedModifier, standardizedArticulation);
+        }
+
+        /// <summary>
+        /// Runs blocking audio work on a persistent dedicated thread. This removes per-note
+        /// ThreadPool dispatch latency, which becomes visible when the CPU is throttled.
+        /// </summary>
+        private Task RunOnAudioPlaybackThreadAsync(Action action)
+        {
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
+            var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            try
+            {
+                audioPlaybackQueue.Add(() =>
+                {
+                    try
+                    {
+                        action();
+                        tcs.TrySetResult(true);
+                    }
+                    catch (Exception ex)
+                    {
+                        tcs.TrySetException(ex);
+                    }
+                });
+            }
+            catch (InvalidOperationException)
+            {
+                // Queue is shutting down. Complete the task without introducing a playback hang.
+                tcs.TrySetCanceled();
+            }
+
+            return tcs.Task;
+        }
+
+        /// <summary>
+        /// Precomputes measure/beat positions once. Previously UpdateDisplays rescanned all
+        /// previous rows for every note, producing O(n^2) work over a song.
+        /// </summary>
+        private void BuildPlaybackPositionCache()
+        {
+            int count = listViewNotes.Items.Count;
+            playbackMeasureCache = new int[count];
+            playbackBeatCache = new double[count];
+
+            int measure = 1;
+            double beat = 0.0;
+
+            for (int i = 0; i < count; i++)
+            {
+                playbackMeasureCache[i] = measure;
+                playbackBeatCache[i] = beat;
+
+                beat += Convert.ToDouble(NoteLengthToBeats(listViewNotes.Items[i]));
+                if (beat >= Variables.timeSignature)
+                {
+                    measure++;
+                    beat = 0.0;
+                }
+            }
         }
 
         /// <summary>
@@ -3058,6 +3171,10 @@ namespace NeoBleeper
                             (articulation.ToLowerInvariant().Contains(Resources.StaccatoArticulation.ToLower()) ||
                              articulation.ToLowerInvariant().Contains(Resources.SpiccatoArticulation.ToLower())));
                 }
+
+                // Build UI position data once so changing the selected row cannot add
+                // progressively more CPU work between notes.
+                BuildPlaybackPositionCache();
 
                 await HighPrecisionSleep.SleepAsync(1); // Brief sleep to ensure accurate timing at start
                 Stopwatch globalStopwatch = new Stopwatch();
@@ -3089,7 +3206,7 @@ namespace NeoBleeper
                             Variables.noteSilenceRatio,
                             cursorMs);
 
-                    string articulation = listViewNotes.Items[listViewNotes.SelectedIndices[0]]
+                    string articulation = listViewNotes.Items[currentNoteIndex]
                                                       .SubItems[6].Text ?? string.Empty;
                     int silence_int = totalRhythm_int - noteSound_int;
                     nonStopping = trackBar_note_silence_ratio.Value == 100;
@@ -3164,8 +3281,10 @@ namespace NeoBleeper
                     }
 
                     // ── Normal playback ─────────────────────────────────────────────────────────
-                    HandleMidiOutput(noteSound_int);
-                    await HandleStandardNotePlayback(noteSound_int, totalRhythm_int ,nonStopping);
+                    // Audio uses currentNoteIndex directly. It no longer waits for the ListView
+                    // selection-change event to finish before starting the next note.
+                    HandleMidiOutput(noteSound_int, currentNoteIndex);
+                    await HandleStandardNotePlayback(noteSound_int, totalRhythm_int, nonStopping, currentNoteIndex);
 
                     if (!nonStopping && silence_int > 0)
                     {
@@ -3226,36 +3345,66 @@ namespace NeoBleeper
             if (index < 0 || index >= listViewNotes.Items.Count)
                 return Task.CompletedTask;
 
-            if (this.InvokeRequired)
+            void ApplySelection(int targetIndex)
             {
-                var tcs = new TaskCompletionSource<bool>();
-                this.BeginInvoke(new Action(() =>
+                if (IsDisposed || targetIndex < 0 || targetIndex >= listViewNotes.Items.Count)
+                    return;
+
+                listViewNotes.SelectedItems.Clear();
+                listViewNotes.Items[targetIndex].Selected = true;
+                listViewNotes.EnsureVisible(targetIndex);
+            }
+
+            if (isMusicPlaying)
+            {
+                // Selection is visual feedback only during playback. Do not let ListView rendering
+                // or SelectedIndexChanged delay the audio scheduler. Coalesce rapid updates so the
+                // UI can jump directly to the most recent note if it falls behind.
+                pendingPlaybackSelectionIndex = index;
+
+                if (!playbackSelectionUpdatePending)
+                {
+                    playbackSelectionUpdatePending = true;
+                    BeginInvoke((Action)(() =>
+                    {
+                        try
+                        {
+                            if (!isMusicPlaying)
+                                return;
+
+                            int latestIndex = pendingPlaybackSelectionIndex;
+                            ApplySelection(latestIndex);
+                        }
+                        finally
+                        {
+                            playbackSelectionUpdatePending = false;
+                        }
+                    }));
+                }
+
+                return Task.CompletedTask;
+            }
+
+            if (InvokeRequired)
+            {
+                var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+                BeginInvoke((Action)(() =>
                 {
                     try
                     {
-                        if (index >= 0 && index < listViewNotes.Items.Count)
-                        {
-                            listViewNotes.SelectedItems.Clear();
-                            listViewNotes.Items[index].Selected = true;
-                            listViewNotes.EnsureVisible(index);
-                        }
-                        tcs.SetResult(true);
+                        ApplySelection(index);
+                        tcs.TrySetResult(true);
                     }
                     catch (Exception ex)
                     {
-                        tcs.SetException(ex);
+                        tcs.TrySetException(ex);
                     }
                 }));
                 return tcs.Task;
             }
-            else
-            {
-                // Return early if index is out of range, even on the UI thread
-                listViewNotes.SelectedItems.Clear();
-                listViewNotes.Items[index].Selected = true;
-                listViewNotes.EnsureVisible(index);
-                return Task.CompletedTask;
-            }
+
+            ApplySelection(index);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -3502,31 +3651,34 @@ namespace NeoBleeper
         /// <param name="visible">true to make the label visible; otherwise, false.</param>
         public void UpdateLabelVisible(bool visible)
         {
-            Task.Run(() =>
+            try
             {
-                try
-                {
-                    if (this.InvokeRequired)
-                    {
-                        this.BeginInvoke(() =>
-                        {
-                            label_beep.SuspendLayout();
-                            label_beep.Visible = visible;
-                            label_beep.ResumeLayout();
-                        });
-                    }
-                    else
-                    {
-                        label_beep.SuspendLayout();
-                        label_beep.Visible = visible;
-                        label_beep.ResumeLayout();
-                    }
-                }
-                catch
-                {
+                if (IsDisposed || !IsHandleCreated)
                     return;
+
+                void ApplyVisibility()
+                {
+                    if (IsDisposed || label_beep.IsDisposed)
+                        return;
+
+                    // Avoid needless layout work when the state did not change.
+                    if (label_beep.Visible != visible)
+                        label_beep.Visible = visible;
                 }
-            });
+
+                if (InvokeRequired)
+                    BeginInvoke((Action)ApplyVisibility);
+                else
+                    ApplyVisibility();
+            }
+            catch (ObjectDisposedException)
+            {
+                // Window is closing; ignore stale UI updates.
+            }
+            catch (InvalidOperationException)
+            {
+                // Window is closing; ignore stale UI updates.
+            }
         }
 
         /// <summary>
@@ -3971,16 +4123,18 @@ namespace NeoBleeper
         /// <param name="length">The total duration, in milliseconds, for which the notes should be played. Must be greater than zero.</param>
         /// <param name="nonStopping">true to prevent stopping other notes after playback; otherwise, false. The default is false.</param>
         /// <returns>A task that represents the asynchronous operation of playing the specified notes.</returns>
-        private async Task PlayNotesOfLine(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false) // Play note in a line
+        private async Task PlayNotesOfLine(bool playNote1, bool playNote2, bool playNote3, bool playNote4, int length, bool nonStopping = false, int lineIndex = -1) // Play note in a line
         {
             Variables.alternatingNoteLength = Convert.ToInt32(numericUpDown_alternating_notes.Value);
             string note1 = string.Empty, note2 = string.Empty, note3 = string.Empty, note4 = string.Empty;
             double note1Frequency = 0, note2Frequency = 0, note3Frequency = 0, note4Frequency = 0;
             String[] notes = new string[4];
-            if (listViewNotes.SelectedItems.Count > 0)
-            {
-                int selectedLine = listViewNotes.SelectedIndices[0];
+            int selectedLine = lineIndex;
+            if (selectedLine < 0 && listViewNotes.SelectedIndices.Count > 0)
+                selectedLine = listViewNotes.SelectedIndices[0];
 
+            if (selectedLine >= 0 && selectedLine < listViewNotes.Items.Count)
+            {
                 // Take music note names from the selected line
                 note1 = playNote1 ? listViewNotes.Items[selectedLine].SubItems[1].Text : string.Empty;
                 note2 = playNote2 ? listViewNotes.Items[selectedLine].SubItems[2].Text : string.Empty;
@@ -4061,7 +4215,7 @@ namespace NeoBleeper
                         int alternatingNoteDuration = Convert.ToInt32(numericUpDown_alternating_notes.Value);
                         if (remainingTime >= alternatingNoteDuration)
                         {
-                            await Task.Run(() => { NotePlayer.PlayNote(Convert.ToInt32(frequency), alternatingNoteDuration); });
+                            await RunOnAudioPlaybackThreadAsync(() => NotePlayer.PlayNote(Convert.ToInt32(frequency), alternatingNoteDuration));
                             isAnyNotePlayed = true;
                         }
                         else
@@ -4073,7 +4227,7 @@ namespace NeoBleeper
                             }
                             else
                             {
-                                await Task.Run(() => { NotePlayer.PlayNote(Convert.ToInt32(frequency), (int)remainingTime); });
+                                await RunOnAudioPlaybackThreadAsync(() => NotePlayer.PlayNote(Convert.ToInt32(frequency), (int)remainingTime));
                             }
                         }
                     }
@@ -4202,11 +4356,21 @@ namespace NeoBleeper
         private void UpdateDisplays(int Line, bool clicked = false)
         {
             if (listViewNotes.Items.Count > 0)
-            { 
+            {
                 int measure = 1;
                 double beat = 0;
-                double beatNumber = 1;
-                if (listViewNotes.SelectedItems.Count > 0)
+
+                // During playback use the cache built once at playback start. This makes each
+                // row change O(1) instead of rescanning rows 0..Line on every note.
+                if (isMusicPlaying &&
+                    Line >= 0 &&
+                    Line < playbackMeasureCache.Length &&
+                    Line < playbackBeatCache.Length)
+                {
+                    measure = playbackMeasureCache[Line];
+                    beat = playbackBeatCache[Line];
+                }
+                else if (listViewNotes.SelectedItems.Count > 0)
                 {
                     for (int i = 0; i < Line; i++)
                     {
@@ -4218,31 +4382,27 @@ namespace NeoBleeper
                         }
                     }
                 }
-                beatNumber = beat + 1;
-                Task.Run(() =>
+
+                double beatNumber = beat + 1;
+
+                void ApplyPositionDisplay()
                 {
-                    if (position_table.InvokeRequired)
-                    {
-                        position_table.BeginInvoke(new Action(() =>
-                        {
-                            position_table.SuspendLayout();
-                            lbl_measure_value.Text = measure.ToString();
-                            lbl_beat_value.Text = Math.Round(beatNumber, 4).ToString();
-                            lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
-                            lbl_beat_traditional_value.ForeColor = SetTraditionalBeatColor(lbl_beat_traditional_value.Text);
-                            position_table.ResumeLayout();
-                        }));
-                    }
-                    else
-                    {
-                        position_table.SuspendLayout();
-                        lbl_measure_value.Text = measure.ToString();
-                        lbl_beat_value.Text = Math.Round(beatNumber, 4).ToString();
-                        lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
-                        lbl_beat_traditional_value.ForeColor = SetTraditionalBeatColor(lbl_beat_traditional_value.Text);
-                        position_table.ResumeLayout();
-                    }
-                });
+                    if (position_table.IsDisposed)
+                        return;
+
+                    position_table.SuspendLayout();
+                    lbl_measure_value.Text = measure.ToString();
+                    lbl_beat_value.Text = Math.Round(beatNumber, 4).ToString();
+                    lbl_beat_traditional_value.Text = ConvertDecimalBeatToTraditional(beat);
+                    lbl_beat_traditional_value.ForeColor = SetTraditionalBeatColor(lbl_beat_traditional_value.Text);
+                    position_table.ResumeLayout();
+                }
+
+                // BeginInvoke directly if needed. Do not create a ThreadPool task just to queue a UI update.
+                if (position_table.InvokeRequired)
+                    position_table.BeginInvoke((Action)ApplyPositionDisplay);
+                else
+                    ApplyPositionDisplay();
                 if (checkBox_play_beat_sound.Checked == true && clicked == false)
                 {
                     switch (TemporarySettings.BeatTypes.beatType)
@@ -4386,7 +4546,7 @@ namespace NeoBleeper
             numerator /= gcd;
             denominator /= gcd;
 
-            if(numerator < 0 || denominator <= 0)
+            if (numerator < 0 || denominator <= 0)
             {
                 return $"1 {Properties.Resources.TextBeatError}"; // Handle invalid cases where numerator is negative or denominator is zero or negative
             }
@@ -4693,6 +4853,12 @@ namespace NeoBleeper
             metronomeTimer?.Dispose();
             MIDIIOUtils._midiIn?.Stop();
             MIDIIOUtils._midiIn?.Dispose();
+
+            // Stop accepting new audio jobs. The worker is a background thread, so shutdown
+            // cannot keep the process alive if a device call is still returning.
+            if (!audioPlaybackQueue.IsAddingCompleted)
+                audioPlaybackQueue.CompleteAdding();
+
             isClosing = true;
             StopAllSoundsBeforeClosing();
             ThemeManager.ThemeChanged -= ThemeManager_ThemeChanged;
@@ -5180,17 +5346,17 @@ namespace NeoBleeper
 
                 // Copy to clipboard
                 string standardizedText = StandardizeLocalizedLengthModsAndArticulations(clipboardText.ToString());
-                try 
-                { 
+                try
+                {
                     Clipboard.SetText(standardizedText);
                     Logger.Log("Copy to clipboard is executed.", Logger.LogTypes.Info);
                     Toast.ShowToast(this, Resources.ToastMessageNotesCopy, 2000, Toast.ToastIcon.Success);
                 }
-                catch (Exception ex) 
-                { 
-                    Logger.Log($"Clipboard write failed: {ex.Message}", Logger.LogTypes.Error); 
+                catch (Exception ex)
+                {
+                    Logger.Log($"Clipboard write failed: {ex.Message}", Logger.LogTypes.Error);
                     Toast.ShowToast(this, Resources.MessageFailedToCopy, 2000, Toast.ToastIcon.Error);
-                } 
+                }
             }
         }
 
@@ -6707,9 +6873,10 @@ namespace NeoBleeper
         /// <param name="duration">The duration of the beep, in milliseconds. Must be a positive integer.</param>
         /// <param name="nonStopping">true to prevent the beep from being interrupted by other sounds; otherwise, false.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        private async Task PlayBeepWithLabelAsync(int frequency, int duration, bool nonStopping = false)
+        private Task PlayBeepWithLabelAsync(int frequency, int duration, bool nonStopping = false)
         {
-            await Task.Run(() => PlayBeepWithLabel(frequency, duration, nonStopping));
+            return RunOnAudioPlaybackThreadAsync(() =>
+                PlayBeepWithLabel(frequency, duration, nonStopping));
         }
 
         /// <summary>
@@ -7038,20 +7205,20 @@ namespace NeoBleeper
         /// <remarks>This method attaches the necessary event handler and starts the MIDI input device. It
         /// has no effect if MIDI input is disabled or the MIDI input device is not available. Call this method before
         /// attempting to receive MIDI input events.</remarks>
-       private void InitializeMidiInput()
-{
-    if (!TemporarySettings.MIDIDevices.useMIDIinput) return;
+        private void InitializeMidiInput()
+        {
+            if (!TemporarySettings.MIDIDevices.useMIDIinput) return;
 
-    if (MIDIIOUtils._midiIn == null)
-        MIDIIOUtils.ChangeInputDevice(TemporarySettings.MIDIDevices.MIDIInputDevice);
+            if (MIDIIOUtils._midiIn == null)
+                MIDIIOUtils.ChangeInputDevice(TemporarySettings.MIDIDevices.MIDIInputDevice);
 
-    if (MIDIIOUtils._midiIn != null)
-    {
-        MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
-        MIDIIOUtils._midiIn.Start();
-        Logger.Log("MIDI input initialized and listening", Logger.LogTypes.Info);
-    }
-}
+            if (MIDIIOUtils._midiIn != null)
+            {
+                MIDIIOUtils._midiIn.MessageReceived += MidiIn_MessageReceived;
+                MIDIIOUtils._midiIn.Start();
+                Logger.Log("MIDI input initialized and listening", Logger.LogTypes.Info);
+            }
+        }
         // Handle MIDI device status changes
         private void MidiDevices_StatusChanged(object sender, EventArgs e)
         {

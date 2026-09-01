@@ -1842,6 +1842,7 @@ namespace NeoBleeper
             public static void PlayFilteredNoise(int freq, int ms, bool nonStopping)
             {
                 EnsureInitialized();
+
                 lock (AudioLock)
                 {
                     if (bandPassNoise == null)
@@ -1857,12 +1858,37 @@ namespace NeoBleeper
                     {
                         SetCurrentProvider(bandPassNoise);
                     }
-                    if (whiteNoiseGenerator.Gain == 0)
+
+                    // Open the noise gate only after the noise provider is active.
+                    whiteNoiseGenerator.Gain = 0.5;
+
+                    // Keep the output stream alive without calling StartSynth(), because
+                    // StartSynth() switches currentProvider back to rapidSignalGate.
+                    if (!isWaveOutRunning || waveOut.PlaybackState != PlaybackState.Playing)
                     {
-                        whiteNoiseGenerator.Gain = 0.5; // Restore noise gate
+                        try
+                        {
+                            waveOut.Play();
+                            isWaveOutRunning = true;
+                        }
+                        catch { }
                     }
                 }
-                PlaySound(ms, nonStopping);
+
+                if (ms > 0)
+                {
+                    HighPrecisionSleep.Sleep(ms);
+                }
+
+                if (!nonStopping)
+                {
+                    lock (AudioLock)
+                    {
+                        // Stop only the noise source. Do not call StopSynth(), since that
+                        // controls the regular rapidSignalGate path as well.
+                        whiteNoiseGenerator.Gain = 0.0;
+                    }
+                }
             }
 
             public static void SquareWave(int freq, int ms, bool nonStopping)
