@@ -317,23 +317,40 @@ namespace NeoBleeper
         {
             private readonly float[] _samples;
             private int _position;
+            private readonly TaskCompletionSource<bool> _drained =
+                new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
 
             public FloatArraySampleProvider(float[] samples, int sampleRate)
             {
                 _samples = samples ?? Array.Empty<float>();
                 WaveFormat = NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1);
+
+                if (_samples.Length == 0)
+                    _drained.TrySetResult(true);
             }
 
             public NAudio.Wave.WaveFormat WaveFormat { get; }
+            public Task Drained => _drained.Task;
 
             public int Read(float[] buffer, int offset, int count)
             {
                 int available = _samples.Length - _position;
                 int toCopy = Math.Min(available, count);
-                if (toCopy <= 0) return 0;
+                if (toCopy <= 0)
+                {
+                    _drained.TrySetResult(true);
+                    return 0;
+                }
 
                 Array.Copy(_samples, _position, buffer, offset, toCopy);
                 _position += toCopy;
+
+                // Signal as soon as the mixer has consumed the final sample from this finite input.
+                // Blend playback can synchronously wait on this instead of merely sleeping while
+                // the provider continues independently in the background.
+                if (_position >= _samples.Length)
+                    _drained.TrySetResult(true);
+
                 return toCopy;
             }
         }
@@ -852,7 +869,6 @@ namespace NeoBleeper
     int velocity = 100,
     bool enforceMinimumAudibleBody = true)
         {
-            sliceDurationMs = 13;
             if (ct.IsCancellationRequested) return;
             if (sliceDurationMs <= 0) return;
 
@@ -863,26 +879,70 @@ namespace NeoBleeper
             var completion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
             var request = new PercussionRequest(p, ct, audibleDurationMs, sliceDurationMs, output, prof, velocity, completion);
 
-            if (output == PercussionOutputChoice.SoundDevice)
-            {
-                // Stop active synth voice so note tone pauses during the percussion slice
-                SoundRenderingEngine.WaveSynthEngine.StopSynth();
-                PlayRenderedPercussion(request);
+            // In this API, enforceMinimumAudibleBody:false is the time-budgeted path used by
+            // note+percussion blends. ONLY that path alternates on Sound Device. Normal/solo
+            // percussion keeps using the regular rendered percussion output and is not forced
+            // through the melody/percussion alternator.
+            bool isNotePercussionBlendSlice = !enforceMinimumAudibleBody;
 
-                // Await slice duration synchronously to keep note and percussion strictly alternated in time
-                await Task.Delay(request.CompletionDelayMs, ct).ConfigureAwait(false);
-                if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
-                else completion.TrySetResult(true);
-            }
-            else
-            {
-                // System Speaker playback timing loop
-                await Task.Run(() => PlayRenderedPercussion(request), ct).ConfigureAwait(false);
-                if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
-                else completion.TrySetResult(true);
-            }
+            await Task.Run(() => PlayRenderedPercussion(request), ct).ConfigureAwait(false);
+
+            if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
+            else completion.TrySetResult(true);
 
             await completion.Task.ConfigureAwait(false);
+        }
+
+        
+        private static float[] BuildSoundDevicePwmSamples(byte[] pcmData, float volume)
+        {
+            if (pcmData == null || pcmData.Length == 0)
+                return Array.Empty<float>();
+
+            double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
+            double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
+
+            double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
+            int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
+            var pwm = new float[pwmPeriodCount * SoundDevicePwmSamplesPerPeriod];
+            double dutyError = 0.0;
+            double durationMs = durationSeconds * 1000.0;
+
+            // Short alternating slices need their attack to remain prominent. This is the same
+            // short-hit compensation used by the regular Sound Device PWM path.
+            double shortSoundBoost = durationMs < 80.0
+                ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85
+                : 1.0;
+
+            for (int period = 0; period < pwmPeriodCount; period++)
+            {
+                double t = (period + 0.5) / SoundDevicePwmCarrierHz;
+                double sourcePosition = t * PercussionSampleRate;
+                int i0 = Math.Clamp((int)Math.Floor(sourcePosition), 0, pcmData.Length - 1);
+                int i1 = Math.Min(i0 + 1, pcmData.Length - 1);
+                double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
+                double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
+
+                double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
+                double nonLinearAudio = Math.Sign(normAudio) *
+                                        Math.Pow(Math.Abs(normAudio), 0.85) *
+                                        1.9 * shortSoundBoost * volume;
+
+                double dutyCycle = Math.Clamp(0.5 + nonLinearAudio * 0.5, 0.0, 1.0);
+                double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
+                int onSamples = Math.Clamp(
+                    (int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero),
+                    0,
+                    SoundDevicePwmSamplesPerPeriod);
+                dutyError = wantedOnSamples - onSamples;
+
+                int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
+                float amp = (float)Math.Clamp(volume, 0.0, 2.0);
+                for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
+                    pwm[baseIndex + j] = j < onSamples ? amp : -amp;
+            }
+
+            return pwm;
         }
 
 
@@ -897,11 +957,11 @@ namespace NeoBleeper
             return PlayPercussionSliceImmediateAsync(p, sliceDurationMs, ct, velocity, enforceMinimumAudibleBody);
         }
 
-                private static int ResolveAudibleDurationMs(
-            MidiPercussion p,
-            int requestedDurationMs,
-            PercussionOutputChoice output,
-            bool enforceMinimumAudibleBody)
+        private static int ResolveAudibleDurationMs(
+    MidiPercussion p,
+    int requestedDurationMs,
+    PercussionOutputChoice output,
+    bool enforceMinimumAudibleBody)
         {
             // Honor enforceMinimumAudibleBody across all outputs so alternated slices (enforceMinimumAudibleBody: false)
             // do not stretch percussion and displace time budgeted for melodic notes.
@@ -1296,50 +1356,9 @@ namespace NeoBleeper
 
             if (choice == PercussionOutputChoice.SoundDevice)
             {
-                // True software PWM for standard audio device
-                double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
-                int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
-
-                var pwm = new float[pwmPeriodCount * SoundDevicePwmSamplesPerPeriod];
-                double dutyError = 0.0;
-
-                for (int period = 0; period < pwmPeriodCount; period++)
-                {
-                    double t = (period + 0.5) / SoundDevicePwmCarrierHz;
-                    double sourcePosition = t * PercussionSampleRate;
-                    int i0 = Math.Clamp((int)Math.Floor(sourcePosition), 0, pcmData.Length - 1);
-                    int i1 = Math.Min(i0 + 1, pcmData.Length - 1);
-                    double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
-
-                    double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
-
-                    // 1. Center normalize audio to -1.0 .. 1.0 using peak scale (preserves accurate decay dynamics)
-                    double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
-
-                    // Apply extra gain boost for very short percussion (cymbals/hi-hats) whose
-                    // transient energy is easily diluted by frame-averaging or PWM interpolation.
-                    double durationMs = (pcmData.Length / (double)PercussionSampleRate) * 1000.0;
-                    double shortSoundBoost = durationMs < 80.0
-                        ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85  // up to +85% extra gain for very short hits
-                        : 1.0;
-
-                    // Slightly hotter base curve (1.7 -> 1.9) plus user-controllable volume multiplier.
-                    double nonLinearAudio = Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * 1.9 * shortSoundBoost * volume;
-                    double dutyCycle = Math.Clamp(0.5 + (nonLinearAudio * 0.5), 0.0, 1.0);
-                    double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
-                    int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
-                    dutyError = wantedOnSamples - onSamples;
-
-                    int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
-
-                    // Scale the bipolar amplitude itself by volume too, so low volume settings
-                    // actually reduce loudness rather than just narrowing duty-cycle swing.
-                    float amp = (float)Math.Clamp(volume, 0.0, 2.0);
-
-                    for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
-                        pwm[baseIndex + j] = j < onSamples ? amp : -amp;
-                }
-
+                // True software PWM for standard audio device. Keep normal percussion on the
+                // long-lived mixer; only note+percussion blend slices use the synchronous path.
+                float[] pwm = BuildSoundDevicePwmSamples(pcmData, volume);
                 QueueMixedSoundDevicePwmSamples(pwm);
                 return;
             }
