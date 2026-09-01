@@ -291,7 +291,7 @@ namespace NeoBleeper
         }
 
         public enum PercussionOutputChoice { SystemSpeaker, SoundDevice }
-        internal enum SynthWave { Sine, Square, Triangle, Noise }
+        private enum SynthWave { Sine, Square, Triangle, Noise }
 
         private const double RetriggerGapMs = 0.5;
         private const double MinAudibleSystemSpeakerMs = 12.0;
@@ -370,34 +370,6 @@ namespace NeoBleeper
                 RandomSeed = Random.Shared.Next();
                 Completion = completion;
             }
-        }
-
-        /// <summary>
-        /// Holds one continuously-rendered percussion hit for monophonic time-division blending.
-        /// Windows taken from this session advance through the SAME hit instead of restarting
-        /// the attack every time melody temporarily owns the output.
-        /// </summary>
-        public sealed class PercussionBlendSession
-        {
-            internal readonly byte[] _pcm;
-            internal readonly PercussionOutputChoice _output;
-            internal readonly SynthWave _waveform;
-            internal readonly double _normalizationFactor;
-
-            internal PercussionBlendSession(
-                byte[] pcm,
-                PercussionOutputChoice output,
-                SynthWave waveform,
-                double normalizationFactor)
-            {
-                _pcm = pcm;
-                _output = output;
-                _waveform = waveform;
-                _normalizationFactor = normalizationFactor;
-            }
-
-            public int DurationMs =>
-                Math.Max(1, (int)Math.Ceiling(_pcm.Length * 1000.0 / PercussionSampleRate));
         }
 
         private static int ClampPercussionFrequency(double frequency, double minHz = 120.0, double maxHz = 1200.0) =>
@@ -522,21 +494,6 @@ namespace NeoBleeper
             // modes convert it to a binary PWM signal; neither mode reconstructs ordinary PCM.
             float[] samples = RenderPercussionSamples(request);
             byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
-            PlayPCMSoundAsPWM(pcm8, request.Output, request.Profile.BodyWave);
-        }
-
-        private static void PlayRenderedPercussionGated(PercussionRequest request, int gateDurationMs)
-        {
-            float[] rendered = RenderPercussionSamples(request);
-            int gateSamples = Math.Max(1, (int)Math.Ceiling(
-                Math.Max(1, gateDurationMs) * PercussionSampleRate / 1000.0));
-
-            if (rendered.Length > gateSamples)
-            {
-                Array.Resize(ref rendered, gateSamples);
-            }
-
-            byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(rendered);
             PlayPCMSoundAsPWM(pcm8, request.Output, request.Profile.BodyWave);
         }
 
@@ -888,426 +845,14 @@ namespace NeoBleeper
         /// no longer wait in a FIFO behind other hits) and "the wrong percussion sound plays"
         /// (no shared mutable state to race on).
         /// </summary>
-        /// <summary>
-        /// Renders one percussion hit once and keeps it available for short monophonic
-        /// time-division windows. This is preferable to repeatedly calling the ordinary
-        /// slice method while blending with melody, because every window continues the
-        /// original drum envelope rather than creating a new attack.
-        /// </summary>
-        public static PercussionBlendSession CreatePercussionBlendSession(
-            MidiPercussion p,
-            int renderDurationMs,
-            int velocity = 100)
-        {
-            var output = GetPercussionPlaybackOutput();
-            var prof = GetProfile(p);
-
-            int naturalDuration = Math.Max(1, prof.DurationMs);
-            int minimumBody = (int)Math.Ceiling(GetMinimumBodyMs(p));
-            int duration = Math.Clamp(
-                Math.Max(renderDurationMs, minimumBody),
-                1,
-                naturalDuration);
-
-            var request = new PercussionRequest(
-                p,
-                CancellationToken.None,
-                duration,
-                duration,
-                output,
-                prof,
-                velocity,
-                null);
-
-            float[] rendered = RenderPercussionSamples(request);
-            byte[] pcm = ConvertFloatSamplesToUnsigned8BitPcm(rendered);
-            double normalization = CalculatePwmNormalizationFactor(pcm);
-
-            return new PercussionBlendSession(
-                pcm,
-                output,
-                prof.BodyWave,
-                normalization);
-        }
-
-        /// <summary>
-        /// Plays a time window from a previously rendered percussion hit. sourceOffsetMs is
-        /// measured on the original drum timeline, so skipped intervals continue to decay
-        /// naturally while melody owns the monophonic output.
-        /// </summary>
-        public static async Task PlayPercussionBlendWindowAsync(
-            PercussionBlendSession session,
-            int sourceOffsetMs,
-            int windowDurationMs,
-            CancellationToken ct = default)
-        {
-            if (session == null || windowDurationMs <= 0 || ct.IsCancellationRequested)
-                return;
-
-            int startSample = Math.Clamp(
-                (int)Math.Floor(Math.Max(0, sourceOffsetMs) * PercussionSampleRate / 1000.0),
-                0,
-                session._pcm.Length);
-
-            if (startSample >= session._pcm.Length)
-            {
-                await Task.Delay(windowDurationMs, ct).ConfigureAwait(false);
-                return;
-            }
-
-            int requestedSamples = Math.Max(
-                1,
-                (int)Math.Ceiling(windowDurationMs * PercussionSampleRate / 1000.0));
-
-            int availableSamples = Math.Min(
-                requestedSamples,
-                session._pcm.Length - startSample);
-
-            byte[] window = new byte[availableSamples];
-            Array.Copy(session._pcm, startSample, window, 0, availableSamples);
-
-            double actualWindowMs = availableSamples * 1000.0 / PercussionSampleRate;
-
-            if (session._output == PercussionOutputChoice.SoundDevice)
-            {
-                PlayPCMSoundAsPWM(
-                    window,
-                    session._output,
-                    session._waveform,
-                    session._normalizationFactor);
-
-                int delayMs = Math.Max(1, (int)Math.Round(actualWindowMs));
-                await Task.Delay(delayMs, ct).ConfigureAwait(false);
-            }
-            else
-            {
-                await Task.Run(
-                    () => PlayPCMSoundAsPWM(
-                        window,
-                        session._output,
-                        session._waveform,
-                        session._normalizationFactor),
-                    ct).ConfigureAwait(false);
-            }
-
-            int remainingMs = windowDurationMs - Math.Max(1, (int)Math.Round(actualWindowMs));
-            if (remainingMs > 0)
-                await Task.Delay(remainingMs, ct).ConfigureAwait(false);
-        }
-
-
-        /// <summary>
-        /// Blends one percussion hit with held melody on a strictly monophonic output without
-        /// adding the waveforms together. Each 44.1 kHz source sample is assigned either to the
-        /// continuous percussion envelope or to the continuous melodic square wave by a
-        /// pulse-density scheduler. The switching therefore happens at ~22-44 kHz rather than
-        /// in millisecond blocks, so the ear fuses the two sources much more like polyphony while
-        /// the final signal remains one binary PWM stream at every instant.
-        /// </summary>
-        /// <summary>
-        /// Blends percussion and held melody on a strictly monophonic output using sub-1 ms,
-        /// randomized PWM grains with pulse-density-smoothed handoffs. Each source is converted to its own PWM representation
-        /// first, then whole PWM periods are selected from either the drum or melody stream. This
-        /// preserves the percussion's local high-frequency/metallic structure better than switching
-        /// raw PCM samples before PWM, while 0.25-0.75 ms grains stay below the 1 ms limit and avoid a
-        /// clearly audible switching rhythm or pitched side-tone.
-        /// </summary>
-        /// <summary>
-        /// Blends percussion and held melody continuously into one monophonic PWM stream.
-        /// There are no TDM grains or source handoffs: both sources contribute to every carrier
-        /// period's duty-cycle target, then that target is emitted as one binary pulse train.
-        /// A transient-aware melody weight keeps drum attacks/metallic texture from being masked
-        /// by the melodic square wave while avoiding abrupt ducking.
-        /// </summary>
-        public static async Task PlayPercussionAndMelodyTdmAsync(
-            MidiPercussion percussion,
-            int[] frequencies,
-            int durationMs,
-            CancellationToken ct = default,
-            int velocity = 100)
-        {
-            if (ct.IsCancellationRequested || durationMs <= 0)
-                return;
-
-            if (frequencies == null || frequencies.Length == 0)
-            {
-                await PlayPercussionSliceImmediateAsync(
-                    percussion,
-                    durationMs,
-                    ct,
-                    velocity,
-                    enforceMinimumAudibleBody: false).ConfigureAwait(false);
-                return;
-            }
-
-            PercussionOutputChoice output = GetPercussionPlaybackOutput();
-            PercussionProfile profile = GetProfile(percussion);
-
-            int drumRenderMs = Math.Clamp(
-                Math.Max(durationMs, (int)Math.Ceiling(GetMinimumBodyMs(percussion))),
-                1,
-                Math.Max(1, profile.DurationMs));
-
-            var request = new PercussionRequest(
-                percussion,
-                ct,
-                drumRenderMs,
-                drumRenderMs,
-                output,
-                profile,
-                velocity,
-                null);
-
-            float[] drumFloat = RenderPercussionSamples(request);
-            byte[] drumPcm = ConvertFloatSamplesToUnsigned8BitPcm(drumFloat);
-
-            int sampleCount = Math.Max(
-                1,
-                (int)Math.Ceiling(durationMs * PercussionSampleRate / 1000.0));
-
-            byte[] melodyPcm = new byte[sampleCount];
-
-            // Preserve the existing monophonic note rotation when several notes are held,
-            // but generate that melody continuously rather than starting/stopping NotePlayer.
-            const double noteRotationMs = 6.0;
-            int rotationSamples = Math.Max(
-                1,
-                (int)Math.Round(noteRotationMs * PercussionSampleRate / 1000.0));
-
-            double[] phases = new double[frequencies.Length];
-            for (int i = 0; i < sampleCount; i++)
-            {
-                int noteIndex = (i / rotationSamples) % frequencies.Length;
-
-                for (int n = 0; n < phases.Length; n++)
-                {
-                    int f = Math.Clamp(frequencies[n], 20, 12000);
-                    phases[n] += f / (double)PercussionSampleRate;
-                    if (phases[n] >= 1.0)
-                        phases[n] -= Math.Floor(phases[n]);
-                }
-
-                double melody = phases[noteIndex] < 0.5 ? 0.82 : -0.82;
-                melodyPcm[i] = (byte)Math.Clamp(
-                    (int)Math.Round((melody + 1.0) * 127.5),
-                    0,
-                    255);
-            }
-
-            double velocity01 = Math.Clamp(velocity / 127.0, 0.0, 1.0);
-            double drumShare = 0.40 + velocity01 * 0.10; // 40..50%, continuous rather than grain ownership
-
-            if (output == PercussionOutputChoice.SoundDevice)
-            {
-                float[] pwm = BuildContinuousBlendedSoundDevicePwm(
-                    drumPcm,
-                    melodyPcm,
-                    drumShare,
-                    ct);
-
-                QueueMixedSoundDevicePwmSamples(pwm);
-                await Task.Delay(durationMs, ct).ConfigureAwait(false);
-                return;
-            }
-
-            await Task.Run(() => PlayDualPcmAsContinuousHardwarePwm(
-                drumPcm,
-                melodyPcm,
-                drumShare,
-                durationMs,
-                ct), ct).ConfigureAwait(false);
-        }
-
-        private static float[] BuildContinuousBlendedSoundDevicePwm(
-    byte[] drumPcm,
-    byte[] melodyPcm,
-    double drumShare,
-    CancellationToken ct)
-        {
-            if (drumPcm == null || drumPcm.Length == 0 ||
-                melodyPcm == null || melodyPcm.Length == 0)
-                return Array.Empty<float>();
-
-            double drumNorm = CalculatePwmNormalizationFactor(drumPcm);
-            double melodyNorm = CalculatePwmNormalizationFactor(melodyPcm);
-            double durationSeconds = Math.Min(drumPcm.Length, melodyPcm.Length) / (double)PercussionSampleRate;
-
-            int periodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
-            var pwm = new float[periodCount * SoundDevicePwmSamplesPerPeriod];
-
-            double dutyError = 0.0;
-            double smoothedDrumActivity = 0.0;
-            double prevDrumSample = 0.0;
-            double filteredDuty = 0.5;
-
-            for (int period = 0; period < periodCount; period++)
-            {
-                if ((period & 0x3FF) == 0)
-                    ct.ThrowIfCancellationRequested();
-
-                double t = (period + 0.5) / SoundDevicePwmCarrierHz;
-                double sourcePosition = t * PercussionSampleRate;
-
-                double drum = ReadNormalizedPcmCubic(drumPcm, sourcePosition, drumNorm);
-                double melody = ReadNormalizedPcmCubic(melodyPcm, sourcePosition, melodyNorm);
-
-                // Detect high-frequency transient slope (differentiates snares/hats from kicks)
-                double drumDelta = Math.Abs(drum - prevDrumSample);
-                prevDrumSample = drum;
-
-                double activity = Math.Clamp(Math.Abs(drum) + (drumDelta * 1.5), 0.0, 1.0);
-                double coeff = activity > smoothedDrumActivity ? 0.40 : 0.03;
-                smoothedDrumActivity += (activity - smoothedDrumActivity) * coeff;
-
-                // Dynamic transient weighting preserves specific drum timbres
-                double drumWeight = 0.55 + (0.20 * smoothedDrumActivity);
-                double melodyWeight = 0.45 * (1.0 - 0.15 * smoothedDrumActivity);
-
-                double combined = (drum * drumWeight) + (melody * melodyWeight);
-                double targetDuty = Math.Clamp(0.5 + (combined * 0.48), 0.015, 0.985);
-
-                // Adaptive low-pass: Opens wide (0.98) on sharp attacks to pass drum detail, drops to 0.60 on sustain
-                double alpha = 0.60 + (0.38 * Math.Clamp(drumDelta * 2.0, 0.0, 1.0));
-                filteredDuty += alpha * (targetDuty - filteredDuty);
-
-                double wantedOnSamples = filteredDuty * SoundDevicePwmSamplesPerPeriod + dutyError;
-                int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
-                dutyError = wantedOnSamples - onSamples;
-
-                int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
-                for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
-                    pwm[baseIndex + j] = j < onSamples ? 1.0f : -1.0f;
-            }
-
-            return pwm;
-        }
-        private static double ReadNormalizedPcmLinear(
-            byte[] pcm,
-            double sourcePosition,
-            double normFactor)
-        {
-            int i0 = Math.Clamp((int)Math.Floor(sourcePosition), 0, pcm.Length - 1);
-            int i1 = Math.Min(i0 + 1, pcm.Length - 1);
-            double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
-            double value = pcm[i0] + (pcm[i1] - pcm[i0]) * frac;
-            return Math.Clamp(((value - 128.0) * normFactor) / 128.0, -1.0, 1.0);
-        }
-
-        private static void PlayDualPcmAsContinuousHardwarePwm(
-    byte[] drumPcm,
-    byte[] melodyPcm,
-    double drumShare,
-    int durationMs,
-    CancellationToken ct)
-        {
-            if (drumPcm == null || drumPcm.Length == 0 ||
-                melodyPcm == null || melodyPcm.Length == 0)
-                return;
-
-            const int carrierHz = 20000;
-            const double frameStepMs = 1000.0 / carrierHz;
-            int totalFrames = Math.Max(1, (int)Math.Ceiling(durationMs / frameStepMs));
-            double drumNorm = CalculatePwmNormalizationFactor(drumPcm);
-            double melodyNorm = CalculatePwmNormalizationFactor(melodyPcm);
-
-            var sw = Stopwatch.StartNew();
-            bool isBeeping = false;
-            double smoothedDrumActivity = 0.0;
-            double prevDrumSample = 0.0;
-            double filteredDuty = 0.5;
-
-            try
-            {
-                for (int frame = 0; frame < totalFrames; frame++)
-                {
-                    ct.ThrowIfCancellationRequested();
-
-                    double tSec = (frame + 0.5) / carrierHz;
-                    double sourcePosition = tSec * PercussionSampleRate;
-
-                    double drum = ReadNormalizedPcmCubic(drumPcm, sourcePosition, drumNorm);
-                    double melody = ReadNormalizedPcmCubic(melodyPcm, sourcePosition, melodyNorm);
-
-                    double drumDelta = Math.Abs(drum - prevDrumSample);
-                    prevDrumSample = drum;
-
-                    double activity = Math.Clamp(Math.Abs(drum) + (drumDelta * 1.5), 0.0, 1.0);
-                    double coeff = activity > smoothedDrumActivity ? 0.40 : 0.03;
-                    smoothedDrumActivity += (activity - smoothedDrumActivity) * coeff;
-
-                    double drumWeight = 0.55 + (0.20 * smoothedDrumActivity);
-                    double melodyWeight = 0.45 * (1.0 - 0.15 * smoothedDrumActivity);
-
-                    double combined = (drum * drumWeight) + (melody * melodyWeight);
-                    double targetDuty = Math.Clamp(0.5 + (combined * 0.48), 0.01, 0.99);
-
-                    double alpha = 0.60 + (0.38 * Math.Clamp(drumDelta * 2.0, 0.0, 1.0));
-                    filteredDuty += alpha * (targetDuty - filteredDuty);
-
-                    double activeTimeMs = frameStepMs * filteredDuty;
-                    double targetActiveMs = (frame * frameStepMs) + activeTimeMs;
-                    double targetFrameEndMs = (frame + 1) * frameStepMs;
-
-                    if (filteredDuty > 0.01)
-                    {
-                        if (!isBeeping)
-                        {
-                            SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(carrierHz);
-                            isBeeping = true;
-                        }
-                        LowCpuWaitUntil(sw, targetActiveMs);
-                    }
-
-                    if (filteredDuty < 0.99)
-                    {
-                        if (isBeeping)
-                        {
-                            SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
-                            isBeeping = false;
-                        }
-                        LowCpuWaitUntil(sw, targetFrameEndMs);
-                    }
-                }
-            }
-            finally
-            {
-                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
-            }
-        }
-        private static double ReadNormalizedPcmCubic(byte[] pcm, double index, double normFactor)
-        {
-            if (pcm == null || pcm.Length == 0) return 0.0;
-
-            int i1 = (int)Math.Floor(index);
-            double frac = index - i1;
-
-            int i0 = Math.Max(0, i1 - 1);
-            int i2 = Math.Min(pcm.Length - 1, i1 + 1);
-            int i3 = Math.Min(pcm.Length - 1, i1 + 2);
-            i1 = Math.Clamp(i1, 0, pcm.Length - 1);
-
-            // Convert to signed normalized double samples [-1.0, 1.0]
-            double y0 = (pcm[i0] - 128) / 128.0;
-            double y1 = (pcm[i1] - 128) / 128.0;
-            double y2 = (pcm[i2] - 128) / 128.0;
-            double y3 = (pcm[i3] - 128) / 128.0;
-
-            // Cubic Hermite Spline calculation
-            double c0 = y1;
-            double c1 = 0.5 * (y2 - y0);
-            double c2 = y0 - 2.5 * y1 + 2.0 * y2 - 0.5 * y3;
-            double c3 = 0.5 * (y3 - y0) + 1.5 * (y1 - y2);
-
-            return ((c3 * frac + c2) * frac + c1) * frac + c0;
-        }
-
         public static async Task PlayPercussionSliceImmediateAsync(
-            MidiPercussion p,
-            int sliceDurationMs,
-            CancellationToken ct = default,
-            int velocity = 100,
-            bool enforceMinimumAudibleBody = true)
+    MidiPercussion p,
+    int sliceDurationMs,
+    CancellationToken ct = default,
+    int velocity = 100,
+    bool enforceMinimumAudibleBody = true)
         {
+            sliceDurationMs = 13;
             if (ct.IsCancellationRequested) return;
             if (sliceDurationMs <= 0) return;
 
@@ -1315,42 +860,32 @@ namespace NeoBleeper
             var prof = GetProfile(p);
             int audibleDurationMs = ResolveAudibleDurationMs(p, sliceDurationMs, output, enforceMinimumAudibleBody);
 
-            // In alternating mode, preserve a realistic percussion attack/body envelope even
-            // when the assigned output slot is only a few milliseconds long. Rendering the whole
-            // envelope *compressed* into a 3-6 ms request makes kicks/snares/cymbals lose their
-            // character and sound faint. Instead, synthesize at least the natural minimum body
-            // length and then hard-gate the rendered signal to the caller's exact time slot.
-            // This changes timbre/clarity, not level and not melody ownership time.
-            int renderDurationMs = enforceMinimumAudibleBody
-                ? audibleDurationMs
-                : Math.Max(sliceDurationMs, (int)Math.Ceiling(GetMinimumBodyMs(p)));
-
             var completion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
-            int completionDelayMs = enforceMinimumAudibleBody
-                ? audibleDurationMs
-                : sliceDurationMs;
-            var request = new PercussionRequest(p, ct, renderDurationMs, completionDelayMs, output, prof, velocity, completion);
+            var request = new PercussionRequest(p, ct, audibleDurationMs, sliceDurationMs, output, prof, velocity, completion);
 
             if (output == PercussionOutputChoice.SoundDevice)
             {
-                PlayRenderedPercussionGated(request, completionDelayMs);
-                _ = Task.Delay(request.CompletionDelayMs, ct).ContinueWith(t =>
-                {
-                    if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
-                    else completion.TrySetResult(true);
-                }, TaskContinuationOptions.ExecuteSynchronously);
+                // Stop active synth voice so note tone pauses during the percussion slice
+                SoundRenderingEngine.WaveSynthEngine.StopSynth();
+                PlayRenderedPercussion(request);
+
+                // Await slice duration synchronously to keep note and percussion strictly alternated in time
+                await Task.Delay(request.CompletionDelayMs, ct).ConfigureAwait(false);
+                if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
+                else completion.TrySetResult(true);
             }
             else
             {
-                // System Speaker uses the same preserved envelope, but emits only the samples
-                // belonging to this alternating slot so melody timing is unchanged.
-                await Task.Run(() => PlayRenderedPercussionGated(request, completionDelayMs), ct).ConfigureAwait(false);
+                // System Speaker playback timing loop
+                await Task.Run(() => PlayRenderedPercussion(request), ct).ConfigureAwait(false);
                 if (ct.IsCancellationRequested) completion.TrySetCanceled(ct);
                 else completion.TrySetResult(true);
             }
 
             await completion.Task.ConfigureAwait(false);
         }
+
+
 
         public static Task PlayPercussionSliceAsync(
             MidiPercussion p,
@@ -1362,21 +897,15 @@ namespace NeoBleeper
             return PlayPercussionSliceImmediateAsync(p, sliceDurationMs, ct, velocity, enforceMinimumAudibleBody);
         }
 
-        private static int ResolveAudibleDurationMs(
+                private static int ResolveAudibleDurationMs(
             MidiPercussion p,
             int requestedDurationMs,
             PercussionOutputChoice output,
             bool enforceMinimumAudibleBody)
         {
-            // Respect the caller's slice boundary on every output. The alternating playback
-            // path passes enforceMinimumAudibleBody:false because the following melody (or next
-            // percussion slice) owns the output immediately after this time slot. Extending a
-            // Sound Device hit beyond that boundary would leave samples playing in the mixer and
-            // make the supposedly alternating sounds overlap. Solo/fire-and-forget callers keep
-            // enforceMinimumAudibleBody:true and still receive the natural minimum audible body.
-            bool shouldEnforceMinimumBody = enforceMinimumAudibleBody;
-
-            if (!shouldEnforceMinimumBody)
+            // Honor enforceMinimumAudibleBody across all outputs so alternated slices (enforceMinimumAudibleBody: false)
+            // do not stretch percussion and displace time budgeted for melodic notes.
+            if (!enforceMinimumAudibleBody)
             {
                 return requestedDurationMs;
             }
@@ -1685,9 +1214,6 @@ namespace NeoBleeper
 
         public static int GetNaturalDurationMs(MidiPercussion percussion) => GetProfile(percussion).DurationMs;
 
-        public static int GetMinimumAudibleDurationMs(MidiPercussion percussion) =>
-            (int)Math.Ceiling(GetMinimumBodyMs(percussion));
-
         private static PercussionOutputChoice GetPercussionPlaybackOutput()
         {
             return TemporarySettings.CreatingSounds.createBeepWithSoundDevice
@@ -1747,23 +1273,7 @@ namespace NeoBleeper
             }
             return arr[k];
         }
-        private static double CalculatePwmNormalizationFactor(byte[] pcmData)
-        {
-            if (pcmData == null || pcmData.Length == 0)
-                return 1.0;
-
-            double maxDeviation = Math.Max(
-                FindPercentileDeviation(pcmData, 0.995),
-                0.001);
-
-            return Math.Min(128.0 / maxDeviation, 40.0);
-        }
-
-        private static void PlayPCMSoundAsPWM(
-            byte[] pcmData,
-            PercussionOutputChoice choice,
-            SynthWave waveform,
-            double? normalizationOverride = null)
+        private static void PlayPCMSoundAsPWM(byte[] pcmData, PercussionOutputChoice choice, SynthWave waveform)
         {
             if (pcmData == null || pcmData.Length == 0)
                 return;
@@ -1773,10 +1283,16 @@ namespace NeoBleeper
             // absolute max, so a single glitch/click sample can't suppress normalization,
             // while still capturing real (even narrow) transient peaks.
 
-            // A blend session supplies the normalization measured from the complete drum
-            // waveform. Reusing it for every window preserves the natural attack/decay level;
-            // recalculating normalization independently for tiny windows would flatten the tail.
-            double normFactor = normalizationOverride ?? CalculatePwmNormalizationFactor(pcmData);
+            var deviations = new double[pcmData.Length];
+            for (int i = 0; i < pcmData.Length; i++)
+                deviations[i] = Math.Abs(pcmData[i] - 128.0);
+
+            Array.Sort(deviations);
+            int idx = Math.Clamp((int)(deviations.Length * 0.995), 0, deviations.Length - 1);
+            double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
+            // Exact normalization factor: maps the (robust) peak audio sample to maximum range
+            double normFactor = 128.0 / maxDeviation;
+            normFactor = Math.Min(normFactor, 40.0); // avoid extreme gain on near-silent buffers
 
             if (choice == PercussionOutputChoice.SoundDevice)
             {

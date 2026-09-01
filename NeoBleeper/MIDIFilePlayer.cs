@@ -1997,7 +1997,7 @@ namespace NeoBleeper
             if (totalDurationMs <= 0)
                 return;
 
-            if (frequencies == null || frequencies.Length == 0)
+            if (frequencies.Length == 0)
             {
                 UpdateAudioNoteIndicators(new HashSet<int>());
                 await PlayOnlyPercussionAsync(
@@ -2008,21 +2008,51 @@ namespace NeoBleeper
                 return;
             }
 
+            int percussionSlice = GetSharedPercussionSliceMs(
+                percussion,
+                totalDurationMs,
+                percussionVelocity);
+
+            if (percussionSlice <= 0)
+            {
+                UpdateAudioNoteIndicators(melodicNotes);
+                await PlayMelodySliceAsync(
+                    frequencies,
+                    totalDurationMs,
+                    token).ConfigureAwait(false);
+                return;
+            }
+
             _lastPercussion = percussion;
             _lastPercussionTick = currentTick;
 
-            // Keep melody labels visible: the audible output is now one ultrasonic/sample-level
-            // TDM stream, not millisecond-sized percussion and melody blocks.
-            UpdateAudioNoteIndicators(melodicNotes);
+            // Percussion owns the speaker first, so do not show the melodic note yet.
+            UpdateAudioNoteIndicators(new HashSet<int>());
+
+            await PlayOnlyPercussionAsync(
+                percussion,
+                percussionSlice,
+                token,
+                enforceMinimumAudibleBody: false,
+                velocity: percussionVelocity).ConfigureAwait(false);
 
             NotePlayer.StopAllNotes();
 
-            await PercussionSounds.PlayPercussionAndMelodyTdmAsync(
-                percussion,
-                frequencies,
-                totalDurationMs,
-                token,
-                percussionVelocity).ConfigureAwait(false);
+            int remainingMelodyMs = totalDurationMs - percussionSlice;
+            if (remainingMelodyMs > 0)
+            {
+                // The melodic sound starts now; expose its labels at this exact boundary.
+                UpdateAudioNoteIndicators(melodicNotes);
+
+                await PlayMelodySliceAsync(
+                    frequencies,
+                    remainingMelodyMs,
+                    token).ConfigureAwait(false);
+            }
+            else
+            {
+                UpdateAudioNoteIndicators(new HashSet<int>());
+            }
         }
 
         private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, bool enforceMinimumAudibleBody = true, int velocity = 100)
@@ -2047,7 +2077,6 @@ namespace NeoBleeper
                         percussion,
                         playDuration,
                         token,
-                        velocity: velocity,
                         enforceMinimumAudibleBody: enforceMinimumAudibleBody).ConfigureAwait(false);
                 }
 
@@ -2072,28 +2101,27 @@ namespace NeoBleeper
             int frameDurationMs,
             int velocity = 100)
         {
-            if (frameDurationMs <= 1)
-                return Math.Max(1, frameDurationMs);
-
             int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
-            double velocity01 = Math.Clamp(velocity / 127.0, 0.0, 1.0);
 
-            // Give percussion a clearly longer coherent transient. This intentionally
-            // favors the drum more than v5, but still reserves a small tail of every
-            // shared frame for the held melody so it is never completely displaced.
-            double share = 0.52 + velocity01 * 0.16; // 52..68%
-            int byShare = Math.Max(1, (int)Math.Round(frameDurationMs * share));
+            // Scale noise slice length with velocity for dynamic impact in sound device mode
+            double velocityFactor = Math.Clamp(velocity / 127.0, 0.5, 1.25);
+            int scaledNaturalDuration = (int)Math.Round(naturalDuration * velocityFactor);
 
-            int cap = frameDurationMs <= 20
-                ? Math.Max(1, (int)Math.Round(frameDurationMs * 0.68))
-                : frameDurationMs <= 40
-                    ? 20
-                    : 34;
+            int candidate = Math.Min(frameDurationMs, scaledNaturalDuration);
 
-            const int minMelodyReserveMs = 3;
+            if (candidate <= 0)
+            {
+                return 0;
+            }
+
+            if (frameDurationMs > 30)
+            {
+                return Math.Clamp(candidate, 8, 30);
+            }
+
+            // In short frames, reserve a slice for held melody notes to prevent drum dropouts
+            const int minMelodyReserveMs = 4;
             int maxPercussionSlice = Math.Max(1, frameDurationMs - minMelodyReserveMs);
-            int candidate = Math.Min(naturalDuration, Math.Min(byShare, cap));
-
             return Math.Clamp(candidate, 1, maxPercussionSlice);
         }
 
@@ -3637,21 +3665,21 @@ namespace NeoBleeper
 
             if (usePolyphonicAudioBackend)
             {
-                // Keep Sound Device playback on the same alternating timeline as the
-                // system-speaker path. Starting melody and every drum hit concurrently
-                // here defeats alternation and lets percussion tails overlap notes.
-                NoteOnEvent soundDeviceDrum =
-                    SelectPercussionForPcSpeaker(
-                        frameAudio.PercussionEvents,
-                        frameAudio.MelodicNotes);
+                Task melodyTask =
+                    PlayMelodySliceAsync(
+                        frequencies,
+                        totalFrameDuration,
+                        token);
 
-                await PlayPcSpeakerFrameAsync(
-                    frequencies,
-                    frameAudio.MelodicNotes,
-                    soundDeviceDrum,
-                    totalFrameDuration,
-                    currentTime,
-                    token).ConfigureAwait(false);
+                Task percussionTask =
+                    PlayPolyphonicPercussionAsync(
+                        frameAudio.PercussionEvents,
+                        totalFrameDuration,
+                        token);
+
+                await Task.WhenAll(
+                    melodyTask,
+                    percussionTask).ConfigureAwait(false);
             }
         }
 
