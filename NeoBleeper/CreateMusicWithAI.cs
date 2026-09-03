@@ -631,12 +631,16 @@ namespace NeoBleeper
         public static bool IsAPIKeyValidFormat(string APIKey)
         {
             // Google API keys typically start with "AIzaSy" followed by 33 alphanumeric characters, underscores, or hyphens
+            // or start with "AQ.Ab8RN6" followed by 47 alphanumeric characters, underscores, or hyphens
             if (string.IsNullOrWhiteSpace(APIKey))
                 return false;
 
-            // Regex pattern to match the Google API key format
-            var regex = new Regex(@"AIzaSy[A-Za-z0-9_\-]{33}$");
-            return regex.IsMatch(APIKey);
+            // Regex pattern to match the legacy Gemini API key format
+            var regex1 = new Regex(@"AIzaSy[A-Za-z0-9_\-]{33}$");
+
+            // Regex pattern to match the new Google API key format
+            var regex2 = new Regex(@"AQ.Ab8RN6[A-Za-z0-9_\-]{47}$");
+            return regex1.IsMatch(APIKey);
         }
 
         /// <summary>
