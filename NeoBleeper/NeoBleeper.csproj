@@ -57,11 +57,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.76.0" />
     <PackageReference Include="Google_GenerativeAI" Version="3.6.7" />
-    <PackageReference Include="NAudio" Version="2.3.0" />
-    <PackageReference Include="System.IO.Ports" Version="10.0.10" />
-    <PackageReference Include="System.Management" Version="10.0.10" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.10" />
+    <PackageReference Include="NAudio" Version="3.0.1" />
+    <PackageReference Include="System.IO.Ports" Version="10.0.11" />
+    <PackageReference Include="System.Management" Version="10.0.11" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>

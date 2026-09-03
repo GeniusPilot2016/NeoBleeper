@@ -1396,7 +1396,16 @@ namespace NeoBleeper
 
                 public int Read(float[] buffer, int offset, int count)
                 {
-                    int read = source.Read(buffer, offset, count);
+                    if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+                    if (offset < 0 || count < 0 || offset + count > buffer.Length)
+                        throw new ArgumentOutOfRangeException(nameof(count));
+
+                    return Read(new Span<float>(buffer, offset, count));
+                }
+
+                public int Read(Span<float> buffer)
+                {
+                    int read = source.Read(buffer);
 
                     int channels = WaveFormat.Channels;
                     int frameCount = read / channels;
@@ -1468,7 +1477,6 @@ namespace NeoBleeper
                             }
                         }
 
-                        // Trigger a high-energy transient impulse on every 1-bit state transition edge
                         if (preciseGateMode && gateState != previousState)
                         {
                             clickImpulseLevel = (gateState > previousState)
@@ -1476,10 +1484,9 @@ namespace NeoBleeper
                                 : -ClickPeakAmplitude;
                         }
 
-                        int sampleIndex = offset + frame * channels;
+                        int sampleIndex = frame * channels;
                         float targetGain = (gateState != 0) ? (float)OpenGain : 0.0f;
 
-                        // Smooth tone gain calculation for non-precise mode
                         if (toneGainLevel < targetGain)
                         {
                             toneGainLevel = Math.Min(targetGain, toneGainLevel + slewStepPerSample);
@@ -1489,23 +1496,19 @@ namespace NeoBleeper
                             toneGainLevel = Math.Max(targetGain, toneGainLevel - slewStepPerSample);
                         }
 
-                        // Sample rendering
                         for (int channel = 0; channel < channels; channel++)
                         {
                             if (preciseGateMode)
                             {
-                                // 1-Bit PC Speaker mode: render loud, punchy impulse transient
                                 buffer[sampleIndex + channel] = clickImpulseLevel;
                             }
                             else
                             {
-                                // Standard tone generator mode: render clean, unmuffled audio wave
                                 float gainScalar = (float)(OpenGain > 0 ? toneGainLevel / OpenGain : 0.0);
                                 buffer[sampleIndex + channel] *= gainScalar;
                             }
                         }
 
-                        // Exponential impulse decay (~0.2ms snap)
                         clickImpulseLevel *= ClickDecayRate;
                         if (Math.Abs(clickImpulseLevel) < 1e-5f) clickImpulseLevel = 0.0f;
                     }
@@ -1513,6 +1516,11 @@ namespace NeoBleeper
                     renderedGateState = gateState;
                     renderedFrames = frameAfterBuffer;
                     return read;
+                }
+
+                public int Read(Span<float> buffer, int offset, int count)
+                {
+                    return Read(buffer.Slice(offset, count));
                 }
 
                 private void BeginCandidateLocked(int stateBeforeEdge, long timestamp, int newState)
@@ -1604,7 +1612,7 @@ namespace NeoBleeper
             {
                 // Safe static initialization: Do NOT call waveOut.Init or waveOut.Play here to prevent TypeInitializationException
                 currentProvider = rapidSignalGate;
-                waveOut.DesiredLatency = 1;
+                waveOut.BufferMilliseconds = 1;
                 waveOut.NumberOfBuffers = 35;
                 waveOut.Volume = 1.0f; // Ensure volume is at max to prevent stuck muted sound
             }
@@ -1940,10 +1948,19 @@ namespace NeoBleeper
             /// end of the data is reached.</returns>
             public int Read(float[] buffer, int offset, int count)
             {
-                int samplesRead = noiseGenerator.Read(buffer, offset, count);
+                if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+                if (offset < 0 || count < 0 || offset + count > buffer.Length)
+                    throw new ArgumentOutOfRangeException(nameof(count));
+
+                return Read(new Span<float>(buffer, offset, count));
+            }
+
+            public int Read(Span<float> buffer)
+            {
+                int samplesRead = noiseGenerator.Read(buffer);
                 for (int i = 0; i < samplesRead; i++)
                 {
-                    buffer[offset + i] = bandPassFilter.Transform(buffer[offset + i]);
+                    buffer[i] = bandPassFilter.Transform(buffer[i]);
                 }
                 return samplesRead;
             }
@@ -2014,10 +2031,19 @@ namespace NeoBleeper
             /// the end of the source is reached.</returns>
             public int Read(float[] buffer, int offset, int count)
             {
-                int samplesRead = source.Read(buffer, offset, count);
+                if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+                if (offset < 0 || count < 0 || offset + count > buffer.Length)
+                    throw new ArgumentOutOfRangeException(nameof(count));
+
+                return Read(new Span<float>(buffer, offset, count));
+            }
+
+            public int Read(Span<float> buffer)
+            {
+                int samplesRead = source.Read(buffer);
                 for (int i = 0; i < samplesRead; i++)
                 {
-                    buffer[offset + i] = (float)(filter.Transform(buffer[offset + i]) * gain);
+                    buffer[i] = (float)(filter.Transform(buffer[i]) * gain);
                 }
                 return samplesRead;
             }
@@ -2061,8 +2087,17 @@ namespace NeoBleeper
             /// samples requested if the end of the audio data is reached and looping is not enabled.</returns>
             public int Read(float[] buffer, int offset, int count)
             {
+                if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+                if (offset < 0 || count < 0 || offset + count > buffer.Length)
+                    throw new ArgumentOutOfRangeException(nameof(count));
+
+                return Read(new Span<float>(buffer, offset, count));
+            }
+
+            public int Read(Span<float> buffer)
+            {
                 int written = 0;
-                while (written < count)
+                while (written < buffer.Length)
                 {
                     int available = cached.AudioData.Length - (int)position;
                     if (available <= 0)
@@ -2071,8 +2106,8 @@ namespace NeoBleeper
                         position = 0;
                         available = cached.AudioData.Length;
                     }
-                    int toCopy = Math.Min(available, count - written);
-                    Array.Copy(cached.AudioData, position, buffer, offset + written, toCopy);
+                    int toCopy = Math.Min(available, buffer.Length - written);
+                    cached.AudioData.AsSpan((int)position, toCopy).CopyTo(buffer.Slice(written, toCopy));
                     position += toCopy;
                     written += toCopy;
                 }
@@ -2103,7 +2138,7 @@ namespace NeoBleeper
                 masterMixer = new MixingSampleProvider(WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1)) { ReadFully = true };
                 masterWaveOut = new WaveOutEvent
                 {
-                    DesiredLatency = 1,
+                    BufferMilliseconds = 1,
                     NumberOfBuffers = 35,
                     Volume = 1.0f
                 };
@@ -2132,12 +2167,21 @@ namespace NeoBleeper
                 /// been reached.</returns>
                 public int Read(float[] buffer, int offset, int count)
                 {
+                    if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+                    if (offset < 0 || count < 0 || offset + count > buffer.Length)
+                        throw new ArgumentOutOfRangeException(nameof(count));
+
+                    return Read(new Span<float>(buffer, offset, count));
+                }
+
+                public int Read(Span<float> buffer)
+                {
                     if (removed)
                     {
-                        Array.Clear(buffer, offset, count);
-                        return count;
+                        buffer.Clear();
+                        return buffer.Length;
                     }
-                    return inner.Read(buffer, offset, count);
+                    return inner.Read(buffer);
                 }
             }
 
@@ -2353,7 +2397,7 @@ namespace NeoBleeper
                 int read = 0;
                 while (read < totalSamples)
                 {
-                    int r = mixingProvider.Read(renderBuffer, read, totalSamples - read);
+                    int r = mixingProvider.Read(new Span<float>(renderBuffer, read, totalSamples - read));
                     if (r == 0) break;
                     read += r;
                 }
@@ -2365,7 +2409,7 @@ namespace NeoBleeper
                 read = 0;
                 while (read < totalSamples)
                 {
-                    int r = noiseGen.Read(noiseBuffer, read, totalSamples - read);
+                    int r = noiseGen.Read(new Span<float>(noiseBuffer, read, totalSamples - read));
                     if (r == 0) break;
                     read += r;
                 }

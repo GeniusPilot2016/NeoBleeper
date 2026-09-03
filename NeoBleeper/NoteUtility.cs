@@ -310,47 +310,55 @@ namespace NeoBleeper
         private const int SoundDevicePwmSamplesPerPeriod = SoundDevicePwmSampleRate / SoundDevicePwmCarrierHz;
 
         private static readonly object _soundDeviceLock = new object();
-        private static NAudio.Wave.WaveOutEvent? _percussionWaveOut;
+        private static NAudio.Wave.WaveOut? _percussionWaveOut;
         private static NAudio.Wave.SampleProviders.MixingSampleProvider? _percussionMixer;
 
-        private sealed class FloatArraySampleProvider : NAudio.Wave.ISampleProvider
+        private sealed class FloatArraySampleProvider : ISampleProvider
         {
             private readonly float[] _samples;
             private int _position;
-            private readonly TaskCompletionSource<bool> _drained =
-                new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            private readonly TaskCompletionSource<bool> _drained;
 
             public FloatArraySampleProvider(float[] samples, int sampleRate)
             {
-                _samples = samples ?? Array.Empty<float>();
+                _samples = samples ?? throw new ArgumentNullException(nameof(samples));
                 WaveFormat = NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, 1);
-
-                if (_samples.Length == 0)
-                    _drained.TrySetResult(true);
+                _drained = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
             }
 
-            public NAudio.Wave.WaveFormat WaveFormat { get; }
+            public WaveFormat WaveFormat { get; }
             public Task Drained => _drained.Task;
 
+            // Mevcut dizi tabanlı okuma metodu muhafaza ediliyor
             public int Read(float[] buffer, int offset, int count)
             {
-                int available = _samples.Length - _position;
+                if (buffer == null) throw new ArgumentNullException(nameof(buffer));
+                if (offset < 0 || count < 0 || offset + count > buffer.Length) throw new ArgumentOutOfRangeException();
+
+                int available = Math.Max(0, _samples.Length - _position);
                 int toCopy = Math.Min(available, count);
-                if (toCopy <= 0)
+                if (toCopy > 0)
                 {
-                    _drained.TrySetResult(true);
-                    return 0;
+                    Array.Copy(_samples, _position, buffer, offset, toCopy);
+                    _position += toCopy;
                 }
-
-                Array.Copy(_samples, _position, buffer, offset, toCopy);
-                _position += toCopy;
-
-                // Signal as soon as the mixer has consumed the final sample from this finite input.
-                // Blend playback can synchronously wait on this instead of merely sleeping while
-                // the provider continues independently in the background.
                 if (_position >= _samples.Length)
                     _drained.TrySetResult(true);
+                return toCopy;
+            }
 
+            public int Read(Span<float> buffer)
+            {
+                int available = Math.Max(0, _samples.Length - _position);
+                int toCopy = Math.Min(available, buffer.Length);
+                if (toCopy > 0)
+                {
+                    for (int i = 0; i < toCopy; i++)
+                        buffer[i] = _samples[_position + i];
+                    _position += toCopy;
+                }
+                if (_position >= _samples.Length)
+                    _drained.TrySetResult(true);
                 return toCopy;
             }
         }
@@ -469,9 +477,9 @@ namespace NeoBleeper
                     ReadFully = true
                 };
 
-                _percussionWaveOut = new NAudio.Wave.WaveOutEvent
+                _percussionWaveOut = new NAudio.Wave.WaveOut
                 {
-                    DesiredLatency = 40,
+                    BufferMilliseconds = 40,
                     NumberOfBuffers = 3
                 };
                 _percussionWaveOut.Init(_percussionMixer);
