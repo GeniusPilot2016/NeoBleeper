@@ -639,8 +639,8 @@ namespace NeoBleeper
             var regex1 = new Regex(@"AIzaSy[A-Za-z0-9_\-]{33}$");
 
             // Regex pattern to match the new Google API key format
-            var regex2 = new Regex(@"AQ.Ab8RN6[A-Za-z0-9_\-]{47}$");
-            return regex1.IsMatch(APIKey);
+            var regex2 = new Regex(@"^AQ\.Ab8RN6[A-Za-z0-9_-]{44}$");
+            return regex1.IsMatch(APIKey) || regex2.IsMatch(APIKey);
         }
 
         /// <summary>
