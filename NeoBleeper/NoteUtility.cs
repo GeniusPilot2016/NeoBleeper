@@ -694,7 +694,7 @@ namespace NeoBleeper
             double velocity01 =
                 request.Velocity / 127.0;
 
-            double masterGain = 1.00 + velocity01 * 0.50;
+            double masterGain = 1.50 + velocity01 * 1.00;
 
             uint rng =
                 unchecked(
@@ -2326,7 +2326,7 @@ namespace NeoBleeper
                     period *
                     SoundDevicePwmSamplesPerPeriod;
 
-                float amp = (float)Math.Clamp(volume * 0.25, 0.0, 0.5);
+                float amp = (float)Math.Clamp(volume * 0.4, 0.0, 0.9);
 
                 for (int j = 0;
                      j < SoundDevicePwmSamplesPerPeriod;
