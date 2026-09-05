@@ -610,7 +610,8 @@ namespace NeoBleeper
             PlayPCMSoundAsPWM(
                 pcm8,
                 PercussionOutputChoice.SoundDevice,
-                request.Profile.BodyWave);
+                request.Profile.BodyWave,
+                request.Velocity);
         }
 
         private static void QueueMixedSoundDevicePwmSamples(
@@ -651,7 +652,8 @@ namespace NeoBleeper
             PlayPCMSoundAsPWM(
                 pcm8,
                 request.Output,
-                request.Profile.BodyWave);
+                request.Profile.BodyWave,
+                request.Velocity);
         }
 
         private static byte[] ConvertFloatSamplesToUnsigned8BitPcm(
@@ -1888,7 +1890,8 @@ namespace NeoBleeper
             MidiPercussion p,
             CancellationToken ct = default,
             int maxMs = 5000,
-            int velocity = 100)
+            int velocity = 100,
+            int? requestedDurationMs = null)
         {
             if (ct.IsCancellationRequested)
                 return;
@@ -1899,12 +1902,25 @@ namespace NeoBleeper
             var prof =
                 GetProfile(p);
 
+            // Previously this always used prof.DurationMs (a fixed per-instrument constant),
+            // so every hit of a given percussion type rendered to the exact same length
+            // regardless of what the caller actually asked for. System Speaker's velocity/
+            // progress-gated cutoff in GetPlaybackSignalCore could still shorten what was
+            // audible, masking the bug there, but Sound Device plays the rendered buffer
+            // verbatim, so the fixed length was fully exposed. Respect a caller-supplied
+            // duration when given, and only fall back to the profile's natural length
+            // otherwise.
+            int baseDuration =
+                requestedDurationMs.HasValue
+                    ? requestedDurationMs.Value
+                    : prof.DurationMs;
+
             int duration =
                 Math.Max(
                     30,
                     Math.Min(
                         maxMs,
-                        prof.DurationMs));
+                        baseDuration));
 
             EnqueuePercussion(
                 new PercussionRequest(
@@ -2051,18 +2067,13 @@ namespace NeoBleeper
                         // Render with full multi-band percussion engine instead of flat WaveSynth
                         float[] samples = RenderPercussionSamples(request);
 
-                        // Boost sample gain for short blend slices (1.8x - 2.5x gain boost)
-                        double velocity01 = request.Velocity / 127.0;
-                        float blendBoost = (float)(0.4 + 0.2 * Math.Sqrt(velocity01));
-
-                        for (int i = 0; i < samples.Length; i++)
-                        {
-                            samples[i] = (float)Math.Clamp(samples[i] * blendBoost, -1.0, 1.0);
-                        }
-
-                        // Play directly through NAudio SoundDevice PWM/Mixer engine synchronously
+                        // Velocity is applied inside BuildSoundDevicePwmSamples (after its internal
+                        // shape-normalization step), not here — scaling `samples` before that
+                        // normalization has no audible effect, since the normalization renormalizes
+                        // based on the resulting PCM's own percentile deviation and cancels out any
+                        // uniform linear pre-scale.
                         byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
-                        float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f); // High volume PWM carrier
+                        float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity); // High volume PWM carrier
 
                         QueueMixedSoundDevicePwmSamples(pwmSamples);
 
@@ -2128,10 +2139,15 @@ namespace NeoBleeper
 
                 if (isSoundDeviceNoise)
                 {
-                    // Start white noise immediately at full scale gain once for the slice duration
-                    SoundRenderingEngine.WaveSynthEngine.StartSynth(
-                        NAudio.Wave.SampleProviders.SignalGeneratorType.White,
-                        1000); // Fixed nominal frequency for white noise
+                    // StartSynth has no gain/volume parameter, and WaveSynthEngine itself exposes
+                    // no volume setter, so velocity can't be applied to this path by adjusting the
+                    // synth call. Route through the same rendered-PCM -> velocity-scaled PWM path
+                    // already used elsewhere for Sound Device instead of the raw full-gain synth.
+                    float[] samples = RenderPercussionSamples(request);
+                    byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
+                    float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity);
+
+                    QueueMixedSoundDevicePwmSamples(pwmSamples);
 
                     currentOutput = request.Output;
 
@@ -2202,7 +2218,8 @@ namespace NeoBleeper
 
         private static float[] BuildSoundDevicePwmSamples(
             byte[] pcmData,
-            float volume)
+            float volume,
+            int velocity = 100)
         {
             if (pcmData == null ||
                 pcmData.Length == 0)
@@ -2221,6 +2238,24 @@ namespace NeoBleeper
                 Math.Min(
                     128.0 / maxDeviation,
                     40.0);
+
+            // normFactor above renormalizes every hit's *shape* to the same reference peak,
+            // regardless of how loud RenderPercussionSamples originally rendered it — that's
+            // needed so quiet transients still resolve cleanly, but it also means velocity
+            // can't be recovered by scaling amplitude before or after this step: any uniform
+            // multiplier just gets soaked up by Math.Clamp on dutyCycle once it pushes past
+            // 0.0/1.0. A PWM signal whose duty cycle saturates at 0.0 or 1.0 is effectively
+            // constant (no switching), which real sound hardware's AC-coupling treats as DC
+            // and filters out — so loud and medium-loud hits were clamping to the same
+            // near-silent extreme and sounding identical. Instead, velocity controls how far
+            // dutyCycle is allowed to swing away from the silent center (0.5), using the same
+            // 0.05–0.50 mapping used for the System Speaker's 1-bit duty cycle, and that swing
+            // is explicitly bounded so it never reaches the 0.0/1.0 saturation point.
+            double velocityDutyScale =
+                NoteUtility.VelocityToDutyCycle(velocity); // 0.05–0.50
+
+            double velocityGain =
+                NoteUtility.VelocityToGain(velocity);
 
             double durationSeconds =
                 pcmData.Length /
@@ -2251,6 +2286,15 @@ namespace NeoBleeper
                       80.0 *
                       0.85
                     : 1.0;
+
+            // Carrier amplitude still gets a gentle velocity nudge, but far less aggressively
+            // than duty-cycle now does, and it never saturates to the same clamp ceiling for
+            // every velocity the way the old `volume * 0.4` multiplier did.
+            float amp =
+                (float)Math.Clamp(
+                    volume * 0.25 * (0.5 + 0.5 * velocityGain),
+                    0.05,
+                    0.9);
 
             for (int period = 0;
                  period < pwmPeriodCount;
@@ -2293,17 +2337,20 @@ namespace NeoBleeper
                      normFactor) /
                     128.0;
 
-                double nonLinearAudio =
-                 Math.Sign(normAudio) *
-                 Math.Pow(Math.Abs(normAudio), 0.85) *
-                 0.4 * shortSoundBoost * volume;
+                double shape =
+                    Math.Clamp(
+                        Math.Sign(normAudio) *
+                        Math.Pow(Math.Abs(normAudio), 0.85) *
+                        shortSoundBoost,
+                        -1.0,
+                        1.0);
 
                 double dutyCycle =
                     Math.Clamp(
                         0.5 +
-                        nonLinearAudio * 0.5,
-                        0.0,
-                        1.0);
+                        shape * velocityDutyScale,
+                        0.02,
+                        0.98);
 
                 double wantedOnSamples =
                     dutyCycle *
@@ -2325,8 +2372,6 @@ namespace NeoBleeper
                 int baseIndex =
                     period *
                     SoundDevicePwmSamplesPerPeriod;
-
-                float amp = (float)Math.Clamp(volume * 0.4, 0.0, 0.9);
 
                 for (int j = 0;
                      j < SoundDevicePwmSamplesPerPeriod;
@@ -3332,7 +3377,8 @@ namespace NeoBleeper
         private static void PlayPCMSoundAsPWM(
             byte[] pcmData,
             PercussionOutputChoice choice,
-            SynthWave waveform)
+            SynthWave waveform,
+            int velocity = 100)
         {
             if (pcmData == null ||
                 pcmData.Length == 0)
@@ -3392,7 +3438,8 @@ namespace NeoBleeper
                 float[] pwm =
                     BuildSoundDevicePwmSamples(
                         pcmData,
-                        volume);
+                        volume,
+                        velocity);
 
                 QueueMixedSoundDevicePwmSamples(
                     pwm);
@@ -3401,6 +3448,8 @@ namespace NeoBleeper
             }
 
             // Hardware PWM with Peak-Transient Detection
+            // (System Speaker branch below is intentionally left untouched by the
+            // velocity fix — it already responds to velocity via GetPlaybackSignalCore.)
             const int carrierHz = 20000;
 
             const double frameStepMs =
