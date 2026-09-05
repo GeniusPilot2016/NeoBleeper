@@ -694,9 +694,7 @@ namespace NeoBleeper
             double velocity01 =
                 request.Velocity / 127.0;
 
-            double masterGain =
-                0.2 +
-                velocity01 * 0.10;
+            double masterGain = 1.00 + velocity01 * 0.50;
 
             uint rng =
                 unchecked(
@@ -3342,7 +3340,7 @@ namespace NeoBleeper
                 return;
             }
 
-            float volume = 1.0f;
+            float volume = 3.5f;
 
             // Robust peak detection
             var deviations =
