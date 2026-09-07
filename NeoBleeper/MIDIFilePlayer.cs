@@ -4763,6 +4763,19 @@ namespace NeoBleeper
 
                 UpdateTimeAndPercentPosition(_currentFrameIndex);
             }
+            catch (OperationCanceledException)
+            {
+                // Cancellation is the expected result of stopping/restarting playback
+                // mid-seek. RequestSeek is async void (fired directly from
+                // MouseDown/MouseMove/Scroll), so an uncaught exception here crashes
+                // the app instead of just ending this seek attempt.
+                Logger.Log("Seek was canceled by a newer seek/stop request.", Logger.LogTypes.Info);
+            }
+            catch (Exception ex)
+            {
+                // Defensive: never let an async void seek handler crash the app.
+                Logger.Log($"Error while seeking: {ex.Message}", Logger.LogTypes.Error);
+            }
             finally
             {
                 tcs.SetResult();
