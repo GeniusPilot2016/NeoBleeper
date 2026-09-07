@@ -2036,73 +2036,66 @@ namespace NeoBleeper
             var prof = GetProfile(p);
 
             int audibleDurationMs = ResolveAudibleDurationMs(
-                p,
-                sliceDurationMs,
-                output,
-                enforceMinimumAudibleBody);
+                p, sliceDurationMs, output, enforceMinimumAudibleBody);
 
             var completion = new TaskCompletionSource<bool>(
                 TaskCreationOptions.RunContinuationsAsynchronously);
 
             var request = new PercussionRequest(
-                p,
-                ct,
-                audibleDurationMs,
-                sliceDurationMs,
-                output,
-                prof,
-                velocity,
-                completion);
+                p, ct, audibleDurationMs, sliceDurationMs, output, prof, velocity, completion);
 
             bool isNotePercussionBlendSlice = !enforceMinimumAudibleBody;
 
-            await Task.Run(() =>
+            try
             {
-                ct.ThrowIfCancellationRequested();
-
-                if (isNotePercussionBlendSlice)
+                await Task.Run(() =>
                 {
-                    if (output == PercussionOutputChoice.SoundDevice)
+                    ct.ThrowIfCancellationRequested();
+
+                    if (isNotePercussionBlendSlice)
                     {
-                        // Render with full multi-band percussion engine instead of flat WaveSynth
-                        float[] samples = RenderPercussionSamples(request);
+                        if (output == PercussionOutputChoice.SoundDevice)
+                        {
+                            float[] samples = RenderPercussionSamples(request);
+                            byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
+                            float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity);
 
-                        // Velocity is applied inside BuildSoundDevicePwmSamples (after its internal
-                        // shape-normalization step), not here — scaling `samples` before that
-                        // normalization has no audible effect, since the normalization renormalizes
-                        // based on the resulting PCM's own percentile deviation and cancels out any
-                        // uniform linear pre-scale.
-                        byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
-                        float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity); // High volume PWM carrier
+                            QueueMixedSoundDevicePwmSamples(pwmSamples);
 
-                        QueueMixedSoundDevicePwmSamples(pwmSamples);
-
-                        // Wait out the exact duration of the slice so the blend timing stays aligned
-                        Stopwatch sw = Stopwatch.StartNew();
-                        LowCpuWaitUntil(sw, sliceDurationMs);
+                            Stopwatch sw = Stopwatch.StartNew();
+                            LowCpuWaitUntil(sw, sliceDurationMs);
+                        }
+                        else
+                        {
+                            PlayPercussionBlendSlice(request);
+                        }
                     }
                     else
                     {
-                        // System Speaker hardware direct pulse
-                        PlayPercussionBlendSlice(request);
+                        PlayRenderedPercussion(request);
                     }
-                }
-                else
-                {
-                    PlayRenderedPercussion(request);
-                }
-            }, ct).ConfigureAwait(false);
+                }, ct).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when a seek cancels the shared playback token mid-slice.
+                completion.TrySetCanceled(ct);
+                return;
+            }
 
             if (ct.IsCancellationRequested)
-            {
                 completion.TrySetCanceled(ct);
-            }
             else
-            {
                 completion.TrySetResult(true);
-            }
 
-            await completion.Task.ConfigureAwait(false);
+            try
+            {
+                await completion.Task.ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                // Same reason — swallow, this is normal seek/stop behavior, not an error.
+            }
         }
 
         /// <summary>
@@ -2209,6 +2202,10 @@ namespace NeoBleeper
 
                     LowCpuWaitUntil(sw, nextUpdateMs);
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when a seek cancels the shared playback token mid-slice.
             }
             finally
             {

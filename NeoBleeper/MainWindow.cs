@@ -4101,7 +4101,7 @@ namespace NeoBleeper
         /// ensure all audio sources are silenced and the UI is updated accordingly.</remarks>
         private async void StopAllNotesAfterPlaying()
         {
-            NotePlayer.StopAllNotes();
+            await RunOnAudioPlaybackThreadAsync(() => NotePlayer.StopAllNotes());
             await StopAllVoices(); // Stop all voices if using voice system
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
