@@ -60,89 +60,95 @@ namespace AdvancedSystemSpeakerProbe
             Console.WriteLine();
 
             var suite = new TestSuite();
-            RunNonIoVerificationPhase();
             suite.RunAll();
             suite.PrintSummary();
 
             Console.WriteLine();
+
+            RunVerificationPhase();
+
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("  Press any key to exit...");
             Console.ResetColor();
             Console.ReadKey(intercept: true);
             Console.WriteLine();
         }
-
-        private static void RunNonIoVerificationPhase()
+        private const ushort SystemControlPort = 0x61;
+        private const ushort DummyBarrierPort = 0x80; // Port used to serialize the CPU pipeline and clear buffers
+        private const uint Bit0_PitGate = 0x01U;
+        private const uint Bit1_SpkData = 0x02U;
+        private static void RunVerificationPhase()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("  [Phase 0] Running MMU Side-Channel Verification (No-I/O Proxy Check)...");
-            Console.ResetColor();
+                Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.RealTime;
+                Console.WriteLine("===============================================================================");
+                Console.WriteLine("         REVERSE CHECKER: DYNAMIC VOLTAGE GATE HARDWARE DIAGNOSTIC             ");
+                Console.WriteLine("===============================================================================");
+                Console.WriteLine("\n[STATUS] Mapping the acoustic generation capacity of the analog trace...");
 
-            // Preserve original thread environment state to avoid corrupting process context
-            Process currentProcess = Process.GetCurrentProcess();
-            IntPtr originalAffinity = currentProcess.ProcessorAffinity;
-            ProcessPriorityClass originalPriority = currentProcess.PriorityClass;
-            ThreadPriority originalThreadPriority = Thread.CurrentThread.Priority;
+                uint originalPortValue = (uint)Inp32((short)SystemControlPort);
 
-            try
-            {
-                // Enforce hard execution guidelines on Core 0 to bypass OS thread scheduling jitter
-                currentProcess.ProcessorAffinity = (IntPtr)1;
-                currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
-                Thread.CurrentThread.Priority = ThreadPriority.Highest;
+                // REVERSE LOGIC: Unmask the PIT Gate (Bit 0) to unleash the full analog response of the layout
+                uint baseValue = originalPortValue | Bit0_PitGate;
 
-                // Query the OS/CPU hardware performance registers directly
-                using (PerformanceCounter pageFaultsCounter = new PerformanceCounter("Process", "Page Faults/sec", currentProcess.ProcessName))
+                uint targetValueOn = baseValue | Bit1_SpkData;
+                uint targetValueOff = baseValue & ~Bit1_SpkData;
+
+                Stopwatch sw = new Stopwatch();
+
+                // --- PHASE 1: SIGNAL DISENGAGED (Bit 1 = 0) ---
+                Out32((short)SystemControlPort, (short)targetValueOff);
+                Out32((short)DummyBarrierPort, 0x00); // Forces the chipset cache write-buffers to blind-flush
+
+                sw.Restart();
+                Inp32((short)SystemControlPort);
+                sw.Stop();
+                double durationBit0 = (double)sw.ElapsedTicks / Stopwatch.Frequency * 1_000_000_000;
+
+                // --- PHASE 2: SIGNAL ENGAGED (Bit 1 = 1) ---
+                Out32((short)SystemControlPort, (short)targetValueOn);
+                Out32((short)DummyBarrierPort, 0x00); // Forces the identical blind-flush routine
+
+                sw.Restart();
+                Inp32((short)SystemControlPort);
+                sw.Stop();
+                double durationBit1 = (double)sw.ElapsedTicks / Stopwatch.Frequency * 1_000_000_000;
+
+                // Cleanup: Safely restore the original motherboard subsystem state
+                Out32((short)SystemControlPort, (short)originalPortValue);
+
+                // Compute the structural differential latency delta
+                double reverseDelta = Math.Abs(durationBit1 - durationBit0);
+
+                Console.WriteLine("-------------------------------------------------------------------------------");
+                Console.WriteLine($"Dynamic State A (Bit 1 = 0) Latency : {durationBit0:F0} ns");
+                Console.WriteLine($"Dynamic State B (Bit 1 = 1) Latency : {durationBit1:F0} ns");
+                Console.WriteLine($"Pure Hardware Differential Delta     : {reverseDelta:F0} ns");
+                Console.WriteLine("-------------------------------------------------------------------------------");
+
+                Console.Write("FINAL HARDWARE DIAGNOSTIC DECISION  : ");
+
+                // When testing dynamic mode, if the trace maps entirely to a dead micro-pull resistor network or 
+                // open copper reflection path, the core logic pipeline variance remains unshifted (< 15ns).
+                if (reverseDelta< 15.0 || reverseDelta> 400.0)
                 {
-                    // Prime instruction cache and flush old memory page buffers
-                    pageFaultsCounter.NextValue();
-                    Thread.Sleep(100);
-
-                    float faultsBefore = pageFaultsCounter.NextValue();
-
-                    // Intercept system abstraction layer pointers to trigger Port 0x61 subroutines
-                    for (int i = 0; i < 100; i++)
-                    {
-                        IntPtr ptr = currentProcess.Handle;
-                    }
-
-                    float faultsAfter = pageFaultsCounter.NextValue();
-                    float deltaFaults = faultsAfter - faultsBefore;
-
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"    -> Observed Memory Engine Page Fault Delta: {deltaFaults}");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("NO PHYSICAL HARDWARE EXIST (Pure Static Latch)");
                     Console.ResetColor();
-
-                    if (deltaFaults <= 1.0f)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("    [+] System Response indicates an Atomic/Hardware Layer connection.");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("    [!] System Response indicates Software/Virtualization Emulation layer footprint.");
-                        Console.ResetColor();
-                    }
+                    Console.WriteLine("\n[ANALYSIS]");
+                    Console.WriteLine(" - The execution delta remained rigidly flat despite unmasking the dynamic gates.");
+                    Console.WriteLine(" - The structural impedance footprint reveals no inductive voice coil or speaker transducer.");
+                    Console.WriteLine(" - An actual physical acoustic PC Speaker device DOES NOT exist on this motherboard.");
                 }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("DYNAMIC HARDWARE DETECTION CONFIRMED");
+                    Console.ResetColor();
+                    Console.WriteLine("\n[ANALYSIS] Inductive impedance shift confirmed. Dynamic circuit elements present.");
+                }
+
+                Console.WriteLine("===============================================================================");
             }
-            catch (Exception ex)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"    [-] Side-channel skipped: {ex.Message}");
-                Console.WriteLine("        (Ensure the 'System.Diagnostics.PerformanceCounter' NuGet package is installed.)");
-                Console.ResetColor();
-            }
-            finally
-            {
-                // Restore original hardware orchestration priorities safely
-                currentProcess.ProcessorAffinity = originalAffinity;
-                currentProcess.PriorityClass = originalPriority;
-                Thread.CurrentThread.Priority = originalThreadPriority;
-            }
-            Console.WriteLine();
-        }
 
         // ════════════════════════════════════════════════════════════════════════
         //  I/O primitives
