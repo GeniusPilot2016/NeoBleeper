@@ -55,6 +55,8 @@ namespace NeoBleeper
         private bool _playRequestedAfterCompletion = false;
         private bool _isUpdatingLabels = false;
         private MidiFile _midiFile;
+        private long _lastPlaybackTick = 0;
+        private volatile int _audioDisplayGeneration = 0;
         private Stopwatch _playbackStopwatch;
         private LyricsOverlay lyricsOverlay;
         private SysExDisplayEmulator sysExDisplayEmulator;
@@ -1286,6 +1288,16 @@ namespace NeoBleeper
                     localSysExCount = dotGraphicsPages.Count;
                 });
 
+                // Derive total playback length from the actual generated timeline
+                // (frames + trailing SysEx display events), not from every raw
+                // MIDI event in every track. An unrelated conductor/control track
+                // can carry a far-later AbsoluteTime than any audible content,
+                // which previously made the trackbar's length exceed the song's
+                // real audible length.
+                long localFramesLastTick = localFrames.Count > 0 ? localFrames[localFrames.Count - 1].Time : 0;
+                long localSysExLastTick = localSysExDict.Count > 0 ? localSysExDict.Keys.Max() : 0;
+                long localLastPlaybackTick = Math.Max(localFramesLastTick, localSysExLastTick);
+
                 // If the task returned early due to cancellation, abort committing state
                 if (loadToken.IsCancellationRequested)
                 {
@@ -1307,9 +1319,11 @@ namespace NeoBleeper
                 _rearticulatedNotes = localRearticulatedNotes;
                 lyricsChunkCount = localLyricsCount;
                 sysExEventCount = localSysExCount;
+                _lastPlaybackTick = localLastPlaybackTick;
 
                 _currentFrameIndex = 0;
                 _isPlaying = false;
+                _isFirstPlayAfterMidiLoad = true;
 
                 SafeInvoke(() =>
                 {
@@ -1417,6 +1431,7 @@ namespace NeoBleeper
         }
 
         private double _playbackStartOffsetMs = 0;
+        private bool _isFirstPlayAfterMidiLoad = false;
 
         /// <summary>
         /// Begins playback of the loaded frames if playback is not already in progress and frames are available.
@@ -1492,14 +1507,22 @@ namespace NeoBleeper
                     // so makes every scroll/seek jump back to the beginning of a frame.
                     _playbackStartOffsetMs = _pendingExactSeekMs.Value;
                 }
+                else if (_isFirstPlayAfterMidiLoad)
+                {
+                    // Only the first Play immediately after a MIDI file is loaded
+                    // starts from absolute song time 0. Later Play/Resume operations
+                    // preserve the normal frame/current-position behavior.
+                    _playbackStartOffsetMs = 0.0;
+                }
                 else if (_currentFrameIndex < _frames.Count)
                 {
                     _playbackStartOffsetMs = TicksToMilliseconds(_frames[_currentFrameIndex].Time);
                 }
                 else
                 {
-                    _playbackStartOffsetMs = 0;
+                    _playbackStartOffsetMs = 0.0;
                 }
+                _isFirstPlayAfterMidiLoad = false;
                 _playbackStopwatch.Restart();
 
                 playbackTimer.Start();
@@ -1564,8 +1587,38 @@ namespace NeoBleeper
         private async Task StopCoreAsync()
         {
             _isStopping = true;
+
+            // Preserve the exact position represented by the trackbar before
+            // stopping. Play() consumes _pendingExactSeekMs, so a later Continue
+            // resumes from the same visible position instead of snapping to the
+            // timestamp of _currentFrameIndex.
+            double? resumeFromTrackBarMs = null;
+            if (_isPlaying && _midiFile != null && trackBar1 != null)
+            {
+                double totalDurationMs = GetTotalPlaybackDurationMs();
+                if (totalDurationMs > 0.0)
+                {
+                    int positionPart = Math.Clamp(
+                        trackBar1.Value,
+                        trackBar1.Minimum,
+                        trackBar1.Maximum);
+
+                    resumeFromTrackBarMs =
+                        totalDurationMs * positionPart / PlaybackSeekParts;
+                }
+            }
+
             try
             {
+                // Invalidate any note-indicator update already queued (via
+                // BeginInvoke) from the audio-dispatch path. Awaiting
+                // playbackTask below only waits for the background Task.Run to
+                // finish, not for a BeginInvoke it queued to actually run on the
+                // UI thread - so without this, a stale queued update can land
+                // after the explicit clear further down and silently re-show
+                // notes that were just hidden.
+                Interlocked.Increment(ref _audioDisplayGeneration);
+
                 playbackTimer.Stop();
                 _playbackStopwatch?.Stop();
 
@@ -1604,6 +1657,34 @@ namespace NeoBleeper
                     {
                         Logger.Log($"Playback task ended while stopping: {ex.Message}", Logger.LogTypes.Error);
                     }
+                }
+
+                // Bump again: the awaited playbackTask can itself have queued one
+                // final note-indicator BeginInvoke right before it observed
+                // cancellation. That queued call still carries the earlier
+                // generation and must stay dropped.
+                Interlocked.Increment(ref _audioDisplayGeneration);
+
+                if (resumeFromTrackBarMs.HasValue &&
+                    _frames != null &&
+                    _frames.Count > 0)
+                {
+                    double totalDurationMs = GetTotalPlaybackDurationMs();
+                    double resumeMs = Math.Clamp(
+                        resumeFromTrackBarMs.Value,
+                        0.0,
+                        totalDurationMs);
+
+                    _playbackStartOffsetMs = resumeMs;
+                    _pendingExactSeekMs = resumeMs;
+
+                    int resumeFrameIndex = FindFrameIndexAtOrBeforeTime(resumeMs);
+                    _currentFrameIndex = Math.Clamp(
+                        resumeFrameIndex,
+                        0,
+                        _frames.Count - 1);
+
+                    _playbackStopwatch?.Reset();
                 }
 
                 UpdateNoteLabels(new HashSet<int>());
@@ -1677,13 +1758,12 @@ namespace NeoBleeper
             if (_midiFile == null)
                 return 0.0;
 
-            long lastTick = _midiFile.Events
-                .SelectMany(track => track)
-                .Select(e => e.AbsoluteTime)
-                .DefaultIfEmpty(0)
-                .Max();
-
-            return TicksToMilliseconds(lastTick);
+            // Base total length on the actual generated playback timeline
+            // (frames + trailing SysEx display events), not on every raw MIDI
+            // event. Unrelated control/conductor tracks can carry a far-later
+            // AbsoluteTime than any audible content, which previously made the
+            // trackbar's length exceed the song's real audible length.
+            return TicksToMilliseconds(_lastPlaybackTick);
         }
 
         private int GetSeekPartFromTime(double timeMs)
@@ -2232,10 +2312,6 @@ namespace NeoBleeper
         {
             if (_frames == null || _frames.Count == 0)
                 return;
-
-            long lastTick = _midiFile.Events
-                .Select(track => track.LastOrDefault(ev => ev.CommandCode == MidiCommandCode.MetaEvent && ((MetaEvent)ev).MetaEventType == MetaEventType.EndTrack)?.AbsoluteTime ?? 0)
-                .Max();
 
             double currentTimeMs = TicksToMilliseconds(_frames[frameIndex].Time);
 
@@ -2956,8 +3032,7 @@ namespace NeoBleeper
             }
             else
             {
-                long lastTick = _midiFile.Events.SelectMany(t => t).Max(e => e.AbsoluteTime);
-                frameEndMs = TicksToMilliseconds(lastTick);
+                frameEndMs = TicksToMilliseconds(_lastPlaybackTick);
             }
 
             double durationMs = frameEndMs - frameStartMs;
@@ -4095,8 +4170,17 @@ namespace NeoBleeper
                     ? new HashSet<int>(melodicNotes)
                     : new HashSet<int>();
 
+            // Capture the generation this note-display update belongs to. If
+            // Stop advances the generation before this reaches the UI thread
+            // (SafeInvoke's BeginInvoke only queues it), drop the update instead
+            // of re-showing notes right after Stop already cleared them.
+            int myGeneration = _audioDisplayGeneration;
+
             SafeInvoke(() =>
             {
+                if (myGeneration != _audioDisplayGeneration)
+                    return;
+
                 if (!checkBox_dont_update_grid.Checked)
                 {
                     UpdateNoteLabelsSync(snapshot);
@@ -4118,6 +4202,13 @@ namespace NeoBleeper
             int heldMelodicNoteCount,
             double currentSongTimeMs)
         {
+            // Captured before the possible BeginInvoke hop, matching
+            // UpdateAudioNoteIndicators: if Stop advances the generation before
+            // this reaches the UI thread, the update is stale and must be
+            // dropped rather than repainting notes after Stop already cleared
+            // the grid.
+            int myGeneration = _audioDisplayGeneration;
+
             if (this.InvokeRequired)
             {
                 this.BeginInvoke(new Action(() =>
@@ -4128,6 +4219,9 @@ namespace NeoBleeper
                         currentSongTimeMs)));
                 return;
             }
+
+            if (myGeneration != _audioDisplayGeneration)
+                return;
 
             if (_frames == null || _frames.Count == 0)
                 return;
@@ -4211,8 +4305,7 @@ namespace NeoBleeper
                             {
                                 trackBar1.Value = trackBar1.Maximum;
                                 label_percentage.Text = Resources.TextPercent.Replace("{number}", (100.0).ToString("0.00", CultureInfo.CurrentCulture));
-                                long lastTick = _midiFile.Events.SelectMany(t => t).Max(ev => ev.AbsoluteTime);
-                                double totalMs = TicksToMilliseconds(lastTick);
+                                double totalMs = TicksToMilliseconds(_lastPlaybackTick);
                                 string timeStr = TimeSpan.FromMilliseconds(totalMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
                                 label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
                             }
@@ -4225,8 +4318,7 @@ namespace NeoBleeper
                         {
                             trackBar1.Value = trackBar1.Maximum;
                             label_percentage.Text = Resources.TextPercent.Replace("{number}", (100.0).ToString("0.00", CultureInfo.CurrentCulture));
-                            long lastTick = _midiFile.Events.SelectMany(t => t).Max(ev => ev.AbsoluteTime);
-                            double totalMs = TicksToMilliseconds(lastTick);
+                            double totalMs = TicksToMilliseconds(_lastPlaybackTick);
                             string timeStr = TimeSpan.FromMilliseconds(totalMs).ToString(@"mm\:ss\.ff", CultureInfo.CurrentCulture);
                             label_position.Text = $"{Properties.Resources.TextPosition} {timeStr}";
                         }

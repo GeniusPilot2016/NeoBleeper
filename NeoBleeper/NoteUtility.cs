@@ -2056,13 +2056,24 @@ namespace NeoBleeper
                     {
                         if (output == PercussionOutputChoice.SoundDevice)
                         {
+                            // Start the clock before doing any synthesis work, not after
+                            // queuing. Previously the Stopwatch started only once the PWM
+                            // buffer had already been rendered and handed to the mixer, so
+                            // the CPU time spent in RenderPercussionSamples() and
+                            // BuildSoundDevicePwmSamples() was invisible to the wait budget
+                            // below. The queued mixer audio starts playing as soon as it's
+                            // queued, so that "free" synthesis time silently pushed the
+                            // slice's real wall-clock length past sliceDurationMs on every
+                            // hit, making Sound Device blend slices run measurably longer
+                            // than the melody+percussion alternator intended.
+                            Stopwatch sw = Stopwatch.StartNew();
+
                             float[] samples = RenderPercussionSamples(request);
                             byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
                             float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity);
 
                             QueueMixedSoundDevicePwmSamples(pwmSamples);
 
-                            Stopwatch sw = Stopwatch.StartNew();
                             LowCpuWaitUntil(sw, sliceDurationMs);
                         }
                         else
@@ -3432,6 +3443,22 @@ namespace NeoBleeper
             {
                 // Normal percussion stays on the long-lived mixer.
                 // Blend slices NEVER enter this path.
+                //
+                // Start the clock first, exactly like the System Speaker loop below does:
+                // that loop starts its Stopwatch, then does its per-frame peak/duty-cycle
+                // math *inside* the timed loop, so that compute cost is automatically
+                // absorbed into the same clock it waits against — every wait target is an
+                // absolute offset from one running Stopwatch, so nothing can silently add
+                // extra wall-clock time on top of totalDurationMs. Previously this branch
+                // started the Stopwatch only after BuildSoundDevicePwmSamples() had already
+                // finished building the whole buffer, so that build cost sat entirely
+                // outside the wait budget and was added on top of pwmDurationMs. Starting
+                // the clock here means LowCpuWaitUntil below simply returns immediately
+                // once the build+queue cost has already eaten the budget, the same way a
+                // System Speaker frame that took too long just doesn't oversleep afterward.
+                var sw2 =
+                    Stopwatch.StartNew();
+
                 float[] pwm =
                     BuildSoundDevicePwmSamples(
                         pcmData,
@@ -3440,6 +3467,15 @@ namespace NeoBleeper
 
                 QueueMixedSoundDevicePwmSamples(
                     pwm);
+
+                double pwmDurationMs =
+                    pwm.Length /
+                    (double)SoundDevicePwmSampleRate *
+                    1000.0;
+
+                LowCpuWaitUntil(
+                    sw2,
+                    pwmDurationMs);
 
                 return;
             }
