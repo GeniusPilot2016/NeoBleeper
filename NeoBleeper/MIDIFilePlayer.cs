@@ -1324,6 +1324,7 @@ namespace NeoBleeper
                 _currentFrameIndex = 0;
                 _isPlaying = false;
                 _isFirstPlayAfterMidiLoad = true;
+                _pendingExactSeekMs = null; 
 
                 SafeInvoke(() =>
                 {
@@ -1686,6 +1687,12 @@ namespace NeoBleeper
 
                     _playbackStopwatch?.Reset();
                 }
+
+                // Bump again: the awaited playbackTask can itself have queued one
+                // final note-indicator BeginInvoke right before it observed
+                // cancellation. That queued call still carries the earlier
+                // generation and must stay dropped.
+                Interlocked.Increment(ref _audioDisplayGeneration);
 
                 UpdateNoteLabels(new HashSet<int>());
                 holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} (0)";
