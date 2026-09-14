@@ -1917,7 +1917,7 @@ namespace NeoBleeper
 
             int duration =
                 Math.Max(
-                    30,
+                    1,
                     Math.Min(
                         maxMs,
                         baseDuration));
@@ -2419,11 +2419,16 @@ namespace NeoBleeper
             // Honor enforceMinimumAudibleBody across all outputs so alternated slices
             // (enforceMinimumAudibleBody:false) do not stretch percussion and displace
             // time budgeted for melodic notes.
-            if (!enforceMinimumAudibleBody)
+            // Sound Device is buffer-duration based. Expanding the requested
+            // duration to an instrument minimum makes notes/hits appear to have
+            // a fixed length. Preserve the exact musical/frame duration.
+            if (output == PercussionOutputChoice.SoundDevice ||
+                !enforceMinimumAudibleBody)
             {
-                return requestedDurationMs;
+                return Math.Max(1, requestedDurationMs);
             }
 
+            // Minimum-body protection is only needed by the physical PC speaker.
             int minBodyMs =
                 (int)Math.Ceiling(
                     GetMinimumBodyMs(p));
@@ -2504,31 +2509,22 @@ namespace NeoBleeper
 
                     if (request.Completion != null)
                     {
-                        int delay =
-                            request.CompletionDelayMs;
-
-                        var ct =
-                            request.CancellationToken;
-
-                        var tcs =
-                            request.Completion;
-
-                        Task.Delay(
-                            delay,
-                            ct).ContinueWith(
-                            t =>
-                            {
-                                if (ct.IsCancellationRequested)
-                                {
-                                    tcs.TrySetCanceled(ct);
-                                }
-                                else
-                                {
-                                    tcs.TrySetResult(true);
-                                }
-                            },
-                            TaskContinuationOptions
-                                .ExecuteSynchronously);
+                        // PlayRenderedPercussion() is synchronous with the requested
+                        // Sound Device buffer duration: PlayPCMSoundAsPWM() queues the
+                        // exact-duration buffer and waits for that duration before
+                        // returning. Delaying CompletionDelayMs AGAIN here therefore
+                        // adds a second fixed-duration interval to every awaited hit.
+                        //
+                        // Complete immediately after the actual playback interval.
+                        if (request.CancellationToken.IsCancellationRequested)
+                        {
+                            request.Completion.TrySetCanceled(
+                                request.CancellationToken);
+                        }
+                        else
+                        {
+                            request.Completion.TrySetResult(true);
+                        }
                     }
                 }
             }
@@ -3187,7 +3183,8 @@ namespace NeoBleeper
             double elapsedMs,
             out int frequency,
             out bool audible,
-            int velocity = 100)
+            int velocity = 100,
+            int? durationMs = null)
         {
             var output =
                 GetPercussionPlaybackOutput();
@@ -3199,8 +3196,8 @@ namespace NeoBleeper
                 new PercussionRequest(
                     percussion,
                     CancellationToken.None,
-                    prof.DurationMs,
-                    prof.DurationMs,
+                    Math.Max(1, durationMs ?? prof.DurationMs),
+                    Math.Max(1, durationMs ?? prof.DurationMs),
                     output,
                     prof,
                     velocity,
@@ -3224,6 +3221,16 @@ namespace NeoBleeper
 
             if (availableFrameMs <= 0)
                 return 0;
+
+            // CRITICAL: Sound Device must follow the duration of the current
+            // MIDI/note frame. The old Math.Min(..., naturalMs) path tied every
+            // instrument to PercussionProfile.DurationMs, which is a fixed
+            // per-instrument constant.
+            if (GetPercussionPlaybackOutput() ==
+                PercussionOutputChoice.SoundDevice)
+            {
+                return availableFrameMs;
+            }
 
             if (!melodyAlsoPlaying)
             {
