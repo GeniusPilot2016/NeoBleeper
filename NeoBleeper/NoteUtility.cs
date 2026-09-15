@@ -2225,170 +2225,63 @@ namespace NeoBleeper
         }
 
         private static float[] BuildSoundDevicePwmSamples(
-            byte[] pcmData,
-            float volume,
-            int velocity = 100)
+    byte[] pcmData,
+    float volume,
+    int velocity = 100)
         {
-            if (pcmData == null ||
-                pcmData.Length == 0)
+            if (pcmData == null || pcmData.Length == 0)
             {
                 return Array.Empty<float>();
             }
 
-            double maxDeviation =
-                Math.Max(
-                    FindPercentileDeviation(
-                        pcmData,
-                        0.995),
-                    0.001);
+            double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
+            double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
 
-            double normFactor =
-                Math.Min(
-                    128.0 / maxDeviation,
-                    40.0);
+            // Map velocity to a non-saturating duty-cycle range (0.05 to 0.50)
+            double velocityDutyScale = NoteUtility.VelocityToDutyCycle(velocity);
+            double velocityGain = NoteUtility.VelocityToGain(velocity);
 
-            // normFactor above renormalizes every hit's *shape* to the same reference peak,
-            // regardless of how loud RenderPercussionSamples originally rendered it — that's
-            // needed so quiet transients still resolve cleanly, but it also means velocity
-            // can't be recovered by scaling amplitude before or after this step: any uniform
-            // multiplier just gets soaked up by Math.Clamp on dutyCycle once it pushes past
-            // 0.0/1.0. A PWM signal whose duty cycle saturates at 0.0 or 1.0 is effectively
-            // constant (no switching), which real sound hardware's AC-coupling treats as DC
-            // and filters out — so loud and medium-loud hits were clamping to the same
-            // near-silent extreme and sounding identical. Instead, velocity controls how far
-            // dutyCycle is allowed to swing away from the silent center (0.5), using the same
-            // 0.05–0.50 mapping used for the System Speaker's 1-bit duty cycle, and that swing
-            // is explicitly bounded so it never reaches the 0.0/1.0 saturation point.
-            double velocityDutyScale =
-                NoteUtility.VelocityToDutyCycle(velocity); // 0.05–0.50
+            double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
+            int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
 
-            double velocityGain =
-                NoteUtility.VelocityToGain(velocity);
-
-            double durationSeconds =
-                pcmData.Length /
-                (double)PercussionSampleRate;
-
-            int pwmPeriodCount =
-                Math.Max(
-                    1,
-                    (int)Math.Ceiling(
-                        durationSeconds *
-                        SoundDevicePwmCarrierHz));
-
-            var pwm =
-                new float[
-                    pwmPeriodCount *
-                    SoundDevicePwmSamplesPerPeriod];
-
+            var pwm = new float[pwmPeriodCount * SoundDevicePwmSamplesPerPeriod];
             double dutyError = 0.0;
+            double durationMs = durationSeconds * 1000.0;
 
-            double durationMs =
-                durationSeconds * 1000.0;
+            double shortSoundBoost = durationMs < 80.0
+                ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85
+                : 1.0;
 
-            // Short alternating slices need their attack to remain prominent.
-            double shortSoundBoost =
-                durationMs < 80.0
-                    ? 1.0 +
-                      (80.0 - durationMs) /
-                      80.0 *
-                      0.85
-                    : 1.0;
+            float amp = (float)Math.Clamp(volume * 0.25 * (0.5 + 0.5 * velocityGain), 0.05, 0.9);
 
-            // Carrier amplitude still gets a gentle velocity nudge, but far less aggressively
-            // than duty-cycle now does, and it never saturates to the same clamp ceiling for
-            // every velocity the way the old `volume * 0.4` multiplier did.
-            float amp =
-                (float)Math.Clamp(
-                    volume * 0.25 * (0.5 + 0.5 * velocityGain),
-                    0.05,
-                    0.9);
-
-            for (int period = 0;
-                 period < pwmPeriodCount;
-                 period++)
+            for (int period = 0; period < pwmPeriodCount; period++)
             {
-                double t =
-                    (period + 0.5) /
-                    SoundDevicePwmCarrierHz;
+                double t = (period + 0.5) / SoundDevicePwmCarrierHz;
+                double sourcePosition = t * PercussionSampleRate;
 
-                double sourcePosition =
-                    t *
-                    PercussionSampleRate;
+                int i0 = Math.Clamp((int)Math.Floor(sourcePosition), 0, pcmData.Length - 1);
+                int i1 = Math.Min(i0 + 1, pcmData.Length - 1);
+                double frac = Math.Clamp(sourcePosition - i0, 0.0, 1.0);
 
-                int i0 =
-                    Math.Clamp(
-                        (int)Math.Floor(
-                            sourcePosition),
-                        0,
-                        pcmData.Length - 1);
+                double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
+                double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
 
-                int i1 =
-                    Math.Min(
-                        i0 + 1,
-                        pcmData.Length - 1);
+                double shape = Math.Clamp(
+                    Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * shortSoundBoost,
+                    -1.0,
+                    1.0);
 
-                double frac =
-                    Math.Clamp(
-                        sourcePosition - i0,
-                        0.0,
-                        1.0);
+                // Keep duty cycle within [0.02, 0.98] bounds to prevent DC signal saturation
+                double dutyCycle = Math.Clamp(0.5 + shape * velocityDutyScale, 0.02, 0.98);
 
-                double pcmValue =
-                    pcmData[i0] +
-                    (pcmData[i1] -
-                     pcmData[i0]) *
-                    frac;
+                double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
+                int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
+                dutyError = wantedOnSamples - onSamples;
 
-                double normAudio =
-                    ((pcmValue - 128.0) *
-                     normFactor) /
-                    128.0;
-
-                double shape =
-                    Math.Clamp(
-                        Math.Sign(normAudio) *
-                        Math.Pow(Math.Abs(normAudio), 0.85) *
-                        shortSoundBoost,
-                        -1.0,
-                        1.0);
-
-                double dutyCycle =
-                    Math.Clamp(
-                        0.5 +
-                        shape * velocityDutyScale,
-                        0.02,
-                        0.98);
-
-                double wantedOnSamples =
-                    dutyCycle *
-                    SoundDevicePwmSamplesPerPeriod +
-                    dutyError;
-
-                int onSamples =
-                    Math.Clamp(
-                        (int)Math.Round(
-                            wantedOnSamples,
-                            MidpointRounding.AwayFromZero),
-                        0,
-                        SoundDevicePwmSamplesPerPeriod);
-
-                dutyError =
-                    wantedOnSamples -
-                    onSamples;
-
-                int baseIndex =
-                    period *
-                    SoundDevicePwmSamplesPerPeriod;
-
-                for (int j = 0;
-                     j < SoundDevicePwmSamplesPerPeriod;
-                     j++)
+                int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
+                for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
                 {
-                    pwm[baseIndex + j] =
-                        j < onSamples
-                            ? amp
-                            : -amp;
+                    pwm[baseIndex + j] = j < onSamples ? amp : -amp;
                 }
             }
 
