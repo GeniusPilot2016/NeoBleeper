@@ -825,9 +825,11 @@ namespace NeoBleeper
 
 
     /// <summary>
-    /// Decodes Roland SC-88/SC-88Pro display SysEx (model ID 45H).
-    /// It supports ten 16×16 dot pages, Display Page, Display Time,
-    /// the 32-character display buffer and GS Reset.
+    /// Decodes hardware-display SysEx used by the two major MIDI module families
+    /// that expose text plus a 16×16 dot display:
+    /// Roland SC-55/SC-88/SC-88Pro model-45 display data and Yamaha XG/MU-series
+    /// Display Data (32-character letters + 48-byte 16×16 bitmap).
+    /// Roland's ten Frame Draw pages, Display Page/Time and GS Reset are preserved.
     /// </summary>
     internal sealed class RolandGSStyleDisplayDecoder
     {
@@ -845,6 +847,14 @@ namespace NeoBleeper
 
         private readonly byte[][] _pages = new byte[PageCount][];
         private readonly char[] _displayedText = new char[32];
+
+        // Yamaha XG/MU-series Display Data uses one 16x16 bitmap made from
+        // 48 seven-bit bytes (06 00 00 = letters, 07 00 00 = bitmap).
+        // Keep it separate from Roland's ten Frame Draw pages so receiving
+        // one vendor's display data never corrupts the other vendor's state.
+        private readonly byte[] _yamahaBitmap = new byte[48];
+        private bool _yamahaBitmapActive;
+
         private int _displayTimeValue = DefaultDisplayTimeValue;
 
         /// <summary>
@@ -900,6 +910,8 @@ namespace NeoBleeper
             }
 
             ClearDisplayedTextBuffer();
+            Array.Clear(_yamahaBitmap, 0, _yamahaBitmap.Length);
+            _yamahaBitmapActive = false;
 
             CurrentPage = 0;
             _displayTimeValue = DefaultDisplayTimeValue;
@@ -910,6 +922,28 @@ namespace NeoBleeper
             if (IsEmptySysExPacket(message))
             {
                 return true;
+            }
+
+            // Yamaha XG/MU-series display data:
+            //   06 00 00..1F = 32 display letters
+            //   07 00 00..2F = 48-byte 16x16 display bitmap
+            // XG System On is also treated as a display reset.
+            if (TryParseYamahaXgParameterChange(
+                    message,
+                    out int yamahaAddress,
+                    out _))
+            {
+                int yamahaMsb = (yamahaAddress >> 16) & 0x7F;
+                int yamahaMid = (yamahaAddress >> 8) & 0x7F;
+                int yamahaLsb = yamahaAddress & 0x7F;
+
+                return (yamahaMsb == 0x06 &&
+                        yamahaMid == 0x00 &&
+                        yamahaLsb <= 0x1F) ||
+                       (yamahaMsb == 0x07 &&
+                        yamahaMid == 0x00 &&
+                        yamahaLsb <= 0x2F) ||
+                       (yamahaAddress == 0x00007E);
             }
 
             if (!TryParseRolandDt1(
@@ -956,6 +990,24 @@ namespace NeoBleeper
 
         public static bool ContainsDotGraphics(byte[] message)
         {
+            if (TryParseYamahaXgParameterChange(
+                    message,
+                    out int yamahaAddress,
+                    out byte[] yamahaData))
+            {
+                int yamahaMsb = (yamahaAddress >> 16) & 0x7F;
+                int yamahaMid = (yamahaAddress >> 8) & 0x7F;
+                int yamahaLsb = yamahaAddress & 0x7F;
+
+                if (yamahaMsb == 0x07 &&
+                    yamahaMid == 0x00 &&
+                    yamahaLsb <= 0x2F &&
+                    yamahaData.Length > 0)
+                {
+                    return true;
+                }
+            }
+
             if (!TryParseRolandDt1(
                     message,
                     out byte modelId,
@@ -1043,6 +1095,37 @@ namespace NeoBleeper
             startIndex = 0;
             text = string.Empty;
 
+            if (TryParseYamahaXgParameterChange(
+                    message,
+                    out int yamahaAddress,
+                    out byte[] yamahaData))
+            {
+                int yamahaMsb = (yamahaAddress >> 16) & 0x7F;
+                int yamahaMid = (yamahaAddress >> 8) & 0x7F;
+                int yamahaLsb = yamahaAddress & 0x7F;
+
+                if (yamahaMsb == 0x06 &&
+                    yamahaMid == 0x00 &&
+                    yamahaLsb <= 0x1F)
+                {
+                    startIndex = yamahaLsb;
+                    int yamahaCharacterCount = Math.Min(
+                        yamahaData.Length,
+                        32 - startIndex);
+
+                    char[] yamahaCharacters =
+                        new char[Math.Max(0, yamahaCharacterCount)];
+                    for (int i = 0; i < yamahaCharacters.Length; i++)
+                    {
+                        yamahaCharacters[i] =
+                            DecodeDisplayCharacter(yamahaData[i]);
+                    }
+
+                    text = new string(yamahaCharacters);
+                    return true;
+                }
+            }
+
             if (!TryParseRolandDt1(
                     message,
                     out byte modelId,
@@ -1109,9 +1192,18 @@ namespace NeoBleeper
                     ? 1
                     : 0;
 
-            return header + 6 < message.Length &&
-                   message[header] == 0x41 &&
-                   message[header + 3] == 0x12;
+            bool roland =
+                header + 6 < message.Length &&
+                message[header] == 0x41 &&
+                message[header + 3] == 0x12;
+
+            bool yamaha =
+                header + 5 < message.Length &&
+                message[header] == 0x43 &&
+                (message[header + 1] & 0xF0) == 0x10 &&
+                message[header + 2] == 0x4C;
+
+            return roland || yamaha;
         }
 
         public static bool IsCompleteDisplayPacket(byte[] message)
@@ -1130,13 +1222,21 @@ namespace NeoBleeper
                 return true;
             }
 
-            return TryParseRolandDt1(
-                       message,
-                       out _,
-                       out _,
-                       out _,
-                       out bool checksumValid) &&
-                   checksumValid;
+            if (TryParseRolandDt1(
+                    message,
+                    out _,
+                    out _,
+                    out _,
+                    out bool checksumValid) &&
+                checksumValid)
+            {
+                return true;
+            }
+
+            return TryParseYamahaXgParameterChange(
+                message,
+                out _,
+                out _);
         }
 
         public bool Apply(
@@ -1169,6 +1269,99 @@ namespace NeoBleeper
                 return true;
             }
 
+            if (TryParseYamahaXgParameterChange(
+                    message,
+                    out int yamahaAddress,
+                    out byte[] yamahaData))
+            {
+                int yamahaMsb = (yamahaAddress >> 16) & 0x7F;
+                int yamahaMid = (yamahaAddress >> 8) & 0x7F;
+                int yamahaLsb = yamahaAddress & 0x7F;
+
+                // XG System On resets display data along with the XG system.
+                if (yamahaAddress == 0x00007E &&
+                    yamahaData.Length > 0 &&
+                    yamahaData[0] == 0x00)
+                {
+                    Reset();
+                    visibleChanged = true;
+                    textChanged = true;
+                    return true;
+                }
+
+                if (yamahaMsb == 0x06 &&
+                    yamahaMid == 0x00 &&
+                    yamahaLsb <= 0x1F)
+                {
+                    bool changed = false;
+                    if (yamahaLsb == 0)
+                    {
+                        changed |= ClearDisplayedTextBuffer();
+                    }
+
+                    for (int i = 0; i < yamahaData.Length; i++)
+                    {
+                        int textIndex = yamahaLsb + i;
+                        if (textIndex >= _displayedText.Length)
+                        {
+                            break;
+                        }
+
+                        char character =
+                            DecodeDisplayCharacter(yamahaData[i]);
+                        if (_displayedText[textIndex] != character)
+                        {
+                            _displayedText[textIndex] = character;
+                            changed = true;
+                        }
+                    }
+
+                    textChanged = changed || yamahaData.Length > 0;
+                    return true;
+                }
+
+                if (yamahaMsb == 0x07 &&
+                    yamahaMid == 0x00 &&
+                    yamahaLsb <= 0x2F)
+                {
+                    // A write beginning at byte zero is an authoritative frame.
+                    // Partial writes preserve untouched pixels, as Yamaha specifies.
+                    if (yamahaLsb == 0)
+                    {
+                        Array.Clear(
+                            _yamahaBitmap,
+                            0,
+                            _yamahaBitmap.Length);
+                    }
+
+                    bool changed = false;
+                    for (int i = 0; i < yamahaData.Length; i++)
+                    {
+                        int bitmapIndex = yamahaLsb + i;
+                        if (bitmapIndex >= _yamahaBitmap.Length)
+                        {
+                            break;
+                        }
+
+                        byte value = (byte)(yamahaData[i] & 0x7F);
+                        if (_yamahaBitmap[bitmapIndex] != value)
+                        {
+                            _yamahaBitmap[bitmapIndex] = value;
+                            changed = true;
+                        }
+                    }
+
+                    _yamahaBitmapActive = true;
+                    CurrentPage = 1;
+                    visibleChanged = changed || yamahaData.Length > 0;
+                    // Yamaha display-data messages do not use Roland's Display Time.
+                    restartDisplayTimeout = false;
+                    return true;
+                }
+
+                return false;
+            }
+
             if (!TryParseRolandDt1(
                     message,
                     out byte modelId,
@@ -1178,6 +1371,10 @@ namespace NeoBleeper
             {
                 return false;
             }
+
+            // Any Roland display-state packet switches the active graphics
+            // surface back to Roland Frame Draw pages.
+            _yamahaBitmapActive = false;
 
             if (modelId == 0x42 &&
                 address == 0x40007F &&
@@ -1406,8 +1603,12 @@ namespace NeoBleeper
 
         public bool ExpireDisplay(out bool textChanged)
         {
+            // Yamaha XG display data has no Roland Display Time command;
+            // it remains until replaced/reset. This method is therefore only
+            // reached for Roland-timed content.
             bool pageChanged = CurrentPage != 0;
             CurrentPage = 0;
+            _yamahaBitmapActive = false;
 
             // Expiration is another hide transition. Clear the separate text
             // surface too, and tell the player to publish the empty value.
@@ -1418,6 +1619,32 @@ namespace NeoBleeper
         public bool[,] GetPixels()
         {
             bool[,] pixels = new bool[DisplayWidth, DisplayHeight];
+
+            if (_yamahaBitmapActive)
+            {
+                // Yamaha packs each row as 7 + 7 + 2 horizontal pixels:
+                // Data0..15, Data16..31, Data32..47.
+                for (int y = 0; y < DisplayHeight; y++)
+                {
+                    for (int group = 0; group < 3; group++)
+                    {
+                        byte value = _yamahaBitmap[(group * 16) + y];
+                        int pixelsInGroup = group < 2 ? 7 : 2;
+
+                        for (int bitIndex = 0;
+                             bitIndex < pixelsInGroup;
+                             bitIndex++)
+                        {
+                            int x = (group * 7) + bitIndex;
+                            int mask = 1 << (6 - bitIndex);
+                            pixels[x, y] = (value & mask) != 0;
+                        }
+                    }
+                }
+
+                return pixels;
+            }
+
             if (CurrentPage < 1 || CurrentPage > PageCount)
             {
                 return pixels;
@@ -1445,6 +1672,19 @@ namespace NeoBleeper
 
         public bool HasVisibleContent()
         {
+            if (_yamahaBitmapActive)
+            {
+                for (int i = 0; i < _yamahaBitmap.Length; i++)
+                {
+                    if ((_yamahaBitmap[i] & 0x7F) != 0)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
             if (CurrentPage < 1 || CurrentPage > PageCount)
             {
                 return false;
@@ -1503,6 +1743,76 @@ namespace NeoBleeper
                 {
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Parses Yamaha XG/MU-series parameter-change SysEx:
+        /// 43 1n 4C aa aa aa data... F7.
+        /// Display Letter lives at 06 00 00 and the 16x16 Display Bitmap at
+        /// 07 00 00. Status bytes may be present or omitted by NAudio.
+        /// </summary>
+        private static bool TryParseYamahaXgParameterChange(
+            byte[] message,
+            out int address,
+            out byte[] data)
+        {
+            address = 0;
+            data = Array.Empty<byte>();
+
+            if (message == null || message.Length < 7)
+            {
+                return false;
+            }
+
+            int endExclusive = message.Length;
+            while (endExclusive > 0 &&
+                   (message[endExclusive - 1] == 0xF7 ||
+                    message[endExclusive - 1] == 0x00 &&
+                    endExclusive > 1 &&
+                    message[endExclusive - 2] == 0xF7))
+            {
+                endExclusive--;
+            }
+
+            int header = -1;
+            for (int i = 0; i + 5 < endExclusive; i++)
+            {
+                if (message[i] == 0x43 &&
+                    (message[i + 1] & 0xF0) == 0x10 &&
+                    message[i + 2] == 0x4C)
+                {
+                    header = i;
+                    break;
+                }
+            }
+
+            if (header < 0)
+            {
+                return false;
+            }
+
+            int addressMsb = message[header + 3] & 0x7F;
+            int addressMid = message[header + 4] & 0x7F;
+            int addressLsb = message[header + 5] & 0x7F;
+            address =
+                (addressMsb << 16) |
+                (addressMid << 8) |
+                addressLsb;
+
+            int dataStart = header + 6;
+            int dataLength = endExclusive - dataStart;
+            if (dataLength <= 0)
+            {
+                return false;
+            }
+
+            data = new byte[dataLength];
+            for (int i = 0; i < dataLength; i++)
+            {
+                data[i] = (byte)(message[dataStart + i] & 0x7F);
             }
 
             return true;

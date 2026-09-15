@@ -650,13 +650,14 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Removes MIDI lyric/text events that duplicate Roland display-letter
-        /// SysEx. The matching is deliberately narrow: recognized model-45
-        /// text writes only. Dot graphics and unrelated text remain untouched.
+        /// Removes MIDI lyric/text events that duplicate supported display-letter
+        /// SysEx. Matching is deliberately narrow: recognized Roland model-45 and
+        /// Yamaha XG/MU display-letter writes only. Graphics and unrelated text remain untouched.
         /// </summary>
         private void RemoveSysExDisplayTextFromLyrics(
             Dictionary<long, List<MetaEvent>> metaEvents,
-            Dictionary<long, List<byte[]>> sysExEvents)
+            Dictionary<long, List<byte[]>> sysExEvents,
+            int ticksPerQuarterNote)
         {
             if (metaEvents == null || metaEvents.Count == 0 ||
                 sysExEvents == null || sysExEvents.Count == 0)
@@ -718,10 +719,15 @@ namespace NeoBleeper
             // Duplicate meta events are not always stamped at the exact SysEx
             // tick. Permit a small sequencer-quantization window, while keeping
             // matching local enough not to remove genuine lyrics elsewhere.
+            //
+            // The resolution is passed in explicitly: this runs while a file is
+            // still loading, before _ticksPerQuarterNote is committed, so the
+            // field would still hold the previous file's value (or 0 for the
+            // first file) and shrink the window to a single tick.
             long nearbyTickTolerance = Math.Max(
                 1L,
-                _ticksPerQuarterNote > 0
-                    ? _ticksPerQuarterNote / 16L
+                ticksPerQuarterNote > 0
+                    ? ticksPerQuarterNote / 16L
                     : 1L);
 
             long[] displayTextTicks =
@@ -1197,7 +1203,7 @@ namespace NeoBleeper
                         SafeUpdateProgressBar(percent, $"{Resources.TextEventsAreBeingCollected} ({processedTracks}/{totalTracks})", loadToken);
                     }
 
-                    RemoveSysExDisplayTextFromLyrics(localMetaDict, localSysExDict);
+                    RemoveSysExDisplayTextFromLyrics(localMetaDict, localSysExDict, localTicksPerQuarterNote);
                     localLyricsCount = localMetaDict.Values.Sum(events => events.Count);
 
                     SafeUpdateProgressBar(55, Resources.TextEventsAreBeingSorted, loadToken);
@@ -1285,7 +1291,19 @@ namespace NeoBleeper
                         .SelectMany(RolandGSStyleDisplayDecoder.GetDotGraphicsPagesTouched)
                         .ToHashSet();
 
-                    localSysExCount = dotGraphicsPages.Count;
+                    // Display-letter (text) writes are SysEx display content too.
+                    // Counting only dot pages left the emulator checkbox disabled for
+                    // text-only files, so their SysEx text could never be shown.
+                    int displayTextWriteCount = localSysExDict.Values
+                        .SelectMany(events => events)
+                        .Count(message =>
+                            RolandGSStyleDisplayDecoder.TryGetDisplayTextWrite(
+                                message,
+                                out _,
+                                out string writtenText) &&
+                            !string.IsNullOrWhiteSpace(writtenText));
+
+                    localSysExCount = dotGraphicsPages.Count + displayTextWriteCount;
                 });
 
                 // Derive total playback length from the actual generated timeline
@@ -1324,7 +1342,7 @@ namespace NeoBleeper
                 _currentFrameIndex = 0;
                 _isPlaying = false;
                 _isFirstPlayAfterMidiLoad = true;
-                _pendingExactSeekMs = null; 
+                _pendingExactSeekMs = null;
 
                 SafeInvoke(() =>
                 {
@@ -3181,19 +3199,19 @@ namespace NeoBleeper
                 fragment != null &&
                 fragment.Length > 0 &&
                 fragment[0] == 0xF7;
-            bool fragmentStartsRolandDt1 =
+            bool fragmentStartsDisplaySysEx =
                 RolandGSStyleDisplayDecoder
                     .LooksLikeRolandDt1PacketStart(fragment);
 
             // NAudio's SysEx payload omits F0/F7 and some versions expose
             // both SMF F0 and F7 events with the same Sysex command code.
-            // A fragment without a new Roland header therefore continues the
-            // pending packet instead of incorrectly flushing it as a new one.
+            // A fragment without a new supported display-SysEx header therefore
+            // continues the pending packet instead of incorrectly flushing it.
             bool continuesPendingPacket = pending != null &&
                 (isContinuation ||
                  fragmentStartsWithF7 ||
                  (!fragmentStartsWithF0 &&
-                  !fragmentStartsRolandDt1));
+                  !fragmentStartsDisplaySysEx));
 
             if (continuesPendingPacket)
             {
@@ -3205,7 +3223,7 @@ namespace NeoBleeper
             }
             else if (isStart ||
                      fragmentStartsWithF0 ||
-                     fragmentStartsRolandDt1)
+                     fragmentStartsDisplaySysEx)
             {
                 // A new F0 starts a new packet. Preserve a previous malformed or
                 // checksum-tolerant packet rather than silently dropping it.
@@ -3457,7 +3475,8 @@ namespace NeoBleeper
 
                                 UpdateSysExDisplayTimeout(
                                     eventTimeMs,
-                                    restartDisplayTimeout);
+                                    restartDisplayTimeout,
+                                    textChanged);
                             }
                         }
                     }
@@ -3505,15 +3524,31 @@ namespace NeoBleeper
 
         private void UpdateSysExDisplayTimeout(
             double eventTimeMs,
-            bool restartDisplayTimeout)
+            bool restartDisplayTimeout,
+            bool textChanged)
         {
-            if (_sysExDisplayDecoder.CurrentPage == 0)
+            // The display timeout governs everything transient on the emulator:
+            // the selected dot page (1-10) AND the display-letter text. Only
+            // cancel a pending clear when neither is showing. Checking the page
+            // alone (as before) left text-only captions on screen forever, and
+            // cancelled the clear of visible text whenever an unrelated message
+            // arrived while page 0 was selected.
+            bool textVisible = _sysExDisplayDecoder.DisplayedText.Length > 0;
+            bool anythingShowing =
+                _sysExDisplayDecoder.CurrentPage > 0 || textVisible;
+
+            if (!anythingShowing)
             {
                 _sysExDisplayClearAtMs = null;
                 return;
             }
 
-            if (!restartDisplayTimeout)
+            // A non-blank display-letter write (re)starts the Display Time, just
+            // like a dot-page write does. Blank writes/hides never do.
+            bool restart =
+                restartDisplayTimeout || (textChanged && textVisible);
+
+            if (!restart)
             {
                 return;
             }
@@ -3581,12 +3616,13 @@ namespace NeoBleeper
                                     message,
                                     out _,
                                     out bool restartDisplayTimeout,
-                                    out _))
+                                    out bool textChanged))
                             {
                                 _hasAppliedSysExDisplayState = true;
                                 UpdateSysExDisplayTimeout(
                                     eventTimeMs,
-                                    restartDisplayTimeout);
+                                    restartDisplayTimeout,
+                                    textChanged);
                             }
                         }
                     }
@@ -3633,8 +3669,8 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Writes only decoded Roland display-letter SysEx data to the emulator's
-        /// marquee-capable label. MIDI lyrics and meta text use separate code
+        /// Writes decoded display-letter SysEx data (Roland GS/SC and Yamaha XG)
+        /// to the emulator's marquee-capable label. MIDI lyrics and meta text use separate code
         /// paths and never call this method.
         /// </summary>
         private void RenderSysExText(string text)
