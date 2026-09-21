@@ -338,7 +338,7 @@ namespace NeoBleeper
 
             public Task Drained => _drained.Task;
 
-            // Mevcut dizi tabanlı okuma metodu muhafaza ediliyor
+            // Store the samples in a float array and implement the ISampleProvider interface to read from it.
             public int Read(float[] buffer, int offset, int count)
             {
                 if (buffer == null)
@@ -3383,7 +3383,7 @@ namespace NeoBleeper
             // Hardware PWM with Peak-Transient Detection
             // (System Speaker branch below is intentionally left untouched by the
             // velocity fix — it already responds to velocity via GetPlaybackSignalCore.)
-            const int carrierHz = 20000;
+            const int carrierHz = 24000;
 
             const double frameStepMs =
                 1000.0 /

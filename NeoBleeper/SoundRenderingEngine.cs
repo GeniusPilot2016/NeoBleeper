@@ -237,6 +237,7 @@ namespace NeoBleeper
                 {
                     HighPrecisionSleep.Sleep(offset); // Optional offset before enabling the speaker, if specified
                 }
+                //pawnIO.Execute("ioctl_start", new long[] { freq }, 0);
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
             }
 
@@ -254,6 +255,7 @@ namespace NeoBleeper
                     return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
                 }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
+                //pawnIO.Execute("ioctl_stop", Array.Empty<long>(), 0);
             }
 
             /// <summary>
@@ -295,6 +297,7 @@ namespace NeoBleeper
                         // Can the non-existent beep of most of Copilot+ devices be stuck?
                         return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                     }
+                    // bool result = Convert.ToBoolean(pawnIO.Execute("ioctl_is_beep_enabled", Array.Empty<long>(), 1));
                     // Check if the system speaker is currently beeping by reading the status of the speaker port
                     return ((Inp32(0x61) & 0x03) == 0x03);
                 }
@@ -365,6 +368,7 @@ namespace NeoBleeper
             {
                 try
                 {
+                    //value = Convert.ToBoolean(pawnIO.Execute("ioctl_read_control", Array.Empty<long>(), 1)) ? (byte)1 : (byte)0;
                     value = ReadPortByte(PortSpeakerControl);
                     return true;
                 }
@@ -378,7 +382,7 @@ namespace NeoBleeper
             private static bool CheckControlPortRoundTrip(out string details)
             {
                 byte originalState = 0;
-
+                //bool result = Convert.ToBoolean(pawnIO.Execute("ioctl_test_control_port", Array.Empty<long>(), 1));
                 try
                 {
                     originalState = ReadPortByte(PortSpeakerControl);
@@ -422,6 +426,7 @@ namespace NeoBleeper
                 int sampleCount,
                 out int transitions)
             {
+                //bool result = Convert.ToBoolean(pawnIO.Execute("ioctl_test_system_timer_channel_2", Array.Empty<long>(), 1));
                 byte original61 = 0;
 
                 try
@@ -475,6 +480,7 @@ namespace NeoBleeper
             int frequencyHz,
             int durationUs)
             {
+                //bool success = Convert.ToBoolean(pawnIO.Execute("ioctl_test_audible_probe", Array.Empty<long>(), 1));
                 byte original61 = 0;
 
                 try
@@ -516,7 +522,7 @@ namespace NeoBleeper
                 long ticksToWait = (long)(microseconds * (Stopwatch.Frequency / 1_000_000.0));
                 long target = start + Math.Max(1, ticksToWait);
 
-                // Hafifçe spin-wait, CPU'yu tamamen kilitlememek için arada SpinWait yap
+                // Do spin-waiting to avoid context switches and ensure precise timing
                 while (Stopwatch.GetTimestamp() < target)
                     Thread.SpinWait(10);
             }
@@ -537,7 +543,7 @@ namespace NeoBleeper
                 try
                 {
                     WritePortByte(PortSpeakerControl, originalState);
-                    BusyWaitMicroseconds(200); // Thread.Sleep(1) yerine kısa bekleme
+                    BusyWaitMicroseconds(200); // Short delay to ensure the state is restored before any further operations
                 }
                 catch
                 {
@@ -756,6 +762,7 @@ namespace NeoBleeper
                         try
                         {
                             Program.splashScreen.UpdateStatus(Resources.StatusWakingUpSystemSpeaker);
+                            //pawnIO.Execute("ioctl_wake", Array.Empty<long>(), 0); // Wake up the system speaker using PawnIO if available
                             byte originalState = (byte)Inp32(0x61);
 
                             // 1. Close the speaker gate completely to ensure a clean state.
@@ -821,15 +828,6 @@ namespace NeoBleeper
                 {
                 }
                 return false; // Placeholder implementation, as PawnIO is not relevant in this context
-            }
-            private static void StartBeepPawnIO(int frequency)
-            {
-                pawnIO.Execute("ioctl_start", new long[] { frequency }, 0);
-            }
-
-            private static void StopBeepPawnIO()
-            {
-                pawnIO.Execute("ioctl_stop", Array.Empty<long>(), 0);
             }
 
             public static class PCBeepSliderChecker
