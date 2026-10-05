@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -114,6 +115,51 @@ namespace NeoBleeper
             pawnio_execute(_handle, name, input, (IntPtr)input.Length, outArray, (IntPtr)outArray.Length, out var returnLength);
             Array.Resize(ref outArray, (int)returnLength);
             return outArray;
+        }
+
+        public static void InstallPawnIO()
+        {
+            if(TryLoadDll())
+            {
+                // PawnIO is already installed
+                return;
+            }
+            // 1. Configure the process to run WinGet
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "winget",
+                // namazso.PawnIO is the official WinGet package ID
+                Arguments = "install namazso.PawnIO --silent --accept-source-agreements --accept-package-agreements",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                // WinGet often requires administrative rights to install kernel drivers
+                Verb = "runas"
+            };
+
+            try
+            {
+
+                // 2. Start the process
+                using (Process process = Process.Start(startInfo))
+                {
+                    // 3. Read the output stream to track progress
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+
+                    process.WaitForExit();
+
+                    if(process.ExitCode != 0)
+                    {
+                        throw new Exception($"Installation failed with exit code: {process.ExitCode}. Error: {error}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to install PawnIO. Ensure that WinGet is installed and you have administrative rights.", ex);
+            }
         }
     }
 }
