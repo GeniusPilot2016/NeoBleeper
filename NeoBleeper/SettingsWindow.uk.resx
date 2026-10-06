@@ -147,25 +147,25 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAHlQAAAJNU0Z0AUkBTAIBARMB
-        AAEoAQgBKAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAEwAQgBMAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAmgAAaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB
         /wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaAB
-        mQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BjwGLAYQB60wAAlIBUQGkAfIB1AGbAf8B9QHeAbMB
+        mQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BiQGFAYAB60wAAlIBUQGkAfIB1AGbAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B
-        /wgAARABxwH+Af8EAAM1AVUIAAEQAccB/gH/EAABgwF+AXMB/gGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB
+        /wgAARABxwH+Af8EAAM1AVUIAAEQAccB/gH/EAABgQF/AXQB/gGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB
         /wGGAX0BcgH/AYcBfgFzAf8BqQGhAZgB/wGpAaEBmAH/AakBoQGYAf8BqQGhAZgB/wGhAZkBkAH/AYYB
-        fQFyAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wFxAW0BaAHSTAACVQFTAaoc/wPwAf8D
+        fQFyAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8BhgF9AXIB/wFqAWkBZQHSTAACVQFTAaoc/wPwAf8D
         8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8B3QGgAVAB/wwAAx0BKQGBAXcBawH/AX8BdQFoAf8BfgFzAWYB
         /wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
-        cQFkAf8BfAFxAWQB/wNlAewMAAMwAUkBgQF3AW0B/QGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkB
+        cQFkAf8BfAFxAWQB/wNlAewMAAMvAUkBgQF2AWwB/QGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkB
         bwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8B
-        gQF5AW8B/wGBAXkBbwH/AXgBcQFqAepQAAJVAVMBqgT/AfIBxQFDAf8B8QHBATUB/wHxAcEBNQH/AfEB
+        gQF5AW8B/wGBAXkBbwH/AXQBbwFoAepQAAJVAVMBqgT/AfIBxQFDAf8B8QHBATUB/wHxAcEBNQH/AfEB
         wQE1Af8B+wHsAcEF/wPwAf8D8AH/A/AB/wGrAWIBDQH/AdkBwQGkAf8D8AH/A/AB/wHdAaABUAH/DAAD
         NQFVAYUBewFvAf8BgwF4AW0B/wGBAXcBawH/AX8BdQFoAf8BfQFyAWYB/wF8AXEBZAH/AXwBcQFkAf8B
         fAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8QAAGrAaMBmwH/AaoB
         ogGaAf8BqQGhAZgB/wGoAaABmAH/AacBnwGXAf8BpgGeAZYB/wGlAZ0BlQH/AaQBnAGUAf8BowGbAZMB
-        /wGiAZoBkgH/AaABmQGRAf8BnwGYAZAB/wGeAZcBjwH/AZ4BlwGPAf8BjgGJAYMB7FAAAlUBUwGqBP8B
+        /wGiAZoBkgH/AaABmQGRAf8BnwGYAZAB/wGeAZcBjwH/AZ4BlwGPAf8BhwGEAX4B7FAAAlUBUwGqBP8B
         9gHZAYIB/wH2AdYBeAH/AfYB1gF4Af8B9gHWAXgB/wH2AdYBeAX/A/AB/wPwAf8D8AH/AasBYgENAf8B
         2QHBAaQB/wPwAf8D8AH/Ad0BoAFQAf8MAAM1AVUBiAF/AXQB/wGGAX0BcgH/AYQBegFvAf8BgwF4AW0B
         /wGBAXYBawH/AX8BdAFoAf8BfQFyAWUB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwB
@@ -209,7 +209,7 @@
         MgH6AfAB3Bn/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/A/AB/wJlAV0B7BQAAzIBTwQAAV4CagHtCAAB
         XQJlAewEAAMyAU8IAAFeAmoB7RQAAbMBqgGhAf8BswGqAaEB/wGxAagBoAH/AbABqAGfAf8BrwGnAZ4B
         /wGuAaYBnQH/Aa0BpQGcAf8BrAGkAZsB/wGrAaMBmgH/AaoBogGZAf8BqQGhAZgB/wGoAaABlwH/AacB
-        nwGWAf8BpQGeAZUB/wGTAYwBhwHs/wD/AP8A/wD/AG0AAx4BKwM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
+        nwGWAf8BpQGeAZUB/wGMAYcBggHs/wD/AP8A/wD/AG0AAx4BKwM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVUDNQFVXAACZQFdAewBoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wNEAXsMAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
@@ -681,6 +681,12 @@
   <data name="panelSystemSpeakerWarnings.Size" type="System.Drawing.Size, System.Drawing">
     <value>407, 109</value>
   </data>
+  <data name="label_pawnio_not_installed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 99</value>
+  </data>
+  <data name="label_pawnio_not_installed.Text" xml:space="preserve">
+    <value>Виведення звуку через системний динамік недоступне, оскільки PawnIO не встановлено у вашій системі.</value>
+  </data>
   <data name="openSoundSettingsButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>88, 66</value>
   </data>
@@ -713,6 +719,12 @@
   </data>
   <data name="label14.Text" xml:space="preserve">
     <value>На комп’ютерах без виходу системних динаміків ви можете не чути жодного звуку або це може призвести до нестабільності чи небажаної поведінки під час перевірки системних динаміків.</value>
+  </data>
+  <data name="label_neobleeper_must_run_as_admin.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 99</value>
+  </data>
+  <data name="label_neobleeper_must_run_as_admin.Text" xml:space="preserve">
+    <value>Для використання системного динаміка програму NeoBleeper необхідно запускати від імені адміністратора.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 643</value>
