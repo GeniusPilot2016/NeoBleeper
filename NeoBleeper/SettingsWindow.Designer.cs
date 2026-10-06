@@ -58,6 +58,8 @@
             label_test_system_speaker_message_3 = new Label();
             label_test_system_speaker_message_4 = new Label();
             label14 = new Label();
+            label_pawnio_not_installed = new Label();
+            label_neobleeper_must_run_as_admin = new Label();
             creating_sound_settings = new TabPage();
             flowLayoutPanelCreatingSoundSettings = new FlowLayoutPanel();
             checkBox_enable_create_beep_from_soundcard = new CheckBox();
@@ -405,6 +407,8 @@
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_3);
             panelSystemSpeakerWarnings.Controls.Add(label_test_system_speaker_message_4);
             panelSystemSpeakerWarnings.Controls.Add(label14);
+            panelSystemSpeakerWarnings.Controls.Add(label_pawnio_not_installed);
+            panelSystemSpeakerWarnings.Controls.Add(label_neobleeper_must_run_as_admin);
             panelSystemSpeakerWarnings.Name = "panelSystemSpeakerWarnings";
             toolTip1.SetToolTip(panelSystemSpeakerWarnings, resources.GetString("panelSystemSpeakerWarnings.ToolTip"));
             // 
@@ -444,6 +448,20 @@
             label14.ForeColor = Color.FromArgb(255, 128, 0);
             label14.Name = "label14";
             toolTip1.SetToolTip(label14, resources.GetString("label14.ToolTip"));
+            // 
+            // label_pawnio_not_installed
+            // 
+            resources.ApplyResources(label_pawnio_not_installed, "label_pawnio_not_installed");
+            label_pawnio_not_installed.ForeColor = Color.FromArgb(192, 0, 0);
+            label_pawnio_not_installed.Name = "label_pawnio_not_installed";
+            toolTip1.SetToolTip(label_pawnio_not_installed, resources.GetString("label_pawnio_not_installed.ToolTip"));
+            // 
+            // label_neobleeper_must_run_as_admin
+            // 
+            resources.ApplyResources(label_neobleeper_must_run_as_admin, "label_neobleeper_must_run_as_admin");
+            label_neobleeper_must_run_as_admin.ForeColor = Color.FromArgb(192, 0, 0);
+            label_neobleeper_must_run_as_admin.Name = "label_neobleeper_must_run_as_admin";
+            toolTip1.SetToolTip(label_neobleeper_must_run_as_admin, resources.GetString("label_neobleeper_must_run_as_admin.ToolTip"));
             // 
             // creating_sound_settings
             // 
@@ -1357,6 +1375,7 @@
         private Button metronome_color_change;
         private Label label10;
         private ColorDialog colorDialog1;
+        private Label label_pawnio_not_installed;
         private Button reset_appearance_settings;
         private Button refresh_midi_input_button;
         private Button refresh_midi_output_button;
@@ -1439,5 +1458,7 @@
         public Label label_test_system_speaker_message_4;
         private Button openSoundSettingsButton;
         public Label label14;
+        public Label label16;
+        public Label label_neobleeper_must_run_as_admin;
     }
 }

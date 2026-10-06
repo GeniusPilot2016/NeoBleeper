@@ -802,33 +802,6 @@ namespace NeoBleeper
                     }
                 }
             }
-            public static bool IsPawnIOInstalled()
-            {
-                try
-                {
-                    var pawnioPath = Environment.GetEnvironmentVariable("PAWNIO_ROOT");
-                    if (!string.IsNullOrEmpty(pawnioPath)) // Check if PawnIO is installed
-                    {
-                        try
-                        {
-                            if (!File.Exists(Path.Combine(pawnioPath, "PawnIOLib.dll")))
-                            {
-                                return false; // DLL not found in the specified path
-                            }
-                            return true;
-                        }
-                        catch
-                        {
-                            return false;
-                        }
-                    }
-                    return false;
-                }
-                catch
-                {
-                }
-                return false; // Placeholder implementation, as PawnIO is not relevant in this context
-            }
 
             public static class PCBeepSliderChecker
             {
