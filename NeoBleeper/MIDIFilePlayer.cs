@@ -201,7 +201,7 @@ namespace NeoBleeper
             button_browse_file.BackColor = Color.FromArgb(32, 32, 32);
             numericUpDown_alternating_note.BackColor = Color.Black;
             numericUpDown_alternating_note.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         private void LightTheme()
@@ -215,7 +215,7 @@ namespace NeoBleeper
             button_browse_file.BackColor = Color.Transparent;
             numericUpDown_alternating_note.BackColor = SystemColors.Window;
             numericUpDown_alternating_note.ForeColor = SystemColors.WindowText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         private void button4_Click(object sender, EventArgs e)

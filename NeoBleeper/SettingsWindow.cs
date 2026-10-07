@@ -159,6 +159,12 @@ namespace NeoBleeper
             checkBoxClassicBleeperMode.Checked = Settings1.Default.ClassicBleeperMode;
             comboBoxLanguage.SelectedItem = Settings1.Default.preferredLanguage;
             comboBox1.SelectedIndex = Settings1.Default.SysExEmulatorColor;
+            window_border_color.BackColor = Settings1.Default.window_border_color;
+            if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || (Environment.OSVersion.Version.Major == 10 && Environment.OSVersion.Version.Build < 22000))
+            {
+                groupBoxWindow.Visible = false;
+                this.Height -= groupBoxWindow.Height; // Adjust the form height to account for the hidden group box
+            }
             UIFonts.SetFonts(this);
             SetTheme();
             PrepareSysExDisplayPreview();
@@ -320,7 +326,9 @@ namespace NeoBleeper
             groupBox1.ForeColor = Color.White;
             openSoundSettingsButton.BackColor = Color.Black;
             openSoundSettingsButton.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            window_border_color_change.BackColor = Color.FromArgb(32, 32, 32);
+            window_border_color_change.ForeColor = Color.White;
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
         {
@@ -399,7 +407,9 @@ namespace NeoBleeper
             groupBox1.ForeColor = SystemColors.ControlText;
             openSoundSettingsButton.BackColor = Color.Transparent;
             openSoundSettingsButton.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            window_border_color_change.BackColor = Color.Transparent;
+            window_border_color_change.ForeColor = SystemColors.ControlText;
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>
@@ -580,7 +590,7 @@ namespace NeoBleeper
         private void checkBox_enable_create_beep_from_soundcard_CheckedChanged(object sender, EventArgs e)
         {
             if ((TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.Unknown ||
-                (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers && 
+                (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType == TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers &&
                 TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider)) &&
                 TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent == true)
             {
@@ -1399,11 +1409,13 @@ namespace NeoBleeper
             beep_indicator_color.BackColor = Settings1.Default.beep_indicator_color = Color.Red;
             note_indicator_color.BackColor = Settings1.Default.note_indicator_color = Color.Red;
             markup_color.BackColor = Settings1.Default.markup_color = Color.LightBlue;
+            window_border_color.BackColor = Settings1.Default.window_border_color = Color.DeepSkyBlue;
             Settings1.Default.lyricsSize = 32;
             numericUpDownLyricsSize.Value = 32;
             comboBox1.SelectedIndex = 0;
             Settings1.Default.Save();
             ColorsAndThemeChanged?.Invoke(this, new EventArgs());
+            UIHelper.ApplyPreferredWindowColorToAllForms();
             Logger.Log("Appearance settings reset to default values.", Logger.LogTypes.Info);
         }
 
@@ -2350,7 +2362,7 @@ namespace NeoBleeper
         private void button1_Click(object sender, EventArgs e)
         {
             try
-            {   
+            {
                 // Open the sound settings called mmsys.cpl using Process.Start with UseShellExecute set to true
                 Process.Start(new ProcessStartInfo
                 {
@@ -2362,6 +2374,26 @@ namespace NeoBleeper
             {
                 // Handle exception if file is missing or access is denied
                 Logger.Log("Error opening Sound settings: " + ex.Message, Logger.LogTypes.Error);
+            }
+        }
+
+        private void window_border_color_change_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = Settings1.Default.window_border_color;
+            DialogResult result = colorDialog1.ShowDialog();
+            if (colorDialog1.Color != null && result == DialogResult.OK)
+            {
+                window_border_color.BackColor = colorDialog1.Color;
+                SynchronizedSettings synchronizedSettings = SynchronizedSettings.Load();
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    // Update synchronized settings for Beep Stopper if not running on ARM64 architecture
+                    synchronizedSettings.BorderColor = colorDialog1.Color;
+                }
+                Settings1.Default.window_border_color = colorDialog1.Color;
+                Settings1.Default.Save();
+                UIHelper.ApplyPreferredWindowColorToAllForms();
+                Logger.Log("Window border color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
             }
         }
     }

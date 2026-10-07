@@ -448,7 +448,7 @@ namespace NeoBleeper
             checkBox_mute_playback.ForeColor = Color.White;
             notes_list_right_click.BackColor = Color.Black;
             notes_list_right_click.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         private void LightTheme()
@@ -496,7 +496,7 @@ namespace NeoBleeper
             checkBox_mute_playback.ForeColor = SystemColors.ControlText;
             notes_list_right_click.BackColor = SystemColors.Window;
             notes_list_right_click.ForeColor = SystemColors.WindowText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>

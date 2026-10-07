@@ -112,7 +112,7 @@ namespace NeoBleeper
             groupBox_time.ForeColor = Color.White;
             groupBox_position.ForeColor = Color.White;
             button_wait.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
         {
@@ -122,7 +122,7 @@ namespace NeoBleeper
             groupBox_time.ForeColor = SystemColors.ControlText;
             groupBox_position.ForeColor = SystemColors.ControlText;
             button_wait.BackColor = Color.Transparent;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

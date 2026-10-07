@@ -91,7 +91,7 @@ namespace NeoBleeper
             this.BackColor = Color.FromArgb(32, 32, 32);
             this.ForeColor = Color.White;
             button_close.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         private void LightTheme()
@@ -100,7 +100,7 @@ namespace NeoBleeper
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
             button_close.BackColor = Color.Transparent;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         private void button_close_the_program_Click(object sender, EventArgs e)

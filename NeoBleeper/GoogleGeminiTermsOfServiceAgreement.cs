@@ -46,7 +46,7 @@ namespace NeoBleeper
             richTextBoxTerms.BackColor = Color.Black;
             richTextBoxTerms.ForeColor = Color.White;
             this.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
         {
@@ -56,7 +56,7 @@ namespace NeoBleeper
             richTextBoxTerms.BackColor = SystemColors.Window;
             richTextBoxTerms.ForeColor = SystemColors.WindowText;
             this.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>

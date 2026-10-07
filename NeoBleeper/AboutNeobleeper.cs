@@ -123,7 +123,7 @@ namespace NeoBleeper
                 item.BackColor = Color.Black;
                 item.ForeColor = Color.White;
             }
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         private void LightTheme()
@@ -144,7 +144,7 @@ namespace NeoBleeper
                 item.BackColor = SystemColors.Window;
                 item.ForeColor = SystemColors.WindowText;
             }
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
 

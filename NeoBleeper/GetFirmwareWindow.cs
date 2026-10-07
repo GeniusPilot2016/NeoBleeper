@@ -98,7 +98,7 @@ namespace NeoBleeper
             richTextBoxFirmware.ForeColor = SystemColors.WindowText;
             buttonCopyFirmwareToClipboard.BackColor = Color.Transparent;
             buttonCopyFirmwareToClipboard.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
         private void DarkTheme()
         {
@@ -110,7 +110,7 @@ namespace NeoBleeper
             richTextBoxFirmware.BackColor = Color.Black;
             richTextBoxFirmware.ForeColor = Color.White;
             buttonCopyFirmwareToClipboard.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void buttonCopyFirmwareToClipboard_Click(object sender, EventArgs e)
         {

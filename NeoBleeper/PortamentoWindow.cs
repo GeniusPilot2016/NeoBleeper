@@ -107,7 +107,7 @@ namespace NeoBleeper
             this.ForeColor = SystemColors.ControlText;
             groupBox1.ForeColor = SystemColors.ControlText;
             trackBarLength.BackColor = SystemColors.Control;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
         private void DarkTheme()
         {
@@ -116,7 +116,7 @@ namespace NeoBleeper
             this.ForeColor = Color.White;
             groupBox1.ForeColor = Color.White;
             trackBarLength.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         /// <summary>

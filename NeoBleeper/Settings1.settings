@@ -101,5 +101,8 @@
     <Setting Name="SysExEmulatorColor" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="window_border_color" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">DeepSkyBlue</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
