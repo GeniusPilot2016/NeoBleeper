@@ -18,6 +18,7 @@
 using NAudio.Midi;
 using NeoBleeper.Properties;
 using System.Diagnostics;
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -5941,6 +5942,20 @@ namespace NeoBleeper
         }
 
         BusyFormHelper busyFormhelper = new BusyFormHelper();
+        bool isBusy = false;
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Check if the user pressed the Tab key (or Shift + Tab)
+            if ((((keyData & Keys.KeyCode) == Keys.Tab) || 
+                ((keyData & Keys.KeyCode) == Keys.Enter) ||
+                ((keyData & Keys.KeyCode) == Keys.Space)) && isBusy)
+            {
+                SystemSounds.Beep.Play(); // Play a beep sound to indicate that the action is not allowed
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         private async void createMusicWithAIToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -5964,10 +5979,12 @@ namespace NeoBleeper
                         MessageForm.Show(this, Resources.MessageAICreationCooldown, Resources.TitlePleaseWait, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return; // Exit the method if still in cooldown
                     }
-                    busyFormhelper.SetFormBusy(this, true);
+                    isBusy = true;
+                    busyFormhelper.SetFormBusy(this, isBusy);
                     if (await createMusicWithAI.CheckWillItOpened())
                     {
-                        busyFormhelper.SetFormBusy(this, false);
+                        isBusy = false;
+                        busyFormhelper.SetFormBusy(this, isBusy);
                         await Task.Delay(5);
                         createMusicWithAI.ShowDialog();
                         string output = createMusicWithAI.output;
@@ -5995,14 +6012,16 @@ namespace NeoBleeper
                     }
                     else
                     {
-                        busyFormhelper.SetFormBusy(this, false);
+                        isBusy = false;
+                        busyFormhelper.SetFormBusy(this, isBusy);
                         return;
                     }
                 }
             }
             catch (ObjectDisposedException)
             {
-                busyFormhelper.SetFormBusy(this, false);
+                isBusy = false;
+                busyFormhelper.SetFormBusy(this, isBusy);
                 return;
             }
         }
