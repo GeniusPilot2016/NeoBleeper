@@ -70,22 +70,26 @@ namespace NeoBleeper
                         {
                             darkTheme = true;
                             this.BackColor = Color.FromArgb(32, 32, 32);
+                            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, true);
                         }
                         else
                         {
                             darkTheme = false;
                             this.BackColor = SystemColors.Control;
+                            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, false);
                         }
                         break;
 
                     case 1:
                         darkTheme = false;
                         this.BackColor = SystemColors.Control;
+                        UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, false);
                         break;
 
                     case 2:
                         darkTheme = true;
                         this.BackColor = Color.FromArgb(32, 32, 32);
+                        UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, true);
                         break;
                 }
             }
