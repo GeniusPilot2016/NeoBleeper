@@ -328,6 +328,7 @@ namespace NeoBleeper
             openSoundSettingsButton.ForeColor = Color.White;
             window_border_color_change.BackColor = Color.FromArgb(32, 32, 32);
             window_border_color_change.ForeColor = Color.White;
+            groupBoxWindow.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
@@ -407,6 +408,7 @@ namespace NeoBleeper
             groupBox1.ForeColor = SystemColors.ControlText;
             openSoundSettingsButton.BackColor = Color.Transparent;
             openSoundSettingsButton.ForeColor = SystemColors.ControlText;
+            groupBoxWindow.ForeColor = SystemColors.ControlText;
             window_border_color_change.BackColor = Color.Transparent;
             window_border_color_change.ForeColor = SystemColors.ControlText;
             UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
