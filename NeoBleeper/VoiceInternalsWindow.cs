@@ -187,7 +187,7 @@ namespace NeoBleeper
             groupBoxPlayVoiceOnLineSettings.ForeColor = Color.White;
             comboBoxPlayNoteOnLineOption.BackColor = Color.Black;
             comboBoxPlayNoteOnLineOption.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
         {
@@ -213,7 +213,7 @@ namespace NeoBleeper
             groupBoxPlayVoiceOnLineSettings.ForeColor = SystemColors.ControlText;
             comboBoxPlayNoteOnLineOption.BackColor = SystemColors.Window;
             comboBoxPlayNoteOnLineOption.ForeColor = SystemColors.WindowText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>

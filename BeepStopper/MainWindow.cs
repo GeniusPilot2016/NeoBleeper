@@ -30,7 +30,7 @@ namespace BeepStopper
             InitializeComponent();
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             UIFonts.SetFonts(this);
-            UIHelper.ApplyCustomTitleBar(this, Color.White);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White);
             SetTheme();
         }
 
@@ -80,7 +80,7 @@ namespace BeepStopper
             this.ForeColor = SystemColors.ControlText;
             stopBeepButton.BackColor = Color.Transparent;
             stopBeepButton.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, false);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, false);
         }
         private void DarkTheme()
         {
@@ -88,7 +88,7 @@ namespace BeepStopper
             this.ForeColor = Color.White;
             stopBeepButton.BackColor = Color.FromArgb(32, 32, 32);
             stopBeepButton.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, true);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, true);
         }
         private void button1_Click(object sender, EventArgs e)
         {

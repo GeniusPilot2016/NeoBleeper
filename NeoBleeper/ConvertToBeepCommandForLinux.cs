@@ -107,7 +107,7 @@ namespace NeoBleeper
             buttonCopyBeepCommandToClipboard.BackColor = Color.FromArgb(32, 32, 32);
             buttonSaveAsShFile.BackColor = Color.FromArgb(32, 32, 32);
             richTextBoxBeepCommand.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
         {
@@ -117,7 +117,7 @@ namespace NeoBleeper
             buttonCopyBeepCommandToClipboard.BackColor = Color.Transparent;
             buttonSaveAsShFile.BackColor = Color.Transparent;
             richTextBoxBeepCommand.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
         private void buttonCopyBeepCommandToClipboard_Click(object sender, EventArgs e)
         {

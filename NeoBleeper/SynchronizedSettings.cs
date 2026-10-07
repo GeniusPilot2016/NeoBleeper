@@ -27,6 +27,8 @@ namespace NeoBleeper
         public string Language { get; set; } = "English";
         public int Theme { get; set; } = 0;
 
+        public Color BorderColor { get; set; } = Color.DeepSkyBlue; // Default border color
+
         /// <summary>
         /// Loads the synchronized settings from the settings file, or creates default settings if the file does not
         /// exist.

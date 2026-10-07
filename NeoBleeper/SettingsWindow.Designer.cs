@@ -150,8 +150,19 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             comboBox1 = new ComboBox();
             label15 = new Label();
+            groupBoxWindow = new GroupBox();
+            window_border_color_change = new Button();
+            window_border_color = new Panel();
+            label19 = new Label();
             panel2 = new Panel();
             reset_appearance_settings = new Button();
+            groupBox2 = new GroupBox();
+            button1 = new Button();
+            button2 = new Button();
+            label16 = new Label();
+            panel3 = new Panel();
+            panel4 = new Panel();
+            label17 = new Label();
             toolTip1 = new ToolTip(components);
             contextMenuStripSystemSpeakerTests = new ContextMenuStrip(components);
             standardTuneTestToolStripMenuItem = new ToolStripMenuItem();
@@ -186,7 +197,9 @@
             group_lyrics_size_settings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownLyricsSize).BeginInit();
             groupBox1.SuspendLayout();
+            groupBoxWindow.SuspendLayout();
             panel2.SuspendLayout();
+            groupBox2.SuspendLayout();
             contextMenuStripSystemSpeakerTests.SuspendLayout();
             SuspendLayout();
             // 
@@ -824,7 +837,9 @@
             flowLayoutPanelAppearanceSettings.Controls.Add(group_indicator_colors);
             flowLayoutPanelAppearanceSettings.Controls.Add(group_lyrics_size_settings);
             flowLayoutPanelAppearanceSettings.Controls.Add(groupBox1);
+            flowLayoutPanelAppearanceSettings.Controls.Add(groupBoxWindow);
             flowLayoutPanelAppearanceSettings.Controls.Add(panel2);
+            flowLayoutPanelAppearanceSettings.Controls.Add(groupBox2);
             flowLayoutPanelAppearanceSettings.Name = "flowLayoutPanelAppearanceSettings";
             toolTip1.SetToolTip(flowLayoutPanelAppearanceSettings, resources.GetString("flowLayoutPanelAppearanceSettings.ToolTip"));
             // 
@@ -1226,6 +1241,38 @@
             label15.Name = "label15";
             toolTip1.SetToolTip(label15, resources.GetString("label15.ToolTip"));
             // 
+            // groupBoxWindow
+            // 
+            resources.ApplyResources(groupBoxWindow, "groupBoxWindow");
+            groupBoxWindow.Controls.Add(window_border_color_change);
+            groupBoxWindow.Controls.Add(window_border_color);
+            groupBoxWindow.Controls.Add(label19);
+            groupBoxWindow.Name = "groupBoxWindow";
+            groupBoxWindow.TabStop = false;
+            toolTip1.SetToolTip(groupBoxWindow, resources.GetString("groupBoxWindow.ToolTip"));
+            // 
+            // window_border_color_change
+            // 
+            resources.ApplyResources(window_border_color_change, "window_border_color_change");
+            window_border_color_change.Name = "window_border_color_change";
+            toolTip1.SetToolTip(window_border_color_change, resources.GetString("window_border_color_change.ToolTip"));
+            window_border_color_change.UseVisualStyleBackColor = true;
+            window_border_color_change.Click += window_border_color_change_Click;
+            // 
+            // window_border_color
+            // 
+            resources.ApplyResources(window_border_color, "window_border_color");
+            window_border_color.BackColor = Color.DeepSkyBlue;
+            window_border_color.BorderStyle = BorderStyle.FixedSingle;
+            window_border_color.Name = "window_border_color";
+            toolTip1.SetToolTip(window_border_color, resources.GetString("window_border_color.ToolTip"));
+            // 
+            // label19
+            // 
+            resources.ApplyResources(label19, "label19");
+            label19.Name = "label19";
+            toolTip1.SetToolTip(label19, resources.GetString("label19.ToolTip"));
+            // 
             // panel2
             // 
             resources.ApplyResources(panel2, "panel2");
@@ -1241,6 +1288,61 @@
             toolTip1.SetToolTip(reset_appearance_settings, resources.GetString("reset_appearance_settings.ToolTip"));
             reset_appearance_settings.UseVisualStyleBackColor = true;
             reset_appearance_settings.Click += reset_appearance_settings_Click;
+            // 
+            // groupBox2
+            // 
+            resources.ApplyResources(groupBox2, "groupBox2");
+            groupBox2.Controls.Add(button1);
+            groupBox2.Controls.Add(button2);
+            groupBox2.Controls.Add(label16);
+            groupBox2.Controls.Add(panel3);
+            groupBox2.Controls.Add(panel4);
+            groupBox2.Controls.Add(label17);
+            groupBox2.Name = "groupBox2";
+            groupBox2.TabStop = false;
+            toolTip1.SetToolTip(groupBox2, resources.GetString("groupBox2.ToolTip"));
+            // 
+            // button1
+            // 
+            resources.ApplyResources(button1, "button1");
+            button1.Name = "button1";
+            toolTip1.SetToolTip(button1, resources.GetString("button1.ToolTip"));
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            resources.ApplyResources(button2, "button2");
+            button2.Name = "button2";
+            toolTip1.SetToolTip(button2, resources.GetString("button2.ToolTip"));
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(label16, "label16");
+            label16.Name = "label16";
+            toolTip1.SetToolTip(label16, resources.GetString("label16.ToolTip"));
+            // 
+            // panel3
+            // 
+            resources.ApplyResources(panel3, "panel3");
+            panel3.BackColor = Color.Red;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Name = "panel3";
+            toolTip1.SetToolTip(panel3, resources.GetString("panel3.ToolTip"));
+            // 
+            // panel4
+            // 
+            resources.ApplyResources(panel4, "panel4");
+            panel4.BackColor = Color.Red;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Name = "panel4";
+            toolTip1.SetToolTip(panel4, resources.GetString("panel4.ToolTip"));
+            // 
+            // label17
+            // 
+            resources.ApplyResources(label17, "label17");
+            label17.Name = "label17";
+            toolTip1.SetToolTip(label17, resources.GetString("label17.ToolTip"));
             // 
             // contextMenuStripSystemSpeakerTests
             // 
@@ -1325,7 +1427,11 @@
             group_lyrics_size_settings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownLyricsSize).EndInit();
             groupBox1.ResumeLayout(false);
+            groupBoxWindow.ResumeLayout(false);
+            groupBoxWindow.PerformLayout();
             panel2.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             contextMenuStripSystemSpeakerTests.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1458,7 +1564,18 @@
         public Label label_test_system_speaker_message_4;
         private Button openSoundSettingsButton;
         public Label label14;
-        public Label label16;
         public Label label_neobleeper_must_run_as_admin;
+        private GroupBox groupBoxWindow;
+        private Button window_border_color_change;
+        private Button button4;
+        private Panel window_border_color;
+        private Label label19;
+        private GroupBox groupBox2;
+        private Button button1;
+        private Button button2;
+        private Label label16;
+        private Panel panel3;
+        private Panel panel4;
+        private Label label17;
     }
 }

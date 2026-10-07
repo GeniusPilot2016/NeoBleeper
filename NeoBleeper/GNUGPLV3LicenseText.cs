@@ -92,7 +92,7 @@ namespace NeoBleeper
             richTextBox1.BackColor = Color.Black;
             richTextBox1.ForeColor = Color.White;
             close_button.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         private void LightTheme()
@@ -106,7 +106,7 @@ namespace NeoBleeper
                 richTextBox1.ForeColor = SystemColors.WindowText;
                 close_button.BackColor = Color.Transparent;
             }
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)

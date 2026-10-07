@@ -182,7 +182,7 @@ namespace NeoBleeper
             button2.ForeColor = Color.White;
             button3.BackColor = Color.FromArgb(32, 32, 32);
             button3.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
 
@@ -197,7 +197,7 @@ namespace NeoBleeper
             button2.ForeColor = SystemColors.ControlText;
             button3.BackColor = Color.Transparent;
             button3.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>

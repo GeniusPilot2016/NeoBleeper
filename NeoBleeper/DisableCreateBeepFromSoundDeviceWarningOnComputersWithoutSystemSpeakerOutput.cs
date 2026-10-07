@@ -91,7 +91,7 @@ namespace NeoBleeper
             this.ForeColor = Color.White;
             button_yes.BackColor = Color.FromArgb(32, 32, 32);
             button_no.BackColor = Color.FromArgb(32, 32, 32);
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
         private void LightTheme()
@@ -101,7 +101,7 @@ namespace NeoBleeper
             this.ForeColor = SystemColors.ControlText;
             button_yes.BackColor = Color.Transparent;
             button_no.BackColor = Color.Transparent;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         private void button_yes_Click(object sender, EventArgs e)

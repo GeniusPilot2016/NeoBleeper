@@ -92,6 +92,11 @@ public static class UIHelper
     /// <param name="form">The form whose title bar appearance will be modified. Must not be disposed or disposing.</param>
     /// <param name="color">The color to apply to the form's title bar.</param>
     /// <param name="darkMode">true to enable dark mode appearance for the title bar; otherwise, false.</param>
+    public static void ApplyCustomTitleBarAndBorder(Form form, Color color, bool darkMode = false)
+    {
+        ApplyCustomTitleBar(form, color, darkMode);
+        ApplyPreferredWindowBorderColor(form);
+    }
     public static void ApplyCustomTitleBar(Form form, Color color, bool darkMode = false)
     {
         if (!OperatingSystem.IsWindows()) // Only works on Windows
@@ -154,6 +159,40 @@ public static class UIHelper
             {
                 form.ResumeLayout(false);
             }
+        }
+    }
+    private const int DWMWA_BORDER_COLOR = 34;
+    private static void ApplyWindowBorderColor(Form form, Color color)
+    {
+        if (!OperatingSystem.IsWindows() || Environment.OSVersion.Version.Major < 10 || Environment.OSVersion.Version.Build < 22000)
+            return; // Only supported on Windows 11 and above
+        IntPtr hwnd = form.Handle;
+        // Convert Color to Windows BGR int format (0x00BBGGRR)
+        int bgrColor = color.R | (color.G << 8) | (color.B << 16);
+
+        try
+        {
+            DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR, ref bgrColor, sizeof(int));
+        }
+        catch { /* Fallback for Windows 10 and older */ }
+    }
+
+    public static void ApplyPreferredWindowBorderColor(Form form)
+    {
+        SynchronizedSettings settings = SynchronizedSettings.Load();
+        Color preferredColor = Settings1.Default.window_border_color;
+        if(preferredColor == settings.BorderColor)
+        {
+            preferredColor = settings.BorderColor;
+        }
+        ApplyWindowBorderColor(form, preferredColor);
+    }
+
+    public static void ApplyPreferredWindowColorToAllForms()
+    {
+        foreach (Form form in Application.OpenForms)
+        {
+            ApplyPreferredWindowBorderColor(form);
         }
     }
 

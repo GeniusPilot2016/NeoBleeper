@@ -137,7 +137,7 @@
     <value>Aygıtlar</value>
   </data>
   <data name="appearance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 642</value>
+    <value>423, 692</value>
   </data>
   <data name="appearance.Text" xml:space="preserve">
     <value>Görünüm</value>
@@ -147,25 +147,25 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGlQAAAJNU0Z0AUkBTAIBARMB
-        AAGUAQgBlAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAGcAQgBnAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAmgAAaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB
         /wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaAB
-        mQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BfwF9AXgB60wAAlIBUQGkAfIB1AGbAf8B9QHeAbMB
+        mQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BewF5AXYB60wAAlIBUQGkAfIB1AGbAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B
-        /wgAARABxwH+Af8EAAM1AVUIAAEQAccB/gH/EAACgAF2Af4BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8B
+        /wgAARABxwH+Af8EAAM1AVUIAAEQAccB/gH/EAACgAF3Af4BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8B
         hgF9AXIB/wGHAX4BcwH/AakBoQGYAf8BqQGhAZgB/wGpAaEBmAH/AakBoQGYAf8BoQGZAZAB/wGGAX0B
-        cgH/AYYBfQFyAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8CYgFhAdJMAAJVAVMBqhz/A/AB/wPwAf8D
+        cgH/AYYBfQFyAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8CYQFgAdJMAAJVAVMBqhz/A/AB/wPwAf8D
         8AH/A/AB/wPwAf8D8AH/A/AB/wHdAaABUAH/DAADHQEpAYEBdwFrAf8BfwF1AWgB/wF+AXMBZgH/AXwB
         cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
-        /wF8AXEBZAH/A2UB7AwAAy8BSQGBAXQBagH9AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8B
+        /wF8AXEBZAH/A2UB7AwAAy8BSQGBAXMBaQH9AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8B
         gQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkB
-        bwH/AYEBeQFvAf8BbwFqAWcB6lAAAlUBUwGqBP8B8gHFAUMB/wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB
+        bwH/AYEBeQFvAf8BbQFoAWcB6lAAAlUBUwGqBP8B8gHFAUMB/wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB
         /wH7AewBwQX/A/AB/wPwAf8D8AH/AasBYgENAf8B2QHBAaQB/wPwAf8D8AH/Ad0BoAFQAf8MAAM1AVUB
         hQF7AW8B/wGDAXgBbQH/AYEBdwFrAf8BfwF1AWgB/wF9AXIBZgH/AXwBcQFkAf8BfAFxAWQB/wF8AXEB
         ZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/xAAAasBowGbAf8BqgGiAZoB
         /wGpAaEBmAH/AagBoAGYAf8BpwGfAZcB/wGmAZ4BlgH/AaUBnQGVAf8BpAGcAZQB/wGjAZsBkwH/AaIB
-        mgGSAf8BoAGZAZEB/wGfAZgBkAH/AZ4BlwGPAf8BngGXAY8B/wF9AXwBeAHsUAACVQFTAaoE/wH2AdkB
+        mgGSAf8BoAGZAZEB/wGfAZgBkAH/AZ4BlwGPAf8BngGXAY8B/wF6AXkBdQHsUAACVQFTAaoE/wH2AdkB
         ggH/AfYB1gF4Af8B9gHWAXgB/wH2AdYBeAH/AfYB1gF4Bf8D8AH/A/AB/wPwAf8BqwFiAQ0B/wHZAcEB
         pAH/A/AB/wPwAf8B3QGgAVAB/wwAAzUBVQGIAX8BdAH/AYYBfQFyAf8BhAF6AW8B/wGDAXgBbQH/AYEB
         dgFrAf8BfwF0AWgB/wF9AXIBZQH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
@@ -209,7 +209,7 @@
         8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAABXgJqAe0IAAFdAmUB
         7AQAAzIBTwgAAV4CagHtFAABswGqAaEB/wGzAaoBoQH/AbEBqAGgAf8BsAGoAZ8B/wGvAacBngH/Aa4B
         pgGdAf8BrQGlAZwB/wGsAaQBmwH/AasBowGaAf8BqgGiAZkB/wGpAaEBmAH/AagBoAGXAf8BpwGfAZYB
-        /wGlAZ4BlQH/AYIBfQF6Aez/AP8A/wD/AP8AbQADHgErAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
+        /wGlAZ4BlQH/AX0BegF3Aez/AP8A/wD/AP8AbQADHgErAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
@@ -509,7 +509,7 @@
 </value>
   </data>
   <data name="tabControl_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>431, 677</value>
+    <value>431, 727</value>
   </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 632</value>
@@ -667,17 +667,11 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   <data name="panelSystemSpeakerWarnings.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 511</value>
   </data>
-  <data name="label_neobleeper_must_run_as_admin.Text" xml:space="preserve">
-    <value>Sistem hoparlörü çıkışını kullanabilmek için NeoBleeper'ın yönetici olarak çalıştırılması gerekir.</value>
-  </data>
   <data name="openSoundSettingsButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>110, 50</value>
   </data>
   <data name="openSoundSettingsButton.Text" xml:space="preserve">
     <value>Ses ayarlarını aç</value>
-  </data>
-  <data name="label_pawnio_not_installed.Text" xml:space="preserve">
-    <value>Sisteminizde PawnIO yüklü olmadığı için sistem hoparlörü çıkışı kullanılamıyor.</value>
   </data>
   <data name="label_open_sound_settings.Text" xml:space="preserve">
     <value>Sistem hoparlörünüzden gelen müziğin bu cihazda doğru şekilde çalmasını sağlamak için, PC Beep ses seviyesinin kapalı olmaması gerekir.</value>
@@ -690,6 +684,12 @@ Lütfen API anahtarınızın ücretli bir hesap için olduğundan emin olunuz.</
   </data>
   <data name="label14.Text" xml:space="preserve">
     <value>Sistem hoparlörü çıkışı olmayan bilgisayarlarda, sistem hoparlörü test edildiğinde hiçbir ses duyulmayabilir veya kararsızlıklara ya da istenmeyen davranışlara neden olabilir.</value>
+  </data>
+  <data name="label_pawnio_not_installed.Text" xml:space="preserve">
+    <value>Sisteminizde PawnIO yüklü olmadığı için sistem hoparlörü çıkışı kullanılamıyor.</value>
+  </data>
+  <data name="label_neobleeper_must_run_as_admin.Text" xml:space="preserve">
+    <value>Sistem hoparlörü çıkışını kullanabilmek için NeoBleeper'ın yönetici olarak çalıştırılması gerekir.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>413, 632</value>
@@ -1312,7 +1312,7 @@ Arduino'da yön için 9 numaralı pini, adım için 10 numaralı pini, Raspberry
 Motor kullanıyorsanız, motor hızı mod kaydırıcısı ile hızını kontrol edebilirsiniz.</value>
   </data>
   <data name="flowLayoutPanelAppearanceSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 632</value>
+    <value>413, 682</value>
   </data>
   <data name="group_keyboard_colors.Text" xml:space="preserve">
     <value>Klavye Renkleri</value>
@@ -1666,8 +1666,32 @@ Boyutu</value>
   <data name="label15.Text" xml:space="preserve">
     <value>SysEx Ekran Öyküncüsü Teması</value>
   </data>
+  <data name="groupBoxWindow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 573</value>
+  </data>
+  <data name="groupBoxWindow.Text" xml:space="preserve">
+    <value>Pencere</value>
+  </data>
+  <data name="window_border_color_change.Location" type="System.Drawing.Point, System.Drawing">
+    <value>278, 15</value>
+  </data>
+  <data name="window_border_color_change.Text" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="window_border_color.Location" type="System.Drawing.Point, System.Drawing">
+    <value>215, 19</value>
+  </data>
+  <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 19</value>
+  </data>
+  <data name="label19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 16</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>Pencere Kenarlığı Rengi</value>
+  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>56, 574</value>
+    <value>56, 623</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>300, 53</value>
@@ -1706,7 +1730,7 @@ Boyutu</value>
     <value>Gelişmiş sistem hoparlörü özelliklerini ve tanılamalarını test et</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>439, 685</value>
+    <value>439, 735</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

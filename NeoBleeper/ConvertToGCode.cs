@@ -151,7 +151,7 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = Color.White;
             comboBox_component_note3.ForeColor = Color.White;
             comboBox_component_note4.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
         {
@@ -173,7 +173,7 @@ namespace NeoBleeper
             comboBox_component_note2.ForeColor = SystemColors.WindowText;
             comboBox_component_note3.ForeColor = SystemColors.WindowText;
             comboBox_component_note4.ForeColor = SystemColors.WindowText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>

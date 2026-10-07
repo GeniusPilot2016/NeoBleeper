@@ -99,7 +99,7 @@ namespace NeoBleeper
             richTextBoxCrashReport.ForeColor = Color.White;
             buttonCopyCrashReport.BackColor = Color.FromArgb(32, 32, 32);
             buttonCopyCrashReport.ForeColor = Color.White;
-            UIHelper.ApplyCustomTitleBar(this, Color.Black, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
 
 
@@ -112,7 +112,7 @@ namespace NeoBleeper
             richTextBoxCrashReport.ForeColor = SystemColors.WindowText;
             buttonCopyCrashReport.BackColor = Color.Transparent;
             buttonCopyCrashReport.ForeColor = SystemColors.ControlText;
-            UIHelper.ApplyCustomTitleBar(this, Color.White, darkTheme);
+            UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
         /// <summary>

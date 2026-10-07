@@ -404,11 +404,13 @@ namespace NeoBleeper
                     var synchronizedSettings = SynchronizedSettings.Load();
                     // Load synchronized settings and check for mismatches for beep stopper to apply NeoBleeper's theme and language settings
                     if (synchronizedSettings.Language != Settings1.Default.preferredLanguage ||
-                        synchronizedSettings.Theme != Settings1.Default.theme)
+                        synchronizedSettings.Theme != Settings1.Default.theme || 
+                        synchronizedSettings.BorderColor != Settings1.Default.window_border_color)
                     {
                         Logger.Log("Settings mismatch detected. Updating synchronized settings.", LogTypes.Warning);
                         synchronizedSettings.Language = Settings1.Default.preferredLanguage;
                         synchronizedSettings.Theme = Settings1.Default.theme;
+                        synchronizedSettings.BorderColor = Settings1.Default.window_border_color;
                         synchronizedSettings.Save();
                     }
                 }
