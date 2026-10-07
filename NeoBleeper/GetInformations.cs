@@ -257,7 +257,7 @@ namespace NeoBleeper
         /// "Unknown" or "Unavailable" if they cannot be determined.</returns>
         public static string GetSystemInfo()
         {
-            Program.splashScreen.UpdateStatus(Resources.StatusSystemInformationsGathering);
+            Program.splashScreen?.UpdateStatus(Resources.StatusSystemInformationsGathering);
             string systemInfo = "";
             String osVersion = System.Environment.OSVersion.VersionString;
             systemInfo += $"\r\nOperating System: {osVersion}\r\n";
@@ -337,7 +337,7 @@ namespace NeoBleeper
                 $".NET Version: {Environment.Version}\r\n";
             systemInfo += systemProperties;
             GlobalSystemInfo = systemInfo;
-            Program.splashScreen.UpdateStatus(Resources.StatusSystemInformationsGathered, 10);
+            Program.splashScreen?.UpdateStatus(Resources.StatusSystemInformationsGathered, 10);
             return systemInfo;
         }
     }
