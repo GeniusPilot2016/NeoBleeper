@@ -64,6 +64,16 @@ namespace NeoBleeper
             double gain = VelocityToGain(velocity);
             return Math.Clamp(0.05 + gain * 0.45, 0.01, 0.50);
         }
+
+        /// <summary>
+        /// Shared dynamic curve (0.20 - 1.0) used by System Speaker and Sound Device,
+        /// so soft hits never disappear.
+        /// </summary>
+        public static double VelocityToDynamicGain(int velocity)
+        {
+            double raw = Math.Clamp(velocity / 127.0, 0.01, 1.0);
+            return 0.20 + 0.80 * Math.Sqrt(raw);
+        }
     }
 
     public class NoteFrequencies
@@ -2136,24 +2146,17 @@ namespace NeoBleeper
 
             try
             {
-                // For Sound Device noise instruments, start the synth buffer ONCE 
-                // to prevent rapid 0.5ms buffer starvation and resetting.
-                bool isSoundDeviceNoise = request.Output == PercussionOutputChoice.SoundDevice &&
-                                          request.Profile.BodyWave == SynthWave.Noise;
+                // All Sound Device hits (noise AND tonal like Laser) use the rendered PWM path,
+                // which applies velocity. WaveSynthEngine is never used here.
+                bool isSoundDeviceRendered = request.Output == PercussionOutputChoice.SoundDevice;
 
-                if (isSoundDeviceNoise)
+                if (isSoundDeviceRendered)
                 {
-                    // StartSynth has no gain/volume parameter, and WaveSynthEngine itself exposes
-                    // no volume setter, so velocity can't be applied to this path by adjusting the
-                    // synth call. Route through the same rendered-PCM -> velocity-scaled PWM path
-                    // already used elsewhere for Sound Device instead of the raw full-gain synth.
                     float[] samples = RenderPercussionSamples(request);
                     byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
                     float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity);
 
                     QueueMixedSoundDevicePwmSamples(pwmSamples);
-
-                    currentOutput = request.Output;
 
                     // Wait out the slice duration while respecting cancellation
                     while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
@@ -2165,7 +2168,7 @@ namespace NeoBleeper
                     return;
                 }
 
-                // Existing timing loop for System Speaker and Tonal Sound Device sounds
+                // Timing loop for System Speaker
                 while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
                 {
                     request.CancellationToken.ThrowIfCancellationRequested();
@@ -2237,9 +2240,20 @@ namespace NeoBleeper
             double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
             double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
 
-            // Map velocity to a non-saturating duty-cycle range (0.05 to 0.50)
-            double velocityDutyScale = NoteUtility.VelocityToDutyCycle(velocity);
-            double velocityGain = NoteUtility.VelocityToGain(velocity);
+            // Velocity sets the PWM modulation depth around 50% duty (this is the audible level).
+            const double maxDepth = 0.48; // keeps duty within ~[0.02, 0.98]
+            // Same velocity mapping System Speaker uses (normVelocity in GetPlaybackSignalCore),
+            // fed with the velocity that was given. No separate curve.
+            double normVelocity = NoteUtility.VelocityToDynamicGain(velocity);
+            // Level follows the given velocity on a true dB scale (30 dB range, 127 = 0 dB), so
+            // typical velocities (60-127) are clearly audible as different volumes. The level is
+            // split evenly between pulse amplitude and duty depth (amp * depth = full level).
+            double velocityLevel = Math.Pow(10.0, -(1.0 - Math.Clamp(velocity, 1, 127) / 127.0) * 30.0 / 20.0);
+            double velocitySplit = Math.Sqrt(velocityLevel);
+            double depth = maxDepth * velocitySplit;
+            // System Speaker also shortens the audible part of soft hits (progress < ~0.95 * normVelocity).
+            double audibleLimit = 0.95 * normVelocity;
+            double fadeStart = audibleLimit * 0.85;
 
             double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
             int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
@@ -2252,7 +2266,11 @@ namespace NeoBleeper
                 ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85
                 : 1.0;
 
-            float amp = (float)Math.Clamp(volume * 0.25 * (0.5 + 0.5 * velocityGain), 0.05, 0.9);
+            // Velocity is applied to BOTH the pulse amplitude and the duty depth. If the sound
+            // device resamples the 192 kHz stream without properly filtering the 24 kHz carrier
+            // (24 kHz is exactly Nyquist for a 48 kHz device), the duty depth gets lost and only
+            // the pulse amplitude survives, so amplitude must carry velocity too.
+            float amp = (float)Math.Clamp(volume * 0.25 * velocitySplit, 0.01, 0.9);
 
             for (int period = 0; period < pwmPeriodCount; period++)
             {
@@ -2271,8 +2289,15 @@ namespace NeoBleeper
                     -1.0,
                     1.0);
 
+                // Same time-domain velocity behavior as System Speaker: soft hits end earlier.
+                double hitProgress = (period + 0.5) / pwmPeriodCount;
+                if (hitProgress >= audibleLimit)
+                    shape = 0.0;
+                else if (hitProgress > fadeStart)
+                    shape *= (audibleLimit - hitProgress) / (audibleLimit - fadeStart);
+
                 // Keep duty cycle within [0.02, 0.98] bounds to prevent DC signal saturation
-                double dutyCycle = Math.Clamp(0.5 + shape * velocityDutyScale, 0.02, 0.98);
+                double dutyCycle = Math.Clamp(0.5 + shape * depth, 0.02, 0.98);
 
                 double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
                 int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
@@ -2453,17 +2478,8 @@ namespace NeoBleeper
                     0.0,
                     1.0);
 
-            // Dynamic curve with a strong baseline floor (0.20 - 1.0) so soft hits never disappear
-            double rawVel =
-                Math.Clamp(
-                    request.Velocity / 127.0,
-                    0.01,
-                    1.0);
-
-            double normVelocity =
-                0.20 +
-                (0.80 *
-                 Math.Sqrt(rawVel));
+            // Shared dynamic curve (0.20 - 1.0) so soft hits never disappear
+            double normVelocity = NoteUtility.VelocityToDynamicGain(request.Velocity);
 
             bool kick =
                 IsKick(request.Percussion);
@@ -3297,31 +3313,6 @@ namespace NeoBleeper
             float volume = 3.5f;
 
             // Robust peak detection
-            var deviations =
-                new double[
-                    pcmData.Length];
-
-            for (int i = 0;
-                 i < pcmData.Length;
-                 i++)
-            {
-                deviations[i] =
-                    Math.Abs(
-                        pcmData[i] -
-                        128.0);
-            }
-
-            Array.Sort(
-                deviations);
-
-            int idx =
-                Math.Clamp(
-                    (int)(
-                        deviations.Length *
-                        0.995),
-                    0,
-                    deviations.Length - 1);
-
             double maxDeviation =
                 Math.Max(
                     FindPercentileDeviation(
@@ -3381,8 +3372,8 @@ namespace NeoBleeper
             }
 
             // Hardware PWM with Peak-Transient Detection
-            // (System Speaker branch below is intentionally left untouched by the
-            // velocity fix — it already responds to velocity via GetPlaybackSignalCore.)
+            // NOTE: this branch ignores velocity. System Speaker velocity is only applied
+            // in the blend path through GetPlaybackSignalCore.
             const int carrierHz = 24000;
 
             const double frameStepMs =
