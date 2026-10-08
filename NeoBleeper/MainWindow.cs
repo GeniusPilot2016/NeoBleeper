@@ -5945,7 +5945,6 @@ namespace NeoBleeper
         bool isBusy = false;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            // Check if the user pressed the Tab key (or Shift + Tab)
             if ((((keyData & Keys.KeyCode) == Keys.Tab) || 
                 ((keyData & Keys.KeyCode) == Keys.Enter) ||
                 ((keyData & Keys.KeyCode) == Keys.Space)) && isBusy)
