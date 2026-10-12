@@ -135,9 +135,21 @@ namespace NeoBleeper
             static PawnIOWrapper pawnIO;
             static SystemSpeakerBeepEngine()
             {
-                /*var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
-                pawnIO = new PawnIOWrapper(sysspkrModuleBytes);*/
-                // Safe stop to avoid stuck beeps on exit or crash
+                /*// Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    try
+                    {
+                        var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
+                        pawnIO = new PawnIOWrapper(sysspkrModuleBytes);
+                    }
+                    catch (Exception ex)
+                    {
+                        pawnIO = null;
+                        Logger.Log("Failed to load PawnIO PcSpeaker module: " + ex.Message, Logger.LogTypes.Error);
+                    }
+                }
+                */
 
                 void SafeStop()
                 {
@@ -157,12 +169,41 @@ namespace NeoBleeper
                     SafeStop();
                 };
                 System.Windows.Forms.Application.ApplicationExit += (s, e) => SafeStop();
-                Console.CancelKeyPress += (s, e) => { SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */ };
+                Console.CancelKeyPress += (s, e) => { SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */
+            };
 
                 // Unhandled exceptions (dispose as possible)
                 // The BSoD or power outage scenarios, which are full system crashes, cannot be handled here.
                 AppDomain.CurrentDomain.UnhandledException += (s, e) => SafeStop();
                 TaskScheduler.UnobservedTaskException += (s, e) => { SafeStop(); e.SetObserved(); };
+            }
+
+            // ---- PawnIO PcSpeaker module command encoding: [63:56] opcode, [55:0] payload ----
+            private const int OP_NOP = 0x00;
+            private const int OP_PIT_MODE = 0x01;
+            private const int OP_PIT_CH2_COUNT = 0x02;
+            private const int OP_PIT_CH2_WRITE = 0x03;
+            private const int OP_PIT_CH2_READ = 0x04;
+            private const int OP_PPI_WRITE = 0x05;
+            private const int OP_PPI_READ = 0x06;
+            private const int OP_STALL = 0x07;
+            private static readonly object pawnLock = new object();
+            private static long Cmd(int opcode, long payload = 0)
+                => ((long)opcode << 56) | (payload & 0x00FFFFFFFFFFFFFFL);
+
+            /// PPI_WRITE: payload [15:8] = mask, [7:0] = value (module reduces both to bits 0-1)
+            private static long CmdPpiWrite(int mask, int value)
+                => Cmd(OP_PPI_WRITE, ((mask & 0xFF) << 8) | (value & 0xFF));
+
+            private static long[] RunBatch(long[] commands, bool wantResults)
+            {
+                if (pawnIO == null)
+                    throw new InvalidOperationException("PawnIO PcSpeaker module is not loaded.");
+
+                lock (pawnLock)
+                {
+                    return pawnIO.Execute("ioctl_batch", commands, wantResults ? commands.Length : 0);
+                }
             }
 
             [DllImport("inpoutx64.dll")]
@@ -237,8 +278,22 @@ namespace NeoBleeper
                 {
                     HighPrecisionSleep.Sleep(offset); // Optional offset before enabling the speaker, if specified
                 }
-                //pawnIO.Execute("ioctl_start", new long[] { freq }, 0);
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
+                /*int div = 0x1234dc / freq;
+                RunBatch(new long[]
+                {
+    Cmd(OP_PIT_MODE, 0xB6),                 // counter 2, lo/hi, mode 3, binary
+    Cmd(OP_PIT_CH2_COUNT, div & 0xFFFF)     // low byte then high byte
+                }, false);
+
+                if (offset > 0)
+                {
+                    HighPrecisionSleep.Sleep(offset);
+                }
+
+                // [InpOut disabled] Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
+                RunBatch(new long[] { CmdPpiWrite(0x03, 0x03) }, false);   // set gate + speaker data
+                */
             }
 
             /// <summary>
@@ -255,7 +310,7 @@ namespace NeoBleeper
                     return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
                 }
                 Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
-                //pawnIO.Execute("ioctl_stop", Array.Empty<long>(), 0);
+                // RunBatch(new long[] { CmdPpiWrite(0x03, 0x00) }, false);   // clear gate + speaker data
             }
 
             /// <summary>
@@ -297,9 +352,11 @@ namespace NeoBleeper
                         // Can the non-existent beep of most of Copilot+ devices be stuck?
                         return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                     }
-                    // bool result = Convert.ToBoolean(pawnIO.Execute("ioctl_is_beep_enabled", Array.Empty<long>(), 1));
                     // Check if the system speaker is currently beeping by reading the status of the speaker port
                     return ((Inp32(0x61) & 0x03) == 0x03);
+
+                    /*long[] r = RunBatch(new long[] { Cmd(OP_PPI_READ) }, true);
+                    return ((r[0] & 0x03) == 0x03);*/
                 }
                 catch (Exception)
                 {
@@ -368,7 +425,6 @@ namespace NeoBleeper
             {
                 try
                 {
-                    //value = Convert.ToBoolean(pawnIO.Execute("ioctl_read_control", Array.Empty<long>(), 1)) ? (byte)1 : (byte)0;
                     value = ReadPortByte(PortSpeakerControl);
                     return true;
                 }
@@ -382,7 +438,6 @@ namespace NeoBleeper
             private static bool CheckControlPortRoundTrip(out string details)
             {
                 byte originalState = 0;
-                //bool result = Convert.ToBoolean(pawnIO.Execute("ioctl_test_control_port", Array.Empty<long>(), 1));
                 try
                 {
                     originalState = ReadPortByte(PortSpeakerControl);
@@ -426,7 +481,6 @@ namespace NeoBleeper
                 int sampleCount,
                 out int transitions)
             {
-                //bool result = Convert.ToBoolean(pawnIO.Execute("ioctl_test_system_timer_channel_2", Array.Empty<long>(), 1));
                 byte original61 = 0;
 
                 try
@@ -480,7 +534,6 @@ namespace NeoBleeper
             int frequencyHz,
             int durationUs)
             {
-                //bool success = Convert.ToBoolean(pawnIO.Execute("ioctl_test_audible_probe", Array.Empty<long>(), 1));
                 byte original61 = 0;
 
                 try
@@ -537,6 +590,26 @@ namespace NeoBleeper
             {
                 Out32(port, value);
             }
+            /*private static byte ReadPortByte(short port)
+            {
+                switch (port)
+                {
+                    case 0x61: return unchecked((byte)RunBatch(new[] { Cmd(OP_PPI_READ) }, true)[0]);
+                    case 0x42: return unchecked((byte)RunBatch(new[] { Cmd(OP_PIT_CH2_READ) }, true)[0]);
+                    default: throw new NotSupportedException($"Port 0x{port:X2} is not accessible via PawnIO PcSpeaker module.");
+                }
+            }
+
+            private static void WritePortByte(short port, byte value)
+            {
+                switch (port)
+                {
+                    case 0x61: RunBatch(new[] { CmdPpiWrite(0x03, value & 0x03) }, false); break;
+                    case 0x43: RunBatch(new[] { Cmd(OP_PIT_MODE, value) }, false); break;
+                    case 0x42: RunBatch(new[] { Cmd(OP_PIT_CH2_WRITE, value) }, false); break;
+                    default: throw new NotSupportedException($"Port 0x{port:X2} is not accessible via PawnIO PcSpeaker module.");
+                }
+            }*/
 
             private static void RestoreSpeakerControl(byte originalState)
             {
@@ -762,7 +835,6 @@ namespace NeoBleeper
                         try
                         {
                             Program.splashScreen.UpdateStatus(Resources.StatusWakingUpSystemSpeaker);
-                            //pawnIO.Execute("ioctl_wake", Array.Empty<long>(), 0); // Wake up the system speaker using PawnIO if available
                             byte originalState = (byte)Inp32(0x61);
 
                             // 1. Close the speaker gate completely to ensure a clean state.
@@ -787,6 +859,27 @@ namespace NeoBleeper
                             // 4. Restore the original state of the speaker port.
                             Out32(0x61, originalState);
                             Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerWokenUp, 2);
+
+                            /*byte originalState = ReadPortByte(0x61);
+
+                            // 1.
+                            WritePortByte(0x61, (byte)(originalState & 0xFC));
+                            Program.splashScreen.ResponsiveWait(20);
+
+                            // 2.
+                            WritePortByte(0x43, 0xB0);
+                            WritePortByte(0x42, 0x00);
+                            WritePortByte(0x42, 0x00);
+                            Program.splashScreen.ResponsiveWait(20);
+
+                            // 3.
+                            WritePortByte(0x61, (byte)(originalState | 0x01));
+                            Program.splashScreen.ResponsiveWait(50);
+                            WritePortByte(0x61, (byte)(originalState & 0xFC));
+                            Program.splashScreen.ResponsiveWait(50);
+
+                            // 4.
+                            WritePortByte(0x61, originalState);*/
                         }
                         catch (Exception ex)
                         {
