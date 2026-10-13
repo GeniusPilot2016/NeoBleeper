@@ -1224,6 +1224,9 @@
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO починається</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO успішно запущено</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO успішно встановлено</value>
   </data>

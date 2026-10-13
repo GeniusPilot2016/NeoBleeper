@@ -1222,6 +1222,9 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO está comenzando</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO se inició correctamente</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO se instaló correctamente</value>
   </data>

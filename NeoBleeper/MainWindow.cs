@@ -2605,6 +2605,8 @@ namespace NeoBleeper
                 StopPlaying();
             }
             keyPressed = false;
+            portamentoCts?.Cancel();
+            lastFrequency = 0;
             NotePlayer.StopAllNotes(); // Stop all notes
             await StopAllVoices(); // Stop all voices if using voice system
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
@@ -5945,7 +5947,7 @@ namespace NeoBleeper
         bool isBusy = false;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if ((((keyData & Keys.KeyCode) == Keys.Tab) || 
+            if ((((keyData & Keys.KeyCode) == Keys.Tab) ||
                 ((keyData & Keys.KeyCode) == Keys.Enter) ||
                 ((keyData & Keys.KeyCode) == Keys.Space)) && isBusy)
             {
@@ -6568,15 +6570,10 @@ namespace NeoBleeper
             {
                 e.Handled = true; // Prevent the key press from being processed further
                 e.SuppressKeyPress = true; // Suppress the key press sound
-                HashSet<int> currentlyPressedKeys = new HashSet<int>();
-                currentlyPressedKeys.Add((int)e.KeyCode);
+
                 if (!isAlternatingPlaying)
                 {
-                    if (checkBox_use_keyboard_as_piano.Checked)
-                    {
-                        RestartBeepIfMutedEarly(GetFrequencyFromKeyCode((int)e.KeyCode));
-                    }
-                    if (currentlyPressedKeys == pressedKeys)
+                    if (pressedKeys.Contains((int)e.KeyCode))
                     {
                         // If the key is already pressed, do nothing
                         e.Handled = true;
@@ -6668,12 +6665,16 @@ namespace NeoBleeper
             keyCharNum = keyCharNum.Distinct().ToArray();
 
             isAlternatingPlayingRegularKeyboard = false;
+            CancelPolyphonicAlternation();
             UnmarkAllButtons();
 
-            // Don't stop all notes if portamento is enabled and set to always produce sound
-            if (!(checkBox_bleeper_portamento.Checked &&
-                  TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound))
+            // Release the held sound only when no computer-piano keys remain.
+            // Cancel the glide first so an old task cannot restart the note after key-up.
+            if (pressedKeys.Count == 0)
             {
+                portamentoCts?.Cancel();
+                // Preserve the last pitch as the starting point for the next single-note glide.
+                // Releasing the key stops sound, but must not erase portamento pitch history.
                 StopAllNotesAfterPlaying();
             }
 
@@ -6829,38 +6830,9 @@ namespace NeoBleeper
                 if (!isAlternatingPlayingRegularKeyboard)
                 {
                     isAlternatingPlayingRegularKeyboard = true;
-                    while (keyPressed && isAlternatingPlayingRegularKeyboard)
-                    {
-                        foreach (int key in keyCharNum.ToArray())
-                        {
-                            int frequency = GetFrequencyFromKeyCode(key);
-                            if (checkBox_bleeper_portamento.Checked)
-                            {
-                                PlayPortamento(frequency);
-                                await HighPrecisionSleep.SleepAsync(TemporarySettings.PortamentoSettings.length);
-                            }
-                            else
-                            {
-                                await PlayBeepWithLabelAsync(frequency, Variables.alternatingNoteLength);
-                            }
-
-                            if (!isAlternatingPlayingRegularKeyboard && checkBox_use_keyboard_as_piano.Checked)
-                            {
-                                if (keyCharNum.Length == 0)
-                                    return;
-                                int midiNote = MIDIIOUtils.FrequencyToMidiNote(GetFrequencyFromKeyCode(keyCharNum[0]));
-                                singleNote = midiNote;
-                                if (checkBox_bleeper_portamento.Checked)
-                                {
-                                    PlayPortamento(MIDIIOUtils.MidiNoteToFrequency(midiNote));
-                                }
-                                else
-                                {
-                                    await PlayBeepWithLabelAsync(MIDIIOUtils.MidiNoteToFrequency(midiNote), 1, true);
-                                }
-                            }
-                        }
-                    }
+                    // Alternation owns the beeper; stop a previous single-note glide.
+                    portamentoCts?.Cancel();
+                    StartPolyphonicAlternation(isMidiInput: false);
                 }
             }
             else if (keyCharNum.Length == 1)
@@ -6873,7 +6845,7 @@ namespace NeoBleeper
                     int frequency = MIDIIOUtils.MidiNoteToFrequency(midiNote);
                     if (checkBox_bleeper_portamento.Checked)
                     {
-                        PlayPortamento(frequency);
+                        PlayPortamento(frequency, sustainUntilKeyUp: true);
                     }
                     else
                     {
@@ -7320,7 +7292,7 @@ namespace NeoBleeper
                         // Add to active notes
                         if (!activeMidiNotes.Contains(noteNumber))
                         {
-                            activeMidiNotes.Add(noteNumber);
+                            lock (activeMidiNotes) activeMidiNotes.Add(noteNumber);
                             if (TemporarySettings.MIDIDevices.useMIDIoutput)
                             {
                                 foreach (int note in activeMidiNotes)
@@ -7342,7 +7314,7 @@ namespace NeoBleeper
                                 int frequency = MIDIIOUtils.MidiNoteToFrequency(noteNumber);
                                 if (checkBox_bleeper_portamento.Checked)
                                 {
-                                    PlayPortamento(frequency);
+                                    PlayPortamento(frequency, sustainUntilKeyUp: true);
                                 }
                                 else
                                 {
@@ -7351,8 +7323,9 @@ namespace NeoBleeper
                             }
                             else if (activeMidiNotes.Count > 1 && !isAlternatingPlaying)
                             {
-                                // Multiple notes - start alternating
+                                // Multiple notes: independently glide each voice in round-robin order.
                                 isAlternatingPlaying = true;
+                                portamentoCts?.Cancel();
                                 PlayAlternatingNotes();
                             }
                         }
@@ -7363,36 +7336,33 @@ namespace NeoBleeper
                         // Remove from active notes
                         if (activeMidiNotes.Contains(noteNumber))
                         {
-                            activeMidiNotes.Remove(noteNumber);
+                            lock (activeMidiNotes) activeMidiNotes.Remove(noteNumber);
 
                             // If no more notes, stop all playback
                             if (activeMidiNotes.Count == 0)
                             {
                                 isAlternatingPlaying = false;
+                                CancelPolyphonicAlternation();
                                 portamentoCts.Cancel(); // Stop any running portamento
                                 MIDIIOUtils.StopAllNotes(); // Stop all MIDI notes
 
-                                // Only stop the sound if not in "Always Produce Sound" mode
-                                if (!checkBox_bleeper_portamento.Checked ||
-                                    TemporarySettings.PortamentoSettings.portamentoType != TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound)
-                                {
-                                    NotePlayer.StopAllNotes();
-                                    UpdateLabelVisible(false);
-                                }
-                                // In "Always Produce Sound" mode, it should not stop the sound
-                                // but the last frequency should be reset
-                                lastFrequency = 0;
+                                // A held single note ends at NoteOff, irrespective of portamento type.
+                                NotePlayer.StopAllNotes();
+                                UpdateLabelVisible(false);
+                                // Keep the last pitch for a glide when the next MIDI key is pressed.
+                                // NoteOff silences the synth, but does not reset portamento history.
                             }
                             // If it was the last note in alternating mode, switch to single note mode
                             else if (activeMidiNotes.Count == 1 && isAlternatingPlaying)
                             {
                                 // Switch to single note mode
                                 isAlternatingPlaying = false;
+                                CancelPolyphonicAlternation();
                                 int remainingNote = activeMidiNotes[0];
                                 int frequency = MIDIIOUtils.MidiNoteToFrequency(remainingNote);
                                 if (checkBox_bleeper_portamento.Checked)
                                 {
-                                    PlayPortamento(frequency);
+                                    PlayPortamento(frequency, sustainUntilKeyUp: true);
                                 }
                                 else
                                 {
@@ -7414,7 +7384,7 @@ namespace NeoBleeper
         /// method is asynchronous and returns immediately; the transition occurs in the background.</remarks>
         /// <param name="targetFrequency">The frequency, in hertz, to which the note should glide. Must be a positive integer representing the target
         /// pitch.</param>
-        private void PlayPortamento(int targetFrequency)
+        private void PlayPortamento(int targetFrequency, bool sustainUntilKeyUp = false)
         {
             // Cancel any ongoing portamento
             if (portamentoCts != null)
@@ -7425,11 +7395,13 @@ namespace NeoBleeper
             portamentoCts = new CancellationTokenSource();
             var token = portamentoCts.Token;
 
+            // Capture/update the glide endpoints synchronously. Otherwise quick key presses
+            // can race with the worker and lose the previous pitch.
+            int startFrequency = (lastFrequency == 0) ? targetFrequency : lastFrequency;
+            lastFrequency = targetFrequency;
+
             Task.Run(async () =>
             {
-                int startFrequency = (lastFrequency == 0) ? targetFrequency : lastFrequency;
-                lastFrequency = targetFrequency;
-
                 int steps = TemporarySettings.PortamentoSettings.pitchChangeSpeed / 100;
                 if (steps == 0) steps = 1;
                 int totalDuration = TemporarySettings.PortamentoSettings.length;
@@ -7449,25 +7421,24 @@ namespace NeoBleeper
                     await Task.Delay(stepDuration, token);
                 }
 
-                if (TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound)
+                if (token.IsCancellationRequested) return;
+
+                if (sustainUntilKeyUp ||
+                    TemporarySettings.PortamentoSettings.portamentoType == TemporarySettings.PortamentoSettings.PortamentoType.AlwaysProduceSound)
                 {
+                    // Keep the final pitch sounding until the matching key is released.
                     UpdateLabelVisible(true);
                     NotePlayer.PlayNote(targetFrequency, 1, true);
                 }
                 else
                 {
-                    if (!token.IsCancellationRequested)
-                    {
-                        NotePlayer.StopAllNotes();
-                        UpdateLabelVisible(false);
-                    }
+                    NotePlayer.StopAllNotes();
+                    UpdateLabelVisible(false);
                 }
             }, token).ContinueWith(t =>
             {
-                if (t.IsCanceled)
-                {
-                    UpdateLabelVisible(false);
-                }
+                if (t.IsFaulted)
+                    Logger.Log($"Portamento playback error: {t.Exception?.GetBaseException().Message}", Logger.LogTypes.Error);
             });
         }
 
@@ -7478,25 +7449,112 @@ namespace NeoBleeper
         /// until the alternating playback is stopped. It is intended to be called when alternating note playback is
         /// required, and should not be called multiple times concurrently. Thread safety is managed internally for the
         /// active MIDI notes collection.</remarks>
-        private void PlayAlternatingNotes()
-        {
-            Task.Run(() =>
-            {
-                do
-                {
-                    List<int> notesCopy;
-                    lock (activeMidiNotes)
-                    {
-                        notesCopy = new List<int>(activeMidiNotes); // Create a copy
-                    }
+        // The PC speaker is monophonic. Each held note has an independent virtual
+        // glide (start pitch + elapsed time); short, alternating time slices give
+        // a polyphonic-portamento impression rather than restarting one shared glide.
+        private readonly object polyPortamentoLock = new object();
+        private CancellationTokenSource? polyPortamentoCts;
 
-                    foreach (int note in notesCopy)
+        private void CancelPolyphonicAlternation()
+        {
+            lock (polyPortamentoLock)
+            {
+                polyPortamentoCts?.Cancel();
+                polyPortamentoCts = null;
+            }
+        }
+
+        private void StartPolyphonicAlternation(bool isMidiInput)
+        {
+            CancellationToken token;
+            lock (polyPortamentoLock)
+            {
+                polyPortamentoCts?.Cancel();
+                polyPortamentoCts = new CancellationTokenSource();
+                token = polyPortamentoCts.Token;
+            }
+
+            _ = Task.Run(async () =>
+            {
+                int nextIndex = 0;
+                var polyVoiceGlides = new Dictionary<int, (double startHz, long startedAt)>();
+                try
+                {
+                    while (!token.IsCancellationRequested)
                     {
-                        PlayBeepWithLabel(MIDIIOUtils.MidiNoteToFrequency(note), Variables.alternatingNoteLength);
+                        int[] voices;
+                        if (isMidiInput)
+                        {
+                            lock (activeMidiNotes)
+                                voices = activeMidiNotes.ToArray();
+                        }
+                        else
+                        {
+                            voices = pressedKeys.ToArray();
+                        }
+
+                        if (voices.Length < 2) break;
+                        // Remove released voices, but never reset the glides of held voices.
+                        foreach (int id in polyVoiceGlides.Keys.Except(voices).ToArray())
+                            polyVoiceGlides.Remove(id);
+
+                        int idToPlay = voices[nextIndex % voices.Length];
+                        nextIndex++;
+                        int target = isMidiInput
+                            ? MIDIIOUtils.MidiNoteToFrequency(idToPlay)
+                            : GetFrequencyFromKeyCode(idToPlay);
+                        // AlternatingNoteLength is the TOTAL time allocated to this voice.
+                        // Portamento uses short pitch updates *inside* that interval,
+                        // rather than changing to the next voice after just 8 ms.
+                        int noteDurationMs = Math.Max(1, Variables.alternatingNoteLength);
+                        bool usePortamento = checkBox_bleeper_portamento.Checked;
+                        double startHz = target;
+                        long glideStartedAt = 0;
+                        if (usePortamento)
+                        {
+                            long now = Stopwatch.GetTimestamp();
+                            if (!polyVoiceGlides.TryGetValue(idToPlay, out var glide))
+                            {
+                                glide = (lastFrequency > 0 ? lastFrequency : target, now);
+                                polyVoiceGlides[idToPlay] = glide;
+                            }
+                            startHz = glide.startHz;
+                            glideStartedAt = glide.startedAt;
+                        }
+
+                        long intervalStart = Stopwatch.GetTimestamp();
+                        double intervalElapsedMs = 0;
+                        while (!token.IsCancellationRequested && intervalElapsedMs < noteDurationMs)
+                        {
+                            int remainingMs = Math.Max(1, (int)Math.Ceiling(noteDurationMs - intervalElapsedMs));
+                            int stepMs = usePortamento ? Math.Min(8, remainingMs) : remainingMs;
+                            int frequency = target;
+                            if (usePortamento)
+                            {
+                                double elapsedMs = (Stopwatch.GetTimestamp() - glideStartedAt) * 1000.0 / Stopwatch.Frequency;
+                                double duration = Math.Max(1, TemporarySettings.PortamentoSettings.length);
+                                double progress = Math.Clamp(elapsedMs / duration, 0.0, 1.0);
+                                frequency = Math.Max(1, (int)Math.Round(startHz + (target - startHz) * progress));
+                            }
+
+                            UpdateLabelVisible(true);
+                            NotePlayer.PlayNote(frequency, stepMs, true);
+                            await Task.Delay(stepMs, token);
+                            intervalElapsedMs = (Stopwatch.GetTimestamp() - intervalStart) * 1000.0 / Stopwatch.Frequency;
+                        }
                     }
                 }
-                while (isAlternatingPlaying == true);
-            });
+                catch (OperationCanceledException) { }
+                catch (Exception ex)
+                {
+                    Logger.Log($"Alternating portamento error: {ex.Message}", Logger.LogTypes.Error);
+                }
+            }, token);
+        }
+
+        private void PlayAlternatingNotes()
+        {
+            StartPolyphonicAlternation(isMidiInput: true);
         }
 
         /// <summary>
@@ -7547,6 +7605,9 @@ namespace NeoBleeper
         private void StopAllSounds()
         {
             // Stop alternating playback and reset flags
+            portamentoCts?.Cancel();
+            CancelPolyphonicAlternation();
+            lastFrequency = 0;
             isAlternatingPlayingRegularKeyboard = false;
             keyPressed = false;
             pressedKeys.Clear();

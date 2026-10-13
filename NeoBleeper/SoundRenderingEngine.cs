@@ -167,16 +167,8 @@ namespace NeoBleeper
                 // Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
-                    try
-                    {
-                        var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
-                        pawnIO = new PawnIOWrapper(sysspkrModuleBytes);
-                    }
-                    catch (Exception ex)
-                    {
-                        pawnIO = null;
-                        Logger.Log("Failed to load PawnIO PcSpeaker module: " + ex.Message, Logger.LogTypes.Error);
-                    }
+                    var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
+                    pawnIO = new PawnIOWrapper(sysspkrModuleBytes);
                 }
             }
 
@@ -208,9 +200,11 @@ namespace NeoBleeper
                 }
             }
 
+            [Obsolete("Direct hardware access via inpoutx64.dll is deprecated. Use PawnIO PcSpeaker module instead.")]
             [DllImport("inpoutx64.dll")]
             extern static void Out32(short PortAddress, short Data);
 
+            [Obsolete("Direct hardware access via inpoutx64.dll is deprecated. Use PawnIO PcSpeaker module instead.")]
             [DllImport("inpoutx64.dll")]
 
             extern static char Inp32(short PortAddress);

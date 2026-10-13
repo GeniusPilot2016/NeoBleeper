@@ -1221,6 +1221,9 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO sta iniziando</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO è stato avviato correttamente</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO è stato installato correttamente</value>
   </data>

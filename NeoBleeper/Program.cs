@@ -288,7 +288,8 @@ namespace NeoBleeper
             DisplayResolution,
             SystemSpeaker,
             CompactComputer,
-            UnknownComputer
+            UnknownComputer,
+            PawnIONotInstalled
         }
 
         /// <summary>
@@ -316,6 +317,9 @@ namespace NeoBleeper
                     break;
                 case WarningType.UnknownComputer:
                     warningForm = new InitUnknownTypeOfComputerWarning();
+                    break;
+                case WarningType.PawnIONotInstalled:
+                    warningForm = new PawnIOIsNotLoadedWarning();
                     break;
             }
             if (warningForm != null)
@@ -452,7 +456,7 @@ namespace NeoBleeper
         /// <remarks>This method skips placement of InpOutx64.dll on ARM64 architectures, as system
         /// speaker support is not available on most ARM64 devices. The method updates the splash screen with status
         /// messages to inform the user of progress and any errors encountered during the process.</remarks>
-        
+        [Obsolete("This method is deprecated due to the NeoBleeper's transition to using the PawnIO library for system speaker access. InpOutx64.dll is no longer required for NeoBleeper's functionality.")]
         private static void CheckAndPlaceInpOutX64()
         {
             if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64) // Skip InpOutx64.dll placement on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
@@ -477,6 +481,53 @@ namespace NeoBleeper
                 else
                 {
                     splashScreen.UpdateStatus(Resources.StatusInpOutX64IsPresentAndValid);
+                }
+            }
+        }
+
+        private static void CheckAndInstallPawnIOIfNeeded()
+        {
+            if ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) && ProgramPrecheck.IsRanAsAdmin()) // Skip PawnIO installation on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support and require admin privileges to install PawnIO
+            {
+                if (!ProgramPrecheck.IsPawnIOInstalled())
+                {
+                    splashScreen.UpdateStatus(Resources.PawnIODownloadingAndInstalling);
+                    Logger.Log("PawnIO is not installed. NeoBleeper will attempt to install it.", LogTypes.Warning);
+                    try
+                    {
+                        PawnIOWrapper.InstallPawnIO();
+                        splashScreen.UpdateStatus(Resources.PawnIOInstalled, 2);
+                        Logger.Log("PawnIO installation completed successfully.", LogTypes.Info);
+                    }
+                    catch (Exception ex)
+                    {
+                        splashScreen.UpdateStatus(Resources.PawnIOInstallationFailed + ex.Message);
+                        Logger.Log("Failed to install PawnIO: " + ex.Message, LogTypes.Error);
+                    }
+                }
+                else
+                {
+                    Logger.Log("PawnIO is already installed and valid.", LogTypes.Info);
+                }
+            }
+        }
+
+        private static void EnsureStartPawnIOIfInstalled()
+        {
+            if ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) && ProgramPrecheck.IsPawnIOInstalled()
+                && ProgramPrecheck.IsRanAsAdmin()) // Skip PawnIO startup on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support and require admin privileges to start PawnIO
+            {
+                try
+                {
+                    splashScreen.UpdateStatus(Resources.PawnIOIsStarting);
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StartPawnIO();
+                    splashScreen.UpdateStatus(Resources.PawnIOIsStarted, 2);
+                    Logger.Log("PawnIO started successfully.", LogTypes.Info);
+                }
+                catch (Exception ex)
+                {
+                    splashScreen.UpdateStatus(Resources.PawnIOStartupFailed + ex.Message);
+                    Logger.Log("Failed to start PawnIO: " + ex.Message, LogTypes.Error);
                 }
             }
         }

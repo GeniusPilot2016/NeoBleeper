@@ -1222,6 +1222,9 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO đang khởi động</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO đã khởi động thành công</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO đã được cài đặt thành công</value>
   </data>

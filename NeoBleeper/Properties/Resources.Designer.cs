@@ -2203,6 +2203,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   PawnIO is started successfully benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIOIsStarted {
+            get {
+                return ResourceManager.GetString("PawnIOIsStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   PawnIO is starting benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string PawnIOIsStarting {
