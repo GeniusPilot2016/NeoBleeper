@@ -1218,4 +1218,19 @@
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Обнаружена конфиденциальная информация</value>
   </data>
+  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
+    <value>ПавнИО загружается и устанавливается.</value>
+  </data>
+  <data name="PawnIOIsStarting" xml:space="preserve">
+    <value>ПавнИО начинает работу</value>
+  </data>
+  <data name="PawnIOInstalled" xml:space="preserve">
+    <value>ПавнИО успешно установлен</value>
+  </data>
+  <data name="PawnIOInstallationFailed" xml:space="preserve">
+    <value>Не удалось установить ПавнИО: </value>
+  </data>
+  <data name="PawnIOStartupFailed" xml:space="preserve">
+    <value>Не удалось запустить ПавнИО: </value>
+  </data>
 </root>

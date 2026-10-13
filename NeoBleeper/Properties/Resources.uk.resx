@@ -1218,4 +1218,19 @@
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Виявлено конфіденційну інформацію</value>
   </data>
+  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
+    <value>PawnIO завантажується та встановлюється</value>
+  </data>
+  <data name="PawnIOIsStarting" xml:space="preserve">
+    <value>PawnIO починається</value>
+  </data>
+  <data name="PawnIOInstalled" xml:space="preserve">
+    <value>PawnIO успішно встановлено</value>
+  </data>
+  <data name="PawnIOInstallationFailed" xml:space="preserve">
+    <value>Не вдалося встановити PawnIO: </value>
+  </data>
+  <data name="PawnIOStartupFailed" xml:space="preserve">
+    <value>Не вдалося запустити PawnIO: </value>
+  </data>
 </root>

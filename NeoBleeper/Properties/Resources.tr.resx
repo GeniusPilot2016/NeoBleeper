@@ -1217,4 +1217,19 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Hassas Bilgi Tespit Edildi</value>
   </data>
+  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
+    <value>PawnIO indiriliyor ve yükleniyor.</value>
+  </data>
+  <data name="PawnIOIsStarting" xml:space="preserve">
+    <value>PawnIO başlatılıyor</value>
+  </data>
+  <data name="PawnIOInstalled" xml:space="preserve">
+    <value>PawnIO başarıyla yüklendi</value>
+  </data>
+  <data name="PawnIOInstallationFailed" xml:space="preserve">
+    <value>PawnIO yüklemesi başarısız oldu: </value>
+  </data>
+  <data name="PawnIOStartupFailed" xml:space="preserve">
+    <value>PawnIO başlatılamadı: </value>
+  </data>
 </root>

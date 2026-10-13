@@ -1216,4 +1216,19 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Informations sensibles détectées</value>
   </data>
+  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
+    <value>PawnIO est en cours de téléchargement et d'installation.</value>
+  </data>
+  <data name="PawnIOIsStarting" xml:space="preserve">
+    <value>PawnIO commence</value>
+  </data>
+  <data name="PawnIOInstalled" xml:space="preserve">
+    <value>PawnIO a été installé avec succès</value>
+  </data>
+  <data name="PawnIOInstallationFailed" xml:space="preserve">
+    <value>L'installation de PawnIO a échoué : </value>
+  </data>
+  <data name="PawnIOStartupFailed" xml:space="preserve">
+    <value>Le démarrage de PawnIO a échoué : </value>
+  </data>
 </root>

@@ -1254,4 +1254,19 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="PixeloidSans" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PixeloidSans.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
+    <value>PawnIO is downloading and installing</value>
+  </data>
+  <data name="PawnIOIsStarting" xml:space="preserve">
+    <value>PawnIO is starting</value>
+  </data>
+  <data name="PawnIOInstalled" xml:space="preserve">
+    <value>PawnIO was installed successfully</value>
+  </data>
+  <data name="PawnIOInstallationFailed" xml:space="preserve">
+    <value>PawnIO installation failed: </value>
+  </data>
+  <data name="PawnIOStartupFailed" xml:space="preserve">
+    <value>PawnIO failed to start: </value>
+  </data>
 </root>

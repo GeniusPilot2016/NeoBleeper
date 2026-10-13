@@ -1216,4 +1216,19 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Phát hiện thông tin nhạy cảm</value>
   </data>
+  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
+    <value>PawnIO đang tải xuống và cài đặt.</value>
+  </data>
+  <data name="PawnIOIsStarting" xml:space="preserve">
+    <value>PawnIO đang khởi động</value>
+  </data>
+  <data name="PawnIOInstalled" xml:space="preserve">
+    <value>PawnIO đã được cài đặt thành công</value>
+  </data>
+  <data name="PawnIOInstallationFailed" xml:space="preserve">
+    <value>Cài đặt PawnIO thất bại: </value>
+  </data>
+  <data name="PawnIOStartupFailed" xml:space="preserve">
+    <value>Không thể khởi động PawnIO: </value>
+  </data>
 </root>

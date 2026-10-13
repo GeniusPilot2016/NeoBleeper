@@ -2176,6 +2176,51 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   PawnIO is downloading and installing benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIODownloadingAndInstalling {
+            get {
+                return ResourceManager.GetString("PawnIODownloadingAndInstalling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PawnIO installation failed:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIOInstallationFailed {
+            get {
+                return ResourceManager.GetString("PawnIOInstallationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PawnIO was installed successfully benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIOInstalled {
+            get {
+                return ResourceManager.GetString("PawnIOInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PawnIO is starting benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIOIsStarting {
+            get {
+                return ResourceManager.GetString("PawnIOIsStarting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PawnIO failed to start:  benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIOStartupFailed {
+            get {
+                return ResourceManager.GetString("PawnIOStartupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Laser, Whip, Scratch Push, Scratch Pull, Stick Click, Side Stick, Metronome Click, Metronome Bell, Bass Drum, Kick Drum, Snare Cross Stick, Snare Drum, Hand Clap, Electric Snare Drum, Floor Tom 2, Hi-Hat Closed, Floor Tom 1, Hi-Hat Foot, Low Tom, Hi-Hat Open, Low-Mid Tom, High-Mid Tom, Crash Cymbal, High Tom, Ride Cymbal, China Cymbal, Ride Bell, Tambourine, Splash Cymbal, Cowbell, Crash Cymbal 2, Vibraslap, Ride Cymbal 2, High Bongo, Low Bongo, Conga Dead Stroke, Conga, Tumba, High Timbale, Low Timbale, Hi [dizenin kalan bölümü kesildi]&quot;; benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string PercussionNames {

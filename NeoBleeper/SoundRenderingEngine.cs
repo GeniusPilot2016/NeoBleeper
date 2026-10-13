@@ -135,22 +135,6 @@ namespace NeoBleeper
             static PawnIOWrapper pawnIO;
             static SystemSpeakerBeepEngine()
             {
-                /*// Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
-                {
-                    try
-                    {
-                        var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
-                        pawnIO = new PawnIOWrapper(sysspkrModuleBytes);
-                    }
-                    catch (Exception ex)
-                    {
-                        pawnIO = null;
-                        Logger.Log("Failed to load PawnIO PcSpeaker module: " + ex.Message, Logger.LogTypes.Error);
-                    }
-                }
-                */
-
                 void SafeStop()
                 {
                     try
@@ -176,6 +160,24 @@ namespace NeoBleeper
                 // The BSoD or power outage scenarios, which are full system crashes, cannot be handled here.
                 AppDomain.CurrentDomain.UnhandledException += (s, e) => SafeStop();
                 TaskScheduler.UnobservedTaskException += (s, e) => { SafeStop(); e.SetObserved(); };
+            }
+
+            public static void StartPawnIO()
+            {
+                // Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    try
+                    {
+                        var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
+                        pawnIO = new PawnIOWrapper(sysspkrModuleBytes);
+                    }
+                    catch (Exception ex)
+                    {
+                        pawnIO = null;
+                        Logger.Log("Failed to load PawnIO PcSpeaker module: " + ex.Message, Logger.LogTypes.Error);
+                    }
+                }
             }
 
             // ---- PawnIO PcSpeaker module command encoding: [63:56] opcode, [55:0] payload ----
