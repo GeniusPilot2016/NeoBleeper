@@ -1260,6 +1260,9 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO is starting</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO is started successfully</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO was installed successfully</value>
   </data>

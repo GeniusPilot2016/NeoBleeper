@@ -1222,6 +1222,9 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO startet</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO wurde erfolgreich gestartet</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO wurde erfolgreich installiert</value>
   </data>

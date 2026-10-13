@@ -1223,6 +1223,9 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO başlatılıyor</value>
   </data>
+  <data name="PawnIOIsStarted" xml:space="preserve">
+    <value>PawnIO başarıyla başlatıldı</value>
+  </data>
   <data name="PawnIOInstalled" xml:space="preserve">
     <value>PawnIO başarıyla yüklendi</value>
   </data>
