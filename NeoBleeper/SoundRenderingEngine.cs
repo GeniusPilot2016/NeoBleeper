@@ -167,8 +167,20 @@ namespace NeoBleeper
                 // Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
-                    var sysspkrModuleBytes = File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
-                    pawnIO = new PawnIOWrapper(sysspkrModuleBytes);
+                    pawnIO = new PawnIOWrapper(GetPawnIOModuleBytes());
+                }
+            }
+
+            private static byte[] GetPawnIOModuleBytes()
+            {
+                // Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
+                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                {
+                    return File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
+                }
+                else
+                {
+                    return null; // No module for ARM64 as it has no system speaker
                 }
             }
 
