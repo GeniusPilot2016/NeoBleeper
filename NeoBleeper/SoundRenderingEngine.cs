@@ -299,7 +299,6 @@ namespace NeoBleeper
                     HighPrecisionSleep.Sleep(offset);
                 }
 
-                // [InpOut disabled] Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03));
                 RunBatch(new long[] { CmdPpiWrite(0x03, 0x03) }, false);   // set gate + speaker data
                 */
             }
