@@ -1553,7 +1553,7 @@ namespace NeoBleeper
             else if (radioButton_noise.Checked == true)
             {
                 TemporarySettings.CreatingSounds.soundDeviceBeepWaveform = TemporarySettings.CreatingSounds.SoundDeviceBeepWaveform.Noise;
-                SoundRenderingEngine.WaveSynthEngine.PlayFilteredNoise(0, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
+                SoundRenderingEngine.WaveSynthEngine.PlayFilteredNoise(1, 0, false); // Dummy beep for prevent unintended delay just before playing the beep
                 Logger.Log("Noise waveform selected.", Logger.LogTypes.Info);
             }
         }
