@@ -1234,4 +1234,7 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="PawnIOStartupFailed" xml:space="preserve">
     <value>PawnIO konnte nicht gestartet werden: </value>
   </data>
+  <data name="NeoBleeperName" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
 </root>

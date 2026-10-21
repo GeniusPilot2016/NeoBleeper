@@ -1233,4 +1233,7 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="PawnIOStartupFailed" xml:space="preserve">
     <value>Avvio di PawnIO non riuscito: </value>
   </data>
+  <data name="NeoBleeperName" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
 </root>
