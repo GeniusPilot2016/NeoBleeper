@@ -1236,4 +1236,7 @@
   <data name="PawnIOStartupFailed" xml:space="preserve">
     <value>Не вдалося запустити PawnIO: </value>
   </data>
+  <data name="NeoBleeperName" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
 </root>

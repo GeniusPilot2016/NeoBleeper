@@ -2122,6 +2122,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   NeoBleeper benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string NeoBleeperName {
+            get {
+                return ResourceManager.GetString("NeoBleeperName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   No basic checks passed. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string NoBasicChecksPassed {

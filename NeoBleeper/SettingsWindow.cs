@@ -1974,7 +1974,9 @@ namespace NeoBleeper
         {
             if (comboBoxLanguage.SelectedItem == null)
                 return;
-
+            string headerText = mainWindow.Text;
+            string formerNeoBleeperName = Resources.NeoBleeperName;
+            string AIgeneratedText = Resources.TextAIGeneratedMusic;
             string selectedLanguage = comboBoxLanguage.SelectedItem.ToString();
 
             if (selectedLanguage == Settings1.Default.preferredLanguage)
@@ -1998,9 +2000,19 @@ namespace NeoBleeper
 
             // Update all controls in the UI.
             UIHelper.ApplyLanguageChangeToUI();
+            
+            // Replace the AI-generated text with the new language version if it was present in the header before the language change.
+            headerText = headerText.Replace(formerNeoBleeperName + " - " + AIgeneratedText, Resources.NeoBleeperName + " - " + Resources.TextAIGeneratedMusic);
+
+            headerText = headerText.Replace(formerNeoBleeperName + " - ", Resources.NeoBleeperName + " - ");
+            // Sync header text
+            mainWindow.Text = headerText;
 
             // Sync trackbar values
             mainWindow.SyncTrackbarValues();
+
+            // Sync note labels
+            mainWindow.SyncNoteLabels();
 
             // Re-translate the position display values using the new language.
             RetranslatePositionDisplayValues(copiedDisplayValues);

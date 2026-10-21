@@ -1235,4 +1235,7 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="PawnIOStartupFailed" xml:space="preserve">
     <value>PawnIO başlatılamadı: </value>
   </data>
+  <data name="NeoBleeperName" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
 </root>

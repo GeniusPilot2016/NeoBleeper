@@ -1387,7 +1387,7 @@ namespace NeoBleeper
                     {
                         ShiftNoteLabelsToRightForOctave9();
                     }
-                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + Resources.TextAIGeneratedMusic;
+                    this.Text = Resources.NeoBleeperName + " - " + Resources.TextAIGeneratedMusic;
                     listViewNotes.Items.Clear();
 
                     if (projectFile.LineList?.Lines != null)
@@ -2103,7 +2103,7 @@ namespace NeoBleeper
                         saveAsToolStripMenuItem.Enabled = true;
                     }
                     currentFilePath = saveFileDialog.FileName;
-                    this.Text = System.AppDomain.CurrentDomain.FriendlyName + " - " + currentFilePath;
+                    this.Text = Resources.NeoBleeperName + " - " + currentFilePath;
                     isModified = false;
                     saveFileDialog.FileName = string.Empty;
                     UpdateFormTitle();
@@ -2382,6 +2382,16 @@ namespace NeoBleeper
 
             isOctaveChanging = false; // The operation is complete
         }
+
+        public void SyncNoteLabels()
+        {
+            UpdateNoteLabels();
+            if (Variables.octave == 9)
+            {
+                ShiftNoteLabelsToLeftForOctave9(); // Shift labels to the left
+            }
+            SetToolTipForKeys();
+        }
         private void checkBox_dotted_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_triplet.Checked == checkBox_dotted.Checked)
@@ -2631,7 +2641,7 @@ namespace NeoBleeper
         private void ClearOpenedProject()
         {
             StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
-            this.Text = System.AppDomain.CurrentDomain.FriendlyName;
+            this.Text = Resources.NeoBleeperName;
             saveFileDialog.FileName = string.Empty;
             currentFilePath = String.Empty;
             if (Variables.octave == 9)
@@ -6062,7 +6072,7 @@ namespace NeoBleeper
         /// contains the AI-generated music label, that label is appended instead.</remarks>
         private void UpdateFormTitle()
         {
-            string title = System.AppDomain.CurrentDomain.FriendlyName;
+            string title = Resources.NeoBleeperName;
 
             // Add the current file path if it exists
             if (!string.IsNullOrWhiteSpace(currentFilePath))

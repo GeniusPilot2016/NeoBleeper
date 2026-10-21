@@ -1272,4 +1272,7 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="PawnIOStartupFailed" xml:space="preserve">
     <value>PawnIO failed to start: </value>
   </data>
+  <data name="NeoBleeperName" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
 </root>

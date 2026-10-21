@@ -181,7 +181,7 @@ public static class UIHelper
     {
         SynchronizedSettings settings = SynchronizedSettings.Load();
         Color preferredColor = Settings1.Default.window_border_color;
-        if(preferredColor == settings.BorderColor)
+        if (preferredColor == settings.BorderColor)
         {
             preferredColor = settings.BorderColor;
         }
@@ -768,6 +768,9 @@ public static class UIHelper
                     resources,
                     dpiFactor);
 
+                // Apply the localized font SIZE only, keeping the existing family and style.
+                LocalizeFontSize(control, name, resources);
+
                 // ====================================================
                 // TOOLTIP
                 // ====================================================
@@ -906,6 +909,41 @@ public static class UIHelper
         }
     }
 
+
+    // =================================================================
+    // FONT SIZE ONLY (PRESERVE EXISTING FONT FAMILY AND STYLE)
+    // =================================================================
+
+    private static void LocalizeFontSize(
+        System.Windows.Forms.Control control,
+        string name,
+        System.ComponentModel.ComponentResourceManager resources)
+    {
+        if (control == null || string.IsNullOrEmpty(name))
+            return;
+
+        object fontObject = resources.GetObject(name + ".Font");
+        if (fontObject is not System.Drawing.Font localizedFont)
+            return;
+
+        System.Drawing.Font currentFont = control.Font;
+        if (System.Math.Abs(currentFont.Size - localizedFont.Size) < 0.01f &&
+            currentFont.Unit == localizedFont.Unit)
+            return;
+
+        // Convert the resource font's size into the current font's unit if needed.
+        float size = currentFont.Unit == localizedFont.Unit
+            ? localizedFont.Size
+            : localizedFont.SizeInPoints * currentFont.Size / currentFont.SizeInPoints;
+
+        control.Font = new System.Drawing.Font(
+            currentFont.FontFamily,
+            size,
+            currentFont.Style,
+            currentFont.Unit,
+            currentFont.GdiCharSet,
+            currentFont.GdiVerticalFont);
+    }
 
     // =================================================================
     // NORMAL CONTROL TEXT
@@ -1605,6 +1643,27 @@ public static class UIHelper
             if (text != null)
                 item.Text = text;
 
+            // Localize only the font size, not its family or style.
+            object fontObject = resources.GetObject(item.Name + ".Font");
+            if (fontObject is System.Drawing.Font localizedFont)
+            {
+                System.Drawing.Font currentFont = item.Font;
+                float size = currentFont.Unit == localizedFont.Unit
+                    ? localizedFont.Size
+                    : localizedFont.SizeInPoints * currentFont.Size / currentFont.SizeInPoints;
+
+                if (System.Math.Abs(currentFont.Size - size) >= 0.01f)
+                {
+                    item.Font = new System.Drawing.Font(
+                        currentFont.FontFamily,
+                        size,
+                        currentFont.Style,
+                        currentFont.Unit,
+                        currentFont.GdiCharSet,
+                        currentFont.GdiVerticalFont);
+                }
+            }
+
             string toolTip =
                 resources.GetString(
                     item.Name + ".ToolTipText");
@@ -2116,5 +2175,3 @@ public static class UIHelper
         }
     }
 }
-
-

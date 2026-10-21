@@ -1234,4 +1234,7 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="PawnIOStartupFailed" xml:space="preserve">
     <value>Không thể khởi động PawnIO: </value>
   </data>
+  <data name="NeoBleeperName" xml:space="preserve">
+    <value>NeoBleeper</value>
+  </data>
 </root>
