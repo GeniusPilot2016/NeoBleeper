@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+using GenerativeAI.Types;
 using NAudio.SoundFont;
 using NAudio.Wave;
 using System;
@@ -2146,19 +2147,17 @@ namespace NeoBleeper
 
             try
             {
-                // All Sound Device hits (noise AND tonal like Laser) use the rendered PWM path,
-                // which applies velocity. WaveSynthEngine is never used here.
                 bool isSoundDeviceRendered = request.Output == PercussionOutputChoice.SoundDevice;
 
                 if (isSoundDeviceRendered)
                 {
+                    // For Sound Device, render the percussion samples and fuse them into the PWM buffer stream
                     float[] samples = RenderPercussionSamples(request);
                     byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
-                    float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.5f, request.Velocity);
+                    float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 2.2f, request.Velocity);
 
                     QueueMixedSoundDevicePwmSamples(pwmSamples);
 
-                    // Wait out the slice duration while respecting cancellation
                     while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
                     {
                         request.CancellationToken.ThrowIfCancellationRequested();
@@ -2168,65 +2167,73 @@ namespace NeoBleeper
                     return;
                 }
 
-                // Timing loop for System Speaker
+                // True System Speaker PWM Blend: Modulate carrier frequency smoothly with percussion profile envelope
+                double totalDuration = Math.Max(1.0, request.DurationMs);
+                double baseCarrierHz = request.Profile.BodyStartFreq > 0 ? request.Profile.BodyStartFreq : 440.0;
+                double smoothedHz = baseCarrierHz;
+
                 while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
                 {
                     request.CancellationToken.ThrowIfCancellationRequested();
 
                     double elapsedMs = sw.Elapsed.TotalMilliseconds;
+                    double progress = Math.Clamp(elapsedMs / totalDuration, 0.0, 1.0);
 
+                    // Get the structural envelope signal from the percussion profile
                     GetPlaybackSignalCore(
                         request,
                         elapsedMs,
-                        out int frequency,
+                        out int percussiveFreq,
                         out bool audible);
 
-                    if (!audible)
+                    // Micro-fade edge protection to eliminate start/stop clicks
+                    double envelope = 1.0;
+                    const double edgeFadeMs = 2.0;
+                    if (elapsedMs < edgeFadeMs)
+                        envelope = elapsedMs / edgeFadeMs;
+                    else if (elapsedMs > totalDuration - edgeFadeMs)
+                        envelope = Math.Max(0.0, (totalDuration - elapsedMs) / edgeFadeMs);
+
+                    if (!audible || envelope <= 0.001)
                     {
                         if (currentOutput != null)
                         {
                             StopCurrentPulse(ref currentOutput);
                         }
-
                         currentFrequency = -1;
-
-                        double targetMs = Math.Min(
-                            request.DurationMs,
-                            elapsedMs + 0.5);
-
-                        LowCpuWaitUntil(sw, targetMs);
+                        LowCpuWaitUntil(sw, Math.Min(request.DurationMs, elapsedMs + 0.5));
                         continue;
                     }
 
-                    if (currentOutput != request.Output ||
-                        currentFrequency != frequency)
+                    // True blend logic: blend the note carrier frequency with the percussive transient frequency organically
+                    double targetBlendHz = baseCarrierHz * 0.5 + percussiveFreq * 0.5;
+                    smoothedHz = smoothedHz * 0.6 + targetBlendHz * 0.4; // Seamless portamento blending
+
+                    int finalFrequency = ClampPercussionFrequency(smoothedHz, 60.0, 8000.0);
+
+                    if (currentOutput != request.Output || currentFrequency != finalFrequency)
                     {
                         StartOrUpdatePulse(
                             request.Output,
-                            frequency,
+                            finalFrequency,
                             request.Profile.BodyWave,
                             ref currentOutput);
 
-                        currentFrequency = frequency;
+                        currentFrequency = finalFrequency;
                     }
 
-                    double nextUpdateMs = Math.Min(
-                        request.DurationMs,
-                        elapsedMs + 0.5);
-
-                    LowCpuWaitUntil(sw, nextUpdateMs);
+                    LowCpuWaitUntil(sw, Math.Min(request.DurationMs, elapsedMs + 0.5));
                 }
             }
             catch (OperationCanceledException)
             {
-                // Expected when a seek cancels the shared playback token mid-slice.
+                // Expected on track seek or stop
             }
             finally
             {
                 StopCurrentPulse(ref currentOutput);
             }
         }
-
         private static float[] BuildSoundDevicePwmSamples(
     byte[] pcmData,
     float volume,
@@ -2240,20 +2247,13 @@ namespace NeoBleeper
             double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
             double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
 
-            // Velocity sets the PWM modulation depth around 50% duty (this is the audible level).
-            const double maxDepth = 0.48; // keeps duty within ~[0.02, 0.98]
-            // Same velocity mapping System Speaker uses (normVelocity in GetPlaybackSignalCore),
-            // fed with the velocity that was given. No separate curve.
+            const double maxDepth = 0.45;
             double normVelocity = NoteUtility.VelocityToDynamicGain(velocity);
-            // Level follows the given velocity on a true dB scale (30 dB range, 127 = 0 dB), so
-            // typical velocities (60-127) are clearly audible as different volumes. The level is
-            // split evenly between pulse amplitude and duty depth (amp * depth = full level).
             double velocityLevel = Math.Pow(10.0, -(1.0 - Math.Clamp(velocity, 1, 127) / 127.0) * 30.0 / 20.0);
             double velocitySplit = Math.Sqrt(velocityLevel);
             double depth = maxDepth * velocitySplit;
-            // System Speaker also shortens the audible part of soft hits (progress < ~0.95 * normVelocity).
             double audibleLimit = 0.95 * normVelocity;
-            double fadeStart = audibleLimit * 0.85;
+            double fadeStart = audibleLimit * 0.80;
 
             double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
             int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
@@ -2263,14 +2263,13 @@ namespace NeoBleeper
             double durationMs = durationSeconds * 1000.0;
 
             double shortSoundBoost = durationMs < 80.0
-                ? 1.0 + (80.0 - durationMs) / 80.0 * 0.85
+                ? 1.0 + (80.0 - durationMs) / 80.0 * 0.80
                 : 1.0;
 
-            // Velocity is applied to BOTH the pulse amplitude and the duty depth. If the sound
-            // device resamples the 192 kHz stream without properly filtering the 24 kHz carrier
-            // (24 kHz is exactly Nyquist for a 48 kHz device), the duty depth gets lost and only
-            // the pulse amplitude survives, so amplitude must carry velocity too.
-            float amp = (float)Math.Clamp(volume * 0.25 * velocitySplit, 0.01, 0.9);
+            float amp = (float)Math.Clamp(volume * 0.23 * velocitySplit, 0.01, 0.88);
+
+            double dcX = 0.0;
+            double dcY = 0.0;
 
             for (int period = 0; period < pwmPeriodCount; period++)
             {
@@ -2284,20 +2283,24 @@ namespace NeoBleeper
                 double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
                 double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
 
+                // Clean DC Blocking to preserve precise waveform center alignment
+                double dcBlocked = normAudio - dcX + 0.995 * dcY;
+                dcX = normAudio;
+                dcY = dcBlocked;
+
                 double shape = Math.Clamp(
-                    Math.Sign(normAudio) * Math.Pow(Math.Abs(normAudio), 0.85) * shortSoundBoost,
+                    Math.Sign(dcBlocked) * Math.Pow(Math.Abs(dcBlocked), 0.85) * shortSoundBoost,
                     -1.0,
                     1.0);
 
-                // Same time-domain velocity behavior as System Speaker: soft hits end earlier.
                 double hitProgress = (period + 0.5) / pwmPeriodCount;
                 if (hitProgress >= audibleLimit)
                     shape = 0.0;
                 else if (hitProgress > fadeStart)
                     shape *= (audibleLimit - hitProgress) / (audibleLimit - fadeStart);
 
-                // Keep duty cycle within [0.02, 0.98] bounds to prevent DC signal saturation
-                double dutyCycle = Math.Clamp(0.5 + shape * depth, 0.02, 0.98);
+                // True PWM duty cycle fusion
+                double dutyCycle = Math.Clamp(0.5 + shape * depth, 0.03, 0.97);
 
                 double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
                 int onSamples = Math.Clamp((int)Math.Round(wantedOnSamples, MidpointRounding.AwayFromZero), 0, SoundDevicePwmSamplesPerPeriod);
@@ -2306,7 +2309,7 @@ namespace NeoBleeper
                 int baseIndex = period * SoundDevicePwmSamplesPerPeriod;
                 for (int j = 0; j < SoundDevicePwmSamplesPerPeriod; j++)
                 {
-                    pwm[baseIndex + j] = j < onSamples ? amp : -amp;
+                    pwm[baseIndex + j] = (j < onSamples ? 1.0f : -1.0f) * amp;
                 }
             }
 
