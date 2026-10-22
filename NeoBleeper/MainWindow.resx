@@ -1729,7 +1729,10 @@
   <data name="checkBox_play_note1_played.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 16</value>
   </data>
-  <data name="button_d5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="checkBox_loop.ImageIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="button_g_s3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
   </data>
   <data name="&gt;&gt;checkbox_play_note.Type" xml:space="preserve">
@@ -2793,8 +2796,8 @@
   <data name="lbl_a4.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lbl_beat_traditional.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 32</value>
+  <data name="lbl_c3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;label_note_length.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -3141,8 +3144,8 @@
   <data name="checkBox_metronome.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
     <value>ImageBeforeText</value>
   </data>
-  <data name="&gt;&gt;lbl_c3.Name" xml:space="preserve">
-    <value>lbl_c3</value>
+  <data name="checkBox_synchronized_play.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 541</value>
   </data>
   <data name="checkBox_play_beat_sound.ToolTip" xml:space="preserve">
     <value>This option creates beat-like sounds on quarter and half notes.</value>
@@ -3575,8 +3578,8 @@
   <data name="lbl_f4.Text" xml:space="preserve">
     <value>F4</value>
   </data>
-  <data name="&gt;&gt;button_f_s3.ZOrder" xml:space="preserve">
-    <value>28</value>
+  <data name="&gt;&gt;button_g4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="button_b3.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -3599,8 +3602,8 @@
   <data name="button_g_s5.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="lbl_f5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;checkBox_triplet.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="button_f5.ToolTip" xml:space="preserve">
     <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
@@ -3876,8 +3879,8 @@
   <data name="comboBox_note_length.Font" type="System.Drawing.Font, System.Drawing">
     <value>HarmonyOS Sans, 9pt</value>
   </data>
-  <data name="btn_octave_increase.Location" type="System.Drawing.Point, System.Drawing">
-    <value>988, 82</value>
+  <data name="button_d3.ToolTip" xml:space="preserve">
+    <value>Press any key on this keyboard to hear the note/add the note to the list (depending on the options on the left side of the window)</value>
   </data>
   <data name="button_stop_playing.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 3, 4, 3</value>
@@ -5862,7 +5865,7 @@
   <data name="&gt;&gt;red_felt.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lbl_g3.ToolTip" xml:space="preserve">
+  <data name="checkBox_play_note1_played.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="&gt;&gt;add_as_note2.Name" xml:space="preserve">
@@ -7655,8 +7658,8 @@
   <data name="add_as_note2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;button_blank_line.ZOrder" xml:space="preserve">
-    <value>40</value>
+  <data name="&gt;&gt;button_clear_note1.Name" xml:space="preserve">
+    <value>button_clear_note1</value>
   </data>
   <data name="checkBox_play_note4_clicked.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 20</value>
@@ -8005,8 +8008,8 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>307, 32</value>
+  <metadata name="MIDIRestartBeepTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>680, 26</value>
   </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>574, 33</value>
