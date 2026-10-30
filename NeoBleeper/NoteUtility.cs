@@ -307,22 +307,22 @@ namespace NeoBleeper
 
         public enum PercussionOutputChoice { SystemSpeaker, SoundDevice }
 
-        private const double RetriggerGapMs = 0.5;
-        private const double MinAudibleSystemSpeakerMs = 12.0;
+        [System.Runtime.InteropServices.DllImport("winmm.dll", EntryPoint = "timeBeginPeriod")]
+        private static extern uint TimeBeginPeriod(uint milliseconds);
 
         private static readonly object _hardwareLock = new object();
         private static readonly object _queueLock = new object();
         private static readonly Queue<PercussionRequest> _pendingRequests = new Queue<PercussionRequest>();
         private static bool _queueWorkerRunning;
 
-        // Sound Device blend: the melody note runs on the shared WaveSynthEngine. It is kept
-        // alive across back-to-back slices (stopped only after a short grace window) so that
-        // consecutive notes don't get a stop/start gap, which is audible as a click.
+        // Sound Device blend: the melody note runs on a persistent voice (BlendNoteVoice) that
+        // lives inside the percussion mixer. The stamp lets a delayed release become a no-op if
+        // the next slice has already taken the voice over, so back-to-back notes don't click.
         private static long _blendNoteSynthStamp;
-        private static bool _blendNoteSynthActive;
+        private static BlendNoteVoice? _blendVoice;
 
         // Sound Device blend: tracks the currently ringing drum hit so that a run of contiguous
-        // short slices of the same drum triggers ONE full-length hit instead of many clipped ones.
+        // short slices of the same drum triggers ONE full-length hit instead of many stacked ones.
         private static readonly object _blendHitLock = new object();
         private static MidiPercussion? _blendHitPercussion;
         private static double _blendHitEndMs;
@@ -413,6 +413,79 @@ namespace NeoBleeper
                     _drained.TrySetResult(true);
 
                 return toCopy;
+            }
+        }
+
+        /// <summary>
+        /// Long-lived square-wave voice that lives inside the percussion mixer. Blend slices
+        /// gate it on/off and retune it, so the phase stays continuous across slices and the
+        /// note's audible length is exactly the slice length, independent of any drum buffer.
+        /// It never reports end-of-stream, so the mixer never removes it.
+        /// </summary>
+        private sealed class BlendNoteVoice : ISampleProvider
+        {
+            public WaveFormat WaveFormat { get; } =
+                NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(SoundDevicePwmSampleRate, 1);
+
+            private volatile float _freq = 440f;
+            private volatile float _targetAmp;
+            private float _env;
+            private double _phase;
+
+            public void SetNote(double freqHz, int velocity)
+            {
+                _freq = (float)Math.Clamp(freqHz, 20.0, 12000.0);
+                _targetAmp = (float)(0.28 * NoteUtility.VelocityToDynamicGain(velocity));
+            }
+
+            public void Release() => _targetAmp = 0f;
+
+            public int Read(float[] buffer, int offset, int count)
+            {
+                if (buffer == null)
+                    throw new ArgumentNullException(nameof(buffer));
+
+                if (offset < 0 ||
+                    count < 0 ||
+                    offset + count > buffer.Length)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                return Read(buffer.AsSpan(offset, count));
+            }
+
+            // Newer NAudio versions require this overload on ISampleProvider as well.
+            // It holds the actual implementation; the array overload above forwards to it.
+            public int Read(Span<float> buffer)
+            {
+                double inc = _freq / (double)SoundDevicePwmSampleRate;
+                float target = _targetAmp;
+
+                // ~1 ms linear ramp to full level, so gating never produces a hard click.
+                float step = 0.30f / (0.001f * SoundDevicePwmSampleRate);
+
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    if (_env < target)
+                        _env = Math.Min(target, _env + step);
+                    else if (_env > target)
+                        _env = Math.Max(target, _env - step);
+
+                    if (_env <= 0f)
+                    {
+                        buffer[i] = 0f;
+                        continue;
+                    }
+
+                    _phase += inc;
+                    if (_phase >= 1.0)
+                        _phase -= 1.0;
+
+                    buffer[i] = _phase < 0.5 ? _env : -_env;
+                }
+
+                return buffer.Length; // never ends, so the mixer keeps the voice
             }
         }
 
@@ -558,6 +631,10 @@ namespace NeoBleeper
                     return;
                 }
 
+                // Windows' default timer tick is ~15.6 ms, which makes Thread.Sleep overshoot
+                // and stretches short slices. Ask for 1 ms resolution while playback is active.
+                try { TimeBeginPeriod(1); } catch { /* non-Windows or unavailable */ }
+
                 var format =
                     NAudio.Wave.WaveFormat.CreateIeeeFloatWaveFormat(
                         SoundDevicePwmSampleRate,
@@ -569,16 +646,50 @@ namespace NeoBleeper
                         ReadFully = true
                     };
 
+                // Persistent melody-note voice for the blend path (silent until gated on).
+                _blendVoice = new BlendNoteVoice();
+                _percussionMixer.AddMixerInput(_blendVoice);
+
                 _percussionWaveOut =
                     new NAudio.Wave.WaveOut
                     {
-                        BufferMilliseconds = 40,
+                        // Queued buffers start at the next buffer boundary, so smaller buffers
+                        // mean less start-time jitter. Raise to 30 if you hear underruns.
+                        BufferMilliseconds = 20,
                         NumberOfBuffers = 3
                     };
 
                 _percussionWaveOut.Init(_percussionMixer);
 
                 _percussionWaveOut.Play();
+            }
+        }
+
+        /// <summary>
+        /// Call when playback is stopped or a seek cancels the playback token. Drops every
+        /// queued drum buffer (so crashes/rides don't keep ringing) and silences the note voice.
+        /// </summary>
+        public static void StopAllSoundDevicePercussion()
+        {
+            lock (_soundDeviceLock)
+            {
+                if (_percussionMixer != null)
+                {
+                    _percussionMixer.RemoveAllMixerInputs();
+
+                    if (_blendVoice != null)
+                    {
+                        _blendVoice.Release();
+                        _percussionMixer.AddMixerInput(_blendVoice);
+                    }
+                }
+            }
+
+            lock (_blendHitLock)
+            {
+                _blendHitPercussion = null;
+                _blendHitEndMs = 0.0;
+                _blendLastSliceEndMs = 0.0;
             }
         }
 
@@ -614,15 +725,28 @@ namespace NeoBleeper
         /// Renders a percussion hit once with the Sound Device synthesis core, then routes that
         /// exact rendered signal to the selected output. Both Sound Device and System Speaker
         /// consume an unsigned 8-bit representation only as PWM duty-cycle information.
+        ///
+        /// The stopwatch starts BEFORE rendering so that render/PWM-build cost counts against the
+        /// hit's duration instead of being added on top of it.
         /// </summary>
         private static void PlayRenderedPercussion(PercussionRequest request)
         {
-            // Render once with the Sound Device synthesis core for every output mode. The common
-            // unsigned-8-bit representation is then routed through PlayPCMSoundAsPWM. Both output
-            // modes convert it to a binary PWM signal; neither mode reconstructs ordinary PCM.
+            var sw = Stopwatch.StartNew();
+
             float[] samples = RenderPercussionSamples(request);
 
             byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
+
+            if (request.Output == PercussionOutputChoice.SoundDevice)
+            {
+                float[] pwm = BuildSoundDevicePwmSamples(pcm8, 3.5f, request.Velocity);
+
+                QueueMixedSoundDevicePwmSamples(pwm);
+
+                LowCpuWaitUntil(sw, request.DurationMs);
+
+                return;
+            }
 
             PlayPCMSoundAsPWM(
                 pcm8,
@@ -686,6 +810,25 @@ namespace NeoBleeper
 
             bool isTonalSquare = request.Profile.BodyWave == SynthWave.Square;
 
+            // These cutoffs and filter coefficients are constant for the whole hit, so compute
+            // them once instead of calling Math.Exp three times per sample.
+            double lowCut = kick ? 120.0 : tom ? 220.0 : 600.0;
+            double midCut = snare ? 2800.0 : cymbal ? 5000.0 : 2000.0;
+            double highCut = cymbal ? 10000.0 : 7500.0;
+
+            double aLow = 1.0 - Math.Exp(-2.0 * Math.PI * lowCut / PercussionSampleRate);
+            double aMid = 1.0 - Math.Exp(-2.0 * Math.PI * midCut / PercussionSampleRate);
+            double aHigh = 1.0 - Math.Exp(-2.0 * Math.PI * highCut / PercussionSampleRate);
+
+            // One-pole leaky-integrator filters attenuate noise amplitude proportionally to
+            // sqrt(a/(2-a)) at steady state. Low cutoffs (kicks/toms) have tiny 'a' and were
+            // coming out at a fraction of the level of higher-cutoff bands (snares/cymbals),
+            // making low percussion nearly inaudible in Sound Device mode. Normalize each
+            // band back to full-scale noise amplitude before mixing so loudness is
+            // independent of the chosen cutoff frequency.
+            double normLow = Math.Sqrt((2.0 - aLow) / Math.Max(aLow, 1e-6));
+            double normMid = Math.Sqrt((2.0 - aMid) / Math.Max(aMid, 1e-6));
+
             for (int i = 0; i < sampleCount; i++)
             {
                 double elapsedMs = i * 1000.0 / PercussionSampleRate;
@@ -698,28 +841,9 @@ namespace NeoBleeper
 
                 double white = ((rng & 0x00FFFFFF) / 8388607.5) - 1.0;
 
-                double lowCut = kick ? 120.0 : tom ? 220.0 : 600.0;
-
-                double midCut = snare ? 2800.0 : cymbal ? 5000.0 : 2000.0;
-
-                double highCut = cymbal ? 10000.0 : 7500.0;
-
-                double aLow = 1.0 - Math.Exp(-2.0 * Math.PI * lowCut / PercussionSampleRate);
-                double aMid = 1.0 - Math.Exp(-2.0 * Math.PI * midCut / PercussionSampleRate);
-                double aHigh = 1.0 - Math.Exp(-2.0 * Math.PI * highCut / PercussionSampleRate);
-
                 lpLow += aLow * (white - lpLow);
                 lpMid += aMid * (white - lpMid);
                 lpHigh += aHigh * (white - lpHigh);
-
-                // One-pole leaky-integrator filters attenuate noise amplitude proportionally to
-                // sqrt(a/(2-a)) at steady state. Low cutoffs (kicks/toms) have tiny 'a' and were
-                // coming out at a fraction of the level of higher-cutoff bands (snares/cymbals),
-                // making low percussion nearly inaudible in Sound Device mode. Normalize each
-                // band back to full-scale noise amplitude before mixing so loudness is
-                // independent of the chosen cutoff frequency.
-                double normLow = Math.Sqrt((2.0 - aLow) / Math.Max(aLow, 1e-6));
-                double normMid = Math.Sqrt((2.0 - aMid) / Math.Max(aMid, 1e-6));
 
                 double lowBand = lpLow * normLow;
                 double midBand = (lpMid - lpLow) * normMid;
@@ -1121,14 +1245,9 @@ namespace NeoBleeper
 
             var prof = GetProfile(p);
 
-            // Previously this always used prof.DurationMs (a fixed per-instrument constant),
-            // so every hit of a given percussion type rendered to the exact same length
-            // regardless of what the caller actually asked for. System Speaker's velocity/
-            // progress-gated cutoff in GetPlaybackSignalCore could still shorten what was
-            // audible, masking the bug there, but Sound Device plays the rendered buffer
-            // verbatim, so the fixed length was fully exposed. Respect a caller-supplied
-            // duration when given, and only fall back to the profile's natural length
-            // otherwise.
+            // Respect a caller-supplied duration when given, and only fall back to the
+            // profile's natural length otherwise. Sound Device plays the rendered buffer
+            // verbatim, so a fixed length would be fully exposed.
             int baseDuration =
                 requestedDurationMs.HasValue
                     ? requestedDurationMs.Value
@@ -1305,28 +1424,19 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// After a Sound Device blend slice, keep the melody note synth alive for a short
-        /// grace window. If the next slice starts within that window it takes the synth over
-        /// (the stamp changes and this stop becomes a no-op), so back-to-back notes don't get
-        /// a stop/start gap, which is audible as a click.
+        /// After a Sound Device blend slice, release the melody note voice after a very short
+        /// grace window. If the next slice starts within that window it takes the voice over
+        /// (the stamp changes and this release becomes a no-op), so back-to-back notes don't
+        /// get a gap, which is audible as a click.
         /// </summary>
-        private static void ScheduleBlendNoteSynthStop(long stamp)
+        private static void ScheduleBlendNoteRelease(long stamp)
         {
             Task.Run(async () =>
             {
-                await Task.Delay(20).ConfigureAwait(false);
+                await Task.Delay(3).ConfigureAwait(false);
 
-                if (Interlocked.Read(ref _blendNoteSynthStamp) != stamp)
-                    return;
-
-                lock (_hardwareLock)
-                {
-                    if (_blendNoteSynthActive)
-                    {
-                        SoundRenderingEngine.WaveSynthEngine.StopSynth();
-                        _blendNoteSynthActive = false;
-                    }
-                }
+                if (Interlocked.Read(ref _blendNoteSynthStamp) == stamp)
+                    _blendVoice?.Release();
             });
         }
 
@@ -1338,12 +1448,12 @@ namespace NeoBleeper
         /// bypasses the queued PlayPercussionForDurationAsync / PlayPCMSoundAsPWM path.
         ///
         /// Sound Device:
-        ///   The drum is rendered at its natural/minimum body length (NOT the slice length),
-        ///   converted to a PWM stream and mixed through the long-lived percussion mixer,
-        ///   while the melody note runs on the synth engine. The two are separate outputs, so
-        ///   they genuinely overlap and the drum can ring out past the slice. A run of
-        ///   contiguous slices of the same drum triggers a single hit. The note synth is kept
-        ///   alive briefly after the slice so consecutive notes join without a gap.
+        ///   The drum is rendered ONCE per run of contiguous slices of the same drum, at its
+        ///   natural/minimum body length (NOT the slice length), converted to a PWM stream and
+        ///   mixed through the long-lived percussion mixer, so it can ring out past the slice.
+        ///   The melody note runs on a persistent BlendNoteVoice inside the same mixer: each
+        ///   slice retunes and gates it, so its length is exactly the slice length and its
+        ///   phase is continuous across slices.
         ///
         /// System Speaker:
         ///   The speaker can only emit one square-wave tone at a time, so the drum and the note
@@ -1365,69 +1475,82 @@ namespace NeoBleeper
             {
                 bool hasNote = request.NoteFrequencyHz > 0.0;
 
-                // ---------------- Sound Device: True PWM Blending (Combined PCM + PWM Carrier Modulation) ----------------
+                // ---------------- Sound Device: one drum hit per run + persistent note voice ----------------
                 if (request.Output == PercussionOutputChoice.SoundDevice)
                 {
-                    int renderMs = Math.Max(
-                        request.DurationMs,
-                        Math.Max(
-                            request.Profile.DurationMs,
-                            (int)Math.Ceiling(GetMinimumBodyMs(request.Percussion))));
+                    EnsurePercussionSoundDevice();
 
-                    // 1. Render the percussion samples for the slice duration
-                    var renderRequest = new PercussionRequest(
-                        request.Percussion,
-                        request.CancellationToken,
-                        renderMs,
-                        renderMs,
-                        request.Output,
-                        request.Profile,
-                        request.Velocity,
-                        null,
-                        request.NoteFrequencyHz);
+                    double sliceStartMs = NowMs() - sw.Elapsed.TotalMilliseconds;
 
-                    float[] percSamples = RenderPercussionSamples(renderRequest);
+                    int naturalMs = Math.Max(
+                        request.Profile.DurationMs,
+                        (int)Math.Ceiling(GetMinimumBodyMs(request.Percussion)));
 
-                    // 2. If a melody note is present, generate its PCM samples and mix them directly into the buffer
-                    if (hasNote)
+                    // A run of contiguous slices of the same drum triggers ONE hit.
+                    // The 3 ms tolerance is the gap allowed between slices of the same note.
+                    bool triggerDrum;
+
+                    lock (_blendHitLock)
                     {
-                        int sampleCount = percSamples.Length;
-                        double noteFreq = Math.Clamp(request.NoteFrequencyHz, 20.0, 12000.0);
-                        double notePhase = 0.0;
-                        double normVelocity = NoteUtility.VelocityToDynamicGain(request.Velocity);
+                        bool sameRun =
+                            _blendHitPercussion == request.Percussion &&
+                            sliceStartMs - _blendLastSliceEndMs < 3.0 &&
+                            sliceStartMs < _blendHitEndMs;
 
-                        for (int i = 0; i < sampleCount; i++)
+                        triggerDrum = !sameRun;
+
+                        if (triggerDrum)
                         {
-                            double elapsedMs = i * 1000.0 / PercussionSampleRate;
-                            notePhase = (notePhase + noteFreq / (double)PercussionSampleRate) % 1.0;
-
-                            // Generate the note waveform (matching profile wave type: Square, Sine, etc.)
-                            double noteVal = request.Profile.BodyWave == SynthWave.Sine
-                                ? Math.Sin(notePhase * 2.0 * Math.PI)
-                                : (notePhase < 0.5 ? 0.7 : -0.7);
-
-                            // Apply envelope decay matching the slice/hit duration
-                            double noteEnv = Math.Max(0.0, 1.0 - (elapsedMs / renderMs));
-                            double blendedNote = noteVal * noteEnv * 0.5 * normVelocity;
-
-                            // True sample-level mix: combine percussion and melody note before PWM conversion
-                            percSamples[i] = (float)Math.Clamp(percSamples[i] + blendedNote, -1.0f, 1.0f);
+                            _blendHitPercussion = request.Percussion;
+                            _blendHitEndMs = sliceStartMs + naturalMs;
                         }
+
+                        _blendLastSliceEndMs = sliceStartMs + request.DurationMs;
                     }
 
-                    // 3. Convert the combined mix to unsigned 8-bit PCM
-                    byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(percSamples);
+                    float[]? drumPwm = null;
 
-                    // 4. Encode the combined stream through the true PWM carrier and duty-cycle rules
-                    float[] pwmSamples = BuildSoundDevicePwmSamples(pcm8, 3.5f, request.Velocity); 
+                    if (triggerDrum)
+                    {
+                        // Drum only, rendered at its natural length. The note is NOT baked in.
+                        var drumRequest = new PercussionRequest(
+                            request.Percussion,
+                            request.CancellationToken,
+                            naturalMs,
+                            naturalMs,
+                            request.Output,
+                            request.Profile,
+                            request.Velocity,
+                            null);
 
-                    QueueMixedSoundDevicePwmSamples(pwmSamples);
+                        byte[] pcm8 =
+                            ConvertFloatSamplesToUnsigned8BitPcm(
+                                RenderPercussionSamples(drumRequest));
 
-                    // Wait out the slice duration cleanly
-                    while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
+                        drumPwm = BuildSoundDevicePwmSamples(pcm8, 3.5f, request.Velocity);
+                    }
+
+                    // Drum buffer and note gate go live together, after the render cost is paid.
+                    long stamp = Interlocked.Increment(ref _blendNoteSynthStamp);
+
+                    if (hasNote)
+                        _blendVoice!.SetNote(request.NoteFrequencyHz, request.Velocity);
+                    else
+                        _blendVoice!.Release();
+
+                    if (drumPwm != null)
+                        QueueMixedSoundDevicePwmSamples(drumPwm);
+
+                    try
                     {
                         request.CancellationToken.ThrowIfCancellationRequested();
-                        LowCpuWaitUntil(sw, Math.Min(request.DurationMs, sw.Elapsed.TotalMilliseconds + 1.0));
+
+                        LowCpuWaitUntil(sw, request.DurationMs);
+                    }
+                    finally
+                    {
+                        // Always let the voice go (after a tiny grace window) - including on cancel.
+                        ScheduleBlendNoteRelease(stamp);
                     }
 
                     return;
@@ -1551,12 +1674,15 @@ namespace NeoBleeper
             double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
 
             const double maxDepth = 0.45;
-            double normVelocity = NoteUtility.VelocityToDynamicGain(velocity);
             double velocityLevel = Math.Pow(10.0, -(1.0 - Math.Clamp(velocity, 1, 127) / 127.0) * 30.0 / 20.0);
             double velocitySplit = Math.Sqrt(velocityLevel);
             double depth = maxDepth * velocitySplit;
-            double audibleLimit = 0.95 * normVelocity;
-            double fadeStart = audibleLimit * 0.80;
+
+            // NOTE: the velocity-based "audibleLimit" gate that used to silence the tail of
+            // every hit (5% to 55% of it, depending on velocity) was removed. It was copied
+            // from the System Speaker path, where it compensates for hardware; the Sound Device
+            // path already applies velocity through 'depth' and 'amp', and the drum's own
+            // envelope plus the edge fade below handle the ending.
 
             double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
             int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
@@ -1595,12 +1721,6 @@ namespace NeoBleeper
                     Math.Sign(dcBlocked) * Math.Pow(Math.Abs(dcBlocked), 0.85) * shortSoundBoost,
                     -1.0,
                     1.0);
-
-                double hitProgress = (period + 0.5) / pwmPeriodCount;
-                if (hitProgress >= audibleLimit)
-                    shape = 0.0;
-                else if (hitProgress > fadeStart)
-                    shape *= (audibleLimit - hitProgress) / (audibleLimit - fadeStart);
 
                 // True PWM duty cycle fusion
                 double dutyCycle = Math.Clamp(0.5 + shape * depth, 0.03, 0.97);
@@ -1740,11 +1860,8 @@ namespace NeoBleeper
                     if (request.Completion != null)
                     {
                         // PlayRenderedPercussion() is synchronous with the requested
-                        // Sound Device buffer duration: PlayPCMSoundAsPWM() queues the
-                        // exact-duration buffer and waits for that duration before
-                        // returning. Delaying CompletionDelayMs AGAIN here therefore
-                        // adds a second fixed-duration interval to every awaited hit.
-                        //
+                        // duration: it queues the exact-duration buffer and waits for that
+                        // duration (measured from before rendering) before returning.
                         // Complete immediately after the actual playback interval.
                         if (request.CancellationToken.IsCancellationRequested)
                         {
@@ -2076,15 +2193,6 @@ namespace NeoBleeper
             if (availableFrameMs <= 0)
                 return 0;
 
-            // CRITICAL: Sound Device must follow the duration of the current
-            // MIDI/note frame. The old Math.Min(..., naturalMs) path tied every
-            // instrument to PercussionProfile.DurationMs, which is a fixed
-            // per-instrument constant.
-            if (GetPercussionPlaybackOutput() == PercussionOutputChoice.SoundDevice)
-            {
-                return availableFrameMs;
-            }
-
             if (!melodyAlsoPlaying)
             {
                 return Math.Min(availableFrameMs, naturalMs);
@@ -2227,18 +2335,8 @@ namespace NeoBleeper
                 // Normal percussion stays on the long-lived mixer.
                 // Blend slices NEVER enter this path.
                 //
-                // Start the clock first, exactly like the System Speaker loop below does:
-                // that loop starts its Stopwatch, then does its per-frame peak/duty-cycle
-                // math *inside* the timed loop, so that compute cost is automatically
-                // absorbed into the same clock it waits against — every wait target is an
-                // absolute offset from one running Stopwatch, so nothing can silently add
-                // extra wall-clock time on top of totalDurationMs. Previously this branch
-                // started the Stopwatch only after BuildSoundDevicePwmSamples() had already
-                // finished building the whole buffer, so that build cost sat entirely
-                // outside the wait budget and was added on top of pwmDurationMs. Starting
-                // the clock here means LowCpuWaitUntil below simply returns immediately
-                // once the build+queue cost has already eaten the budget, the same way a
-                // System Speaker frame that took too long just doesn't oversleep afterward.
+                // Start the clock first so the PWM build cost is counted against the wait
+                // budget instead of being added on top of it.
                 var sw2 = Stopwatch.StartNew();
 
                 float[] pwm = BuildSoundDevicePwmSamples(pcmData, volume, velocity);
