@@ -315,18 +315,49 @@ namespace NeoBleeper
         private static readonly Queue<PercussionRequest> _pendingRequests = new Queue<PercussionRequest>();
         private static bool _queueWorkerRunning;
 
-        // Sound Device blend: the melody note runs on a persistent voice (BlendNoteVoice) that
-        // lives inside the percussion mixer. The stamp lets a delayed release become a no-op if
-        // the next slice has already taken the voice over, so back-to-back notes don't click.
+        // Blend note stamp (shared by both outputs). The stamp lets a delayed release become a
+        // no-op if the next slice has already taken the voice over, so back-to-back notes don't
+        // click. Sound Device: the melody note runs on a persistent voice (BlendNoteVoice) that
+        // lives inside the percussion mixer. System Speaker: the single square-wave pulse is the
+        // "voice" and is released the same way.
         private static long _blendNoteSynthStamp;
         private static BlendNoteVoice? _blendVoice;
 
-        // Sound Device blend: tracks the currently ringing drum hit so that a run of contiguous
-        // short slices of the same drum triggers ONE full-length hit instead of many stacked ones.
+        // Blend: tracks the currently ringing drum hit so that a run of contiguous short slices
+        // of the same drum is ONE hit instead of many stacked/restarted ones. Used by BOTH
+        // Sound Device and System Speaker.
         private static readonly object _blendHitLock = new object();
         private static MidiPercussion? _blendHitPercussion;
+        private static double _blendHitStartMs;
         private static double _blendHitEndMs;
         private static double _blendLastSliceEndMs;
+
+        // Persistent drum state for the current run (System Speaker evaluates its signal
+        // function against this single request so the seed/envelope live for the whole hit).
+        private static PercussionRequest? _blendDrumRequest;
+
+        // System Speaker blend: the drum is rendered ONCE per run (same synthesis core and the same
+        // percentile normalisation as the Sound Device path) and cached here, so every slice of the
+        // run plays the matching part of the same hit.
+        private static float[]? _blendDrumSamples;
+
+        // Phase (0..1) of the melody-note square wave, persistent across slices exactly like
+        // BlendNoteVoice, so back-to-back notes of the same pitch are phase-continuous.
+        private static double _blendSpeakerPhase;
+
+        // True while a System Speaker blend slice owns the speaker.
+        private static volatile bool _blendSpeakerActive;
+
+        // Frequency currently sounding on the speaker in the tone-based blend, -1 = silent.
+        private static int _blendSpeakerFreq = -1;
+
+        // false (default): System Speaker blend uses ordinary StartBeep tones shared in time
+        //                  (works on every SystemSpeakerBeepEngine).
+        // true:            experimental 24 kHz on/off gating of a mixed signal (PlaySpeakerBlendPwm).
+        //                  Needs a beep engine whose Start/Stop calls cost well under ~40 us;
+        //                  otherwise it is silent.
+        private static readonly bool SpeakerBlendUsesPwm = false;
+
 
         private static double NowMs() =>
             Stopwatch.GetTimestamp() * 1000.0 / Stopwatch.Frequency;
@@ -667,7 +698,8 @@ namespace NeoBleeper
 
         /// <summary>
         /// Call when playback is stopped or a seek cancels the playback token. Drops every
-        /// queued drum buffer (so crashes/rides don't keep ringing) and silences the note voice.
+        /// queued drum buffer (so crashes/rides don't keep ringing), silences the note voice,
+        /// silences the System Speaker blend pulse, and resets the blend run tracking.
         /// </summary>
         public static void StopAllSoundDevicePercussion()
         {
@@ -689,7 +721,19 @@ namespace NeoBleeper
             {
                 _blendHitPercussion = null;
                 _blendHitEndMs = 0.0;
+                _blendHitStartMs = 0.0;
                 _blendLastSliceEndMs = 0.0;
+                _blendDrumRequest = null;
+                _blendDrumSamples = null;
+            }
+
+            if (_blendSpeakerActive || _blendSpeakerFreq != -1)
+            {
+                lock (_hardwareLock)
+                {
+                    try { SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep(); } catch { }
+                    _blendSpeakerFreq = -1;
+                }
             }
         }
 
@@ -1441,31 +1485,414 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Sets (or silences) the speaker tone for the tone-based blend. The speaker is NOT
+        /// re-triggered when the frequency did not change, except when force is true (first
+        /// segment of every slice) because the cached value can be stale if the caller or the
+        /// normal note path touched the speaker in between.
+        /// </summary>
+        private static void SetBlendSpeakerFrequency(int targetFreq, SynthWave wave, bool force = false)
+        {
+            lock (_hardwareLock)
+            {
+                if (targetFreq < 0)
+                {
+                    if (_blendSpeakerFreq != -1 || force)
+                    {
+                        SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                        _blendSpeakerFreq = -1;
+                    }
+                }
+                else if (force || _blendSpeakerFreq != targetFreq)
+                {
+                    StartPulseDirect(PercussionOutputChoice.SystemSpeaker, targetFreq, wave);
+                    _blendSpeakerFreq = targetFreq;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Tone-based System Speaker blend using the Sound Device model: the drum is ONE hit per
+        /// run (evaluated at its position inside the hit, across slices), the note owns the slice
+        /// and is always the fallback tone. A real speaker can only sound one tone at a time, so
+        /// "mixing" is time sharing, controlled by the actual TIME each side has used (not by
+        /// segment count), and every drum burst lasts at least one full cycle of its own tone so
+        /// it is heard as a tone/hiss instead of a sub-cycle click.
+        /// </summary>
+        private static void PlaySpeakerBlendTones(
+            PercussionRequest request,
+            Stopwatch sw,
+            PercussionRequest drumRequest,
+            double sliceStartMs,
+            double hitStartMs,
+            int naturalMs,
+            bool hasNote)
+        {
+            double dyn = NoteUtility.VelocityToDynamicGain(request.Velocity);
+
+            int noteFreq = hasNote
+                ? ClampPercussionFrequency(request.NoteFrequencyHz, 100.0, 9000.0)
+                : -1;
+
+            bool lowDrum = IsKick(request.Percussion) || IsTomOrBongo(request.Percussion);
+            bool sharp = IsSnare(request.Percussion) || IsClick(request.Percussion);
+
+            // Percussion is the part that sounds faint on a small PC speaker (weak at drum pitches,
+            // short bursts), so the drum gets the voice for a longer attack and a large share
+            // afterwards. Lower these if the note gets buried; raise them for more drum.
+            double attackWindowMs = Math.Min(
+                (lowDrum ? 22.0 : sharp ? 8.0 : 12.0) * dyn,
+                naturalMs * 0.5);
+
+            double startShare = (lowDrum ? 0.90 : sharp ? 0.85 : 0.75) * (0.6 + 0.4 * dyn);
+            const double endShare = 0.40;
+
+            // The drum keeps a strong claim for most of its natural length.
+            double shareDecayMs = Math.Min(naturalMs, 150.0);
+
+            // Fine enough that the note still threads through between drum bursts.
+            double noteSegMs = hasNote
+                ? Math.Clamp(2000.0 / noteFreq, 1.5, 6.0)
+                : 1.5;
+
+            double drumMs = 0.0;
+            double totalMs = 0.0;
+            double segmentEnd = 0.0;
+            bool first = true;
+
+            try
+            {
+                while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
+                {
+                    request.CancellationToken.ThrowIfCancellationRequested();
+
+                    double elapsedMs = sw.Elapsed.TotalMilliseconds;
+
+                    double hitElapsedMs = (sliceStartMs + elapsedMs) - hitStartMs;
+                    bool drumRinging = hitElapsedMs >= 0.0 && hitElapsedMs < naturalMs;
+
+                    int percFreq = 0;
+                    bool percAudible = false;
+
+                    if (drumRinging)
+                    {
+                        GetPlaybackSignalCore(
+                            drumRequest,
+                            hitElapsedMs,
+                            out percFreq,
+                            out percAudible);
+                    }
+
+                    bool inAttack = drumRinging && hitElapsedMs < attackWindowMs;
+
+                    double share = !drumRinging
+                        ? 0.0
+                        : inAttack
+                            ? 1.0
+                            : startShare + (endShare - startShare) *
+                              Math.Clamp(hitElapsedMs / shareDecayMs, 0.0, 1.0);
+
+                    // With no note (rest) the drum owns the whole slice; otherwise it only takes
+                    // the voice while it is under its time share.
+                    bool drumTurn = percAudible && (!hasNote || drumMs <= share * totalMs);
+
+                    int target;
+                    double segLen;
+
+                    if (drumTurn)
+                    {
+                        // A small speaker barely reproduces low drum pitches, so lift kicks and
+                        // toms into its audible range for the blend.
+                        target = ClampPercussionFrequency(
+                            percFreq,
+                            lowDrum ? 250.0 : 150.0,
+                            9000.0);
+
+                        if (lowDrum)
+                        {
+                            // Low tones need a full cycle (or more) to be heard at all.
+                            segLen = inAttack
+                                ? Math.Clamp(1000.0 / target, 1.5, 5.0)
+                                : Math.Clamp(1000.0 / target, 2.5, 6.0);
+                        }
+                        else
+                        {
+                            // Noise-like drums (snare, hats, cymbals, clicks) get their hiss from
+                            // hopping the tone every ~1 ms; long dwells turn that into a thin,
+                            // quiet pure tone, so keep the hops short.
+                            segLen = inAttack ? 0.8 : 1.5;
+                        }
+
+                        drumMs += segLen;
+                    }
+                    else if (hasNote)
+                    {
+                        target = noteFreq;
+                        segLen = noteSegMs;
+                    }
+                    else
+                    {
+                        target = -1;
+                        segLen = 1.5;
+                    }
+
+                    totalMs += segLen;
+
+                    SetBlendSpeakerFrequency(target, request.Profile.BodyWave, force: first);
+                    first = false;
+
+                    segmentEnd = Math.Max(segmentEnd, elapsedMs) + segLen;
+                    LowCpuWaitUntil(sw, Math.Min(request.DurationMs, segmentEnd));
+                }
+
+                // Leave the note (not a leftover drum burst) sounding at the slice boundary.
+                if (hasNote)
+                    SetBlendSpeakerFrequency(noteFreq, request.Profile.BodyWave);
+            }
+            finally
+            {
+                // No delayed StopBeep (the speaker is shared with the caller's note path);
+                // silence only on cancel.
+                if (request.CancellationToken.IsCancellationRequested)
+                    SetBlendSpeakerFrequency(-1, request.Profile.BodyWave, force: true);
+            }
+        }
+
+        /// <summary>
+        /// Renders the drum for a System Speaker blend run with the SAME synthesis core and the
+        /// SAME percentile normalisation that the Sound Device PWM builder uses.
+        /// </summary>
+        private static float[] RenderBlendDrumForSpeaker(PercussionRequest drumRequest)
+        {
+            byte[] pcm8 =
+                ConvertFloatSamplesToUnsigned8BitPcm(
+                    RenderPercussionSamples(drumRequest));
+
+            double maxDeviation = Math.Max(FindPercentileDeviation(pcm8, 0.995), 0.001);
+            double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
+
+            var drum = new float[pcm8.Length];
+
+            for (int i = 0; i < pcm8.Length; i++)
+            {
+                drum[i] = (float)Math.Clamp(
+                    ((pcm8[i] - 128.0) * normFactor) / 128.0,
+                    -1.0,
+                    1.0);
+            }
+
+            return drum;
+        }
+
+        // Integral of a +1/-1 square wave (period 1, +1 for the first half) from 0 to p.
+        private static double SquareIntegral(double p)
+        {
+            p -= Math.Floor(p);
+            return p <= 0.5 ? p : 1.0 - p;
+        }
+
+        // Average of the square wave over [phase, phase + phaseInc]. Using the average instead of
+        // a point sample places the note's edges INSIDE the PWM frame (anti-aliased), so pitch
+        // stays exact even though the carrier frame is only 24 kHz.
+        private static double AverageSquare(double phase, double phaseInc)
+        {
+            if (phaseInc <= 0.0 || phaseInc >= 0.5)
+                return phase - Math.Floor(phase) < 0.5 ? 1.0 : -1.0;
+
+            return (SquareIntegral(phase + phaseInc) - SquareIntegral(phase)) / phaseInc;
+        }
+
+        /// <summary>
+        /// System Speaker blend, done the way Sound Device mode does it: the drum signal and the
+        /// melody-note square wave are MIXED as one signal, and that mixed signal is emitted as a
+        /// 24 kHz PWM carrier (duty cycle = signal level) by gating the speaker on/off. The
+        /// speaker cone low-passes the carrier, so drum and note are heard together instead of
+        /// taking turns on one tone.
+        ///
+        /// The drum is read from the cached run buffer at its position inside the hit, so a hit
+        /// continues across slices. The note's phase is persistent across slices. Frames are
+        /// time-driven: if the loop falls behind it skips frames instead of overrunning the slice.
+        /// </summary>
+        private static void PlaySpeakerBlendPwm(
+            PercussionRequest request,
+            Stopwatch sw,
+            float[]? drumSamples,
+            double drumOffsetMs,
+            double noteHz)
+        {
+            const int carrierHz = 24000;
+            const double frameStepMs = 1000.0 / carrierHz;
+
+            double dyn = NoteUtility.VelocityToDynamicGain(request.Velocity);
+
+            // Relative weights of the two signals in the mix. With the drum silent, the note alone
+            // is driven to (almost) a full 0..100% duty swing, i.e. as loud as a plain beep.
+            const double noteWeight = 0.60;
+            double drumWeight = 0.80 * dyn;
+            double gain = 1.65 * (0.40 + 0.60 * dyn);
+
+            double phaseInc = noteHz > 0.0 ? noteHz * frameStepMs / 1000.0 : 0.0;
+            double phase = _blendSpeakerPhase;
+
+            int frame = 0;
+            int lastFrame = 0;
+            int iteration = 0;
+            bool isBeeping = false;
+
+            try
+            {
+                while (true)
+                {
+                    int nowFrame = (int)(sw.Elapsed.TotalMilliseconds / frameStepMs);
+
+                    if (nowFrame > frame)
+                        frame = nowFrame;
+
+                    double frameStartMs = frame * frameStepMs;
+
+                    if (frameStartMs >= request.DurationMs)
+                        break;
+
+                    if ((++iteration & 63) == 0)
+                        request.CancellationToken.ThrowIfCancellationRequested();
+
+                    double noteVal = 0.0;
+
+                    if (phaseInc > 0.0)
+                    {
+                        phase += phaseInc * (frame - lastFrame);
+                        phase -= Math.Floor(phase);
+                        noteVal = AverageSquare(phase, phaseInc);
+                    }
+
+                    lastFrame = frame;
+
+                    double drumVal = 0.0;
+
+                    if (drumSamples != null && drumSamples.Length > 1)
+                    {
+                        double pos =
+                            (drumOffsetMs + frameStartMs) *
+                            PercussionSampleRate / 1000.0;
+
+                        if (pos >= 0.0 && pos < drumSamples.Length - 1)
+                        {
+                            int i0 = (int)pos;
+                            double frac = pos - i0;
+
+                            drumVal = drumSamples[i0] + (drumSamples[i0 + 1] - drumSamples[i0]) * frac;
+                        }
+                    }
+
+                    double mixed = noteVal * noteWeight + drumVal * drumWeight;
+                    double dutyCycle = Math.Clamp(0.5 + mixed * 0.5 * gain, 0.0, 1.0);
+
+                    if (dutyCycle > 0.005)
+                    {
+                        if (!isBeeping)
+                        {
+                            SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(carrierHz);
+                            isBeeping = true;
+                        }
+
+                        LowCpuWaitUntil(sw, frameStartMs + frameStepMs * dutyCycle);
+                    }
+
+                    if (dutyCycle < 0.995)
+                    {
+                        if (isBeeping)
+                        {
+                            SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                            isBeeping = false;
+                        }
+
+                        LowCpuWaitUntil(sw, frameStartMs + frameStepMs);
+                    }
+
+                    frame++;
+                }
+            }
+            finally
+            {
+                _blendSpeakerPhase = phase;
+
+                // Silence immediately at the end of the slice; the next slice (or the caller)
+                // starts its own tone right after, so there is no late StopBeep to cut it off.
+                SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+            }
+        }
+
+        /// <summary>
+        /// Same run-tracking rule for both outputs: a run of contiguous slices of the same drum
+        /// is ONE hit. Returns true when this slice must trigger a new hit.
+        /// </summary>
+        private static bool TrackBlendRun(
+            PercussionRequest request,
+            int naturalMs,
+            double sliceStartMs,
+            out double hitStartMs,
+            out PercussionRequest drumRequest)
+        {
+            lock (_blendHitLock)
+            {
+                // The 3 ms tolerance is the gap allowed between slices of the same note.
+                bool sameRun =
+                    _blendHitPercussion == request.Percussion &&
+                    _blendDrumRequest != null &&
+                    sliceStartMs - _blendLastSliceEndMs < 3.0 &&
+                    sliceStartMs < _blendHitEndMs;
+
+                if (!sameRun)
+                {
+                    _blendHitPercussion = request.Percussion;
+                    _blendHitStartMs = sliceStartMs;
+                    _blendHitEndMs = sliceStartMs + naturalMs;
+                    _blendDrumSamples = null;
+
+                    // Drum only, natural length, its own seed that lives for the whole run.
+                    _blendDrumRequest = new PercussionRequest(
+                        request.Percussion,
+                        request.CancellationToken,
+                        naturalMs,
+                        naturalMs,
+                        request.Output,
+                        request.Profile,
+                        request.Velocity,
+                        null);
+                }
+
+                _blendLastSliceEndMs = sliceStartMs + request.DurationMs;
+
+                hitStartMs = _blendHitStartMs;
+                drumRequest = _blendDrumRequest!;
+
+                return !sameRun;
+            }
+        }
+
+        /// <summary>
         /// Direct, time-budgeted percussion + melody-note blend used ONLY by the
         /// melody+percussion blend mode.
         ///
         /// A blend slice must finish before the caller continues to the next note, so this
         /// bypasses the queued PlayPercussionForDurationAsync / PlayPCMSoundAsPWM path.
         ///
+        /// Both outputs share the same model:
+        ///   - A run of contiguous slices of the same drum is ONE hit (TrackBlendRun), rendered /
+        ///     evaluated at its natural length (NOT the slice length), so it can continue past
+        ///     the slice boundary into the next slice.
+        ///   - The melody note owns the slice length.
+        ///
         /// Sound Device:
-        ///   The drum is rendered ONCE per run of contiguous slices of the same drum, at its
-        ///   natural/minimum body length (NOT the slice length), converted to a PWM stream and
-        ///   mixed through the long-lived percussion mixer, so it can ring out past the slice.
-        ///   The melody note runs on a persistent BlendNoteVoice inside the same mixer: each
-        ///   slice retunes and gates it, so its length is exactly the slice length and its
-        ///   phase is continuous across slices.
+        ///   The drum is rendered ONCE per run, converted to a PWM stream and mixed through the
+        ///   long-lived percussion mixer. The melody note runs on a persistent BlendNoteVoice
+        ///   inside the same mixer: each slice retunes and gates it, so its length is exactly the
+        ///   slice length and its phase is continuous across slices.
         ///
         /// System Speaker:
-        ///   The speaker can only emit one square-wave tone at a time, so the drum and the note
-        ///   share the voice by time-division interleaving in SEGMENTS (not single ticks):
-        ///     - during the drum's attack snap the drum owns the voice,
-        ///     - afterwards an error-diffusion accumulator decides, per segment, whether the
-        ///       drum or the note gets the voice, with the drum's share decaying over the hit,
-        ///     - wherever the drum's own gate (GetPlaybackSignalCore) is silent, the note
-        ///       fills the gap instead of leaving silence.
-        ///   Each segment is held for a minimum dwell (and note segments for at least a couple
-        ///   of note cycles) because re-triggering the speaker too often is what produces the
-        ///   click/buzz.
+        ///   Done the Sound Device way: the cached drum hit and the melody-note square wave are
+        ///   MIXED into one signal, and that signal is emitted as a 24 kHz PWM carrier by gating
+        ///   the speaker (see PlaySpeakerBlendPwm). The speaker cone low-passes the carrier, so
+        ///   drum and note are heard together; nothing takes turns on a single tone any more.
         /// </summary>
         private static void PlayPercussionBlendSlice(PercussionRequest request)
         {
@@ -1475,54 +1902,26 @@ namespace NeoBleeper
             {
                 bool hasNote = request.NoteFrequencyHz > 0.0;
 
+                double sliceStartMs = NowMs() - sw.Elapsed.TotalMilliseconds;
+
+                int naturalMs = Math.Max(
+                    request.Profile.DurationMs,
+                    (int)Math.Ceiling(GetMinimumBodyMs(request.Percussion)));
+
+                bool triggerDrum = TrackBlendRun(
+                    request, naturalMs, sliceStartMs,
+                    out double hitStartMs, out PercussionRequest drumRequest);
+
                 // ---------------- Sound Device: one drum hit per run + persistent note voice ----------------
                 if (request.Output == PercussionOutputChoice.SoundDevice)
                 {
                     EnsurePercussionSoundDevice();
-
-                    double sliceStartMs = NowMs() - sw.Elapsed.TotalMilliseconds;
-
-                    int naturalMs = Math.Max(
-                        request.Profile.DurationMs,
-                        (int)Math.Ceiling(GetMinimumBodyMs(request.Percussion)));
-
-                    // A run of contiguous slices of the same drum triggers ONE hit.
-                    // The 3 ms tolerance is the gap allowed between slices of the same note.
-                    bool triggerDrum;
-
-                    lock (_blendHitLock)
-                    {
-                        bool sameRun =
-                            _blendHitPercussion == request.Percussion &&
-                            sliceStartMs - _blendLastSliceEndMs < 3.0 &&
-                            sliceStartMs < _blendHitEndMs;
-
-                        triggerDrum = !sameRun;
-
-                        if (triggerDrum)
-                        {
-                            _blendHitPercussion = request.Percussion;
-                            _blendHitEndMs = sliceStartMs + naturalMs;
-                        }
-
-                        _blendLastSliceEndMs = sliceStartMs + request.DurationMs;
-                    }
 
                     float[]? drumPwm = null;
 
                     if (triggerDrum)
                     {
                         // Drum only, rendered at its natural length. The note is NOT baked in.
-                        var drumRequest = new PercussionRequest(
-                            request.Percussion,
-                            request.CancellationToken,
-                            naturalMs,
-                            naturalMs,
-                            request.Output,
-                            request.Profile,
-                            request.Velocity,
-                            null);
-
                         byte[] pcm8 =
                             ConvertFloatSamplesToUnsigned8BitPcm(
                                 RenderPercussionSamples(drumRequest));
@@ -1556,102 +1955,52 @@ namespace NeoBleeper
                     return;
                 }
 
-                // ---------------- System Speaker: Segmented Time-Division Blend Logic ----------------
-                double totalDuration = Math.Max(1.0, request.DurationMs);
-                double normVelocitySys = NoteUtility.VelocityToDynamicGain(request.Velocity);
+                // ---------------- System Speaker: mixed like Sound Device, emitted as 1-bit PWM ----------------
+                // Same run/hit model as above: ONE drum hit per run, rendered once at its natural
+                // length; the note owns the slice and its phase persists across slices.
+                _blendSpeakerActive = true;
 
-                int noteFreqSys = hasNote
-                    ? ClampPercussionFrequency(request.NoteFrequencyHz, 100.0, 9000.0)
-                    : -1;
-
-                bool lowDrum = IsKick(request.Percussion) || IsTomOrBongo(request.Percussion);
-                bool sharp = IsSnare(request.Percussion) || IsClick(request.Percussion);
-
-                double attackWindowMs = Math.Min(
-                    (lowDrum ? 10.0 : sharp ? 3.0 : 5.0) * normVelocitySys,
-                    totalDuration * 0.35);
-
-                double startShare = (lowDrum ? 0.70 : sharp ? 0.60 : 0.50) * (0.6 + 0.4 * normVelocitySys);
-                const double endShare = 0.20;
-
-                const double drumSegAttackMs = 0.8;
-                const double drumSegBodyMs = 1.5;
-                double noteSegMs = hasNote
-                    ? Math.Clamp(2000.0 / noteFreqSys, 1.5, 6.0)
-                    : drumSegBodyMs;
-
-                double shareAcc = 0.5;
-                double segmentEnd = 0.0;
-                PercussionOutputChoice? currentOutput = null;
-                int currentFrequency = -1;
-
-                while (sw.Elapsed.TotalMilliseconds < request.DurationMs)
+                try
                 {
-                    request.CancellationToken.ThrowIfCancellationRequested();
+                    if (!SpeakerBlendUsesPwm)
+                    {
+                        PlaySpeakerBlendTones(
+                            request, sw, drumRequest, sliceStartMs, hitStartMs, naturalMs, hasNote);
 
-                    double elapsedMs = sw.Elapsed.TotalMilliseconds;
-                    double progress = Math.Clamp(elapsedMs / totalDuration, 0.0, 1.0);
+                        return;
+                    }
 
-                    GetPlaybackSignalCore(
+                    if (triggerDrum)
+                    {
+                        float[] rendered = RenderBlendDrumForSpeaker(drumRequest);
+
+                        lock (_blendHitLock)
+                        {
+                            _blendDrumSamples = rendered;
+                        }
+                    }
+
+                    float[]? drumSamples;
+
+                    lock (_blendHitLock)
+                    {
+                        drumSamples = _blendDrumSamples;
+                    }
+
+                    double noteHz = hasNote
+                        ? ClampPercussionFrequency(request.NoteFrequencyHz, 100.0, 9000.0)
+                        : 0.0;
+
+                    PlaySpeakerBlendPwm(
                         request,
-                        elapsedMs,
-                        out int percFreq,
-                        out bool percAudible);
-
-                    bool inAttack = elapsedMs < attackWindowMs;
-                    int targetFreq = -1;
-                    double segLen;
-
-                    if (!hasNote)
-                    {
-                        segLen = inAttack ? drumSegAttackMs : drumSegBodyMs;
-
-                        if (percAudible)
-                            targetFreq = ClampPercussionFrequency(percFreq, 60.0, 9000.0);
-                    }
-                    else
-                    {
-                        double share = inAttack
-                            ? 1.0
-                            : startShare + (endShare - startShare) * progress;
-
-                        shareAcc += share;
-                        bool percussionTurn = shareAcc >= 1.0;
-                        if (percussionTurn)
-                            shareAcc -= 1.0;
-
-                        if (percussionTurn && percAudible)
-                        {
-                            targetFreq = ClampPercussionFrequency(percFreq, 60.0, 9000.0);
-                            segLen = inAttack ? drumSegAttackMs : drumSegBodyMs;
-                        }
-                        else
-                        {
-                            targetFreq = noteFreqSys;
-                            segLen = noteSegMs;
-                        }
-                    }
-
-                    if (targetFreq < 0)
-                    {
-                        if (currentOutput != null)
-                            StopCurrentPulse(ref currentOutput);
-
-                        currentFrequency = -1;
-                    }
-                    else if (currentOutput != request.Output || currentFrequency != targetFreq)
-                    {
-                        StartOrUpdatePulse(
-                            request.Output,
-                            targetFreq,
-                            request.Profile.BodyWave,
-                            ref currentOutput);
-
-                        currentFrequency = targetFreq;
-                    }
-
-                    segmentEnd = Math.Max(segmentEnd, elapsedMs) + segLen;
-                    LowCpuWaitUntil(sw, Math.Min(request.DurationMs, segmentEnd));
+                        sw,
+                        drumSamples,
+                        sliceStartMs - hitStartMs,
+                        noteHz);
+                }
+                finally
+                {
+                    _blendSpeakerActive = false;
                 }
             }
             catch (OperationCanceledException)
