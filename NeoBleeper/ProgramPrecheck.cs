@@ -17,7 +17,7 @@ namespace NeoBleeper
         {
             try
             {
-                var pawnioPath = Environment.GetEnvironmentVariable("PAWNIO_ROOT");
+                var pawnioPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
                 if (!string.IsNullOrEmpty(pawnioPath)) // Check if PawnIO is installed
                 {
                     try
