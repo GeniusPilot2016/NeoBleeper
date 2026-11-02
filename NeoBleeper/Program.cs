@@ -48,6 +48,7 @@ namespace NeoBleeper
         {
             try
             {
+                //RestartProgramAsAdminIfNotAlreadyInX64(args); // Restart the program with elevated privileges if not already running as admin and not on ARM64 architecture
                 if (args.Length > 0)
                 {
                     filePath = args[0];
@@ -506,7 +507,31 @@ namespace NeoBleeper
                 }
             }
         }
-
+        private static void RestartProgramAsAdminIfNotAlreadyInX64(string[] args)
+        {
+            if (!ProgramPrecheck.IsRanAsAdmin() && !ProgramPrecheck.IsARM64())
+            {
+                try
+                {
+                    var exeName = Process.GetCurrentProcess().MainModule.FileName;
+                    var startInfo = new ProcessStartInfo(exeName)
+                    {
+                        UseShellExecute = true,
+                        Verb = "runas", // Request elevated privileges
+                        ArgumentList = { string.Join(" ", args) }
+                    };
+                    Process.Start(startInfo);
+                }
+                catch
+                {
+                    // If the user cancels the UAC prompt or an error occurs, swallow the exception and continue running without elevation. The application may not function correctly without admin privileges, but this allows the user to proceed if they choose.
+                }
+                finally
+                {
+                    Environment.Exit(0); // Exit the current process after starting the new elevated process
+                }
+            }
+        }
         private static void EnsureStartPawnIOIfInstalled()
         {
             if ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) && ProgramPrecheck.IsPawnIOInstalled()
