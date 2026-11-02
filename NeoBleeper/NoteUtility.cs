@@ -1836,10 +1836,11 @@ namespace NeoBleeper
             {
                 // The 3 ms tolerance is the gap allowed between slices of the same note.
                 bool sameRun =
-                    _blendHitPercussion == request.Percussion &&
-                    _blendDrumRequest != null &&
-                    sliceStartMs - _blendLastSliceEndMs < 3.0 &&
-                    sliceStartMs < _blendHitEndMs;
+    _blendHitPercussion == request.Percussion &&
+    _blendDrumRequest != null &&
+    _blendDrumRequest.Velocity == request.Velocity &&   // <-- new: a different velocity is a new hit
+    sliceStartMs - _blendLastSliceEndMs < 3.0 &&
+    sliceStartMs < _blendHitEndMs;
 
                 if (!sameRun)
                 {
@@ -2023,9 +2024,14 @@ namespace NeoBleeper
             double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
 
             const double maxDepth = 0.45;
-            double velocityLevel = Math.Pow(10.0, -(1.0 - Math.Clamp(velocity, 1, 127) / 127.0) * 30.0 / 20.0);
-            double velocitySplit = Math.Sqrt(velocityLevel);
-            double depth = maxDepth * velocitySplit;
+            double depth = maxDepth;   // constant: keeps full duty-cycle resolution at every velocity
+
+            // Velocity scales the WHOLE output stream (signal + carrier + quantization noise).
+            // 40 dB range: 127 -> 0 dB, ~100 -> -8.5 dB, ~64 -> -20 dB, ~40 -> -27 dB, 1 -> -40 dB.
+            // Increase VelocityRangeDb for a wider spread, decrease for a narrower one.
+            const double VelocityRangeDb = 40.0;
+            double vel01 = Math.Clamp(velocity, 1, 127) / 127.0;
+            double velocityGain = Math.Pow(10.0, -(1.0 - vel01) * VelocityRangeDb / 20.0);
 
             // NOTE: the velocity-based "audibleLimit" gate that used to silence the tail of
             // every hit (5% to 55% of it, depending on velocity) was removed. It was copied
@@ -2044,7 +2050,7 @@ namespace NeoBleeper
                 ? 1.0 + (80.0 - durationMs) / 80.0 * 0.80
                 : 1.0;
 
-            float amp = (float)Math.Clamp(volume * 0.23 * velocitySplit, 0.01, 0.88);
+            float amp = (float)Math.Clamp(volume * 0.23 * velocityGain, 0.002, 0.88);
 
             double dcX = 0.0;
             double dcY = 0.0;
@@ -2070,6 +2076,7 @@ namespace NeoBleeper
                     Math.Sign(dcBlocked) * Math.Pow(Math.Abs(dcBlocked), 0.85) * shortSoundBoost,
                     -1.0,
                     1.0);
+
 
                 // True PWM duty cycle fusion
                 double dutyCycle = Math.Clamp(0.5 + shape * depth, 0.03, 0.97);
