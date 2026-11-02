@@ -48,6 +48,7 @@ namespace NeoBleeper
         {
             try
             {
+                //RestartProgramAsAdminIfNotAlreadyInX64(args); // Restart the program with elevated privileges if not already running as admin and not on ARM64 architecture
                 if (args.Length > 0)
                 {
                     filePath = args[0];
