@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper.Properties;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using static NeoBleeper.Logger;
@@ -47,6 +48,7 @@ namespace NeoBleeper
         {
             try
             {
+                //RestartProgramAsAdminIfNotAlreadyInX64(args); // Restart the program with elevated privileges if not already running as admin and not on ARM64 architecture
                 if (args.Length > 0)
                 {
                     filePath = args[0];
@@ -62,6 +64,7 @@ namespace NeoBleeper
                 splashScreen = new SplashScreen(); // Create splash screen instance
                 splashScreen.Show();
                 CheckAndPlaceInpOutX64(); // Check presence of InpOutx64.dll and place it if not present
+                //CheckAndInstallPawnIOIfNeeded();
                 if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
                 {
                     // Skip system speaker detection on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
@@ -492,22 +495,41 @@ namespace NeoBleeper
                 if (!ProgramPrecheck.IsPawnIOInstalled())
                 {
                     splashScreen.UpdateStatus(Resources.PawnIODownloadingAndInstalling);
-                    Logger.Log("PawnIO is not installed. NeoBleeper will attempt to install it.", LogTypes.Warning);
                     try
                     {
                         PawnIOWrapper.InstallPawnIO();
                         splashScreen.UpdateStatus(Resources.PawnIOInstalled, 2);
-                        Logger.Log("PawnIO installation completed successfully.", LogTypes.Info);
                     }
                     catch (Exception ex)
                     {
                         splashScreen.UpdateStatus(Resources.PawnIOInstallationFailed + ex.Message);
-                        Logger.Log("Failed to install PawnIO: " + ex.Message, LogTypes.Error);
                     }
                 }
-                else
+            }
+        }
+
+        private static void RestartProgramAsAdminIfNotAlreadyInX64(string[] args)
+        {
+            if (!ProgramPrecheck.IsRanAsAdmin() && !ProgramPrecheck.IsARM64())
+            {
+                try
                 {
-                    Logger.Log("PawnIO is already installed and valid.", LogTypes.Info);
+                    var exeName = Process.GetCurrentProcess().MainModule.FileName;
+                    var startInfo = new ProcessStartInfo(exeName)
+                    {
+                        UseShellExecute = true,
+                        Verb = "runas", // Request elevated privileges
+                        ArgumentList = { string.Join(" ", args) }
+                    };
+                    Process.Start(startInfo);
+                }
+                catch
+                {
+                    // If the user cancels the UAC prompt or an error occurs, swallow the exception and continue running without elevation. The application may not function correctly without admin privileges, but this allows the user to proceed if they choose.
+                }
+                finally
+                {
+                    Environment.Exit(0); // Exit the current process after starting the new elevated process
                 }
             }
         }

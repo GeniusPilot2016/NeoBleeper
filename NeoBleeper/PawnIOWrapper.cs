@@ -119,7 +119,7 @@ namespace NeoBleeper
 
         public static void InstallPawnIO()
         {
-            if(TryLoadDll())
+            if(ProgramPrecheck.IsPawnIOInstalled())
             {
                 // PawnIO is already installed
                 return;
