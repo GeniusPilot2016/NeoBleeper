@@ -45,7 +45,7 @@ namespace NeoBleeper
         private bool _isAlternatingPlayback = false;
         bool isPlaying = false;
         private List<int> _displayOrder = new List<int>();
-        private List<(long time, double cumulativeMs)> _precomputedTempoTimes;
+        private List<(long time, double cumulativeMs, int tempo)> _precomputedTempoTimes;
         private long _playbackStartTime;
         private long _nextFrameTime;
         private bool _isStopping = false;
@@ -61,6 +61,14 @@ namespace NeoBleeper
         private LyricsOverlay lyricsOverlay;
         private SysExDisplayEmulator sysExDisplayEmulator;
         private readonly object _playbackRestartTimerLock = new object();
+
+        // Coalesced note-indicator state (audio thread publishes, UI timer pulls).
+        private sealed record IndicatorSnapshot(HashSet<int> Notes, int Generation);
+        private static readonly HashSet<int> EmptyNotes = new HashSet<int>();
+        private IndicatorSnapshot _pendingIndicators;
+        private long _lastUiRefreshTimestamp;
+        private static readonly long UiRefreshIntervalTicks = Stopwatch.Frequency / 30;
+
         public MIDIFilePlayer(string filename, Form owner)
         {
             InitializeComponent();
@@ -1098,7 +1106,7 @@ namespace NeoBleeper
                     DecideCheckboxesThatWillBeEnabled(0, 0, new HashSet<int>(), lyricsEnabled);
                     panelLoading.Visible = true;
                     labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
-                     _ = CreateLoadingAnimation(loadToken);
+                    _ = CreateLoadingAnimation(loadToken);
                     progressBar1.Value = 0;
                     progressBar1.Maximum = 100;
                     progressBar1.Visible = true;
@@ -1295,13 +1303,21 @@ namespace NeoBleeper
                     // with the same MIDI note number. That makes the following frame
                     // appear silent only in PC-speaker mode, while MIDI output remains
                     // correct because MIDI output processes channel-aware events.
+
+                    // allEvents is sorted by time and timePoints is sorted, so one forward
+                    // cursor replaces the previous per-time-point full scan (O(n^2)).
+                    int eventCursor = 0;
                     for (int i = 0; i < totalTimePoints; i++)
                     {
                         if (i % 256 == 0 && loadToken.IsCancellationRequested) return;
 
                         var time = timePoints[i];
-                        foreach (var evt in allEvents.Where(e => e.Time == time))
+
+                        // Consume every event stamped at or before this time point (one pass overall).
+                        while (eventCursor < allEvents.Count && allEvents[eventCursor].Time <= time)
                         {
+                            var evt = allEvents[eventCursor++];
+
                             // Channel 10 is percussion and must never participate in
                             // the persistent melodic ActiveNotes state.
                             if (evt.Channel == 10)
@@ -1312,6 +1328,7 @@ namespace NeoBleeper
                             else
                                 currentlyActiveNotes.Remove(evt.NoteNumber);
                         }
+
                         localFrames.Add((time, new HashSet<int>(currentlyActiveNotes)));
 
                         if (i % Math.Max(1, totalTimePoints / 20) == 0)
@@ -1397,8 +1414,8 @@ namespace NeoBleeper
                 {
                     UpdateEnabledChannels();
                     progressBar1.Value = 100;
-                     loadCts.Cancel();
-                     labelStatus.Text = Resources.TextMIDIFileLoaded;
+                    loadCts.Cancel();
+                    labelStatus.Text = Resources.TextMIDIFileLoaded;
                     progressBar1.Visible = false;
 
                     PrecomputeTempoTimes();
@@ -1427,8 +1444,8 @@ namespace NeoBleeper
                 SafeInvoke(() =>
                 {
                     DecideCheckboxesThatWillBeEnabled(0, 0, new HashSet<int>(), lyricsEnabled);
-                     loadCts.Cancel();
-                     labelStatus.Text = Resources.TextMIDIFileLoadingError;
+                    loadCts.Cancel();
+                    labelStatus.Text = Resources.TextMIDIFileLoadingError;
                     progressBar1.Visible = false;
                     progressBar1.Value = 0;
                     groupBox1.Enabled = false;
@@ -1771,6 +1788,10 @@ namespace NeoBleeper
                 // generation and must stay dropped.
                 Interlocked.Increment(ref _audioDisplayGeneration);
 
+                // Drop any note-indicator snapshot published by the audio thread
+                // but not yet pulled by the UI timer.
+                Interlocked.Exchange(ref _pendingIndicators, null);
+
                 UpdateNoteLabels(new HashSet<int>());
                 holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} (0)";
                 label_more_notes.Visible = false;
@@ -2057,6 +2078,11 @@ namespace NeoBleeper
             int interval = checkBox_make_each_cycle_last_30ms.Checked ? 30 : Convert.ToInt32(numericUpDown_alternating_note.Value);
             interval = Math.Max(1, interval);
 
+            // Per-note highlighting posts two UI messages per note. For short frames
+            // (black MIDI) that is pure overhead; the pull-based indicators already
+            // show the held notes.
+            bool showHighlights = duration >= 80 && frequencies.Length <= 4;
+
             try
             {
                 if (checkBox_play_each_note.Checked)
@@ -2082,10 +2108,10 @@ namespace NeoBleeper
                         notePlayDuration = Math.Max(1, notePlayDuration);
 
                         int currentNoteIndex = i;
-                        HighlightNoteLabel(currentNoteIndex);
+                        if (showHighlights) HighlightNoteLabel(currentNoteIndex);
                         // Run the actual sound generation off the calling context but avoid spinning extra Task.Run loops.
                         await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[currentNoteIndex], notePlayDuration), token);
-                        UnHighlightNoteLabel(currentNoteIndex);
+                        if (showHighlights) UnHighlightNoteLabel(currentNoteIndex);
 
                         int gap = Math.Max(0, timePerNote - notePlayDuration);
                         if (gap > 0)
@@ -2094,7 +2120,7 @@ namespace NeoBleeper
 
                     // Ensure the cycle completes with remaining silence if needed
                     int remainingSilence = Math.Max(0, duration - (int)totalStopwatch.ElapsedMilliseconds);
-                    UpdateNoteLabels(new HashSet<int>());
+                    if (showHighlights) UpdateNoteLabels(new HashSet<int>());
                     if (remainingSilence > 0)
                         await HighPrecisionSleep.SleepAsync(remainingSilence);
                 }
@@ -2114,9 +2140,9 @@ namespace NeoBleeper
                         else
                             notePlayDuration = interval;
 
-                        HighlightNoteLabel(noteIndex);
+                        if (showHighlights) HighlightNoteLabel(noteIndex);
                         await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[noteIndex], notePlayDuration), token);
-                        UnHighlightNoteLabel(noteIndex);
+                        if (showHighlights) UnHighlightNoteLabel(noteIndex);
 
                         // Wait until next note time (approximate)
                         int wait = Math.Max(0, (int)Math.Round(timePerNote) - notePlayDuration);
@@ -2734,83 +2760,71 @@ namespace NeoBleeper
         /// </summary>
         /// <remarks>If no tempo events have occurred before the specified tick position, the conversion
         /// uses the default tempo of 120 BPM. The calculation accounts for all tempo changes up to and including the
-        /// specified tick.</remarks>
+        /// specified tick. Uses a binary search over the precomputed tempo table, so it is O(log n).</remarks>
         /// <param name="ticks">The number of MIDI ticks to convert. Must be greater than or equal to zero.</param>
         /// <returns>The duration, in milliseconds, that corresponds to the specified number of ticks. The value reflects tempo
         /// changes that may have occurred up to the given tick position.</returns>
         private double TicksToMilliseconds(long ticks)
         {
-            if (_precomputedTempoTimes == null || _precomputedTempoTimes.Count == 0)
+            var table = _precomputedTempoTimes; // local copy: the field may be swapped on another thread
+            int tpq = _ticksPerQuarterNote;
+
+            if (table == null || table.Count == 0)
+                return (double)ticks * 500000 / tpq / 1000.0;
+
+            // Last entry with time <= ticks (also picks the last of duplicate-tick tempo events)
+            int lo = 0, hi = table.Count - 1, idx = -1;
+            while (lo <= hi)
             {
-                // No precomputed tempos - use default tempo
-                return (double)ticks * 500000 / _ticksPerQuarterNote / 1000.0;
+                int mid = lo + ((hi - lo) >> 1);
+                if (table[mid].time <= ticks) { idx = mid; lo = mid + 1; }
+                else hi = mid - 1;
             }
 
-            // Find tempo events in right order
-            int index = _precomputedTempoTimes.BinarySearch((ticks, 0), Comparer<(long, double)>.Create((x, y) => x.Item1.CompareTo(y.Item1)));
-            if (index < 0)
-            {
-                index = ~index - 1;
-            }
+            // Before the first tempo event: default tempo (120 BPM)
+            if (idx < 0)
+                return (double)ticks * 500000 / tpq / 1000.0;
 
-            // Use default tempo (120 BPM) if before first
-            if (index < 0)
-            {
-                return (double)ticks * 500000 / _ticksPerQuarterNote / 1000.0;
-            }
-
-            var lastTempoEvent = _precomputedTempoTimes[index];
-            double cumulativeMs = lastTempoEvent.cumulativeMs;
-            long lastTicks = lastTempoEvent.time;
-            int lastTempo = _tempoEvents.FirstOrDefault(e => e.time == lastTicks).tempo;
-            if (lastTempo == 0) lastTempo = 500000;
-
-            // More precise calculation
-            cumulativeMs += (double)(ticks - lastTicks) * lastTempo / _ticksPerQuarterNote / 1000.0;
-            return cumulativeMs;
+            var e = table[idx];
+            return e.cumulativeMs + (double)(ticks - e.time) * e.tempo / tpq / 1000.0;
         }
 
         /// <summary>
         /// Precomputes the cumulative elapsed time in milliseconds for each tempo event in the sequence.
         /// </summary>
         /// <remarks>This method prepares a lookup table mapping MIDI tick positions to their
-        /// corresponding elapsed time in milliseconds, based on the current tempo map. This enables efficient
-        /// conversion from MIDI ticks to real time for subsequent operations. If no tempo events are present, the
-        /// method does not perform any computation.</remarks>
+        /// corresponding elapsed time in milliseconds and the tempo in effect from that point, based on the current
+        /// tempo map. This enables efficient conversion from MIDI ticks to real time for subsequent operations. If no
+        /// tempo events are present, the table is left empty and the default tempo is used.</remarks>
         private void PrecomputeTempoTimes()
         {
-            _precomputedTempoTimes = new List<(long time, double cumulativeMs)>();
-            if (_tempoEvents == null || !_tempoEvents.Any())
+            var table = new List<(long time, double cumulativeMs, int tempo)>();
+            if (_tempoEvents == null || _tempoEvents.Count == 0)
             {
+                _precomputedTempoTimes = table;
                 return;
             }
 
             double cumulativeMs = 0;
-            long lastTicks = 0;
-
-            // Calculate the cumulative milliseconds for each tempo event
-            var firstTempoEvent = _tempoEvents[0];
-            if (firstTempoEvent.time > 0)
+            var first = _tempoEvents[0];
+            if (first.time > 0)
             {
-                int defaultTempo = 500000; // Default tempo (120 BPM) in microseconds per quarter note
-                cumulativeMs += (double)(firstTempoEvent.time - lastTicks) * defaultTempo / _ticksPerQuarterNote / 1000.0;
+                // Default tempo (120 BPM) applies before the first tempo event
+                cumulativeMs += (double)first.time * 500000 / _ticksPerQuarterNote / 1000.0;
+            }
+            table.Add((first.time, cumulativeMs, first.tempo == 0 ? 500000 : first.tempo));
+            long lastTicks = first.time;
+
+            for (int i = 1; i < _tempoEvents.Count; i++)
+            {
+                var prev = table[i - 1];
+                var cur = _tempoEvents[i];
+                cumulativeMs += (double)(cur.time - lastTicks) * prev.tempo / _ticksPerQuarterNote / 1000.0;
+                table.Add((cur.time, cumulativeMs, cur.tempo == 0 ? 500000 : cur.tempo));
+                lastTicks = cur.time;
             }
 
-            _precomputedTempoTimes.Add((firstTempoEvent.time, cumulativeMs));
-            lastTicks = firstTempoEvent.time;
-
-            // Calculate cumulative milliseconds for each segment between tempo events
-            for (int i = 0; i < _tempoEvents.Count - 1; i++)
-            {
-                var currentTempoEvent = _tempoEvents[i];
-                var nextTempoEvent = _tempoEvents[i + 1];
-                int tempoForSegment = currentTempoEvent.tempo;
-                if (tempoForSegment == 0) tempoForSegment = 500000;
-
-                cumulativeMs += (double)(nextTempoEvent.time - lastTicks) * tempoForSegment / _ticksPerQuarterNote / 1000.0;
-                _precomputedTempoTimes.Add((nextTempoEvent.time, cumulativeMs));
-                lastTicks = nextTempoEvent.time;
-            }
+            _precomputedTempoTimes = table;
         }
         string lyricRow = string.Empty;
         private async void playbackTimer_Tick(object sender, EventArgs e)
@@ -2819,17 +2833,28 @@ namespace NeoBleeper
                 return;
 
             // The playback clock is authoritative for seekbar progress.
-            // Update it on EVERY timer tick, independently from MIDI frame changes,
-            // so it keeps moving during sustained beeps and silent delays.
+            // Update it independently from MIDI frame changes, so it keeps
+            // moving during sustained beeps and silent delays.
             double currentSongTimeMs =
                 _playbackStartOffsetMs + _playbackStopwatch.Elapsed.TotalMilliseconds;
 
-            UpdatePlaybackProgressFromClock(currentSongTimeMs);
+            // UI refresh (seekbar, labels, note indicators) is rate-limited to ~30 fps.
+            // Black MIDIs produce thousands of frames per second; refreshing the UI
+            // on every tick would starve the message pump. Completion detection and
+            // audio scheduling below stay unthrottled.
+            long nowTs = Stopwatch.GetTimestamp();
+            if (nowTs - _lastUiRefreshTimestamp >= UiRefreshIntervalTicks)
+            {
+                _lastUiRefreshTimestamp = nowTs;
+                UpdatePlaybackProgressFromClock(currentSongTimeMs);
+                ApplyPendingNoteIndicators();
+            }
 
             // Note labels are intentionally not updated from the playback clock.
             // _currentFrameIndex can point at a frame before its audio slice is actually
             // dispatched, which makes labels appear early. The seekbar/position remains
-            // clock-driven; note indicators are updated from the audio path below.
+            // clock-driven; note indicators are published from the audio path and
+            // pulled here by ApplyPendingNoteIndicators.
 
             // Playback is complete after every audio/lyric frame is processed.
             if (_currentFrameIndex >= _frames.Count)
@@ -3971,12 +3996,20 @@ namespace NeoBleeper
         /// <returns>The tempo in microseconds per quarter note that applies at the specified time.</returns>
         private int GetCurrentTempo(long currentTime)
         {
-            // Last tempo event before or at currentTime
-            var lastTempoEvent = _tempoEvents
-                .Where(t => t.time <= currentTime)
-                .LastOrDefault();
+            var events = _tempoEvents;
+            if (events == null || events.Count == 0)
+                return 500000;
 
-            return lastTempoEvent.tempo != 0 ? lastTempoEvent.tempo : 500000; // Default 120 BPM
+            // Binary search: last tempo event with time <= currentTime
+            int lo = 0, hi = events.Count - 1, idx = -1;
+            while (lo <= hi)
+            {
+                int mid = lo + ((hi - lo) >> 1);
+                if (events[mid].time <= currentTime) { idx = mid; lo = mid + 1; }
+                else hi = mid - 1;
+            }
+
+            return idx >= 0 && events[idx].tempo != 0 ? events[idx].tempo : 500000; // Default 120 BPM
         }
 
         /// <summary>
@@ -4261,36 +4294,39 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Updates note indicators from the actual audio-dispatch path.
-        /// This prevents labels from leading the PC-speaker sound when a frame
-        /// contains percussion, scheduling delay, or another audio slice first.
+        /// Called from the audio thread. Only publishes the latest state; it never
+        /// touches the UI thread, so thousands of frames/second cannot flood the
+        /// message queue. The UI timer pulls this at a bounded rate.
+        /// Published sets are never mutated after creation, so no copy is needed.
         /// </summary>
         private void UpdateAudioNoteIndicators(HashSet<int> melodicNotes)
         {
-            HashSet<int> snapshot =
-                melodicNotes != null
-                    ? new HashSet<int>(melodicNotes)
-                    : new HashSet<int>();
+            Interlocked.Exchange(
+                ref _pendingIndicators,
+                new IndicatorSnapshot(melodicNotes ?? EmptyNotes, _audioDisplayGeneration));
+        }
 
-            // Capture the generation this note-display update belongs to. If
-            // Stop advances the generation before this reaches the UI thread
-            // (SafeInvoke's BeginInvoke only queues it), drop the update instead
-            // of re-showing notes right after Stop already cleared them.
-            int myGeneration = _audioDisplayGeneration;
+        /// <summary>UI thread only. Applies the most recent published snapshot.</summary>
+        private void ApplyPendingNoteIndicators()
+        {
+            IndicatorSnapshot snap = Interlocked.Exchange(ref _pendingIndicators, null);
+            if (snap == null || snap.Generation != _audioDisplayGeneration)
+                return;
 
-            SafeInvoke(() =>
+            // Skip grid update completely if hidden or if the form/labels are not ready
+            if (_noteLabels == null || _noteLabels.Length == 0)
+                return;
+
+            if (!checkBox_dont_update_grid.Checked)
             {
-                if (myGeneration != _audioDisplayGeneration)
-                    return;
+                // Direct safe invocation or batch check to prevent queue saturation
+                UpdateNoteLabelsSync(snap.Notes);
+            }
 
-                if (!checkBox_dont_update_grid.Checked)
-                {
-                    UpdateNoteLabelsSync(snapshot);
-                }
-
-                holded_note_label.Text =
-                    $"{Properties.Resources.TextHeldNotes} ({snapshot.Count})";
-            });
+            if (holded_note_label != null && !holded_note_label.IsDisposed)
+            {
+                holded_note_label.Text = $"{Properties.Resources.TextHeldNotes} ({snap.Notes.Count})";
+            }
         }
 
         /// <summary>
