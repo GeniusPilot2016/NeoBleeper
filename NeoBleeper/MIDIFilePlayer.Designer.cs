@@ -108,7 +108,6 @@
             flowLayoutPanel2 = new FlowLayoutPanel();
             panelLoading = new Panel();
             progressBar1 = new ProgressBar();
-            pictureBoxIcon = new PictureBox();
             labelStatus = new Label();
             checkBox_show_lyrics_or_text_events = new CheckBox();
             checkBoxShowSysExDisplayEmulator = new CheckBox();
@@ -122,7 +121,6 @@
             panel2.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             panelLoading.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).BeginInit();
             SuspendLayout();
             // 
             // textBox1
@@ -726,7 +724,6 @@
             // 
             resources.ApplyResources(panelLoading, "panelLoading");
             panelLoading.Controls.Add(progressBar1);
-            panelLoading.Controls.Add(pictureBoxIcon);
             panelLoading.Controls.Add(labelStatus);
             panelLoading.Name = "panelLoading";
             // 
@@ -734,13 +731,6 @@
             // 
             resources.ApplyResources(progressBar1, "progressBar1");
             progressBar1.Name = "progressBar1";
-            // 
-            // pictureBoxIcon
-            // 
-            resources.ApplyResources(pictureBoxIcon, "pictureBoxIcon");
-            pictureBoxIcon.Image = Properties.Resources.icons8_wait_96;
-            pictureBoxIcon.Name = "pictureBoxIcon";
-            pictureBoxIcon.TabStop = false;
             // 
             // labelStatus
             // 
@@ -826,7 +816,6 @@
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
             panelLoading.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBoxIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -911,7 +900,6 @@
         private Panel panel2;
         private FlowLayoutPanel flowLayoutPanel2;
         private Panel panelLoading;
-        private PictureBox pictureBoxIcon;
         private Label labelStatus;
         private ProgressBar progressBar1;
         private System.Windows.Forms.Timer updatePlaybackPositionTimer;

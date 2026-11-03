@@ -1006,7 +1006,55 @@ namespace NeoBleeper
                 // Form or control was disposed while marshaling to the UI thread
             }
         }
+        private async Task CreateLoadingAnimation(CancellationToken cancellationToken)
+        {
+            string[] frames = LoadingAnimationFrames;
+            var framePrefix = LoadingAnimationFramePrefixes;
 
+            try
+            {
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    for (int i = 0; i < frames.Length && !cancellationToken.IsCancellationRequested; i++)
+                    {
+                        if (labelStatus.IsDisposed)
+                        {
+                            return;
+                        }
+
+                        string text = labelStatus.Text;
+                        int separatorIndex = text.IndexOf(' ');
+                        if (separatorIndex > 0 && framePrefix.Contains(text[..separatorIndex]))
+                        {
+                            text = text[(separatorIndex + 1)..];
+                        }
+
+                        labelStatus.Text = $"{frames[i]} {text}";
+                        await Task.Delay(75, cancellationToken);
+                    }
+                }
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+            }
+        }
+        private static readonly string[] LoadingAnimationFrames = { "⠏", "⠛", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏", "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇" };
+        private static readonly HashSet<string> LoadingAnimationFramePrefixes = new HashSet<string>(LoadingAnimationFrames, StringComparer.Ordinal);
+
+        private void SetLoadingStatusText(string text)
+        {
+            string currentText = labelStatus.Text;
+            int separatorIndex = currentText.IndexOf(' ');
+
+            if (separatorIndex > 0 && LoadingAnimationFramePrefixes.Contains(currentText[..separatorIndex]))
+            {
+                labelStatus.Text = $"{currentText[..separatorIndex]} {text}";
+            }
+            else
+            {
+                labelStatus.Text = text;
+            }
+        }
         private HashSet<int> _channelsWithNotes = new HashSet<int>();
 
         /// <summary>
@@ -1050,6 +1098,7 @@ namespace NeoBleeper
                     DecideCheckboxesThatWillBeEnabled(0, 0, new HashSet<int>(), lyricsEnabled);
                     panelLoading.Visible = true;
                     labelStatus.Text = Resources.TextTheMIDIFileIsBeingLoaded;
+                     _ = CreateLoadingAnimation(loadToken);
                     progressBar1.Value = 0;
                     progressBar1.Maximum = 100;
                     progressBar1.Visible = true;
@@ -1348,7 +1397,8 @@ namespace NeoBleeper
                 {
                     UpdateEnabledChannels();
                     progressBar1.Value = 100;
-                    labelStatus.Text = Resources.TextMIDIFileLoaded;
+                     loadCts.Cancel();
+                     labelStatus.Text = Resources.TextMIDIFileLoaded;
                     progressBar1.Visible = false;
 
                     PrecomputeTempoTimes();
@@ -1377,7 +1427,8 @@ namespace NeoBleeper
                 SafeInvoke(() =>
                 {
                     DecideCheckboxesThatWillBeEnabled(0, 0, new HashSet<int>(), lyricsEnabled);
-                    labelStatus.Text = Resources.TextMIDIFileLoadingError;
+                     loadCts.Cancel();
+                     labelStatus.Text = Resources.TextMIDIFileLoadingError;
                     progressBar1.Visible = false;
                     progressBar1.Value = 0;
                     groupBox1.Enabled = false;
@@ -1386,6 +1437,14 @@ namespace NeoBleeper
                 });
                 _frames = new List<(long Time, HashSet<int> ActiveNotes)>();
                 Logger.Log($"Error loading MIDI file: {ex.Message}", Logger.LogTypes.Error);
+            }
+            finally
+            {
+                try
+                {
+                    loadCts.Cancel();
+                }
+                catch (ObjectDisposedException) { }
             }
         }
         private void SafeUpdateProgressBar(int percent, string text, CancellationToken token)
@@ -1399,7 +1458,7 @@ namespace NeoBleeper
                 }
                 if (labelStatus != null && !labelStatus.IsDisposed)
                 {
-                    labelStatus.Text = text;
+                    SetLoadingStatusText(text);
                 }
             });
         }

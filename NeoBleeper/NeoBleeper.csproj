@@ -38,6 +38,37 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Music\60nenme.NBPML" />
+    <None Remove="Music\60nenme_53sec.NBPML" />
+    <None Remove="Music\Adele - Skyfall.NBPML" />
+    <None Remove="Music\Another Love.NBPML" />
+    <None Remove="Music\Badinerie.NBPML" />
+    <None Remove="Music\bokura_no_bouken.NBPML" />
+    <None Remove="Music\Clementi Sonatina No. 3, Op 36.NBPML" />
+    <None Remove="Music\Complex Baroque Counterpoint.NBPML" />
+    <None Remove="Music\Dramatic Orchestra Crescendo.NBPML" />
+    <None Remove="Music\Eine Kleine Nachtmusik.NBPML" />
+    <None Remove="Music\Electro-Remi BASS.NBPML" />
+    <None Remove="Music\Electro-Remi NOISE.NBPML" />
+    <None Remove="Music\Electro-Remi REMI.NBPML" />
+    <None Remove="Music\Elegant Waltz Version 2.NBPML" />
+    <None Remove="Music\Elegant Waltz.NBPML" />
+    <None Remove="Music\face_down.NBPML" />
+    <None Remove="Music\facing_of_dice_part_7_beat_test.NBPML" />
+    <None Remove="Music\gekiryu.NBPML" />
+    <None Remove="Music\hourai_no_tama.NBPML" />
+    <None Remove="Music\Lemmings2-song8 attempt.NBPML" />
+    <None Remove="Music\luna_dial.NBPML" />
+    <None Remove="Music\Majo No Ocha Kai - BITE Piano.NBPML" />
+    <None Remove="Music\Majo No Ocha Kai - BITE.NBPML" />
+    <None Remove="Music\Motor chords test.NBPML" />
+    <None Remove="Music\Ozzy Osbourne - Crazy Train.NBPML" />
+    <None Remove="Music\Remi Solo.NBPML" />
+    <None Remove="Music\Rock-style Energetic Track.NBPML" />
+    <None Remove="Music\Rush E.NBPML" />
+    <None Remove="Music\The minimalist tune with repeating motifs.NBPML" />
+    <None Remove="Music\Unlocked Girl.NBPML" />
+    <None Remove="Music\Waltz Op.64 No.1.NBPML" />
     <None Remove="sysspkr.bin" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +79,99 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <Content Include="Music\60nenme.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\60nenme_53sec.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Adele - Skyfall.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Another Love.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Badinerie.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\bokura_no_bouken.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Clementi Sonatina No. 3, Op 36.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Complex Baroque Counterpoint.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Dramatic Orchestra Crescendo.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Eine Kleine Nachtmusik.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Electro-Remi BASS.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Electro-Remi NOISE.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Electro-Remi REMI.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Elegant Waltz Version 2.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Elegant Waltz.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\face_down.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\facing_of_dice_part_7_beat_test.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\gekiryu.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\hourai_no_tama.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Lemmings2-song8 attempt.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\luna_dial.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Majo No Ocha Kai - BITE Piano.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Majo No Ocha Kai - BITE.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Motor chords test.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Ozzy Osbourne - Crazy Train.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Remi Solo.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Rock-style Energetic Track.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Rush E.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\The minimalist tune with repeating motifs.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Unlocked Girl.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Waltz Op.64 No.1.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="sysspkr.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -170,48 +294,6 @@
     <None Update="APIKeySettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>APIKeySettings.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="Music\Adele - Skyfall.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Another Love.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Badinerie.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Clementi Sonatina No. 3, Op 36.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Complex Baroque Counterpoint.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Dramatic Orchestra Crescendo.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Eine Kleine Nachtmusik.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Elegant Waltz Version 2.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Elegant Waltz.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Ozzy Osbourne - Crazy Train.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Rock-style Energetic Track.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Rush E.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\The minimalist tune with repeating motifs.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Music\Waltz Op.64 No.1.NBPML">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\HarmonyOS_Sans_Black.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
