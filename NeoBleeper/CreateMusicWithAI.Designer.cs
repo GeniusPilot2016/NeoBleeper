@@ -37,13 +37,10 @@
             labelPoweredByGemini = new Label();
             comboBox_ai_model = new ComboBox();
             label_ai_model = new Label();
-            progressBarCreating = new ProgressBar();
-            pictureBoxCreating = new PictureBox();
             labelCreating = new Label();
             connectionCheckTimer = new System.Windows.Forms.Timer(components);
             labelWarning = new Label();
             checkBoxExtendedThinking = new CheckBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).BeginInit();
             SuspendLayout();
             // 
             // labelPrompt
@@ -69,7 +66,7 @@
             images.ColorDepth = ColorDepth.Depth32Bit;
             images.ImageStream = (ImageListStreamer)resources.GetObject("images.ImageStream");
             images.TransparentColor = Color.Transparent;
-            images.Images.SetKeyName(0, "icons8-bard-48.png");
+            images.Images.SetKeyName(0, "icons8-gemini-ai-48.png");
             images.Images.SetKeyName(1, "icons8-create-48.png");
             images.Images.SetKeyName(2, "icons8-general-warning-sign-96.png");
             // 
@@ -91,20 +88,6 @@
             // 
             resources.ApplyResources(label_ai_model, "label_ai_model");
             label_ai_model.Name = "label_ai_model";
-            // 
-            // progressBarCreating
-            // 
-            resources.ApplyResources(progressBarCreating, "progressBarCreating");
-            progressBarCreating.MarqueeAnimationSpeed = 5;
-            progressBarCreating.Name = "progressBarCreating";
-            progressBarCreating.Style = ProgressBarStyle.Marquee;
-            // 
-            // pictureBoxCreating
-            // 
-            resources.ApplyResources(pictureBoxCreating, "pictureBoxCreating");
-            pictureBoxCreating.Image = Properties.Resources.icons8_wait_96;
-            pictureBoxCreating.Name = "pictureBoxCreating";
-            pictureBoxCreating.TabStop = false;
             // 
             // labelCreating
             // 
@@ -136,8 +119,6 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(checkBoxExtendedThinking);
             Controls.Add(labelWarning);
-            Controls.Add(progressBarCreating);
-            Controls.Add(pictureBoxCreating);
             Controls.Add(labelCreating);
             Controls.Add(comboBox_ai_model);
             Controls.Add(labelPoweredByGemini);
@@ -154,7 +135,6 @@
             FormClosed += CreateMusicWithAI_FormClosed;
             Shown += CreateMusicWithAI_Shown;
             SystemColorsChanged += CreateMusicWithAI_SystemColorsChanged;
-            ((System.ComponentModel.ISupportInitialize)pictureBoxCreating).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -168,8 +148,6 @@
         private ImageList images;
         private ComboBox comboBox_ai_model;
         private Label label_ai_model;
-        private ProgressBar progressBarCreating;
-        private PictureBox pictureBoxCreating;
         private Label labelCreating;
         private System.Windows.Forms.Timer connectionCheckTimer;
         private Label labelWarning;

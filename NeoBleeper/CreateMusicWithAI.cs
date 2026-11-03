@@ -48,9 +48,7 @@ namespace NeoBleeper
         public string output = "";
         public string generatedFilename = "";
         String AIModel = Settings1.Default.preferredAIModel;
-        Size normalWindowSize;
         double scaleFraction = 0.355; // Scale factor for the window size
-        Size loadingWindowSize;
         string selectedLanguage = Settings1.Default.preferredLanguage; // Get the preferred language from settings
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
         CancellationTokenSource connectionCts = new CancellationTokenSource(); // CancellationTokenSource for cancelling connection checks
@@ -68,8 +66,6 @@ namespace NeoBleeper
             extendedThinking = Settings1.Default.DefaultExtendedThinkingMode;
             this.Owner = owner;
             UIFonts.SetFonts(this);
-            normalWindowSize = this.Size;
-            loadingWindowSize = new Size(normalWindowSize.Width, (int)(normalWindowSize.Height + (normalWindowSize.Height * scaleFraction)));
             SetTheme();
             examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
             textBoxPrompt.PlaceholderText = examplePrompt;
@@ -1085,6 +1081,39 @@ namespace NeoBleeper
                 RegexOptions.Singleline
                 );
             return nbpmlContent;
+        }
+
+        private async void CreateCreatingAnimation()
+        {
+            string text = labelCreating.Text;
+            string frame = "⠏";
+            while (true)
+            {
+                for (int i = 0; i < 19; i++)
+                {
+                    if (i == 0) frame = "⠏";
+                    else if (i == 1) frame = "⠛";
+                    else if (i == 2) frame = "⠹";
+                    else if (i == 3) frame = "⠸";
+                    else if (i == 4) frame = "⠼";
+                    else if (i == 5) frame = "⠴";
+                    else if (i == 6) frame = "⠦";
+                    else if (i == 7) frame = "⠧";
+                    else if (i == 8) frame = "⠇";
+                    else if (i == 9) frame = "⠏";
+                    else if (i == 10) frame = "⠋";
+                    else if (i == 11) frame = "⠙";
+                    else if (i == 12) frame = "⠹";
+                    else if (i == 13) frame = "⠸";
+                    else if (i == 14) frame = "⠼";
+                    else if (i == 15) frame = "⠴";
+                    else if (i == 16) frame = "⠦";
+                    else if (i == 17) frame = "⠧";
+                    else if (i == 18) frame = "⠇";
+                    labelCreating.Text = $"{frame} {text}";
+                    await Task.Delay(75);
+                }
+            }
         }
         private bool wasAnythingCreated = false;
         private async void buttonCreate_Click(object sender, EventArgs e)
@@ -3773,21 +3802,14 @@ namespace NeoBleeper
         /// indicator.</param>
         private void SetControlsEnabledAndMakeLoadingVisible(bool enabled)
         {
-            pictureBoxCreating.Visible = !enabled;
             labelCreating.Visible = !enabled;
-            progressBarCreating.Visible = !enabled;
-            if (enabled)
+            if (!enabled)
             {
-                this.Size = normalWindowSize;
-            }
-            else
-            {
-                this.Size = loadingWindowSize;
+                CreateCreatingAnimation();
             }
             foreach (Control ctrl in Controls)
             {
-                if (ctrl == labelCreating || ctrl == pictureBoxCreating || ctrl == progressBarCreating ||
-                    ctrl == labelPoweredByGemini || ctrl == labelWarning)
+                if (ctrl == labelCreating || ctrl == labelPoweredByGemini || ctrl == labelWarning)
                     continue;
                 ctrl.Enabled = enabled;
             }
