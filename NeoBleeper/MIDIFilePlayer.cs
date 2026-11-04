@@ -63,7 +63,13 @@ namespace NeoBleeper
         private readonly object _playbackRestartTimerLock = new object();
 
         // Coalesced note-indicator state (audio thread publishes, UI timer pulls).
-        private sealed record IndicatorSnapshot(HashSet<int> Notes, int Generation);
+        // The held-note set is not the same as the one note currently sounding
+        // during monophonic alternation. Keep them separate for the UI.
+        private sealed record IndicatorSnapshot(
+            HashSet<int> Notes,
+            int Generation,
+            int? SoundingNote,
+            bool HighlightSoundingOnly);
         private static readonly HashSet<int> EmptyNotes = new HashSet<int>();
         private IndicatorSnapshot _pendingIndicators;
         private long _lastUiRefreshTimestamp;
@@ -1400,6 +1406,7 @@ namespace NeoBleeper
                 _sysExEventsByTime = localSysExDict;
                 _sysExDisplayEventTimes = localSysExDict.Keys.OrderBy(t => t).ToList();
                 _frames = localFrames;
+                _alternationVoiceCursor = 0;
                 _rearticulatedNotes = localRearticulatedNotes;
                 lyricsChunkCount = localLyricsCount;
                 sysExEventCount = localSysExCount;
@@ -1638,7 +1645,6 @@ namespace NeoBleeper
             }
             finally
             {
-                driftMs = 0; // Reset drifts
             }
         }
 
@@ -1797,7 +1803,6 @@ namespace NeoBleeper
                 label_more_notes.Visible = false;
                 ClearLyrics();
                 ResetSysExDisplayState();
-                driftMs = 0;
                 MIDIIOUtils.SendNoteOffToAllNotes();
             }
             catch (Exception ex)
@@ -1942,6 +1947,7 @@ namespace NeoBleeper
             if (myGeneration != _positionGeneration) return;
 
             _currentFrameIndex = newFrameIndex;
+            _alternationVoiceCursor = 0;
             _playbackStartOffsetMs = targetMs;
             _pendingExactSeekMs = targetMs;
             _playbackStopwatch?.Reset();
@@ -1956,6 +1962,8 @@ namespace NeoBleeper
         }
         // Update note labels with synchronization
         private HashSet<int> _lastDrawnNotes = new HashSet<int>();
+        private int? _lastDrawnSoundingNote;
+        private bool _lastDrawnHighlightSoundingOnly;
 
         /// <summary>
         /// Updates the note labels displayed in the UI to reflect the specified set of active MIDI notes.
@@ -1964,7 +1972,10 @@ namespace NeoBleeper
         /// indicator is shown to represent the extra notes. The labels are updated only if the set of active notes has
         /// changed since the last update.</remarks>
         /// <param name="activeNotes">A set of MIDI note numbers that are currently active. Each integer represents a MIDI note to be displayed.</param>
-        private void UpdateNoteLabelsSync(HashSet<int> activeNotes)
+        private void UpdateNoteLabelsSync(
+            HashSet<int> activeNotes,
+            int? soundingNote = null,
+            bool highlightSoundingOnly = false)
         {
             // The first file can be opened before the form Load event has created
             // the note-label cache. Playback cleanup must therefore be harmless
@@ -1976,10 +1987,15 @@ namespace NeoBleeper
             }
 
             activeNotes ??= new HashSet<int>();
-            if (_lastDrawnNotes.SetEquals(activeNotes))
+            // Held notes can stay unchanged while the actual voice alternates.
+            if (_lastDrawnNotes.SetEquals(activeNotes) &&
+                _lastDrawnSoundingNote == soundingNote &&
+                _lastDrawnHighlightSoundingOnly == highlightSoundingOnly)
                 return;
 
             _lastDrawnNotes = new HashSet<int>(activeNotes);
+            _lastDrawnSoundingNote = soundingNote;
+            _lastDrawnHighlightSoundingOnly = highlightSoundingOnly;
             panel1.SuspendLayout();
 
             var sortedNotes = activeNotes.OrderBy(note => note).ToList();
@@ -1995,7 +2011,15 @@ namespace NeoBleeper
 
                     if (!label.Visible) label.Visible = true;
                     if (label.Text != noteName) label.Text = noteName;
-                    if (label.BackColor != _highlightColor) label.BackColor = _highlightColor;
+                    // Keep all held notes visible, but color only the note that
+                    // was actually dispatched to the single-voice speaker.
+                    bool highlighted = !highlightSoundingOnly || soundingNote == noteNumber;
+                    Color desiredColor = highlighted
+                        ? _highlightColor
+                        : (_originalLabelColors.TryGetValue(label, out var inactive)
+                            ? inactive
+                            : SetInactiveNoteColor.GetInactiveNoteColor(_highlightColor));
+                    if (label.BackColor != desiredColor) label.BackColor = desiredColor;
                 }
                 else
                 {
@@ -2069,99 +2093,97 @@ namespace NeoBleeper
         /// <param name="token">A cancellation token that can be used to cancel the playback operation before completion.</param>
         /// <returns>A task that represents the asynchronous operation of playing the notes. The task completes when playback
         /// finishes or is canceled.</returns>
-        private async Task PlayMultipleNotesAsync(int[] frequencies, int duration, CancellationToken token)
+        // Alternation position persists between MIDI frames. RUSH E contains thousands
+        // of frames shorter than one complete 30 ms cycle; restarting at voice zero
+        // on every frame would make the remaining held voices effectively inaudible.
+        private int _alternationVoiceCursor = 0;
+
+        private Task PlayMultipleNotesAsync(
+            int[] frequencies, int duration, CancellationToken token, int[] midiNotes)
         {
+            if (duration <= 0 || frequencies.Length == 0)
+                return Task.CompletedTask;
+
             _isAlternatingPlayback = true;
-            var noteNumbers = frequencies.Select(freq => FrequencyToNoteNumber(freq)).ToArray();
+            // Preserve the exact MIDI note identities independently of the pitch
+            // conversion. The indicator reflects the voice that is dispatched.
+            HashSet<int> heldNotes = midiNotes.ToHashSet();
+            UpdateAudioNoteIndicators(heldNotes, null, highlightSoundingOnly: true);
             var totalStopwatch = Stopwatch.StartNew();
 
-            int interval = checkBox_make_each_cycle_last_30ms.Checked ? 30 : Convert.ToInt32(numericUpDown_alternating_note.Value);
+            int interval = checkBox_make_each_cycle_last_30ms.Checked
+                ? 30
+                : Convert.ToInt32(numericUpDown_alternating_note.Value);
             interval = Math.Max(1, interval);
 
-            // Per-note highlighting posts two UI messages per note. For short frames
-            // (black MIDI) that is pure overhead; the pull-based indicators already
-            // show the held notes.
-            bool showHighlights = duration >= 80 && frequencies.Length <= 4;
+            // "Play each note" specifies a cycle length, not a prerequisite for
+            // playing any note. Previously, a short frame returned without sound
+            // when frameDuration < cycleDuration, and long sustained chords were
+            // played for only one cycle followed by the entire remainder as silence.
+            int notePlayDurationInCycle;
+            if (checkBox_play_each_note.Checked ||
+                checkBox_make_each_cycle_last_30ms.Checked)
+            {
+                notePlayDurationInCycle = Math.Max(
+                    1, interval / frequencies.Length);
+
+                if (checkBox_make_each_cycle_last_30ms.Checked)
+                    notePlayDurationInCycle = Math.Min(15, notePlayDurationInCycle);
+            }
+            else
+            {
+                // The other alternation mode assigns the full configured interval
+                // to each voice. Keep that behavior, but never overrun this frame.
+                notePlayDurationInCycle = interval;
+            }
 
             try
             {
-                if (checkBox_play_each_note.Checked)
+                // Repeat the cycle for the *whole* held frame instead of playing
+                // each voice once and filling the rest with silence. For very short
+                // frames, dispatch whichever voice is next and carry the cursor to
+                // the next MIDI frame. Durations remain capped by the frame budget.
+                while (true)
                 {
-                    int cycleDuration = checkBox_make_each_cycle_last_30ms.Checked ? 30 : interval;
+                    token.ThrowIfCancellationRequested();
+                    double remainingMs = duration - totalStopwatch.Elapsed.TotalMilliseconds;
+                    if (remainingMs <= 0.0)
+                        break;
 
-                    if (totalStopwatch.ElapsedMilliseconds + cycleDuration > duration)
-                        return;
+                    int noteIndex = _alternationVoiceCursor % frequencies.Length;
+                    // The backend accepts integer milliseconds, so the smallest
+                    // positive slice it can express is 1 ms. Never deliberately
+                    // play a full interval after the frame's deadline.
+                    int notePlayDuration = Math.Min(
+                        notePlayDurationInCycle,
+                        Math.Max(1, (int)Math.Ceiling(remainingMs)));
 
-                    int timePerNote = Math.Max(1, cycleDuration / Math.Max(1, frequencies.Length));
+                    UpdateAudioNoteIndicators(
+                        heldNotes, midiNotes[noteIndex], highlightSoundingOnly: true);
 
-                    for (int i = 0; i < frequencies.Length; i++)
-                    {
-                        token.ThrowIfCancellationRequested();
-                        if (totalStopwatch.ElapsedMilliseconds >= duration) break;
+                    // The caller is already running on the dedicated background
+                    // playback Task.Run. Do not queue a *new* thread-pool task
+                    // for every one-millisecond voice change (RUSH E can request
+                    // thousands of these per second). This also avoids yielding
+                    // a task continuation after every note and losing the frame
+                    // budget to thread-pool scheduling latency.
+                    NotePlayer.PlayNoteWithoutGap(
+                        frequencies[noteIndex], notePlayDuration);
 
-                        int notePlayDuration;
-                        if (checkBox_make_each_cycle_last_30ms.Checked)
-                            notePlayDuration = Math.Min(15, timePerNote);
-                        else
-                            notePlayDuration = Math.Min(timePerNote, (int)(duration - totalStopwatch.ElapsedMilliseconds));
-
-                        notePlayDuration = Math.Max(1, notePlayDuration);
-
-                        int currentNoteIndex = i;
-                        if (showHighlights) HighlightNoteLabel(currentNoteIndex);
-                        // Run the actual sound generation off the calling context but avoid spinning extra Task.Run loops.
-                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[currentNoteIndex], notePlayDuration), token);
-                        if (showHighlights) UnHighlightNoteLabel(currentNoteIndex);
-
-                        int gap = Math.Max(0, timePerNote - notePlayDuration);
-                        if (gap > 0)
-                            await HighPrecisionSleep.SleepAsync(gap);
-                    }
-
-                    // Ensure the cycle completes with remaining silence if needed
-                    int remainingSilence = Math.Max(0, duration - (int)totalStopwatch.ElapsedMilliseconds);
-                    if (showHighlights) UpdateNoteLabels(new HashSet<int>());
-                    if (remainingSilence > 0)
-                        await HighPrecisionSleep.SleepAsync(remainingSilence);
-                }
-                else
-                {
-                    int notesPerCycle = frequencies.Length;
-                    double timePerNote = (double)interval / Math.Max(1, notesPerCycle);
-                    int noteIndex = 0;
-
-                    while (totalStopwatch.ElapsedMilliseconds < duration)
-                    {
-                        token.ThrowIfCancellationRequested();
-
-                        int notePlayDuration;
-                        if (checkBox_make_each_cycle_last_30ms.Checked)
-                            notePlayDuration = Math.Min(15, Math.Max(1, (int)Math.Round((double)interval / frequencies.Length, MidpointRounding.ToZero)));
-                        else
-                            notePlayDuration = interval;
-
-                        if (showHighlights) HighlightNoteLabel(noteIndex);
-                        await Task.Run(() => NotePlayer.PlayNoteWithoutGap(frequencies[noteIndex], notePlayDuration), token);
-                        if (showHighlights) UnHighlightNoteLabel(noteIndex);
-
-                        // Wait until next note time (approximate)
-                        int wait = Math.Max(0, (int)Math.Round(timePerNote) - notePlayDuration);
-                        if (wait > 0)
-                            await HighPrecisionSleep.SleepAsync(wait);
-
-                        noteIndex = (noteIndex + 1) % frequencies.Length;
-                    }
+                    _alternationVoiceCursor = (_alternationVoiceCursor + 1) % frequencies.Length;
                 }
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
             {
-                // playback was canceled — let caller handle cleanup
+                // The normal playback cancellation/seek path owns the cleanup.
             }
             finally
             {
                 totalStopwatch.Stop();
+                UpdateAudioNoteIndicators(heldNotes, null, highlightSoundingOnly: true);
                 _isAlternatingPlayback = false;
             }
+            return Task.CompletedTask;
         }
         /// <summary>
         /// Alternates the single-voice speaker output between a percussion hit and one or more held
@@ -2178,6 +2200,7 @@ namespace NeoBleeper
         private async Task PlayNotesAndPercussionAlternatingAsync(
             int[] frequencies,
             HashSet<int> melodicNotes,
+            int[] midiNotes,
             PercussionSounds.MidiPercussion percussion,
             int totalDurationMs,
             long currentTick,
@@ -2205,19 +2228,22 @@ namespace NeoBleeper
 
             if (percussionSlice <= 0)
             {
-                UpdateAudioNoteIndicators(melodicNotes);
+                UpdateAudioNoteIndicators(
+                    melodicNotes, null, highlightSoundingOnly: frequencies.Length > 1);
                 await PlayMelodySliceAsync(
                     frequencies,
                     totalDurationMs,
-                    token).ConfigureAwait(false);
+                    token,
+                    midiNotes).ConfigureAwait(false);
                 return;
             }
 
             _lastPercussion = percussion;
             _lastPercussionTick = currentTick;
 
-            // Percussion owns the speaker first, so do not show the melodic note yet.
-            UpdateAudioNoteIndicators(new HashSet<int>());
+            // Keep held melodic notes visible while percussion is sounding,
+            // but do not highlight a melody note until it actually plays.
+            UpdateAudioNoteIndicators(melodicNotes, null, highlightSoundingOnly: true);
 
             await PlayOnlyPercussionAsync(
                 percussion,
@@ -2231,13 +2257,15 @@ namespace NeoBleeper
             int remainingMelodyMs = totalDurationMs - percussionSlice;
             if (remainingMelodyMs > 0)
             {
-                // The melodic sound starts now; expose its labels at this exact boundary.
-                UpdateAudioNoteIndicators(melodicNotes);
+                // The melodic sound starts now; alternation selects one note.
+                UpdateAudioNoteIndicators(
+                    melodicNotes, null, highlightSoundingOnly: frequencies.Length > 1);
 
                 await PlayMelodySliceAsync(
                     frequencies,
                     remainingMelodyMs,
-                    token).ConfigureAwait(false);
+                    token,
+                    midiNotes).ConfigureAwait(false);
             }
             else
             {
@@ -2318,7 +2346,8 @@ namespace NeoBleeper
         private async Task PlayMelodySliceAsync(
             int[] frequencies,
             int duration,
-            CancellationToken token)
+            CancellationToken token,
+            int[] midiNotes)
         {
             if (duration <= 0)
                 return;
@@ -2329,13 +2358,24 @@ namespace NeoBleeper
             }
             else if (frequencies.Length == 1)
             {
-                await Task.Run(
-                    () => NotePlayer.PlayNoteWithoutGap(frequencies[0], duration),
-                    token).ConfigureAwait(false);
+                UpdateAudioNoteIndicators(
+                    midiNotes.ToHashSet(), midiNotes[0], highlightSoundingOnly: true);
+                try
+                {
+                    // PlayMelodySliceAsync is invoked by the background frame
+                    // worker, not the UI timer. Avoid per-note Task.Run overhead.
+                    token.ThrowIfCancellationRequested();
+                    NotePlayer.PlayNoteWithoutGap(frequencies[0], duration);
+                }
+                finally
+                {
+                    UpdateAudioNoteIndicators(
+                        midiNotes.ToHashSet(), null, highlightSoundingOnly: true);
+                }
             }
             else
             {
-                await PlayMultipleNotesAsync(frequencies, duration, token).ConfigureAwait(false);
+                await PlayMultipleNotesAsync(frequencies, duration, token, midiNotes).ConfigureAwait(false);
             }
         }
 
@@ -2468,7 +2508,6 @@ namespace NeoBleeper
 
             UpdateTimeAndPercentPosition(_currentFrameIndex);
 
-            driftMs = 0;
             ResetLabelsAndTrackBar();
 
             bool shouldResume =
@@ -2535,6 +2574,9 @@ namespace NeoBleeper
                 var sortedNotes = activeNotes.OrderBy(note => note).ToList();
                 Action updateAction = () =>
                 { // Reset all labels
+                    _lastDrawnNotes.Clear();
+                    _lastDrawnSoundingNote = null;
+                    _lastDrawnHighlightSoundingOnly = false;
                     if (_noteLabels != null)
                     {
                         foreach (var label in _noteLabels)
@@ -2892,10 +2934,14 @@ namespace NeoBleeper
                     var token = _cancellationTokenSource.Token;
                     token.ThrowIfCancellationRequested();
 
-                    var elapsedMs = _playbackStopwatch.ElapsedMilliseconds;
-                    var songTimeMs = _playbackStartOffsetMs + elapsedMs;
+                    // Bound a single catch-up batch so dense files cannot keep
+                    // one worker occupied indefinitely. The timer starts the next
+                    // batch without ever blocking the Windows message pump.
+                    const int MaxFramesPerBatch = 512;
+                    int processedThisBatch = 0;
 
-                    while (_currentFrameIndex < _frames.Count)
+                    while (_currentFrameIndex < _frames.Count &&
+                           processedThisBatch < MaxFramesPerBatch)
                     {
                         if (!_isPlaying || token.IsCancellationRequested || myGeneration != _positionGeneration)
                         {
@@ -2903,19 +2949,21 @@ namespace NeoBleeper
                             break;
                         }
 
+                        // A previous frame may take longer than its MIDI duration,
+                        // so sample the clock again on EVERY iteration. Never use
+                        // the time sampled at task startup as a frozen cutoff.
+                        double songTimeMs = _playbackStartOffsetMs +
+                            _playbackStopwatch.Elapsed.TotalMilliseconds;
                         var currentFrame = _frames[_currentFrameIndex];
-                        var targetTimeMs = TicksToMilliseconds(currentFrame.Time);
+                        double targetTimeMs = TicksToMilliseconds(currentFrame.Time);
 
-                        if (targetTimeMs <= songTimeMs)
-                        {
-                            await ProcessCurrentFrame();
-                            if (myGeneration != _positionGeneration) break; // a seek landed mid-frame
-                            _currentFrameIndex++;
-                        }
-                        else
-                        {
+                        if (targetTimeMs > songTimeMs)
                             break;
-                        }
+
+                        await ProcessCurrentFrame().ConfigureAwait(false);
+                        if (myGeneration != _positionGeneration) break;
+                        _currentFrameIndex++;
+                        processedThisBatch++;
                     }
                 }
                 catch (OperationCanceledException)
@@ -2935,7 +2983,6 @@ namespace NeoBleeper
         }
         private DateTime _lastLyricTime = DateTime.MinValue;
         private bool _isInLyricSection = false;
-        double driftMs = 0;
         private HashSet<int> _previousMidiOutputNotes = new();
 
         /// <summary>
@@ -3006,6 +3053,7 @@ namespace NeoBleeper
         private async Task PlayPcSpeakerFrameAsync(
             int[] frequencies,
             HashSet<int> melodicNotes,
+            int[] midiNotes,
             NoteOnEvent drumEvent,
             int totalFrameDuration,
             long currentTime,
@@ -3016,6 +3064,7 @@ namespace NeoBleeper
                 await PlayNotesAndPercussionAlternatingAsync(
                     frequencies,
                     melodicNotes,
+                    midiNotes,
                     (PercussionSounds.MidiPercussion)drumEvent.NoteNumber,
                     totalFrameDuration,
                     currentTime,
@@ -3034,12 +3083,14 @@ namespace NeoBleeper
             }
             else
             {
-                UpdateAudioNoteIndicators(melodicNotes);
+                UpdateAudioNoteIndicators(
+                    melodicNotes, null, highlightSoundingOnly: frequencies.Length > 1);
 
                 await PlayMelodySliceAsync(
                     frequencies,
                     totalFrameDuration,
-                    token).ConfigureAwait(false);
+                    token,
+                    midiNotes).ConfigureAwait(false);
             }
         }
 
@@ -3083,7 +3134,6 @@ namespace NeoBleeper
             var token = _cancellationTokenSource?.Token ?? CancellationToken.None;
             token.ThrowIfCancellationRequested();
 
-            Stopwatch driftStopwatch = Stopwatch.StartNew();
             var currentFrame = _frames[_currentFrameIndex];
             var currentTime = currentFrame.Time;
 
@@ -3131,91 +3181,54 @@ namespace NeoBleeper
                     percussionEvents,
                     filteredNotes);
 
-            // Calculate duration
+            // Calculate the true MIDI frame boundaries. The playback stopwatch
+            // is authoritative; never add old scheduling overruns to future note
+            // durations (the former driftMs feedback loop caused lag to grow).
             double frameStartMs = TicksToMilliseconds(currentFrame.Time);
-            double frameEndMs;
-            if (_currentFrameIndex < _frames.Count - 1)
-            {
-                var nextFrame = _frames[_currentFrameIndex + 1];
-                frameEndMs = TicksToMilliseconds(nextFrame.Time);
-            }
-            else
-            {
-                frameEndMs = TicksToMilliseconds(_lastPlaybackTick);
-            }
+            double frameEndMs = _currentFrameIndex < _frames.Count - 1
+                ? TicksToMilliseconds(_frames[_currentFrameIndex + 1].Time)
+                : TicksToMilliseconds(_lastPlaybackTick);
 
-            double durationMs = frameEndMs - frameStartMs;
+            double songNowMs = _playbackStartOffsetMs +
+                _playbackStopwatch.Elapsed.TotalMilliseconds;
+            double dispatchStartMs = Math.Max(frameStartMs, songNowMs);
 
-            // If playback was resumed by a seek into the middle of this frame, play
-            // only the part that remains after the requested timestamp. Otherwise a
-            // long sustained frame is replayed from its beginning even though the UI
-            // and playback clock are positioned later in the song.
+            // Preserve exact seeking into a held frame without starting the note
+            // from before the requested seek time.
             if (_pendingExactSeekMs.HasValue)
             {
-                double seekMs = _pendingExactSeekMs.Value;
-                if (seekMs > frameStartMs && seekMs < frameEndMs)
-                {
-                    durationMs = frameEndMs - seekMs;
-                }
-
+                dispatchStartMs = Math.Max(dispatchStartMs,
+                    _pendingExactSeekMs.Value);
                 _pendingExactSeekMs = null;
             }
 
-            // --- Robust drift compensation (preserve fractional ms) ---
-            // Never pay timing debt by deleting an audible note frame. A previous
-            // frame can overrun enough that the old code reduced adjustedDuration
-            // to 0 ms; the note still appeared in the UI, but PlayMelodySliceAsync
-            // immediately returned and the note was never heard.
-            double originalDuration = Math.Max(0.0, durationMs);
-            double adjustedDuration;
+            double remainingMs = Math.Max(0.0, frameEndMs - dispatchStartMs);
             bool hasAudibleContent = filteredNotes.Count > 0 || drumEvent != null;
 
-            // A few milliseconds are enough to guarantee that an event reaches the
-            // speaker path. Any remaining positive drift is carried to later frames
-            // instead of erasing this one completely.
-            const double MinAudibleFrameMs = 4.0;
-
-            if (driftMs > 0.0)
-            {
-                double minimumToKeep = hasAudibleContent
-                    ? Math.Min(MinAudibleFrameMs, originalDuration)
-                    : 0.0;
-
-                double maxDriftWeMayConsume = Math.Max(0.0, originalDuration - minimumToKeep);
-                double consume = Math.Min(driftMs, maxDriftWeMayConsume);
-
-                adjustedDuration = Math.Max(minimumToKeep, originalDuration - consume);
-                driftMs -= consume;
-            }
-            else if (driftMs < 0.0)
-            {
-                adjustedDuration = originalDuration + (-driftMs);
-                driftMs = 0.0;
-            }
-            else
-            {
-                adjustedDuration = originalDuration;
-            }
-
-            int durationMsInt = (int)Math.Max(0, Math.Round(adjustedDuration));
-
-            // Very short but real note frames can round below 0.5 ms to zero.
-            // Keep at least a 1 ms dispatch so a detected note is never converted
-            // into an intentional no-op solely by rounding.
-            if (hasAudibleContent && originalDuration > 0.0 && durationMsInt <= 0)
-            {
+            // An integer-ms note interface cannot represent fractional lengths.
+            // Prefer flooring so rounding does not systematically add duration.
+            // A sub-ms note which is *still current* gets one best-effort pulse;
+            // an already expired frame never adds extra time to the song.
+            int durationMsInt = remainingMs >= int.MaxValue
+                ? int.MaxValue
+                : (int)Math.Floor(remainingMs);
+            if (hasAudibleContent && remainingMs > 0.0 && durationMsInt == 0)
                 durationMsInt = 1;
-            }
-
-            if (durationMsInt <= 0 && !hasAudibleContent)
-            {
-                driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
-                return;
-            }
 
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
                 HandleLyricsDisplay(currentTime);
+            }
+
+            // Do not await a silent MIDI frame or replay an already elapsed
+            // audio frame. The next timer dispatch is scheduled by song time.
+            // Waiting here would block the audio worker, and drift compensation
+            // would then stretch later notes to pay that timing debt.
+            if (!hasAudibleContent || durationMsInt <= 0)
+            {
+                UpdateAudioNoteIndicators(
+                    filteredNotes, null, highlightSoundingOnly: true);
+                return;
             }
 
             // --- Melody + percussion, alternated on the single-voice speaker output ---
@@ -3225,7 +3238,10 @@ namespace NeoBleeper
                 ? (PercussionSounds.MidiPercussion)drumEvent.NoteNumber
                 : (PercussionSounds.MidiPercussion?)null;
 
-            int[] frequenciesToPlay = filteredNotes
+            // Keep the original enumeration order: MIDI identities must match
+            // the existing frequencies array element-for-element.
+            int[] midiNotesToPlay = filteredNotes.ToArray();
+            int[] frequenciesToPlay = midiNotesToPlay
                 .Select(note => NoteToFrequency(note))
                 .ToArray();
 
@@ -3234,6 +3250,7 @@ namespace NeoBleeper
                 await PlayNotesAndPercussionAlternatingAsync(
                     frequenciesToPlay,
                     new HashSet<int>(filteredNotes),
+                    midiNotesToPlay,
                     percussionToPlay.Value,
                     totalFrameDuration,
                     currentTime,
@@ -3252,15 +3269,16 @@ namespace NeoBleeper
             }
             else
             {
-                UpdateAudioNoteIndicators(filteredNotes);
+                UpdateAudioNoteIndicators(
+                    filteredNotes, null, highlightSoundingOnly: frequenciesToPlay.Length > 1);
 
                 await PlayMelodySliceAsync(
                     frequenciesToPlay,
                     totalFrameDuration,
-                    token).ConfigureAwait(false);
+                    token,
+                    midiNotesToPlay).ConfigureAwait(false);
             }
 
-            driftMs += (driftStopwatch.Elapsed.TotalMilliseconds - adjustedDuration);
         }
 
 
@@ -3843,7 +3861,8 @@ namespace NeoBleeper
             bool usePcSpeakerBackend,
             bool usePolyphonicAudioBackend)
         {
-            int[] frequencies = frameAudio.MelodicNotes
+            int[] midiNotes = frameAudio.MelodicNotes.ToArray();
+            int[] frequencies = midiNotes
                 .Select(NoteToFrequency)
                 .ToArray();
 
@@ -3857,6 +3876,7 @@ namespace NeoBleeper
                 await PlayPcSpeakerFrameAsync(
                     frequencies,
                     frameAudio.MelodicNotes,
+                    midiNotes,
                     pcSpeakerDrum,
                     totalFrameDuration,
                     currentTime,
@@ -3871,7 +3891,8 @@ namespace NeoBleeper
                     PlayMelodySliceAsync(
                         frequencies,
                         totalFrameDuration,
-                        token);
+                        token,
+                        midiNotes);
 
                 Task percussionTask =
                     PlayPolyphonicPercussionAsync(
@@ -4299,11 +4320,18 @@ namespace NeoBleeper
         /// message queue. The UI timer pulls this at a bounded rate.
         /// Published sets are never mutated after creation, so no copy is needed.
         /// </summary>
-        private void UpdateAudioNoteIndicators(HashSet<int> melodicNotes)
+        private void UpdateAudioNoteIndicators(
+            HashSet<int> melodicNotes,
+            int? soundingNote = null,
+            bool highlightSoundingOnly = false)
         {
             Interlocked.Exchange(
                 ref _pendingIndicators,
-                new IndicatorSnapshot(melodicNotes ?? EmptyNotes, _audioDisplayGeneration));
+                new IndicatorSnapshot(
+                    melodicNotes ?? EmptyNotes,
+                    _audioDisplayGeneration,
+                    soundingNote,
+                    highlightSoundingOnly));
         }
 
         /// <summary>UI thread only. Applies the most recent published snapshot.</summary>
@@ -4320,7 +4348,8 @@ namespace NeoBleeper
             if (!checkBox_dont_update_grid.Checked)
             {
                 // Direct safe invocation or batch check to prevent queue saturation
-                UpdateNoteLabelsSync(snap.Notes);
+                UpdateNoteLabelsSync(
+                    snap.Notes, snap.SoundingNote, snap.HighlightSoundingOnly);
             }
 
             if (holded_note_label != null && !holded_note_label.IsDisposed)
