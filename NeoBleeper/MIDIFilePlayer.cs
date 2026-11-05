@@ -47,10 +47,15 @@ namespace NeoBleeper
         // simultaneous hits cannot build an audio backlog and starve melody.
         // Only the playback worker consumes this queue; Stop/Seek clears it after
         // the worker has been cancelled and joined.
-        private readonly Queue<(NoteOnEvent Hit, int RemainingMs)> _pendingPcSpeakerPercussion = new();
+        // VelocityCarry is the fractional audible-time accumulator for this
+        // particular hit. Storing it with the queued tail avoids leaking a
+        // previous drum's velocity into a newly selected attack.
+        private readonly Queue<(NoteOnEvent Hit, int RemainingMs, int VelocityCarry)> _pendingPcSpeakerPercussion = new();
         private HashSet<NoteOnEvent> _percussionNoteOnEvents = new();
         private readonly HashSet<int> _loggedPercussionFallbacks = new();
         private const int MinimumPercussionAttackMs = 10;
+        private const int PercussionVelocityScale = 127;
+        private const int PercussionVelocityGateWindowMs = 12;
 
         bool darkTheme = false;
         private bool _isAlternatingPlayback = false;
@@ -2372,7 +2377,7 @@ namespace NeoBleeper
                     percussion,
                     totalDurationMs,
                     token,
-                    velocity: percussionVelocity).ConfigureAwait(false);
+                    enforceMinimumAudibleBody: true).ConfigureAwait(false);
                 return;
             }
 
@@ -2404,8 +2409,7 @@ namespace NeoBleeper
                 percussion,
                 percussionSlice,
                 token,
-                enforceMinimumAudibleBody: false,
-                velocity: percussionVelocity).ConfigureAwait(false);
+                enforceMinimumAudibleBody: false).ConfigureAwait(false);
 
             NotePlayer.StopAllNotes();
 
@@ -2428,7 +2432,7 @@ namespace NeoBleeper
             }
         }
 
-        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, bool enforceMinimumAudibleBody = true, int velocity = 100)
+        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, bool enforceMinimumAudibleBody = true)
         {
             if (TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
@@ -3191,9 +3195,33 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Convert GM MIDI velocity (1..127) to the audible part of a short
+        /// PC-speaker time window. The hardware output is binary, not a mixer
+        /// with a gain knob, so sound density is our best per-hit dynamic proxy.
+        /// Fractional remainder is carried across windows/frames so low
+        /// velocities are not rounded up to full volume on short MIDI frames.
+        /// </summary>
+        private static int GetVelocityGatedDurationMs(
+            int windowMs,
+            int velocity,
+            ref int carry)
+        {
+            if (windowMs <= 0 || velocity <= 0)
+                return 0;
+
+            int clampedVelocity = Math.Clamp(velocity, 1, PercussionVelocityScale);
+            long weighted = (long)carry + (long)windowMs * clampedVelocity;
+            int audibleMs = (int)Math.Min(windowMs, weighted / PercussionVelocityScale);
+            carry = (int)(weighted % PercussionVelocityScale);
+            return audibleMs;
+        }
+
+        /// <summary>
         /// Keep one selected drum hit alive across short MIDI frames while
         /// reserving the majority of each frame for the melody. New drum hits
         /// preempt any unfinished tail; simultaneous hits are never serialized.
+        /// The drum's natural duration is measured in elapsed time, independently
+        /// of velocity: a quiet cymbal does not lose its tail or last longer.
         /// </summary>
         private async Task PlayPcSpeakerFrameAsync(
             int[] frequencies,
@@ -3217,8 +3245,10 @@ namespace NeoBleeper
                 ? Math.Min(availableMs, Math.Max(1, availableMs / 4))
                 : availableMs;
 
-            // Process at most ONE selected percussion per frame. Do not replay
-            // lower-ranked same-tick hits after the best hit has already sounded.
+            // Process at most ONE selected percussion per frame. Preserve its
+            // natural elapsed-time tail, but use MIDI velocity to control how
+            // much of each drum window actually sounds. A physical PC speaker
+            // cannot vary PCM sample amplitude: gated PWM/noise density is used.
             if (_pendingPcSpeakerPercussion.Count > 0 && drumBudgetMs > 0)
             {
                 token.ThrowIfCancellationRequested();
@@ -3231,13 +3261,59 @@ namespace NeoBleeper
                         : Math.Max(MinimumPercussionAttackMs,
                             PercussionSounds.GetNaturalDurationMs(resolved.Value));
                     int sliceMs = Math.Min(remaining, drumBudgetMs);
+                    int carry = pending.VelocityCarry;
 
-                    await PlayOnlyPercussionAsync(resolved.Value, sliceMs, token,
-                        enforceMinimumAudibleBody: false,
-                        velocity: pending.Hit.Velocity).ConfigureAwait(false);
-                    drumTimeUsed = sliceMs;
+                    if (hasMelody)
+                    {
+                        // Keep the spare part of the drum budget available to
+                        // melody immediately; never wait through artificial
+                        // silence while there are held notes to play.
+                        int audibleMs = GetVelocityGatedDurationMs(
+                            sliceMs, pending.Hit.Velocity, ref carry);
+                        if (audibleMs > 0)
+                        {
+                            await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
+                                enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                        }
+                        drumTimeUsed = audibleMs;
+                    }
+                    else
+                    {
+                        // With no melody, space the audible bursts across the
+                        // tail instead of playing one loud burst followed by a
+                        // large silence. Keep windows coarse to avoid creating
+                        // thousands of tiny async sound-device operations.
+                        int elapsed = 0;
+                        while (elapsed < sliceMs)
+                        {
+                            token.ThrowIfCancellationRequested();
+                            int windowMs = Math.Min(
+                                PercussionVelocityGateWindowMs, sliceMs - elapsed);
+                            int audibleMs = GetVelocityGatedDurationMs(
+                                windowMs, pending.Hit.Velocity, ref carry);
+                            if (audibleMs > 0)
+                            {
+                                await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
+                                    enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                            }
+                            int silentMs = windowMs - audibleMs;
+                            if (silentMs > 0)
+                            {
+                                NotePlayer.StopAllNotes();
+                                NotePlayer.StopMicrocontrollerSound();
+                                await HighPrecisionSleep.SleepAsync(silentMs).ConfigureAwait(false);
+                            }
+                            elapsed += windowMs;
+                        }
+                        drumTimeUsed = sliceMs;
+                    }
+
+                    // Debit the whole elapsed drum window, not just the audible
+                    // portion. Velocity therefore changes intensity, NOT the
+                    // percussion's natural duration (and cannot extend a tail).
                     if (remaining > sliceMs)
-                        _pendingPcSpeakerPercussion.Enqueue((pending.Hit, remaining - sliceMs));
+                        _pendingPcSpeakerPercussion.Enqueue(
+                            (pending.Hit, remaining - sliceMs, carry));
                 }
             }
 
@@ -3397,7 +3473,11 @@ namespace NeoBleeper
                     .ThenBy(e => e.NoteNumber)
                     .First();
                 _pendingPcSpeakerPercussion.Clear();
-                _pendingPcSpeakerPercussion.Enqueue((bestHit, 0));
+                // Precharge only this new hit's first fractional window so
+                // even very quiet positive-velocity attacks can be heard.
+                int firstWindowCarry = PercussionVelocityScale -
+                    Math.Clamp(bestHit.Velocity, 1, PercussionVelocityScale);
+                _pendingPcSpeakerPercussion.Enqueue((bestHit, 0, firstWindowCarry));
             }
 
             // Calculate the true MIDI frame boundaries. The playback stopwatch
