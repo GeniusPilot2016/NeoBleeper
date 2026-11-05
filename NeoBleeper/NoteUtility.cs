@@ -78,7 +78,7 @@ namespace NeoBleeper
         public static double VelocityToDynamicGain(int velocity)
         {
             double raw = Math.Clamp(velocity / 127.0, 0.01, 1.0);
-            return 0.20 + 0.80 * Math.Sqrt(raw);
+            return 0.12 + 0.88 * Math.Pow(raw, 0.85);
         }
     }
 
@@ -783,7 +783,7 @@ namespace NeoBleeper
 
             if (request.Output == PercussionOutputChoice.SoundDevice)
             {
-                float[] pwm = BuildSoundDevicePwmSamples(pcm8, 3.5f, request.Velocity);
+                float[] pwm = BuildSoundDevicePwmSamples(pcm8, 2.1f, request.Velocity);
 
                 QueueMixedSoundDevicePwmSamples(pwm);
 
@@ -830,7 +830,7 @@ namespace NeoBleeper
 
             double velocity01 = request.Velocity / 127.0;
 
-            double masterGain = 1.50 + velocity01 * 1.00;
+            double masterGain = 0.85 + velocity01 * 0.70;
 
             uint rng = unchecked((uint)request.RandomSeed);
 
@@ -1540,11 +1540,11 @@ namespace NeoBleeper
             // short bursts), so the drum gets the voice for a longer attack and a large share
             // afterwards. Lower these if the note gets buried; raise them for more drum.
             double attackWindowMs = Math.Min(
-                (lowDrum ? 22.0 : sharp ? 8.0 : 12.0) * dyn,
+                (lowDrum ? 19.0 : sharp ? 7.25 : 10.0) * dyn,
                 naturalMs * 0.5);
 
-            double startShare = (lowDrum ? 0.90 : sharp ? 0.85 : 0.75) * (0.6 + 0.4 * dyn);
-            const double endShare = 0.40;
+            double startShare = (lowDrum ? 0.815 : sharp ? 0.76 : 0.69) * (0.40 + 0.60 * dyn);
+            double endShare = 0.31 * (0.40 + 0.60 * dyn);
 
             // The drum keeps a strong claim for most of its natural length.
             double shareDecayMs = Math.Min(naturalMs, 150.0);
@@ -1727,8 +1727,8 @@ namespace NeoBleeper
             // Relative weights of the two signals in the mix. With the drum silent, the note alone
             // is driven to (almost) a full 0..100% duty swing, i.e. as loud as a plain beep.
             const double noteWeight = 0.60;
-            double drumWeight = 0.80 * dyn;
-            double gain = 1.65 * (0.40 + 0.60 * dyn);
+            double drumWeight = 0.55 * dyn;
+            double gain = 1.15 * (0.25 + 0.75 * dyn);
 
             double phaseInc = noteHz > 0.0 ? noteHz * frameStepMs / 1000.0 : 0.0;
             double phase = _blendSpeakerPhase;
@@ -1927,7 +1927,7 @@ namespace NeoBleeper
                             ConvertFloatSamplesToUnsigned8BitPcm(
                                 RenderPercussionSamples(drumRequest));
 
-                        drumPwm = BuildSoundDevicePwmSamples(pcm8, 3.5f, request.Velocity);
+                        drumPwm = BuildSoundDevicePwmSamples(pcm8, 2.1f, drumRequest.Velocity);
                     }
 
                     // Drum buffer and note gate go live together, after the render cost is paid.
@@ -2027,9 +2027,9 @@ namespace NeoBleeper
             double depth = maxDepth;   // constant: keeps full duty-cycle resolution at every velocity
 
             // Velocity scales the WHOLE output stream (signal + carrier + quantization noise).
-            // 40 dB range: 127 -> 0 dB, ~100 -> -8.5 dB, ~64 -> -20 dB, ~40 -> -27 dB, 1 -> -40 dB.
+            // 30 dB velocity range: soft hits remain quieter without vanishing.
             // Increase VelocityRangeDb for a wider spread, decrease for a narrower one.
-            const double VelocityRangeDb = 40.0;
+            const double VelocityRangeDb = 30.0;
             double vel01 = Math.Clamp(velocity, 1, 127) / 127.0;
             double velocityGain = Math.Pow(10.0, -(1.0 - vel01) * VelocityRangeDb / 20.0);
 
@@ -2050,7 +2050,7 @@ namespace NeoBleeper
                 ? 1.0 + (80.0 - durationMs) / 80.0 * 0.80
                 : 1.0;
 
-            float amp = (float)Math.Clamp(volume * 0.23 * velocityGain, 0.002, 0.88);
+            float amp = (float)Math.Clamp(volume * 0.25 * velocityGain, 0.0001, 0.68);
 
             double dcX = 0.0;
             double dcY = 0.0;
@@ -2677,7 +2677,7 @@ namespace NeoBleeper
                 return;
             }
 
-            float volume = 3.5f;
+            float volume = 2.1f;
 
             // Robust peak detection
             double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
@@ -2756,8 +2756,7 @@ namespace NeoBleeper
                     double boosted =
                         Math.Sign(normAudio) *
                         Math.Pow(Math.Abs(normAudio), 0.85) *
-                        1.5 *
-                        volume;
+                        0.85 * volume * Math.Pow(Math.Clamp(velocity, 1, 127) / 127.0, 0.85);
 
                     double dutyCycle = Math.Clamp(0.5 + (boosted * 0.495), 0.0, 1.0);
 

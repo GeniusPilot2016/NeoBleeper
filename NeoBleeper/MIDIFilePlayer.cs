@@ -2377,6 +2377,7 @@ namespace NeoBleeper
                     percussion,
                     totalDurationMs,
                     token,
+                    velocity: percussionVelocity,
                     enforceMinimumAudibleBody: true).ConfigureAwait(false);
                 return;
             }
@@ -2409,6 +2410,7 @@ namespace NeoBleeper
                 percussion,
                 percussionSlice,
                 token,
+                velocity: percussionVelocity,
                 enforceMinimumAudibleBody: false).ConfigureAwait(false);
 
             NotePlayer.StopAllNotes();
@@ -2432,7 +2434,7 @@ namespace NeoBleeper
             }
         }
 
-        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, bool enforceMinimumAudibleBody = true)
+        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, int velocity = 100, bool enforceMinimumAudibleBody = true)
         {
             if (TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
@@ -2458,6 +2460,7 @@ namespace NeoBleeper
                         percussion,
                         playDuration,
                         token,
+                        velocity: velocity,
                         enforceMinimumAudibleBody: enforceMinimumAudibleBody).ConfigureAwait(false);
                 }
 
@@ -3273,7 +3276,7 @@ namespace NeoBleeper
                         if (audibleMs > 0)
                         {
                             await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
-                                enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                                velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false).ConfigureAwait(false);
                         }
                         drumTimeUsed = audibleMs;
                     }
@@ -3294,7 +3297,7 @@ namespace NeoBleeper
                             if (audibleMs > 0)
                             {
                                 await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
-                                    enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                                    velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false).ConfigureAwait(false);
                             }
                             int silentMs = windowMs - audibleMs;
                             if (silentMs > 0)
@@ -3408,6 +3411,7 @@ namespace NeoBleeper
                         percussion,
                         playDuration,
                         token,
+                        velocity: drum.Velocity,
                         enforceMinimumAudibleBody: true);
                 })
                 .ToArray();
