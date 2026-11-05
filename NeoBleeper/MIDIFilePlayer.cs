@@ -41,17 +41,16 @@ namespace NeoBleeper
             public List<NoteOnEvent> PercussionEvents { get; init; } = new List<NoteOnEvent>();
         }
 
-        // A single PC speaker cannot play simultaneous drums. Keep the additional
-        // NoteOns for the following audio slices instead of silently selecting
-        // one drum and discarding the rest at every MIDI timestamp.
+        // The PC speaker can play only one percussion at a time. Select the
+        // highest-priority hit at each MIDI tick and carry only its unfinished
+        // duration between frames. A new hit replaces the old tail, so weaker
+        // simultaneous hits cannot build an audio backlog and starve melody.
         // Only the playback worker consumes this queue; Stop/Seek clears it after
         // the worker has been cancelled and joined.
-        private readonly Queue<NoteOnEvent> _pendingPcSpeakerPercussion = new();
+        private readonly Queue<(NoteOnEvent Hit, int RemainingMs)> _pendingPcSpeakerPercussion = new();
         private HashSet<NoteOnEvent> _percussionNoteOnEvents = new();
         private readonly HashSet<int> _loggedPercussionFallbacks = new();
         private const int MinimumPercussionAttackMs = 10;
-        private const int MaximumPercussionAttackMs = 20;
-        private const int MaximumPercussionHitsPerFrame = 6;
 
         bool darkTheme = false;
         private bool _isAlternatingPlayback = false;
@@ -3192,66 +3191,62 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// The original frame-length clipping discarded percussion at a tick
-        /// whenever the playback clock had already passed the next MIDI event.
-        /// A drum NoteOn is an ATTACK, not a sustained melodic state: always
-        /// give it a short audible pulse, even in a sub-millisecond/late frame.
-        /// Simultaneous hits are serialized because the PC speaker is one voice.
+        /// Keep one selected drum hit alive across short MIDI frames while
+        /// reserving the majority of each frame for the melody. New drum hits
+        /// preempt any unfinished tail; simultaneous hits are never serialized.
         /// </summary>
         private async Task PlayPcSpeakerFrameAsync(
             int[] frequencies,
             HashSet<int> melodicNotes,
             int[] midiNotes,
             int totalFrameDuration,
+            double frameEndMs,
             CancellationToken token)
         {
             bool hasMelody = frequencies.Length > 0;
             int drumTimeUsed = 0;
-            int hitsThisFrame = 0;
-            int maximumHits = _currentFrameIndex == _frames.Count - 1
-                ? _pendingPcSpeakerPercussion.Count // drain at EOF
-                : MaximumPercussionHitsPerFrame;
 
-            if (_pendingPcSpeakerPercussion.Count > 0)
+            // The PC speaker is monophonic. A full cymbal tail cannot be played
+            // uninterrupted alongside melody. Spread its duration across frames
+            // instead of blocking the playback worker for the entire tail.
+            double nowMs = _playbackStartOffsetMs +
+                _playbackStopwatch.Elapsed.TotalMilliseconds;
+            int availableMs = (int)Math.Max(0, Math.Min(
+                totalFrameDuration, Math.Floor(frameEndMs - nowMs)));
+            int drumBudgetMs = hasMelody
+                ? Math.Min(availableMs, Math.Max(1, availableMs / 4))
+                : availableMs;
+
+            // Process at most ONE selected percussion per frame. Do not replay
+            // lower-ranked same-tick hits after the best hit has already sounded.
+            if (_pendingPcSpeakerPercussion.Count > 0 && drumBudgetMs > 0)
             {
-                UpdateAudioNoteIndicators(
-                    hasMelody ? melodicNotes : new HashSet<int>(),
-                    null, highlightSoundingOnly: true);
-
-                while (_pendingPcSpeakerPercussion.Count > 0 &&
-                       hitsThisFrame < maximumHits)
+                token.ThrowIfCancellationRequested();
+                var pending = _pendingPcSpeakerPercussion.Dequeue();
+                var resolved = ResolvePlayablePercussion(pending.Hit.NoteNumber);
+                if (resolved.HasValue)
                 {
-                    token.ThrowIfCancellationRequested();
-                    NoteOnEvent hit = _pendingPcSpeakerPercussion.Dequeue();
-                    hitsThisFrame++;
+                    int remaining = pending.RemainingMs > 0
+                        ? pending.RemainingMs
+                        : Math.Max(MinimumPercussionAttackMs,
+                            PercussionSounds.GetNaturalDurationMs(resolved.Value));
+                    int sliceMs = Math.Min(remaining, drumBudgetMs);
 
-                    PercussionSounds.MidiPercussion? resolved =
-                        ResolvePlayablePercussion(hit.NoteNumber);
-                    if (!resolved.HasValue)
-                        continue;
-
-                    int naturalDuration = PercussionSounds.GetNaturalDurationMs(resolved.Value);
-                    double velocityFactor = Math.Clamp(hit.Velocity / 100.0, 0.65, 1.30);
-                    int attackMs = Math.Clamp(
-                        (int)Math.Round(naturalDuration * velocityFactor),
-                        MinimumPercussionAttackMs,
-                        MaximumPercussionAttackMs);
-
-                    // Do not clamp this attack to the tiny MIDI frame. Otherwise
-                    // fast hi-hats and short drum notes become silent 1 ms pulses.
-                    await PlayOnlyPercussionAsync(
-                        resolved.Value,
-                        attackMs,
-                        token,
-                        enforceMinimumAudibleBody: true,
-                        velocity: hit.Velocity).ConfigureAwait(false);
-                    drumTimeUsed += attackMs;
+                    await PlayOnlyPercussionAsync(resolved.Value, sliceMs, token,
+                        enforceMinimumAudibleBody: false,
+                        velocity: pending.Hit.Velocity).ConfigureAwait(false);
+                    drumTimeUsed = sliceMs;
+                    if (remaining > sliceMs)
+                        _pendingPcSpeakerPercussion.Enqueue((pending.Hit, remaining - sliceMs));
                 }
-
-                NotePlayer.StopAllNotes();
             }
 
-            int remainingMelodyMs = Math.Max(0, totalFrameDuration - drumTimeUsed);
+            double songNowMs = _playbackStartOffsetMs +
+                _playbackStopwatch.Elapsed.TotalMilliseconds;
+            int clockRemainingMs = (int)Math.Max(0, Math.Min(
+                int.MaxValue, Math.Floor(frameEndMs - songNowMs)));
+            int remainingMelodyMs = Math.Max(0,
+                Math.Min(totalFrameDuration - drumTimeUsed, clockRemainingMs));
             if (hasMelody && remainingMelodyMs > 0)
             {
                 UpdateAudioNoteIndicators(
@@ -3390,14 +3385,19 @@ namespace NeoBleeper
                 frameAudio.PercussionEvents;
 
             // MIDI channel 10 percussion is independent of melodic pitches.
-            // Preserve ALL drum hits, even when kick/snare/hi-hat share a tick or
-            // share a MIDI note number with a melody on another channel.
-            // Queue first: if an overloaded frame has no audio time left, these
-            // attacks are still eligible for the following frame.
-            foreach (NoteOnEvent hit in percussionEvents
-                .OrderByDescending(e => GetDrumPriorityScore(e.NoteNumber, e.Velocity)))
+            // When several drums start at the same tick, play ONLY the most
+            // important one (kick/snare/accent/tom/hat, adjusted by velocity).
+            // Replace any unfinished older drum tail with the new best hit.
+            // No percussion is queued behind another hit, even during fast songs.
+            if (percussionEvents.Count > 0)
             {
-                _pendingPcSpeakerPercussion.Enqueue(hit);
+                NoteOnEvent bestHit = percussionEvents
+                    .OrderByDescending(e => GetDrumPriorityScore(e.NoteNumber, e.Velocity))
+                    .ThenByDescending(e => e.Velocity)
+                    .ThenBy(e => e.NoteNumber)
+                    .First();
+                _pendingPcSpeakerPercussion.Clear();
+                _pendingPcSpeakerPercussion.Enqueue((bestHit, 0));
             }
 
             // Calculate the true MIDI frame boundaries. The playback stopwatch
@@ -3435,14 +3435,9 @@ namespace NeoBleeper
             if (hasAudibleContent && remainingMs > 0.0 && durationMsInt == 0)
                 durationMsInt = 1;
 
-            if (durationMsInt < MinimumPercussionAttackMs &&
-                _pendingPcSpeakerPercussion.Count > 0)
-            {
-                // The attack is still important even when the melody frame is
-                // expired. A drum at an exact tick must not disappear merely
-                // because the timer worker arrived a few milliseconds late.
-                durationMsInt = MinimumPercussionAttackMs;
-            }
+            // Never extend an already-expired MIDI frame by forcing a 10-ms
+            // percussion attack. Doing so consumes time reserved for the NEXT
+            // melodic note. The pending hit stays available for a later frame.
 
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
@@ -3468,7 +3463,7 @@ namespace NeoBleeper
                 return;
             }
 
-            // --- Melody and every queued drum hit share the single PC speaker ---
+            // --- Melody and the single selected drum share the PC speaker ---
             // Preserve note identity/order between the MIDI note and frequency arrays.
             int[] midiNotesToPlay = filteredNotes.ToArray();
             int[] frequenciesToPlay = midiNotesToPlay
@@ -3480,6 +3475,7 @@ namespace NeoBleeper
                 filteredNotes,
                 midiNotesToPlay,
                 durationMsInt,
+                frameEndMs,
                 token).ConfigureAwait(false);
 
         }
@@ -4052,8 +4048,8 @@ namespace NeoBleeper
         }
 
 
-        // Prioritize major rhythmic accents when several hits share one tick.
-        // All hits are still queued and played; priority only sets their order.
+        // Prioritize the most rhythmically important audible hit at each tick.
+        // All other simultaneous hits are discarded for PC-speaker output.
         private static double GetDrumPriorityScore(int noteNumber, int velocity)
         {
             int basePriority;
