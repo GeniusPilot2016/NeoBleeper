@@ -167,6 +167,9 @@ namespace NeoBleeper
             NotePlayer.StopAllNotes();
             NotePlayer.StopMicrocontrollerSound();
             MIDIIOUtils.StopAllNotes();
+            // Also discard buffered drum tails and their NoteOn identity on stop/seek.
+            // Otherwise a previous hit may linger in the sound device mixer after restart.
+            PercussionSounds.StopAllSoundDevicePercussion();
         }
 
         /// <summary>
@@ -2434,7 +2437,9 @@ namespace NeoBleeper
             }
         }
 
-        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, int velocity = 100, bool enforceMinimumAudibleBody = true)
+        // The original MIDI NoteOnEvent stays identical for every slice of one drum hit.
+        // Forward it so the synthesis engine never turns a continuing tail into a new attack.
+        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, int velocity = 100, bool enforceMinimumAudibleBody = true, object? hitIdentity = null)
         {
             if (TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
@@ -2461,7 +2466,8 @@ namespace NeoBleeper
                         playDuration,
                         token,
                         velocity: velocity,
-                        enforceMinimumAudibleBody: enforceMinimumAudibleBody).ConfigureAwait(false);
+                        enforceMinimumAudibleBody: enforceMinimumAudibleBody,
+                        hitIdentity: hitIdentity).ConfigureAwait(false);
                 }
 
                 int silence = Math.Max(0, duration - playDuration);
@@ -3276,7 +3282,8 @@ namespace NeoBleeper
                         if (audibleMs > 0)
                         {
                             await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
-                                velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                                velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false,
+                                hitIdentity: pending.Hit).ConfigureAwait(false);
                         }
                         drumTimeUsed = audibleMs;
                     }
@@ -3297,7 +3304,8 @@ namespace NeoBleeper
                             if (audibleMs > 0)
                             {
                                 await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
-                                    velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                                    velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false,
+                                    hitIdentity: pending.Hit).ConfigureAwait(false);
                             }
                             int silentMs = windowMs - audibleMs;
                             if (silentMs > 0)
@@ -3412,7 +3420,8 @@ namespace NeoBleeper
                         playDuration,
                         token,
                         velocity: drum.Velocity,
-                        enforceMinimumAudibleBody: true);
+                        enforceMinimumAudibleBody: true,
+                        hitIdentity: drum);
                 })
                 .ToArray();
 

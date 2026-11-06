@@ -328,6 +328,9 @@ namespace NeoBleeper
         // Sound Device and System Speaker.
         private static readonly object _blendHitLock = new object();
         private static MidiPercussion? _blendHitPercussion;
+        // When supplied by the MIDI player, this is the original NoteOn event reference.
+        // Time-gap heuristics are unreliable because one hit can be split around melody.
+        private static object? _blendHitIdentity;
         private static double _blendHitStartMs;
         private static double _blendHitEndMs;
         private static double _blendLastSliceEndMs;
@@ -531,6 +534,7 @@ namespace NeoBleeper
             public readonly int Velocity;
             public readonly int RandomSeed;
             public readonly TaskCompletionSource<bool>? Completion;
+            public readonly object? HitIdentity;
 
             /// <summary>
             /// Pitch (Hz) of the melody note that shares this slice. 0 = no melody note
@@ -547,7 +551,8 @@ namespace NeoBleeper
                 PercussionProfile profile,
                 int velocity,
                 TaskCompletionSource<bool>? completion,
-                double noteFrequencyHz = 0.0)
+                double noteFrequencyHz = 0.0,
+                object? hitIdentity = null)
             {
                 Percussion = percussion;
                 CancellationToken = cancellationToken;
@@ -558,6 +563,7 @@ namespace NeoBleeper
                 Velocity = Math.Clamp(velocity, 1, 127);
                 RandomSeed = Random.Shared.Next();
                 Completion = completion;
+                HitIdentity = hitIdentity;
                 NoteFrequencyHz = noteFrequencyHz > 0.0 ? noteFrequencyHz : 0.0;
             }
         }
@@ -720,6 +726,7 @@ namespace NeoBleeper
             lock (_blendHitLock)
             {
                 _blendHitPercussion = null;
+                _blendHitIdentity = null;
                 _blendHitEndMs = 0.0;
                 _blendHitStartMs = 0.0;
                 _blendLastSliceEndMs = 0.0;
@@ -1406,7 +1413,8 @@ namespace NeoBleeper
             CancellationToken ct = default,
             int velocity = 100,
             bool enforceMinimumAudibleBody = true,
-            double noteFrequencyHz = 0.0)
+            double noteFrequencyHz = 0.0,
+            object? hitIdentity = null)
         {
             if (ct.IsCancellationRequested || sliceDurationMs <= 0)
                 return;
@@ -1422,7 +1430,7 @@ namespace NeoBleeper
 
             var request = new PercussionRequest(
                 p, ct, audibleDurationMs, sliceDurationMs, output, prof, velocity,
-                completion, noteFrequencyHz);
+                completion, noteFrequencyHz, hitIdentity);
 
             bool isNotePercussionBlendSlice = !enforceMinimumAudibleBody;
 
@@ -1834,16 +1842,26 @@ namespace NeoBleeper
         {
             lock (_blendHitLock)
             {
-                // The 3 ms tolerance is the gap allowed between slices of the same note.
+                // MIDI playback supplies a stable identity for the ORIGINAL NoteOn.
+                // Its slices can be separated by tens of ms of melody or velocity gating;
+                // this does NOT mean another drum was struck. No timer-based tolerance
+                // can distinguish a resumed tail from an intentional repeated NoteOn.
+                // A different event identity always starts a fresh hit, even if its
+                // instrument and velocity match the preceding hit exactly.
+                // Other callers without identities retain their old timed-run behavior.
                 bool sameRun =
-    _blendHitPercussion == request.Percussion &&
-    _blendDrumRequest != null &&
-    _blendDrumRequest.Velocity == request.Velocity &&   // <-- new: a different velocity is a new hit
-    sliceStartMs - _blendLastSliceEndMs < 3.0 &&
-    sliceStartMs < _blendHitEndMs;
+                    _blendHitPercussion == request.Percussion &&
+                    _blendDrumRequest != null &&
+                    _blendDrumRequest.Velocity == request.Velocity &&
+                    (request.HitIdentity != null
+                        ? ReferenceEquals(_blendHitIdentity, request.HitIdentity)
+                        : _blendHitIdentity == null &&
+                          sliceStartMs - _blendLastSliceEndMs < 3.0 &&
+                          sliceStartMs < _blendHitEndMs);
 
                 if (!sameRun)
                 {
+                    _blendHitIdentity = request.HitIdentity;
                     _blendHitPercussion = request.Percussion;
                     _blendHitStartMs = sliceStartMs;
                     _blendHitEndMs = sliceStartMs + naturalMs;
