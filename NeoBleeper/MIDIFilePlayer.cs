@@ -41,22 +41,6 @@ namespace NeoBleeper
             public List<NoteOnEvent> PercussionEvents { get; init; } = new List<NoteOnEvent>();
         }
 
-        // The PC speaker can play only one percussion at a time. Select the
-        // highest-priority hit at each MIDI tick and carry only its unfinished
-        // duration between frames. A new hit replaces the old tail, so weaker
-        // simultaneous hits cannot build an audio backlog and starve melody.
-        // Only the playback worker consumes this queue; Stop/Seek clears it after
-        // the worker has been cancelled and joined.
-        // VelocityCarry is the fractional audible-time accumulator for this
-        // particular hit. Storing it with the queued tail avoids leaking a
-        // previous drum's velocity into a newly selected attack.
-        private readonly Queue<(NoteOnEvent Hit, int RemainingMs, int VelocityCarry)> _pendingPcSpeakerPercussion = new();
-        private HashSet<NoteOnEvent> _percussionNoteOnEvents = new();
-        private readonly HashSet<int> _loggedPercussionFallbacks = new();
-        private const int MinimumPercussionAttackMs = 10;
-        private const int PercussionVelocityScale = 127;
-        private const int PercussionVelocityGateWindowMs = 12;
-
         bool darkTheme = false;
         private bool _isAlternatingPlayback = false;
         bool isPlaying = false;
@@ -167,9 +151,6 @@ namespace NeoBleeper
             NotePlayer.StopAllNotes();
             NotePlayer.StopMicrocontrollerSound();
             MIDIIOUtils.StopAllNotes();
-            // Also discard buffered drum tails and their NoteOn identity on stop/seek.
-            // Otherwise a previous hit may linger in the sound device mixer after restart.
-            PercussionSounds.StopAllSoundDevicePercussion();
         }
 
         /// <summary>
@@ -1146,8 +1127,6 @@ namespace NeoBleeper
                 var localNoteChannels = new Dictionary<int, int>();
                 var localChannelsWithNotes = new HashSet<int>();
                 var localEventsByTime = new Dictionary<long, List<MidiEvent>>();
-                var localPercussionNoteOns = new HashSet<NoteOnEvent>();
-                var localPercussionEventKeys = new HashSet<(long Time, int Channel, int Note, bool IsNoteOn)>();
                 var localMetaDict = new Dictionary<long, List<MetaEvent>>();
                 var localSysExDict = new Dictionary<long, List<byte[]>>();
                 var localFrames = new List<(long Time, HashSet<int> ActiveNotes)>();
@@ -1293,118 +1272,6 @@ namespace NeoBleeper
                     SafeUpdateProgressBar(55, Resources.TextEventsAreBeingSorted, loadToken);
                     allEvents = allEvents.OrderBy(e => e.Time).ToList();
 
-                    // Some exported MIDIs have a stray final NoteOff far beyond the
-                    // declared ending shared by almost every track. For example,
-                    // Bohemian-Rhapsody-1.mid has 15 tracks ending at tick 233088,
-                    // while one bass NoteOff does not arrive until tick 265784.
-                    // Do NOT treat arbitrary long notes as stuck: only trim an
-                    // isolated late release when >=75% of at least 3 tracks agree
-                    // on EndOfTrack, no new notes start after that point, and the
-                    // late release is separated by at least eight quarter notes.
-                    long? orphanTailCutoffTick = null;
-                    var declaredTrackEnds = new List<long>();
-                    foreach (var track in localMidiFile.Events)
-                    {
-                        foreach (var midiEvent in track)
-                        {
-                            // MIDI EndOfTrack meta type 0x2F.
-                            if (midiEvent is MetaEvent meta && (int)meta.MetaEventType == 0x2F)
-                                declaredTrackEnds.Add(meta.AbsoluteTime);
-                        }
-                    }
-
-                    if (declaredTrackEnds.Count >= 3)
-                    {
-                        var dominantEnd = declaredTrackEnds
-                            .GroupBy(tick => tick)
-                            .OrderByDescending(group => group.Count())
-                            .First();
-                        long declaredEndTick = dominantEnd.Key;
-                        var lateNotes = allEvents
-                            .Where(e => e.Time > declaredEndTick)
-                            .ToList();
-
-                        if (dominantEnd.Count() * 4 >= declaredTrackEnds.Count * 3 &&
-                            lateNotes.Count is >= 1 and <= 2 &&
-                            lateNotes.All(e => !e.IsNoteOn) &&
-                            lateNotes[lateNotes.Count - 1].Time - declaredEndTick >=
-                                (long)Math.Max(1, localTicksPerQuarterNote) * 8)
-                        {
-                            orphanTailCutoffTick = declaredEndTick;
-                            allEvents.RemoveAll(e => e.Time > declaredEndTick);
-                            foreach (long tick in localEventsByTime.Keys.Where(t => t > declaredEndTick).ToList())
-                                localEventsByTime.Remove(tick);
-                            foreach (long tick in localMetaDict.Keys.Where(t => t > declaredEndTick).ToList())
-                                localMetaDict.Remove(tick);
-                            foreach (long tick in localSysExDict.Keys.Where(t => t > declaredEndTick).ToList())
-                                localSysExDict.Remove(tick);
-
-                            Logger.Log(
-                                $"Ignored isolated delayed MIDI NoteOff tail past tick {declaredEndTick}; " +
-                                $"{lateNotes.Count} trailing release event(s).",
-                                Logger.LogTypes.Info);
-                        }
-                    }
-
-                    // GM always uses channel 10 for percussion. GM2 and Yamaha XG
-                    // can also assign a drum kit to ANOTHER channel through Bank
-                    // Select MSB (CC 0): 120 (GM2) or 127 (XG). The old loader
-                    // treated all those extra drum hits as pitched melody notes.
-                    // Resolve banks in event-time order, across all MIDI tracks.
-                    var bankMsbByChannel = new int[17];
-                    foreach (long tick in localEventsByTime.Keys.OrderBy(t => t))
-                    {
-                        List<MidiEvent> tickEvents = localEventsByTime[tick];
-                        // A bank change at this tick applies to NoteOns at this tick,
-                        // even when it came from a different SMF track.
-                        foreach (MidiEvent evt in tickEvents)
-                        {
-                            if (evt is ControlChangeEvent cc &&
-                                cc.Channel is >= 1 and <= 16 &&
-                                (int)cc.Controller == 0)
-                            {
-                                bankMsbByChannel[cc.Channel] = cc.ControllerValue;
-                            }
-                        }
-
-                        foreach (MidiEvent evt in tickEvents)
-                        {
-                            if (evt is not NoteEvent note ||
-                                note.Channel is < 1 or > 16)
-                                continue;
-
-                            bool isNoteOn = evt is NoteOnEvent on && on.Velocity > 0;
-                            bool isPercussion = note.Channel == 10 ||
-                                bankMsbByChannel[note.Channel] is 120 or 127;
-                            if (!isPercussion)
-                                continue;
-
-                            localPercussionEventKeys.Add((
-                                tick, note.Channel, note.NoteNumber, isNoteOn));
-                            if (isNoteOn)
-                                localPercussionNoteOns.Add((NoteOnEvent)evt);
-                        }
-                    }
-
-                    // Rebuild pitch-to-channel mapping without ANY drum-bank
-                    // events, not just channel 10. (The frame model remains a
-                    // note-number-only HashSet for melodic voices.)
-                    localNoteChannels.Clear();
-                    foreach (var evt in allEvents)
-                    {
-                        if (evt.Channel == 10 ||
-                            localPercussionEventKeys.Contains((
-                                evt.Time, evt.Channel, evt.NoteNumber, evt.IsNoteOn)))
-                            continue;
-                        if (evt.IsNoteOn || !localNoteChannels.ContainsKey(evt.NoteNumber))
-                            localNoteChannels[evt.NoteNumber] = evt.Channel;
-                    }
-
-                    Logger.Log(
-                        $"Detected {localPercussionNoteOns.Count} MIDI percussion NoteOn events on " +
-                        $"channel(s): {string.Join(", ", localPercussionNoteOns.Select(n => n.Channel).Distinct().OrderBy(c => c))}.",
-                        Logger.LogTypes.Info);
-
                     var noteEventsByTime = allEvents.GroupBy(e => e.Time);
                     foreach (var timeGroup in noteEventsByTime)
                     {
@@ -1419,12 +1286,6 @@ namespace NeoBleeper
 
                     var timePoints = allEvents.Select(e => e.Time)
                                               .Concat(localMetaDict.Keys)
-                                              // Always insert a silent release frame at
-                                              // the true song ending when a delayed
-                                              // orphan NoteOff was trimmed.
-                                              .Concat(orphanTailCutoffTick.HasValue
-                                                  ? new[] { orphanTailCutoffTick.Value }
-                                                  : Enumerable.Empty<long>())
                                               .Distinct()
                                               .OrderBy(t => t)
                                               .ToList();
@@ -1465,9 +1326,7 @@ namespace NeoBleeper
 
                             // Channel 10 is percussion and must never participate in
                             // the persistent melodic ActiveNotes state.
-                            if (evt.Channel == 10 ||
-                                localPercussionEventKeys.Contains((
-                                    evt.Time, evt.Channel, evt.NoteNumber, evt.IsNoteOn)))
+                            if (evt.Channel == 10)
                                 continue;
 
                             if (evt.IsNoteOn)
@@ -1475,11 +1334,6 @@ namespace NeoBleeper
                             else
                                 currentlyActiveNotes.Remove(evt.NoteNumber);
                         }
-
-                        // A clipped orphan tail must never remain in the held-note
-                        // snapshot after the consensus EndOfTrack tick.
-                        if (orphanTailCutoffTick.HasValue && time >= orphanTailCutoffTick.Value)
-                            currentlyActiveNotes.Clear();
 
                         localFrames.Add((time, new HashSet<int>(currentlyActiveNotes)));
 
@@ -1548,14 +1402,11 @@ namespace NeoBleeper
                 _noteChannels = localNoteChannels;
                 _channelsWithNotes = localChannelsWithNotes;
                 _eventsByTime = localEventsByTime;
-                _percussionNoteOnEvents = localPercussionNoteOns;
-                _loggedPercussionFallbacks.Clear();
                 _metaEventsByTime = localMetaDict;
                 _sysExEventsByTime = localSysExDict;
                 _sysExDisplayEventTimes = localSysExDict.Keys.OrderBy(t => t).ToList();
                 _frames = localFrames;
                 _alternationVoiceCursor = 0;
-                _pendingPcSpeakerPercussion.Clear();
                 _rearticulatedNotes = localRearticulatedNotes;
                 lyricsChunkCount = localLyricsCount;
                 sysExEventCount = localSysExCount;
@@ -1892,12 +1743,6 @@ namespace NeoBleeper
                     // A concurrent completion path may already have disposed it.
                 }
 
-                // PlayNoteWithoutGap deliberately retains the current tone between
-                // frames. Do not wait for an in-flight long frame before silencing
-                // the physical speaker and microcontroller on Stop/Seek.
-                StopNotesImmediately();
-                MIDIIOUtils.SendNoteOffToAllNotes();
-
                 Task playbackTask = _playbackTask;
                 if (playbackTask != null && !playbackTask.IsCompleted)
                 {
@@ -1914,9 +1759,6 @@ namespace NeoBleeper
                         Logger.Log($"Playback task ended while stopping: {ex.Message}", Logger.LogTypes.Error);
                     }
                 }
-
-                // The stopped worker can no longer consume queued drum hits.
-                _pendingPcSpeakerPercussion.Clear();
 
                 // Bump again: the awaited playbackTask can itself have queued one
                 // final note-indicator BeginInvoke right before it observed
@@ -1961,8 +1803,6 @@ namespace NeoBleeper
                 label_more_notes.Visible = false;
                 ClearLyrics();
                 ResetSysExDisplayState();
-                // Cancelled frame workers cannot leave a new tone behind.
-                StopNotesImmediately();
                 MIDIIOUtils.SendNoteOffToAllNotes();
             }
             catch (Exception ex)
@@ -1971,8 +1811,6 @@ namespace NeoBleeper
             }
             finally
             {
-                // Guarantee hardware silence even if part of StopCore failed.
-                StopNotesImmediately();
                 _isPlaying = false;
                 _isAlternatingPlayback = false;
                 SetPlaybackButtonState(isPlaying: false);
@@ -2110,7 +1948,6 @@ namespace NeoBleeper
 
             _currentFrameIndex = newFrameIndex;
             _alternationVoiceCursor = 0;
-            _pendingPcSpeakerPercussion.Clear();
             _playbackStartOffsetMs = targetMs;
             _pendingExactSeekMs = targetMs;
             _playbackStopwatch?.Reset();
@@ -2380,8 +2217,7 @@ namespace NeoBleeper
                     percussion,
                     totalDurationMs,
                     token,
-                    velocity: percussionVelocity,
-                    enforceMinimumAudibleBody: true).ConfigureAwait(false);
+                    velocity: percussionVelocity).ConfigureAwait(false);
                 return;
             }
 
@@ -2413,8 +2249,8 @@ namespace NeoBleeper
                 percussion,
                 percussionSlice,
                 token,
-                velocity: percussionVelocity,
-                enforceMinimumAudibleBody: false).ConfigureAwait(false);
+                enforceMinimumAudibleBody: false,
+                velocity: percussionVelocity).ConfigureAwait(false);
 
             NotePlayer.StopAllNotes();
 
@@ -2437,9 +2273,7 @@ namespace NeoBleeper
             }
         }
 
-        // The original MIDI NoteOnEvent stays identical for every slice of one drum hit.
-        // Forward it so the synthesis engine never turns a continuing tail into a new attack.
-        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, int velocity = 100, bool enforceMinimumAudibleBody = true, object? hitIdentity = null)
+        private async Task PlayOnlyPercussionAsync(PercussionSounds.MidiPercussion percussion, int duration, CancellationToken token, bool enforceMinimumAudibleBody = true, int velocity = 100)
         {
             if (TemporarySettings.CreatingSounds.isPlaybackMuted)
             {
@@ -2451,11 +2285,7 @@ namespace NeoBleeper
             }
 
             int naturalDuration = PercussionSounds.GetNaturalDurationMs(percussion);
-            // Percussive attacks shorter than the hardware/sound-device minimum
-            // are often inaudible. Never shorten a valid hit below 10 ms here.
-            int playDuration = naturalDuration > 0
-                ? Math.Min(duration, Math.Max(naturalDuration, MinimumPercussionAttackMs))
-                : 0;
+            int playDuration = Math.Min(duration, naturalDuration);
 
             try
             {
@@ -2465,9 +2295,7 @@ namespace NeoBleeper
                         percussion,
                         playDuration,
                         token,
-                        velocity: velocity,
-                        enforceMinimumAudibleBody: enforceMinimumAudibleBody,
-                        hitIdentity: hitIdentity).ConfigureAwait(false);
+                        enforceMinimumAudibleBody: enforceMinimumAudibleBody).ConfigureAwait(false);
                 }
 
                 int silence = Math.Max(0, duration - playDuration);
@@ -3186,13 +3014,12 @@ namespace NeoBleeper
 
             List<NoteOnEvent> percussion = new List<NoteOnEvent>();
 
-            if (_eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime))
+            if (_eventsByTime.TryGetValue(currentTime, out var eventsAtThisTime) &&
+                _enabledChannels.Contains(10))
             {
                 percussion = eventsAtThisTime
                     .OfType<NoteOnEvent>()
-                    .Where(e => e.Velocity > 0 &&
-                                _enabledChannels.Contains(e.Channel) &&
-                                (e.Channel == 10 || _percussionNoteOnEvents.Contains(e)))
+                    .Where(e => e.Channel == 10 && e.Velocity > 0)
                     .ToList();
             }
 
@@ -3203,192 +3030,68 @@ namespace NeoBleeper
             };
         }
 
-        /// <summary>
-        /// Convert GM MIDI velocity (1..127) to the audible part of a short
-        /// PC-speaker time window. The hardware output is binary, not a mixer
-        /// with a gain knob, so sound density is our best per-hit dynamic proxy.
-        /// Fractional remainder is carried across windows/frames so low
-        /// velocities are not rounded up to full volume on short MIDI frames.
-        /// </summary>
-        private static int GetVelocityGatedDurationMs(
-            int windowMs,
-            int velocity,
-            ref int carry)
+        private NoteOnEvent SelectPercussionForPcSpeaker(
+            IReadOnlyList<NoteOnEvent> percussionEvents,
+            HashSet<int> melodicNotes)
         {
-            if (windowMs <= 0 || velocity <= 0)
-                return 0;
+            if (percussionEvents == null || percussionEvents.Count == 0)
+                return null;
 
-            int clampedVelocity = Math.Clamp(velocity, 1, PercussionVelocityScale);
-            long weighted = (long)carry + (long)windowMs * clampedVelocity;
-            int audibleMs = (int)Math.Min(windowMs, weighted / PercussionVelocityScale);
-            carry = (int)(weighted % PercussionVelocityScale);
-            return audibleMs;
+            List<NoteOnEvent> nonColliding = percussionEvents
+                .Where(drum => melodicNotes == null ||
+                               !melodicNotes.Contains(drum.NoteNumber))
+                .ToList();
+
+            IReadOnlyList<NoteOnEvent> candidates =
+                nonColliding.Count > 0
+                    ? nonColliding
+                    : percussionEvents;
+
+            return PickBestDrumEvent(candidates);
         }
 
-        /// <summary>
-        /// Keep one selected drum hit alive across short MIDI frames while
-        /// reserving the majority of each frame for the melody. New drum hits
-        /// preempt any unfinished tail; simultaneous hits are never serialized.
-        /// The drum's natural duration is measured in elapsed time, independently
-        /// of velocity: a quiet cymbal does not lose its tail or last longer.
-        /// </summary>
         private async Task PlayPcSpeakerFrameAsync(
             int[] frequencies,
             HashSet<int> melodicNotes,
             int[] midiNotes,
+            NoteOnEvent drumEvent,
             int totalFrameDuration,
-            double frameEndMs,
+            long currentTime,
             CancellationToken token)
         {
-            bool hasMelody = frequencies.Length > 0;
-            int drumTimeUsed = 0;
-
-            // The PC speaker is monophonic. A full cymbal tail cannot be played
-            // uninterrupted alongside melody. Spread its duration across frames
-            // instead of blocking the playback worker for the entire tail.
-            double nowMs = _playbackStartOffsetMs +
-                _playbackStopwatch.Elapsed.TotalMilliseconds;
-            int availableMs = (int)Math.Max(0, Math.Min(
-                totalFrameDuration, Math.Floor(frameEndMs - nowMs)));
-            int drumBudgetMs = hasMelody
-                ? Math.Min(availableMs, Math.Max(1, availableMs / 4))
-                : availableMs;
-
-            // Process at most ONE selected percussion per frame. Preserve its
-            // natural elapsed-time tail, but use MIDI velocity to control how
-            // much of each drum window actually sounds. A physical PC speaker
-            // cannot vary PCM sample amplitude: gated PWM/noise density is used.
-            if (_pendingPcSpeakerPercussion.Count > 0 && drumBudgetMs > 0)
+            if (drumEvent != null && frequencies.Length > 0)
             {
-                token.ThrowIfCancellationRequested();
-                var pending = _pendingPcSpeakerPercussion.Dequeue();
-                var resolved = ResolvePlayablePercussion(pending.Hit.NoteNumber);
-                if (resolved.HasValue)
-                {
-                    int remaining = pending.RemainingMs > 0
-                        ? pending.RemainingMs
-                        : Math.Max(MinimumPercussionAttackMs,
-                            PercussionSounds.GetNaturalDurationMs(resolved.Value));
-                    int sliceMs = Math.Min(remaining, drumBudgetMs);
-                    int carry = pending.VelocityCarry;
-
-                    if (hasMelody)
-                    {
-                        // Keep the spare part of the drum budget available to
-                        // melody immediately; never wait through artificial
-                        // silence while there are held notes to play.
-                        int audibleMs = GetVelocityGatedDurationMs(
-                            sliceMs, pending.Hit.Velocity, ref carry);
-                        if (audibleMs > 0)
-                        {
-                            await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
-                                velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false,
-                                hitIdentity: pending.Hit).ConfigureAwait(false);
-                        }
-                        drumTimeUsed = audibleMs;
-                    }
-                    else
-                    {
-                        // With no melody, space the audible bursts across the
-                        // tail instead of playing one loud burst followed by a
-                        // large silence. Keep windows coarse to avoid creating
-                        // thousands of tiny async sound-device operations.
-                        int elapsed = 0;
-                        while (elapsed < sliceMs)
-                        {
-                            token.ThrowIfCancellationRequested();
-                            int windowMs = Math.Min(
-                                PercussionVelocityGateWindowMs, sliceMs - elapsed);
-                            int audibleMs = GetVelocityGatedDurationMs(
-                                windowMs, pending.Hit.Velocity, ref carry);
-                            if (audibleMs > 0)
-                            {
-                                await PlayOnlyPercussionAsync(resolved.Value, audibleMs, token,
-                                    velocity: pending.Hit.Velocity, enforceMinimumAudibleBody: false,
-                                    hitIdentity: pending.Hit).ConfigureAwait(false);
-                            }
-                            int silentMs = windowMs - audibleMs;
-                            if (silentMs > 0)
-                            {
-                                NotePlayer.StopAllNotes();
-                                NotePlayer.StopMicrocontrollerSound();
-                                await HighPrecisionSleep.SleepAsync(silentMs).ConfigureAwait(false);
-                            }
-                            elapsed += windowMs;
-                        }
-                        drumTimeUsed = sliceMs;
-                    }
-
-                    // Debit the whole elapsed drum window, not just the audible
-                    // portion. Velocity therefore changes intensity, NOT the
-                    // percussion's natural duration (and cannot extend a tail).
-                    if (remaining > sliceMs)
-                        _pendingPcSpeakerPercussion.Enqueue(
-                            (pending.Hit, remaining - sliceMs, carry));
-                }
+                await PlayNotesAndPercussionAlternatingAsync(
+                    frequencies,
+                    melodicNotes,
+                    midiNotes,
+                    (PercussionSounds.MidiPercussion)drumEvent.NoteNumber,
+                    totalFrameDuration,
+                    currentTime,
+                    token,
+                    drumEvent.Velocity).ConfigureAwait(false);
             }
-
-            double songNowMs = _playbackStartOffsetMs +
-                _playbackStopwatch.Elapsed.TotalMilliseconds;
-            int clockRemainingMs = (int)Math.Max(0, Math.Min(
-                int.MaxValue, Math.Floor(frameEndMs - songNowMs)));
-            int remainingMelodyMs = Math.Max(0,
-                Math.Min(totalFrameDuration - drumTimeUsed, clockRemainingMs));
-            if (hasMelody && remainingMelodyMs > 0)
-            {
-                UpdateAudioNoteIndicators(
-                    melodicNotes, null,
-                    highlightSoundingOnly: frequencies.Length > 1);
-                await PlayMelodySliceAsync(
-                    frequencies, remainingMelodyMs, token, midiNotes).ConfigureAwait(false);
-            }
-            else if (!hasMelody)
+            else if (drumEvent != null)
             {
                 UpdateAudioNoteIndicators(new HashSet<int>());
+
+                await PlayOnlyPercussionAsync(
+                    (PercussionSounds.MidiPercussion)drumEvent.NoteNumber,
+                    totalFrameDuration,
+                    token,
+                    velocity: drumEvent.Velocity).ConfigureAwait(false);
             }
-        }
-
-        // Preserve every known GM percussion identity. If the file requests a
-        // non-GM extension whose enum/duration is not implemented, approximate
-        // it using a supported kit voice instead of silently playing nothing.
-        private PercussionSounds.MidiPercussion? ResolvePlayablePercussion(int midiNote)
-        {
-            var requested = (PercussionSounds.MidiPercussion)midiNote;
-            if (Enum.IsDefined(typeof(PercussionSounds.MidiPercussion), requested) &&
-                PercussionSounds.GetNaturalDurationMs(requested) > 0)
-                return requested;
-
-            int family = midiNote switch
+            else
             {
-                <= 36 => 36, // kick
-                <= 40 => 38, // snare/hand clap
-                <= 50 => 45, // tom / hat
-                <= 59 => 49, // cymbal
-                <= 68 => 38, // auxiliary hand percussion
-                _ => 42       // high percussion, shaker, bells
-            };
+                UpdateAudioNoteIndicators(
+                    melodicNotes, null, highlightSoundingOnly: frequencies.Length > 1);
 
-            foreach (int fallback in new[] { family, 42, 38, 36, 49, 45 })
-            {
-                var candidate = (PercussionSounds.MidiPercussion)fallback;
-                if (!Enum.IsDefined(typeof(PercussionSounds.MidiPercussion), candidate) ||
-                    PercussionSounds.GetNaturalDurationMs(candidate) <= 0)
-                    continue;
-
-                if (_loggedPercussionFallbacks.Add(midiNote))
-                    Logger.Log(
-                        $"MIDI percussion note {midiNote} has no implemented sound; " +
-                        $"using percussion {fallback} as an audible substitute.",
-                        Logger.LogTypes.Warning);
-                return candidate;
+                await PlayMelodySliceAsync(
+                    frequencies,
+                    totalFrameDuration,
+                    token,
+                    midiNotes).ConfigureAwait(false);
             }
-
-            if (_loggedPercussionFallbacks.Add(midiNote))
-                Logger.Log(
-                    $"MIDI percussion note {midiNote} could not play: " +
-                    "no usable percussion sound is available in PercussionSounds.",
-                    Logger.LogTypes.Warning);
-            return null;
         }
 
         private async Task PlayPolyphonicPercussionAsync(
@@ -3403,18 +3106,7 @@ namespace NeoBleeper
                 return;
             }
 
-            // A physical system speaker has one voice. Starting one PWM worker
-            // per simultaneous drum makes their StartBeep/StopBeep calls cancel
-            // each other and can result in silence. Keep full polyphony for the
-            // sound device, but select the strongest hit for the system speaker.
-            IEnumerable<NoteOnEvent> eventsToPlay =
-                TemporarySettings.CreatingSounds.createBeepWithSoundDevice
-                    ? percussionEvents
-                    : percussionEvents
-                        .OrderByDescending(drum => drum.Velocity)
-                        .Take(1);
-
-            Task[] tasks = eventsToPlay
+            Task[] tasks = percussionEvents
                 .Select(drum =>
                 {
                     var percussion =
@@ -3430,9 +3122,7 @@ namespace NeoBleeper
                         percussion,
                         playDuration,
                         token,
-                        velocity: drum.Velocity,
-                        enforceMinimumAudibleBody: true,
-                        hitIdentity: drum);
+                        enforceMinimumAudibleBody: true);
                 })
                 .ToArray();
 
@@ -3484,25 +3174,12 @@ namespace NeoBleeper
             IReadOnlyList<NoteOnEvent> percussionEvents =
                 frameAudio.PercussionEvents;
 
-            // MIDI channel 10 percussion is independent of melodic pitches.
-            // When several drums start at the same tick, play ONLY the most
-            // important one (kick/snare/accent/tom/hat, adjusted by velocity).
-            // Replace any unfinished older drum tail with the new best hit.
-            // No percussion is queued behind another hit, even during fast songs.
-            if (percussionEvents.Count > 0)
-            {
-                NoteOnEvent bestHit = percussionEvents
-                    .OrderByDescending(e => GetDrumPriorityScore(e.NoteNumber, e.Velocity))
-                    .ThenByDescending(e => e.Velocity)
-                    .ThenBy(e => e.NoteNumber)
-                    .First();
-                _pendingPcSpeakerPercussion.Clear();
-                // Precharge only this new hit's first fractional window so
-                // even very quiet positive-velocity attacks can be heard.
-                int firstWindowCarry = PercussionVelocityScale -
-                    Math.Clamp(bestHit.Velocity, 1, PercussionVelocityScale);
-                _pendingPcSpeakerPercussion.Enqueue((bestHit, 0, firstWindowCarry));
-            }
+            // PC speaker is monophonic. Keep all percussion in the common frame
+            // representation, and reduce only here for this backend.
+            NoteOnEvent drumEvent =
+                SelectPercussionForPcSpeaker(
+                    percussionEvents,
+                    filteredNotes);
 
             // Calculate the true MIDI frame boundaries. The playback stopwatch
             // is authoritative; never add old scheduling overruns to future note
@@ -3526,8 +3203,7 @@ namespace NeoBleeper
             }
 
             double remainingMs = Math.Max(0.0, frameEndMs - dispatchStartMs);
-            bool hasAudibleContent = filteredNotes.Count > 0 ||
-                _pendingPcSpeakerPercussion.Count > 0;
+            bool hasAudibleContent = filteredNotes.Count > 0 || drumEvent != null;
 
             // An integer-ms note interface cannot represent fractional lengths.
             // Prefer flooring so rounding does not systematically add duration.
@@ -3538,10 +3214,6 @@ namespace NeoBleeper
                 : (int)Math.Floor(remainingMs);
             if (hasAudibleContent && remainingMs > 0.0 && durationMsInt == 0)
                 durationMsInt = 1;
-
-            // Never extend an already-expired MIDI frame by forcing a 10-ms
-            // percussion attack. Doing so consumes time reserved for the NEXT
-            // melodic note. The pending hit stays available for a later frame.
 
             if (checkBox_show_lyrics_or_text_events.Checked)
             {
@@ -3554,33 +3226,58 @@ namespace NeoBleeper
             // would then stretch later notes to pay that timing debt.
             if (!hasAudibleContent || durationMsInt <= 0)
             {
-                // PlayNoteWithoutGap does not implicitly turn off the previous
-                // frequency. A silent frame (including the terminal release
-                // frame) must explicitly silence the hardware output.
-                if (!hasAudibleContent)
-                {
-                    NotePlayer.StopAllNotes();
-                    NotePlayer.StopMicrocontrollerSound();
-                }
                 UpdateAudioNoteIndicators(
                     filteredNotes, null, highlightSoundingOnly: true);
                 return;
             }
 
-            // --- Melody and the single selected drum share the PC speaker ---
-            // Preserve note identity/order between the MIDI note and frequency arrays.
+            // --- Melody + percussion, alternated on the single-voice speaker output ---
+            int totalFrameDuration = durationMsInt;
+
+            PercussionSounds.MidiPercussion? percussionToPlay = drumEvent != null
+                ? (PercussionSounds.MidiPercussion)drumEvent.NoteNumber
+                : (PercussionSounds.MidiPercussion?)null;
+
+            // Keep the original enumeration order: MIDI identities must match
+            // the existing frequencies array element-for-element.
             int[] midiNotesToPlay = filteredNotes.ToArray();
             int[] frequenciesToPlay = midiNotesToPlay
                 .Select(note => NoteToFrequency(note))
                 .ToArray();
 
-            await PlayPcSpeakerFrameAsync(
-                frequenciesToPlay,
-                filteredNotes,
-                midiNotesToPlay,
-                durationMsInt,
-                frameEndMs,
-                token).ConfigureAwait(false);
+            if (percussionToPlay.HasValue && frequenciesToPlay.Length > 0)
+            {
+                await PlayNotesAndPercussionAlternatingAsync(
+                    frequenciesToPlay,
+                    new HashSet<int>(filteredNotes),
+                    midiNotesToPlay,
+                    percussionToPlay.Value,
+                    totalFrameDuration,
+                    currentTime,
+                    token,
+                    drumEvent.Velocity).ConfigureAwait(false);
+            }
+            else if (percussionToPlay.HasValue)
+            {
+                UpdateAudioNoteIndicators(new HashSet<int>());
+
+                await PlayOnlyPercussionAsync(
+                    percussionToPlay.Value,
+                    totalFrameDuration,
+                    token,
+                    velocity: drumEvent.Velocity).ConfigureAwait(false);
+            }
+            else
+            {
+                UpdateAudioNoteIndicators(
+                    filteredNotes, null, highlightSoundingOnly: frequenciesToPlay.Length > 1);
+
+                await PlayMelodySliceAsync(
+                    frequenciesToPlay,
+                    totalFrameDuration,
+                    token,
+                    midiNotesToPlay).ConfigureAwait(false);
+            }
 
         }
 
@@ -4152,8 +3849,73 @@ namespace NeoBleeper
         }
 
 
-        // Prioritize the most rhythmically important audible hit at each tick.
-        // All other simultaneous hits are discarded for PC-speaker output.
+        // PC-speaker playback is monophonic, so when several percussion NoteOns
+        // occur at the same tick we keep the strongest/most important hit. Do not
+        // round-robin these events: doing so changes the MIDI dynamics by selecting
+        // quiet secondary hits that were never intended to be the audible hit.
+        private async Task DispatchFrameAudioAsync(
+            FrameAudioState frameAudio,
+            int totalFrameDuration,
+            long currentTime,
+            CancellationToken token,
+            bool usePcSpeakerBackend,
+            bool usePolyphonicAudioBackend)
+        {
+            int[] midiNotes = frameAudio.MelodicNotes.ToArray();
+            int[] frequencies = midiNotes
+                .Select(NoteToFrequency)
+                .ToArray();
+
+            if (usePcSpeakerBackend)
+            {
+                NoteOnEvent pcSpeakerDrum =
+                    SelectPercussionForPcSpeaker(
+                        frameAudio.PercussionEvents,
+                        frameAudio.MelodicNotes);
+
+                await PlayPcSpeakerFrameAsync(
+                    frequencies,
+                    frameAudio.MelodicNotes,
+                    midiNotes,
+                    pcSpeakerDrum,
+                    totalFrameDuration,
+                    currentTime,
+                    token).ConfigureAwait(false);
+
+                return;
+            }
+
+            if (usePolyphonicAudioBackend)
+            {
+                Task melodyTask =
+                    PlayMelodySliceAsync(
+                        frequencies,
+                        totalFrameDuration,
+                        token,
+                        midiNotes);
+
+                Task percussionTask =
+                    PlayPolyphonicPercussionAsync(
+                        frameAudio.PercussionEvents,
+                        totalFrameDuration,
+                        token);
+
+                await Task.WhenAll(
+                    melodyTask,
+                    percussionTask).ConfigureAwait(false);
+            }
+        }
+
+        private static NoteOnEvent PickBestDrumEvent(IEnumerable<NoteOnEvent> drumEvents)
+        {
+            if (drumEvents == null || !drumEvents.Any())
+                return null;
+
+            return drumEvents
+                .OrderByDescending(e => GetDrumPriorityScore(e.NoteNumber, e.Velocity))
+                .FirstOrDefault();
+        }
+
         private static double GetDrumPriorityScore(int noteNumber, int velocity)
         {
             int basePriority;
@@ -4699,12 +4461,6 @@ namespace NeoBleeper
                 _playbackStopwatch?.Stop();
                 SetPlaybackButtonState(isPlaying: false);
 
-                // Natural EOF (including Loop) must silence the real PC speaker,
-                // microcontroller, and MIDI output before rewind or asynchronous
-                // cleanup. Clearing labels alone never stops a held beep.
-                StopNotesImmediately();
-                MIDIIOUtils.SendNoteOffToAllNotes();
-
                 // Ensure UI shows final position (100%)
                 try
                 {
@@ -4812,16 +4568,15 @@ namespace NeoBleeper
                 {
                     if (midiEvent is PatchChangeEvent patchChange)
                     {
-                        if (patchChange.Channel != 10)
+                        if (patchChange.Channel != 9)
                         {
                             channelPrograms[patchChange.Channel] = patchChange.Patch;
                         }
                     }
                     else if (midiEvent is NoteOnEvent noteOn && noteOn.Velocity > 0)
                     {
-                        // NAudio channels are 1-based: percussion channel is 10.
-                        int program = (noteOn.Channel == 10 ||
-                                       _percussionNoteOnEvents.Contains(noteOn))
+                        // Channel 10 (0-indexed as 9) is percussion -> assign -1
+                        int program = (noteOn.Channel == 9)
                             ? -1
                             : (channelPrograms.TryGetValue(noteOn.Channel, out int p) ? p : 0);
 
