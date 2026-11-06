@@ -3205,14 +3205,25 @@ namespace NeoBleeper
             double remainingMs = Math.Max(0.0, frameEndMs - dispatchStartMs);
             bool hasAudibleContent = filteredNotes.Count > 0 || drumEvent != null;
 
+            // Percussion-only frames must retain the complete MIDI frame budget.
+            // Using songNowMs as the start trims the hit whenever the worker is
+            // dispatched late, producing a nearly fixed short percussion length.
+            double percussionDurationMs = filteredNotes.Count == 0 && drumEvent != null
+                ? Math.Max(0.0, frameEndMs - frameStartMs)
+                : remainingMs;
+
             // An integer-ms note interface cannot represent fractional lengths.
             // Prefer flooring so rounding does not systematically add duration.
             // A sub-ms note which is *still current* gets one best-effort pulse;
             // an already expired frame never adds extra time to the song.
-            int durationMsInt = remainingMs >= int.MaxValue
+            double audioDurationMs = filteredNotes.Count == 0 && drumEvent != null
+                ? percussionDurationMs
+                : remainingMs;
+
+            int durationMsInt = audioDurationMs >= int.MaxValue
                 ? int.MaxValue
-                : (int)Math.Floor(remainingMs);
-            if (hasAudibleContent && remainingMs > 0.0 && durationMsInt == 0)
+                : (int)Math.Floor(audioDurationMs);
+            if (hasAudibleContent && audioDurationMs > 0.0 && durationMsInt == 0)
                 durationMsInt = 1;
 
             if (checkBox_show_lyrics_or_text_events.Checked)
