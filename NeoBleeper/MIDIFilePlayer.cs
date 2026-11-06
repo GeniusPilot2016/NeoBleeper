@@ -3403,7 +3403,18 @@ namespace NeoBleeper
                 return;
             }
 
-            Task[] tasks = percussionEvents
+            // A physical system speaker has one voice. Starting one PWM worker
+            // per simultaneous drum makes their StartBeep/StopBeep calls cancel
+            // each other and can result in silence. Keep full polyphony for the
+            // sound device, but select the strongest hit for the system speaker.
+            IEnumerable<NoteOnEvent> eventsToPlay =
+                TemporarySettings.CreatingSounds.createBeepWithSoundDevice
+                    ? percussionEvents
+                    : percussionEvents
+                        .OrderByDescending(drum => drum.Velocity)
+                        .Take(1);
+
+            Task[] tasks = eventsToPlay
                 .Select(drum =>
                 {
                     var percussion =
