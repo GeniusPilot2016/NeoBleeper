@@ -715,20 +715,177 @@ namespace NeoBleeper
         private static void PlayRenderedPercussion(PercussionRequest request)
         {
             var sw = Stopwatch.StartNew();
+
+            // On SystemSpeaker, any tone burst >= 1ms sounds like a chirp/beep.
+            // A single < 0.8ms low-frequency pulse moves the speaker cone once ("tick") with zero pitch.
+            if (request.Output == PercussionOutputChoice.SystemSpeaker && IsClick(request.Percussion))
+            {
+                int clickFreq = request.Percussion switch
+                {
+                    MidiPercussion.LowWoodblock => 90,
+                    MidiPercussion.SideStick => 110,
+                    MidiPercussion.HighWoodblock => 130,
+                    MidiPercussion.Claves => 150,
+                    _ => 120
+                };
+
+                try
+                {
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StartBeep(clickFreq);
+                    LowCpuWaitUntil(sw, 0.7);
+                }
+                finally
+                {
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StopBeep();
+                }
+
+                LowCpuWaitUntil(sw, request.DurationMs);
+                return;
+            }
+
             float[] samples = RenderPercussionSamples(request);
-            byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
 
             if (request.Output == PercussionOutputChoice.SoundDevice)
             {
+                // Bypass 24kHz PWM carrier for clicks so carrier slew-rate aliasing cannot create a chirp
+                if (IsClick(request.Percussion))
+                {
+                    float[] direct = BuildDirectClickSamples(samples, request.Velocity);
+                    QueueMixedSoundDevicePwmSamples(direct);
+                    LowCpuWaitUntil(sw, request.DurationMs);
+                    return;
+                }
+
+                byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
                 float[] pwm = BuildSoundDevicePwmSamples(pcm8, 2.1f, request.Velocity);
                 QueueMixedSoundDevicePwmSamples(pwm);
                 LowCpuWaitUntil(sw, request.DurationMs);
                 return;
             }
 
-            PlayPCMSoundAsPWM(pcm8, request.Output, request.Profile.BodyWave, request.Velocity);
+            byte[] speakerPcm8 = ConvertFloatSamplesToUnsigned8BitPcm(samples);
+            PlayPCMSoundAsPWM(speakerPcm8, request.Output, request.Profile.BodyWave, request.Velocity);
         }
 
+        private static float[] BuildDirectClickSamples(float[] samples44k, int velocity)
+        {
+            if (samples44k == null || samples44k.Length == 0) return Array.Empty<float>();
+
+            const double VelocityRangeDb = 24.0;
+            double vel01 = Math.Clamp(velocity, 1, 127) / 127.0;
+            float gain = (float)(0.65 * Math.Pow(10.0, -(1.0 - vel01) * VelocityRangeDb / 20.0));
+
+            double ratio = (double)SoundDevicePwmSampleRate / PercussionSampleRate;
+            int outLen = (int)Math.Ceiling(samples44k.Length * ratio);
+            var output = new float[outLen];
+
+            for (int i = 0; i < outLen; i++)
+            {
+                double srcPos = i / ratio;
+                int i0 = Math.Min((int)srcPos, samples44k.Length - 1);
+                int i1 = Math.Min(i0 + 1, samples44k.Length - 1);
+                double frac = srcPos - i0;
+                double s = samples44k[i0] * (1.0 - frac) + samples44k[i1] * frac;
+                output[i] = (float)Math.Clamp(s * gain, -0.95, 0.95);
+            }
+
+            return output;
+        }
+        private static void PlayPercussionBlendSlice(PercussionRequest request)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+
+            try
+            {
+                request.CancellationToken.ThrowIfCancellationRequested();
+
+                bool hasNote = request.NoteFrequencyHz > 0.0;
+                double sliceStartMs = NowMs();
+
+                int naturalMs = Math.Max(
+                    request.Profile.DurationMs,
+                    (int)Math.Ceiling(GetMinimumBodyMs(request.Percussion)));
+
+                bool triggerDrum = TrackBlendRun(
+                    request,
+                    naturalMs,
+                    sliceStartMs,
+                    out double hitStartMs,
+                    out PercussionRequest drumRequest);
+
+                if (request.Output == PercussionOutputChoice.SoundDevice)
+                {
+                    EnsurePercussionSoundDevice();
+
+                    float[]? drumAudio = null;
+
+                    if (triggerDrum)
+                    {
+                        float[] rendered = RenderPercussionSamples(drumRequest);
+                        if (IsClick(drumRequest.Percussion))
+                        {
+                            drumAudio = BuildDirectClickSamples(rendered, drumRequest.Velocity);
+                        }
+                        else
+                        {
+                            byte[] pcm8 = ConvertFloatSamplesToUnsigned8BitPcm(rendered);
+                            drumAudio = BuildSoundDevicePwmSamples(pcm8, 2.1f, drumRequest.Velocity);
+                        }
+                    }
+
+                    long stamp = Interlocked.Increment(ref _blendNoteSynthStamp);
+
+                    if (hasNote)
+                        _blendVoice!.SetNote(request.NoteFrequencyHz, request.Velocity);
+                    else
+                        _blendVoice!.Release();
+
+                    if (drumAudio != null)
+                        QueueMixedSoundDevicePwmSamples(drumAudio);
+
+                    try
+                    {
+                        request.CancellationToken.ThrowIfCancellationRequested();
+                        LowCpuWaitUntil(sw, request.DurationMs);
+                    }
+                    finally
+                    {
+                        ScheduleBlendNoteRelease(stamp);
+                    }
+
+                    return;
+                }
+
+                lock (_blendSpeakerPlaybackLock)
+                {
+                    request.CancellationToken.ThrowIfCancellationRequested();
+                    _blendSpeakerActive = true;
+
+                    try
+                    {
+                        PlaySpeakerBlendTones(
+                            request,
+                            sw,
+                            drumRequest,
+                            sliceStartMs,
+                            hitStartMs,
+                            naturalMs,
+                            hasNote);
+                    }
+                    finally
+                    {
+                        _blendSpeakerActive = false;
+                    }
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                if (request.Output == PercussionOutputChoice.SystemSpeaker)
+                {
+                    SetBlendSpeakerFrequency(-1, request.Profile.BodyWave, force: true);
+                }
+            }
+        }
         private static byte[] ConvertFloatSamplesToUnsigned8BitPcm(float[] samples)
         {
             var pcm = new byte[samples.Length];
@@ -752,10 +909,48 @@ namespace NeoBleeper
 
             bool kick = IsKick(request.Percussion);
             bool tom = IsTomOrBongo(request.Percussion);
-            bool snare = IsSnare(request.Percussion);
+            bool click = IsClick(request.Percussion);
+            bool snare = IsSnare(request.Percussion) && !click;
             bool cymbal = IsMetalCymbal(request.Percussion);
             bool shaker = request.Percussion is MidiPercussion.Shaker or MidiPercussion.Maracas or MidiPercussion.Cabasa;
             bool isTonalSquare = request.Profile.BodyWave == SynthWave.Square;
+
+            // Non-resonant bipolar wood transient for sticks/clicks (zero filter ringing, zero pitch sweep)
+            if (click)
+            {
+                double halfPeriodSamples = request.Percussion switch
+                {
+                    MidiPercussion.LowWoodblock => 28.0,   // ~780 Hz single-cycle knock
+                    MidiPercussion.SideStick => 22.0,      // ~1000 Hz cross-stick knock
+                    MidiPercussion.HighWoodblock => 18.0,  // ~1220 Hz woodblock
+                    MidiPercussion.Claves => 14.0,         // ~1570 Hz clave click
+                    _ => 17.0                              // ~1300 Hz stick click
+                };
+
+                int pulseSamples = (int)Math.Ceiling(halfPeriodSamples * 2.5);
+                double gain = Math.Clamp(0.55 + velocity01 * 0.40, 0.2, 0.95);
+
+                for (int i = 0; i < sampleCount; i++)
+                {
+                    if (i >= pulseSamples)
+                    {
+                        result[i] = 0f;
+                        continue;
+                    }
+
+                    rng ^= rng << 13; rng ^= rng >> 17; rng ^= rng << 5;
+                    double white = ((rng & 0x00FFFFFF) / 8388607.5) - 1.0;
+
+                    // Single damped bipolar wood cycle (1.25 cycles) + subtle initial transient grain
+                    double phase = i / halfPeriodSamples;
+                    double cycle = Math.Sin(Math.PI * phase) * Math.Exp(-phase * 1.15);
+                    double grain = white * 0.22 * Math.Exp(-i / (halfPeriodSamples * 0.6));
+
+                    result[i] = (float)Math.Clamp((cycle + grain) * gain, -0.95, 0.95);
+                }
+
+                return result;
+            }
 
             double lowCut = kick ? 120.0 : tom ? 220.0 : 600.0;
             double midCut = snare ? 2800.0 : cymbal ? 5000.0 : 2000.0;
@@ -797,7 +992,9 @@ namespace NeoBleeper
                         currentFreq = request.Profile.BodyEndFreq + (request.Profile.BodyStartFreq - request.Profile.BodyEndFreq) * logSweep;
                     }
                     tonePhase = (tonePhase + currentFreq / PercussionSampleRate) % 1.0;
-                    toneVal = request.Profile.BodyWave == SynthWave.Square ? (tonePhase < 0.5 ? 0.7 : -0.7) : Math.Sin(tonePhase * 2.0 * Math.PI);
+                    toneVal = request.Profile.BodyWave == SynthWave.Square
+                        ? (tonePhase < 0.5 ? 0.7 : -0.7)
+                        : Math.Sin(tonePhase * 2.0 * Math.PI);
                 }
 
                 double source = kick ? toneVal * body * 1.2 + lowBand * body * 0.8 :
@@ -1028,35 +1225,35 @@ namespace NeoBleeper
         /// Highly boosted speaker blend tones with forced high dynamic gain floors to ensure maximum loudness.
         /// </summary>
         private static void PlaySpeakerBlendTones(
-     PercussionRequest request,
-     Stopwatch sw,
-     PercussionRequest drumRequest,
-     double sliceStartMs,
-     double hitStartMs,
-     int naturalMs,
-     bool hasNote)
+    PercussionRequest request,
+    Stopwatch sw,
+    PercussionRequest drumRequest,
+    double sliceStartMs,
+    double hitStartMs,
+    int naturalMs,
+    bool hasNote)
         {
             double elapsedOffset = sliceStartMs - hitStartMs;
 
             double drumMs = 0.0;
             double totalMs = 0.0;
-
             double previousDrumHz = 0.0;
-
+            int slotIndex = 0;
             bool first = true;
 
             int noteFreq = hasNote
-                ? ClampPercussionFrequency(
-                    request.NoteFrequencyHz,
-                    100.0,
-                    4000.0)
+                ? ClampPercussionFrequency(request.NoteFrequencyHz, 100.0, 4000.0)
                 : -1;
 
-            double noteSegMs = 2.0;
+            bool isClick = IsClick(request.Percussion);
 
-            double attackWindowMs = 8.0;
+            bool isContinuousSweep =
+                request.Percussion is MidiPercussion.Laser or MidiPercussion.WhistleLong
+                or MidiPercussion.CuicaHigh or MidiPercussion.CuicaLow
+                or MidiPercussion.ScratchPush or MidiPercussion.ScratchPull;
+
+            double attackWindowMs = 6.0;
             double shareDecayMs = Math.Max(25.0, naturalMs * 0.65);
-
             double startShare = 0.85;
             double endShare = 0.55;
 
@@ -1065,103 +1262,94 @@ namespace NeoBleeper
                 request.CancellationToken.ThrowIfCancellationRequested();
 
                 double elapsedMs = sw.Elapsed.TotalMilliseconds;
-
                 double hitElapsedMs = elapsedOffset + elapsedMs;
 
-                bool drumRinging =
-                    hitElapsedMs >= 0.0 &&
-                    hitElapsedMs < naturalMs;
+                // For clicks, never time-slice back and forth with the melody note (that creates an FM chirp).
+                // Emit a single 1.5ms click at the very start of the hit, then hold noteFreq (or silence) cleanly.
+                if (isClick)
+                {
+                    if (hitElapsedMs < 1.5)
+                    {
+                        GetPlaybackSignalCore(drumRequest, hitElapsedMs, out int clickHz, out bool clickAudible);
+                        SetBlendSpeakerFrequency(clickAudible ? clickHz : -1, request.Profile.BodyWave, force: first);
+                        first = false;
+                        LowCpuWaitUntil(sw, Math.Min(request.DurationMs, elapsedMs + (1.5 - hitElapsedMs)));
+                    }
+                    else
+                    {
+                        SetBlendSpeakerFrequency(hasNote ? noteFreq : -1, request.Profile.BodyWave, force: first);
+                        LowCpuWaitUntil(sw, request.DurationMs);
+                        break;
+                    }
+                    continue;
+                }
+
+                bool drumRinging = hitElapsedMs >= 0.0 && hitElapsedMs < naturalMs;
 
                 int percFreq = 0;
                 bool percAudible = false;
 
                 if (drumRinging)
                 {
-                    GetPlaybackSignalCore(
-                        drumRequest,
-                        hitElapsedMs,
-                        out percFreq,
-                        out percAudible);
+                    GetPlaybackSignalCore(drumRequest, hitElapsedMs, out percFreq, out percAudible);
                 }
 
-                bool inAttack =
-                    drumRinging &&
-                    hitElapsedMs < attackWindowMs;
+                bool inAttack = drumRinging && hitElapsedMs < attackWindowMs;
 
                 double share = !drumRinging
                     ? 0.0
                     : inAttack
                         ? 0.90
-                        : startShare +
-                          (endShare - startShare) *
-                          Math.Clamp(
-                              hitElapsedMs / shareDecayMs,
-                              0.0,
-                              1.0);
+                        : startShare + (endShare - startShare) * Math.Clamp(hitElapsedMs / shareDecayMs, 0.0, 1.0);
 
-                bool drumTurn =
-                    percAudible &&
-                    (!hasNote || drumMs <= share * totalMs);
+                bool drumTurn = percAudible && (!hasNote || drumMs <= share * totalMs);
+
+                uint slotHash = unchecked((uint)(request.RandomSeed ^ (slotIndex++ * 2654435761u)));
+                double slotJitter = ((slotHash & 0xFFFF) / 65535.0) - 0.5;
 
                 int target;
                 double segLen;
 
                 if (drumTurn)
                 {
-                    double rawHz = ClampPercussionFrequency(
-                        percFreq,
-                        120.0,
-                        5000.0);
+                    double rawHz = ClampPercussionFrequency(percFreq, 95.0, 8500.0);
 
-                    // Smooth pitch movement without removing drum transients.
-                    double smoothing = inAttack ? 0.65 : 0.28;
+                    if (isContinuousSweep)
+                    {
+                        previousDrumHz = SmoothDrumFrequency(previousDrumHz, rawHz, 0.35);
+                        segLen = 1.5;
+                    }
+                    else
+                    {
+                        previousDrumHz = rawHz;
+                        segLen = Math.Clamp(0.85 + slotJitter * 0.5, 0.55, 1.25);
+                    }
 
-                    previousDrumHz = SmoothDrumFrequency(
-                        previousDrumHz,
-                        rawHz,
-                        smoothing);
-
-                    target = ClampPercussionFrequency(
-                        previousDrumHz,
-                        120.0,
-                        5000.0);
-
-                    segLen = inAttack ? 1.5 : 3.0;
-
+                    target = ClampPercussionFrequency(previousDrumHz, 95.0, 8500.0);
                     drumMs += segLen;
                 }
                 else if (hasNote)
                 {
                     target = noteFreq;
-                    segLen = noteSegMs;
+                    segLen = Math.Clamp(1.8 + slotJitter * 1.0, 1.1, 2.8);
                 }
                 else
                 {
                     target = -1;
-                    segLen = 1.5;
+                    segLen = 0.85;
                 }
 
                 totalMs += segLen;
 
-                SetBlendSpeakerFrequency(
-                    target,
-                    request.Profile.BodyWave,
-                    force: first);
-
+                SetBlendSpeakerFrequency(target, request.Profile.BodyWave, force: first);
                 first = false;
 
-                LowCpuWaitUntil(
-                    sw,
-                    Math.Min(
-                        request.DurationMs,
-                        elapsedMs + segLen));
+                LowCpuWaitUntil(sw, Math.Min(request.DurationMs, elapsedMs + segLen));
             }
 
             if (hasNote)
             {
-                SetBlendSpeakerFrequency(
-                    noteFreq,
-                    request.Profile.BodyWave);
+                SetBlendSpeakerFrequency(noteFreq, request.Profile.BodyWave);
             }
         }
         private static float[] RenderBlendSamples(
@@ -1397,126 +1585,22 @@ namespace NeoBleeper
                 Math.Log(previousHz) * (1.0 - smoothing) +
                 Math.Log(targetHz) * smoothing);
         }
-        private static void PlayPercussionBlendSlice(
-    PercussionRequest request)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-
-            try
-            {
-                request.CancellationToken.ThrowIfCancellationRequested();
-
-                bool hasNote = request.NoteFrequencyHz > 0.0;
-
-                double sliceStartMs = NowMs();
-
-                int naturalMs = Math.Max(
-                    request.Profile.DurationMs,
-                    (int)Math.Ceiling(
-                        GetMinimumBodyMs(request.Percussion)));
-
-                bool triggerDrum = TrackBlendRun(
-                    request,
-                    naturalMs,
-                    sliceStartMs,
-                    out double hitStartMs,
-                    out PercussionRequest drumRequest);
-
-                if (request.Output == PercussionOutputChoice.SoundDevice)
-                {
-                    EnsurePercussionSoundDevice();
-
-                    float[]? drumPwm = null;
-
-                    if (triggerDrum)
-                    {
-                        byte[] pcm8 =
-                            ConvertFloatSamplesToUnsigned8BitPcm(
-                                RenderPercussionSamples(drumRequest));
-
-                        drumPwm = BuildSoundDevicePwmSamples(
-                            pcm8,
-                            2.1f,
-                            drumRequest.Velocity);
-                    }
-
-                    long stamp = Interlocked.Increment(
-                        ref _blendNoteSynthStamp);
-
-                    if (hasNote)
-                    {
-                        _blendVoice!.SetNote(
-                            request.NoteFrequencyHz,
-                            request.Velocity);
-                    }
-                    else
-                    {
-                        _blendVoice!.Release();
-                    }
-
-                    if (drumPwm != null)
-                        QueueMixedSoundDevicePwmSamples(drumPwm);
-
-                    try
-                    {
-                        request.CancellationToken.ThrowIfCancellationRequested();
-
-                        LowCpuWaitUntil(
-                            sw,
-                            request.DurationMs);
-                    }
-                    finally
-                    {
-                        ScheduleBlendNoteRelease(stamp);
-                    }
-
-                    return;
-                }
-
-                // SystemSpeaker cannot reproduce two independent frequencies
-                // simultaneously. Use time-division playback with percussion
-                // receiving priority.
-                lock (_blendSpeakerPlaybackLock)
-                {
-                    request.CancellationToken.ThrowIfCancellationRequested();
-
-                    _blendSpeakerActive = true;
-
-                    try
-                    {
-                        PlaySpeakerBlendTones(
-                            request,
-                            sw,
-                            drumRequest,
-                            sliceStartMs,
-                            hitStartMs,
-                            naturalMs,
-                            hasNote);
-                    }
-                    finally
-                    {
-                        _blendSpeakerActive = false;
-                    }
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                if (request.Output == PercussionOutputChoice.SystemSpeaker)
-                {
-                    SetBlendSpeakerFrequency(
-                        -1,
-                        request.Profile.BodyWave,
-                        force: true);
-                }
-            }
-        }
-
+      
         private static float[] BuildSoundDevicePwmSamples(byte[] pcmData, float volume, int velocity = 100)
         {
             if (pcmData == null || pcmData.Length == 0) return Array.Empty<float>();
 
-            double maxDeviation = Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
-            double normFactor = Math.Min(128.0 / maxDeviation, 40.0);
+            double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
+            double durationMs = durationSeconds * 1000.0;
+            bool isShortImpulse = durationMs <= 50.0;
+
+            // For short clicks/impulses, normalize against true peak (1.0) instead of 99.5th percentile
+            // so the decay tail is not over-amplified into a flat chirp.
+            double maxDeviation = isShortImpulse
+                ? Math.Max(FindPercentileDeviation(pcmData, 1.0), 0.001)
+                : Math.Max(FindPercentileDeviation(pcmData, 0.995), 0.001);
+
+            double normFactor = Math.Min(128.0 / maxDeviation, isShortImpulse ? 1.5 : 40.0);
             const double maxDepth = 0.45;
             double depth = maxDepth;
 
@@ -1524,13 +1608,14 @@ namespace NeoBleeper
             double vel01 = Math.Clamp(velocity, 1, 127) / 127.0;
             double velocityGain = Math.Pow(10.0, -(1.0 - vel01) * VelocityRangeDb / 20.0);
 
-            double durationSeconds = pcmData.Length / (double)PercussionSampleRate;
             int pwmPeriodCount = Math.Max(1, (int)Math.Ceiling(durationSeconds * SoundDevicePwmCarrierHz));
 
             var pwm = new float[pwmPeriodCount * SoundDevicePwmSamplesPerPeriod];
             double dutyError = 0.0;
-            double durationMs = durationSeconds * 1000.0;
-            double shortSoundBoost = durationMs < 80.0 ? 1.0 + (80.0 - durationMs) / 80.0 * 0.80 : 1.0;
+
+            double shortSoundBoost = (!isShortImpulse && durationMs < 80.0)
+                ? 1.0 + (80.0 - durationMs) / 80.0 * 0.80
+                : 1.0;
 
             float amp = (float)Math.Clamp(volume * 0.25 * velocityGain, 0.0001, 0.68);
             double dcX = 0.0, dcY = 0.0;
@@ -1547,11 +1632,25 @@ namespace NeoBleeper
                 double pcmValue = pcmData[i0] + (pcmData[i1] - pcmData[i0]) * frac;
                 double normAudio = ((pcmValue - 128.0) * normFactor) / 128.0;
 
-                double dcBlocked = normAudio - dcX + 0.995 * dcY;
-                dcX = normAudio;
-                dcY = dcBlocked;
+                double dcBlocked;
+                if (Math.Abs(pcmValue - 128.0) < 0.5)
+                {
+                    dcX = 0.0;
+                    dcY = 0.0;
+                    dcBlocked = 0.0;
+                }
+                else
+                {
+                    dcBlocked = normAudio - dcX + 0.995 * dcY;
+                    dcX = normAudio;
+                    dcY = dcBlocked;
+                }
 
-                double shape = Math.Clamp(Math.Sign(dcBlocked) * Math.Pow(Math.Abs(dcBlocked), 0.85) * shortSoundBoost, -1.0, 1.0);
+                double shapedVal = isShortImpulse
+                    ? dcBlocked
+                    : Math.Sign(dcBlocked) * Math.Pow(Math.Abs(dcBlocked), 0.85) * shortSoundBoost;
+
+                double shape = Math.Clamp(shapedVal, -1.0, 1.0);
                 double dutyCycle = Math.Clamp(0.5 + shape * depth, 0.03, 0.97);
 
                 double wantedOnSamples = dutyCycle * SoundDevicePwmSamplesPerPeriod + dutyError;
@@ -1575,7 +1674,6 @@ namespace NeoBleeper
 
             return pwm;
         }
-
         public static Task PlayPercussionSliceAsync(
             MidiPercussion p, int sliceDurationMs, CancellationToken ct, int velocity, bool enforceMinimumAudibleBody, double noteFrequencyHz = 0.0)
         {
@@ -1660,7 +1758,7 @@ namespace NeoBleeper
         }
 
         private static void GetPlaybackSignalCore(
-            PercussionRequest request, double elapsedMs, out int frequency, out bool audible)
+    PercussionRequest request, double elapsedMs, out int frequency, out bool audible)
         {
             var prof = request.Profile;
             double duration = Math.Max(1.0, request.DurationMs);
@@ -1669,12 +1767,34 @@ namespace NeoBleeper
 
             bool kick = IsKick(request.Percussion);
             bool tom = IsTomOrBongo(request.Percussion);
-            bool snare = IsSnare(request.Percussion);
             bool click = IsClick(request.Percussion);
+            bool snare = IsSnare(request.Percussion) && !click;
             bool metalCymbal = IsMetalCymbal(request.Percussion);
             bool shortCymbal = IsShortCymbal(request.Percussion);
 
             bool isPureTonal = prof.BodyWave == SynthWave.Square || prof.BodyWave == SynthWave.Sine;
+
+            // Fixed-pitch 2.5ms wood knock (no pitch glide, no FM jitter)
+            if (click)
+            {
+                if (elapsedMs >= 2.5)
+                {
+                    frequency = 0;
+                    audible = false;
+                    return;
+                }
+
+                frequency = request.Percussion switch
+                {
+                    MidiPercussion.LowWoodblock => 780,
+                    MidiPercussion.SideStick => 1000,
+                    MidiPercussion.HighWoodblock => 1220,
+                    MidiPercussion.Claves => 1570,
+                    _ => 1300
+                };
+                audible = true;
+                return;
+            }
 
             double attackSnapMs = 0.0;
             if (!isPureTonal)
@@ -1692,7 +1812,7 @@ namespace NeoBleeper
                     snapStartHz = 420.0 + 260.0 * normVelocity;
                     snapEndHz = 160.0 + 100.0 * normVelocity;
                 }
-                else if (snare || click)
+                else if (snare)
                 {
                     attackSnapMs = Math.Min(3.0 * normVelocity, duration * 0.35);
                     snapStartHz = 2600.0 + 900.0 * normVelocity;
@@ -1796,12 +1916,6 @@ namespace NeoBleeper
 
                 audible = gateRoll2 > activeDensityThreshold && progress < sustainLimit;
             }
-            else if (click)
-            {
-                double baseF = 1400.0 + jitter * (2200.0 * normVelocity);
-                frequency = ClampPercussionFrequency(baseF, 700.0, 4000.0);
-                audible = progress < (0.55 * normVelocity);
-            }
             else
             {
                 double minF = 500.0 + (250.0 * normVelocity);
@@ -1813,7 +1927,6 @@ namespace NeoBleeper
                 audible = gateRoll2 > activeDensityThreshold && progress < (0.90 * normVelocity);
             }
         }
-
         public static void GetPlaybackSignalCore(
             MidiPercussion percussion, double elapsedMs, out int frequency, out bool audible, int velocity = 100, int? durationMs = null)
         {
@@ -1896,7 +2009,7 @@ namespace NeoBleeper
         }
 
         private static void PlayPCMSoundAsPWM(
-            byte[] pcmData, PercussionOutputChoice choice, SynthWave waveform, int velocity = 100)
+    byte[] pcmData, PercussionOutputChoice choice, SynthWave waveform, int velocity = 100)
         {
             if (pcmData == null || pcmData.Length == 0) return;
 
