@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>Beep Stopper cần được chạy với đặc quyền nâng cao (dưới quyền quản trị viên) để đảm bảo hoạt động bình thường. Vui lòng khởi chạy lại ứng dụng với tư cách quản trị viên.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>Loa hệ thống không phát ra tiếng bíp hoặc loa hệ thống phát ra tiếng bíp theo cách khác.
 Không có hành động nào được thực hiện.</value>
@@ -134,5 +137,8 @@ Không có hành động nào được thực hiện.</value>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>Không có đầu ra loa hệ thống hoặc đầu ra loa hệ thống không chuẩn. Bộ chặn tiếng bíp có thể gây mất ổn định hoặc các hiện tượng không mong muốn.
 Bạn có muốn tiếp tục không?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>PawnIO chưa được cài đặt. Beep stopper cần có PawnIO để hoạt động bình thường. Vui lòng đảm bảo rằng PawnIO đã được cài đặt rồi thử lại.</value>
   </data>
 </root>

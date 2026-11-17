@@ -19,7 +19,7 @@ namespace BeepStopper.Properties {
     // sınıfı tarafından otomatik olarak oluşturuldu.
     // Üye eklemek veya kaldırmak için .ResX dosyanızı düzenleyin ve sonra da ResGen
     // komutunu /str seçeneğiyle yeniden çalıştırın veya VS projenizi yeniden oluşturun.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,6 +61,15 @@ namespace BeepStopper.Properties {
         }
         
         /// <summary>
+        ///   Beep stopper should be run with elevated privileges (as administrator) to ensure proper functionality. Please restart the application as administrator. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AdminPrivilegesRequiredMessage {
+            get {
+                return ResourceManager.GetString("AdminPrivilegesRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   An error occurred:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string AnErrorOccurredMessage {
@@ -85,6 +94,15 @@ namespace BeepStopper.Properties {
             get {
                 object obj = ResourceManager.GetObject("icons8-warning-48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   PawnIO is not installed. Beep stopper needs PawnIO to function correctly. Please ensure that PawnIO is installed and try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string PawnIOIsNotInstalled {
+            get {
+                return ResourceManager.GetString("PawnIOIsNotInstalled", resourceCulture);
             }
         }
         

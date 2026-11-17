@@ -401,9 +401,6 @@ Cette touche permet de jouer ce son de percussion: {percussionName}</value>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Écris une mélodie folk avec des instruments acoustiques</value>
   </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>Le fichier InpOutx64.dll est présent et valide.</value>
-  </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
     <value>Ce mini-ordinateur dispose d'une sortie haut-parleur. NeoBleeper utilisera la sortie PC Beep lorsqu'elle sera disponible ; sinon, il utilisera la carte son pour générer des bips afin d'assurer la compatibilité.</value>
   </data>
@@ -438,9 +435,6 @@ Si vous rencontrez des problèmes de fluidité ou de sauts lors de la lecture de
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Contenu NBPML incomplet</value>
   </data>
-  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
-    <value>Vérification de la présence et de l'intégrité du fichier InpOutx64.dll...</value>
-  </data>
   <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -461,9 +455,6 @@ Si vous rencontrez des problèmes de fluidité ou de sauts lors de la lecture de
   </data>
   <data name="TimerStatusCheck" xml:space="preserve">
     <value>Vérification de l'état du minuteur : </value>
-  </data>
-  <data name="StatusInpOutX64Placed" xml:space="preserve">
-    <value>Le fichier InpOutx64.dll a été installé avec succès.</value>
   </data>
   <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
     <value>Une erreur s'est produite lors du test. Consultez les journaux pour plus de détails.</value>
@@ -527,9 +518,6 @@ Cliquez à nouveau pour la réafficher.</value>
   </data>
   <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
     <value>Détection du signal de retour du haut-parleur système : </value>
-  </data>
-  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="FeedbackSignalStability" xml:space="preserve">
     <value>Stabilité du signal de retour (désactivé) : </value>
@@ -770,9 +758,6 @@ Cliquez à nouveau pour la masquer.</value>
 
 Voulez-vous quand même ouvrir ce fichier ?</value>
   </data>
-  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
-    <value>Le fichier InpOutx64.dll est manquant ou corrompu. Installation de InpOutx64.dll...</value>
-  </data>
   <data name="MessageAlreadyExists" xml:space="preserve">
     <value>Cette ressource existe déjà.</value>
   </data>
@@ -988,9 +973,6 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   </data>
   <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InpOutX64PlaceError" xml:space="preserve">
-    <value>Échec de l'installation de InpOutx64.dll: </value>
   </data>
   <data name="SystemSpeakerOutputReadability" xml:space="preserve">
     <value>Lisibilité de la sortie du haut-parleur système : </value>
@@ -1216,8 +1198,8 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Informations sensibles détectées</value>
   </data>
-  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
-    <value>PawnIO est en cours de téléchargement et d'installation.</value>
+  <data name="PawnIOInstalling" xml:space="preserve">
+    <value>PawnIO est en cours d'installation.</value>
   </data>
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO commence</value>

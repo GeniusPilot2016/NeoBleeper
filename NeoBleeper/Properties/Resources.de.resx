@@ -404,9 +404,6 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Schreibe eine melancholische Klavierballade</value>
   </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>InpOutx64.dll ist vorhanden und gültig.</value>
-  </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
     <value>Dieser Kompaktcomputer verfügt über einen Systemlautsprecherausgang. NeoBleeper nutzt diesen, sofern verfügbar; andernfalls werden der PC Beep aus Kompatibilitätsgründen über die Soundkarte erzeugt.</value>
   </data>
@@ -441,9 +438,6 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Unvollständiger NBPML-Inhalt</value>
   </data>
-  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
-    <value>Überprüfe Vorhandensein und Integrität der Datei InpOutx64.dll...</value>
-  </data>
   <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -464,9 +458,6 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   </data>
   <data name="TimerStatusCheck" xml:space="preserve">
     <value>Timer-Statusprüfung: </value>
-  </data>
-  <data name="StatusInpOutX64Placed" xml:space="preserve">
-    <value>InpOutx64.dll wurde erfolgreich platziert.</value>
   </data>
   <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
     <value>Beim Test ist ein Fehler aufgetreten. Weitere Informationen finden Sie in den Protokollen.</value>
@@ -530,9 +521,6 @@ Klicken Sie erneut, um ihn wieder anzuzeigen.</value>
   </data>
   <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
     <value>Erkennung des Rückkopplungssignals des Systemlautsprechers: </value>
-  </data>
-  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="FeedbackSignalStability" xml:space="preserve">
     <value>Stabilität des Rückkopplungssignals bei Deaktivierung: </value>
@@ -772,9 +760,6 @@ Klicken Sie erneut, um ihn auszublenden.</value>
 
 Möchten Sie die Datei trotzdem öffnen?</value>
   </data>
-  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
-    <value>Die Datei InpOutx64.dll fehlt oder ist beschädigt. InpOutx64.dll wird platziert...</value>
-  </data>
   <data name="MessageAlreadyExists" xml:space="preserve">
     <value>Die Ressource ist bereits vorhanden.</value>
   </data>
@@ -990,9 +975,6 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   </data>
   <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InpOutX64PlaceError" xml:space="preserve">
-    <value>Fehler beim Platzieren von InpOutx64.dll: </value>
   </data>
   <data name="SystemSpeakerOutputReadability" xml:space="preserve">
     <value>Verständlichkeit des Systemlautsprecherausgangs: </value>
@@ -1216,8 +1198,8 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Sensible Informationen erkannt</value>
   </data>
-  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
-    <value>PawnIO wird heruntergeladen und installiert</value>
+  <data name="PawnIOInstalling" xml:space="preserve">
+    <value>PawnIO wird installiert</value>
   </data>
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO startet</value>

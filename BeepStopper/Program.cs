@@ -32,12 +32,26 @@ namespace BeepStopper
         [STAThread]
         static void Main()
         {
+            RestartProgramAsAdminIfNotAlreadyInX64();
             ApplicationConfiguration.Initialize();
             Debug.WriteLine("Beep stopper is starting...");
 
-            CheckAndPlaceInpOutX64(); // Ensure InpOutx64.dll is present
             LoadSettings();
             ThemeManager.Initialize();
+            if (!ProgramPrecheck.IsRanAsAdmin())
+            {
+                MessageForm.Show(Program.themeIndex, Resources.AdminPrivilegesRequiredMessage, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Application.Exit();
+            }
+            if (!ProgramPrecheck.IsPawnIOInstalled())
+            {
+                PawnIOWrapper.InstallPawnIO();
+            }
+            if (!ProgramPrecheck.IsPawnIOInstalled())
+            {
+                MessageForm.Show(Program.themeIndex, Resources.PawnIOIsNotInstalled, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             string query = "SELECT * FROM Win32_PNPEntity Where DeviceID like '%PNP0800%'";
@@ -71,6 +85,31 @@ namespace BeepStopper
             ThemeManager.Cleanup();
             Debug.WriteLine("Beep stopper application has exited.");
         }
+        private static void RestartProgramAsAdminIfNotAlreadyInX64(string[] args = null)
+        {
+            if (!ProgramPrecheck.IsRanAsAdmin() && !ProgramPrecheck.IsARM64())
+            {
+                try
+                {
+                    var exeName = Process.GetCurrentProcess().MainModule.FileName;
+                    var startInfo = new ProcessStartInfo(exeName)
+                    {
+                        UseShellExecute = true,
+                        Verb = "runas", // Request elevated privileges
+                        ArgumentList = { string.Join(" ", args) }
+                    };
+                    Process.Start(startInfo);
+                }
+                catch
+                {
+                    // If the user cancels the UAC prompt or an error occurs, swallow the exception and continue running without elevation. The application may not function correctly without admin privileges, but this allows the user to proceed if they choose.
+                }
+                finally
+                {
+                    Environment.Exit(0); // Exit the current process after starting the new elevated process
+                }
+            }
+        }
 
         /// <summary>
         /// Loads application settings from the synchronized settings source and applies the theme and language
@@ -87,64 +126,5 @@ namespace BeepStopper
             Debug.WriteLine($"Beep stopper is starting with language: {SynchronizedSettings.Language}");
         }
 
-        /// <summary>
-        /// Checks if InpOutx64.dll is present and valid; if not, places the DLL file from embedded resources.
-        /// </summary>
-        /// <remarks> This method ensures that the InpOutx64.dll file is available in the application's base directory.
-        /// If the file is missing or corrupted, it writes the DLL from the embedded resources to the file system.
-        /// </remarks>
-        private static void CheckAndPlaceInpOutX64()
-        {
-            var inpOutX64File = NeoBleeper.Properties.Resources.inpoutx64; // InpOutx64.dll binary resource
-            var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-            if (!IsInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
-                                               // If not present or broken, place the DLL file
-            {
-                try
-                {
-                    Debug.WriteLine("InpOutx64.dll not found or is corrupted. Placing the DLL file...");
-                    File.WriteAllBytes(inpOutX64Path, inpOutX64File);
-                    Debug.WriteLine("InpOutx64.dll placed successfully.");
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Error placing InpOutx64.dll: {ex.Message}");
-                }
-            }
-            else
-            {
-                Debug.WriteLine("InpOutx64.dll already exists and valid. No action needed.");
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the InpOutx64.dll file is present in the application's base directory and matches the
-        /// expected SHA256 hash.
-        /// </summary>
-        /// <remarks>This method verifies both the presence and integrity of InpOutx64.dll by comparing
-        /// its SHA256 hash to a known good value. Use this check before attempting to interact with the DLL to ensure
-        /// compatibility and prevent potential errors due to tampering or corruption.</remarks>
-        /// <returns>true if InpOutx64.dll exists and its SHA256 hash matches the embedded reference; otherwise, false.</returns>
-        private static bool IsInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
-        {
-            var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-            if (File.Exists(inpOutX64Path)) // Check if file exists
-            {
-                string expectedSHA256Hash = string.Empty;
-                string actualSHA256Hash = string.Empty;
-                using (SHA256 sha256 = SHA256.Create()) // Create SHA256 instance to compute hash
-                {
-                    byte[] hashBytes = sha256.ComputeHash(NeoBleeper.Properties.Resources.inpoutx64);
-                    expectedSHA256Hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-                    using (FileStream fs = File.OpenRead(inpOutX64Path))
-                    {
-                        byte[] existingHashBytes = sha256.ComputeHash(fs);
-                        actualSHA256Hash = BitConverter.ToString(existingHashBytes).Replace("-", "").ToLowerInvariant();
-                    }
-                    return expectedSHA256Hash == actualSHA256Hash; // Compare hashes and return result
-                }
-            }
-            return false; // File does not exist
-        }
     }
 }

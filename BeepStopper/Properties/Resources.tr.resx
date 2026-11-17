@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>Bip sesi durdurucunun düzgün çalışabilmesi için yükseltilmiş ayrıcalıklarla (yönetici olarak) çalıştırılması gerekir. Lütfen uygulamayı yönetici olarak yeniden başlatın.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>Sistem hoparlörü bip sesi çıkarmıyor veya sistem hoparlörü farklı bir şekilde bip sesi çıkarıyor.
 Herhangi bir işlem yapılmadı.</value>
@@ -134,5 +137,8 @@ Herhangi bir işlem yapılmadı.</value>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>Sistem hoparlörü çıkışı mevcut değil veya standart dışı bir sistem hoparlörü çıkışı mevcut. Bip sesi durdurucu, kararsızlıklara veya istenmeyen davranışlara neden olabilir.
 Devam etmek istiyor musunuz?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>PawnIO yüklü değil. Beep stopper'ın düzgün çalışabilmesi için PawnIO gereklidir. Lütfen PawnIO'nun yüklü olduğundan emin olun ve tekrar deneyin.</value>
   </data>
 </root>

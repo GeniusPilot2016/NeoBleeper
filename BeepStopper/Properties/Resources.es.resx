@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>Beep Stopper debe ejecutarse con privilegios elevados (como administrador) para garantizar un funcionamiento correcto. Por favor, reinicia la aplicación como administrador.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>El altavoz del sistema no emite ningún pitido o emite un pitido diferente.
 No se realizó ninguna acción.</value>
@@ -134,5 +137,8 @@ No se realizó ninguna acción.</value>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>La salida de los altavoces del sistema no está presente o la salida no es la estándar. El silenciador de pitidos puede causar inestabilidad o comportamientos indeseados.
 ¿Desea continuar?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>Saan a naikabil ti PawnIO. Kasapulan ti beep stopper ti PawnIO tapno umiso ti panagandar. Pangngaasi a siguraduen a naikabil ti PawnIO ken padasen manen.</value>
   </data>
 </root>

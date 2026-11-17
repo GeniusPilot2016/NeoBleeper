@@ -1363,25 +1363,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
-        /// </summary>
-        public static byte[] inpoutx64 {
-            get {
-                object obj = ResourceManager.GetObject("inpoutx64", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Failed to place InpOutx64.dll:  benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string InpOutX64PlaceError {
-            get {
-                return ResourceManager.GetString("InpOutX64PlaceError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///    Issues:  benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string Issues {
@@ -2185,11 +2166,12 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   PawnIO is downloading and installing benzeri yerelleştirilmiş bir dize arar.
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
-        public static string PawnIODownloadingAndInstalling {
+        public static byte[] PawnIO_setup {
             get {
-                return ResourceManager.GetString("PawnIODownloadingAndInstalling", resourceCulture);
+                object obj = ResourceManager.GetObject("PawnIO_setup", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -2208,6 +2190,15 @@ namespace NeoBleeper.Properties {
         public static string PawnIOInstalled {
             get {
                 return ResourceManager.GetString("PawnIOInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PawnIO is installing benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string PawnIOInstalling {
+            get {
+                return ResourceManager.GetString("PawnIOInstalling", resourceCulture);
             }
         }
         
@@ -2235,6 +2226,16 @@ namespace NeoBleeper.Properties {
         public static string PawnIOStartupFailed {
             get {
                 return ResourceManager.GetString("PawnIOStartupFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        public static byte[] PcSpeakerModule {
+            get {
+                object obj = ResourceManager.GetObject("PcSpeakerModule", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -2434,15 +2435,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Checking InpOutx64.dll presence and integrity... benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string StatusCheckingInpOutX64PresenceAndIntegrity {
-            get {
-                return ResourceManager.GetString("StatusCheckingInpOutX64PresenceAndIntegrity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Chipset {chipset} is known to have system speaker issues. The system speaker may not detected or function properly. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusChipsetHasKnownIssues {
@@ -2556,33 +2548,6 @@ namespace NeoBleeper.Properties {
         public static string StatusInitializationCompleted {
             get {
                 return ResourceManager.GetString("StatusInitializationCompleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   InpOutx64.dll is missing or corrupted. Placing InpOutx64.dll... benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string StatusInpOutX64IsMissingOrCorrupted {
-            get {
-                return ResourceManager.GetString("StatusInpOutX64IsMissingOrCorrupted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   InpOutx64.dll is present and valid. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string StatusInpOutX64IsPresentAndValid {
-            get {
-                return ResourceManager.GetString("StatusInpOutX64IsPresentAndValid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   InpOutx64.dll has been placed successfully. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string StatusInpOutX64Placed {
-            get {
-                return ResourceManager.GetString("StatusInpOutX64Placed", resourceCulture);
             }
         }
         

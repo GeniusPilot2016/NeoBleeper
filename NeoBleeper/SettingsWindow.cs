@@ -65,7 +65,7 @@ namespace NeoBleeper
                     break;
             }
 
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            if (!ProgramPrecheck.IsARM64() && ProgramPrecheck.IsRanAsAdmin() && ProgramPrecheck.IsPawnIOInstalled())
             {
                 checkBox_enable_create_beep_from_soundcard.Checked = TemporarySettings.CreatingSounds.createBeepWithSoundDevice;
                 if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent == false)
@@ -123,6 +123,17 @@ namespace NeoBleeper
                 // Hide system speaker related settings on ARM64 systems such as most of Copilot+ devices due to lack of support for system speaker
                 groupBox_system_speaker_test.Visible = false;
                 checkBox_enable_create_beep_from_soundcard.Visible = false;
+                if (!ProgramPrecheck.IsARM64())
+                {
+                    if(!ProgramPrecheck.IsRanAsAdmin())
+                    {
+                        label_neobleeper_must_run_as_admin.Visible = true;
+                    }
+                    else if (!ProgramPrecheck.IsPawnIOInstalled())
+                    {
+                        label_pawnio_not_installed.Visible = true;
+                    }
+                }
             }
             if (TemporarySettings.MicrocontrollerSettings.useMicrocontroller)
             {
@@ -578,7 +589,7 @@ namespace NeoBleeper
                 string[] theme_names = { "System Theme", "Light Theme", "Dark Theme" };
                 Settings1.Default.theme = comboBox_theme.SelectedIndex;
                 Settings1.Default.Save();
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     // Update synchronized settings for Beep Stopper if not running on ARM64 architecture
                     synchronizedSettings.Theme = Settings1.Default.theme;
@@ -1990,7 +2001,7 @@ namespace NeoBleeper
             Settings1.Default.preferredLanguage = selectedLanguage;
             Settings1.Default.Save();
 
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            if (!ProgramPrecheck.IsARM64())
             {
                 synchronizedSettings.Language = selectedLanguage;
             }
@@ -2401,7 +2412,7 @@ namespace NeoBleeper
             {
                 window_border_color.BackColor = colorDialog1.Color;
                 SynchronizedSettings synchronizedSettings = SynchronizedSettings.Load();
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     // Update synchronized settings for Beep Stopper if not running on ARM64 architecture
                     synchronizedSettings.BorderColor = colorDialog1.Color;

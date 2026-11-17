@@ -8,7 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="inpoutx64.dll">
+    <None Remove="PcSpeaker.bin" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PcSpeaker.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

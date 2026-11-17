@@ -401,9 +401,6 @@ Questo tasto riproduce questo suono di percussione: {percussionName}</value>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Scrivi una sonata per pianoforte in stile romantico</value>
   </data>
-  <data name="StatusInpOutX64IsPresentAndValid" xml:space="preserve">
-    <value>InpOutx64.dll è presente e valido.</value>
-  </data>
   <data name="StatusCompactComputerDetected" xml:space="preserve">
     <value>Questo computer compatto è dotato di uscita audio per gli altoparlanti di sistema. NeoBleeper utilizzerà l'uscita PC Beep quando disponibile; in caso contrario, utilizzerà la scheda audio per generare i segnali acustici, al fine di garantire la compatibilità.</value>
   </data>
@@ -438,9 +435,6 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
   <data name="TitleIncompleteNBPMLContent" xml:space="preserve">
     <value>Contenuto NBPML incompleto</value>
   </data>
-  <data name="StatusCheckingInpOutX64PresenceAndIntegrity" xml:space="preserve">
-    <value>Verifica della presenza e dell'integrità di InpOutx64.dll...</value>
-  </data>
   <data name="HarmonyOS_Sans_Black_Italic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HarmonyOS_Sans_Black_Italic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -461,9 +455,6 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
   </data>
   <data name="TimerStatusCheck" xml:space="preserve">
     <value>Controllo dello stato del timer: </value>
-  </data>
-  <data name="StatusInpOutX64Placed" xml:space="preserve">
-    <value>InpOutx64.dll è stato inserito correttamente.</value>
   </data>
   <data name="AnErrorOccurredDuringAdvancedSystemSpeakerTest" xml:space="preserve">
     <value>Si è verificato un errore durante il test. Controlla i log per i dettagli.</value>
@@ -527,9 +518,6 @@ Clicca di nuovo per visualizzarla.</value>
   </data>
   <data name="SystemSpeakerFeedbackSignalDetection" xml:space="preserve">
     <value>Rilevamento del segnale di feedback degli altoparlanti di sistema: </value>
-  </data>
-  <data name="inpoutx64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inpoutx64.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="FeedbackSignalStability" xml:space="preserve">
     <value>Stabilità del segnale di feedback quando disabilitato: </value>
@@ -769,9 +757,6 @@ Clicca di nuovo per nasconderla.</value>
 
 Vuoi aprire comunque questo file?</value>
   </data>
-  <data name="StatusInpOutX64IsMissingOrCorrupted" xml:space="preserve">
-    <value>InpOutx64.dll mancante o danneggiato. Inserimento di InpOutx64.dll...</value>
-  </data>
   <data name="MessageAlreadyExists" xml:space="preserve">
     <value>La risorsa esiste già.</value>
   </data>
@@ -987,9 +972,6 @@ Vuoi aprire comunque questo file?</value>
   </data>
   <data name="icons8-clear-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-clear-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InpOutX64PlaceError" xml:space="preserve">
-    <value>Impossibile posizionare InpOutx64.dll: </value>
   </data>
   <data name="SystemSpeakerOutputReadability" xml:space="preserve">
     <value>Leggibilità dell'uscita degli altoparlanti di sistema: </value>
@@ -1215,8 +1197,8 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="WarningSensitiveInformationTitle" xml:space="preserve">
     <value>Rilevate informazioni sensibili</value>
   </data>
-  <data name="PawnIODownloadingAndInstalling" xml:space="preserve">
-    <value>PawnIO sta scaricando e installando</value>
+  <data name="PawnIOInstalling" xml:space="preserve">
+    <value>PawnIO sta installando</value>
   </data>
   <data name="PawnIOIsStarting" xml:space="preserve">
     <value>PawnIO sta iniziando</value>
