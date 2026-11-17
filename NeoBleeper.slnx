@@ -3,7 +3,6 @@
     <Platform Name="ARM64" />
     <Platform Name="x64" />
   </Configurations>
-  <Project Path="3in1EnforcementChecker/3in1EnforcementChecker.csproj" Id="6f080637-8b49-4bc4-a1fd-930f864968bd" />
   <Project Path="AdvancedSystemSpeakerTestingTest/AdvancedSystemSpeakerTestingTest.csproj" Id="34ab77c8-1720-4567-b283-01ec88ce85be" />
   <Project Path="BeepBridge/BeepBridge.csproj" Id="74102ba8-6756-4a80-8a7f-ac515943dc8c" />
   <Project Path="BeepStopper/BeepStopper.csproj">
@@ -16,6 +15,4 @@
     <Platform Solution="Release|ARM64" Project="ARM64" />
     <Build Solution="Release|x64" Project="false" />
   </Project>
-  <Project Path="SoundChannelInspector/SoundChannelInspector.csproj" Id="a230641f-da63-4e20-8eeb-25a15401ffa7" />
-  <Project Path="SystemSpeakerSensorTest/SystemSpeakerSensorTest.csproj" />
 </Solution>

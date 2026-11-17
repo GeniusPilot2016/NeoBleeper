@@ -48,7 +48,6 @@ namespace NeoBleeper
         {
             try
             {
-                //RestartProgramAsAdminIfNotAlreadyInX64(args); // Restart the program with elevated privileges if not already running as admin and not on ARM64 architecture
                 if (args.Length > 0)
                 {
                     filePath = args[0];
@@ -63,11 +62,11 @@ namespace NeoBleeper
                 ConfigureApplication();
                 splashScreen = new SplashScreen(); // Create splash screen instance
                 splashScreen.Show();
-                CheckAndPlaceInpOutX64(); // Check presence of InpOutx64.dll and place it if not present
-                //CheckAndInstallPawnIOIfNeeded();
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                CheckAndInstallPawnIOIfNeeded();
+                if (!ProgramPrecheck.IsARM64())
                 {
                     // Skip system speaker detection on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
+                    EnsureStartPawnIOIfInstalled();
                     TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues = SoundRenderingEngine.SystemSpeakerBeepEngine.CheckIfChipsetAffectedFromSystemSpeakerIssues();
                     SoundRenderingEngine.SystemSpeakerBeepEngine.AwakeSystemSpeakerIfNeeded();
                     TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent = SoundRenderingEngine.SystemSpeakerBeepEngine.IsSystemSpeakerExist();
@@ -126,101 +125,129 @@ namespace NeoBleeper
                         {
                             Logger.Log("Display resolution is supported.", LogTypes.Info);
                             splashScreen.UpdateStatus(Resources.StatusDisplayResolutionIsSupported, 10);
-                            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                            if (!ProgramPrecheck.IsARM64())
                             {
-                                // Open main form without any warnings on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
-                                switch (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent)
+                                if (ProgramPrecheck.IsRanAsAdmin())
                                 {
-                                    case false:
+                                    if (!ProgramPrecheck.IsPawnIOInstalled())
+                                    {
+                                        Logger.Log("PawnIO is not installed. NeoBleeper will use sound card to create beeps instead of system speaker.", LogTypes.Info);
+                                        TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true;
+                                        if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                         {
-                                            TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true;
-                                            Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
-                                            if (!Settings1.Default.dont_show_system_speaker_warnings_again)
-                                            {
-                                                shouldRun = ShowCentralizedWarning(WarningType.SystemSpeaker);
-                                            }
-                                            else
-                                            {
-                                                shouldRun = true;
-                                                Logger.Log("NeoBleeper is starting without system speaker warning.", LogTypes.Info);
-                                            }
-                                            break;
+                                            shouldRun = ShowCentralizedWarning(WarningType.PawnIONotInstalled);
                                         }
-                                    case true:
-                                        splashScreen.UpdateStatus(Resources.StatusComputerTypeDetecting);
-                                        switch (GetInformations.GetTypeOfComputer())
+                                        else
                                         {
-                                            case GetInformations.computerTypes.ModularComputer:
+                                            shouldRun = true;
+                                            Logger.Log("NeoBleeper is starting without PawnIO not installed warning.", LogTypes.Info);
+                                        }
+                                    }
+                                    else
+                                    {
+
+
+                                        // Open main form without any warnings on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
+                                        switch (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isSystemSpeakerPresent)
+                                        {
+                                            case false:
                                                 {
-                                                    TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
-                                                    TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.ModularComputers;
-                                                    shouldRun = true;
-                                                    if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
-                                                    {
-                                                        Logger.Log("System speaker output is present, but the chipset is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", LogTypes.Info);
-                                                    }
-                                                    else
-                                                    {
-                                                        Logger.Log("System speaker output is present and the chipset is not known to have issues with system speaker. NeoBleeper will use system speaker to create beeps.", LogTypes.Info);
-                                                    }
-                                                    splashScreen.UpdateStatus(Resources.StatusModularComputerDetected, 5);
-                                                    break;
-                                                }
-                                            case GetInformations.computerTypes.CompactComputer:
-                                                {
-                                                    TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider = SoundRenderingEngine.SystemSpeakerBeepEngine.PCBeepSliderChecker.HasPcBeepOrPcSpeaker();
-                                                    splashScreen.UpdateStatus(Resources.StatusCompactComputerDetected, 5);
-                                                    if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider)
-                                                    {
-                                                        TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
-                                                        TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
-                                                        shouldRun = true;
-                                                        if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
-                                                        {
-                                                            Logger.Log("The PC Beep slider is detected, but the chipset is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", Logger.LogTypes.Info);
-                                                        }
-                                                        else
-                                                        {
-                                                            Logger.Log("The PC Beep slider is detected and NeoBleeper is starting although it's a compact computer.", Logger.LogTypes.Info);
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
-                                                        TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
-                                                        Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
-                                                        if (!Settings1.Default.dont_show_system_speaker_warnings_again)
-                                                        {
-                                                            shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
-                                                        }
-                                                        else
-                                                        {
-                                                            shouldRun = true;
-                                                            Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
-                                                        }
-                                                    }
-                                                    break;
-                                                }
-                                            default:
-                                                {
-                                                    TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues; ;
-                                                    TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.Unknown;
-                                                    Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
-                                                    splashScreen.UpdateStatus(Resources.StatusUnknownComputerTypeDetected, 10);
+                                                    TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true;
+                                                    Logger.Log("System speaker output is not present. NeoBleeper will use sound card to create beeps.", LogTypes.Info);
                                                     if (!Settings1.Default.dont_show_system_speaker_warnings_again)
                                                     {
-                                                        shouldRun = ShowCentralizedWarning(WarningType.UnknownComputer);
+                                                        shouldRun = ShowCentralizedWarning(WarningType.SystemSpeaker);
                                                     }
                                                     else
                                                     {
                                                         shouldRun = true;
-                                                        Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                        Logger.Log("NeoBleeper is starting without system speaker warning.", LogTypes.Info);
                                                     }
                                                     break;
                                                 }
+                                            case true:
+                                                splashScreen.UpdateStatus(Resources.StatusComputerTypeDetecting);
+                                                switch (GetInformations.GetTypeOfComputer())
+                                                {
+                                                    case GetInformations.computerTypes.ModularComputer:
+                                                        {
+                                                            TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
+                                                            TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.ModularComputers;
+                                                            shouldRun = true;
+                                                            if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
+                                                            {
+                                                                Logger.Log("System speaker output is present, but the chipset is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", LogTypes.Info);
+                                                            }
+                                                            else
+                                                            {
+                                                                Logger.Log("System speaker output is present and the chipset is not known to have issues with system speaker. NeoBleeper will use system speaker to create beeps.", LogTypes.Info);
+                                                            }
+                                                            splashScreen.UpdateStatus(Resources.StatusModularComputerDetected, 5);
+                                                            break;
+                                                        }
+                                                    case GetInformations.computerTypes.CompactComputer:
+                                                        {
+                                                            TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider = SoundRenderingEngine.SystemSpeakerBeepEngine.PCBeepSliderChecker.HasPcBeepOrPcSpeaker();
+                                                            splashScreen.UpdateStatus(Resources.StatusCompactComputerDetected, 5);
+                                                            if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.havePCBeepSlider)
+                                                            {
+                                                                TemporarySettings.CreatingSounds.createBeepWithSoundDevice = false || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
+                                                                TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
+                                                                shouldRun = true;
+                                                                if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
+                                                                {
+                                                                    Logger.Log("The PC Beep slider is detected, but the chipset is known to have issues with system speaker. NeoBleeper will use sound card to create beeps to avoid issues.", Logger.LogTypes.Info);
+                                                                }
+                                                                else
+                                                                {
+                                                                    Logger.Log("The PC Beep slider is detected and NeoBleeper is starting although it's a compact computer.", Logger.LogTypes.Info);
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues;
+                                                                TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.CompactComputers;
+                                                                Logger.Log("System speaker output is present, but it is a compact computer. NeoBleeper will use sound card to create beeps to avoid issues with compact computers.", LogTypes.Info);
+                                                                if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                                                {
+                                                                    shouldRun = ShowCentralizedWarning(WarningType.CompactComputer);
+                                                                }
+                                                                else
+                                                                {
+                                                                    shouldRun = true;
+                                                                    Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                                }
+                                                            }
+                                                            break;
+                                                        }
+                                                    default:
+                                                        {
+                                                            TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true || TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues; ;
+                                                            TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.deviceType = TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.DeviceType.Unknown;
+                                                            Logger.Log("System speaker output is present, but it is an unknown type of computer. NeoBleeper will use sound card to create beeps to avoid issues with unknown type of computers.", LogTypes.Info);
+                                                            splashScreen.UpdateStatus(Resources.StatusUnknownComputerTypeDetected, 10);
+                                                            if (!Settings1.Default.dont_show_system_speaker_warnings_again)
+                                                            {
+                                                                shouldRun = ShowCentralizedWarning(WarningType.UnknownComputer);
+                                                            }
+                                                            else
+                                                            {
+                                                                shouldRun = true;
+                                                                Logger.Log("NeoBleeper is starting without compact computer warning.", LogTypes.Info);
+                                                            }
+                                                            break;
+                                                        }
 
+                                                }
+                                                break;
                                         }
-                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    TemporarySettings.CreatingSounds.createBeepWithSoundDevice = true;
+                                    Logger.Log("NeoBleeper is not running with elevated privileges. NeoBleeper will use sound device to create beeps.", LogTypes.Info);
+                                    shouldRun = true;
                                 }
                             }
                             else
@@ -404,7 +431,7 @@ namespace NeoBleeper
         private static void SynchronizeSettings()
         {
             // Synchronize settings with beep stopper if not running on ARM64 architecture for sync Beep Stopper settings (language and theme)
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+            if (!ProgramPrecheck.IsARM64())
             {
                 try
                 {
@@ -452,49 +479,13 @@ namespace NeoBleeper
             splashScreen.UpdateStatus(Resources.StatusProgramLanguage + Settings1.Default.preferredLanguage, 10);
         }
 
-        /// <summary>
-        /// Checks for the presence and integrity of the InpOutx64.dll file and places it in the application directory
-        /// if necessary.
-        /// </summary>
-        /// <remarks>This method skips placement of InpOutx64.dll on ARM64 architectures, as system
-        /// speaker support is not available on most ARM64 devices. The method updates the splash screen with status
-        /// messages to inform the user of progress and any errors encountered during the process.</remarks>
-        [Obsolete("This method is deprecated due to the NeoBleeper's transition to using the PawnIO library for system speaker access. InpOutx64.dll is no longer required for NeoBleeper's functionality.")]
-        private static void CheckAndPlaceInpOutX64()
-        {
-            if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64) // Skip InpOutx64.dll placement on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support
-            {
-                var inpOutX64File = Resources.inpoutx64; // InpOutx64.dll binary resource
-                var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-                splashScreen.UpdateStatus(Resources.StatusCheckingInpOutX64PresenceAndIntegrity, 5);
-                if (!IsInpOutX64PresentAndValid()) // Check if InpOutx64.dll is present and valid
-                                                   // If not present or broken, place the DLL file
-                {
-                    try
-                    {
-                        splashScreen.UpdateStatus(Resources.StatusInpOutX64IsMissingOrCorrupted);
-                        File.WriteAllBytes(inpOutX64Path, inpOutX64File);
-                        splashScreen.UpdateStatus(Resources.StatusInpOutX64Placed, 5);
-                    }
-                    catch (Exception ex)
-                    {
-                        splashScreen.UpdateStatus(Resources.InpOutX64PlaceError + ex.Message);
-                    }
-                }
-                else
-                {
-                    splashScreen.UpdateStatus(Resources.StatusInpOutX64IsPresentAndValid);
-                }
-            }
-        }
-
         private static void CheckAndInstallPawnIOIfNeeded()
         {
-            if ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) && ProgramPrecheck.IsRanAsAdmin()) // Skip PawnIO installation on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support and require admin privileges to install PawnIO
+            if ((!ProgramPrecheck.IsARM64()) && ProgramPrecheck.IsRanAsAdmin()) // Skip PawnIO installation on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support and require admin privileges to install PawnIO
             {
                 if (!ProgramPrecheck.IsPawnIOInstalled())
                 {
-                    splashScreen.UpdateStatus(Resources.PawnIODownloadingAndInstalling);
+                    splashScreen.UpdateStatus(Resources.PawnIOInstalling);
                     try
                     {
                         PawnIOWrapper.InstallPawnIO();
@@ -507,34 +498,9 @@ namespace NeoBleeper
                 }
             }
         }
-        private static void RestartProgramAsAdminIfNotAlreadyInX64(string[] args)
-        {
-            if (!ProgramPrecheck.IsRanAsAdmin() && !ProgramPrecheck.IsARM64())
-            {
-                try
-                {
-                    var exeName = Process.GetCurrentProcess().MainModule.FileName;
-                    var startInfo = new ProcessStartInfo(exeName)
-                    {
-                        UseShellExecute = true,
-                        Verb = "runas", // Request elevated privileges
-                        ArgumentList = { string.Join(" ", args) }
-                    };
-                    Process.Start(startInfo);
-                }
-                catch
-                {
-                    // If the user cancels the UAC prompt or an error occurs, swallow the exception and continue running without elevation. The application may not function correctly without admin privileges, but this allows the user to proceed if they choose.
-                }
-                finally
-                {
-                    Environment.Exit(0); // Exit the current process after starting the new elevated process
-                }
-            }
-        }
         private static void EnsureStartPawnIOIfInstalled()
         {
-            if ((RuntimeInformation.ProcessArchitecture != Architecture.Arm64) && ProgramPrecheck.IsPawnIOInstalled()
+            if ((!ProgramPrecheck.IsARM64()) && ProgramPrecheck.IsPawnIOInstalled()
                 && ProgramPrecheck.IsRanAsAdmin()) // Skip PawnIO startup on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support and require admin privileges to start PawnIO
             {
                 try
@@ -542,44 +508,12 @@ namespace NeoBleeper
                     splashScreen.UpdateStatus(Resources.PawnIOIsStarting);
                     SoundRenderingEngine.SystemSpeakerBeepEngine.StartPawnIO();
                     splashScreen.UpdateStatus(Resources.PawnIOIsStarted, 2);
-                    Logger.Log("PawnIO started successfully.", LogTypes.Info);
                 }
                 catch (Exception ex)
                 {
                     splashScreen.UpdateStatus(Resources.PawnIOStartupFailed + ex.Message);
-                    Logger.Log("Failed to start PawnIO: " + ex.Message, LogTypes.Error);
                 }
             }
-        }
-
-        /// <summary>
-        /// Determines whether the InpOutx64.dll file is present in the application's base directory and matches the
-        /// expected SHA256 hash.
-        /// </summary>
-        /// <remarks>This method verifies both the presence and integrity of the InpOutx64.dll file by
-        /// comparing its SHA256 hash to the expected value. Use this check to ensure that the DLL has not been tampered
-        /// with or replaced.</remarks>
-        /// <returns>true if InpOutx64.dll exists and its SHA256 hash matches the expected value; otherwise, false.</returns>
-        private static bool IsInpOutX64PresentAndValid() // Check if InpOutx64.dll is present and valid by comparing SHA256 hash
-        {
-            var inpOutX64Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InpOutx64.dll");
-            if (File.Exists(inpOutX64Path)) // Check if file exists
-            {
-                string expectedSHA256Hash = string.Empty;
-                string actualSHA256Hash = string.Empty;
-                using (SHA256 sha256 = SHA256.Create()) // Create SHA256 instance to compute hash
-                {
-                    byte[] hashBytes = sha256.ComputeHash(Resources.inpoutx64);
-                    expectedSHA256Hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-                    using (FileStream fs = File.OpenRead(inpOutX64Path))
-                    {
-                        byte[] existingHashBytes = sha256.ComputeHash(fs);
-                        actualSHA256Hash = BitConverter.ToString(existingHashBytes).Replace("-", "").ToLowerInvariant();
-                    }
-                    return expectedSHA256Hash == actualSHA256Hash; // Compare hashes and return result
-                }
-            }
-            return false; // File does not exist
         }
 
         /// <summary>

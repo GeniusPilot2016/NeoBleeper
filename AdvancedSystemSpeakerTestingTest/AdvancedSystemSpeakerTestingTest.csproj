@@ -5,10 +5,15 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="inpoutx64.dll">
+    <None Remove="PcSpeaker.bin" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PcSpeaker.bin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

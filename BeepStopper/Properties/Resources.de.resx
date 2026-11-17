@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>„Beep Stopper“ sollte mit erhöhten Berechtigungen (als Administrator) ausgeführt werden, um eine einwandfreie Funktion zu gewährleisten. Bitte starten Sie die Anwendung als Administrator neu.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>Der Systemlautsprecher piept nicht oder anders.
 Keine Aktion ausgeführt.</value>
@@ -134,5 +137,8 @@ Keine Aktion ausgeführt.</value>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>Es ist kein Systemlautsprecherausgang vorhanden oder es liegt ein nicht standardmäßiger Systemlautsprecherausgang vor. Der Signaltonstopper kann zu Instabilität oder unerwünschtem Verhalten führen.
 Möchten Sie fortfahren?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>PawnIO ist nicht installiert. Damit „Beep stopper“ ordnungsgemäß funktioniert, wird PawnIO benötigt. Bitte stellen Sie sicher, dass PawnIO installiert ist, und versuchen Sie es erneut.</value>
   </data>
 </root>

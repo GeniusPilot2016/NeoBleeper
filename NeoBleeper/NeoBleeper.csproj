@@ -30,7 +30,9 @@
     <PackageIcon>neobleeper_icon.png</PackageIcon>
     <NeutralLanguage>en-001</NeutralLanguage>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Platform)' == 'x64' Or '$(RuntimeIdentifier)' == 'win-x64'">
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Utils\**" />
     <EmbeddedResource Remove="Utils\**" />

@@ -53,7 +53,7 @@ namespace NeoBleeper
             /// potential resonance issues.</remarks>
             public static void SpecifyStorageType()
             {
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     try
                     {
@@ -165,7 +165,7 @@ namespace NeoBleeper
             public static void StartPawnIO()
             {
                 // Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     pawnIO = new PawnIOWrapper(GetPawnIOModuleBytes());
                 }
@@ -174,9 +174,9 @@ namespace NeoBleeper
             private static byte[] GetPawnIOModuleBytes()
             {
                 // Load the PawnIO PcSpeaker module (ARM64 has no system speaker, so skip it there)
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
-                    return File.ReadAllBytes(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PcSpeaker.bin"));
+                    return Resources.PcSpeakerModule; // Load the embedded PawnIO PcSpeaker module from resources
                 }
                 else
                 {
@@ -212,30 +212,9 @@ namespace NeoBleeper
                 }
             }
 
-            [Obsolete("Direct hardware access via inpoutx64.dll is deprecated. Use PawnIO PcSpeaker module instead.")]
-            [DllImport("inpoutx64.dll")]
-            extern static void Out32(short PortAddress, short Data);
-
-            [Obsolete("Direct hardware access via inpoutx64.dll is deprecated. Use PawnIO PcSpeaker module instead.")]
-            [DllImport("inpoutx64.dll")]
-
-            extern static char Inp32(short PortAddress);
-
-            /// <summary>
-            /// Generates a beep sound using the system speaker at the specified frequency and duration.
-            /// </summary>
-            /// <remarks>On devices with ARM64 architecture, the system speaker is not supported and
-            /// no sound will be produced, but the method will still wait for the specified duration. On other
-            /// platforms, certain frequencies may be shifted to prevent potential hardware issues with specific storage
-            /// devices.</remarks>
-            /// <param name="freq">The frequency of the beep, in hertz. Must be a positive integer. Certain frequencies may be adjusted
-            /// internally to avoid hardware resonance issues.</param>
-            /// <param name="ms">The duration of the beep, in milliseconds. Must be a non-negative integer.</param>
-            /// <param name="nonStopping">If set to <see langword="true"/>, the beep will continue after the specified duration until stopped by
-            /// other means; otherwise, the beep stops automatically after the duration elapses.</param>
             public static void Beep(int freq, int ms, bool nonStopping) // Beep from the system speaker (aka PC speaker)
             {
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     int offset = 0; // Optional offset before enabling the speaker, can be adjusted if needed
                     offset = (nonStopping == true ? 0 : 5);
@@ -265,7 +244,7 @@ namespace NeoBleeper
             /// <param name="offset"></param>
             public static void StartBeep(int freq, int offset = 0)
             {
-                if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                if (ProgramPrecheck.IsARM64())
                 {
                     // Philosophical problem: How do you start a beep that doesn't exist in most of Copilot+ devices?
                     return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
@@ -278,20 +257,11 @@ namespace NeoBleeper
                 {
                     freq += 1; // Shift frequency by 1 Hz to avoid resonance
                 }
-                Out32(0x43, 0xB6); // Set the PIT to mode 3 (square wave generator) on channel 2 (the one connected to the system speaker)
-                int div = 0x1234dc / freq; // Calculate the divisor for the desired frequency (0x1234dc is the PIT input clock frequency of 1.193182 MHz)
-                Out32(0x42, (Byte)(div & 0xFF)); // Set the low byte of the divisor
-                Out32(0x42, (Byte)(div >> 8)); // Set the high byte of the divisor
-                if (offset > 0)
-                {
-                    HighPrecisionSleep.Sleep(offset); // Optional offset before enabling the speaker, if specified
-                }
-                Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) | 0x03)); // Open the gate of the system speaker to start the beep
-                /*int div = 0x1234dc / freq;
+                int div = 0x1234dc / freq;
                 RunBatch(new long[]
                 {
-    Cmd(OP_PIT_MODE, 0xB6),                 // counter 2, lo/hi, mode 3, binary
-    Cmd(OP_PIT_CH2_COUNT, div & 0xFFFF)     // low byte then high byte
+                    Cmd(OP_PIT_MODE, 0xB6),                 // counter 2, lo/hi, mode 3, binary
+                    Cmd(OP_PIT_CH2_COUNT, div & 0xFFFF)     // low byte then high byte
                 }, false);
 
                 if (offset > 0)
@@ -300,7 +270,6 @@ namespace NeoBleeper
                 }
 
                 RunBatch(new long[] { CmdPpiWrite(0x03, 0x03) }, false);   // set gate + speaker data
-                */
             }
 
             /// <summary>
@@ -311,13 +280,12 @@ namespace NeoBleeper
             /// speaker is already silent.</remarks>
             public static void StopBeep() // Stop the system speaker (aka PC speaker) from beeping
             {
-                if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                if (ProgramPrecheck.IsARM64())
                 {
                     // Philosophical problem: How do you stop a beep that doesn't exist in most of Copilot+ devices?
                     return; // No operation on ARM64 devices such as most of Copilot+ devices, as system speaker access is not supported
                 }
-                Out32(0x61, (Byte)(System.Convert.ToByte(Inp32(0x61)) & 0xFC));
-                // RunBatch(new long[] { CmdPpiWrite(0x03, 0x00) }, false);   // clear gate + speaker data
+                RunBatch(new long[] { CmdPpiWrite(0x03, 0x00) }, false);   // clear gate + speaker data
             }
 
             /// <summary>
@@ -354,16 +322,14 @@ namespace NeoBleeper
             {
                 try
                 {
-                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    if (ProgramPrecheck.IsARM64())
                     {
                         // Can the non-existent beep of most of Copilot+ devices be stuck?
                         return false; // ARM64 devices such as most of Copilot+ devices do not support system speaker access
                     }
                     // Check if the system speaker is currently beeping by reading the status of the speaker port
-                    return ((Inp32(0x61) & 0x03) == 0x03);
-
-                    /*long[] r = RunBatch(new long[] { Cmd(OP_PPI_READ) }, true);
-                    return ((r[0] & 0x03) == 0x03);*/
+                    long[] r = RunBatch(new long[] { Cmd(OP_PPI_READ) }, true);
+                    return ((r[0] & 0x03) == 0x03);
                 }
                 catch (Exception)
                 {
@@ -587,17 +553,7 @@ namespace NeoBleeper
                     Thread.SpinWait(10);
             }
 
-
             private static byte ReadPortByte(short port)
-            {
-                return unchecked((byte)(Inp32(port) & 0xFF));
-            }
-
-            private static void WritePortByte(short port, byte value)
-            {
-                Out32(port, value);
-            }
-            /*private static byte ReadPortByte(short port)
             {
                 switch (port)
                 {
@@ -616,7 +572,7 @@ namespace NeoBleeper
                     case 0x42: RunBatch(new[] { Cmd(OP_PIT_CH2_WRITE, value) }, false); break;
                     default: throw new NotSupportedException($"Port 0x{port:X2} is not accessible via PawnIO PcSpeaker module.");
                 }
-            }*/
+            }
 
             private static void RestoreSpeakerControl(byte originalState)
             {
@@ -644,7 +600,7 @@ namespace NeoBleeper
                 // Because it's falling back to sound card beep if no system speaker is found.
 
                 // Step 1: Check for the presence of a system speaker device using WMI
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     try
                     {
@@ -714,7 +670,7 @@ namespace NeoBleeper
             // Added according M084MM3D's report states that "i have a PRIME H610M-A WIFI, and the bleeper beeps but in a very bad way, like the beep doesnt hold and it sounds like noise"
             // and some software-based beep issue, such as Linux's Beep command, reports on ASUS motherboards in various forums and operating systems
             {
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     try
                     {
@@ -827,7 +783,7 @@ namespace NeoBleeper
             /// another process.</remarks>
             public static void AwakeSystemSpeakerIfNeeded() // Attempt to fix system speaker in some systems by simulating sleep and wake up
             {
-                if (RuntimeInformation.ProcessArchitecture != Architecture.Arm64)
+                if (!ProgramPrecheck.IsARM64())
                 {
                     if (TemporarySettings.EligibilityOfCreateBeepFromSystemSpeaker.isChipsetAffectedFromSystemSpeakerIssues)
                     {
@@ -842,32 +798,7 @@ namespace NeoBleeper
                         try
                         {
                             Program.splashScreen.UpdateStatus(Resources.StatusWakingUpSystemSpeaker);
-                            byte originalState = (byte)Inp32(0x61);
-
-                            // 1. Close the speaker gate completely to ensure a clean state.
-                            Out32(0x61, (byte)(originalState & 0xFC));
-                            Program.splashScreen.ResponsiveWait(20);
-
-                            // 2. Reset PIT channel 2 to a known state (e.g., mode 0, terminal count).
-                            // This helps to stop any ongoing oscillations.
-                            Out32(0x43, 0xB0); // Channel 2, LSB/MSB access, mode 0, binary
-                            Out32(0x42, 0x00); // LSB
-                            Out32(0x42, 0x00); // MSB
-                            Program.splashScreen.ResponsiveWait(20);
-
-                            // 3. "Tickle" the speaker gate by toggling it. This can help wake up the circuitry.
-                            // Open only the gate (bit 0), keep speaker data (bit 1) off.
-                            Out32(0x61, (byte)(originalState | 0x01));
-                            Program.splashScreen.ResponsiveWait(50);
-                            // Close it again.
-                            Out32(0x61, (byte)(originalState & 0xFC));
-                            Program.splashScreen.ResponsiveWait(50);
-
-                            // 4. Restore the original state of the speaker port.
-                            Out32(0x61, originalState);
-                            Program.splashScreen.UpdateStatus(Resources.StatusSystemSpeakerWokenUp, 2);
-
-                            /*byte originalState = ReadPortByte(0x61);
+                            byte originalState = ReadPortByte(0x61);
 
                             // 1.
                             WritePortByte(0x61, (byte)(originalState & 0xFC));
@@ -886,7 +817,7 @@ namespace NeoBleeper
                             Program.splashScreen.ResponsiveWait(50);
 
                             // 4.
-                            WritePortByte(0x61, originalState);*/
+                            WritePortByte(0x61, originalState);
                         }
                         catch (Exception ex)
                         {

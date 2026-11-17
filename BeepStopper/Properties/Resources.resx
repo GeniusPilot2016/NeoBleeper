@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>Beep stopper should be run with elevated privileges (as administrator) to ensure proper functionality. Please restart the application as administrator.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>System speaker is not beeping or the system speaker is beeping in a different way. 
 No action taken.</value>
@@ -134,5 +137,8 @@ No action taken.</value>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>System speaker output is not present or non-standard system speaker output is present. Beep stopper may cause instability or undesirable behaviors. 
 Do you want to continue?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>PawnIO is not installed. Beep stopper needs PawnIO to function correctly. Please ensure that PawnIO is installed and try again.</value>
   </data>
 </root>

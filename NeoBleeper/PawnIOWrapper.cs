@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NeoBleeper.Properties;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -119,46 +121,76 @@ namespace NeoBleeper
 
         public static void InstallPawnIO()
         {
-            if(ProgramPrecheck.IsPawnIOInstalled())
+            if (ProgramPrecheck.IsPawnIOInstalled())
             {
                 // PawnIO is already installed
                 return;
             }
-            // 1. Configure the process to run WinGet
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = "winget",
-                // namazso.PawnIO is the official WinGet package ID
-                Arguments = "install namazso.PawnIO --silent --accept-source-agreements --accept-package-agreements",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                // WinGet often requires administrative rights to install kernel drivers
-                Verb = "runas"
-            };
+            byte[] pawnIOInstallerBytes = Resources.PawnIO_setup;
+            // Retrieve the embedded executable bytes from project resources
+            byte[] installerBytes = Properties.Resources.PawnIO_setup;
+
+            // Create a unique temporary file path
+            string tempFilePath = Path.Combine(Path.GetTempPath(), $"PawnIO_setup_{Guid.NewGuid()}.exe");
 
             try
             {
+                // 1. Write the embedded bytes to the temporary file
+                File.WriteAllBytes(tempFilePath, installerBytes);
 
-                // 2. Start the process
+                // 2. Configure the process with silent arguments and UAC elevation
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = tempFilePath,
+                    Arguments = "-install -silent",
+                    UseShellExecute = true, // Required for the "runas" verb to trigger UAC
+                    Verb = "runas",         // Requests Administrator privileges
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
+
+                // 3. Start the installer and wait for completion
                 using (Process process = Process.Start(startInfo))
                 {
-                    // 3. Read the output stream to track progress
-                    string output = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
-
-                    process.WaitForExit();
-
-                    if(process.ExitCode != 0)
+                    if (process != null)
                     {
-                        throw new Exception($"Installation failed with exit code: {process.ExitCode}. Error: {error}");
+                        process.WaitForExit();
+                        int exitCode = process.ExitCode;
+
+                        // PawnIO returns 0 for success, or 3010 (ERROR_SUCCESS_REBOOT_REQUIRED) if a reboot is needed
+                        if (exitCode == 0)
+                        {
+                            Console.WriteLine("PawnIO installed successfully.");
+                        }
+                        else if (exitCode == 3010)
+                        {
+                            Console.WriteLine("PawnIO installed successfully, but a system reboot is required.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Installation failed with exit code: {exitCode}");
+                        }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
             {
-                throw new Exception("Failed to install PawnIO. Ensure that WinGet is installed and you have administrative rights.", ex);
+                // Error 1223 occurs if the user clicks "No" on the UAC admin prompt
+                Console.WriteLine("Installation was canceled by the user at the UAC prompt.");
+            }
+            finally
+            {
+                // 4. Delete the temporary installer from disk
+                if (File.Exists(tempFilePath))
+                {
+                    try
+                    {
+                        File.Delete(tempFilePath);
+                    }
+                    catch
+                    {
+                        // Ignore file-lock errors if cleanup happens too quickly
+                    }
+                }
             }
         }
     }

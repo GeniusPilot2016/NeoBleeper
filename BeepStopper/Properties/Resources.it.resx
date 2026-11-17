@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>Beep Stopper deve essere eseguito con privilegi elevati (come amministratore) per garantirne il corretto funzionamento. Si prega di riavviare l'applicazione come amministratore.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>L'altoparlante di sistema non emette alcun segnale acustico oppure emette un segnale acustico diverso.
 Nessuna azione intrapresa.</value>
@@ -134,5 +137,8 @@ Nessuna azione intrapresa.</value>
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>L'uscita dell'altoparlante di sistema non è presente oppure è presente un'uscita dell'altoparlante di sistema non standard. Il blocco del segnale acustico potrebbe causare instabilità o comportamenti indesiderati.
 Vuoi continuare?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>PawnIO non è installato. Beep stopper richiede PawnIO per funzionare correttamente. Assicurati che PawnIO sia installato e riprova.</value>
   </data>
 </root>

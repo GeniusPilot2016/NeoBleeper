@@ -1307,9 +1307,6 @@ namespace NeoBleeper
                 uint slotHash = unchecked((uint)(request.RandomSeed ^ (slotIndex++ * 2654435761u)));
                 double slotJitter = ((slotHash & 0xFFFF) / 65535.0) - 0.5;
 
-                uint slotHash = unchecked((uint)(request.RandomSeed ^ (slotIndex++ * 2654435761u)));
-                double slotJitter = ((slotHash & 0xFFFF) / 65535.0) - 0.5;
-
                 int target;
                 double segLen;
 

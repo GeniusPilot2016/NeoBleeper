@@ -127,6 +127,9 @@
   <data name="icons8-warning-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-warning-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AdminPrivilegesRequiredMessage" xml:space="preserve">
+    <value>Для забезпечення належної роботи програму Beep Stopper слід запускати з підвищеними правами (від імені адміністратора). Будь ласка, перезапустіть програму від імені адміністратора.</value>
+  </data>
   <data name="SystemSpeakerIsNotStuckMessage" xml:space="preserve">
     <value>Системний динамік не пищить або пищить іншим чином.
 Жодних дій не вжито.</value>
@@ -134,5 +137,8 @@
   <data name="SystemSpeakerNotPresentMessage" xml:space="preserve">
     <value>Вихід системного динаміка відсутній або присутній нестандартний вихід системного динаміка. Звуковий сигнал може спричинити нестабільність або небажану поведінку.
 Бажаєте продовжити?</value>
+  </data>
+  <data name="PawnIOIsNotInstalled" xml:space="preserve">
+    <value>PawnIO не встановлено. Для коректної роботи Beep stopper потрібен PawnIO. Будь ласка, переконайтеся, що PawnIO встановлено, і спробуйте ще раз.</value>
   </data>
 </root>
