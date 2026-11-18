@@ -227,7 +227,6 @@
             saveFileDialog = new SaveFileDialog();
             MIDIRestartBeepTimer = new System.Windows.Forms.Timer(components);
             notifyIconNeoBleeper = new NotifyIcon(components);
-            watermarkControl1 = new WatermarkControl();
             ((System.ComponentModel.ISupportInitialize)trackBar_time_signature).BeginInit();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown_alternating_notes).BeginInit();
@@ -2045,21 +2044,12 @@
             resources.ApplyResources(notifyIconNeoBleeper, "notifyIconNeoBleeper");
             notifyIconNeoBleeper.BalloonTipClicked += notifyIconNeoBleeper_BalloonTipClicked;
             // 
-            // watermarkControl1
-            // 
-            watermarkControl1.BackColor = Color.Transparent;
-            resources.ApplyResources(watermarkControl1, "watermarkControl1");
-            watermarkControl1.ForeColor = Color.Gray;
-            watermarkControl1.Name = "watermarkControl1";
-            watermarkControl1.TabStop = false;
-            // 
             // MainWindow
             // 
             AllowDrop = true;
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             BackgroundImage = Properties.Resources.neobleeper_background_light;
-            Controls.Add(watermarkControl1);
             Controls.Add(radioButtonPlay_alternating_notes1);
             Controls.Add(button_do_not_update_help);
             Controls.Add(button_use_voice_system_help);
@@ -2386,6 +2376,5 @@
         public Label lbl_measure_value;
         public Label lbl_beat_value;
         public Label lbl_beat_traditional_value;
-        private WatermarkControl watermarkControl1;
     }
 }

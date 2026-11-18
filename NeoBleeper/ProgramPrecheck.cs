@@ -17,28 +17,21 @@ namespace NeoBleeper
         {
             try
             {
-                var pawnioPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
-                if (!string.IsNullOrEmpty(pawnioPath)) // Check if PawnIO is installed
-                {
-                    try
-                    {
-                        if (!File.Exists(Path.Combine(pawnioPath, "PawnIOLib.dll")))
-                        {
-                            return false; // DLL not found in the specified path
-                        }
-                        return true;
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                }
-                return false;
+                string dll = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                    "PawnIO", "PawnIOLib.dll");
+
+                if (!File.Exists(dll))
+                    return false;
+
+                using var sc = new System.ServiceProcess.ServiceController("PawnIO");
+                _ = sc.Status; // throws InvalidOperationException if the service doesn't exist
+                return true;
             }
             catch
             {
+                return false;
             }
-            return false; // Placeholder implementation, as PawnIO is not relevant in this context
         }
 
         public static bool IsRanAsAdmin()
