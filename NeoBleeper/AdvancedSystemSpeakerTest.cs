@@ -1,24 +1,37 @@
 ﻿using NeoBleeper.Properties;
 using System.Diagnostics;
 using System.Management;
-using System.Runtime.InteropServices;
 using static UIHelper;
 
 namespace NeoBleeper
 {
-    [Obsolete("This form will be affected by April 2026 update of Windows 11 for 24H2, 25H2, 26H1, Windows Server 2025 and below. It may not work due to the inpoutx64.dll can be blocked by treating as untrusted due to inpoutx64.sys is cross-signed.", error: false)]
     public partial class AdvancedSystemSpeakerTest : Form
-    {// ── Native interop ───────────────────────────────────────────────────────
-        [DllImport("inpoutx64.dll", EntryPoint = "Out32")]
-        private static extern void Out32(short portAddress, short data);
+    {
+        // ── PawnIO PcSpeaker module access ───────────────────────────────────────
+        // The module exposes a single IOCTL, "ioctl_batch". Each input cell is one
+        // command: bits [63:56] = opcode, bits [55:0] = payload. The module only
+        // touches PIT counter 2 and bits 0/1 of port 0x61, and it caps stalls at
+        // 50 us per command / 1000 us per batch (interrupts are disabled while a
+        // batch runs), so all long waits and polling loops stay in managed code.
+        private const string IOCTL_BATCH = "ioctl_batch";
 
-        [DllImport("inpoutx64.dll", EntryPoint = "Inp32")]
-        private static extern short Inp32(short portAddress);
+        private const ulong OP_NOP = 0x00;
+        private const ulong OP_PIT_MODE = 0x01;      // [7:0] command byte for port 0x43
+        private const ulong OP_PIT_CH2_COUNT = 0x02; // [15:0] divisor (lo byte, then hi byte)
+        private const ulong OP_PIT_CH2_WRITE = 0x03; // [7:0] byte
+        private const ulong OP_PIT_CH2_READ = 0x04;  // result = byte read from port 0x42
+        private const ulong OP_PPI_WRITE = 0x05;     // [15:8] mask, [7:0] value; result = new port value
+        private const ulong OP_PPI_READ = 0x06;      // result = byte read from port 0x61
+        private const ulong OP_STALL = 0x07;         // [15:0] microseconds (max 50)
 
-        // ── Port addresses ───────────────────────────────────────────────────────
-        private const short PORT_SPEAKER = 0x61; // System-speaker / NMI control
-        private const short PORT_PIT_CMD = 0x43; // 8254 PIT command register
-        private const short PORT_PIT_CH2 = 0x42; // 8254 PIT channel 2
+        private const int CMD_OPCODE_SHIFT = 56;
+        private const ulong CMD_PAYLOAD_MASK = 0x00FFFFFFFFFFFFFF;
+
+        // Only bits 0 (timer-2 gate) and 1 (speaker data enable) of port 0x61 are writable.
+        private const byte PPI_B_TIMER2_GATE = 0x01;
+        private const byte PPI_B_SPEAKER_EN = 0x02;
+        private const byte PPI_B_WRITE_MASK = PPI_B_TIMER2_GATE | PPI_B_SPEAKER_EN;
+        private const byte PPI_B_OUT2_STATUS = 0x20; // bit 5: timer-2 output (read-only)
 
         // ── PIT command bytes ────────────────────────────────────────────────────
         // Channel 2 | lo/hi byte | mode 3 (square wave) | binary  →  10 11 011 0
@@ -27,8 +40,8 @@ namespace NeoBleeper
         // Counter-latch command for channel 2: bits[7:6]=10, bits[5:4]=00  →  1000 0000
         private const byte PIT_CH2_LATCH = 0x80;
 
-        // Read-back command: latch count + status for channel 2 only
-        // 11 (read-back) | 00 (DO latch both) | 1000 (channel 2)  →  1100 1000
+        // Read-back command: latch count + status for channel 2 only (accepted by the module)
+        // 11 (read-back) | 00 (DO latch both) | 1000 (channel 2) | 0 (reserved) →  1100 1000
         // Status byte is returned first on the next read from port 0x42,
         // followed by the latched count (lo byte, hi byte).
         private const byte PIT_CH2_READBACK = 0xC8;
@@ -39,6 +52,18 @@ namespace NeoBleeper
         private const int DIVISOR_MID = 16384; // ~72.8 Hz — used for T09 only (gate ON, spk OFF)
         private const double PIT_CLOCK = 1_193_182.0;
         private const double EXPECTED_HZ = PIT_CLOCK / DIVISOR_MAX; // ~18.20 Hz
+        private static PawnIOWrapper? _pawn;
+        private static readonly object _pawnLock = new();
+        private static PawnIOWrapper Pawn
+        {
+            get
+            {
+                lock (_pawnLock)
+                {
+                    return _pawn ??= new PawnIOWrapper(Resources.PcSpeakerModule);
+                }
+            }
+        }
 
         // ────────────────────────────────────────────────────────────────────────
         bool darkTheme = false;
@@ -132,16 +157,24 @@ namespace NeoBleeper
         /// Initiates the advanced system speaker test sequence asynchronously, performing a series of diagnostic checks
         /// and updating the user interface with progress and results.
         /// </summary>
-        /// <remarks>This method runs multiple hardware and signal tests on the system speaker, including
-        /// electrical feedback, port state stability, and frequency sweep diagnostics. Progress and results are logged
-        /// and displayed to the user. The method is asynchronous and should not be called concurrently. If an error
-        /// occurs during testing, the user interface is updated to indicate the failure and details are
-        /// logged.</remarks>
+        /// <remarks>This method runs multiple hardware and signal tests on the system speaker through the
+        /// PawnIO PcSpeaker module, including electrical feedback, port state stability, and frequency sweep
+        /// diagnostics. Progress and results are logged and displayed to the user. The method is asynchronous and
+        /// should not be called concurrently. If an error occurs during testing, the user interface is updated to
+        /// indicate the failure and details are logged.</remarks>
         private async void StartTest()
         {
             try
             {
                 currentlyTesting = true;
+
+                // Make sure the PawnIO driver is present (no-op when already installed).
+                await Task.Run(() => PawnIOWrapper.InstallPawnIO());
+                if (!ProgramPrecheck.IsPawnIOInstalled())
+                {
+                    throw new InvalidOperationException("PawnIO is not installed.");
+                }
+
                 await Task.Delay(500);
                 Logger.Log("Advanced system speaker test is started.", Logger.LogTypes.Info);
                 label1.Text = "        " + Resources.AdvancedSystemSpeakerTestStarted;
@@ -437,27 +470,26 @@ namespace NeoBleeper
         // T01 boolean: port 0x61 readable -> true if read succeeded
         private static bool IsSystemSpeakerPortReadable()
         {
-            // If ReadPort throws, caller will observe exception.
-            _ = ReadPort(PORT_SPEAKER);
+            // If ReadPpi throws (driver/module failure), caller will observe the exception.
+            _ = ReadPpi();
             return true;
         }
 
         // T02 boolean: toggle gate bit round-trip (bit1 always 0)
         private static bool CanSystemSpeakerGateToggle()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
-                byte safeBase = (byte)(orig & ~0x02); // guarantee bit 1 = 0
+                // Clear gate + speaker data
+                RunBatch(PpiWrite(PPI_B_WRITE_MASK, 0x00));
+                BusyWaitUs(400);
+                byte rdClr = ReadPpi();
 
-                byte clrGate = (byte)(safeBase & ~0x01);
-                byte setGate = (byte)(safeBase | 0x01);
-
-                WritePort(PORT_SPEAKER, clrGate); BusyWaitUs(400);
-                byte rdClr = ReadPort(PORT_SPEAKER);
-
-                WritePort(PORT_SPEAKER, setGate); BusyWaitUs(400);
-                byte rdSet = ReadPort(PORT_SPEAKER);
+                // Set gate, keep speaker data cleared
+                RunBatch(PpiWrite(PPI_B_WRITE_MASK, PPI_B_TIMER2_GATE));
+                BusyWaitUs(400);
+                byte rdSet = ReadPpi();
 
                 SafeRestore(orig);
 
@@ -479,12 +511,12 @@ namespace NeoBleeper
         // T04 boolean: latch count twice; true if values differ (timer running)
         private static bool IsTheTimerCounting()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
                 ProgramPitCh2(DIVISOR_MAX);
 
-                WritePort(PORT_SPEAKER, GateOnSpeakerOff(orig));
+                GateOnSpeakerOff();
                 BusyWaitUs(1_000);
 
                 int countA = LatchCount();
@@ -501,19 +533,21 @@ namespace NeoBleeper
         // T05 boolean: read-back status decode; true if access/mode/bcd OK
         private static bool IsTimerStatusNormal()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
                 ProgramPitCh2(DIVISOR_MAX);
-                WritePort(PORT_SPEAKER, GateOnSpeakerOff(orig));
+                GateOnSpeakerOff();
                 BusyWaitUs(1_000);
 
-                WritePort(PORT_PIT_CMD, PIT_CH2_READBACK);
+                // Read-back: status byte first, then latched count (lo, hi).
+                long[] r = RunBatch(
+                    Cmd(OP_PIT_MODE, PIT_CH2_READBACK),
+                    Cmd(OP_PIT_CH2_READ),
+                    Cmd(OP_PIT_CH2_READ),
+                    Cmd(OP_PIT_CH2_READ));
 
-                byte status = ReadPort(PORT_PIT_CH2);
-                int lo = ReadPort(PORT_PIT_CH2);
-                int hi = ReadPort(PORT_PIT_CH2);
-                int count = lo | (hi << 8);
+                byte status = (byte)(r[1] & 0xFF);
 
                 SafeRestore(orig);
 
@@ -533,11 +567,11 @@ namespace NeoBleeper
         // T06 boolean: bit-5 oscillation with gate ON/spk OFF
         private static bool IsFeedbackSignalDetected()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
                 ProgramPitCh2(DIVISOR_MAX);
-                WritePort(PORT_SPEAKER, GateOnSpeakerOff(orig));
+                GateOnSpeakerOff();
                 BusyWaitUs(2_000); // settle
 
                 int transitions = 0;
@@ -546,7 +580,7 @@ namespace NeoBleeper
 
                 while (sw.ElapsedMilliseconds < 700)
                 {
-                    bool bit5 = (ReadPort(PORT_SPEAKER) & 0x20) != 0;
+                    bool bit5 = (ReadPpi() & PPI_B_OUT2_STATUS) != 0;
                     if (prev.HasValue && prev.Value != bit5) transitions++;
                     prev = bit5;
                     BusyWaitUs(3_000);
@@ -562,11 +596,10 @@ namespace NeoBleeper
         // T07 boolean: bit-5 stability control gate OFF -> true if stable (no transitions)
         private static bool IsFeedbackSignalStable()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
-                byte gateOff = (byte)(orig & ~0x03); // gate=0, spk-data=0
-                WritePort(PORT_SPEAKER, gateOff);
+                RunBatch(PpiWrite(PPI_B_WRITE_MASK, 0x00)); // gate=0, spk-data=0
                 BusyWaitUs(800);
 
                 int transitions = 0;
@@ -575,7 +608,7 @@ namespace NeoBleeper
 
                 while (sw.ElapsedMilliseconds < 300)
                 {
-                    bool bit5 = (ReadPort(PORT_SPEAKER) & 0x20) != 0;
+                    bool bit5 = (ReadPpi() & PPI_B_OUT2_STATUS) != 0;
                     if (prev.HasValue && prev.Value != bit5) transitions++;
                     prev = bit5;
                     Thread.SpinWait(50);
@@ -591,13 +624,19 @@ namespace NeoBleeper
         // T08 boolean: sub-audio probe (momentarily enable spk-data) -> true if write sequence succeeds
         private static bool ShortSilentEnablePulseBool()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
                 ProgramPitCh2(DIVISOR_MAX);
 
-                WritePort(PORT_SPEAKER, (byte)(orig | 0x03));
-                BusyWaitUs(100);
+                // Enable gate + speaker data for ~100 us (2 x 50 us stalls, the per-command cap),
+                // then restore the original gate/data bits, all inside one batch.
+                RunBatch(
+                    PpiWrite(PPI_B_WRITE_MASK, PPI_B_WRITE_MASK),
+                    Stall(50),
+                    Stall(50),
+                    PpiWrite(PPI_B_WRITE_MASK, (byte)(orig & PPI_B_WRITE_MASK)));
+
                 SafeRestore(orig);
 
                 return true;
@@ -608,13 +647,11 @@ namespace NeoBleeper
         // T09 boolean: two divisors in-range checks
         private static bool TimerSpeedTestComparison()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
-                byte gated = GateOnSpeakerOff(orig);
-
                 ProgramPitCh2(DIVISOR_MAX);
-                WritePort(PORT_SPEAKER, gated);
+                GateOnSpeakerOff();
                 BusyWaitUs(1_500);
                 int cA = LatchCount();
 
@@ -635,11 +672,11 @@ namespace NeoBleeper
         // T10 boolean: frequency estimation from bit-5 transitions
         private static bool FeedbackSpeedResult()
         {
-            byte orig = ReadPort(PORT_SPEAKER);
+            byte orig = ReadPpi();
             try
             {
                 ProgramPitCh2(DIVISOR_MAX);
-                WritePort(PORT_SPEAKER, GateOnSpeakerOff(orig));
+                GateOnSpeakerOff();
                 BusyWaitUs(2_000); // settle
 
                 int transitions = 0;
@@ -649,7 +686,7 @@ namespace NeoBleeper
 
                 while (sw.ElapsedMilliseconds < windowMs)
                 {
-                    bool bit5 = (ReadPort(PORT_SPEAKER) & 0x20) != 0;
+                    bool bit5 = (ReadPpi() & PPI_B_OUT2_STATUS) != 0;
                     if (prev.HasValue && prev.Value != bit5) transitions++;
                     prev = bit5;
                     BusyWaitUs(2_000);
@@ -684,16 +721,52 @@ namespace NeoBleeper
                 && TimerSpeedTestComparison()
                 && FeedbackSpeedResult();
         }
+
+        // ════════════════════════════════════════════════════════════════════════
+        //  PawnIO command primitives
+        // ════════════════════════════════════════════════════════════════════════
+
+        /// <summary>Packs an opcode and payload into one module command cell.</summary>
+        private static long Cmd(ulong opcode, ulong payload = 0)
+            => unchecked((long)((opcode << CMD_OPCODE_SHIFT) | (payload & CMD_PAYLOAD_MASK)));
+
+        /// <summary>PPI_WRITE: read-modify-write of port 0x61 limited to bits 0/1.</summary>
+        private static long PpiWrite(byte mask, byte value)
+            => Cmd(OP_PPI_WRITE, ((ulong)mask << 8) | value);
+
+        /// <summary>STALL: busy-wait inside the module (max 50 us per command, 1000 us per batch).</summary>
+        private static long Stall(int microseconds)
+            => Cmd(OP_STALL, (ulong)(microseconds & 0xFFFF));
+
+        /// <summary>
+        /// Sends a batch to the PcSpeaker module and returns one result per command.
+        /// The module validates the whole batch before executing any of it.
+        /// </summary>
+        private static long[] RunBatch(params long[] commands)
+        {
+            long[] results = Pawn.Execute(IOCTL_BATCH, commands, commands.Length);
+            if (results.Length < commands.Length)
+            {
+                throw new InvalidOperationException(
+                    $"PcSpeaker module returned {results.Length} results for {commands.Length} commands.");
+            }
+            return results;
+        }
+
         // ════════════════════════════════════════════════════════════════════════
         //  I/O primitives
         // ════════════════════════════════════════════════════════════════════════
 
-        private static byte ReadPort(short port) => unchecked((byte)(Inp32(port) & 0xFF));
-        private static void WritePort(short port, byte value) => Out32(port, (short)value);
+        /// <summary>Reads port 0x61 (full byte, including read-only bit 5).</summary>
+        private static byte ReadPpi() => (byte)(RunBatch(Cmd(OP_PPI_READ))[0] & 0xFF);
 
+        /// <summary>
+        /// Restores bits 0/1 of port 0x61 to their original values.
+        /// The module cannot (and does not need to) write any other bit.
+        /// </summary>
         private static void SafeRestore(byte original)
         {
-            try { WritePort(PORT_SPEAKER, original); }
+            try { RunBatch(PpiWrite(PPI_B_WRITE_MASK, (byte)(original & PPI_B_WRITE_MASK))); }
             catch { /* best-effort */ }
             BusyWaitUs(150);
         }
@@ -719,9 +792,9 @@ namespace NeoBleeper
         private static void ProgramPitCh2(int divisor)
         {
             divisor = Math.Clamp(divisor, 2, 65535);
-            WritePort(PORT_PIT_CMD, PIT_CH2_SQUAREWAVE);
-            WritePort(PORT_PIT_CH2, (byte)(divisor & 0xFF));
-            WritePort(PORT_PIT_CH2, (byte)((divisor >> 8) & 0xFF));
+            RunBatch(
+                Cmd(OP_PIT_MODE, PIT_CH2_SQUAREWAVE),
+                Cmd(OP_PIT_CH2_COUNT, (ulong)divisor)); // module writes lo byte, then hi byte
         }
 
         /// <summary>
@@ -730,13 +803,18 @@ namespace NeoBleeper
         /// </summary>
         private static int LatchCount()
         {
-            WritePort(PORT_PIT_CMD, PIT_CH2_LATCH);
-            int lo = ReadPort(PORT_PIT_CH2);
-            int hi = ReadPort(PORT_PIT_CH2);
+            long[] r = RunBatch(
+                Cmd(OP_PIT_MODE, PIT_CH2_LATCH),
+                Cmd(OP_PIT_CH2_READ),
+                Cmd(OP_PIT_CH2_READ));
+
+            int lo = (int)(r[1] & 0xFF);
+            int hi = (int)(r[2] & 0xFF);
             return lo | (hi << 8);
         }
 
-        /// <summary>Returns byte with gate bit set, speaker-data bit cleared (safe probe state).</summary>
-        private static byte GateOnSpeakerOff(byte orig) => (byte)((orig | 0x01) & ~0x02);
+        /// <summary>Sets the gate bit and clears the speaker-data bit (safe probe state).</summary>
+        private static void GateOnSpeakerOff()
+            => RunBatch(PpiWrite(PPI_B_WRITE_MASK, PPI_B_TIMER2_GATE));
     }
 }
