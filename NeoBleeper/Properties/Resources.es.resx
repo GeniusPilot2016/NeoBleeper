@@ -358,9 +358,6 @@ Puedes ver las asignaciones de teclas en los botones de la parte superior de la 
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>La prueba de retroalimentación eléctrica falló.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>El formato de la clave API no es válido. Compruébelo y vuelva a intentarlo.</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 Esta tecla reproduce este sonido de percusión: {percussionName}</value>
@@ -394,9 +391,6 @@ Esta tecla reproduce este sonido de percusión: {percussionName}</value>
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>La clave API de Google Gemini™ no funciona. Compruébela y reemplácela en la pestaña "General" de la configuración.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Escribe una balada romántica al piano</value>
@@ -447,8 +441,8 @@ Si experimenta problemas de fluidez o saltos al reproducir la música en la list
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>La clave API de Google Gemini™ se restableció correctamente.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>La clave de API seleccionada se ha restablecido correctamente.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Compone una canción latina con ritmo de salsa</value>
@@ -506,9 +500,6 @@ Puedes elegir el sonido que quieres reproducir haciendo clic en el botón "Cambi
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>Oculta la clave API en el campo correspondiente.
 Haz clic de nuevo para volver a mostrarla.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>El formato de la clave API de Google Gemini™ no es válido. Vuelva a introducir la clave API en la pestaña "General" de la configuración.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Inicialización de entrada/salida MIDI completada.</value>
@@ -744,7 +735,7 @@ Haz clic de nuevo para ocultarla.</value>
     <value>Error al leer el estado del temporizador (acceso/modo/BCD inesperado).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Error al incluir el modelo de IA. Comprueba tu clave API de Google Gemini™ y tu conexión a internet.</value>
+    <value>No se ha podido obtener la lista de modelos de IA. Por favor, comprueba tus claves de API y tu conexión a internet.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -774,9 +765,6 @@ Haz clic de nuevo para ocultarla.</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Posición:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Clave API de Google Gemini™ guardada correctamente.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Comprobando la presencia de la salida del altavoz del sistema (altavoz de PC) en el paso 1/2...</value>
@@ -847,7 +835,7 @@ Haz clic de nuevo para ocultarla.</value>
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper ha detectado que tu clave API de Google Gemini™ está dañada. Vuelve a introducirla en la ventana de configuración.</value>
+    <value>NeoBleeper ha detectado que una o más claves de API están dañadas. Por favor, vuelve a introducir tu clave de API en la ventana de configuración.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>El altavoz del sistema se ha activado.</value>
@@ -1100,7 +1088,7 @@ Esta función permite que el altavoz/dispositivo de sonido del sistema suba o ba
 Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Dispositivos" de la configuración o desmarque la casilla "Silenciar reproducción" o la casilla "Usar motor o zumbador (mediante Arduino, Raspberry Pi o ESP32)".</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>La clave API de Google Gemini™ se está validando...</value>
+    <value>La clave API se está validando...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Se ha iniciado la prueba avanzada de los altavoces del sistema.</value>
@@ -1109,7 +1097,7 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
     <value>Pun</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>La clave API de Google Gemini™ no está configurada. Establezca la clave API en la pestaña "General" de la configuración.</value>
+    <value>No se ha configurado ninguna clave de API. Por favor, introduce la clave de API en la pestaña «General» dentro de la configuración.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Compone una marcha festiva</value>
@@ -1166,7 +1154,7 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
     <value>Un valor está fuera del rango permitido.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>La validación de la clave API de Google Gemini™ fue exitosa</value>
+    <value>La validación de la clave API fue exitosa</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Láser, Látigo, Scratch empujado, Scratch jalado, Clic de baqueta, Golpe de aro, Clic de metrónomo, Campana de metrónomo, Bombo, Bombo, Aro de caja, Caja, Palmada, Caja eléctrica, Tom de piso 2, Hi-hat cerrado, Tom de piso 1, Hi-hat con pedal, Tom grave, Hi-hat abierto, Tom medio-grave, Tom medio-agudo, Platillo crash, Tom agudo, Platillo ride, Platillo china, Campana ride, Pandereta, Platillo splash, Cencerro, Platillo crash 2, Vibraslap, Platillo ride 2, Bongó agudo, Bongó grave, Conga apagada, Conga, Tumba, Timbal agudo, Timbal grave, Agogó agudo, Agogó grave, Cabasa, Maracas, Silbato corto, Silbato largo, Güiro corto, Güiro largo, Claves, Bloque de madera agudo, Bloque de madera grave, Cuíca aguda, Cuíca grave, Triángulo apagado, Triángulo abierto, Shaker, Cascabeles, Campanas tubulares, Castañuelas, Surdu apagado, Surdu, Güiro, Clave, Bloque de madera, Caja con baquetas, Tambor oceánico, Caja con escobillas</value>
@@ -1218,5 +1206,17 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   </data>
   <data name="NeoBleeperName" xml:space="preserve">
     <value>NeoBleeper</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>El formato de la clave API no es válido. Compruébelo y vuelva a intentarlo.</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>La clave de API seleccionada se ha guardado correctamente.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>El formato de la clave API no es válido. Vuelva a introducir la clave API en la pestaña "General" de la configuración.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Una o más claves de API no funcionan. Por favor, revísalas y sustituye la clave de API en la pestaña «General» dentro de la configuración.</value>
   </data>
 </root>

@@ -106,6 +106,33 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   The API key format is invalid. Please check and try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string APIKeyFormatInvalid {
+            get {
+                return ResourceManager.GetString("APIKeyFormatInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Selected API key reset successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string APIKeyReset {
+            get {
+                return ResourceManager.GetString("APIKeyReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Selected API key saved successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string APIKeySaved {
+            get {
+                return ResourceManager.GetString("APIKeySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   &amp;Abort benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ButtonAbort {
@@ -684,33 +711,6 @@ namespace NeoBleeper.Properties {
         public static string GoogleGeminiAPIIsNotSupportedInYourCountry {
             get {
                 return ResourceManager.GetString("GoogleGeminiAPIIsNotSupportedInYourCountry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   The API key format is invalid. Please check and try again. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string GoogleGeminiAPIKeyFormatInvalid {
-            get {
-                return ResourceManager.GetString("GoogleGeminiAPIKeyFormatInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Google Gemini™ API key reset successfully. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string GoogleGeminiAPIKeyReset {
-            get {
-                return ResourceManager.GetString("GoogleGeminiAPIKeyReset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Google Gemini™ API key saved successfully. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string GoogleGeminiAPIKeySaved {
-            get {
-                return ResourceManager.GetString("GoogleGeminiAPIKeySaved", resourceCulture);
             }
         }
         
@@ -1444,7 +1444,16 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window. benzeri yerelleştirilmiş bir dize arar.
+        ///   API key format is invalid. Please re-enter the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAPIKeyFormatIsInvalid {
+            get {
+                return ResourceManager.GetString("MessageAPIKeyFormatIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   NeoBleeper has detected that one or more of API key is corrupted. Please re-enter your API key in the settings window. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAPIKeyIsCorrupted {
             get {
@@ -1453,7 +1462,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Google Gemini™ API key is not set. Please set the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        ///   No API key is set. Please set the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageAPIKeyIsNotSet {
             get {
@@ -1579,7 +1588,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   AI model listing failed. Please check your Google Gemini™ API key and internet connection. benzeri yerelleştirilmiş bir dize arar.
+        ///   AI model listing failed. Please check your API keys and internet connection. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageErrorListingAImodels {
             get {
@@ -1705,16 +1714,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Google Gemini™ API key format is invalid. Please re-enter the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string MessageGoogleGeminiAPIKeyFormatIsInvalid {
-            get {
-                return ResourceManager.GetString("MessageGoogleGeminiAPIKeyFormatIsInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   The Google Gemini™ API key is not working. Please check and replace the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        ///   One or more API key is not working. Please check and replace the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageGoogleGeminiAPIKeyIsNotWorking {
             get {
@@ -2408,7 +2408,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Google Gemini™ API key is validating... benzeri yerelleştirilmiş bir dize arar.
+        ///   API keys are validating... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusAPIKeyValidating {
             get {
@@ -2417,7 +2417,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Google Gemini™ API key validation is successful benzeri yerelleştirilmiş bir dize arar.
+        ///   API key validation is successful benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string StatusAPIKeyValidationSuccessful {
             get {

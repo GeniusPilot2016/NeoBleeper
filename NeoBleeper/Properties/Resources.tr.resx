@@ -358,9 +358,6 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>Elektriksel geri besleme testi başarısız oldu.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>API anahtar biçimi geçersiz. Lütfen kontrol edip tekrar deneyiniz</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
@@ -394,9 +391,6 @@ Bu tuş şu perküsyon sesini çalar: {percussionName}</value>
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı çalışmıyor. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını kontrol edip değiştiriniz.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Rahatlatıcı bir ninni bestele</value>
@@ -447,8 +441,8 @@ Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız,
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı başarıyla sıfırlandı.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>Seçilen API anahtarı başarıyla sıfırlandı.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Caz ritimli bir piyano melodisi oluştur</value>
@@ -506,9 +500,6 @@ Listedeki müziği çalarken akıcılık veya atlama sorunları yaşıyorsanız,
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>API anahtarı alanındaki API anahtarını gizle
 Görüntülemek için tekrar tıklayınız</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Google Gemini™ API anahtar biçimi geçersiz. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını tekrar giriniz.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>MIDI giriş/çıkış başlatma işlemi tamamlandı.</value>
@@ -745,7 +736,7 @@ Gizlemek için tekrar tıklayınız</value>
     <value>Zamanlayıcı durumu geri okuma işlemi başarısız oldu (beklenmeyen erişim/mod/BCD).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Yapay zeka modellerini listeleme işlemi başarısız oldu. Lütfen Google Gemini™ API anahtarınızı ve internet bağlantınızı kontrol ediniz.</value>
+    <value>Yapay zeka modelleri listelenemedi. Lütfen API anahtarlarınızı ve internet bağlantınızı kontrol edin.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -775,9 +766,6 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Konum:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı başarıyla kaydedildi.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Sistem hoparlörü (PC hoparlörü) çıkışı varlığı 1/2. adımda kontrol ediliyor...</value>
@@ -848,7 +836,7 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper, Google Gemini™ API anahtarınızın bozuk olduğunu tespit etti. Lütfen ayarlar penceresine Google Gemini™ API anahtarınızı yeniden girin.</value>
+    <value>NeoBleeper, bir veya daha fazla API anahtarının hatalı olduğunu tespit etti. Lütfen ayarlar penceresinden API anahtarınızı yeniden girin.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>Sistem hoparlörü uyandırıldı.</value>
@@ -1101,7 +1089,7 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
 Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI çıkışını kullan" onay kutusunu işaretleyin veya "Oynatma sesini kapat" onay kutusunun işaretini kaldırın.</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı doğrulanıyor...</value>
+    <value>API anahtarları doğrulanıyor...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Gelişmiş sistem hoparlörü testi başlatıldı.</value>
@@ -1110,7 +1098,7 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
     <value>Nok</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı ayarlanmamış. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını ayarlayınız.</value>
+    <value>Herhangi bir API anahtarı ayarlanmamış. Lütfen ayarların "Genel" sekmesinden bir API anahtarı girin.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Hüzünlü bir piyano solosu yaz</value>
@@ -1167,7 +1155,7 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
     <value>Bir değer izin verilen aralığın dışında.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Google Gemini™ API anahtarı doğrulaması başarılı</value>
+    <value>API anahtarı doğrulaması başarılı</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Lazer, Kırbaç, Scratch İtme, Scratch Çekme, Baget Tıklaması, Yan Baget, Metronom Tıklaması, Metronom Zili, Bas Davul, Kick Davul, Trampet Kenar Vuruşu, Trampet, El Çırpma, Elektrikli Trampet, Taban Tom 2, Kapalı Hi-Hat, Taban Tom 1, Hi-Hat Pedal, Alçak Tom, Açık Hi-Hat, Alçak-Orta Tom, Yüksek-Orta Tom, Crash Zil, Yüksek Tom, Ride Zil, China Zil, Ride Çan, Tef, Splash Zil, İnek Çanı, Crash Zil 2, Vibraslap, Ride Zil 2, Yüksek Bongo, Alçak Bongo, Konga Boğuk Vuruş, Konga, Tumba, Yüksek Timbal, Alçak Timbal, Yüksek Agogo, Alçak Agogo, Kabasa, Marakas, Kısa Düdük, Uzun Düdük, Kısa Güiro, Uzun Güiro, Klavis, Yüksek Tahta Blok, Alçak Tahta Blok, Yüksek Cuica, Alçak Cuica, Susturulmuş Üçgen, Açık Üçgen, Shaker, Kızak Zili, Çan Ağacı, Kastanyet, Surdu Boğuk Vuruş, Surdu, Güiro, Klave, Tahta Blok, Trampet Çubuk, Okyanus Davulu, Trampet Fırça</value>
@@ -1219,5 +1207,17 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   </data>
   <data name="NeoBleeperName" xml:space="preserve">
     <value>NeoBleeper</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>API anahtar biçimi geçersiz. Lütfen kontrol edip tekrar deneyiniz</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>Seçilen API anahtarı başarıyla kaydedildi.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>API anahtaır biçimi geçersiz. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını tekrar giriniz.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Bir veya daha fazla API anahtarı çalışmıyor. Lütfen ayarların "Genel" sekmesindeki API anahtarını kontrol edin ve değiştirin.</value>
   </data>
 </root>

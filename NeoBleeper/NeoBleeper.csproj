@@ -179,7 +179,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google_GenerativeAI" Version="4.0.1" />
     <PackageReference Include="NAudio" Version="3.3.0" />
     <PackageReference Include="System.IO.Ports" Version="11.0.0" />
     <PackageReference Include="System.Management" Version="11.0.0" />

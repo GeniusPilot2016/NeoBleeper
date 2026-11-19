@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using GenerativeAI;
 using NeoBleeper.Properties;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -50,9 +49,47 @@ namespace NeoBleeper
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
         CancellationTokenSource connectionCts = new CancellationTokenSource(); // CancellationTokenSource for cancelling connection checks
         bool isErrorMessageShown = false; // Flag to prevent invalid NBPML error message when JSON error message is shown
-        Dictionary<string, string> aiModelMapping = new Dictionary<string, string>
+        // The ComboBox displays friendly names only. Keep the API model identifier
+        // in the item itself for generation and preference persistence.
+        private sealed class ModelComboItem
         {
-        };
+            public CommonAIEngine.Model Model { get; }
+            private readonly string displayText;
+
+            public ModelComboItem(CommonAIEngine.Model model, string displayText)
+            {
+                Model = model;
+                this.displayText = displayText;
+            }
+
+            public override string ToString() => displayText;
+        }
+
+        // API display names are preferable, but some providers return an ID/path
+        // instead. Never show URLs or "models/" prefixes in the ComboBox.
+        private static string GetFriendlyModelName(CommonAIEngine.Model model)
+        {
+            string display = model.displayName?.Trim() ?? string.Empty;
+            if (!string.IsNullOrWhiteSpace(display) &&
+                display.IndexOf("models/", StringComparison.OrdinalIgnoreCase) < 0 &&
+                display.IndexOf("://", StringComparison.OrdinalIgnoreCase) < 0 &&
+                !string.Equals(display, model.name, StringComparison.OrdinalIgnoreCase))
+                return display;
+
+            string id = model.name ?? string.Empty;
+            int slash = id.LastIndexOf('/');
+            if (slash >= 0) id = id.Substring(slash + 1);
+            id = id.Replace('-', ' ').Replace('_', ' ').Trim();
+            id = Regex.Replace(id, @"\b[a-z]", match => match.Value.ToUpperInvariant());
+            id = Regex.Replace(id, @"^Gpt\b", "GPT", RegexOptions.IgnoreCase);
+            id = Regex.Replace(id, @"^Chatgpt\b", "ChatGPT", RegexOptions.IgnoreCase);
+            return id.Length == 0 ? model.provider : id;
+        }
+
+        private CommonAIEngine.Model selectedAIModel;
+        private bool isLoadingModels;
+        private CancellationTokenSource animationCts;
+        private string originalCreatingLabel = string.Empty;
         private bool isMusicGenerationStarted = false; // Flag to indicate if music generation has started
         private bool extendedThinking = false;  // Flag to indicate if extended thinking mode is active (for complex music creations)
         private EncryptionHelper encryptionHelper = new EncryptionHelper(); // Encryption helper instance for decrypting API key
@@ -64,6 +101,7 @@ namespace NeoBleeper
             this.Owner = owner;
             UIFonts.SetFonts(this);
             SetTheme();
+            originalCreatingLabel = labelCreating.Text;
             examplePrompt = examplePrompts[new Random().Next(examplePrompts.Length)];
             textBoxPrompt.PlaceholderText = examplePrompt;
         }
@@ -104,190 +142,103 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Specifies the set of features that are required or desired for the operation.
+        /// Populate the existing model combo box from CommonAIEngine (Gemini, OpenAI,
+        /// Anthropic). A failed provider must not prevent working providers from loading.
+        /// Existing Gemini preferences continue to work; newer preferences include a
+        /// provider prefix to avoid name collisions.
         /// </summary>
-        /// <remarks>Each element in the array represents a feature identifier, such as content generation
-        /// or token counting. The presence of a feature in this array indicates that the corresponding capability
-        /// should be supported or enabled.</remarks>
-
-        string[] wantedFeatures =
-        {
-            "generateContent", // Content creation capability
-            "countTokens"      // Token counting capability
-        };
-
-        /// <summary>
-        /// Contains the names of features that are not supported or should be excluded.
-        /// </summary>
-        /// <remarks>Each element in the array represents a specific feature identifier that is considered
-        /// unwanted. This list can be used to filter or disable certain capabilities in dependent components.</remarks>
-        string[] unwantedFeatures =
-        {
-            "predict",         // Image generation capability
-            "embedContent",    // Content embedding capability
-            "embedText",       // Text embedding capability
-            "asyncBatchEmbedContent", // Async batch content embedding capability
-            "generateAnswer"   // Answer generation capability
-        };
-
-        /// <summary>
-        /// Retrieves the list of available Gemini AI models, filters them based on supported features and known
-        /// exclusions, and populates the model selection UI with the valid options. Sets the preferred or first
-        /// available model as the current selection and enables related UI controls.
-        /// </summary>
-        /// <remarks>This method disables the form and displays an error message if no valid models are
-        /// found or if an error occurs during retrieval. Only models that meet specific feature requirements and do not
-        /// match known exclusions are presented to the user. The method is intended to be called during form
-        /// initialization or when the list of available models needs to be refreshed.</remarks>
         private async void ListAndSelectAIModels()
         {
+            if (isLoadingModels || IsDisposed) return;
+            isLoadingModels = true;
             try
             {
-                EncryptionHelper encryptionHelper = new EncryptionHelper();
-                var generativeAI = new GenerativeAI.GoogleAi(encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64));
-                var models = await generativeAI.ListModelsAsync();
-
-                List<string> filteredDisplayNames = new List<string>();
-                string[] specialModelDefiners = { "computer-use", "robotics", "code", "image", "transcribe", "nano-banana" }; // Special purpose models to exclude such as robotics, code generation, computer-use, image generation, and transcription models
-                string[] duplicateModelDefiners = { "001" }; // Duplicate models to exclude
-                string[] audioModels = { "tts", "audio" }; // Audio generation and text-to-speech models to exclude
-                string[] problematicModels = { "2.0" }; // Known problematic models to exclude
-                foreach (var model in models.Models)
+                buttonCreate.Enabled = false;
+                comboBox_ai_model.Enabled = false;
+                var available = new List<CommonAIEngine.Model>();
+                foreach (string provider in new[] { "Google", "OpenAI", "Anthropic" })
                 {
-                    // Skip models that don't contain "gemini" in the name (case-insensitive)
-                    if (string.IsNullOrEmpty(model.Name) || !model.Name.Contains("gemini", StringComparison.OrdinalIgnoreCase)
-                        || model.Name.Contains("omni", StringComparison.OrdinalIgnoreCase)) // Exclude the newly-released Gemini Omni model, which is not suitable for music generation due to it's any-to-any video generation model, just like Veo model 
+                    try
                     {
-                        continue;
+                        available.AddRange(await CommonAIEngine.GetModelList(provider, cts.Token));
                     }
-
-                    // Skip specific special purpose, duplicate, audio, and problematic models
-                    // such as robotics, code generation, computer-use, text-to-speech, audio generation, and known problematic models
-                    if (specialModelDefiners.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
-                        duplicateModelDefiners.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
-                        audioModels.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)) ||
-                        problematicModels.Any(definer => model.Name.Contains(definer, StringComparison.OrdinalIgnoreCase)))
+                    catch (OperationCanceledException) when (cts.IsCancellationRequested)
                     {
-                        continue;
+                        return;
                     }
-
-                    // Check for required features and absence of unwanted features
-                    if (model.SupportedGenerationMethods != null &&
-                        wantedFeatures.All(feature => model.SupportedGenerationMethods.Contains(feature)) &&
-                        unwantedFeatures.All(feature => !model.SupportedGenerationMethods.Contains(feature)))
+                    catch (Exception ex)
                     {
-                        aiModelMapping[model.Name] = model.DisplayName;
-                        aiModelMapping[model.DisplayName] = model.Name;
-                        filteredDisplayNames.Add(model.DisplayName);
+                        Logger.Log($"Could not list {provider} models: {ex.Message}",
+                            Logger.LogTypes.Warning);
                     }
                 }
 
-                Logger.Log($"Total filtered models: {filteredDisplayNames.Count}", Logger.LogTypes.Info);
-
-                comboBox_ai_model.Items.AddRange(filteredDisplayNames.ToArray());
-
-                if (filteredDisplayNames.Count == 0)
+                if (IsDisposed || cts.IsCancellationRequested) return;
+                comboBox_ai_model.Items.Clear();
+                var usedLabels = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+                var modelItems = new List<ModelComboItem>();
+                foreach (var model in available)
                 {
-                    Logger.Log("WARNING: No valid Gemini models found!", Logger.LogTypes.Warning);
+                    string baseLabel = $"[{model.provider}] {GetFriendlyModelName(model)}";
+                    usedLabels.TryGetValue(baseLabel, out int count);
+                    usedLabels[baseLabel] = ++count;
+                    // Distinguish duplicate public names without revealing model paths.
+                    string label = count == 1 ? baseLabel : $"{baseLabel} ({count})";
+                    var item = new ModelComboItem(model, label);
+                    modelItems.Add(item);
+                    comboBox_ai_model.Items.Add(item);
                 }
 
-                if (aiModelMapping.ContainsKey(Settings1.Default.preferredAIModel))
+                Logger.Log($"Total compatible models: {available.Count}", Logger.LogTypes.Info);
+                if (available.Count == 0)
                 {
-                    AIModel = Settings1.Default.preferredAIModel;
-                    comboBox_ai_model.SelectedItem = aiModelMapping[Settings1.Default.preferredAIModel];
-                    Logger.Log($"Using preferred model: {comboBox_ai_model.SelectedItem} ({AIModel})", Logger.LogTypes.Info);
-                }
-                else
-                {
-                    if (filteredDisplayNames.Count > 0)
-                    {
-                        AIModel = aiModelMapping[filteredDisplayNames[0]];
-                        comboBox_ai_model.SelectedItem = filteredDisplayNames[0];
-                        Logger.Log($"Using first available model: {AIModel}", Logger.LogTypes.Info);
-                    }
-                    else
-                    {
-                        Logger.Log("ERROR: No valid models available!", Logger.LogTypes.Error);
-                        MessageForm.Show(this, Resources.MessageNoAvailableGeminiModel, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.Close();
-                        return; // Close the form and exit the method if no models are available
-                    }
+                    MessageForm.Show(this, Resources.MessageErrorListingAImodels,
+                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Close();
+                    return;
                 }
 
-                if (filteredDisplayNames.Count > 0 &&
-                    IsModelExtendedThinkingCapable(AIModel))
-                {
-                    checkBoxExtendedThinking.Checked = extendedThinking; // Set the checkbox state based on the current setting
-                    checkBoxExtendedThinking.Enabled = true; // Enable extended thinking mode for capable models
-                }
+                string preferred = Settings1.Default.preferredAIModel ?? string.Empty;
+                var chosen = available.FirstOrDefault(model =>
+                    string.Equals(model.provider + ":" + model.name, preferred,
+                        StringComparison.OrdinalIgnoreCase))
+                    ?? available.FirstOrDefault(model =>
+                        string.Equals(model.name, preferred, StringComparison.OrdinalIgnoreCase))
+                    ?? available[0];
 
-                buttonCreate.Enabled = true; // Enable the create button after loading models
-                comboBox_ai_model.Enabled = true; // Enable the combo box after loading models
-                textBoxPrompt.Enabled = true; // Enable the prompt textbox after loading models
-                this.ActiveControl = buttonCreate; // Set focus to the create button
+                selectedAIModel = chosen;
+                AIModel = chosen.name;
+                comboBox_ai_model.SelectedItem = modelItems.First(item =>
+                    ReferenceEquals(item.Model, chosen));
+                UpdateSelectedModelControls();
+                buttonCreate.Enabled = true;
+                comboBox_ai_model.Enabled = true;
+                textBoxPrompt.Enabled = true;
+                ActiveControl = buttonCreate;
+                Logger.Log($"Selected model: {chosen.provider} / {chosen.name}",
+                    Logger.LogTypes.Info);
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error listing AI models: {ex.Message}", Logger.LogTypes.Error);
-                MessageForm.Show(this, Resources.MessageErrorListingAImodels, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-                return; // Close the form and exit the method on error
-            }
-        }
-
-        /// <summary>
-        /// Asynchronously verifies whether the configured Google Gemini™ API key is valid and operational.
-        /// </summary>
-        /// <remarks>This method attempts to perform an operation using the API key to determine its
-        /// validity. Network issues or service outages may also cause the method to return <see langword="false"/> even
-        /// if the API key is correct.</remarks>
-        /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the API key
-        /// is valid and can access the Gemini™ service; otherwise, <see langword="false"/>.</returns>
-        private async Task<bool> IsAPIKeyWorking()
-        {
-            try
-            {
-                var generativeAI = new GenerativeAI.GoogleAi(encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64));
-                var models = generativeAI.ListModelsAsync(); // Attempt to list models to validate API key
-                await models;
-                return models != null && models?.Result?.Models?.Count > 0;
-            }
-            catch (Exception ex)
-            {
-                Logger.Log($"The Google Gemini™ API key validation failed. The API key may be invalid or there may be an issue with the connection. Error: {ex.Message}", Logger.LogTypes.Error);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Determines whether the specified model name corresponds to a Gemini AI model that is capable of extended thinking,
-        /// which may be required for more complex music generation tasks. The method checks for specific keywords and version patterns
-        /// </summary>
-        /// <param name="modelName">The name of the AI model to evaluate. This should be a non-null string representing the model's identifier.</param>
-        /// <returns>true if the model is identified as extended thinking capable based on its name; otherwise, false.</returns>
-        private bool IsModelExtendedThinkingCapable(string modelName)
-        {
-            string lower = modelName.ToLowerInvariant();
-
-            // Consider models with "latest" in the name as extended thinking capable, as they are likely to be the most advanced versions
-            if (lower.Contains("latest"))
-                return true;
-
-            // Catch models with version numbers, e.g. "gemini-3.X" (X is minor version), "gemini-4", ..., "gemini-9"
-            var m = System.Text.RegularExpressions.Regex.Match(lower, @"gemini-(\d+(?:\.\d+)?)");
-            if (m.Success)
-            {
-                if (double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, out double ver))
+                if (!IsDisposed)
                 {
-                    return ver >= 3.0;
+                    MessageForm.Show(this, Resources.MessageErrorListingAImodels,
+                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Close();
                 }
             }
+            finally
+            {
+                isLoadingModels = false;
+            }
+        }
 
-            // For simple model names like "gemini-3", "gemini-4", ..., "gemini-9"
-            if (System.Text.RegularExpressions.Regex.IsMatch(lower, @"\bgemini-(3|4|5|6|7|8|9)\b"))
-                return true;
-
-            return false;
+        private void UpdateSelectedModelControls()
+        {
+            bool canThink = CommonAIEngine.SupportsExtendedThinking(selectedAIModel);
+            checkBoxExtendedThinking.Enabled = canThink;
+            checkBoxExtendedThinking.Checked = canThink && extendedThinking;
         }
 
         /// <summary>
@@ -409,13 +360,10 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Performs a series of checks to determine whether the application can proceed with opening the Google Gemini™
-        /// API functionality.
+        /// Checks whether at least one of the supported AI providers can load text models.
         /// </summary>
-        /// <remarks>This method verifies internet connectivity, server availability, and the presence and
-        /// validity of the Google Gemini™ API key. If any check fails, an appropriate message is displayed to the user
-        /// and the method returns <see langword="false"/>. Use this method before attempting to access features that
-        /// require the Google Gemini™ API.</remarks>
+        /// <remarks>Internet connectivity and provider model discovery are checked.
+        /// Providers with missing or invalid API keys are skipped.</remarks>
         /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if all required
         /// conditions are met and the API can be opened; otherwise, <see langword="false"/>.</returns>
         public async Task<bool> CheckWillItOpened()
@@ -423,34 +371,32 @@ namespace NeoBleeper
             if (!await IsInternetAvailable())
             {
                 ShowNoInternetMessage();
-                return false; // Return false if no internet
+                return false;
             }
-            else if (!await IsServerUp())
+            try
             {
-                ShowServerDownMessage();
-                return false; // Return false if server is down
+                // Any configured working provider is sufficient to open the form.
+                foreach (var provider in new[] { "Google", "OpenAI", "Anthropic" })
+                {
+                    try
+                    {
+                        if ((await CommonAIEngine.GetModelList(provider)).Count > 0)
+                            return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log($"{provider} preflight failed: {ex.Message}",
+                            Logger.LogTypes.Warning);
+                    }
+                }
+                MessageForm.Show(this, Resources.MessageErrorListingAImodels,
+                    string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            else if (string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
+            catch (Exception ex)
             {
-                Logger.Log("Google Gemini™ API key is not set. Please set the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(this, Resources.MessageAPIKeyIsNotSet, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false; // Return false if API key is not set
-            }
-            else if (!IsAPIKeyValidFormat(encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64)))
-            {
-                Logger.Log("Google Gemini™ API key format is invalid. Please re-enter the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(this, Resources.MessageGoogleGeminiAPIKeyFormatIsInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false; // Return false if API key format is invalid  
-            }
-            else if (!await IsAPIKeyWorking())
-            {
-                Logger.Log("The Google Gemini™ API key is not working. Please check the API key in the \"General\" tab in settings.", Logger.LogTypes.Error);
-                MessageForm.Show(this, Resources.MessageGoogleGeminiAPIKeyIsNotWorking, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false; // Return false if API key is not working
-            }
-            else
-            {
-                return true; // All checks passed
+                Logger.Log($"AI preflight failed: {ex.Message}", Logger.LogTypes.Error);
+                return false;
             }
         }
 
@@ -554,8 +500,16 @@ namespace NeoBleeper
                     token?.Token.ThrowIfCancellationRequested();
 
                     // Parallel checking: HTTP and Ping run simultaneously
-                    var httpTask = TryHttpAsync("https://generativelanguage.googleapis.com", perAttemptTimeout, token?.Token ?? CancellationToken.None);
-                    var pingTask = TryPingAnyAsync(new[] { "generativelanguage.googleapis.com" }, perAttemptTimeout, token?.Token ?? CancellationToken.None);
+                    string host = selectedAIModel?.provider switch
+                    {
+                        "OpenAI" => "api.openai.com",
+                        "Anthropic" => "api.anthropic.com",
+                        _ => "generativelanguage.googleapis.com"
+                    };
+                    var httpTask = TryHttpAsync("https://" + host,
+                        perAttemptTimeout, token?.Token ?? CancellationToken.None);
+                    var pingTask = TryPingAnyAsync(new[] { host },
+                        perAttemptTimeout, token?.Token ?? CancellationToken.None);
 
                     var results = await Task.WhenAll(httpTask, pingTask);
 
@@ -571,7 +525,7 @@ namespace NeoBleeper
                     }
                 }
 
-                Logger.Log("Unable to reach the Google Gemini™ server.", Logger.LogTypes.Error);
+                Logger.Log("Unable to reach the selected AI provider server.", Logger.LogTypes.Error);
                 return false;
             }
             catch (TaskCanceledException)
@@ -616,12 +570,12 @@ namespace NeoBleeper
         /// <summary>
         /// Determines whether the specified API key string matches the expected format for a Google API key.
         /// </summary>
-        /// <remarks>This method checks that the API key starts with "AIzaSy" and is followed by 33
+        /// <remarks>This method checks that the API key starts with "AQ.Ab8RN6" and is followed by 44 alphanumeric characters, underscores, or hyphens. The check is case-sensitive and does not validate the key against any external service. It only verifies the format of the string.</remarks>
         /// alphanumeric characters, underscores, or hyphens. It does not verify whether the key is active or authorized
         /// for use with any Google service.</remarks>
         /// <param name="APIKey">The API key string to validate. Cannot be null or consist only of white-space characters.</param>
         /// <returns>true if the API key matches the expected Google API key format; otherwise, false.</returns>
-        public static bool IsAPIKeyValidFormat(string APIKey)
+        public static bool IsGeminiAPIKeyValidFormat(string APIKey)
         {
             // Google API keys typically start with "AQ.Ab8RN6" followed by 47 alphanumeric characters, underscores, or hyphens
             if (string.IsNullOrWhiteSpace(APIKey))
@@ -633,6 +587,43 @@ namespace NeoBleeper
         }
 
         /// <summary>
+        /// Determines whether the specified API key string matches the expected format for an OpenAI API key.
+        /// </summary>
+        /// <remarks>This method checks that the API key starts with a valid OpenAI prefix ("sk-proj-", "sk-svcacct-", "sk-admin-", or legacy "sk-") 
+        /// and is followed by 40 to 200 alphanumeric characters, underscores, or hyphens. The check is case-sensitive and does not validate 
+        /// the key against any external service. It only verifies the format of the string.</remarks>
+        /// <param name="APIKey">The API key string to validate. Cannot be null or consist only of white-space characters.</param>
+        /// <returns>true if the API key matches the expected OpenAI API key format; otherwise, false.</returns>
+        public static bool IsOpenAIAPIKeyValidFormat(string APIKey)
+        {
+            if (string.IsNullOrWhiteSpace(APIKey))
+                return false;
+
+            // Regex pattern to match OpenAI API key formats (project, service account, admin, and legacy user keys)
+            var regex = new Regex(@"^sk-(?:proj-|svcacct-|admin-)?[A-Za-z0-9_-]{40,200}$");
+            return regex.IsMatch(APIKey);
+        }
+
+        /// <summary>
+        /// Determines whether the specified API key string matches the expected format for an Anthropic (Claude) API key.
+        /// </summary>
+        /// <remarks>This method checks that the API key starts with "sk-ant-api03-" (or "sk-ant-oat01-" for CLI OAuth tokens) 
+        /// and is followed by approximately 95 alphanumeric characters, underscores, or hyphens. The check is case-sensitive and 
+        /// does not validate the key against any external service. It only verifies the format of the string.</remarks>
+        /// <param name="APIKey">The API key string to validate. Cannot be null or consist only of white-space characters.</param>
+        /// <returns>true if the API key matches the expected Anthropic API key format; otherwise, false.</returns>
+        public static bool IsClaudeAPIKeyValidFormat(string APIKey)
+        {
+            if (string.IsNullOrWhiteSpace(APIKey))
+                return false;
+
+            // Regex pattern to match the Anthropic API key format: "sk-ant-api03-" followed by 80 to 120 base64url characters
+            var regex = new Regex(@"^sk-ant-(?:api03|oat01)-[A-Za-z0-9_-]{80,120}$");
+            return regex.IsMatch(APIKey);
+        }
+
+
+        /// <summary>
         /// Determines whether the current system region is supported for availability.
         /// </summary>
         /// <remarks>This method checks the system's current region using RegionInfo.CurrentRegion. The
@@ -640,7 +631,7 @@ namespace NeoBleeper
         /// two-letter ISO codes.</remarks>
         /// <returns>true if the current system's two-letter ISO country code is in the list of supported countries; otherwise,
         /// false.</returns>
-        public static bool IsAvailableInCountry()
+        public static bool IsGeminiAPIAvailableInCountry()
         {
             String[] supportedCountries =
 
@@ -881,169 +872,86 @@ namespace NeoBleeper
             return supportedCountries.Contains(countryCode);
         }
 
-        /// <summary>
-        /// Determines whether the provided response appears to be stuck or contains repeated content, indicating a
-        /// possible infinite loop or repetition.
-        /// </summary>
-        /// <remarks>This method checks for consecutive repetition of content within the response by
-        /// dividing the end of the response into fixed-size chunks and comparing them. It is intended to detect cases
-        /// where a model may be generating the same output repeatedly, which can indicate a loop or failure to
-        /// progress. The method only performs the check if the response is sufficiently long to avoid false
-        /// positives.</remarks>
-        /// <param name="response">The response string to analyze for signs of being stuck or containing consecutive repeated segments. Must
-        /// not be null.</param>
-        /// <returns>true if the response contains a repeated segment that appears consecutively and meets the minimum length and
-        /// repetition criteria; otherwise, false.</returns>
-        private bool CheckIfModelIsStuckOrKeepsRepeating(string response) // Check if the model is stuck or keeps repeating
+
+        // Supported-country checks use OS regional settings, NOT a geolocation or
+        // provider authorization check. Lists may change; review official policies.
+        // https://developers.openai.com/api/docs/supported-countries
+        private static readonly HashSet<string> openAISupportedCountries =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            int minLength = 500;
-            if (response.Length < minLength)
-            {
-                return false;
-            }
+            "AD", "AE", "AF", "AG", "AL", "AM", "AO", "AR", "AT", "AU",
+            "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH",
+            "BI", "BJ", "BL", "BM", "BN", "BO", "BR", "BS", "BT", "BW",
+            "BZ", "CA", "CD", "CF", "CG", "CH", "CI", "CL", "CM", "CO",
+            "CR", "CV", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ",
+            "EC", "EE", "EG", "ER", "ES", "ET", "FI", "FJ", "FM", "FO",
+            "FR", "GA", "GB", "GD", "GE", "GF", "GH", "GL", "GM", "GN",
+            "GP", "GQ", "GR", "GT", "GW", "GY", "HN", "HR", "HT", "HU",
+            "ID", "IE", "IL", "IN", "IQ", "IS", "IT", "JM", "JO", "JP",
+            "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KY", "KZ",
+            "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV",
+            "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK", "ML",
+            "MM", "MN", "MQ", "MR", "MT", "MU", "MV", "MW", "MX", "MY",
+            "MZ", "NA", "NC", "NE", "NG", "NI", "NL", "NO", "NP", "NR",
+            "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM",
+            "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RW", "SA",
+            "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL",
+            "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SZ", "TD", "TF",
+            "TG", "TH", "TJ", "TL", "TM", "TN", "TO", "TR", "TT", "TV",
+            "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VA", "VC", "VN",
+            "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
+        };
 
-            // 1) Serial repeating chunks
-            int chunkSize = 150;
-            int consecutiveRepetitionThreshold = 3;
+        // https://www.anthropic.com/legal/supported-regions (effective 2026-11-12)
+        // The policy covers Anthropic API access and the dependencies/territories of
+        // listed countries. Country codes cannot account for sub-national exclusions.
+        private static readonly HashSet<string> anthropicSupportedCountries =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "AD", "AE", "AG", "AI", "AL", "AM", "AO", "AR", "AS", "AT",
+            "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG",
+            "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS",
+            "BT", "BV", "BW", "BZ", "CA", "CC", "CD", "CF", "CG", "CH",
+            "CI", "CK", "CL", "CM", "CO", "CR", "CV", "CW", "CX", "CY",
+            "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG",
+            "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA",
+            "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN",
+            "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HM", "HN",
+            "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ",
+            "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI",
+            "KM", "KN", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI",
+            "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD",
+            "ME", "MF", "MG", "MH", "MK", "ML", "MN", "MP", "MQ", "MR",
+            "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC",
+            "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ",
+            "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN",
+            "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RW",
+            "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK",
+            "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SZ",
+            "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN",
+            "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US",
+            "UY", "UZ", "VA", "VC", "VG", "VI", "VN", "VU", "WF", "WS",
+            "YT", "ZA", "ZM", "ZW"
+        };
 
-            if (response.Length >= chunkSize * consecutiveRepetitionThreshold)
-            {
-                string lastChunk = response.Substring(response.Length - chunkSize);
-                bool isSame = true;
+        /// <summary>
+        /// Returns whether the system-configured country is listed as supported for
+        /// the OpenAI API. This does not establish the user's physical location.
+        /// </summary>
+        public static bool IsOpenAIAPIAvailableInCountry()
+        {
+            var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
+            return openAISupportedCountries.Contains(countryCode);
+        }
 
-                for (int i = 1; i < consecutiveRepetitionThreshold; i++)
-                {
-                    int startIndex = response.Length - (chunkSize * (i + 1));
-                    string previousChunk = response.Substring(startIndex, chunkSize);
-
-                    if (!string.Equals(lastChunk, previousChunk, StringComparison.Ordinal))
-                    {
-                        isSame = false;
-                        break;
-                    }
-                }
-
-                if (isSame)
-                {
-                    Logger.Log($"Infinite loop or repetition detected in AI response. The chunk '{lastChunk.Trim()}' appeared {consecutiveRepetitionThreshold} times in a row.", Logger.LogTypes.Warning);
-                    return true;
-                }
-            }
-
-            // Analyze the tail for performance
-            int tailWindowSize = 4000;
-            string tail = response.Length > tailWindowSize ? response.Substring(response.Length - tailWindowSize) : response;
-
-            // Mask seperators to prevent false positives
-            tail = Regex.Replace(tail, @"(?m)^\s*-{10,}\s*$", " <NBPML_SEPARATOR> ");
-            tail = Regex.Replace(tail, @"(?m)^\s*_{10,}\s*$", " <NBPML_SEPARATOR> ");
-            tail = Regex.Replace(tail, @"(?m)^\s*={10,}\s*$", " <NBPML_SEPARATOR> ");
-
-            // 2) Serial repeat of same character, except file name and content seperator.
-            int repeatedCharThreshold = 80;
-            var repeatedCharMatch = Regex.Match(tail, $@"(.)\1{{{repeatedCharThreshold},}}", RegexOptions.Singleline);
-            if (repeatedCharMatch.Success)
-            {
-                Logger.Log("Infinite loop detected: repeated character sequence.", Logger.LogTypes.Warning);
-                return true;
-            }
-
-            // 3) Token based serial repeatings
-            int tokenRunThreshold = 100;
-
-            var tokenMatches = Regex.Matches(
-                tail,
-                @"</?[^>]+>|[\p{L}\p{N}]+|.",
-                RegexOptions.Singleline);
-
-            if (tokenMatches.Count >= tokenRunThreshold)
-            {
-                string? lastToken = null;
-                int run = 0;
-
-                for (int i = 0; i < tokenMatches.Count; i++)
-                {
-                    string token = tokenMatches[i].Value;
-
-                    if (string.IsNullOrWhiteSpace(token))
-                    {
-                        continue;
-                    }
-
-                    string normalizedToken = token;
-                    if (Regex.IsMatch(token, @"^[\p{L}\p{N}]+$", RegexOptions.Singleline))
-                    {
-                        normalizedToken = token.ToLowerInvariant();
-                    }
-
-                    if (lastToken is null)
-                    {
-                        lastToken = normalizedToken;
-                        run = 1;
-                        continue;
-                    }
-
-                    if (string.Equals(lastToken, normalizedToken, StringComparison.Ordinal))
-                    {
-                        run++;
-                        if (run >= tokenRunThreshold)
-                        {
-                            Logger.Log($"Infinite loop detected: token '{lastToken}' repeated {run} times in series.", Logger.LogTypes.Warning);
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        lastToken = normalizedToken;
-                        run = 1;
-                    }
-                }
-            }
-
-            // 4) Motif check
-            string compact = Regex.Replace(tail, @"\s+", "");
-
-            int minMotifLength = 4;
-            int maxMotifLength = 80;
-            int motifRepeatThreshold = 6;
-
-            for (int motifLen = minMotifLength; motifLen <= maxMotifLength; motifLen++)
-            {
-                if (compact.Length < motifLen * motifRepeatThreshold)
-                {
-                    break;
-                }
-
-                string motif = compact.Substring(compact.Length - motifLen, motifLen);
-
-                if (motif.Distinct().Count() == 1)
-                {
-                    continue;
-                }
-
-                int repeats = 1;
-                int pos = compact.Length - motifLen;
-
-                while (pos - motifLen >= 0)
-                {
-                    string prev = compact.Substring(pos - motifLen, motifLen);
-                    if (!string.Equals(prev, motif, StringComparison.Ordinal))
-                    {
-                        break;
-                    }
-
-                    repeats++;
-                    pos -= motifLen;
-
-                    if (repeats >= motifRepeatThreshold)
-                    {
-                        Logger.Log("Infinite loop detected: repeated phrase/motif in series.", Logger.LogTypes.Warning);
-                        return true;
-                    }
-                }
-            }
-
-            return false;
+        /// <summary>
+        /// Returns whether the system-configured country is listed as supported for
+        /// Anthropic API access. Country-level checks cannot enforce local exclusions.
+        /// </summary>
+        public static bool IsAnthropicAPIAvailableInCountry()
+        {
+            var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
+            return anthropicSupportedCountries.Contains(countryCode);
         }
 
         /// <summary>
@@ -1082,40 +990,30 @@ namespace NeoBleeper
 
         private async void CreateCreatingAnimation()
         {
-            string text = labelCreating.Text;
-            string frame = "⠏";
-            while (true)
+            // Do not start an endless animation on every enable/disable cycle.
+            if (animationCts != null && !animationCts.IsCancellationRequested)
+                return;
+            animationCts = new CancellationTokenSource();
+            CancellationToken token = animationCts.Token;
+            string[] frames = { "⠏", "⠛", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇",
+                                "⠏", "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇" };
+            int frame = 0;
+            try
             {
-                for (int i = 0; i < 19; i++)
+                while (!token.IsCancellationRequested && !IsDisposed && labelCreating.Visible)
                 {
-                    if (i == 0) frame = "⠏";
-                    else if (i == 1) frame = "⠛";
-                    else if (i == 2) frame = "⠹";
-                    else if (i == 3) frame = "⠸";
-                    else if (i == 4) frame = "⠼";
-                    else if (i == 5) frame = "⠴";
-                    else if (i == 6) frame = "⠦";
-                    else if (i == 7) frame = "⠧";
-                    else if (i == 8) frame = "⠇";
-                    else if (i == 9) frame = "⠏";
-                    else if (i == 10) frame = "⠋";
-                    else if (i == 11) frame = "⠙";
-                    else if (i == 12) frame = "⠹";
-                    else if (i == 13) frame = "⠸";
-                    else if (i == 14) frame = "⠼";
-                    else if (i == 15) frame = "⠴";
-                    else if (i == 16) frame = "⠦";
-                    else if (i == 17) frame = "⠧";
-                    else if (i == 18) frame = "⠇";
-                    labelCreating.Text = $"{frame} {text}";
-                    await Task.Delay(75);
+                    labelCreating.Text = frames[frame++ % frames.Length] + " " + originalCreatingLabel;
+                    await Task.Delay(75, token);
                 }
             }
+            catch (OperationCanceledException) { }
         }
         private bool wasAnythingCreated = false;
         private async void buttonCreate_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(AIModel) && (!string.IsNullOrWhiteSpace(textBoxPrompt.Text) || !string.IsNullOrWhiteSpace(textBoxPrompt.PlaceholderText)))
+            if (selectedAIModel != null && !isMusicGenerationStarted &&
+                (!string.IsNullOrWhiteSpace(textBoxPrompt.Text) ||
+                 !string.IsNullOrWhiteSpace(textBoxPrompt.PlaceholderText)))
             {
                 try
                 {
@@ -1127,8 +1025,8 @@ namespace NeoBleeper
                         textBoxPrompt.Text = string.Empty; // Clear the prompt to prevent accidental resubmission
                         return;
                     }
-                    // Create music with AI like it's 2007 again using Google Gemini™ API, which is 2020's technology
-                    string startMessage = IsModelExtendedThinkingCapable(AIModel) ?
+                    // Create music with the selected Gemini, OpenAI or Anthropic model.
+                    string startMessage = CommonAIEngine.SupportsExtendedThinking(selectedAIModel) ?
                         (checkBoxExtendedThinking.Checked == true ? "Starting music generation with AI using extended thinking..." : "Starting music generation with AI without using extended thinking...") :
                             "Starting music generation with AI...";
                     Logger.Log(startMessage, Logger.LogTypes.Info);
@@ -1140,9 +1038,8 @@ namespace NeoBleeper
                     they identified as it's definetely a system prompt, despite I called it as "makeshift rubbish 
                     prompt template".)*/
 
-                    /*Spoiler: Now, it's not rubbish anymore since I used GenerativeModel.SystemInstruction 
-                    property of Google_GenerativeAI library, but I kept it as is for nostalgia for 
-                    my good old "makeshift rubbish prompt template" days. :) */
+                    // System instructions are passed separately to CommonAIEngine and
+                    // translated to each provider's native system/instructions field.
 
                     // The string that contains system instructions for the AI model
                     string systemInstructions = $"--- AI Instructions ---\r\n" +
@@ -1308,84 +1205,29 @@ namespace NeoBleeper
                         $"</NeoBleeperProjectFile>";
                     connectionCheckTimer.Start();
                     SetControlsEnabledAndMakeLoadingVisible(false);
-                    var resultBuilder = new StringBuilder();
-                    string response = string.Empty;
-                    var apiKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64);
-                    var googleAI = new GoogleAi(apiKey);
-                    var googleModel = googleAI.CreateGenerativeModel(AIModel);
-                    googleModel.SystemInstruction = systemInstructions;
+                    isMusicGenerationStarted = true;
 
-                    // If the model supports extended thinking, set the thinking level based on the checkbox
-                    if (IsModelExtendedThinkingCapable(AIModel))
+                    // The shared engine streams each provider and halts a repeating response
+                    // before it can become an infinite generation loop.
+                    var progress = new Progress<string>(partial =>
                     {
-                        // Config
-                        if (googleModel.Config == null)
-                        {
-                            googleModel.Config = new GenerativeAI.Types.GenerationConfig();
-                        }
-                        var configValue = googleModel.Config;
-
-                        // ThinkingConfig
-                        if (configValue.ThinkingConfig == null)
-                        {
-                            configValue.ThinkingConfig = new GenerativeAI.Types.ThinkingConfig();
-                        }
-                        var finalThinking = configValue.ThinkingConfig;
-
-                        // ThinkingLevel
-                        if (finalThinking != null)
-                        {
-                            var desired = checkBoxExtendedThinking.Checked ?
-                                GenerativeAI.Types.ThinkingLevel.HIGH : GenerativeAI.Types.ThinkingLevel.LOW;
-
-                            finalThinking.ThinkingLevel = desired;
-                        }
-                    }
-                    isMusicGenerationStarted = true; // Set the flag to indicate music generation has started
-                    await foreach (var chunk in googleModel.StreamContentAsync(prompt, cts.Token))
+                        if (!IsDisposed && !cts.IsCancellationRequested && IsHandleCreated)
+                            LogStatus(ExpandMinifiedNBPML(FixCollapsedLinesInNBPML(partial)));
+                    });
+                    var options = new CommonAIEngine.GenerationOptions
                     {
-                        // Clean up the chunk text by removing double newlines and trimming whitespace
-                        if (chunk?.Candidates == null) continue;
-
-                        foreach (var candidate in chunk.Candidates)
-                        {
-                            var parts = candidate?.Content?.Parts;
-                            if (parts == null) continue; // Blocked, null or invalid part
-
-                            var chunkText = string.Join(string.Empty,
-                                parts.Where(p => p?.Text != null).Select(p => p.Text));
-                            if (!string.IsNullOrEmpty(chunkText))
-                            {
-                                resultBuilder.Append(chunkText);
-                                if (!string.IsNullOrEmpty(resultBuilder.ToString().Trim()) &&
-                                    !wasAnythingCreated)
-                                {
-                                    wasAnythingCreated = true; // Set the flag to true if any content is generated
-                                }
-                            }
-                        }
-                        // Step 3: Convert the result builder to a string for analysis and rendering to make ready to use
-                        response = FixCollapsedLinesInNBPML(resultBuilder.ToString());
-                        LogStatus(ExpandMinifiedNBPML(response)); // Log the current status of the response for debugging
-
-                        // Check if the model is stuck or keeps repeating
-                        if (CheckIfModelIsStuckOrKeepsRepeating(response))
-                        {
-                            Logger.Log("AI model appears to be stuck or repeating. Cancelling generation.", Logger.LogTypes.Warning);
-                            cts.Cancel(); // Cancel the operation
-                            StopConnectionCheck();
-                            response = string.Empty;
-                            MessageForm.Show(this, Resources.MessageInfiniteLoop, Resources.TitleInfiniteLoop, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                        }
-
-                        // Check is cancellation is requested
-                        if (cts.IsCancellationRequested)
-                        {
-                            Logger.Log("AI music generation was cancelled", Logger.LogTypes.Warning);
-                            break;
-                        }
-                    }
+                        SystemInstructions = systemInstructions,
+                        ExtendedThinking = CommonAIEngine.SupportsExtendedThinking(selectedAIModel) &&
+                                           checkBoxExtendedThinking.Checked,
+                        MaxOutputTokens = 16384,
+                        MaxOutputCharacters = 300000,
+                        MaxDuration = TimeSpan.FromMinutes(5),
+                        IdleTimeout = TimeSpan.FromSeconds(90),
+                        Progress = progress
+                    };
+                    string response = await CommonAIEngine.GenerateTextAsync(
+                        selectedAIModel, prompt, options, cts.Token);
+                    wasAnythingCreated = !string.IsNullOrWhiteSpace(response);
                     // Remove excessive newlines from the final response
                     response = Regex.Replace(response, @"\n{2,}", "\n"); // Make single newlines 
                     response = ExpandMinifiedNBPML(FixCollapsedLinesInNBPML(response)); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
@@ -1482,6 +1324,19 @@ namespace NeoBleeper
                     }
                     // If the operation was cancelled, do nothing
                 }
+                catch (CommonAIEngine.RepetitionDetectedException ex)
+                {
+                    StopConnectionCheck();
+                    Logger.Log(ex.Message, Logger.LogTypes.Warning);
+                    isCreatedAnything = false;
+                    wasAnythingCreated = false;
+                    generatedFilename = string.Empty;
+                    output = string.Empty;
+                    if (!IsDisposed)
+                        MessageForm.Show(this, Resources.MessageInfiniteLoop,
+                            Resources.TitleInfiniteLoop, MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                }
                 catch (Exception ex)
                 {
                     // Show an error message and log the exception details
@@ -1497,9 +1352,11 @@ namespace NeoBleeper
                     {
                         return; // Exit the method if the task was cancelled
                     }
-                    string title = GetLocalizedAPIErrorTitleAndMessage(ex.Message).title;
-                    string message = GetLocalizedAPIErrorTitleAndMessage(ex.Message).message;
-                    MessageForm.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // The dialog must contain only translated Resources strings,
+                    // never an API response body or a provider's JSON error.
+                    var localized = GetLocalizedAPIErrorTitleAndMessage(ex);
+                    MessageForm.Show(this, localized.message, localized.title,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -3802,12 +3659,15 @@ namespace NeoBleeper
         {
             labelCreating.Visible = !enabled;
             if (!enabled)
-            {
                 CreateCreatingAnimation();
+            else
+            {
+                animationCts?.Cancel();
+                labelCreating.Text = originalCreatingLabel;
             }
             foreach (Control ctrl in Controls)
             {
-                if (ctrl == labelCreating || ctrl == labelPoweredByGemini || ctrl == labelWarning)
+                if (ctrl == labelCreating || ctrl == labelWarning)
                     continue;
                 ctrl.Enabled = enabled;
             }
@@ -3821,11 +3681,7 @@ namespace NeoBleeper
                 {
                     buttonCreate.Enabled = false;
                 }
-                if (!string.IsNullOrEmpty(AIModel))
-                {
-                    checkBoxExtendedThinking.Checked = extendedThinking;
-                    checkBoxExtendedThinking.Enabled = IsModelExtendedThinkingCapable(AIModel);
-                }
+                UpdateSelectedModelControls();
             }
         }
 
@@ -3842,25 +3698,17 @@ namespace NeoBleeper
 
         private void comboBox_ai_model_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedDisplayName = comboBox_ai_model.SelectedItem?.ToString();
-            if (!string.IsNullOrEmpty(selectedDisplayName) && aiModelMapping.ContainsKey(selectedDisplayName) &&
-                (aiModelMapping[selectedDisplayName] != Settings1.Default.preferredAIModel))
-            {
-                AIModel = aiModelMapping[selectedDisplayName];
-                Logger.Log($"AI Model changed to: {selectedDisplayName} ({AIModel})", Logger.LogTypes.Info);
-                Settings1.Default.preferredAIModel = AIModel;
-                Settings1.Default.Save();
-                if (IsModelExtendedThinkingCapable(AIModel)) // Enable the Extended Thinking checkbox if the selected model supports it
-                {
-                    checkBoxExtendedThinking.Enabled = true;
-                    checkBoxExtendedThinking.Checked = extendedThinking;
-                }
-                else
-                {
-                    checkBoxExtendedThinking.Enabled = false;
-                    checkBoxExtendedThinking.Checked = false;
-                }
-            }
+            if (isLoadingModels) return;
+            if (comboBox_ai_model.SelectedItem is not ModelComboItem item)
+                return;
+            var chosen = item.Model;
+            selectedAIModel = chosen;
+            AIModel = chosen.name;
+            Logger.Log($"AI model changed to: {chosen.provider} / {AIModel}",
+                Logger.LogTypes.Info);
+            Settings1.Default.preferredAIModel = chosen.provider + ":" + chosen.name;
+            Settings1.Default.Save();
+            UpdateSelectedModelControls();
         }
 
         private void CreateMusicWithAI_SystemColorsChanged(object sender, EventArgs e)
@@ -3927,12 +3775,14 @@ namespace NeoBleeper
         /// intended to inform users of connectivity issues with the Google Gemini server.</remarks>
         private void ShowServerDownMessage()
         {
-            Logger.Log("Google Gemini server is not reachable. Please try again later.", Logger.LogTypes.Error);
-            MessageForm.Show(this, Resources.GoogleGeminiServerDown, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Logger.Log("Selected AI provider server is not reachable. Please try again later.", Logger.LogTypes.Error);
+            MessageForm.Show(this, Resources.MessageUnavailable,
+                string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)
         {
+            animationCts?.Cancel();
             if (isMusicGenerationStarted && wasAnythingCreated)
             {
                 MainWindow.lastCreateTime = DateTime.Now; // Update last create time only if music generation was started
@@ -3955,113 +3805,128 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Returns a localized error title and message corresponding to a given API exception message.
+        /// Maps HTTP statuses and provider-specific error codes to the existing
+        /// localized Resources strings. No API JSON or exception text enters dialogs.
         /// </summary>
-        /// <remarks>This method maps known API error codes and keywords found in the exception message to
-        /// user-friendly, localized error titles and messages. It is intended to provide meaningful feedback to end
-        /// users based on API error responses. If the exception message does not match any recognized pattern, a
-        /// generic error message is provided.</remarks>
-        /// <param name="exceptionMessage">The exception message received from the API. This message is analyzed to determine the appropriate localized
-        /// error information. Cannot be null.</param>
-        /// <returns>A tuple containing the localized error title and message. If the exception message does not match a known
-        /// error pattern, a generic error title and message are returned.</returns>
-        private (string title, string message) GetLocalizedAPIErrorTitleAndMessage(string exceptionMessage)
+        private (string title, string message) GetLocalizedAPIErrorTitleAndMessage(Exception error)
         {
-            // 400 - Bad Request
-            if (exceptionMessage.Contains("(Code: 400)"))
+            int? statusCode = null;
+            string code = string.Empty;
+
+            if (error is CommonAIEngine.ApiRequestException apiError)
             {
-                if (exceptionMessage.Contains("INVALID_ARGUMENT"))
-                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for INVALID_ARGUMENT
-                if (exceptionMessage.Contains("FAILED_PRECONDITION"))
-                    return (Resources.TitleFailedPrecondition, Resources.MessageFailedPrecondition); // Localized message for FAILED_PRECONDITION
-                if (exceptionMessage.Contains("OUT_OF_RANGE"))
-                    return (Resources.TitleOutOfRange, Resources.MessageOutOfRange); // Localized message for OUT_OF_RANGE
+                statusCode = apiError.HttpStatusCodeNumber;
+                code = apiError.ApiErrorCode;
             }
-            // 401 - Unauthenticated
-            if (exceptionMessage.Contains("(Code: 401)") || exceptionMessage.Contains("UNAUTHENTICATED"))
-                return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated); // Localized message for UNAUTHENTICATED
-            // 403 - Permission Denied
-            if (exceptionMessage.Contains("(Code: 403)") || exceptionMessage.Contains("PERMISSION_DENIED"))
-                return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for PERMISSION_DENIED
-            // 404 - Not Found
-            if (exceptionMessage.Contains("(Code: 404)") || exceptionMessage.Contains("NOT_FOUND"))
-                return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for NOT_FOUND
-            if (exceptionMessage.Contains("(Code: 408)") || exceptionMessage.Contains("REQUEST_TIMEOUT"))
-                return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT     
-            // 409 - Aborted/Already Exists
-            if (exceptionMessage.Contains("(Code: 409)"))
+            else if (error is System.Net.Http.HttpRequestException httpError &&
+                     httpError.StatusCode.HasValue)
             {
-                if (exceptionMessage.Contains("ABORTED"))
-                    return (Resources.TitleAborted, Resources.MessageAborted); // Localized message for ABORTED
-                if (exceptionMessage.Contains("ALREADY_EXISTS"))
-                    return (Resources.TitleAlreadyExists, Resources.MessageAlreadyExists); // Localized message for ALREADY_EXISTS
+                statusCode = (int)httpError.StatusCode.Value;
             }
-            // 413 - Request Too Large
-            if (exceptionMessage.Contains("(Code: 413)") || exceptionMessage.Contains("REQUEST_TOO_LARGE"))
-                return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge); // Localized message for REQUEST_TOO_LARGE
-            // 423 - Prohibited Content
-            if (exceptionMessage.Contains("(Code: 423)") || exceptionMessage.Contains("PROHIBITED_CONTENT") || exceptionMessage.Contains("The response was blocked due to prohibited content."))
-                return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent); // Localized message for PROHIBITED_CONTENT
-            // 429 - Resource Exhausted
-            if (exceptionMessage.Contains("(Code: 429)") || exceptionMessage.Contains("RESOURCE_EXHAUSTED"))
-                return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for RESOURCE_EXHAUSTED
-            // 499 - Cancelled
-            if (exceptionMessage.Contains("(Code: 499)") || exceptionMessage.Contains("CANCELLED"))
-                return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
-            // 500 - Internal Error
-            if (exceptionMessage.Contains("(Code: 500)"))
+
+            string detail = ((code ?? string.Empty) + " " + (error?.Message ?? string.Empty))
+                .ToUpperInvariant();
+
+            // Legacy exceptions from other API libraries may only contain an
+            // HTTP status in a human-readable message. Extract that status safely.
+            if (!statusCode.HasValue)
             {
-                if (exceptionMessage.Contains("INTERNAL"))
-                    return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
-                if (exceptionMessage.Contains("DATA_LOSS"))
-                    return (Resources.TitleDataLoss, Resources.MessageDataLoss); // Localized message for DATA_LOSS
-                if (exceptionMessage.Contains("UNKNOWN"))
-                    return (Resources.TitleUnknownError, Resources.MessageUnknownError); // Localized message for UNKNOWN
+                Match match = Regex.Match(detail,
+                    @"(?:API RETURNED\s+|HTTP\s+|\(CODE:\s*|RESPONSE STATUS CODE DOES NOT INDICATE SUCCESS:\s*)(\d{3})(?!\d)",
+                    RegexOptions.CultureInvariant);
+                if (match.Success && int.TryParse(match.Groups[1].Value, out int parsed))
+                    statusCode = parsed;
             }
-            // 501 - Not Implemented
-            if (exceptionMessage.Contains("(Code: 501)") || exceptionMessage.Contains("NOT_IMPLEMENTED"))
-                return (Resources.TitleNotImplemented, Resources.MessageNotImplemented); // Localized message for NOT_IMPLEMENTED
-            // 502 - Bad Gateway
-            if (exceptionMessage.Contains("(Code: 502)") || exceptionMessage.Contains("BAD_GATEWAY"))
-                return (Resources.TitleBadGateway, Resources.MessageBadGateway); // Localized message for BAD_GATEWAY
-            // 503 - Unavailable
-            if (exceptionMessage.Contains("(Code: 503)") || exceptionMessage.Contains("UNAVAILABLE"))
-                return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for UNAVAILABLE
-            // 504 - Deadline Exceeded
-            if (exceptionMessage.Contains("(Code: 504)") || exceptionMessage.Contains("DEADLINE_EXCEEDED"))
-                return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED
-            if (exceptionMessage.Contains("Response status code does not indicate success:")) // Generic HTTP status code check for new variant of Google Gemini™ API error messages
+
+            bool Has(string term) => detail.Contains(term, StringComparison.Ordinal);
+
+            // Codes shared by Gemini, OpenAI, and Anthropic, including SSE errors.
+            // Provider HTTP status takes precedence over words in the error message.
+            switch (statusCode)
             {
-                if (exceptionMessage.Contains("400") || exceptionMessage.Contains("(Bad Request)"))
-                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument); // Localized message for INVALID_ARGUMENT
-                if (exceptionMessage.Contains("401") || exceptionMessage.Contains("(Unauthorized)"))
-                    return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated); // Localized message for UNAUTHENTICATED
-                if (exceptionMessage.Contains("403") || exceptionMessage.Contains("(Forbidden)"))
-                    return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied); // Localized message for PERMISSION_DENIED
-                if (exceptionMessage.Contains("404") || exceptionMessage.Contains("(Not Found)"))
-                    return (Resources.TitleNotFound, Resources.MessageNotFound); // Localized message for Not Found
-                if (exceptionMessage.Contains("408") || exceptionMessage.Contains("(Request Timeout)"))
-                    return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout); // Localized message for REQUEST_TIMEOUT    
-                if (exceptionMessage.Contains("409") || exceptionMessage.Contains("(Conflict)"))
-                    return (Resources.TitleAborted, Resources.MessageAborted); // Localized message for ABORTED
-                if (exceptionMessage.Contains("413") || exceptionMessage.Contains("(Payload Too Large)"))
-                    return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge); // Localized message for REQUEST_TOO_LARGE
-                if (exceptionMessage.Contains("423") || exceptionMessage.Contains("(Locked)"))
-                    return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent); // Localized message for PROHIBITED_CONTENT
-                if (exceptionMessage.Contains("429") || exceptionMessage.Contains("(Too Many Requests)"))
-                    return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted); // Localized message for RESOURCE_EXHAUSTED
-                if (exceptionMessage.Contains("499") || exceptionMessage.Contains("(Client Closed Request)"))
-                    return (Resources.TitleCancelled, Resources.MessageCancelled); // Localized message for CANCELLED
-                if (exceptionMessage.Contains("500") || exceptionMessage.Contains("(Internal Server Error)"))
-                    return (Resources.TitleInternalError, Resources.MessageInternalError); // Localized message for INTERNAL
-                if (exceptionMessage.Contains("502") || exceptionMessage.Contains("(Bad Gateway)"))
-                    return (Resources.TitleBadGateway, Resources.MessageBadGateway); // Localized message for Bad Gateway
-                if (exceptionMessage.Contains("503") || exceptionMessage.Contains("(Service Unavailable)"))
-                    return (Resources.TitleUnavailable, Resources.MessageUnavailable); // Localized message for UNAVAILABLE
-                if (exceptionMessage.Contains("504") || exceptionMessage.Contains("(Gateway Timeout)"))
-                    return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded); // Localized message for DEADLINE_EXCEEDED                                                          // Generic title and message
+                case 400:
+                    if (Has("FAILED_PRECONDITION"))
+                        return (Resources.TitleFailedPrecondition, Resources.MessageFailedPrecondition);
+                    if (Has("OUT_OF_RANGE"))
+                        return (Resources.TitleOutOfRange, Resources.MessageOutOfRange);
+                    return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument);
+                case 401:
+                    return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated);
+                case 403:
+                    return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied);
+                case 404:
+                    return (Resources.TitleNotFound, Resources.MessageNotFound);
+                case 408:
+                    return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout);
+                case 409:
+                    return Has("ALREADY_EXISTS")
+                        ? (Resources.TitleAlreadyExists, Resources.MessageAlreadyExists)
+                        : (Resources.TitleAborted, Resources.MessageAborted);
+                case 413:
+                    return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge);
+                case 423:
+                    return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent);
+                case 429:
+                    return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted);
+                case 499:
+                    return (Resources.TitleCancelled, Resources.MessageCancelled);
+                case 500:
+                    if (Has("DATA_LOSS"))
+                        return (Resources.TitleDataLoss, Resources.MessageDataLoss);
+                    if (Has("UNKNOWN"))
+                        return (Resources.TitleUnknownError, Resources.MessageUnknownError);
+                    return (Resources.TitleInternalError, Resources.MessageInternalError);
+                case 501:
+                    return (Resources.TitleNotImplemented, Resources.MessageNotImplemented);
+                case 502:
+                    return (Resources.TitleBadGateway, Resources.MessageBadGateway);
+                case 503:
+                    return (Resources.TitleUnavailable, Resources.MessageUnavailable);
+                case 504:
+                    return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded);
             }
-            return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + exceptionMessage); // Generic error title and message
+
+            // Some streaming failures have an API error code but no HTTP status.
+            if (Has("RESOURCE_EXHAUSTED") || Has("RATE_LIMIT") ||
+                Has("INSUFFICIENT_QUOTA") || Has("QUOTA_EXCEEDED"))
+                return (Resources.TitleResourceExhausted, Resources.MessageResourceExhausted);
+            if (Has("UNAUTHENTICATED") || Has("AUTHENTICATION_ERROR"))
+                return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated);
+            if (Has("PERMISSION_DENIED") || Has("PERMISSION_ERROR"))
+                return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied);
+            if (Has("NOT_FOUND"))
+                return (Resources.TitleNotFound, Resources.MessageNotFound);
+            if (Has("FAILED_PRECONDITION"))
+                return (Resources.TitleFailedPrecondition, Resources.MessageFailedPrecondition);
+            if (Has("OUT_OF_RANGE"))
+                return (Resources.TitleOutOfRange, Resources.MessageOutOfRange);
+            if (Has("INVALID_ARGUMENT") || Has("INVALID_REQUEST_ERROR"))
+                return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument);
+            if (Has("ALREADY_EXISTS"))
+                return (Resources.TitleAlreadyExists, Resources.MessageAlreadyExists);
+            if (Has("ABORTED"))
+                return (Resources.TitleAborted, Resources.MessageAborted);
+            if (Has("REQUEST_TOO_LARGE"))
+                return (Resources.TitleRequestTooLarge, Resources.MessageRequestTooLarge);
+            if (Has("PROHIBITED_CONTENT") || Has("CONTENT_POLICY_VIOLATION"))
+                return (Resources.TitleProhibitedContent, Resources.MessageProhibitedContent);
+            if (Has("REQUEST_TIMEOUT"))
+                return (Resources.TitleRequestTimeout, Resources.MessageRequestTimeout);
+            if (Has("DEADLINE_EXCEEDED"))
+                return (Resources.TitleDeadlineExceeded, Resources.MessageDeadlineExceeded);
+            if (Has("OVERLOADED_ERROR") || Has("UNAVAILABLE"))
+                return (Resources.TitleUnavailable, Resources.MessageUnavailable);
+            if (Has("NOT_IMPLEMENTED"))
+                return (Resources.TitleNotImplemented, Resources.MessageNotImplemented);
+            if (Has("DATA_LOSS"))
+                return (Resources.TitleDataLoss, Resources.MessageDataLoss);
+            if (Has("INTERNAL_SERVER_ERROR") || Has("INTERNAL_ERROR"))
+                return (Resources.TitleInternalError, Resources.MessageInternalError);
+            if (Has("CANCELLED"))
+                return (Resources.TitleCancelled, Resources.MessageCancelled);
+
+            // Only Resource strings go to MessageForm; error.Message stays in logs.
+            return (Resources.TextError, Resources.MessageAnErrorOccurred);
         }
 
         /// <summary>

@@ -361,9 +361,6 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>Der elektrische Rückkopplungstest ist fehlgeschlagen.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>Das Format des API-Schlüssels ist ungültig. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
@@ -397,9 +394,6 @@ Diese Taste erzeugt folgenden Perkussionston: {percussionName}</value>
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Der Google Gemini™ API-Schlüssel funktioniert nicht. Bitte überprüfen und ersetzen Sie den API-Schlüssel im Tab „Allgemein“ der Einstellungen.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Schreibe eine melancholische Klavierballade</value>
@@ -450,8 +444,8 @@ Wenn Sie Probleme mit der Wiedergabequalität (z. B. Störungen oder Unterbrechu
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Der Google Gemini™ API-Schlüssel wurde erfolgreich zurückgesetzt.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>Ausgewählter API-Schlüssel erfolgreich zurückgesetzt.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Komponiere eine fröhliche Volksmelodie mit Akkordeon</value>
@@ -509,9 +503,6 @@ Sie können den gewünschten Klang auswählen, indem Sie auf die Schaltfläche �
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>Verbergen Sie den API-Schlüssel im API-Schlüssel-Feld.
 Klicken Sie erneut, um ihn wieder anzuzeigen.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Das Format des Google Gemini™-API-Schlüssels ist ungültig. Bitte geben Sie den API-Schlüssel erneut im Reiter „Allgemein“ unter den Einstellungen ein.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>MIDI-Ein-/Ausgangsinitialisierung abgeschlossen.</value>
@@ -747,7 +738,7 @@ Klicken Sie erneut, um ihn auszublenden.</value>
     <value>Fehler beim Ablesen des Timer-Status (unerwarteter Zugriff/Modus/BCD).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Das Auflisten des KI-Modells ist fehlgeschlagen. Bitte überprüfen Sie Ihren Google Gemini™ API-Schlüssel und Ihre Internetverbindung.</value>
+    <value>Das Laden der Liste der KI-Modelle ist fehlgeschlagen. Bitte überprüfen Sie Ihre API-Schlüssel sowie Ihre Internetverbindung.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -777,9 +768,6 @@ Möchten Sie die Datei trotzdem öffnen?</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Position:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Der Google Gemini™ API-Schlüssel wurde erfolgreich gespeichert.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Überprüfen der Systemlautsprecher (PC-Lautsprecher) in Schritt 1/2...</value>
@@ -850,7 +838,7 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper hat festgestellt, dass Ihr Google Gemini™-API-Schlüssel beschädigt ist. Bitte geben Sie Ihren Google Gemini™-API-Schlüssel erneut im Einstellungsfenster ein.</value>
+    <value>NeoBleeper hat festgestellt, dass einer oder mehrere API-Schlüssel fehlerhaft sind. Bitte geben Sie Ihren API-Schlüssel im Einstellungsfenster erneut ein.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>Der Systemlautsprecher wurde aktiviert.</value>
@@ -1109,7 +1097,7 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
     <value>Gep</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Der API-Schlüssel für Google Gemini™ ist nicht festgelegt. Bitte geben Sie den API-Schlüssel im Reiter „Allgemein“ in den Einstellungen ein.</value>
+    <value>Es wurde kein API-Schlüssel hinterlegt. Bitte geben Sie einen API-Schlüssel im Bereich „Allgemein“ innerhalb der Einstellungen ein.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Komponiere eine entspannende Ambient-Soundlandschaft</value>
@@ -1166,7 +1154,7 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
     <value>Ein Wert liegt außerhalb des zulässigen Bereichs.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Die Validierung des Google Gemini™-API-Schlüssels war erfolgreich</value>
+    <value>Die Validierung des API-Schlüssels war erfolgreich</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Laser, Peitsche, Scratch-Stoß, Scratch-Zug, Stock-Klick, Rimshot, Metronom-Klick, Metronom-Glocke, Basstrommel, Kick-Drum, Snare-Randschlag, Snare-Drum, Händeklatschen, Elektrische Snare-Drum, Standtom 2, Hi-Hat geschlossen, Standtom 1, Hi-Hat-Fußpedal, Tiefer Tom, Hi-Hat offen, Tief-mittlerer Tom, Hoch-mittlerer Tom, Crash-Becken, Hoher Tom, Ride-Becken, China-Becken, Ride-Kuppe, Tamburin, Splash-Becken, Kuhglocke, Crash-Becken 2, Vibraslap, Ride-Becken 2, Hohe Bongo, Tiefe Bongo, Conga gedämpft, Conga, Tumba, Hohe Timbale, Tiefe Timbale, Hohe Agogo, Tiefe Agogo, Cabasa, Maracas, Kurze Pfeife, Lange Pfeife, Kurzes Güiro, Langes Güiro, Claves, Hoher Holzblock, Tiefer Holzblock, Hohe Cuíca, Tiefe Cuíca, Triangel gedämpft, Triangel offen, Shaker, Schlittenglöckchen, Glockenstab, Kastagnetten, Surdu gedämpft, Surdu, Güiro, Clave, Holzblock, Snare-Drum-Rute, Oceandrum, Snare-Drum-Besen</value>
@@ -1218,5 +1206,17 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   </data>
   <data name="NeoBleeperName" xml:space="preserve">
     <value>NeoBleeper</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>Das Format des API-Schlüssels ist ungültig. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>Ausgewählter API-Schlüssel erfolgreich gespeichert.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>Das Format des-API-Schlüssels ist ungültig. Bitte geben Sie den API-Schlüssel erneut im Reiter „Allgemein“ unter den Einstellungen ein.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Ein oder mehrere API-Schlüssel funktionieren nicht. Bitte überprüfen Sie den API-Schlüssel und ersetzen Sie ihn – Sie finden die entsprechende Option im Bereich „Allgemein“ innerhalb der Einstellungen.</value>
   </data>
 </root>

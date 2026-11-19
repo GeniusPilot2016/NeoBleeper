@@ -358,9 +358,6 @@
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>Проверка электрической обратной связи не пройдена.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>Неверный формат ключа API. Проверьте и повторите попытку.</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 Эта клавиша воспроизводит этот ударный звук: {percussionName}</value>
@@ -394,9 +391,6 @@
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Ключ AПИ Гугл Gemini™ не работает. Проверьте и замените ключ API на вкладке «Общие» в настройках.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Напиши романтическую фортепианную пьесу</value>
@@ -447,8 +441,8 @@
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Ключ AПИ Гугл Gemini™ успешно сброшен.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>Выбранный API-ключ успешно сброшен.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Сочини народную мелодию с балалайкой</value>
@@ -506,9 +500,6 @@
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>Скройте ключ API в поле «Ключ API».
 Нажмите ещё раз, чтобы отобразить его.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Неверный формат ключа AПИ Гугл Gemini™. Введите ключ AПИ повторно на вкладке «Общие» в настройках.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Инициализация MIDI-входа/выхода завершена.</value>
@@ -744,7 +735,7 @@
     <value>Сбой при считывании состояния таймера (неожиданный доступ/режим/BCD).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Не удалось добавить модель ИИ в список. Проверьте ключ AПИ Гугл Gemini™ и подключение к интернету.</value>
+    <value>Не удалось получить список моделей ИИ. Пожалуйста, проверьте свои API-ключи и подключение к интернету.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -774,9 +765,6 @@
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Позиция:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Ключ AПИ Гугл Gemini™ успешно сохранен.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Проверка наличия выходного сигнала системного динамика (динамика ПК) на шаге 1/2...</value>
@@ -847,7 +835,7 @@
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>НеоБлипер обнаружил, что ваш ключ AПИ Гугл Gemini™ повреждён. Введите ключ AПИ Гугл Gemini™ повторно в окне настроек.</value>
+    <value>NeoBleeper обнаружил, что один или несколько API-ключей повреждены. Пожалуйста, введите API-ключ заново в окне настроек.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>Системный динамик активировался.</value>
@@ -1102,7 +1090,7 @@
 Чтобы использовать эту функцию, установите флажок «Использовать выход MIDI» на вкладке «Устройства» в настройках или снимите флажок «Отключить воспроизведение» или флажок «Использовать мотор или зуммер (через Ардуино, Ра́збери па́й или ЕСП32)».</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Ключ AПИ Гугл Gemini™ проходит проверку...</value>
+    <value>Ключ AПИ проходит проверку...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Начат расширенный тест динамиков системы.</value>
@@ -1111,7 +1099,7 @@
     <value>Пун</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Не установлен ключ AПИ Гугл Gemini™. Установите ключ AПИ на вкладке «Общие» в настройках.</value>
+    <value>API-ключ не задан. Пожалуйста, укажите API-ключ на вкладке «Общие» в настройках.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Сочини расслабляющую ambient композицию</value>
@@ -1168,7 +1156,7 @@
     <value>Значение выходит за пределы допустимого диапазона.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Ключ AПИ Гугл Gemini™ успешно прошел проверку</value>
+    <value>Ключ AПИ успешно прошел проверку</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Лазер, Хлыст, Скретч толчок, Скретч протяжка, Щелчок палочки, Удар по ободу, Щелчок метронома, Колокольчик метронома, Бас-барабан, Бочка, Римшот малого барабана, Малый барабан, Хлопок в ладоши, Электронный малый барабан, Напольный том 2, Хай-хэт закрытый, Напольный том 1, Хай-хэт педаль, Низкий том, Хай-хэт открытый, Низко-средний том, Высоко-средний том, Крэш-тарелка, Высокий том, Райд-тарелка, Чайна-тарелка, Купол райда, Бубен, Сплэш-тарелка, Колокольчик, Крэш-тарелка 2, Вибраслэп, Райд-тарелка 2, Высокое бонго, Низкое бонго, Конга заглушенная, Конга, Тумба, Высокий тимбал, Низкий тимбал, Высокое агого, Низкое агого, Кабаса, Маракасы, Короткий свисток, Длинный свисток, Короткое гуиро, Длинное гуиро, Клавес, Высокий вудблок, Низкий вудблок, Высокая куика, Низкая куика, Треугольник закрытый, Треугольник открытый, Шейкер, Бубенцы, Колокольное дерево, Кастаньеты, Сурду заглушенный, Сурду, Гуиро, Клаве, Вудблок, Малый барабан палочки, Океанский барабан, Малый барабан щетки</value>
@@ -1220,5 +1208,17 @@
   </data>
   <data name="NeoBleeperName" xml:space="preserve">
     <value>НеоБлипер</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>Неверный формат ключа API. Проверьте и повторите попытку.</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>Выбранный API-ключ успешно сохранён.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>Неверный формат ключа AПИ. Введите ключ AПИ повторно на вкладке «Общие» в настройках.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Один или несколько API-ключей не работают. Пожалуйста, проверьте и замените API-ключ на вкладке «Общие» в настройках.</value>
   </data>
 </root>

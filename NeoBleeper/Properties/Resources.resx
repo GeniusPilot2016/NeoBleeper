@@ -368,9 +368,6 @@ You can see the key mappings on the buttons at the top of the window.</value>
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>Electrical feedback test failed.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>The API key format is invalid. Please check and try again.</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 This key plays this percussion sound: {percussionName}</value>
@@ -404,9 +401,6 @@ This key plays this percussion sound: {percussionName}</value>
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>The Google Gemini™ API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Write a relaxing piano solo</value>
@@ -460,8 +454,8 @@ If you are experiencing problems with fluidity or skipping while playing the mus
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Google Gemini™ API key reset successfully.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>Selected API key reset successfully.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Generate a rock song inspired by The Beatles</value>
@@ -519,9 +513,6 @@ You can choose the sound to play by clicking the 'Change Beat Sound' button.</va
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>Hide the API key in the API key field.
 Click again to show it.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Google Gemini™ API key format is invalid. Please re-enter the API key in the "General" tab in settings.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>MIDI input/output initialization completed.</value>
@@ -763,7 +754,7 @@ Click again to hide it.</value>
     <value>Timer status read-back failed (unexpected access/mode/BCD).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>AI model listing failed. Please check your Google Gemini™ API key and internet connection.</value>
+    <value>AI model listing failed. Please check your API keys and internet connection.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -796,9 +787,6 @@ Do you want to open this file anyway?</value>
   </data>
   <data name="neobleeper_splash_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\neobleeper_splash_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Google Gemini™ API key saved successfully.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Checking for system speaker (PC speaker) output presence in step 1/2...</value>
@@ -869,7 +857,7 @@ Do you want to open this file anyway?</value>
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper has detected that your Google Gemini™ API key is corrupted. Please re-enter your Google Gemini™ API key in the settings window.</value>
+    <value>NeoBleeper has detected that one or more of API key is corrupted. Please re-enter your API key in the settings window.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>System speaker has been woken up.</value>
@@ -1132,7 +1120,7 @@ This feature makes the system speaker/sound device increase or decrease in pitch
 Please check "Use MIDI output" checkbox from "Devices" tab in settings or uncheck "Mute playback" checkbox or uncheck "Use motor or buzzer (via Arduino, Raspberry Pi or ESP32)" checkbox to use this feature.</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Google Gemini™ API key is validating...</value>
+    <value>API keys are validating...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Advanced system speaker test is started.</value>
@@ -1141,7 +1129,7 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
     <value>Dot</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Google Gemini™ API key is not set. Please set the API key in the "General" tab in settings.</value>
+    <value>No API key is set. Please set the API key in the "General" tab in settings.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Generate a folk tune with acoustic guitar</value>
@@ -1198,7 +1186,7 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
     <value>A value is out of the allowed range.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Google Gemini™ API key validation is successful</value>
+    <value>API key validation is successful</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Laser, Whip, Scratch Push, Scratch Pull, Stick Click, Side Stick, Metronome Click, Metronome Bell, Bass Drum, Kick Drum, Snare Cross Stick, Snare Drum, Hand Clap, Electric Snare Drum, Floor Tom 2, Hi-Hat Closed, Floor Tom 1, Hi-Hat Foot, Low Tom, Hi-Hat Open, Low-Mid Tom, High-Mid Tom, Crash Cymbal, High Tom, Ride Cymbal, China Cymbal, Ride Bell, Tambourine, Splash Cymbal, Cowbell, Crash Cymbal 2, Vibraslap, Ride Cymbal 2, High Bongo, Low Bongo, Conga Dead Stroke, Conga, Tumba, High Timbale, Low Timbale, High Agogo, Low Agogo, Cabasa, Maracas, Whistle Short, Whistle Long, Guiro Short, Guiro Long, Claves, High Woodblock, Low Woodblock, Cuica High, Cuica Low, Triangle Mute, Triangle Open, Shaker, Sleigh Bell, Bell Tree, Castanets, Surdu Dead Stroke, Surdu, Güiro, Clave, Wood Block, Snare Drum Rod, Ocean Drum, Snare Drum Brush</value>
@@ -1262,5 +1250,17 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   </data>
   <data name="PcSpeakerModule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PcSpeaker.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>The API key format is invalid. Please check and try again.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>One or more API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>Selected API key saved successfully.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>API key format is invalid. Please re-enter the API key in the "General" tab in settings.</value>
   </data>
 </root>

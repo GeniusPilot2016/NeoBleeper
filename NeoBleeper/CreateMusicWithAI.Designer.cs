@@ -34,7 +34,6 @@
             textBoxPrompt = new TextBox();
             buttonCreate = new Button();
             images = new ImageList(components);
-            labelPoweredByGemini = new Label();
             comboBox_ai_model = new ComboBox();
             label_ai_model = new Label();
             labelCreating = new Label();
@@ -69,12 +68,6 @@
             images.Images.SetKeyName(0, "icons8-gemini-ai-48.png");
             images.Images.SetKeyName(1, "icons8-create-48.png");
             images.Images.SetKeyName(2, "icons8-general-warning-sign-96.png");
-            // 
-            // labelPoweredByGemini
-            // 
-            resources.ApplyResources(labelPoweredByGemini, "labelPoweredByGemini");
-            labelPoweredByGemini.ImageList = images;
-            labelPoweredByGemini.Name = "labelPoweredByGemini";
             // 
             // comboBox_ai_model
             // 
@@ -121,7 +114,6 @@
             Controls.Add(labelWarning);
             Controls.Add(labelCreating);
             Controls.Add(comboBox_ai_model);
-            Controls.Add(labelPoweredByGemini);
             Controls.Add(buttonCreate);
             Controls.Add(textBoxPrompt);
             Controls.Add(label_ai_model);
@@ -144,7 +136,6 @@
         private Label labelPrompt;
         private TextBox textBoxPrompt;
         private Button buttonCreate;
-        private Label labelPoweredByGemini;
         private ImageList images;
         private ComboBox comboBox_ai_model;
         private Label label_ai_model;

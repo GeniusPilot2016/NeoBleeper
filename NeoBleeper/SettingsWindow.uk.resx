@@ -119,19 +119,19 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="general_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+    <value>423, 693</value>
   </data>
   <data name="general_settings.Text" xml:space="preserve">
     <value>Загальне</value>
   </data>
   <data name="creating_sound_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+    <value>423, 693</value>
   </data>
   <data name="creating_sound_settings.Text" xml:space="preserve">
     <value>Створення звуків</value>
   </data>
   <data name="devices_settings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>423, 653</value>
+    <value>423, 693</value>
   </data>
   <data name="devices_settings.Text" xml:space="preserve">
     <value>Пристрої</value>
@@ -147,25 +147,25 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAGlQAAAJNU0Z0AUkBTAIBARMB
-        AAE4AQgBOAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
+        AAFAAQgBQAEIARIBAAESAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABSAMAAVoDAAEBAQABIAUAAUAB
         Zf8A/wB0AAMiATECZgFfAeUEAmgAAaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB
         /wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BoAGZAZEB/wGgAZkBkQH/AaAB
-        mQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BgwGBAXwB60wAAlIBUQGkAfIB1AGbAf8B9QHeAbMB
+        mQGRAf8BoAGZAZEB/wGgAZkBkQH/AaABmQGRAf8BfwF9AXgB60wAAlIBUQGkAfIB1AGbAf8B9QHeAbMB
         /wH1Ad4BswH/AfUB3gGzAf8B9QHeAbMB/wH1Ad4BswH/AfUB3gGzAf8B5wHIAaAB/wHnAcgBoAH/AecB
         yAGgAf8B5wHIAaAB/wHnAcgBoAH/AecByAGgAf8B5wHIAaAB/wHZAYwBKQH/FAADNQFVBAABEAHHAf4B
-        /wgAARABxwH+Af8EAAM1AVUIAAEQAccB/gH/EAACgAF1Af4BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8B
+        /wgAARABxwH+Af8EAAM1AVUIAAEQAccB/gH/EAACgAF2Af4BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8B
         hgF9AXIB/wGHAX4BcwH/AakBoQGYAf8BqQGhAZgB/wGpAaEBmAH/AakBoQGYAf8BoQGZAZAB/wGGAX0B
-        cgH/AYYBfQFyAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8CZQFiAdJMAAJVAVMBqhz/A/AB/wPwAf8D
+        cgH/AYYBfQFyAf8BhgF9AXIB/wGGAX0BcgH/AYYBfQFyAf8CYgFhAdJMAAJVAVMBqhz/A/AB/wPwAf8D
         8AH/A/AB/wPwAf8D8AH/A/AB/wHdAaABUAH/DAADHQEpAYEBdwFrAf8BfwF1AWgB/wF+AXMBZgH/AXwB
         cQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
-        /wF8AXEBZAH/A2UB7AwAAy8BSQGBAXUBawH9AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8B
+        /wF8AXEBZAH/A2UB7AwAAy8BSQGBAXQBagH9AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8B
         gQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkBbwH/AYEBeQFvAf8BgQF5AW8B/wGBAXkB
-        bwH/AYEBeQFvAf8BcQFtAWcB6lAAAlUBUwGqBP8B8gHFAUMB/wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB
+        bwH/AYEBeQFvAf8BbwFqAWcB6lAAAlUBUwGqBP8B8gHFAUMB/wHxAcEBNQH/AfEBwQE1Af8B8QHBATUB
         /wH7AewBwQX/A/AB/wPwAf8D8AH/AasBYgENAf8B2QHBAaQB/wPwAf8D8AH/Ad0BoAFQAf8MAAM1AVUB
         hQF7AW8B/wGDAXgBbQH/AYEBdwFrAf8BfwF1AWgB/wF9AXIBZgH/AXwBcQFkAf8BfAFxAWQB/wF8AXEB
         ZAH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB/xAAAasBowGbAf8BqgGiAZoB
         /wGpAaEBmAH/AagBoAGYAf8BpwGfAZcB/wGmAZ4BlgH/AaUBnQGVAf8BpAGcAZQB/wGjAZsBkwH/AaIB
-        mgGSAf8BoAGZAZEB/wGfAZgBkAH/AZ4BlwGPAf8BngGXAY8B/wGCAX8BewHsUAACVQFTAaoE/wH2AdkB
+        mgGSAf8BoAGZAZEB/wGfAZgBkAH/AZ4BlwGPAf8BngGXAY8B/wF9AXwBeAHsUAACVQFTAaoE/wH2AdkB
         ggH/AfYB1gF4Af8B9gHWAXgB/wH2AdYBeAH/AfYB1gF4Bf8D8AH/A/AB/wPwAf8BqwFiAQ0B/wHZAcEB
         pAH/A/AB/wPwAf8B3QGgAVAB/wwAAzUBVQGIAX8BdAH/AYYBfQFyAf8BhAF6AW8B/wGDAXgBbQH/AYEB
         dgFrAf8BfwF0AWgB/wF9AXIBZQH/AXwBcQFkAf8BfAFxAWQB/wF8AXEBZAH/AXwBcQFkAf8BfAFxAWQB
@@ -209,7 +209,7 @@
         8AHcGf8D8AH/A/AB/wPwAf8D8AH/A/AB/wPwAf8D8AH/AmUBXQHsFAADMgFPBAABXgJqAe0IAAFdAmUB
         7AQAAzIBTwgAAV4CagHtFAABswGqAaEB/wGzAaoBoQH/AbEBqAGgAf8BsAGoAZ8B/wGvAacBngH/Aa4B
         pgGdAf8BrQGlAZwB/wGsAaQBmwH/AasBowGaAf8BqgGiAZkB/wGpAaEBmAH/AagBoAGXAf8BpwGfAZYB
-        /wGlAZ4BlQH/AYcBggF9Aez/AP8A/wD/AP8AbQADHgErAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
+        /wGlAZ4BlQH/AYIBfQF6Aez/AP8A/wD/AP8AbQADHgErAzUBVQM1AVUDNQFVAzUBVQM1AVUDNQFVAzUB
         VQM1AVUDNQFVAzUBVQM1AVVcAAJlAV0B7AGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEB
         mwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
         /wGhAZsBGgH/A0QBewwAAmUBXQHsAaEBmwEaAf8BoQGbARoB/wGhAZsBGgH/AaEBmwEaAf8BoQGbARoB
@@ -512,7 +512,7 @@
     <value>431, 728</value>
   </data>
   <data name="flowLayoutPanelGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 643</value>
+    <value>413, 683</value>
   </data>
   <data name="groupBoxLanguageSettings.Text" xml:space="preserve">
     <value>Мовні налаштування</value>
@@ -574,32 +574,44 @@
   <data name="groupBoxCreateMusicWithAI.Text" xml:space="preserve">
     <value>Створюйте музику за допомогою штучного інтелекту</value>
   </data>
+  <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 16</value>
+  </data>
+  <data name="label18.Text" xml:space="preserve">
+    <value>Постачальник</value>
+  </data>
+  <data name="comboBoxProvider.Location" type="System.Drawing.Point, System.Drawing">
+    <value>105, 28</value>
+  </data>
+  <data name="comboBoxProvider.Size" type="System.Drawing.Size, System.Drawing">
+    <value>289, 24</value>
+  </data>
   <data name="buttonResetAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 140</value>
+    <value>205, 140</value>
   </data>
   <data name="buttonResetAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>227, 26</value>
+    <value>160, 26</value>
   </data>
   <data name="buttonResetAPIKey.Text" xml:space="preserve">
-    <value>Скинути ключ API Google Gemini™</value>
+    <value>Скинути ключ API</value>
   </data>
   <data name="buttonResetAPIKey.ToolTip" xml:space="preserve">
     <value>Скиньте ключ API, щоб очистити поточний ключ і дозволити ввести новий.</value>
   </data>
   <data name="buttonUpdateAPIKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>76, 111</value>
+    <value>41, 140</value>
   </data>
   <data name="buttonUpdateAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 26</value>
+    <value>160, 26</value>
   </data>
   <data name="buttonUpdateAPIKey.Text" xml:space="preserve">
-    <value>Оновлення ключа API Google Gemini™</value>
+    <value>Оновлення ключа API</value>
   </data>
   <data name="buttonUpdateAPIKey.ToolTip" xml:space="preserve">
     <value>Збережіть ключ API у полі «Ключ API».</value>
   </data>
   <data name="buttonShowHide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>294, 43</value>
+    <value>294, 73</value>
   </data>
   <data name="buttonShowHide.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 28</value>
@@ -612,30 +624,29 @@
 Натисніть ще раз, щоб приховати його.</value>
   </data>
   <data name="labelAPIKeyWarning.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 73</value>
+    <value>9, 100</value>
   </data>
   <data name="labelAPIKeyWarning.Size" type="System.Drawing.Size, System.Drawing">
     <value>385, 38</value>
   </data>
   <data name="labelAPIKeyWarning.Text" xml:space="preserve">
     <value>Попередження: Заради вашої безпеки не повідомляйте 
-свій ключ API Google Gemini™ нікому іншому.</value>
+свій ключ API нікому іншому.</value>
   </data>
   <data name="labelAPIKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 16</value>
+    <value>59, 16</value>
   </data>
   <data name="labelAPIKey.Text" xml:space="preserve">
-    <value>Ключ API Google Gemini™</value>
+    <value>Ключ API</value>
   </data>
   <data name="textBoxAPIKey.PlaceholderText" xml:space="preserve">
-    <value>Введіть тут ключ API Google Gemini™...</value>
+    <value>Введіть тут ключ API...</value>
   </data>
   <data name="textBoxAPIKey.Size" type="System.Drawing.Size, System.Drawing">
     <value>280, 23</value>
   </data>
   <data name="textBoxAPIKey.ToolTip" xml:space="preserve">
-    <value>Встановіть тут свій ключ API, щоб використовувати функцію генерації музики за допомогою штучного інтелекту.
-Ви можете отримати свій ключ API за посиланням https://aistudio.google.com/app/apikey.</value>
+    <value>Встановіть тут свій ключ API, щоб використовувати функцію генерації музики за допомогою штучного інтелекту.</value>
   </data>
   <data name="labelGoogleGeminiAPIWarning.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 340</value>
@@ -727,7 +738,7 @@
     <value>Для використання системного динаміка програму NeoBleeper необхідно запускати від імені адміністратора.</value>
   </data>
   <data name="flowLayoutPanelCreatingSoundSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 643</value>
+    <value>413, 683</value>
   </data>
   <data name="checkBox_enable_create_beep_from_soundcard.Size" type="System.Drawing.Size, System.Drawing">
     <value>395, 36</value>
@@ -806,7 +817,7 @@
     <value>Квадрат (за замовчуванням)</value>
   </data>
   <data name="flowLayoutPanelDevicesSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 643</value>
+    <value>413, 683</value>
   </data>
   <data name="checkBox_use_midi_input.Size" type="System.Drawing.Size, System.Drawing">
     <value>232, 20</value>

@@ -41,6 +41,8 @@
             lbl_theme = new Label();
             comboBox_theme = new ComboBox();
             groupBoxCreateMusicWithAI = new GroupBox();
+            label18 = new Label();
+            comboBoxProvider = new ComboBox();
             buttonResetAPIKey = new Button();
             imageList_settings = new ImageList(components);
             buttonUpdateAPIKey = new Button();
@@ -168,6 +170,8 @@
             standardTuneTestToolStripMenuItem = new ToolStripMenuItem();
             advancedSystemSpeakerTestToolStripMenuItem = new ToolStripMenuItem();
             colorDialog1 = new ColorDialog();
+            label20 = new Label();
+            label21 = new Label();
             tabControl_settings.SuspendLayout();
             general_settings.SuspendLayout();
             flowLayoutPanelGeneralSettings.SuspendLayout();
@@ -230,6 +234,8 @@
             flowLayoutPanelGeneralSettings.Controls.Add(labelGoogleGeminiAPIWarning);
             flowLayoutPanelGeneralSettings.Controls.Add(groupBox_system_speaker_test);
             flowLayoutPanelGeneralSettings.Controls.Add(panelSystemSpeakerWarnings);
+            flowLayoutPanelGeneralSettings.Controls.Add(label20);
+            flowLayoutPanelGeneralSettings.Controls.Add(label21);
             resources.ApplyResources(flowLayoutPanelGeneralSettings, "flowLayoutPanelGeneralSettings");
             flowLayoutPanelGeneralSettings.Name = "flowLayoutPanelGeneralSettings";
             // 
@@ -291,6 +297,8 @@
             // groupBoxCreateMusicWithAI
             // 
             resources.ApplyResources(groupBoxCreateMusicWithAI, "groupBoxCreateMusicWithAI");
+            groupBoxCreateMusicWithAI.Controls.Add(label18);
+            groupBoxCreateMusicWithAI.Controls.Add(comboBoxProvider);
             groupBoxCreateMusicWithAI.Controls.Add(buttonResetAPIKey);
             groupBoxCreateMusicWithAI.Controls.Add(buttonUpdateAPIKey);
             groupBoxCreateMusicWithAI.Controls.Add(buttonShowHide);
@@ -299,6 +307,20 @@
             groupBoxCreateMusicWithAI.Controls.Add(textBoxAPIKey);
             groupBoxCreateMusicWithAI.Name = "groupBoxCreateMusicWithAI";
             groupBoxCreateMusicWithAI.TabStop = false;
+            // 
+            // label18
+            // 
+            resources.ApplyResources(label18, "label18");
+            label18.Name = "label18";
+            // 
+            // comboBoxProvider
+            // 
+            comboBoxProvider.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxProvider.FormattingEnabled = true;
+            comboBoxProvider.Items.AddRange(new object[] { resources.GetString("comboBoxProvider.Items"), resources.GetString("comboBoxProvider.Items1"), resources.GetString("comboBoxProvider.Items2") });
+            resources.ApplyResources(comboBoxProvider, "comboBoxProvider");
+            comboBoxProvider.Name = "comboBoxProvider";
+            comboBoxProvider.SelectedIndexChanged += comboBoxProvider_SelectedIndexChanged;
             // 
             // buttonResetAPIKey
             // 
@@ -1274,6 +1296,18 @@
             colorDialog1.AnyColor = true;
             colorDialog1.FullOpen = true;
             // 
+            // label20
+            // 
+            resources.ApplyResources(label20, "label20");
+            label20.ImageList = imageList_settings;
+            label20.Name = "label20";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(label21, "label21");
+            label21.ImageList = imageList_settings;
+            label21.Name = "label21";
+            // 
             // SettingsWindow
             // 
             resources.ApplyResources(this, "$this");
@@ -1480,5 +1514,9 @@
         private Panel panel3;
         private Panel panel4;
         private Label label17;
+        private Label label18;
+        private ComboBox comboBoxProvider;
+        private Label label20;
+        private Label label21;
     }
 }

@@ -358,9 +358,6 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>Il test di feedback elettrico non ha avuto successo.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 Questo tasto riproduce questo suono di percussione: {percussionName}</value>
@@ -394,9 +391,6 @@ Questo tasto riproduce questo suono di percussione: {percussionName}</value>
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>La chiave API di Google Gemini™ non funziona. Controlla e sostituisci la chiave API nella scheda "Generale" delle impostazioni.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Scrivi una sonata per pianoforte in stile romantico</value>
@@ -447,8 +441,8 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Chiave API Google Gemini™ reimpostata correttamente.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>Chiave API selezionata reimpostata correttamente.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Componi una tarantella tradizionale napoletana</value>
@@ -506,9 +500,6 @@ Se riscontri problemi di fluidità o salti durante la riproduzione del brano nel
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>Nascondi la chiave API nel campo Chiave API.
 Clicca di nuovo per visualizzarla.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Inizializzazione dell'ingresso/uscita MIDI completata.</value>
@@ -744,7 +735,7 @@ Clicca di nuovo per nasconderla.</value>
     <value>Impossibile leggere lo stato del timer (accesso/modalità/BCD imprevisti).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Errore nell'inserimento del modello AI. Controlla la tua chiave API Google Gemini™ e la tua connessione Internet.</value>
+    <value>Impossibile recuperare l'elenco dei modelli di IA. Controlla le tue chiavi API e la connessione a Internet.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -774,9 +765,6 @@ Vuoi aprire comunque questo file?</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Posizione:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Chiave API di Google Gemini™ salvata correttamente.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Verifica della presenza dell'uscita dell'altoparlante di sistema (altoparlante del PC) nel passaggio 1/2...</value>
@@ -847,7 +835,7 @@ Vuoi aprire comunque questo file?</value>
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper ha rilevato che la tua chiave API di Google Gemini™ è danneggiata. Inserisci nuovamente la tua chiave API di Google Gemini™ nella finestra delle impostazioni.</value>
+    <value>NeoBleeper ha rilevato che una o più chiavi API risultano danneggiate. Inserisci nuovamente la tua chiave API nella finestra delle impostazioni.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>L'altoparlante del sistema è stato riattivato.</value>
@@ -1099,7 +1087,7 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
 Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nelle impostazioni o deseleziona la casella di controllo "Disattiva riproduzione" o la casella di controllo "Usa motore o cicalino (tramite Arduino, Raspberry Pi o ESP32)" per utilizzare questa funzione.</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>La chiave API di Google Gemini™ è in fase di convalida...</value>
+    <value>La chiave API è in fase di convalida...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>È stato avviato il test avanzato degli altoparlanti del sistema.</value>
@@ -1108,7 +1096,7 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
     <value>Pun</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>La chiave API di Google Gemini™ non è impostata. Imposta la chiave API nella scheda "Generale" delle impostazioni.</value>
+    <value>Nessuna chiave API impostata. Inserisci la chiave API nella scheda "Generale" all'interno delle impostazioni.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Componi una serenata classica italiana</value>
@@ -1165,7 +1153,7 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
     <value>Un valore è fuori dall'intervallo consentito.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>La convalida della chiave API di Google Gemini™ è riuscita</value>
+    <value>La convalida della chiave API è riuscita</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Laser, Frusta, Scratch spinto, Scratch tirato, Click di bacchetta, Colpo di cerchio, Click di metronomo, Campana di metronomo, Gran cassa, Cassa, Bacchetta sul cerchio, Rullante, Battito di mani, Rullante elettrico, Tom basso 2, Charleston chiuso, Tom basso 1, Charleston a pedale, Tom grave, Charleston aperto, Tom medio-grave, Tom medio-acuto, Piatto crash, Tom acuto, Piatto ride, Piatto china, Campana ride, Tamburello, Piatto splash, Campanaccio, Piatto crash 2, Vibraslap, Piatto ride 2, Bongo acuto, Bongo grave, Conga colpo chiuso, Conga, Tumba, Timbales acuto, Timbales grave, Agogo acuto, Agogo grave, Cabasa, Maracas, Fischio corto, Fischio lungo, Güiro corto, Güiro lungo, Claves, Wood block acuto, Wood block grave, Cuíca acuta, Cuíca grave, Triangolo chiuso, Triangolo aperto, Shaker, Sonagli, Campane tubolari, Castagnette, Surdu colpo chiuso, Surdu, Güiro, Clave, Wood block, Rullante con bacchette, Ocean drum, Rullante con spazzole</value>
@@ -1217,5 +1205,17 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   </data>
   <data name="NeoBleeperName" xml:space="preserve">
     <value>NeoBleeper</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>Chiave API selezionata salvata correttamente.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Una o più chiavi API non funzionano. Verifica e sostituisci la chiave API nella scheda "Generale" all'interno delle impostazioni.</value>
   </data>
 </root>

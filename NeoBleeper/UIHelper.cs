@@ -974,6 +974,17 @@ public static class UIHelper
         if (accessibleDescription != null)
             control.AccessibleDescription =
                 accessibleDescription;
+        // Translate TextBox placeholder text
+        if (control is System.Windows.Forms.TextBox textBox)
+        {
+            string placeholder = resources.GetString(
+                name + ".PlaceholderText");
+
+            if (placeholder != null)
+            {
+                textBox.PlaceholderText = placeholder;
+            }
+        }
     }
 
 

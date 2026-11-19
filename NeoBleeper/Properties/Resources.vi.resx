@@ -358,9 +358,6 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="ElectricalFeedbackTestFailed" xml:space="preserve">
     <value>Thử nghiệm phản hồi điện thất bại.</value>
   </data>
-  <data name="GoogleGeminiAPIKeyFormatInvalid" xml:space="preserve">
-    <value>Định dạng khóa API không hợp lệ. Vui lòng kiểm tra và thử lại.</value>
-  </data>
   <data name="TextPercussionTooltip" xml:space="preserve">
     <value>
 Phím này phát ra âm thanh gõ này: {percussionName}</value>
@@ -394,9 +391,6 @@ Phím này phát ra âm thanh gõ này: {percussionName}</value>
   </data>
   <data name="icons8-check-all-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-check-all-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Khóa API Google Gemini™ không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "Chung" trong cài đặt.</value>
   </data>
   <data name="ExamplePrompt4" xml:space="preserve">
     <value>Tạo một bản piano thư giãn</value>
@@ -447,8 +441,8 @@ Nếu bạn gặp sự cố về độ mượt mà hoặc bị nhảy đoạn kh
   <data name="TabKey" xml:space="preserve">
     <value>Tab</value>
   </data>
-  <data name="GoogleGeminiAPIKeyReset" xml:space="preserve">
-    <value>Đã thiết lập lại khóa API Google Gemini™ thành công.</value>
+  <data name="APIKeyReset" xml:space="preserve">
+    <value>Khóa API đã chọn đã được đặt lại thành công.</value>
   </data>
   <data name="ExamplePrompt2" xml:space="preserve">
     <value>Sáng tác một bản nhạc dân ca với đàn tranh</value>
@@ -506,9 +500,6 @@ Bạn có thể chọn âm thanh muốn phát bằng cách nhấp vào nút 'Tha
   <data name="HideAPIKeyToolTip" xml:space="preserve">
     <value>Ẩn khóa API trong trường khóa API.
 Nhấp lại để hiển thị.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Định dạng khóa API Google Gemini™ không hợp lệ. Vui lòng nhập lại khóa API trong tab "Chung" trong phần cài đặt.</value>
   </data>
   <data name="StatusMIDIIOInitializationCompleted" xml:space="preserve">
     <value>Đã hoàn tất khởi tạo đầu vào/đầu ra MIDI.</value>
@@ -744,7 +735,7 @@ Nhấp lại để ẩn khóa.</value>
     <value>Việc đọc lại trạng thái bộ hẹn giờ đã thất bại (truy cập/chế độ/BCD không mong muốn).</value>
   </data>
   <data name="MessageErrorListingAImodels" xml:space="preserve">
-    <value>Danh sách mô hình AI không thành công. Vui lòng kiểm tra khóa API Google Gemini™ và kết nối internet của bạn.</value>
+    <value>Không thể tải danh sách các mô hình AI. Vui lòng kiểm tra lại các khóa API và kết nối internet của bạn.</value>
   </data>
   <data name="icons8-save-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -774,9 +765,6 @@ Bạn có muốn mở tệp này không?</value>
   </data>
   <data name="TextPosition" xml:space="preserve">
     <value>Vị trí:</value>
-  </data>
-  <data name="GoogleGeminiAPIKeySaved" xml:space="preserve">
-    <value>Đã lưu khóa API Google Gemini™ thành công.</value>
   </data>
   <data name="StatusSystemSpeakerSensorStep1" xml:space="preserve">
     <value>Đang kiểm tra sự hiện diện của đầu ra loa hệ thống (loa máy tính) ở bước 1/2...</value>
@@ -847,7 +835,7 @@ Bạn có muốn mở tệp này không?</value>
     <value>..\Resources\icons8-question-mark-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MessageAPIKeyIsCorrupted" xml:space="preserve">
-    <value>NeoBleeper phát hiện khóa API Google Gemini™ của bạn bị hỏng. Vui lòng nhập lại khóa API Google Gemini™ trong cửa sổ cài đặt.</value>
+    <value>NeoBleeper phát hiện một hoặc nhiều khóa API bị lỗi. Vui lòng nhập lại khóa API của bạn trong cửa sổ cài đặt.</value>
   </data>
   <data name="StatusSystemSpeakerWokenUp" xml:space="preserve">
     <value>Loa hệ thống đã được bật.</value>
@@ -1100,7 +1088,7 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
 Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết bị" trong cài đặt hoặc bỏ chọn hộp kiểm "Tắt tiếng phát lại" hoặc bỏ chọn hộp kiểm "Sử dụng động cơ hoặc còi (qua Arduino, Raspberry Pi hoặc ESP32)" để sử dụng tính năng này.</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Khóa API Google Gemini™ đang được xác thực...</value>
+    <value>Khóa API đang được xác thực...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Kiểm tra loa hệ thống nâng cao đã bắt đầu.</value>
@@ -1109,7 +1097,7 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
     <value>Say</value>
   </data>
   <data name="MessageAPIKeyIsNotSet" xml:space="preserve">
-    <value>Khóa API Google Gemini™ chưa được thiết lập. Vui lòng thiết lập khóa API trong tab "Chung" trong phần cài đặt.</value>
+    <value>Chưa thiết lập khóa API. Vui lòng nhập khóa API trong tab "General" (Chung) tại phần cài đặt.</value>
   </data>
   <data name="ExamplePrompt10" xml:space="preserve">
     <value>Tạo một bản nhạc folk với guitar acoustic</value>
@@ -1166,7 +1154,7 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
     <value>Giá trị nằm ngoài phạm vi cho phép.</value>
   </data>
   <data name="StatusAPIKeyValidationSuccessful" xml:space="preserve">
-    <value>Khóa API Google Gemini™ đã được xác thực thành công</value>
+    <value>Khóa API đã được xác thực thành công</value>
   </data>
   <data name="PercussionNames" xml:space="preserve">
     <value>Laser, 채찍, Cào đẩy, Cào kéo, Tiếng gõ dùi, Gõ thành, Tiếng tích nhịp, Chuông nhịp, Trống bass, Trống kick, Gõ vành trống snare, Trống snare, Vỗ tay, Trống snare điện, Tom sàn 2, Hi-hat đóng, Tom sàn 1, Hi-hat đạp chân, Tom thấp, Hi-hat mở, Tom trung thấp, Tom trung cao, Chũm crash, Tom cao, Chũm ride, Chũm china, Chuông ride, Lục lạc tay, Chũm splash, Chuông bò, Chũm crash 2, Vibraslap, Chũm ride 2, Bongo cao, Bongo thấp, Conga đánh câm, Conga, Tumba, Timbale cao, Timbale thấp, Agogo cao, Agogo thấp, Cabasa, Maracas, Còi ngắn, Còi dài, Güiro ngắn, Güiro dài, Claves, Mộc ngư cao, Mộc ngư thấp, Cuíca cao, Cuíca thấp, Tam giác câm, Tam giác mở, Lắc tay, Chuông trượt tuyết, Cây chuông, Phiến gỗ, Surdu đánh câm, Surdu, Güiro, Clave, Khối gỗ, Trống snare dùi, Trống đại dương, Trống snare chổi</value>
@@ -1218,5 +1206,17 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   </data>
   <data name="NeoBleeperName" xml:space="preserve">
     <value>NeoBleeper</value>
+  </data>
+  <data name="APIKeyFormatInvalid" xml:space="preserve">
+    <value>Định dạng khóa API không hợp lệ. Vui lòng kiểm tra và thử lại.</value>
+  </data>
+  <data name="APIKeySaved" xml:space="preserve">
+    <value>Khóa API đã chọn đã được lưu thành công.</value>
+  </data>
+  <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
+    <value>Định dạng khóa API Google Gemini™ không hợp lệ. Vui lòng nhập lại khóa API trong tab "Chung" trong phần cài đặt.</value>
+  </data>
+  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Một hoặc nhiều khóa API không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "General" (Chung) tại phần cài đặt.</value>
   </data>
 </root>

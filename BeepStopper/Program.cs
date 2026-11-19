@@ -18,6 +18,7 @@ using BeepStopper.Properties;
 using NeoBleeper;
 using System.Diagnostics;
 using System.Management;
+using Windows.ApplicationModel.Activation;
 using static UIHelper;
 
 namespace BeepStopper
@@ -50,6 +51,19 @@ namespace BeepStopper
                 MessageForm.Show(Program.themeIndex, Resources.PawnIOIsNotInstalled, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
+            if ((!ProgramPrecheck.IsARM64()) && ProgramPrecheck.IsPawnIOInstalled()
+                && ProgramPrecheck.IsRanAsAdmin()) // Skip PawnIO startup on ARM64 architecture such as most of Copilot+ devices due to lack of system speaker support and require admin privileges to start PawnIO
+            {
+                try
+                {
+                    SoundRenderingEngine.SystemSpeakerBeepEngine.StartPawnIO();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Failed to start PawnIO: {ex.Message}");
+                }
+            }
+        
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             string query = "SELECT * FROM Win32_PNPEntity Where DeviceID like '%PNP0800%'";
