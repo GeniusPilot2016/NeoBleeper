@@ -132,7 +132,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAHQAQIB0AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHYAQIB2AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -269,7 +269,7 @@
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 407</value>
+    <value>12, 431</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>579, 145</value>
@@ -285,7 +285,7 @@
     <value>Tarea</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 383</value>
+    <value>263, 407</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 16</value>
@@ -294,7 +294,7 @@
     <value>Contribuyentes</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 334</value>
+    <value>96, 358</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 40</value>
@@ -306,7 +306,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 334</value>
+    <value>226, 358</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 40</value>
@@ -318,7 +318,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>362, 334</value>
+    <value>362, 358</value>
   </data>
   <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 40</value>
@@ -333,7 +333,7 @@
     <value>26, 207</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>549, 117</value>
+    <value>549, 151</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023 GeniusPilot2016
@@ -341,11 +341,10 @@ NeoBleeper cuenta con la licencia GNU General Public License v3.0.
 Consulte https://www.gnu.org/licenses/ para obtener más detalles
 Inspirado en Bleeper Music Maker de Robbi-985 (también conocido como SomethingUnreal).
 Diseñado y programado por GeniusPilot2016.
-Todos los iconos de este programa se descargan de icons8.com.
-Google Gemini™ es una marca registrada de Google LLC</value>
+Todos los iconos de este programa se descargan de icons8.com.Google Gemini™ es una marca comercial de Google LLC. OpenAI y sus marcas comerciales asociadas son marcas comerciales de OpenAI. Anthropic y Claude son marcas comerciales de Anthropic, PBC. Todas las marcas comerciales son propiedad de sus respectivos titulares.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>603, 564</value>
+    <value>603, 588</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

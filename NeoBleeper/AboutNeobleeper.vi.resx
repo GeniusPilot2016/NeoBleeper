@@ -132,7 +132,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAH0AQIB9AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAH8AQIB/AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -176,6 +176,16 @@
         wAEDAeABBwHAAQECAAHAAQMB4AEDAeABAwIAAcABAwH4AQ8B4AEHAgABwAEDAfgBDwH4AQ8CAAP/AX8C
         /wIABv8CAAs=
 </value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Nhiệm vụ</value>
   </data>
   <data name="listView1.Items" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -269,23 +279,13 @@
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 401</value>
+    <value>12, 426</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>550, 144</value>
   </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Tên</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>300</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Nhiệm vụ</value>
-  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 378</value>
+    <value>215, 403</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>137, 16</value>
@@ -294,7 +294,7 @@
     <value>Những người đóng góp</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 329</value>
+    <value>85, 354</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 41</value>
@@ -306,7 +306,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>215, 329</value>
+    <value>215, 354</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 41</value>
@@ -318,7 +318,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>351, 329</value>
+    <value>351, 354</value>
   </data>
   <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 41</value>
@@ -333,7 +333,7 @@
     <value>21, 201</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>533, 114</value>
+    <value>533, 151</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023 GeniusPilot2016
@@ -342,10 +342,10 @@ Xem https://www.gnu.org/licenses/ để biết chi tiết
 Lấy cảm hứng từ Bleeper Music Maker của Robbi-985 (hay còn gọi là SomethingUnreal)
 Được thiết kế và lập trình bởi GeniusPilot2016
 Tất cả các biểu tượng trong chương trình này được tải xuống từ icons8.com
-Google Gemini™ là thương hiệu của Google LLC</value>
+Google Gemini™ là thương hiệu của Google LLC. OpenAI cùng các thương hiệu liên quan là thương hiệu của OpenAI. Anthropic và Claude là thương hiệu của Anthropic, PBC. Tất cả các thương hiệu đều là tài sản của các chủ sở hữu tương ứng.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>574, 557</value>
+    <value>574, 582</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

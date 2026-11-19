@@ -104,5 +104,11 @@
     <Setting Name="window_border_color" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">DeepSkyBlue</Value>
     </Setting>
+    <Setting Name="EncryptedOpenAIAPIKeyBase64" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="EncryptedAnthropicAPIKeyBase64" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

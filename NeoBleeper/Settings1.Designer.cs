@@ -12,7 +12,7 @@ namespace NeoBleeper {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.11.0.0")]
     public sealed partial class Settings1 : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings1 defaultInstance = ((Settings1)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings1())));
@@ -427,6 +427,30 @@ namespace NeoBleeper {
             }
             set {
                 this["window_border_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EncryptedOpenAIAPIKeyBase64 {
+            get {
+                return ((string)(this["EncryptedOpenAIAPIKeyBase64"]));
+            }
+            set {
+                this["EncryptedOpenAIAPIKeyBase64"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EncryptedAnthropicAPIKeyBase64 {
+            get {
+                return ((string)(this["EncryptedAnthropicAPIKeyBase64"]));
+            }
+            set {
+                this["EncryptedAnthropicAPIKeyBase64"] = value;
             }
         }
     }

@@ -24,16 +24,28 @@ namespace NeoBleeper
 {
     public partial class SettingsWindow : Form
     {
+        bool APIKeyInitializing = true;
         bool darkTheme = false;
         private MainWindow mainWindow;
         public delegate void ColorsAndThemeChangedEventHandler(object sender, EventArgs e);
         public event ColorsAndThemeChangedEventHandler ColorsAndThemeChanged;
         LyricsOverlay lyricsOverlay = new LyricsOverlay();
-        private string decryptedAPIKey = String.Empty;
+        private string decryptedGeminiAPIKey = String.Empty;
+        private string decryptedOpenAIAPIKey = String.Empty;
+        private string decryptedAnthropicAPIKey = String.Empty;
         private EncryptionHelper encryptionHelper = new EncryptionHelper();
+
+        private List<AIModelProviders> aiModelProviders = new List<AIModelProviders>();
+        private record AIModelProviders(string displayName, bool isAvailableInCountry);
         public SettingsWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            aiModelProviders = new List<AIModelProviders>
+            {
+                new AIModelProviders(comboBoxProvider.Items[0]?.ToString(), CreateMusicWithAI.IsGeminiAPIAvailableInCountry()),
+                new AIModelProviders(comboBoxProvider.Items[1]?.ToString(), CreateMusicWithAI.IsOpenAIAPIAvailableInCountry()),
+                new AIModelProviders(comboBoxProvider.Items[2]?.ToString(), CreateMusicWithAI.IsAnthropicAPIAvailableInCountry())
+            };
             this.mainWindow = mainWindow;
             this.Owner = mainWindow;
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
@@ -178,30 +190,42 @@ namespace NeoBleeper
             PrepareSysExDisplayPreview();
             RefreshMidiInputDevices();
             RefreshMidiOutputDevices();
-            if (!CreateMusicWithAI.IsAvailableInCountry())
+            comboBoxProvider.Items.Clear();
+            foreach (var provider in aiModelProviders)
             {
-                groupBoxCreateMusicWithAI.Visible = false; // Hide the group box if the feature is not available in the user's country
-                Logger.Log("Create Music with AI feature is not available in this country. Hiding the settings.", Logger.LogTypes.Info);
-            }
-            else
-            {
-                if (IsPotentiallyPaidApiCountry())
+                if(provider.isAvailableInCountry)
                 {
-                    labelGoogleGeminiAPIWarning.Visible = true;
+                    comboBoxProvider.Items.Add(provider.displayName);
                 }
+            }
+            comboBoxProvider.SelectedIndex = 0;
+            APIKeyInitializing = false;
+            if (CreateMusicWithAI.IsGeminiAPIAvailableInCountry() && IsPotentiallyPaidApiCountry() && comboBoxProvider.SelectedItem?.ToString() == aiModelProviders[0].displayName)
+            {
+                labelGoogleGeminiAPIWarning.Visible = true;
             }
             try
             {
                 if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
                 {
-                    decryptedAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                    decryptedGeminiAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                }
+                if (!string.IsNullOrEmpty(Settings1.Default.EncryptedOpenAIAPIKeyBase64))
+                {
+                    decryptedOpenAIAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedOpenAIAPIKeyBase64);
+                }
+                if (!string.IsNullOrEmpty(Settings1.Default.EncryptedAnthropicAPIKeyBase64))
+                {
+                    decryptedAnthropicAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedAnthropicAPIKeyBase64);
                 }
             }
             catch
             {
-                decryptedAPIKey = string.Empty;
+                decryptedGeminiAPIKey = string.Empty;
+                decryptedOpenAIAPIKey = string.Empty;
+                decryptedAnthropicAPIKey = string.Empty;
             }
-            textBoxAPIKey.Text = decryptedAPIKey;
+            textBoxAPIKey.Text = decryptedGeminiAPIKey;
             if (Settings1.Default.EncryptedGeminiAPIKeyBase64 != String.Empty)
             {
                 buttonResetAPIKey.Enabled = true;
@@ -337,6 +361,8 @@ namespace NeoBleeper
             window_border_color_change.BackColor = Color.FromArgb(32, 32, 32);
             window_border_color_change.ForeColor = Color.White;
             groupBoxWindow.ForeColor = Color.White;
+            comboBoxProvider.BackColor = Color.Black;
+            comboBoxProvider.ForeColor = Color.White;
             UIHelper.ApplyCustomTitleBarAndBorder(this, Color.Black, darkTheme);
         }
         private void LightTheme()
@@ -419,6 +445,8 @@ namespace NeoBleeper
             groupBoxWindow.ForeColor = SystemColors.ControlText;
             window_border_color_change.BackColor = Color.Transparent;
             window_border_color_change.ForeColor = SystemColors.ControlText;
+            comboBoxProvider.BackColor = SystemColors.Window;
+            comboBoxProvider.ForeColor = SystemColors.WindowText;
             UIHelper.ApplyCustomTitleBarAndBorder(this, Color.White, darkTheme);
         }
 
@@ -570,7 +598,7 @@ namespace NeoBleeper
             toolTip1.SetToolTip(buttonShowHide, Properties.Resources.ShowAPIKeyToolTip);
             buttonShowHide.ImageIndex = 12;
             textBoxAPIKey.UseSystemPasswordChar = true;
-            textBoxAPIKey.Text = decryptedAPIKey; // Refresh the API key textbox when the tab index changes if text is changed, but not saved yet
+            textBoxAPIKey.Text = decryptedGeminiAPIKey; // Refresh the API key textbox when the tab index changes if text is changed, but not saved yet
         }
         bool isTestingSystemSpeaker = false;
         private void btn_test_system_speaker_Click(object sender, EventArgs e)
@@ -1681,6 +1709,11 @@ namespace NeoBleeper
 
         private void buttonShowHide_Click(object sender, EventArgs e)
         {
+            ShowOrHideAPIKey();
+        }
+
+        private void ShowOrHideAPIKey()
+        {
             if (buttonShowHide.Text == Properties.Resources.TextShow)
             {
                 buttonShowHide.Text = Properties.Resources.TextHide;
@@ -1703,45 +1736,63 @@ namespace NeoBleeper
             }
         }
 
+        private void SaveGeminiAPIKey()
+        {
+            if (CreateMusicWithAI.IsGeminiAPIKeyValidFormat(textBoxAPIKey.Text))
+            {
+                Action acceptAction = () =>
+                {
+                    // Encrypt and save the API key with the new keys
+                    string unencryptedAPIKey = textBoxAPIKey.Text;
+                    decryptedGeminiAPIKey = unencryptedAPIKey;
+                    Settings1.Default.EncryptedGeminiAPIKeyBase64 = encryptionHelper.GenerateEncryptedStringBase64(unencryptedAPIKey);
+                    Settings1.Default.Save();
+
+                    buttonUpdateAPIKey.Enabled = false;
+                    buttonResetAPIKey.Enabled = true;
+                    MessageForm.Show(this, Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Logger.Log("API key saved successfully", Logger.LogTypes.Info);
+                };
+                Action rejectAction = () =>
+                {
+                    decryptedGeminiAPIKey = string.Empty;
+                    textBoxAPIKey.Text = string.Empty;
+                    Logger.Log("User rejected the Google Gemini™ Terms of Service. API key not saved.", Logger.LogTypes.Info);
+                };
+                if (!Settings1.Default.googleGeminiTermsOfServiceAccepted)
+                {
+                    GoogleGeminiTermsOfServiceAgreement.AskToAgreeTermsAndDoAction(this, acceptAction, rejectAction);
+                }
+                else
+                {
+                    acceptAction();
+                }
+            }
+            else
+            {
+                Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
+                MessageForm.Show(this, Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Replace the buttonUpdateAPIKey_Click method
         private void buttonUpdateAPIKey_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CreateMusicWithAI.IsAPIKeyValidFormat(textBoxAPIKey.Text))
+                switch (comboBoxProvider.SelectedItem?.ToString())
                 {
-                    Action acceptAction = () =>
-                    {
-                        // Encrypt and save the API key with the new keys
-                        string unencryptedAPIKey = textBoxAPIKey.Text;
-                        decryptedAPIKey = unencryptedAPIKey;
-                        Settings1.Default.EncryptedGeminiAPIKeyBase64 = encryptionHelper.GenerateEncryptedStringBase64(unencryptedAPIKey);
-                        Settings1.Default.Save();
+                    case string s when s == aiModelProviders[0].displayName: // Google Gemini™
+                        SaveGeminiAPIKey();
+                        break;
 
-                        buttonUpdateAPIKey.Enabled = false;
-                        buttonResetAPIKey.Enabled = true;
-                        MessageForm.Show(this, Resources.GoogleGeminiAPIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Logger.Log("API key saved successfully", Logger.LogTypes.Info);
-                    };
-                    Action rejectAction = () =>
-                    {
-                        decryptedAPIKey = string.Empty;
-                        textBoxAPIKey.Text = string.Empty;
-                        Logger.Log("User rejected the Google Gemini™ Terms of Service. API key not saved.", Logger.LogTypes.Info);
-                    };
-                    if (!Settings1.Default.googleGeminiTermsOfServiceAccepted)
-                    {
-                        GoogleGeminiTermsOfServiceAgreement.AskToAgreeTermsAndDoAction(this, acceptAction, rejectAction);
-                    }
-                    else
-                    {
-                        acceptAction();
-                    }
-                }
-                else
-                {
-                    Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
-                    MessageForm.Show(this, Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    case string s when s == aiModelProviders[1].displayName: // OpenAI
+                        SaveOpenAIAPIKey();
+                        break;
+
+                    case string s when s == aiModelProviders[2].displayName: // Anthropic
+                        SaveAnthropicAPIKey();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -1751,6 +1802,43 @@ namespace NeoBleeper
             }
         }
 
+        private void SaveOpenAIAPIKey()
+        {
+            if (CreateMusicWithAI.IsOpenAIAPIKeyValidFormat(textBoxAPIKey.Text))
+            {
+                decryptedOpenAIAPIKey = textBoxAPIKey.Text;
+                Settings1.Default.EncryptedOpenAIAPIKeyBase64 = encryptionHelper.GenerateEncryptedStringBase64(decryptedOpenAIAPIKey);
+                Settings1.Default.Save();
+                buttonUpdateAPIKey.Enabled = false;
+                buttonResetAPIKey.Enabled = true;
+                MessageForm.Show(this, "OpenAI API key saved successfully", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.Log("OpenAI API key saved successfully", Logger.LogTypes.Info);
+            }
+            else
+            {
+                Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
+                MessageForm.Show(this, Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveAnthropicAPIKey()
+        {
+            if (CreateMusicWithAI.IsOpenAIAPIKeyValidFormat(textBoxAPIKey.Text))
+            {
+                decryptedAnthropicAPIKey = textBoxAPIKey.Text;
+                Settings1.Default.EncryptedAnthropicAPIKeyBase64 = encryptionHelper.GenerateEncryptedStringBase64(decryptedAnthropicAPIKey);
+                Settings1.Default.Save();
+                buttonUpdateAPIKey.Enabled = false;
+                buttonResetAPIKey.Enabled = true;
+                MessageForm.Show(this, "Anthropic API key saved successfully", String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.Log("Anthropic API key saved successfully", Logger.LogTypes.Info);
+            }
+            else
+            {
+                Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
+                MessageForm.Show(this, Resources.GoogleGeminiAPIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
         {
@@ -1768,13 +1856,28 @@ namespace NeoBleeper
         {
             try
             {
-                decryptedAPIKey = string.Empty;
-                Settings1.Default.EncryptedGeminiAPIKeyBase64 = string.Empty;
+                switch (comboBoxProvider.SelectedItem?.ToString())
+                {
+                    case string s when s == aiModelProviders[0].displayName: // Google Gemini™
+                        decryptedGeminiAPIKey = string.Empty;
+                        Settings1.Default.EncryptedGeminiAPIKeyBase64 = string.Empty;
+                        break;
+
+                    case string s when s == aiModelProviders[1].displayName: // OpenAI
+                        decryptedOpenAIAPIKey = string.Empty;
+                        Settings1.Default.EncryptedOpenAIAPIKeyBase64 = string.Empty;
+                        break;
+
+                    case string s when s == aiModelProviders[2].displayName: // Anthropic
+                        decryptedAnthropicAPIKey = string.Empty;
+                        Settings1.Default.EncryptedAnthropicAPIKeyBase64 = string.Empty;
+                        break;
+                }
                 Settings1.Default.Save();
                 textBoxAPIKey.Text = string.Empty;
                 buttonUpdateAPIKey.Enabled = false;
                 buttonResetAPIKey.Enabled = false;
-                Logger.Log("Google Gemini™ API key reset successfully.", Logger.LogTypes.Info);
+                Logger.Log("API key reset successfully.", Logger.LogTypes.Info);
                 MessageForm.Show(this, Resources.GoogleGeminiAPIKeyReset, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -1980,6 +2083,7 @@ namespace NeoBleeper
         }
         private void comboBoxLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int selectedIndex = comboBoxProvider.SelectedIndex;
             if (comboBoxLanguage.SelectedItem == null)
                 return;
             string headerText = mainWindow.Text;
@@ -2027,6 +2131,21 @@ namespace NeoBleeper
 
             // Re-translate the ListView values using the new language.
             RetranslateNoteProperties(mainWindow.listViewNotes, noteProperties);
+            aiModelProviders = new List<AIModelProviders>
+            {
+                new AIModelProviders(comboBoxProvider.Items[0]?.ToString(), CreateMusicWithAI.IsGeminiAPIAvailableInCountry()),
+                new AIModelProviders(comboBoxProvider.Items[1]?.ToString(), CreateMusicWithAI.IsOpenAIAPIAvailableInCountry()),
+                new AIModelProviders(comboBoxProvider.Items[2]?.ToString(), CreateMusicWithAI.IsAnthropicAPIAvailableInCountry())
+            };
+            comboBoxProvider.Items.Clear();
+            foreach (var provider in aiModelProviders)
+            {
+                if (provider.isAvailableInCountry)
+                {
+                    comboBoxProvider.Items.Add(provider.displayName);
+                }
+            }
+            comboBoxProvider.SelectedIndex = selectedIndex;
         }
         private List<(string Length, string Modifier, string Articulation)> GetNoteProperties(ListView listView)
         {
@@ -2418,6 +2537,43 @@ namespace NeoBleeper
                 Settings1.Default.Save();
                 UIHelper.ApplyPreferredWindowColorToAllForms();
                 Logger.Log("Window border color changed to: " + colorDialog1.Color.ToString(), Logger.LogTypes.Info);
+            }
+        }
+
+        private void comboBoxProvider_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(APIKeyInitializing)
+            {
+                return; // Skip processing if the API key initialization is still in progress
+            }
+            if (CreateMusicWithAI.IsGeminiAPIAvailableInCountry() && IsPotentiallyPaidApiCountry() && comboBoxProvider.SelectedItem?.ToString() == aiModelProviders[0].displayName)
+            {
+                labelGoogleGeminiAPIWarning.Visible = true;
+            }
+            else
+            {
+                labelGoogleGeminiAPIWarning.Visible = false;
+            }
+            buttonShowHide.Text = Properties.Resources.TextShow;
+            toolTip1.SetToolTip(buttonShowHide, Properties.Resources.ShowAPIKeyToolTip);
+            buttonShowHide.ImageIndex = 12;
+            textBoxAPIKey.UseSystemPasswordChar = true;
+            switch (comboBoxProvider.SelectedItem?.ToString())
+            {
+                case string s when s == aiModelProviders[0].displayName:
+                    textBoxAPIKey.Text = decryptedGeminiAPIKey;
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                    break;
+
+                case string s when s == aiModelProviders[1].displayName:
+                    textBoxAPIKey.Text = decryptedOpenAIAPIKey;
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedOpenAIAPIKeyBase64);
+                    break;
+
+                case string s when s == aiModelProviders[2].displayName:
+                    textBoxAPIKey.Text = decryptedAnthropicAPIKey;
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedAnthropicAPIKeyBase64);
+                    break;
             }
         }
     }

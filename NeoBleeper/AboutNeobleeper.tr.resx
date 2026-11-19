@@ -132,7 +132,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAHQAQIB0AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAHYAQIB2AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -269,7 +269,7 @@
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 401</value>
+    <value>12, 430</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>599, 133</value>
@@ -281,7 +281,7 @@
     <value>Görev</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 377</value>
+    <value>251, 406</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 16</value>
@@ -290,7 +290,7 @@
     <value>Katkıda Bulunanlar</value>
   </data>
   <data name="button_visit_icons8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 324</value>
+    <value>106, 353</value>
   </data>
   <data name="button_visit_icons8.Size" type="System.Drawing.Size, System.Drawing">
     <value>126, 43</value>
@@ -302,7 +302,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_view_license_text.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 324</value>
+    <value>236, 353</value>
   </data>
   <data name="button_view_license_text.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 43</value>
@@ -314,7 +314,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="button_explore_and_star_on_github.Location" type="System.Drawing.Point, System.Drawing">
-    <value>372, 324</value>
+    <value>372, 353</value>
   </data>
   <data name="button_explore_and_star_on_github.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 43</value>
@@ -329,7 +329,7 @@
     <value>20, 200</value>
   </data>
   <data name="lbl_credit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>584, 117</value>
+    <value>584, 149</value>
   </data>
   <data name="lbl_credit.Text" xml:space="preserve">
     <value>© 2023 GeniusPilot2016
@@ -338,10 +338,10 @@ Ayrıntılar için https://www.gnu.org/licenses/ adresine bakınız
 Robbi-985'in (diğer adıyla SomethingUnreal'ın) Bleeper Music Maker programından esinlenilmiştir
 GeniusPilot2016 tarafından tasarlanmış ve geliştirilmiştir
 Bu programdaki tüm simgeler icons8.com'dan indirilmiştir
-Google Gemini™, Google LLC'nin bir ticari markasıdır</value>
+Google Gemini™, Google LLC'nin ticari markasıdır. OpenAI ve ilgili ticari markaları, OpenAI'ın ticari markalarıdır. Anthropic ve Claude, Anthropic, PBC'nin ticari markalarıdır. Tüm ticari markalar, ilgili sahiplerinin mülkiyetindedir.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>623, 546</value>
+    <value>623, 575</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
