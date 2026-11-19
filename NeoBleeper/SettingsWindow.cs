@@ -198,7 +198,15 @@ namespace NeoBleeper
                     comboBoxProvider.Items.Add(provider.displayName);
                 }
             }
-            comboBoxProvider.SelectedIndex = 0;
+            if(comboBoxProvider.Items.Count > 0)
+            {
+                comboBoxProvider.SelectedIndex = 0; // Select the first available provider by default
+            }
+            else
+            {
+                groupBoxCreateMusicWithAI.Visible = false; // Hide the group box if no providers are available
+                Logger.Log("No AI model providers are available in the current country.", Logger.LogTypes.Warning);
+            }
             APIKeyInitializing = false;
             if (CreateMusicWithAI.IsGeminiAPIAvailableInCountry() && IsPotentiallyPaidApiCountry() && comboBoxProvider.SelectedItem?.ToString() == aiModelProviders[0].displayName)
             {

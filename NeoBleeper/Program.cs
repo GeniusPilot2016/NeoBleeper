@@ -83,11 +83,16 @@ namespace NeoBleeper
                 splashScreen.UpdateStatus(Resources.StatusMIDIIOInitializationCompleted, 5);
 
                 // Check if it has an API key to verify
-                if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
+                if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64) ||
+                    !string.IsNullOrEmpty(Settings1.Default.EncryptedOpenAIAPIKeyBase64) ||
+                    !string.IsNullOrEmpty(Settings1.Default.EncryptedAnthropicAPIKeyBase64))
                 {
                     splashScreen.UpdateStatus(Resources.StatusAPIKeyValidating);
                     EncryptionHelper encryptionHelper2 = new EncryptionHelper();
-                    bool valid = encryptionHelper2.TryDecryptStringBase64(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                    bool geminiAPIKeyvalid = encryptionHelper2.TryDecryptStringBase64(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                    bool openAIKeyValid = encryptionHelper2.TryDecryptStringBase64(Settings1.Default.EncryptedOpenAIAPIKeyBase64);
+                    bool anthropicAPIKeyvalid = encryptionHelper2.TryDecryptStringBase64(Settings1.Default.EncryptedAnthropicAPIKeyBase64);
+                    bool valid = geminiAPIKeyvalid && openAIKeyValid && anthropicAPIKeyvalid;
                     if (valid == true)
                     {
                         Logger.Log("API key validation successful", LogTypes.Info);
@@ -98,7 +103,9 @@ namespace NeoBleeper
                         splashScreen.UpdateStatus(Resources.MessageAPIKeyIsCorrupted);
                         if (!string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64))
                         {
-                            Settings1.Default.geminiAPIKey = String.Empty;
+                            Settings1.Default.EncryptedGeminiAPIKeyBase64 = string.Empty; // Clear the corrupted Gemini API key
+                            Settings1.Default.EncryptedOpenAIAPIKeyBase64 = string.Empty; // Clear the corrupted OpenAI API key
+                            Settings1.Default.EncryptedAnthropicAPIKeyBase64 = string.Empty; // Clear the corrupted Anthropic API key
                             Settings1.Default.Save(); // Save the settings after clearing the API key
                         }
                     }

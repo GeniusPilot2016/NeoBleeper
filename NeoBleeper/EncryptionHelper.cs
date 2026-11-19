@@ -239,6 +239,8 @@ public class EncryptionHelper
 
     public bool TryDecryptStringBase64(string plainText)
     {
+        if(string.IsNullOrEmpty(plainText))
+            return true; // If the input is null or empty, consider it successfully "decrypted" to an empty string.
         byte[] encryptedBytes = null;
         byte[] decryptedBytes = null;
         string decryptedString = null;
