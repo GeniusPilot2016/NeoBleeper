@@ -132,7 +132,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAA7AkAAAJNU0Z0AUkBTAIBAQMB
-        AAH8AQIB/AECARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
+        AAEMAQMBDAEDARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMAARADAAEBAQABIAYAARD/
         AF8AAfIBSQG3Af8gAANEAXcgAAMMARADaA3/A18B5VwAATsBsAElAf8BOwGwASUB/wE7AbABJQH/ATIB
         ngEeAf8BMgGeAR4B/wEyAZ4BHgH/ASwBjAEaAf8BLAGMARoB/wEsAYwBGgH/ASUBfQETAf8BJQF9ARMB
         /wElAX0BEwH/FAAB8AFDAbEB/wHvAT4BqgH/GAABRAFDAUQBdwHvAT8BrAH/HAADRwH/A0QB/wM+Df8D
@@ -176,16 +176,6 @@
         wAEDAeABBwHAAQECAAHAAQMB4AEDAeABAwIAAcABAwH4AQ8B4AEHAgABwAEDAfgBDwH4AQ8CAAP/AX8C
         /wIABv8CAAs=
 </value>
-  </data>
-  <data name="columnHeader1.Text" xml:space="preserve">
-    <value>Tên</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>300</value>
-  </data>
-  <data name="columnHeader2.Text" xml:space="preserve">
-    <value>Nhiệm vụ</value>
   </data>
   <data name="listView1.Items" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -278,11 +268,44 @@
         cmFwaGljc1VuaXQBAAAAB3ZhbHVlX18ACAMAAAADAAAACw==
 </value>
   </data>
+  <data name="listView1.Items4" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5DAMAAABRU3lzdGVtLkRyYXdpbmcsIFZlcnNp
+        b249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3ZjExZDUwYTNh
+        BQEAAAAhU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJdGVtCQAAAARUZXh0CkltYWdlSW5kZXgM
+        U3ViSXRlbUNvdW50CFN1Ykl0ZW0xCUJhY2tDb2xvcgdDaGVja2VkBEZvbnQJRm9yZUNvbG9yF1VzZUl0
+        ZW1TdHlsZUZvclN1Ykl0ZW1zAQAABAQABAQACAgxU3lzdGVtLldpbmRvd3MuRm9ybXMuTGlzdFZpZXdJ
+        dGVtK0xpc3RWaWV3U3ViSXRlbQIAAAAUU3lzdGVtLkRyYXdpbmcuQ29sb3IDAAAAARNTeXN0ZW0uRHJh
+        d2luZy5Gb250AwAAABRTeXN0ZW0uRHJhd2luZy5Db2xvcgMAAAABAgAAAAYEAAAADG1ha2FrYWJhYnVp
+        bv////8CAAAACQUAAAAF+v///xRTeXN0ZW0uRHJhd2luZy5Db2xvcgQAAAAEbmFtZQV2YWx1ZQprbm93
+        bkNvbG9yBXN0YXRlAQAAAAkHBwMAAAAKAAAAAAAAAAAYAAEAAAkHAAAAAfj////6////CgAAAAAAAAAA
+        GgABAAEFBQAAADFTeXN0ZW0uV2luZG93cy5Gb3Jtcy5MaXN0Vmlld0l0ZW0rTGlzdFZpZXdTdWJJdGVt
+        BAAAAAR0ZXh0BG5hbWUFc3R5bGUIdXNlckRhdGEBAQQCPlN5c3RlbS5XaW5kb3dzLkZvcm1zLkxpc3RW
+        aWV3SXRlbStMaXN0Vmlld1N1Ykl0ZW0rU3ViSXRlbVN0eWxlAgAAAAIAAAAGCQAAAEBWw60gZOG7pSDE
+        keG6p3UgdGnDqm4gduG7gSDDom0gbmjhuqFjIGRvIGPhu5luZyDEkeG7k25nIHThuqFvIHJhCgoKBQcA
+        AAATU3lzdGVtLkRyYXdpbmcuRm9udAQAAAAETmFtZQRTaXplBVN0eWxlBFVuaXQBAAQECxhTeXN0ZW0u
+        RHJhd2luZy5Gb250U3R5bGUDAAAAG1N5c3RlbS5EcmF3aW5nLkdyYXBoaWNzVW5pdAMAAAADAAAABgoA
+        AAAOSGFybW9ueU9TIFNhbnP//w9BBfX///8YU3lzdGVtLkRyYXdpbmcuRm9udFN0eWxlAQAAAAd2YWx1
+        ZV9fAAgDAAAAAAAAAAX0////G1N5c3RlbS5EcmF3aW5nLkdyYXBoaWNzVW5pdAEAAAAHdmFsdWVfXwAI
+        AwAAAAMAAAAL
+</value>
+  </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 426</value>
   </data>
   <data name="listView1.Size" type="System.Drawing.Size, System.Drawing">
     <value>550, 144</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
+  <data name="columnHeader2.Text" xml:space="preserve">
+    <value>Nhiệm vụ</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>215, 403</value>

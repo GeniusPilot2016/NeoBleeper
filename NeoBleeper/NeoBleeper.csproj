@@ -65,6 +65,7 @@
     <None Remove="Music\Majo No Ocha Kai - BITE.NBPML" />
     <None Remove="Music\Motor chords test.NBPML" />
     <None Remove="Music\Ozzy Osbourne - Crazy Train.NBPML" />
+    <None Remove="Music\Phoenix - Swinging Waste.nbpml" />
     <None Remove="Music\Remi Solo.NBPML" />
     <None Remove="Music\Rock-style Energetic Track.NBPML" />
     <None Remove="Music\Rush E.NBPML" />
@@ -154,6 +155,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Music\Ozzy Osbourne - Crazy Train.NBPML">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\Phoenix - Swinging Waste.nbpml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Music\Remi Solo.NBPML">
