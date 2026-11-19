@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NeoBleeper;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using NeoBleeper;
 
 namespace AdvancedSystemSpeakerProbe;
 
@@ -39,7 +34,7 @@ internal static class Program
             return 1;
         }
 
-        if(ProgramPrecheck.IsRanAsAdmin() is false)
+        if (ProgramPrecheck.IsRanAsAdmin() is false)
         {
             PrintError("This program must be run as Administrator.");
             Console.WriteLine("  Right-click the executable and select 'Run as administrator'.");

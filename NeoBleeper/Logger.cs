@@ -15,13 +15,10 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace NeoBleeper
 {
@@ -67,7 +64,7 @@ namespace NeoBleeper
             get => _mirrorEntriesToDebugOutput;
             set => _mirrorEntriesToDebugOutput = value;
         }
-        
+
 
         private static int _shutdownStarted;
 
@@ -466,7 +463,7 @@ namespace NeoBleeper
         }
 
 
-        
+
 
     }
 }

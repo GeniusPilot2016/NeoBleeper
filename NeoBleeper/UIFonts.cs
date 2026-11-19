@@ -16,7 +16,6 @@
 
 using NeoBleeper.Properties;
 using System.Drawing.Text;
-using System.Runtime.InteropServices;
 
 namespace NeoBleeper
 {

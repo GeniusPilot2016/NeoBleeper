@@ -1,10 +1,7 @@
 ﻿using NeoBleeper.Properties;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace NeoBleeper
 {

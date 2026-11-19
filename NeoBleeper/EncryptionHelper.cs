@@ -15,13 +15,9 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper;
-using NeoBleeper.Properties;
-using System.Buffers.Text;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
-using Windows.ApplicationModel.Activation;
-using static NeoBleeper.Logger;
 
 public class EncryptionHelper
 {
@@ -147,7 +143,7 @@ public class EncryptionHelper
     /// <param name="cipherText">The encrypted string to decrypt, encoded in Base64. Cannot be null or empty.</param>
     /// <returns>The decrypted plain text string. Returns an empty string if the input is null or empty.</returns>
     /// <exception cref="ArgumentException">Thrown if the configured AES key is not 16, 24, or 32 bytes in length, or if the IV is not 16 bytes.</exception>
-    [Obsolete("This function is replaced with DPAPI", error:false)]
+    [Obsolete("This function is replaced with DPAPI", error: false)]
     public static string DecryptString(string cipherText)
     {
         if (string.IsNullOrEmpty(cipherText))
@@ -188,7 +184,7 @@ public class EncryptionHelper
         }
         finally
         {
-            if(!string.IsNullOrEmpty(cipherText))
+            if (!string.IsNullOrEmpty(cipherText))
             {
                 CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(cipherText)); // Clear the input cipher text from memory
             }
@@ -222,13 +218,16 @@ public class EncryptionHelper
         finally
         {
             // Clear the plain text byte array from memory
-            if (!string.IsNullOrEmpty(plainText)){
+            if (!string.IsNullOrEmpty(plainText))
+            {
                 CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(plainText));
             }
-            if(bytes != null){
+            if (bytes != null)
+            {
                 CryptographicOperations.ZeroMemory(bytes);
             }
-            if (encryptedString != null){
+            if (encryptedString != null)
+            {
                 CryptographicOperations.ZeroMemory(encryptedString);
             }
             if (!string.IsNullOrEmpty(outputBase64))
@@ -261,16 +260,20 @@ public class EncryptionHelper
         }
         finally
         {
-            if (encryptedBytes != null){
+            if (encryptedBytes != null)
+            {
                 CryptographicOperations.ZeroMemory(encryptedBytes); // Clear the encrypted byte array from memory
             }
-            if (decryptedBytes != null){
+            if (decryptedBytes != null)
+            {
                 CryptographicOperations.ZeroMemory(decryptedBytes);
             }
-            if (!string.IsNullOrEmpty(decryptedString)){
+            if (!string.IsNullOrEmpty(decryptedString))
+            {
                 CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(decryptedString)); // Clear the decrypted string from memory
             }
-            if(!string.IsNullOrEmpty(plainText)){
+            if (!string.IsNullOrEmpty(plainText))
+            {
                 CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(plainText)); // Clear the input string from memory
             }
         }
@@ -296,7 +299,8 @@ public class EncryptionHelper
         }
         finally
         {
-            if (!string.IsNullOrEmpty(apiKey)) {
+            if (!string.IsNullOrEmpty(apiKey))
+            {
                 CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(apiKey)); // Clear the decrypted API key from memory
             }
         }
@@ -341,7 +345,7 @@ public class EncryptionHelper
                 CryptographicOperations.ZeroMemory(protectedBytes);
             if (plainBytes != null)
                 CryptographicOperations.ZeroMemory(plainBytes);
-            if(!string.IsNullOrEmpty(encryptedDataBase64))
+            if (!string.IsNullOrEmpty(encryptedDataBase64))
                 CryptographicOperations.ZeroMemory(Encoding.UTF8.GetBytes(encryptedDataBase64));
         }
     }
@@ -411,11 +415,11 @@ public class EncryptionHelper
     /// where API key storage has changed.</remarks>
     public void MigrateSavedLegacyAPIKey()
     {
-        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey) || 
+        if (!string.IsNullOrEmpty(Settings1.Default.geminiAPIKey) ||
             !string.IsNullOrEmpty(Settings1.Default.Key) ||
             !string.IsNullOrEmpty(Settings1.Default.IV))
         {
-            if(TryDecryptLegacyAPIKey())
+            if (TryDecryptLegacyAPIKey())
             {
                 Debug.WriteLine("Successfully decrypted legacy API key. Proceeding with migration.");
                 string legacyAPIKey = EncryptionHelper.DecryptString(Settings1.Default.geminiAPIKey);

@@ -15,9 +15,6 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using NeoBleeper.Properties;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using static NeoBleeper.Logger;
 using static UIHelper;
 
@@ -438,7 +435,7 @@ namespace NeoBleeper
                     var synchronizedSettings = SynchronizedSettings.Load();
                     // Load synchronized settings and check for mismatches for beep stopper to apply NeoBleeper's theme and language settings
                     if (synchronizedSettings.Language != Settings1.Default.preferredLanguage ||
-                        synchronizedSettings.Theme != Settings1.Default.theme || 
+                        synchronizedSettings.Theme != Settings1.Default.theme ||
                         synchronizedSettings.BorderColor != Settings1.Default.window_border_color)
                     {
                         Logger.Log("Settings mismatch detected. Updating synchronized settings.", LogTypes.Warning);

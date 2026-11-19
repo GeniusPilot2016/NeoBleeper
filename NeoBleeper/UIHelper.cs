@@ -1,11 +1,6 @@
 ﻿using Microsoft.Win32;
 using NeoBleeper;
-using System.Collections;
-using System.ComponentModel;
 using System.Globalization;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 public static class UIHelper
 {

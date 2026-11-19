@@ -159,7 +159,7 @@ namespace NeoBleeper
         /// <returns>A task that represents the asynchronous operation.</returns>
         public static async Task PlaySoundUsingMotor(int frequency, int duration, bool nonStopping)
         {
-            await Task.Run(async() =>
+            await Task.Run(async () =>
             {
                 frequency *= (int)Math.Pow(2, TemporarySettings.MicrocontrollerSettings.stepperMotorOctave - 2);
                 int RPM = (int)(frequency * 60.0); // Convert frequency in Hz to RPM
@@ -228,7 +228,7 @@ namespace NeoBleeper
         /// <returns>A task that represents the asynchronous operation of playing the sound.</returns>
         public static async Task PlaySoundUsingBuzzer(int frequency, int duration, bool nonStopping)
         {
-            await Task.Run(async() =>
+            await Task.Run(async () =>
             {
                 frequency *= (int)Math.Pow(2, TemporarySettings.MicrocontrollerSettings.stepperMotorOctave - 2);
                 try

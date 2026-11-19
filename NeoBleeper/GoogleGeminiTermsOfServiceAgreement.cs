@@ -1,5 +1,4 @@
 ﻿using NeoBleeper.Properties;
-using System.Diagnostics;
 using static UIHelper;
 
 namespace NeoBleeper

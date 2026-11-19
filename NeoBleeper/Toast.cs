@@ -48,7 +48,7 @@ namespace NeoBleeper
             Point preservedLocation = labelMessage.Location;
             SetToastIcon(icon);
             this.MaximumSize = new Size(parentForm.Width - 40, parentForm.Height - (this.Location.Y - parentForm.Size.Height));
-            labelMessage.MaximumSize = new Size(this.MaximumSize.Width - (preservedLocation.X * 2) - (pictureBox1.Visible == true ? 
+            labelMessage.MaximumSize = new Size(this.MaximumSize.Width - (preservedLocation.X * 2) - (pictureBox1.Visible == true ?
                 (pictureBox1.Width + (preservedLocation.X / 2)) : 0), this.MaximumSize.Height - (preservedLocation.Y * 2));
             ShowTimer.Interval = duration;
         }

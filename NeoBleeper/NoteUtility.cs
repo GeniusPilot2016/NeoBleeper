@@ -14,17 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using GenerativeAI.Types;
-using NAudio.SoundFont;
 using NAudio.Wave;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NeoBleeper
 {
@@ -1585,7 +1577,7 @@ namespace NeoBleeper
                 Math.Log(previousHz) * (1.0 - smoothing) +
                 Math.Log(targetHz) * smoothing);
         }
-      
+
         private static float[] BuildSoundDevicePwmSamples(byte[] pcmData, float volume, int velocity = 100)
         {
             if (pcmData == null || pcmData.Length == 0) return Array.Empty<float>();

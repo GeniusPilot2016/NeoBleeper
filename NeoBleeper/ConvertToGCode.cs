@@ -514,7 +514,7 @@ namespace NeoBleeper
 
             // Get axis letter based on selected axis
             string axisLetter = "X";
-            switch(selectedAxis)
+            switch (selectedAxis)
             {
                 case SelectedAxis.X:
                     axisLetter = "X";

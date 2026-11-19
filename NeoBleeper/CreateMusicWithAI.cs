@@ -16,11 +16,8 @@
 
 using GenerativeAI;
 using NeoBleeper.Properties;
-using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -1319,7 +1316,8 @@ namespace NeoBleeper
                     googleModel.SystemInstruction = systemInstructions;
 
                     // If the model supports extended thinking, set the thinking level based on the checkbox
-                    if (IsModelExtendedThinkingCapable(AIModel)) {
+                    if (IsModelExtendedThinkingCapable(AIModel))
+                    {
                         // Config
                         if (googleModel.Config == null)
                         {

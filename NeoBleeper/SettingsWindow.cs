@@ -17,10 +17,7 @@
 using NAudio.Midi;
 using NeoBleeper.Properties;
 using System.Diagnostics;
-using System.Globalization;
 using System.Media;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using static UIHelper;
 
 namespace NeoBleeper
@@ -125,7 +122,7 @@ namespace NeoBleeper
                 checkBox_enable_create_beep_from_soundcard.Visible = false;
                 if (!ProgramPrecheck.IsARM64())
                 {
-                    if(!ProgramPrecheck.IsRanAsAdmin())
+                    if (!ProgramPrecheck.IsRanAsAdmin())
                     {
                         label_neobleeper_must_run_as_admin.Visible = true;
                     }
@@ -2011,7 +2008,7 @@ namespace NeoBleeper
 
             // Update all controls in the UI.
             UIHelper.ApplyLanguageChangeToUI();
-            
+
             // Replace the AI-generated text with the new language version if it was present in the header before the language change.
             headerText = headerText.Replace(formerNeoBleeperName + " - " + AIgeneratedText, Resources.NeoBleeperName + " - " + Resources.TextAIGeneratedMusic);
 

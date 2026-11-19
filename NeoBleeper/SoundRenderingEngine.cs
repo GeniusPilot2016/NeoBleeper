@@ -153,8 +153,10 @@ namespace NeoBleeper
                     SafeStop();
                 };
                 System.Windows.Forms.Application.ApplicationExit += (s, e) => SafeStop();
-                Console.CancelKeyPress += (s, e) => { SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */
-            };
+                Console.CancelKeyPress += (s, e) =>
+                {
+                    SafeStop(); /* Key presses such as Ctrl+C will terminate the process, so we just stop the beep here */
+                };
 
                 // Unhandled exceptions (dispose as possible)
                 // The BSoD or power outage scenarios, which are full system crashes, cannot be handled here.

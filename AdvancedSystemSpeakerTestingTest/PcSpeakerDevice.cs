@@ -1,4 +1,3 @@
-using System;
 using NeoBleeper;
 
 namespace AdvancedSystemSpeakerProbe;

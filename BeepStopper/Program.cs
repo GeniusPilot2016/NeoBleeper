@@ -18,7 +18,6 @@ using BeepStopper.Properties;
 using NeoBleeper;
 using System.Diagnostics;
 using System.Management;
-using System.Security.Cryptography;
 using static UIHelper;
 
 namespace BeepStopper
@@ -84,7 +83,7 @@ namespace BeepStopper
             ThemeManager.Cleanup();
             Debug.WriteLine("Beep stopper application has exited.");
         }
-        
+
         /// <summary>
         /// Loads application settings from the synchronized settings source and applies the theme and language
         /// preferences.
