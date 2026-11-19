@@ -137,6 +137,7 @@ namespace NeoBleeper
                     return false;
             }
         }
+
         private static bool IsOpenAiReasoningModel(string name)
         {
             string id = (name ?? string.Empty).Trim().ToLowerInvariant();
