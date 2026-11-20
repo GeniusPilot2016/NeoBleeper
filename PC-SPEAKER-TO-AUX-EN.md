@@ -17,3 +17,19 @@ If NeoBleeper cannot detect your PC speaker even though it is plugged into your 
 5. **Prevent short circuits:** Make sure the exposed metal parts of the ground wire, the connected channel wire, and the unused third wire do **not** touch each other. A short circuit can fry your USB sound card. (It’s best to trim or tape over the unused third wire).
 6. **Connect to your PC:** Plug the intact 3.5mm end of the AUX cable into the **headphone / audio output jack** on your USB sound card (usually colored green or marked with a headphone icon, do not plug it into the microphone jack). Then plug the USB sound card into your PC.
 7. **Configure Windows:** Open Windows Sound Settings and select your USB sound card as your **audio output device** (playback device).
+
+### Audio Tuning (Fixing harsh resonances)
+
+Almost every PC speaker has massive volume "peaks" (resonant frequencies) at certain pitches, which can make the audio sound piercing, distorted, or unpleasant. You can fix this with a quick EQ adjustment:
+
+1. **Find your speaker’s resonant frequencies:** 
+   * Open [https://www.szynalski.com/tone-generator/](https://www.szynalski.com/tone-generator/) *(start with a low volume first)*.
+   * Slowly sweep through the higher frequencies from **1,000 Hz** to **10,000 Hz** while listening to the PC speaker.
+   * You will immediately notice where the peaks are at those specific frequencies, the volume will suddenly spike and sound disproportionately loud and harsh (it’s hard to describe in words, you’ll instantly recognize it when you hear it). Write down those frequencies.
+2. **Install equalizer APO:** 
+   * Download and install **equalizer APO** *(I won’t include installation instructions here as there are plenty of guides online, just make sure to enable it **only** for your USB sound card in the Equalizer APO Configurator so it doesn’t alter the sound of your main headphones or speakers)*.
+3. **Lower the peaking frequencies:** 
+   * Open the **equalizer APO configuration editor**.
+   * Click the green **`+`** icon in the bottom-left area and select **`Graphic equalizers` → `31-band graphic equalizer`**.
+   * Find the sliders matching the resonant frequencies you found earlier and pull them down until the volume sounds balanced.
+   * *Example:* On my PC speaker, I found strong resonances at **2500 Hz** (lowered to **-16 dB**) and **4000 Hz** (lowered to **-19 dB**). Your speaker’s peaks may be at different frequencies.
