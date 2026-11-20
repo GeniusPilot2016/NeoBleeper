@@ -121,7 +121,7 @@
     <value>Bilgisayar türü algılanıyor...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>Google Gemini™ API'nin ücretsiz katmanı ülkenizde/bölgenizde mevcut değil. Hizmete erişmek için lütfen ücretli bir plana yükseltmeyi düşününüz.</value>
+    <value>API'nin ücretsiz katmanı ülkenizde/bölgenizde mevcut değil. Hizmete erişmek için lütfen ücretli bir plana yükseltmeyi düşününüz.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>İstek geçersiz parametreler içeriyor. Lütfen girdinizi kontrol edip tekrar deneyiniz.</value>
@@ -193,7 +193,7 @@ Sorunlar:
     <value>Zamanlayıcı geri sayım kontrolü başarısız oldu.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>API istek kotanızı aştınız veya katmanınızda mevcut değil. Lütfen daha sonra tekrar deneyiniz veya planınızı yükseltiniz.</value>
+    <value>API kullanım kotası veya kullanılabilirlik sınırına ulaşıldı. İsteğiniz; kullanım limitleri, istek sıklığı kısıtlamaları, faturalandırma durumu veya mevcut planınızın sınırlamaları nedeniyle işlenemiyor. Lütfen API hesap ayarlarınızı kontrol edin veya daha sonra tekrar deneyin.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>Temel kontrollerin hiçbiri geçilmedi. </value>
@@ -214,17 +214,14 @@ Tuş eşlemelerini pencerenin üst kısmındaki düğmelerde görebilirsiniz.</v
   <data name="MessageNotImplemented" xml:space="preserve">
     <value>İstenen işlevsellik uygulanmadı.</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Google Gemini™ sunucusuna şu anda ulaşılamıyor. Lütfen daha sonra tekrar deneyin.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>İfadeli notalarla blues ilerlemesi oluştur</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Sabit tempo ile törensel bir marş bestele</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>Google Gemini™ API ülkenizde kullanılamıyor. Lütfen desteklenen ülkeler listesini kontrol edin.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>API, ülkenizde kullanılamıyor. Lütfen desteklenen ülkelerin listesini kontrol edin.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1032,8 +1029,8 @@ Bu dosyayı yine de açmak istiyor musunuz?</value>
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Geçerli Google Gemini™ modeli bulunmamaktadır.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>Geçerli model bulunmamaktadır.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
@@ -1078,7 +1075,7 @@ Bu özellik, sistem hoparlörünün/ses cihazının, tıkladığınız notaya g�
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Google Gemini™ hizmetinde dahili bir hata oluştu veya girdiniz çok uzun. Lütfen daha sonra tekrar deneyiniz veya girdinizi kısaltınız.</value>
+    <value>Dahili bir API hatası oluştu veya girdiğiniz metin izin verilen uzunluğu aşıyor. Lütfen daha sonra tekrar deneyin veya girişinizi kısaltın.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Karmaşık kontrpuan içeren barok tarzda bir beste oluştur</value>
@@ -1211,13 +1208,13 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>API anahtar biçimi geçersiz. Lütfen kontrol edip tekrar deneyiniz</value>
   </data>
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Bir veya daha fazla API anahtarı çalışmıyor. Lütfen ayarların "Genel" sekmesindeki API anahtarını kontrol edin ve değiştirin.</value>
+  </data>
   <data name="APIKeySaved" xml:space="preserve">
     <value>Seçilen API anahtarı başarıyla kaydedildi.</value>
   </data>
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>API anahtaır biçimi geçersiz. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını tekrar giriniz.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Bir veya daha fazla API anahtarı çalışmıyor. Lütfen ayarların "Genel" sekmesindeki API anahtarını kontrol edin ve değiştirin.</value>
+    <value>API anahtarı biçimi geçersiz. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını tekrar giriniz.</value>
   </data>
 </root>

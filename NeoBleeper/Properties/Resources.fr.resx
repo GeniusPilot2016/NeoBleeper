@@ -121,7 +121,7 @@
     <value>Détection du type d'ordinateur...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>L'offre gratuite de l'API Google Gemini™ n'est pas disponible dans votre pays/région. Veuillez envisager de passer à un abonnement payant pour accéder au service.</value>
+    <value>L'offre gratuite de l'API n'est pas disponible dans votre pays/région. Veuillez envisager de passer à un abonnement payant pour accéder au service.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>La requête contient des paramètres invalides. Veuillez vérifier vos données et réessayer.</value>
@@ -193,7 +193,7 @@ Problèmes:
     <value>Échec de la vérification du compte à rebours.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>Vous avez dépassé votre quota de requêtes API ou ce service n'est pas inclus dans votre forfait. Veuillez réessayer plus tard ou passer à un forfait supérieur.</value>
+    <value>Limite de quota ou de disponibilité de l’API atteinte. Votre requête ne peut pas être traitée en raison de limites d’utilisation, de restrictions de débit, de votre statut de facturation ou des limitations de votre offre. Veuillez vérifier les paramètres de votre compte API ou réessayer plus tard.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>Aucun contrôle de base n'a été réussi. </value>
@@ -214,17 +214,14 @@ Vous pouvez consulter les mappages de touches dans les boutons en haut de la fen
   <data name="MessageNotImplemented" xml:space="preserve">
     <value>La fonctionnalité demandée n'est pas implémentée.</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Le serveur Google Gemini™ est actuellement inaccessible. Veuillez réessayer ultérieurement.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Créez une progression blues avec des notes expressives</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Composez une marche cérémonielle au tempo régulier</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>L'API Google Gemini™ n'est pas disponible dans votre pays. Veuillez consulter la liste des pays pris en charge.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>L’API n’est pas disponible dans votre pays. Veuillez consulter la liste des pays pris en charge.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1032,8 +1029,8 @@ Voulez-vous quand même ouvrir ce fichier ?</value>
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Aucun modèle Google Gemini™ valide n'est disponible.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>Aucun modèle valide n'est disponible.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
@@ -1077,7 +1074,7 @@ Cette fonctionnalité permet au haut-parleur/au périphérique audio du système
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Une erreur interne s'est produite dans le service Google Gemini™ ou votre texte est trop long. Veuillez réessayer plus tard ou raccourcir votre texte.</value>
+    <value>Une erreur interne de l’API s’est produite ou votre saisie dépasse la longueur autorisée. Veuillez réessayer plus tard ou raccourcir votre saisie.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Créez une composition de style baroque avec un contrepoint complexe</value>
@@ -1210,13 +1207,13 @@ Pour utiliser cette fonctionnalité, cochez la case « Utiliser la sortie MIDI�
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>Le format de la clé API est invalide. Veuillez vérifier et réessayer.</value>
   </data>
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Une ou plusieurs clés API ne fonctionnent pas. Veuillez vérifier et remplacer la clé API dans l'onglet « Général » des paramètres.</value>
+  </data>
   <data name="APIKeySaved" xml:space="preserve">
     <value>La clé API sélectionnée a été enregistrée avec succès.</value>
   </data>
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Le format de la clé est invalide. Veuillez la saisir à nouveau dans l'onglet « Général » des paramètres.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Une ou plusieurs clés API ne fonctionnent pas. Veuillez vérifier et remplacer la clé API dans l'onglet « Général » des paramètres.</value>
   </data>
 </root>

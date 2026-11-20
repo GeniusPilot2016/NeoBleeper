@@ -121,7 +121,7 @@
     <value>Đang phát hiện loại máy tính...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>Gói miễn phí của Google Gemini™ API không khả dụng tại quốc gia/khu vực của bạn. Vui lòng cân nhắc nâng cấp lên gói trả phí để sử dụng dịch vụ.</value>
+    <value>Gói miễn phí của API không khả dụng tại quốc gia/khu vực của bạn. Vui lòng cân nhắc nâng cấp lên gói trả phí để sử dụng dịch vụ.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>Yêu cầu chứa tham số không hợp lệ. Vui lòng kiểm tra thông tin đầu vào và thử lại.</value>
@@ -193,7 +193,7 @@ Vấn đề:
     <value>Kiểm tra bộ đếm ngược thời gian thất bại.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>Bạn đã vượt quá hạn mức yêu cầu API hoặc không khả dụng trong gói dịch vụ của mình. Vui lòng thử lại sau hoặc nâng cấp gói dịch vụ.</value>
+    <value>Đã đạt đến giới hạn hạn mức hoặc khả năng cung cấp API. Yêu cầu của bạn không thể được xử lý do giới hạn sử dụng, giới hạn tần suất yêu cầu, vấn đề thanh toán hoặc các hạn chế của gói dịch vụ hiện tại. Vui lòng kiểm tra cài đặt tài khoản API hoặc thử lại sau.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>Không vượt qua được các bước kiểm tra cơ bản.</value>
@@ -214,17 +214,14 @@ Bạn có thể xem các phím được sắp xếp trong các nút ở đầu c
   <data name="MessageNotImplemented" xml:space="preserve">
     <value>Chức năng được yêu cầu chưa được triển khai.</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Máy chủ Google Gemini™ hiện không thể truy cập được. Vui lòng thử lại sau.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Tạo một tiến trình blues với các nốt biểu cảm</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Sáng tác một bản hành khúc lễ nghi với nhịp độ đều đặn</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>API Google Gemini™ không khả dụng ở quốc gia của bạn. Vui lòng kiểm tra danh sách các quốc gia được hỗ trợ.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>API hiện không khả dụng tại quốc gia của bạn. Vui lòng kiểm tra danh sách các quốc gia được hỗ trợ.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1031,8 +1028,8 @@ Bạn có muốn mở tệp này không?</value>
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Không có mẫu Google Gemini™ nào hợp lệ.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>Không có mẫu nào hợp lệ.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
@@ -1077,7 +1074,7 @@ Tính năng này làm cho loa/thiết bị âm thanh của hệ thống tăng ho
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Đã xảy ra lỗi nội bộ trong dịch vụ Google Gemini™ hoặc thông tin bạn nhập quá dài. Vui lòng thử lại sau hoặc rút ngắn thông tin bạn nhập.</value>
+    <value>Đã xảy ra lỗi API nội bộ hoặc nội dung đầu vào của bạn vượt quá độ dài cho phép. Vui lòng thử lại sau hoặc rút ngắn nội dung đầu vào.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Tạo một bản nhạc phong cách Baroque với đối âm phức tạp</value>
@@ -1210,13 +1207,13 @@ Vui lòng chọn hộp kiểm "Sử dụng đầu ra MIDI" từ tab "Thiết b�
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>Định dạng khóa API không hợp lệ. Vui lòng kiểm tra và thử lại.</value>
   </data>
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Một hoặc nhiều khóa API không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "General" (Chung) tại phần cài đặt.</value>
+  </data>
   <data name="APIKeySaved" xml:space="preserve">
     <value>Khóa API đã chọn đã được lưu thành công.</value>
   </data>
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
-    <value>Định dạng khóa API Google Gemini™ không hợp lệ. Vui lòng nhập lại khóa API trong tab "Chung" trong phần cài đặt.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Một hoặc nhiều khóa API không hoạt động. Vui lòng kiểm tra và thay thế khóa API trong tab "General" (Chung) tại phần cài đặt.</value>
+    <value>Định dạng khóa API không hợp lệ. Vui lòng nhập lại khóa API trong tab "Chung" trong phần cài đặt.</value>
   </data>
 </root>

@@ -121,7 +121,7 @@
     <value>Визначення типу комп'ютера...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>Безкоштовний рівень Google Gemini™ API недоступний у вашій країні/регіоні. Будь ласка, розгляньте можливість переходу на платний план, щоб отримати доступ до сервісу.</value>
+    <value>Безкоштовний рівень API недоступний у вашій країні/регіоні. Будь ласка, розгляньте можливість переходу на платний план, щоб отримати доступ до сервісу.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>Запит містить недійсні параметри. Перевірте введені дані та повторіть спробу.</value>
@@ -193,7 +193,7 @@
     <value>Не вдалося перевірити зворотний відлік таймера.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>Ви перевищили квоту запитів API або недоступно на вашому рівні. Будь ласка, спробуйте пізніше або оновіть свій план.</value>
+    <value>Досягнуто ліміту квоти або доступності API. Ваш запит не може бути оброблений через обмеження використання, ліміти частоти запитів, проблеми з оплатою або обмеження вашого тарифного плану. Перевірте налаштування свого API-акаунта або спробуйте ще раз пізніше.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>Жодних базових перевірок не пройдено. </value>
@@ -214,17 +214,14 @@
   <data name="MessageNotImplemented" xml:space="preserve">
     <value>Запитана функціональність не реалізована.</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Сервер Google Gemini™ наразі недоступний. Спробуйте ще раз пізніше.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Створи блюзову прогресію з виразними нотами</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Склади церемоніальний марш зі сталим темпом</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>API Google Gemini™ недоступний у вашій країні. Будь ласка, перевірте список підтримуваних країн.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>API недоступний у вашій країні. Будь ласка, перегляньте список підтримуваних країн.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1032,8 +1029,8 @@
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Немає дійсних моделей Google Gemini™.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>Немає дійсних моделей.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Ста</value>
@@ -1079,7 +1076,7 @@
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Сталася внутрішня помилка в сервісі Google Gemini™, або введений вами текст занадто довгий. Будь ласка, спробуйте пізніше або скоротіть його.</value>
+    <value>Сталася внутрішня помилка API або ваш текст перевищує допустиму довжину. Спробуйте ще раз пізніше або скоротіть текст запиту.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Створи композицію в стилі бароко зі складним контрапунктом</value>
@@ -1212,13 +1209,13 @@
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>Формат ключа API недійсний. Перевірте та спробуйте ще раз.</value>
   </data>
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Один або кілька ключів API не працюють. Будь ласка, перевірте та замініть ключ API на вкладці «Загальні» в налаштуваннях.</value>
+  </data>
   <data name="APIKeySaved" xml:space="preserve">
     <value>Вибраний ключ API успішно збережено.</value>
   </data>
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Формат ключа API недійсний. Будь ласка, повторно введіть ключ API на вкладці «Загальні» в налаштуваннях.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Один або кілька ключів API не працюють. Будь ласка, перевірте та замініть ключ API на вкладці «Загальні» в налаштуваннях.</value>
   </data>
 </root>

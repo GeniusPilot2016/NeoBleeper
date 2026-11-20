@@ -121,7 +121,7 @@
     <value>Rilevamento del tipo di computer...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>Il livello gratuito dell'API Google Gemini™ non è disponibile nel tuo Paese/regione. Valuta la possibilità di passare a un piano a pagamento per accedere al servizio.</value>
+    <value>Il livello gratuito dell'API non è disponibile nel tuo Paese/regione. Valuta la possibilità di passare a un piano a pagamento per accedere al servizio.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>La richiesta contiene parametri non validi. Controlla i dati inseriti e riprova.</value>
@@ -193,7 +193,7 @@ Problemi:
     <value>Verifica del conto alla rovescia del timer non riuscita.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>Hai superato la quota di richieste API o non è disponibile nel tuo livello. Riprova più tardi o aggiorna il tuo piano.</value>
+    <value>Limite di quota o disponibilità dell'API raggiunto. La richiesta non può essere elaborata a causa di limiti di utilizzo, restrizioni sulla frequenza delle richieste, problemi di fatturazione o limitazioni del piano. Controlla le impostazioni del tuo account API oppure riprova più tardi.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>Nessun controllo di base è stato superato. </value>
@@ -214,17 +214,14 @@ Se abilitata, è possibile suonare le note premendo i tasti corrispondenti sulla
   <data name="MessageNotImplemented" xml:space="preserve">
     <value>La funzionalità richiesta non è implementata.</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Il server Google Gemini™ non è al momento raggiungibile. Riprova più tardi.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Crea una progressione blues con note espressive</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Componi una marcia cerimoniale con tempo costante</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>L'API Google Gemini™ non è disponibile nel tuo Paese. Consulta l'elenco dei Paesi supportati.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>L'API non è disponibile nel tuo Paese. Consulta l'elenco dei Paesi supportati.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1031,8 +1028,8 @@ Vuoi aprire comunque questo file?</value>
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Non sono disponibili modelli Google Gemini™ validi.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>Non sono disponibili modelli validi.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
@@ -1076,7 +1073,7 @@ Questa funzione fa sì che l'altoparlante/dispositivo audio del sistema aumenti 
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Si è verificato un errore interno nel servizio Google Gemini™ oppure il testo inserito è troppo lungo. Riprova più tardi o abbrevialo.</value>
+    <value>Si è verificato un errore interno dell'API oppure il testo inserito supera la lunghezza consentita. Riprova più tardi o riduci la lunghezza del testo inserito.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Crea una composizione in stile barocco con contrappunto intricato</value>
@@ -1209,13 +1206,13 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
   </data>
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Una o più chiavi API non funzionano. Verifica e sostituisci la chiave API nella scheda "Generale" all'interno delle impostazioni.</value>
+  </data>
   <data name="APIKeySaved" xml:space="preserve">
     <value>Chiave API selezionata salvata correttamente.</value>
   </data>
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Una o più chiavi API non funzionano. Verifica e sostituisci la chiave API nella scheda "Generale" all'interno delle impostazioni.</value>
   </data>
 </root>

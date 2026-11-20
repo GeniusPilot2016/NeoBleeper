@@ -5975,11 +5975,12 @@ namespace NeoBleeper
                 StopPlayingAllSounds(); // Stop all sounds before opening all modal dialogs or creating a new file
                 CloseAllOpenWindows(); // Close all open windows before opening a new modal dialog
                 CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI(this);
-                if (!CreateMusicWithAI.IsGeminiAPIAvailableInCountry())
+                if (!CreateMusicWithAI.IsGeminiAPIAvailableInCountry() && !CreateMusicWithAI.IsOpenAIAPIAvailableInCountry() &&
+                    !CreateMusicWithAI.IsAnthropicAPIAvailableInCountry())
                 {
                     createMusicWithAI.Dispose();
-                    Logger.Log("Google Gemini™ API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
-                    MessageForm.Show(this, Resources.GoogleGeminiAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Log("No API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);
+                    MessageForm.Show(this, Resources.NoAPIIsNotSupportedInYourCountry, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Exit the method if not available
                 }
                 else

@@ -121,7 +121,7 @@
     <value>Detecting type of computer...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>The free tier of Google Gemini™ API is not available in your country/region. Please consider upgrading to a paid plan to access the service.</value>
+    <value>The free tier of API is not available in your country/region. Please consider upgrading to a paid plan to access the service.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>The request contains invalid parameters. Please check your input and try again.</value>
@@ -191,7 +191,7 @@
     <value>Timer countdown check failed.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>You have exceeded your API request quota or not available in your tier. Please try again later or upgrade your plan.</value>
+    <value>API quota or availability limit reached. Your request cannot be processed due to usage limits, rate restrictions, billing status, or plan-tier limitations. Please check your API provider's account settings or try again later.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>No basic checks passed.</value>
@@ -218,17 +218,14 @@ You can see the key mappings on the buttons at the top of the window.</value>
   <data name="icons8-rhythm-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-rhythm-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Google Gemini™ server is currently unreachable. Please try again later.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Create a blues progression with expressive notes</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Compose a ceremonial march with steady tempo</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>Google Gemini™ API is not available in your country. Please check the list of supported countries.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>No API is not available in your country. Please check the list of supported countries.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1061,8 +1058,8 @@ Do you want to open this file anyway?</value>
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>No valid Google Gemini™ models are available.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>No valid models are available.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
@@ -1109,7 +1106,7 @@ This feature makes the system speaker/sound device increase or decrease in pitch
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input.</value>
+    <value>An internal API error occurred, or your input exceeds the supported length. Please try again later or shorten your input.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Create a baroque-style composition with intricate counterpoint</value>
@@ -1254,7 +1251,7 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>The API key format is invalid. Please check and try again.</value>
   </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
     <value>One or more API key is not working. Please check and replace the API key in the "General" tab in settings.</value>
   </data>
   <data name="APIKeySaved" xml:space="preserve">

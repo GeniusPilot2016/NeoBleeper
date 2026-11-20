@@ -706,24 +706,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   Google Gemini™ API is not available in your country. Please check the list of supported countries. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string GoogleGeminiAPIIsNotSupportedInYourCountry {
-            get {
-                return ResourceManager.GetString("GoogleGeminiAPIIsNotSupportedInYourCountry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Google Gemini™ server is currently unreachable. Please try again later. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string GoogleGeminiServerDown {
-            get {
-                return ResourceManager.GetString("GoogleGeminiServerDown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Half benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string HalfNote {
@@ -1471,6 +1453,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   One or more API key is not working. Please check and replace the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessageAPIKeyIsNotWorking {
+            get {
+                return ResourceManager.GetString("MessageAPIKeyIsNotWorking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Received an invalid response from the upstream server. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageBadGateway {
@@ -1615,7 +1606,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   The free tier of Google Gemini™ API is not available in your country/region. Please consider upgrading to a paid plan to access the service. benzeri yerelleştirilmiş bir dize arar.
+        ///   The free tier of API is not available in your country/region. Please consider upgrading to a paid plan to access the service. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageFailedPrecondition {
             get {
@@ -1714,15 +1705,6 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   One or more API key is not working. Please check and replace the API key in the &quot;General&quot; tab in settings. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string MessageGoogleGeminiAPIKeyIsNotWorking {
-            get {
-                return ResourceManager.GetString("MessageGoogleGeminiAPIKeyIsNotWorking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   The generated output appears to be incomplete NBPML content and cannot be used. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageIncompleteNBPMLContent {
@@ -1741,7 +1723,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   The internal error occurred in the Google Gemini™ service or your input is too long. Please try again later or shorten your input. benzeri yerelleştirilmiş bir dize arar.
+        ///   An internal API error occurred, or your input exceeds the supported length. Please try again later or shorten your input. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageInternalError {
             get {
@@ -1804,11 +1786,11 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   No valid Google Gemini™ models are available. benzeri yerelleştirilmiş bir dize arar.
+        ///   No valid models are available. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        public static string MessageNoAvailableGeminiModel {
+        public static string MessageNoAvailableModel {
             get {
-                return ResourceManager.GetString("MessageNoAvailableGeminiModel", resourceCulture);
+                return ResourceManager.GetString("MessageNoAvailableModel", resourceCulture);
             }
         }
         
@@ -1961,7 +1943,7 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
-        ///   You have exceeded your API request quota or not available in your tier. Please try again later or upgrade your plan. benzeri yerelleştirilmiş bir dize arar.
+        ///   API quota or availability limit reached. Your request cannot be processed due to usage limits, rate restrictions, billing status, or plan-tier limitations. Please check your API provider&apos;s account settings or try again later. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessageResourceExhausted {
             get {
@@ -2108,6 +2090,15 @@ namespace NeoBleeper.Properties {
         public static string NeoBleeperName {
             get {
                 return ResourceManager.GetString("NeoBleeperName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No API is not available in your country. Please check the list of supported countries. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string NoAPIIsNotSupportedInYourCountry {
+            get {
+                return ResourceManager.GetString("NoAPIIsNotSupportedInYourCountry", resourceCulture);
             }
         }
         

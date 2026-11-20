@@ -121,7 +121,7 @@
     <value>Computertyp wird erkannt ...</value>
   </data>
   <data name="MessageFailedPrecondition" xml:space="preserve">
-    <value>Die kostenlose Version der Google Gemini™ API ist in Ihrem Land/Ihrer Region nicht verfügbar. Bitte erwägen Sie ein Upgrade auf einen kostenpflichtigen Tarif, um den Dienst nutzen zu können.</value>
+    <value>Die kostenlose Version der API ist in Ihrem Land/Ihrer Region nicht verfügbar. Bitte erwägen Sie ein Upgrade auf einen kostenpflichtigen Tarif, um den Dienst nutzen zu können.</value>
   </data>
   <data name="MessageInvalidArgument" xml:space="preserve">
     <value>Die Anfrage enthält ungültige Parameter. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
@@ -193,7 +193,7 @@ Probleme:
     <value>Timer-Countdown-Prüfung fehlgeschlagen.</value>
   </data>
   <data name="MessageResourceExhausted" xml:space="preserve">
-    <value>Sie haben Ihr API-Anfragekontingent überschritten oder die API ist in Ihrem Tarif nicht verfügbar. Bitte versuchen Sie es später erneut oder aktualisieren Sie Ihren Tarif.</value>
+    <value>API-Kontingent oder Verfügbarkeitslimit erreicht. Deine Anfrage kann aufgrund von Nutzungslimits, Ratenbegrenzungen, Abrechnungsstatus oder Einschränkungen deines Tarifmodells nicht verarbeitet werden. Bitte überprüfe deine API-Kontoeinstellungen oder versuche es später erneut.</value>
   </data>
   <data name="NoBasicChecksPassed" xml:space="preserve">
     <value>Keine der grundlegenden Überprüfungen bestanden. </value>
@@ -214,17 +214,14 @@ Die Zuordnung der Tasten finden Sie in den Schaltflächen oben im Fenster.</valu
   <data name="MessageNotImplemented" xml:space="preserve">
     <value>Die angeforderte Funktionalität ist nicht implementiert.</value>
   </data>
-  <data name="GoogleGeminiServerDown" xml:space="preserve">
-    <value>Der Google Gemini™-Server ist derzeit nicht erreichbar. Bitte versuchen Sie es später erneut.</value>
-  </data>
   <data name="ExamplePrompt30" xml:space="preserve">
     <value>Erstelle eine Blues-Progression mit ausdrucksvollen Noten</value>
   </data>
   <data name="ExamplePrompt28" xml:space="preserve">
     <value>Komponiere einen zeremoniellen Marsch mit gleichmäßigem Tempo</value>
   </data>
-  <data name="GoogleGeminiAPIIsNotSupportedInYourCountry" xml:space="preserve">
-    <value>Die Google Gemini™ API ist in Ihrem Land nicht verfügbar. Bitte überprüfen Sie die Liste der unterstützten Länder.</value>
+  <data name="NoAPIIsNotSupportedInYourCountry" xml:space="preserve">
+    <value>Die API ist in deinem Land nicht verfügbar. Bitte überprüfe die Liste der unterstützten Länder.</value>
   </data>
   <data name="icons8-select-none-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-select-none-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1034,8 +1031,8 @@ Möchten Sie diese Datei trotzdem öffnen?</value>
   <data name="icons8-play-48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-play-48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MessageNoAvailableGeminiModel" xml:space="preserve">
-    <value>Es sind keine gültigen Google Gemini™-Modelle verfügbar.</value>
+  <data name="MessageNoAvailableModel" xml:space="preserve">
+    <value>Es sind keine gültigen modelle verfügbar.</value>
   </data>
   <data name="StaccatoArticulation" xml:space="preserve">
     <value>Sta</value>
@@ -1077,7 +1074,7 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
     <value>..\Resources\HarmonyOS_Sans_Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="MessageInternalError" xml:space="preserve">
-    <value>Im Google Gemini™-Dienst ist ein interner Fehler aufgetreten oder Ihre Eingabe ist zu lang. Bitte versuchen Sie es später erneut oder kürzen Sie Ihre Eingabe.</value>
+    <value>Es ist ein interner API-Fehler aufgetreten oder deine Eingabe überschreitet die zulässige Länge. Bitte versuche es später erneut oder kürze deine Eingabe.</value>
   </data>
   <data name="ExamplePrompt16" xml:space="preserve">
     <value>Erschaffe eine Komposition im Barockstil mit kunstvollem Kontrapunkt</value>
@@ -1088,7 +1085,7 @@ Sie bewirkt, dass der Lautsprecher/das Audio-Gerät des Systems die Tonhöhe an 
 Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-Ausgang verwenden“ im Reiter „Geräte“ in den Einstellungen oder deaktivieren Sie das Kontrollkästchen „Wiedergabe stummschalten“ bzw. „Motor oder Summer verwenden (über Arduino, Raspberry Pi oder ESP32)“.</value>
   </data>
   <data name="StatusAPIKeyValidating" xml:space="preserve">
-    <value>Google Gemini™ API-Schlüssel wird validiert...</value>
+    <value>API-Schlüssel wird validiert...</value>
   </data>
   <data name="AdvancedSystemSpeakerTestStarted" xml:space="preserve">
     <value>Der erweiterte Systemlautsprechertest wurde gestartet.</value>
@@ -1210,13 +1207,13 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="APIKeyFormatInvalid" xml:space="preserve">
     <value>Das Format des API-Schlüssels ist ungültig. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.</value>
   </data>
+  <data name="MessageAPIKeyIsNotWorking" xml:space="preserve">
+    <value>Ein oder mehrere API-Schlüssel funktionieren nicht. Bitte überprüfen Sie den API-Schlüssel und ersetzen Sie ihn – Sie finden die entsprechende Option im Bereich „Allgemein“ innerhalb der Einstellungen.</value>
+  </data>
   <data name="APIKeySaved" xml:space="preserve">
     <value>Ausgewählter API-Schlüssel erfolgreich gespeichert.</value>
   </data>
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Das Format des-API-Schlüssels ist ungültig. Bitte geben Sie den API-Schlüssel erneut im Reiter „Allgemein“ unter den Einstellungen ein.</value>
-  </data>
-  <data name="MessageGoogleGeminiAPIKeyIsNotWorking" xml:space="preserve">
-    <value>Ein oder mehrere API-Schlüssel funktionieren nicht. Bitte überprüfen Sie den API-Schlüssel und ersetzen Sie ihn – Sie finden die entsprechende Option im Bereich „Allgemein“ innerhalb der Einstellungen.</value>
   </data>
 </root>
