@@ -17,6 +17,7 @@
 using NeoBleeper.Properties;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -95,6 +96,7 @@ namespace NeoBleeper
         public CreateMusicWithAI(Form owner)
         {
             InitializeComponent();
+            new ComboBoxTooltip(comboBox_ai_model);
             ThemeManager.ThemeChanged += ThemeManager_ThemeChanged;
             extendedThinking = Settings1.Default.DefaultExtendedThinkingMode;
             this.Owner = owner;
@@ -4210,6 +4212,45 @@ namespace NeoBleeper
             }
 
             return true;
+        }
+        private class ComboBoxTooltip : NativeWindow
+        {
+            private const int WM_CTLCOLORLISTBOX = 0x0134;
+            private const int LB_GETCURSEL = 0x0188;
+
+            [DllImport("user32.dll")]
+            private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+            private readonly ComboBox _cb;
+            private readonly ToolTip _tip = new ToolTip();
+            private int _lastIndex = -1;
+
+            public ComboBoxTooltip(ComboBox cb)
+            {
+                _cb = cb;
+                if (_cb.IsHandleCreated) AssignHandle(_cb.Handle);
+                _cb.HandleCreated += (s, e) => AssignHandle(_cb.Handle);
+                _cb.HandleDestroyed += (s, e) => ReleaseHandle();
+                _cb.DropDownClosed += (s, e) => { _lastIndex = -1; _tip.Hide(_cb); };
+                _cb.Disposed += (s, e) => _tip.Dispose();
+            }
+
+            protected override void WndProc(ref Message m)
+            {
+                base.WndProc(ref m);
+
+                if (m.Msg == WM_CTLCOLORLISTBOX && _cb.DroppedDown)
+                {
+                    int index = (int)SendMessage(m.LParam, LB_GETCURSEL, IntPtr.Zero, IntPtr.Zero);
+                    if (index >= 0 && index != _lastIndex)
+                    {
+                        _lastIndex = index;
+                        string text = _cb.GetItemText(_cb.Items[index]);
+                        Point pos = _cb.PointToClient(Cursor.Position);
+                        _tip.Show(text, _cb, pos.X + 15, pos.Y + 15);
+                    }
+                }
+            }
         }
     }
 }
