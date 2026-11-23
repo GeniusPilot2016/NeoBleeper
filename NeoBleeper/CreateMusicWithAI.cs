@@ -214,7 +214,7 @@ namespace NeoBleeper
                 comboBox_ai_model.Enabled = true;
                 textBoxPrompt.Enabled = true;
                 ActiveControl = buttonCreate;
-                Logger.Log($"Selected model: {chosen.provider} / {chosen.name}",
+                Logger.Log($"Selected model: [{chosen.provider}] {chosen.name}",
                     Logger.LogTypes.Info);
             }
             catch (Exception ex)
@@ -3822,7 +3822,7 @@ namespace NeoBleeper
             var chosen = item.Model;
             selectedAIModel = chosen;
             AIModel = chosen.name;
-            Logger.Log($"AI model changed to: {chosen.provider} / {AIModel}",
+            Logger.Log($"AI model changed to: [{chosen.provider}] {AIModel}",
                 Logger.LogTypes.Info);
             Settings1.Default.preferredAIModel = chosen.provider + ":" + chosen.name;
             Settings1.Default.Save();
