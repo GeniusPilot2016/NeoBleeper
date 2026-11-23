@@ -33,6 +33,7 @@ namespace NeoBleeper
         private string decryptedGeminiAPIKey = String.Empty;
         private string decryptedOpenAIAPIKey = String.Empty;
         private string decryptedAnthropicAPIKey = String.Empty;
+        private string decryptedOpenRouterAPIKey = String.Empty;
         private EncryptionHelper encryptionHelper = new EncryptionHelper();
 
         private List<AIModelProviders> aiModelProviders = new List<AIModelProviders>();
@@ -44,7 +45,8 @@ namespace NeoBleeper
             {
                 new AIModelProviders(comboBoxProvider.Items[0]?.ToString(), CreateMusicWithAI.IsGeminiAPIAvailableInCountry()),
                 new AIModelProviders(comboBoxProvider.Items[1]?.ToString(), CreateMusicWithAI.IsOpenAIAPIAvailableInCountry()),
-                new AIModelProviders(comboBoxProvider.Items[2]?.ToString(), CreateMusicWithAI.IsAnthropicAPIAvailableInCountry())
+                new AIModelProviders(comboBoxProvider.Items[2]?.ToString(), CreateMusicWithAI.IsAnthropicAPIAvailableInCountry()),
+                new AIModelProviders(comboBoxProvider.Items[3]?.ToString(), CreateMusicWithAI.IsOpenRouterAvailableInCountry())
             };
             this.mainWindow = mainWindow;
             this.Owner = mainWindow;
@@ -226,12 +228,17 @@ namespace NeoBleeper
                 {
                     decryptedAnthropicAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedAnthropicAPIKeyBase64);
                 }
+                if(!string.IsNullOrEmpty(Settings1.Default.EncryptedOpenRouterAPIKeyBase64))
+                {
+                    decryptedOpenRouterAPIKey = encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedOpenRouterAPIKeyBase64);
+                }
             }
             catch
             {
                 decryptedGeminiAPIKey = string.Empty;
                 decryptedOpenAIAPIKey = string.Empty;
                 decryptedAnthropicAPIKey = string.Empty;
+                decryptedOpenRouterAPIKey = string.Empty;
             }
             textBoxAPIKey.Text = decryptedGeminiAPIKey;
             if (Settings1.Default.EncryptedGeminiAPIKeyBase64 != String.Empty)
@@ -1801,6 +1808,10 @@ namespace NeoBleeper
                     case string s when s == aiModelProviders[2].displayName: // Anthropic
                         SaveAnthropicAPIKey();
                         break;
+
+                    case string s when s == aiModelProviders[3].displayName: // OpenRouter
+                        SaveOpenRouterAPIKey();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -1848,15 +1859,44 @@ namespace NeoBleeper
             }
         }
 
-        private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
+        private void SaveOpenRouterAPIKey()
         {
-            if (textBoxAPIKey.Text != string.Empty && textBoxAPIKey.Text != encryptionHelper.DecryptBase64EncryptedData(Settings1.Default.EncryptedGeminiAPIKeyBase64))
+            if (CreateMusicWithAI.IsOpenRouterAPIKeyValidFormat(textBoxAPIKey.Text))
             {
-                buttonUpdateAPIKey.Enabled = true;
+                decryptedOpenRouterAPIKey = textBoxAPIKey.Text;
+                Settings1.Default.EncryptedOpenRouterAPIKeyBase64 = encryptionHelper.GenerateEncryptedStringBase64(decryptedOpenRouterAPIKey);
+                Settings1.Default.Save();
+                buttonUpdateAPIKey.Enabled = false;
+                buttonResetAPIKey.Enabled = true;
+                MessageForm.Show(this, Resources.APIKeySaved, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Logger.Log("OpenRouter API key saved successfully", Logger.LogTypes.Info);
             }
             else
             {
-                buttonUpdateAPIKey.Enabled = false;
+                Logger.Log("Attempted to save an invalid API key format", Logger.LogTypes.Error);
+                MessageForm.Show(this, Resources.APIKeyFormatInvalid, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void textBoxAPIKey_TextChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxProvider.SelectedItem)
+            {
+                case string s when s == aiModelProviders[0].displayName: // Google Gemini™
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedGeminiAPIKeyBase64);
+                    buttonUpdateAPIKey.Enabled = !string.IsNullOrEmpty(textBoxAPIKey.Text) && textBoxAPIKey.Text != decryptedGeminiAPIKey;
+                    break;
+                case string s when s == aiModelProviders[1].displayName: // OpenAI
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedOpenAIAPIKeyBase64);
+                    buttonUpdateAPIKey.Enabled = !string.IsNullOrEmpty(textBoxAPIKey.Text) && textBoxAPIKey.Text != decryptedOpenAIAPIKey;
+                    break;
+                case string s when s == aiModelProviders[2].displayName: // Anthropic
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedAnthropicAPIKeyBase64);
+                    buttonUpdateAPIKey.Enabled = !string.IsNullOrEmpty(textBoxAPIKey.Text) && textBoxAPIKey.Text != decryptedAnthropicAPIKey;
+                    break;
+                case string s when s == aiModelProviders[3].displayName: // OpenRouter
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedOpenRouterAPIKeyBase64);
+                    buttonUpdateAPIKey.Enabled = !string.IsNullOrEmpty(textBoxAPIKey.Text) && textBoxAPIKey.Text != decryptedOpenRouterAPIKey;
+                    break;
             }
         }
 
@@ -1879,6 +1919,10 @@ namespace NeoBleeper
                     case string s when s == aiModelProviders[2].displayName: // Anthropic
                         decryptedAnthropicAPIKey = string.Empty;
                         Settings1.Default.EncryptedAnthropicAPIKeyBase64 = string.Empty;
+                        break;
+                    case string s when s == aiModelProviders[3].displayName: // OpenRouter
+                        decryptedOpenRouterAPIKey = string.Empty;
+                        Settings1.Default.EncryptedOpenRouterAPIKeyBase64 = string.Empty;
                         break;
                 }
                 Settings1.Default.Save();
@@ -2143,7 +2187,8 @@ namespace NeoBleeper
             {
                 new AIModelProviders(comboBoxProvider.Items[0]?.ToString(), CreateMusicWithAI.IsGeminiAPIAvailableInCountry()),
                 new AIModelProviders(comboBoxProvider.Items[1]?.ToString(), CreateMusicWithAI.IsOpenAIAPIAvailableInCountry()),
-                new AIModelProviders(comboBoxProvider.Items[2]?.ToString(), CreateMusicWithAI.IsAnthropicAPIAvailableInCountry())
+                new AIModelProviders(comboBoxProvider.Items[2]?.ToString(), CreateMusicWithAI.IsAnthropicAPIAvailableInCountry()),
+                new AIModelProviders(comboBoxProvider.Items[3]?.ToString(), CreateMusicWithAI.IsOpenRouterAvailableInCountry())
             };
             comboBoxProvider.Items.Clear();
             foreach (var provider in aiModelProviders)
@@ -2581,6 +2626,10 @@ namespace NeoBleeper
                 case string s when s == aiModelProviders[2].displayName:
                     textBoxAPIKey.Text = decryptedAnthropicAPIKey;
                     buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedAnthropicAPIKeyBase64);
+                    break;
+                case string s when s == aiModelProviders[3].displayName:
+                    textBoxAPIKey.Text = decryptedOpenRouterAPIKey;
+                    buttonResetAPIKey.Enabled = !string.IsNullOrEmpty(Settings1.Default.EncryptedOpenRouterAPIKeyBase64);
                     break;
             }
         }

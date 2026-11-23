@@ -1218,4 +1218,10 @@
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Формат ключа API недійсний. Будь ласка, повторно введіть ключ API на вкладці «Загальні» в налаштуваннях.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value>Потрібна оплата</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>Не вдалося виконати ваш API-запит через недостатню кількість коштів або проблему з оплатою. Перевірте баланс облікового запису та налаштування оплати, а потім повторіть спробу.</value>
+  </data>
 </root>

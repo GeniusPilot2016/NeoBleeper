@@ -1218,4 +1218,10 @@
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Неверный формат ключа AПИ. Введите ключ AПИ повторно на вкладке «Общие» в настройках.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value>Требуется оплата</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>Не удалось выполнить ваш API-запрос из-за недостатка средств или проблемы с оплатой. Проверьте баланс аккаунта и настройки оплаты, затем повторите попытку.</value>
+  </data>
 </root>

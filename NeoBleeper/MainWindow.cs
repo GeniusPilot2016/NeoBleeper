@@ -5976,7 +5976,7 @@ namespace NeoBleeper
                 CloseAllOpenWindows(); // Close all open windows before opening a new modal dialog
                 CreateMusicWithAI createMusicWithAI = new CreateMusicWithAI(this);
                 if (!CreateMusicWithAI.IsGeminiAPIAvailableInCountry() && !CreateMusicWithAI.IsOpenAIAPIAvailableInCountry() &&
-                    !CreateMusicWithAI.IsAnthropicAPIAvailableInCountry())
+                    !CreateMusicWithAI.IsAnthropicAPIAvailableInCountry() && !CreateMusicWithAI.IsOpenRouterAvailableInCountry())
                 {
                     createMusicWithAI.Dispose();
                     Logger.Log("No API is not available in your country. Please check the list of supported countries.", Logger.LogTypes.Error);

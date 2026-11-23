@@ -1898,6 +1898,15 @@ namespace NeoBleeper.Properties {
         }
         
         /// <summary>
+        ///   Your API request could not be completed due to insufficient credits or a billing issue. Please check your account balance and billing settings, then try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string MessagePaymentRequired {
+            get {
+                return ResourceManager.GetString("MessagePaymentRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Your API key does not have permission to access the requested resource. Please check your API key and permissions. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string MessagePermissionDenied {
@@ -3300,6 +3309,15 @@ namespace NeoBleeper.Properties {
         public static string TitleOutOfRange {
             get {
                 return ResourceManager.GetString("TitleOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Payment Required benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string TitlePaymentRequired {
+            get {
+                return ResourceManager.GetString("TitlePaymentRequired", resourceCulture);
             }
         }
         

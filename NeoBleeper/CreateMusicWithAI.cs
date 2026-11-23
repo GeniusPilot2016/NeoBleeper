@@ -44,7 +44,6 @@ namespace NeoBleeper
         public string output = "";
         public string generatedFilename = "";
         String AIModel = Settings1.Default.preferredAIModel;
-        double scaleFraction = 0.355; // Scale factor for the window size
         string selectedLanguage = Settings1.Default.preferredLanguage; // Get the preferred language from settings
         CancellationTokenSource cts = new CancellationTokenSource(); // CancellationTokenSource for cancelling requests when internet is lost or server is down
         CancellationTokenSource connectionCts = new CancellationTokenSource(); // CancellationTokenSource for cancelling connection checks
@@ -156,7 +155,7 @@ namespace NeoBleeper
                 buttonCreate.Enabled = false;
                 comboBox_ai_model.Enabled = false;
                 var available = new List<CommonAIEngine.Model>();
-                foreach (string provider in new[] { "Google", "OpenAI", "Anthropic" })
+                foreach (string provider in new[] { "Google", "OpenAI", "Anthropic", "OpenRouter" })
                 {
                     try
                     {
@@ -934,6 +933,22 @@ namespace NeoBleeper
             "YT", "ZA", "ZM", "ZW"
         };
 
+        private static readonly HashSet<string> openRouterNotSupportedCountries =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "CU", "IR", "KP", "RU", "SY"
+        };
+
+        /// <summary>
+        /// Determines whether the current system region is listed as unsupported for OpenRouter access. This check is based on the system's regional settings and does not verify the user's physical location or network conditions. The method returns true if the current country code is not in the list of unsupported countries; otherwise, it returns false.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsOpenRouterAvailableInCountry()
+        {
+            var countryCode = System.Globalization.RegionInfo.CurrentRegion.TwoLetterISORegionName;
+            return !openRouterNotSupportedCountries.Contains(countryCode);
+        }
+
         /// <summary>
         /// Returns whether the system-configured country is listed as supported for
         /// the OpenAI API. This does not establish the user's physical location.
@@ -1220,6 +1235,8 @@ namespace NeoBleeper
                         ExtendedThinking = CommonAIEngine.SupportsExtendedThinking(selectedAIModel) &&
                                            checkBoxExtendedThinking.Checked,
                         MaxOutputTokens = 16384,
+                        // Recover valid musical lines if OpenRouter reaches max_tokens.
+                        AllowTruncatedOutput = selectedAIModel.provider == "OpenRouter",
                         MaxOutputCharacters = 300000,
                         MaxDuration = TimeSpan.FromMinutes(5),
                         IdleTimeout = TimeSpan.FromSeconds(90),
@@ -1227,6 +1244,8 @@ namespace NeoBleeper
                     };
                     string response = await CommonAIEngine.GenerateTextAsync(
                         selectedAIModel, prompt, options, cts.Token);
+                    // Keep the original stream for strict recovery (before any XML repair).
+                    string streamedResponse = response;
                     wasAnythingCreated = !string.IsNullOrWhiteSpace(response);
                     // Remove excessive newlines from the final response
                     response = Regex.Replace(response, @"\n{2,}", "\n"); // Make single newlines 
@@ -1268,6 +1287,26 @@ namespace NeoBleeper
                                 output = rawOutput.Trim();
                             }
                             SplitFileNameAndOutput(rawOutput);
+                            if (options.WasTruncated)
+                            {
+                                // The normal repair method can close an incomplete <Line>
+                                // and accidentally turn it into a malformed musical event.
+                                // Keep only fully formed lines before continuing.
+                                if (TryRecoverTruncatedNBPML(streamedResponse, out string recovered,
+                                        out int recoveredLines))
+                                {
+                                    output = recovered;
+                                    Logger.Log($"OpenRouter reached max_tokens. Recovered {recoveredLines} complete musical lines; the composition may be shorter than requested.",
+                                        Logger.LogTypes.Warning);
+                                }
+                                else
+                                {
+                                    output = string.Empty;
+                                    wasAnythingCreated = false;
+                                    Logger.Log("OpenRouter reached max_tokens before a usable NBPML section was generated.",
+                                        Logger.LogTypes.Warning);
+                                }
+                            }
                             // Remove ```xml and any surrounding text
                             Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
                             output = RewriteOutput(output).Trim();
@@ -1903,6 +1942,85 @@ namespace NeoBleeper
 
                 Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
                 MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Salvages a token-limited stream without fabricating partial musical events.
+        /// Only complete XML <Line> blocks are kept. Settings must already be complete.
+        /// The result is validated before it can reach the normal import pipeline.
+        /// </summary>
+        private static bool TryRecoverTruncatedNBPML(
+            string rawText, out string recoveredXml, out int recoveredLines)
+        {
+            recoveredXml = string.Empty;
+            recoveredLines = 0;
+            if (string.IsNullOrWhiteSpace(rawText)) return false;
+
+            Match root = Regex.Match(rawText,
+                @"<NeoBleeperProjectFile\b[^>]*>", RegexOptions.IgnoreCase);
+            if (!root.Success) return false;
+
+            Match list = new Regex(@"<LineList\b[^>]*>", RegexOptions.IgnoreCase)
+                .Match(rawText, root.Index + root.Length);
+            if (!list.Success) return false;
+
+            // This prefix includes the root, all Settings, and the opening LineList.
+            string prefix = rawText.Substring(root.Index,
+                list.Index + list.Length - root.Index);
+            try
+            {
+                var header = new XmlDocument { XmlResolver = null };
+                header.LoadXml(prefix + "</LineList></NeoBleeperProjectFile>");
+                if (header.DocumentElement?.SelectSingleNode("Settings") == null)
+                    return false;
+            }
+            catch (XmlException)
+            {
+                return false;
+            }
+
+            // Comments can contain literal <Line> examples; exclude them.
+            string tail = rawText.Substring(list.Index + list.Length);
+            tail = Regex.Replace(tail, @"<!--[\s\S]*?-->", string.Empty);
+            var lines = new List<string>();
+            foreach (Match match in Regex.Matches(tail,
+                         @"<Line\b[^>]*>[\s\S]*?</Line\s*>", RegexOptions.IgnoreCase))
+            {
+                try
+                {
+                    var line = new XmlDocument { XmlResolver = null };
+                    line.LoadXml(match.Value);
+                    if (line.DocumentElement?.Name != "Line" ||
+                        line.DocumentElement.SelectSingleNode("Length") == null ||
+                        line.DocumentElement.SelectNodes("Note1|Note2|Note3|Note4")?.Count == 0)
+                        continue;
+                    lines.Add(match.Value);
+                }
+                catch (XmlException)
+                {
+                    // The last event may be cut off; never invent its missing notes.
+                }
+            }
+
+            if (lines.Count == 0) return false;
+            string candidate = prefix + Environment.NewLine +
+                string.Join(Environment.NewLine, lines) + Environment.NewLine +
+                "</LineList>" + Environment.NewLine + "</NeoBleeperProjectFile>";
+            try
+            {
+                var document = new XmlDocument { XmlResolver = null };
+                document.LoadXml(candidate);
+                if (document.DocumentElement?.Name != "NeoBleeperProjectFile" ||
+                    document.DocumentElement.SelectSingleNode("LineList/Line") == null)
+                    return false;
+                recoveredXml = candidate;
+                recoveredLines = lines.Count;
+                return true;
+            }
+            catch (XmlException)
+            {
+                return false;
             }
         }
 
@@ -3852,6 +3970,8 @@ namespace NeoBleeper
                     return (Resources.TitleInvalidArgument, Resources.MessageInvalidArgument);
                 case 401:
                     return (Resources.TitleUnauthenticated, Resources.MessageUnauthenticated);
+                case 402:
+                    return (Resources.TitlePaymentRequired, Resources.MessagePaymentRequired);
                 case 403:
                     return (Resources.TitlePermissionDenied, Resources.MessagePermissionDenied);
                 case 404:
@@ -4068,6 +4188,28 @@ namespace NeoBleeper
                 Settings1.Default.DefaultExtendedThinkingMode = extendedThinking;
                 Settings1.Default.Save();
             }
+        }
+
+        public static bool IsOpenRouterAPIKeyValidFormat(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return false;
+
+            ReadOnlySpan<char> key = text.AsSpan().Trim();
+
+            // Standard OpenRouter API key format: "sk-or-v1-" (9 chars) + 64 hex chars = 73 chars
+            const string prefix = "sk-or-v1-";
+            if (key.Length != prefix.Length + 64 || !key.StartsWith(prefix, StringComparison.Ordinal))
+                return false;
+
+            ReadOnlySpan<char> tokenBody = key.Slice(prefix.Length);
+            foreach (char c in tokenBody)
+            {
+                if (!Uri.IsHexDigit(c))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

@@ -1216,4 +1216,10 @@ Um diese Funktion zu nutzen, aktivieren Sie bitte das Kontrollkästchen „MIDI-
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Das Format des-API-Schlüssels ist ungültig. Bitte geben Sie den API-Schlüssel erneut im Reiter „Allgemein“ unter den Einstellungen ein.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value> Zahlung erforderlich</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>Ihre API-Anfrage konnte aufgrund unzureichenden Guthabens oder eines Abrechnungsproblems nicht abgeschlossen werden. Bitte überprüfen Sie Ihr Kontoguthaben und Ihre Zahlungseinstellungen und versuchen Sie es erneut.</value>
+  </data>
 </root>

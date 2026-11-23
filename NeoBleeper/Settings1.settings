@@ -110,5 +110,8 @@
     <Setting Name="EncryptedAnthropicAPIKeyBase64" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="EncryptedOpenRouterAPIKeyBase64" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
