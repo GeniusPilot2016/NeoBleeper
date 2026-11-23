@@ -1260,4 +1260,10 @@ Please check "Use MIDI output" checkbox from "Devices" tab in settings or unchec
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>API key format is invalid. Please re-enter the API key in the "General" tab in settings.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value>Payment Required</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>Your API request could not be completed due to insufficient credits or a billing issue. Please check your account balance and billing settings, then try again.</value>
+  </data>
 </root>

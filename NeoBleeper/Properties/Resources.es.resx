@@ -1216,4 +1216,10 @@ Para usar esta función, marque la casilla "Usar salida MIDI" en la pestaña "Di
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>El formato de la clave API no es válido. Vuelva a introducir la clave API en la pestaña "General" de la configuración.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value>Pago requerido</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>No se pudo completar tu solicitud de API debido a créditos insuficientes o a un problema de facturación. Comprueba el saldo de tu cuenta y la configuración de facturación y vuelve a intentarlo.</value>
+  </data>
 </root>

@@ -453,5 +453,17 @@ namespace NeoBleeper {
                 this["EncryptedAnthropicAPIKeyBase64"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EncryptedOpenRouterAPIKeyBase64 {
+            get {
+                return ((string)(this["EncryptedOpenRouterAPIKeyBase64"]));
+            }
+            set {
+                this["EncryptedOpenRouterAPIKeyBase64"] = value;
+            }
+        }
     }
 }

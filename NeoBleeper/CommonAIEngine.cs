@@ -13,14 +13,14 @@ namespace NeoBleeper
 {
     /// <summary>
     /// Lists suitable text models, generates text, and counts input tokens using
-    /// the OpenAI, Google Gemini, and Anthropic APIs.
+    /// the OpenAI, Google Gemini, Anthropic, and OpenRouter APIs.
     /// Requires the existing Settings1 and EncryptionHelper types.
     /// Targets .NET 6+ (C# 10+).
     /// </summary>
     public class CommonAIEngine
     {
         // Keep original property names and Gemini's "models/..." identifier format.
-        // Anthropic's list-models endpoint additionally reports supported thinking types.
+        // Anthropic and OpenRouter expose thinking-capability metadata.
         public record Model(string name, string displayName, string provider)
         {
             // Empty means no capabilities metadata; apply conservative name fallback.
@@ -62,8 +62,9 @@ namespace NeoBleeper
         };
 
         /// <summary>
-        /// provider: "Gemini", "OpenAI", "Anthropic", "All" (also null/empty).
-        /// Missing API keys cause that provider to be skipped.
+        /// provider: "Gemini", "OpenAI", "Anthropic", "OpenRouter", "All" (also null/empty).
+        /// Missing API keys cause that provider to be skipped when "All" is selected.
+        /// Explicitly requesting OpenRouter requires a configured API key.
         /// API errors are propagated rather than silently returning an incomplete list.
         /// </summary>
         public static async Task<List<Model>> GetModelList(
@@ -96,10 +97,82 @@ namespace NeoBleeper
                         .ConfigureAwait(false));
             }
 
+            if (selection == "All" || selection == "OpenRouter")
+            {
+                // Explicit OpenRouter requests require an API key.
+                // "All" skips providers without a configured key.
+                string key = GetDecryptedKey("OpenRouter",
+                    required: selection == "OpenRouter");
+                if (!string.IsNullOrWhiteSpace(key))
+                    result.AddRange(await ListOpenRouterAsync(key, cancellationToken)
+                        .ConfigureAwait(false));
+            }
+
             return result
                 .GroupBy(model => model.provider + "\u0000" + model.name,
                     StringComparer.OrdinalIgnoreCase)
                 .Select(group => group.First())
+                .ToList();
+        }
+
+        private static async Task<IEnumerable<Model>> ListOpenRouterAsync(
+            string key, CancellationToken cancellationToken)
+        {
+            // Include all text-output models, including proprietary models that
+            // also accept image/audio inputs. Authentication remains required.
+            using JsonDocument json = await SendJsonAsync(
+                HttpMethod.Get, "https://openrouter.ai/api/v1/models?output_modalities=text",
+                "OpenRouter", key, null, cancellationToken).ConfigureAwait(false);
+
+            if (!TryGetArray(json.RootElement, "data", out JsonElement models))
+                throw new InvalidOperationException(
+                    "OpenRouter model catalog did not contain a 'data' array.");
+
+            var result = new List<Model>();
+            foreach (JsonElement item in models.EnumerateArray())
+            {
+                if (!IsOpenRouterTextModel(item))
+                    continue;
+
+                string id = GetString(item, "id");
+                if (string.IsNullOrWhiteSpace(id))
+                    continue;
+
+                string display = GetString(item, "name");
+                bool supportsReasoning = false;
+                if (TryGetArray(item, "supported_parameters", out JsonElement parameters))
+                {
+                    foreach (JsonElement parameter in parameters.EnumerateArray())
+                    {
+                        if (parameter.ValueKind == JsonValueKind.String &&
+                            string.Equals(parameter.GetString(), "reasoning",
+                                StringComparison.OrdinalIgnoreCase))
+                        {
+                            supportsReasoning = true;
+                            break;
+                        }
+                    }
+                }
+
+                result.Add(new Model(id,
+                    string.IsNullOrWhiteSpace(display) ? id : display,
+                    "OpenRouter")
+                {
+                    ThinkingMode = supportsReasoning ? "enabled" : "none"
+                });
+            }
+
+            // Never report an empty list as a successful catalog load: it would
+            // otherwise look like the UI failed to populate the model dropdown.
+            if (result.Count == 0)
+                throw new InvalidOperationException(
+                    "OpenRouter returned " + models.GetArrayLength() +
+                    " catalog entries, but none passed the chat/text model filter. " +
+                    "Check the /models response schema and IsOpenRouterTextModel.");
+
+            return result
+                .OrderBy(model => model.displayName, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(model => model.name, StringComparer.OrdinalIgnoreCase)
                 .ToList();
         }
 
@@ -116,8 +189,7 @@ namespace NeoBleeper
             string provider;
             try
             {
-                // Accepts "Google"/"Gemini", "OpenAI", "Anthropic"/"Claude" consistently
-                // with the rest of the engine.
+                // Accept provider aliases consistently with the rest of the engine.
                 provider = NormalizeProvider(model.provider, allowAll: false);
             }
             catch (ArgumentException)
@@ -133,6 +205,20 @@ namespace NeoBleeper
                     return IsOpenAiReasoningModel(model.name);
                 case "Anthropic":
                     return GetAnthropicThinkingMode(model) != AnthropicThinkingMode.None;
+                case "OpenRouter":
+                    // Prefer the catalog's supported_parameters; use a narrow model-ID
+                    // fallback only for manually constructed Model instances.
+                    if (!string.IsNullOrWhiteSpace(model.ThinkingMode))
+                        return model.ThinkingMode == "enabled";
+                    string id = model.name.Trim();
+                    if (id.StartsWith("openai/", StringComparison.OrdinalIgnoreCase))
+                        return IsOpenAiReasoningModel(id.Substring("openai/".Length));
+                    if (id.StartsWith("anthropic/", StringComparison.OrdinalIgnoreCase))
+                        return GetAnthropicThinkingMode(id.Substring("anthropic/".Length)) !=
+                            AnthropicThinkingMode.None;
+                    if (id.StartsWith("google/", StringComparison.OrdinalIgnoreCase))
+                        return IsGeminiThinkingLevelModel(id.Substring("google/".Length));
+                    return false;
                 default:
                     return false;
             }
@@ -233,7 +319,7 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Options shared by all three providers. Streaming stops immediately on excessive
+        /// Options shared by all four providers. Streaming stops immediately on excessive
         /// repetition, excess output, cancellation, or a generation deadline.
         /// </summary>
         public sealed class GenerationOptions
@@ -241,6 +327,10 @@ namespace NeoBleeper
             public string SystemInstructions { get; set; } = string.Empty;
             public bool ExtendedThinking { get; set; }
             public int MaxOutputTokens { get; set; } = 16384;
+            // Opt-in: keep streamed text if OpenRouter stops at max_tokens.
+            // Callers must validate or repair incomplete structured output.
+            public bool AllowTruncatedOutput { get; set; }
+            public bool WasTruncated { get; internal set; }
             public int MaxOutputCharacters { get; set; } = 300000;
             public TimeSpan MaxDuration { get; set; } = TimeSpan.FromMinutes(5);
             public TimeSpan IdleTimeout { get; set; } = TimeSpan.FromSeconds(90);
@@ -341,6 +431,7 @@ namespace NeoBleeper
         {
             ValidateInput(model, prompt);
             if (options == null) throw new ArgumentNullException(nameof(options));
+            options.WasTruncated = false;
             if (options.MaxOutputTokens < 256 || options.MaxOutputCharacters < 1000 ||
                 options.MaxDuration <= TimeSpan.Zero || options.IdleTimeout <= TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(options), "Invalid generation limits.");
@@ -402,6 +493,28 @@ namespace NeoBleeper
                     if (options.ExtendedThinking && IsOpenAiReasoningModel(model.name))
                         openAiPayload["reasoning"] = new { effort = "high" };
                     payload = openAiPayload;
+                    break;
+
+                case "OpenRouter":
+                    url = "https://openrouter.ai/api/v1/chat/completions";
+                    var openRouterMessages = new List<object>();
+                    if (!string.IsNullOrWhiteSpace(options.SystemInstructions))
+                        openRouterMessages.Add(new
+                        {
+                            role = "system",
+                            content = options.SystemInstructions
+                        });
+                    openRouterMessages.Add(new { role = "user", content = prompt });
+                    var openRouterPayload = new Dictionary<string, object>
+                    {
+                        ["model"] = model.name,
+                        ["messages"] = openRouterMessages,
+                        ["stream"] = true,
+                        ["max_tokens"] = options.MaxOutputTokens
+                    };
+                    if (options.ExtendedThinking && SupportsExtendedThinking(model))
+                        openRouterPayload["reasoning"] = new { effort = "high" };
+                    payload = openRouterPayload;
                     break;
 
                 case "Anthropic":
@@ -501,8 +614,30 @@ namespace NeoBleeper
                 JsonElement root = json.RootElement;
                 string kind = GetString(root, "type");
                 if (kind == "error" || currentEvent == "error" ||
-                    kind == "response.failed" || kind == "response.incomplete")
+                    kind == "response.failed" || kind == "response.incomplete" ||
+                    (provider == "OpenRouter" && TryGetObject(root, "error", out _)))
                     throw CreateApiRequestException(provider, null, data);
+
+                if (provider == "OpenRouter" &&
+                    TryGetArray(root, "choices", out JsonElement openRouterChoices))
+                {
+                    foreach (JsonElement choice in openRouterChoices.EnumerateArray())
+                    {
+                        if (TryGetObject(choice, "error", out JsonElement choiceError))
+                            throw CreateApiRequestException(provider, null, choiceError.GetRawText());
+                        string finishReason = GetString(choice, "finish_reason");
+                        if (finishReason == "length")
+                        {
+                            if (!options.AllowTruncatedOutput)
+                                throw new InvalidOperationException(
+                                    "OpenRouter stopped at max_tokens before completing the response.");
+                            // Preserve the generated text for callers that can repair it.
+                            options.WasTruncated = true;
+                        }
+                        if (finishReason == "error")
+                            throw CreateApiRequestException(provider, null, data);
+                    }
+                }
 
                 if (provider == "Anthropic" && kind == "message_delta" &&
                     TryGetObject(root, "delta", out JsonElement messageDelta) &&
@@ -608,6 +743,23 @@ namespace NeoBleeper
             if (provider == "OpenAI")
                 return GetString(root, "type") == "response.output_text.delta"
                     ? GetString(root, "delta") : string.Empty;
+
+            if (provider == "OpenRouter")
+            {
+                // Chat Completions SSE; skip reasoning and tool-call deltas.
+                if (!TryGetArray(root, "choices", out JsonElement choices))
+                    return string.Empty;
+                foreach (JsonElement choice in choices.EnumerateArray())
+                {
+                    if (TryGetObject(choice, "delta", out JsonElement delta))
+                    {
+                        string content = GetString(delta, "content");
+                        if (content.Length > 0)
+                            return content;
+                    }
+                }
+                return string.Empty;
+            }
 
             if (provider == "Anthropic")
             {
@@ -769,7 +921,9 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Count input tokens for a prompt with the provider's native counting API.
+        /// Count input tokens for a prompt. OpenRouter has no separate preflight
+        /// counting endpoint; counting there makes a small, billable completion
+        /// request and reads usage.prompt_tokens. Other providers use native counting APIs.
         /// Note: availability is model-specific, and /models does not prove support.
         /// </summary>
         public static async Task<int> CountTokensAsync(
@@ -804,6 +958,20 @@ namespace NeoBleeper
                     property = "input_tokens";
                     break;
 
+                case "OpenRouter":
+                    url = "https://openrouter.ai/api/v1/chat/completions";
+                    // At least 16 output tokens for compatibility with providers that
+                    // enforce a minimum completion length. This call may incur charges.
+                    payload = new
+                    {
+                        model = model.name,
+                        messages = new[] { new { role = "user", content = prompt } },
+                        max_tokens = 16,
+                        stream = false
+                    };
+                    property = "prompt_tokens";
+                    break;
+
                 case "Anthropic":
                     url = "https://api.anthropic.com/v1/messages/count_tokens";
                     payload = new
@@ -822,7 +990,13 @@ namespace NeoBleeper
                 HttpMethod.Post, url, provider, key, payload, cancellationToken)
                 .ConfigureAwait(false);
 
-            if (response.RootElement.TryGetProperty(property, out JsonElement count) &&
+            JsonElement countSource = response.RootElement;
+            if (provider == "OpenRouter" &&
+                !TryGetObject(response.RootElement, "usage", out countSource))
+                throw new InvalidOperationException(
+                    "OpenRouter did not return usage data for token counting.");
+
+            if (countSource.TryGetProperty(property, out JsonElement count) &&
                 count.ValueKind == JsonValueKind.Number && count.TryGetInt32(out int number))
                 return number;
 
@@ -965,6 +1139,70 @@ namespace NeoBleeper
             return result;
         }
 
+        private static bool IsOpenRouterTextModel(JsonElement model)
+        {
+            // This engine sends text prompts to /chat/completions and consumes
+            // text deltas. Other endpoints alone are not sufficient.
+            if (TryGetArray(model, "endpoints", out JsonElement endpoints) &&
+                endpoints.GetArrayLength() > 0 &&
+                !endpoints.EnumerateArray().Any(endpoint =>
+                    endpoint.ValueKind == JsonValueKind.String &&
+                    string.Equals(endpoint.GetString(), "/api/v1/chat/completions",
+                        StringComparison.OrdinalIgnoreCase)))
+                return false;
+
+            if (!TryGetObject(model, "architecture", out JsonElement architecture))
+                return false; // Cannot establish the model's output format.
+
+            string modality = GetString(architecture, "modality");
+
+            // Multimodal *input* is fine: GPT/Claude/Gemini can accept images
+            // and still produce normal text from an ordinary text prompt.
+            if (TryGetArray(architecture, "input_modalities", out JsonElement inputs))
+            {
+                if (!inputs.EnumerateArray().Any(input =>
+                    input.ValueKind == JsonValueKind.String &&
+                    string.Equals(input.GetString(), "text",
+                        StringComparison.OrdinalIgnoreCase)))
+                    return false;
+            }
+            else
+            {
+                // Legacy catalog entries may provide only "text+image->text".
+                int arrow = modality.IndexOf("->", StringComparison.Ordinal);
+                if (arrow < 0 || !modality.Substring(0, arrow)
+                        .Split('+').Any(input =>
+                            string.Equals(input.Trim(), "text",
+                                StringComparison.OrdinalIgnoreCase)))
+                    return false;
+            }
+
+            // output_modalities=text at the API is an INCLUSIVE filter: models
+            // with ["text", "video"] (e.g. Gemini Omni) may still be returned.
+            // Require ONLY text output, not merely text among several outputs.
+            if (TryGetArray(architecture, "output_modalities", out JsonElement outputs))
+            {
+                if (outputs.GetArrayLength() != 1 ||
+                    outputs[0].ValueKind != JsonValueKind.String ||
+                    !string.Equals(outputs[0].GetString(), "text",
+                        StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+            else if (!modality.EndsWith("->text", StringComparison.OrdinalIgnoreCase))
+            {
+                return false; // Unknown output types are not safe for text-only UI.
+            }
+
+            // Gemini Omni is designed for media generation. Do not show this
+            // family even if an individual catalog entry omits video metadata.
+            string id = GetString(model, "id");
+            if (Regex.IsMatch(id, @"(?:^|/)gemini[-_]omni(?:[-_]|$)",
+                    RegexOptions.IgnoreCase))
+                return false;
+
+            return true;
+        }
+
         private static bool IsGeminiTextModel(string name, string displayName)
         {
             if (string.IsNullOrWhiteSpace(name) ||
@@ -1013,9 +1251,14 @@ namespace NeoBleeper
                 case "openai": return "OpenAI";
                 case "anthropic":
                 case "claude": return "Anthropic";
+                case "openrouter":
+                case "open router":
+                case "open-router":
+                case "open_router":
+                case "openrouter.ai": return "OpenRouter";
             }
             throw new ArgumentException(
-                "Expected provider: OpenAI, Google, Anthropic, or All.", nameof(provider));
+                "Expected provider: OpenAI, Google, Anthropic, OpenRouter, or All.", nameof(provider));
         }
 
         private static string GetDecryptedKey(string provider, bool required)
@@ -1032,6 +1275,9 @@ namespace NeoBleeper
                 case "Anthropic":
                     encrypted = Settings1.Default.EncryptedAnthropicAPIKeyBase64;
                     break;
+                case "OpenRouter":
+                    encrypted = Settings1.Default.EncryptedOpenRouterAPIKeyBase64;
+                    break;
                 default:
                     throw new ArgumentException("Unknown provider.", nameof(provider));
             }
@@ -1044,6 +1290,8 @@ namespace NeoBleeper
             }
 
             string key = new EncryptionHelper().DecryptBase64EncryptedData(encrypted);
+            if (provider == "OpenRouter")
+                key = key?.Trim();
             if (string.IsNullOrWhiteSpace(key) && required)
                 throw new InvalidOperationException($"The {provider} API key is empty.");
             return key;

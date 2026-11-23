@@ -1215,4 +1215,10 @@ Spunta la casella di controllo "Usa uscita MIDI" nella scheda "Dispositivi" nell
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>Il formato della chiave API non è valido. Controlla e riprova.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value>Pagamento richiesto</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>La richiesta API non è stata completata a causa di crediti insufficienti o di un problema di fatturazione. Controlla il saldo del tuo account e le impostazioni di pagamento, quindi riprova.</value>
+  </data>
 </root>

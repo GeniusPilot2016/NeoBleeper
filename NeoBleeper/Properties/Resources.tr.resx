@@ -1217,4 +1217,10 @@ Bu özelliği kullanmak için lütfen ayarlardaki "Cihazlar" sekmesinden "MIDI �
   <data name="MessageAPIKeyFormatIsInvalid" xml:space="preserve">
     <value>API anahtarı biçimi geçersiz. Lütfen ayarlardaki "Genel" sekmesinden API anahtarını tekrar giriniz.</value>
   </data>
+  <data name="TitlePaymentRequired" xml:space="preserve">
+    <value>Ödeme Gerekli</value>
+  </data>
+  <data name="MessagePaymentRequired" xml:space="preserve">
+    <value>API isteğiniz, yetersiz kredi veya bir faturalandırma sorunu nedeniyle tamamlanamadı. Lütfen hesap bakiyenizi ve ödeme ayarlarınızı kontrol edip tekrar deneyin.</value>
+  </data>
 </root>
