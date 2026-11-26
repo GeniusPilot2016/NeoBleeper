@@ -107,6 +107,38 @@ namespace NeoBleeper
             textBoxPrompt.PlaceholderText = examplePrompt;
         }
 
+        private bool CanUpdateUI() =>
+            !IsDisposed && !Disposing && IsHandleCreated && !cts.IsCancellationRequested;
+
+        private void RunOnUIThread(Action action)
+        {
+            if (IsDisposed || Disposing || !IsHandleCreated)
+                return;
+
+            if (InvokeRequired)
+            {
+                try
+                {
+                    BeginInvoke(action);
+                }
+                catch (ObjectDisposedException) { }
+                catch (InvalidOperationException) { }
+            }
+            else
+            {
+                action();
+            }
+        }
+
+        private void SafeCloseForm()
+        {
+            RunOnUIThread(() =>
+            {
+                if (!IsDisposed && !Disposing)
+                    Close();
+            });
+        }
+
         /// <summary>
         /// Retrieves all example prompt strings defined as public static properties in the <see cref="Resources"/>
         /// class whose names begin with "ExamplePrompt".
@@ -133,13 +165,16 @@ namespace NeoBleeper
         }
         private void ThemeManager_ThemeChanged(object? sender, EventArgs e)
         {
-            if (this.IsHandleCreated && !this.IsDisposed)
+            RunOnUIThread(() =>
             {
-                if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                if (CanUpdateUI())
                 {
-                    SetTheme();
+                    if (Settings1.Default.theme == 0 && (darkTheme != SystemThemeUtility.IsDarkTheme()))
+                    {
+                        SetTheme();
+                    }
                 }
-            }
+            });
         }
 
         /// <summary>
@@ -150,20 +185,29 @@ namespace NeoBleeper
         /// </summary>
         private async void ListAndSelectAIModels()
         {
-            if (isLoadingModels || IsDisposed) return;
+            if (isLoadingModels || !CanUpdateUI()) return;
             isLoadingModels = true;
             try
             {
-                buttonCreate.Enabled = false;
-                comboBox_ai_model.Enabled = false;
+                RunOnUIThread(() =>
+                {
+                    if (!CanUpdateUI()) return;
+                    buttonCreate.Enabled = false;
+                    comboBox_ai_model.Enabled = false;
+                });
+
                 var available = new List<CommonAIEngine.Model>();
                 foreach (string provider in new[] { "Google", "OpenAI", "Anthropic", "OpenRouter" })
                 {
+                    if (!CanUpdateUI()) return;
                     try
                     {
-                        available.AddRange(await CommonAIEngine.GetModelList(provider, cts.Token));
+                        var models = await CommonAIEngine.GetModelList(provider, cts.Token);
+                        if (!CanUpdateUI()) return;
+                        if (models != null)
+                            available.AddRange(models);
                     }
-                    catch (OperationCanceledException) when (cts.IsCancellationRequested)
+                    catch (OperationCanceledException) when (cts.IsCancellationRequested || IsDisposed || Disposing)
                     {
                         return;
                     }
@@ -174,8 +218,8 @@ namespace NeoBleeper
                     }
                 }
 
-                if (IsDisposed || cts.IsCancellationRequested) return;
-                comboBox_ai_model.Items.Clear();
+                if (!CanUpdateUI()) return;
+
                 var usedLabels = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
                 var modelItems = new List<ModelComboItem>();
                 foreach (var model in available)
@@ -185,49 +229,76 @@ namespace NeoBleeper
                     usedLabels[baseLabel] = ++count;
                     // Distinguish duplicate public names without revealing model paths.
                     string label = count == 1 ? baseLabel : $"{baseLabel} ({count})";
-                    var item = new ModelComboItem(model, label);
-                    modelItems.Add(item);
-                    comboBox_ai_model.Items.Add(item);
-                }
-
-                Logger.Log($"Total compatible models: {available.Count}", Logger.LogTypes.Info);
-                if (available.Count == 0)
-                {
-                    MessageForm.Show(this, Resources.MessageErrorListingAImodels,
-                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Close();
-                    return;
+                    modelItems.Add(new ModelComboItem(model, label));
                 }
 
                 string preferred = Settings1.Default.preferredAIModel ?? string.Empty;
-                var chosen = available.FirstOrDefault(model =>
-                    string.Equals(model.provider + ":" + model.name, preferred,
-                        StringComparison.OrdinalIgnoreCase))
-                    ?? available.FirstOrDefault(model =>
-                        string.Equals(model.name, preferred, StringComparison.OrdinalIgnoreCase))
-                    ?? available[0];
+                var chosen = available.Count > 0
+                    ? (available.FirstOrDefault(model =>
+                           string.Equals(model.provider + ":" + model.name, preferred,
+                               StringComparison.OrdinalIgnoreCase))
+                       ?? available.FirstOrDefault(model =>
+                           string.Equals(model.name, preferred, StringComparison.OrdinalIgnoreCase))
+                       ?? available[0])
+                    : null;
 
-                selectedAIModel = chosen;
-                AIModel = chosen.name;
-                comboBox_ai_model.SelectedItem = modelItems.First(item =>
-                    ReferenceEquals(item.Model, chosen));
-                UpdateSelectedModelControls();
-                buttonCreate.Enabled = true;
-                comboBox_ai_model.Enabled = true;
-                textBoxPrompt.Enabled = true;
-                ActiveControl = buttonCreate;
-                Logger.Log($"Selected model: [{chosen.provider}] {chosen.name}",
-                    Logger.LogTypes.Info);
+                RunOnUIThread(() =>
+                {
+                    if (!CanUpdateUI()) return;
+
+                    Logger.Log($"Total compatible models: {available.Count}", Logger.LogTypes.Info);
+                    if (chosen == null)
+                    {
+                        MessageForm.Show(this, Resources.MessageErrorListingAImodels,
+                            string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (!IsDisposed && !Disposing)
+                            Close();
+                        return;
+                    }
+
+                    comboBox_ai_model.BeginUpdate();
+                    try
+                    {
+                        comboBox_ai_model.Items.Clear();
+                        foreach (var item in modelItems)
+                            comboBox_ai_model.Items.Add(item);
+
+                        selectedAIModel = chosen;
+                        AIModel = chosen.name;
+                        comboBox_ai_model.SelectedItem = modelItems.First(item =>
+                            ReferenceEquals(item.Model, chosen));
+                    }
+                    finally
+                    {
+                        comboBox_ai_model.EndUpdate();
+                    }
+
+                    UpdateSelectedModelControls();
+                    buttonCreate.Enabled = true;
+                    comboBox_ai_model.Enabled = true;
+                    textBoxPrompt.Enabled = true;
+                    ActiveControl = buttonCreate;
+                    Logger.Log($"Selected model: [{chosen.provider}] {chosen.name}",
+                        Logger.LogTypes.Info);
+                });
+            }
+            catch (OperationCanceledException) when (cts.IsCancellationRequested || IsDisposed || Disposing)
+            {
+                // Form closed or operation canceled
             }
             catch (Exception ex)
             {
                 Logger.Log($"Error listing AI models: {ex.Message}", Logger.LogTypes.Error);
-                if (!IsDisposed)
+                RunOnUIThread(() =>
                 {
-                    MessageForm.Show(this, Resources.MessageErrorListingAImodels,
-                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Close();
-                }
+                    if (!IsDisposed && !Disposing && IsHandleCreated)
+                    {
+                        MessageForm.Show(this, Resources.MessageErrorListingAImodels,
+                            string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (!IsDisposed && !Disposing)
+                            Close();
+                    }
+                });
             }
             finally
             {
@@ -237,6 +308,7 @@ namespace NeoBleeper
 
         private void UpdateSelectedModelControls()
         {
+            if (IsDisposed || Disposing) return;
             bool canThink = CommonAIEngine.SupportsExtendedThinking(selectedAIModel);
             checkBoxExtendedThinking.Enabled = canThink;
             checkBoxExtendedThinking.Checked = canThink && extendedThinking;
@@ -299,6 +371,7 @@ namespace NeoBleeper
         /// is rendered smoothly.</remarks>
         private void SetTheme()
         {
+            if (IsDisposed || Disposing) return;
             this.SuspendLayout(); // Suspend layout to batch updates
             this.DoubleBuffered = true; // Enable double buffering for smoother rendering
 
@@ -1017,9 +1090,14 @@ namespace NeoBleeper
             int frame = 0;
             try
             {
-                while (!token.IsCancellationRequested && !IsDisposed && labelCreating.Visible)
+                while (!token.IsCancellationRequested && CanUpdateUI() && labelCreating.Visible)
                 {
-                    labelCreating.Text = frames[frame++ % frames.Length] + " " + originalCreatingLabel;
+                    string nextText = frames[frame++ % frames.Length] + " " + originalCreatingLabel;
+                    RunOnUIThread(() =>
+                    {
+                        if (CanUpdateUI() && labelCreating.Visible)
+                            labelCreating.Text = nextText;
+                    });
                     await Task.Delay(75, token);
                 }
             }
@@ -1220,7 +1298,11 @@ namespace NeoBleeper
                         $"        <!-- More <Line> elements representing musical events or rests -->\r\n" +
                         $"    </LineList>\r\n" +
                         $"</NeoBleeperProjectFile>";
-                    connectionCheckTimer.Start();
+                    RunOnUIThread(() =>
+                    {
+                        if (CanUpdateUI())
+                            connectionCheckTimer.Start();
+                    });
                     SetControlsEnabledAndMakeLoadingVisible(false);
                     isMusicGenerationStarted = true;
 
@@ -1228,8 +1310,11 @@ namespace NeoBleeper
                     // before it can become an infinite generation loop.
                     var progress = new Progress<string>(partial =>
                     {
-                        if (!IsDisposed && !cts.IsCancellationRequested && IsHandleCreated)
-                            LogStatus(ExpandMinifiedNBPML(FixCollapsedLinesInNBPML(partial)));
+                        RunOnUIThread(() =>
+                        {
+                            if (CanUpdateUI())
+                                LogStatus(ExpandMinifiedNBPML(FixCollapsedLinesInNBPML(partial)));
+                        });
                     });
                     var options = new CommonAIEngine.GenerationOptions
                     {
@@ -1246,6 +1331,8 @@ namespace NeoBleeper
                     };
                     string response = await CommonAIEngine.GenerateTextAsync(
                         selectedAIModel, prompt, options, cts.Token);
+                    if (!CanUpdateUI()) return;
+
                     // Keep the original stream for strict recovery (before any XML repair).
                     string streamedResponse = response;
                     wasAnythingCreated = !string.IsNullOrWhiteSpace(response);
@@ -1254,116 +1341,114 @@ namespace NeoBleeper
                     response = ExpandMinifiedNBPML(FixCollapsedLinesInNBPML(response)); // Fix collapsed lines in NBPML such as <Note1></Note1><Note2></Note2>
                     StopConnectionCheck();
                     await Task.Delay(2);
-                    if (!cts.IsCancellationRequested)
+                    if (!CanUpdateUI()) return;
+
+                    if (response != null && !string.IsNullOrWhiteSpace(response))
                     {
-                        if (response != null && !string.IsNullOrWhiteSpace(response))
+                        Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
+                        // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
+                        string rawOutput = response;
+                        string JSONText = string.Empty;
+                        // Parse JSON blocks
+                        var jsonMatch = Regex.Match(rawOutput, @"\{[\s\S]*?\}");
+                        if (jsonMatch.Success)
                         {
-                            Logger.Log("AI response received. Processing...", Logger.LogTypes.Info);
-                            // Clean and process the AI response from invalid or unwanted text or characters to extract valid NBPML content
-                            string rawOutput = response;
-                            string JSONText = string.Empty;
-                            // Parse JSON blocks
-                            var jsonMatch = Regex.Match(rawOutput, @"\{[\s\S]*?\}");
-                            if (jsonMatch.Success)
-                            {
-                                JSONText = jsonMatch.Value;
-                            }
-                            if (CheckIfOutputIsJSONErrorMessage(JSONText))
-                            {
-                                isMusicGenerationStarted = false; // Reset the flag as music generation has ended
-                                MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
-                                TurnJSONErrorIntoMessageBoxAndLog(JSONText);
-                                generatedFilename = string.Empty; // Clear the filename if it's an error message
-                                output = String.Empty; // Clear the output if it's an error message                             
-                                this.Close(); // Close the form after handling the error message
-                                return;
-                            }
-                            var xmlMatches = Regex.Matches(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
-                            if (xmlMatches.Count > 0)
-                            {
-                                var last = xmlMatches[xmlMatches.Count - 1];
-                                output = last.Value.Trim();
-                            }
-                            else
-                            {
-                                output = rawOutput.Trim();
-                            }
-                            SplitFileNameAndOutput(rawOutput);
-                            if (options.WasTruncated)
-                            {
-                                // The normal repair method can close an incomplete <Line>
-                                // and accidentally turn it into a malformed musical event.
-                                // Keep only fully formed lines before continuing.
-                                if (TryRecoverTruncatedNBPML(streamedResponse, out string recovered,
-                                        out int recoveredLines))
-                                {
-                                    output = recovered;
-                                    Logger.Log($"OpenRouter reached max_tokens. Recovered {recoveredLines} complete musical lines; the composition may be shorter than requested.",
-                                        Logger.LogTypes.Warning);
-                                }
-                                else
-                                {
-                                    output = string.Empty;
-                                    wasAnythingCreated = false;
-                                    Logger.Log("OpenRouter reached max_tokens before a usable NBPML section was generated.",
-                                        Logger.LogTypes.Warning);
-                                }
-                            }
-                            // Remove ```xml and any surrounding text
-                            Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
-                            output = RewriteOutput(output).Trim();
-                            if (CountLines(output) <= 0)  // Check if there are at least 1 line of notes
-                            {
-                                isMusicGenerationStarted = false; // Reset the flag as music generation has ended
-                                MainWindow.lastCreateTime = DateTime.Now;
-                                Logger.Log("No notes were generated in the output.", Logger.LogTypes.Error);
-                                MessageForm.Show(this, Resources.MessageNoNotesGenerated, Resources.TitleNoNotesGenerated, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                generatedFilename = string.Empty; // Clear the filename if it has insufficient lines
-                                output = String.Empty; // Clear the output if it has insufficient lines
-                                this.Close(); // Close the form after handling the insufficient lines
-                                return; // Exit the method
-                            }
-                            //System.Diagnostics.Debug.WriteLine("Output before checking incompleteness: \n" + output);
-                            if (IsOutputIncomplete(output))
-                            {
-                                Logger.Log("Incomplete output detected. Attempting recovery...", Logger.LogTypes.Warning);
-                                output = AttemptToRecoverIncompleteOutput(output);
-
-                                // If the output is incomplete after fix
-                                if (IsOutputIncomplete(output))
-                                {
-                                    isMusicGenerationStarted = false;
-                                    MainWindow.lastCreateTime = DateTime.Now;
-                                    Logger.Log("Output recovery failed. Content is still incomplete.", Logger.LogTypes.Error);
-                                    MessageForm.Show(this, Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    generatedFilename = string.Empty;
-                                    output = String.Empty;
-                                    this.Close();
-                                    return;
-                                }
-
-                                Logger.Log("Output successfully recovered from incomplete state", Logger.LogTypes.Info);
-                            }
-                            if (!CheckIfOutputIsJSONErrorMessage(JSONText))
-                            {
-                                Logger.Log("Output: \n---------------------------------------\n" + output + "\n---------------------------------------", Logger.LogTypes.Info);
-                            }
-                            isCreatedAnything = true; // Set the flag to true
+                            JSONText = jsonMatch.Value;
+                        }
+                        if (CheckIfOutputIsJSONErrorMessage(JSONText))
+                        {
+                            isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                            MainWindow.lastCreateTime = DateTime.Now; // Update the last create time
+                            TurnJSONErrorIntoMessageBoxAndLog(JSONText);
+                            generatedFilename = string.Empty; // Clear the filename if it's an error message
+                            output = String.Empty; // Clear the output if it's an error message                             
+                            SafeCloseForm(); // Close the form after handling the error message
+                            return;
+                        }
+                        var xmlMatches = Regex.Matches(rawOutput, @"<NeoBleeperProjectFile[\s\S]*?</NeoBleeperProjectFile>", RegexOptions.IgnoreCase);
+                        if (xmlMatches.Count > 0)
+                        {
+                            var last = xmlMatches[xmlMatches.Count - 1];
+                            output = last.Value.Trim();
                         }
                         else
                         {
-                            // AI response is null or empty - show an error message and log the error
-                            isMusicGenerationStarted = false; // Reset the flag as music generation has ended
-                            Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
-                            isCreatedAnything = false; // Set the flag to false
-                            generatedFilename = string.Empty; // Clear the filename
-                            output = String.Empty; // Clear the output
-                            MessageForm.Show(this, Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            generatedFilename = string.Empty;
-                            this.Close(); // Close the form after handling the empty response
+                            output = rawOutput.Trim();
                         }
+                        SplitFileNameAndOutput(rawOutput);
+                        if (options.WasTruncated)
+                        {
+                            // The normal repair method can close an incomplete <Line>
+                            // and accidentally turn it into a malformed musical event.
+                            // Keep only fully formed lines before continuing.
+                            if (TryRecoverTruncatedNBPML(streamedResponse, out string recovered,
+                                    out int recoveredLines))
+                            {
+                                output = recovered;
+                                Logger.Log($"OpenRouter reached max_tokens. Recovered {recoveredLines} complete musical lines; the composition may be shorter than requested.",
+                                    Logger.LogTypes.Warning);
+                            }
+                            else
+                            {
+                                output = string.Empty;
+                                wasAnythingCreated = false;
+                                Logger.Log("OpenRouter reached max_tokens before a usable NBPML section was generated.",
+                                    Logger.LogTypes.Warning);
+                            }
+                        }
+                        // Remove ```xml and any surrounding text
+                        Logger.Log("Processing AI output to extract valid NBPML...", Logger.LogTypes.Info);
+                        output = RewriteOutput(output).Trim();
+                        if (CountLines(output) <= 0)  // Check if there are at least 1 line of notes
+                        {
+                            isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                            MainWindow.lastCreateTime = DateTime.Now;
+                            Logger.Log("No notes were generated in the output.", Logger.LogTypes.Error);
+                            MessageForm.Show(this, Resources.MessageNoNotesGenerated, Resources.TitleNoNotesGenerated, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            generatedFilename = string.Empty; // Clear the filename if it has insufficient lines
+                            output = String.Empty; // Clear the output if it has insufficient lines
+                            SafeCloseForm(); // Close the form after handling the insufficient lines
+                            return; // Exit the method
+                        }
+                        //System.Diagnostics.Debug.WriteLine("Output before checking incompleteness: \n" + output);
+                        if (IsOutputIncomplete(output))
+                        {
+                            Logger.Log("Incomplete output detected. Attempting recovery...", Logger.LogTypes.Warning);
+                            output = AttemptToRecoverIncompleteOutput(output);
+
+                            // If the output is incomplete after fix
+                            if (IsOutputIncomplete(output))
+                            {
+                                isMusicGenerationStarted = false;
+                                MainWindow.lastCreateTime = DateTime.Now;
+                                Logger.Log("Output recovery failed. Content is still incomplete.", Logger.LogTypes.Error);
+                                MessageForm.Show(this, Resources.MessageIncompleteNBPMLContent, Resources.TitleIncompleteNBPMLContent, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                generatedFilename = string.Empty;
+                                output = String.Empty;
+                                SafeCloseForm();
+                                return;
+                            }
+
+                            Logger.Log("Output successfully recovered from incomplete state", Logger.LogTypes.Info);
+                        }
+                        if (!CheckIfOutputIsJSONErrorMessage(JSONText))
+                        {
+                            Logger.Log("Output: \n---------------------------------------\n" + output + "\n---------------------------------------", Logger.LogTypes.Info);
+                        }
+                        isCreatedAnything = true; // Set the flag to true
                     }
-                    // If the operation was cancelled, do nothing
+                    else
+                    {
+                        // AI response is null or empty - show an error message and log the error
+                        isMusicGenerationStarted = false; // Reset the flag as music generation has ended
+                        Logger.Log("AI response is null or empty.", Logger.LogTypes.Error);
+                        isCreatedAnything = false; // Set the flag to false
+                        generatedFilename = string.Empty; // Clear the filename
+                        output = String.Empty; // Clear the output
+                        MessageForm.Show(this, Resources.MessageAIResponseNullOrEmpty, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        generatedFilename = string.Empty;
+                        SafeCloseForm(); // Close the form after handling the empty response
+                    }
                 }
                 catch (CommonAIEngine.RepetitionDetectedException ex)
                 {
@@ -1373,7 +1458,7 @@ namespace NeoBleeper
                     wasAnythingCreated = false;
                     generatedFilename = string.Empty;
                     output = string.Empty;
-                    if (!IsDisposed)
+                    if (CanUpdateUI())
                         MessageForm.Show(this, Resources.MessageInfiniteLoop,
                             Resources.TitleInfiniteLoop, MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
@@ -1382,16 +1467,16 @@ namespace NeoBleeper
                 {
                     // Show an error message and log the exception details
                     StopConnectionCheck(); // Stop the connection check due to operation completion
-                    await Task.Delay(2);
+                    try { await Task.Delay(2); } catch { }
                     Logger.Log($"Error: {ex.Message}", Logger.LogTypes.Error);
                     isCreatedAnything = false;
                     generatedFilename = string.Empty; // Clear the filename
                     output = String.Empty; // Clear the output
 
                     // Check if the exception is due to task cancellation and skip showing the message box by swallowing
-                    if (ex is TaskCanceledException || ex is OperationCanceledException)
+                    if (ex is TaskCanceledException || ex is OperationCanceledException || !CanUpdateUI())
                     {
-                        return; // Exit the method if the task was cancelled
+                        return; // Exit the method if the task was cancelled or form is closing
                     }
                     // The dialog must contain only translated Resources strings,
                     // never an API response body or a provider's JSON error.
@@ -1407,23 +1492,27 @@ namespace NeoBleeper
                         MainWindow.lastCreateTime = DateTime.Now; // Update the last create time only if something was created
                     }
                     // Re-enable controls and handle the output
-                    SetControlsEnabledAndMakeLoadingVisible(true);
-                    if (CheckIfOutputIsValidNBPML(output))
+                    if (CanUpdateUI())
                     {
-                        this.Close();
-                    }
-                    else
-                    {
-                        // If the output is not valid NBPML, show an error form and log the error
-                        if (!string.IsNullOrWhiteSpace(output) && !isErrorMessageShown)
+                        SetControlsEnabledAndMakeLoadingVisible(true);
+                        if (CheckIfOutputIsValidNBPML(output))
                         {
-                            Logger.Log("Generated output is not valid NBPML.", Logger.LogTypes.Error);
-                            AIGeneratedNBPMLError errorForm = new AIGeneratedNBPMLError(output);
-                            errorForm.ShowDialog();
+                            SafeCloseForm();
                         }
-                        generatedFilename = string.Empty; // Clear the filename if it's invalid
-                        output = String.Empty; // Clear the output if it's invalid
-                        this.Close(); // Close the form after handling the invalid output
+                        else
+                        {
+                            // If the output is not valid NBPML, show an error form and log the error
+                            if (!string.IsNullOrWhiteSpace(output) && !isErrorMessageShown)
+                            {
+                                Logger.Log("Generated output is not valid NBPML.", Logger.LogTypes.Error);
+                                using var errorForm = new AIGeneratedNBPMLError(output);
+                                if (CanUpdateUI())
+                                    errorForm.ShowDialog(this);
+                            }
+                            generatedFilename = string.Empty; // Clear the filename if it's invalid
+                            output = String.Empty; // Clear the output if it's invalid
+                            SafeCloseForm(); // Close the form after handling the invalid output
+                        }
                     }
                 }
             }
@@ -1734,7 +1823,13 @@ namespace NeoBleeper
             {
                 // No separator: treat all as content
                 output = normalized.Trim();
-                generatedFilename = NormalizeEscapedUnicodeAndMojibake(GenerateFilenameFromPromptOrXml(textBoxPrompt.Text));
+                string promptText = string.Empty;
+                RunOnUIThread(() =>
+                {
+                    if (!IsDisposed && !Disposing)
+                        promptText = textBoxPrompt.Text;
+                });
+                generatedFilename = NormalizeEscapedUnicodeAndMojibake(GenerateFilenameFromPromptOrXml(promptText));
             }
         }
 
@@ -1747,7 +1842,7 @@ namespace NeoBleeper
         /// safety mechanisms. This enumeration is primarily for internal categorization and may not be relevant for
         /// most application-level logic.</remarks>
         enum InternalPromptErrorCodes // Internal prompt error codes for categorization for extremely primitive AI models such as Markov chain-based models if no free tier AI model is found
-        // Extremely primitive AI models may be used in NeoBleeper in the future due to risk of free tier of Google Gemini™ API is gone due to all Pro models are paid only and limits of free tier is decreased to dramatically low levels (according to https://discuss.ai.google.dev/t/is-gemini-2-5-pro-disabled-for-free-tier/111261)
+        // Extremely primitive AI models may be used in NeoBleeper in the future due to risk of free tier of Google Gemini™ API is gone due to all Pro models are paid only and limits of free tier is decreased to dramatically low levels (according to [https://discuss.ai.google.dev/t/is-gemini-2-5-pro-disabled-for-free-tier/111261](https://discuss.ai.google.dev/t/is-gemini-2-5-pro-disabled-for-free-tier/111261))
         {
             None,
             NonMusicPromptDetected,
@@ -1828,7 +1923,11 @@ namespace NeoBleeper
                     break;
             }
             Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
-            MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            RunOnUIThread(() =>
+            {
+                if (CanUpdateUI())
+                    MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            });
         }
 
         /// <summary>
@@ -1883,7 +1982,7 @@ namespace NeoBleeper
             // Check if the output is valid JSON
             try
             {
-                var jsonObj = System.Text.Json.JsonDocument.Parse(output);
+                using var jsonObj = System.Text.Json.JsonDocument.Parse(output);
                 isValidJson = true;
             }
             catch (System.Text.Json.JsonException)
@@ -1893,7 +1992,7 @@ namespace NeoBleeper
             // Check for the presence of error-related properties
             if (isValidJson)
             {
-                var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
+                using var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
                 // Check for both formats: new format (title + errorMessage) and old format (error)
                 if ((jsonDoc.RootElement.TryGetProperty("title", out var titleProp) &&
                      jsonDoc.RootElement.TryGetProperty("errorMessage", out var errorMessageProp)) ||
@@ -1921,7 +2020,7 @@ namespace NeoBleeper
             if (CheckIfOutputIsJSONErrorMessage(output))
             {
                 isErrorMessageShown = true; // Set the flag to true to indicate an error message has been shown
-                var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
+                using var jsonDoc = System.Text.Json.JsonDocument.Parse(output);
 
                 string title = "Error";
                 string errorMessage = "";
@@ -1943,7 +2042,11 @@ namespace NeoBleeper
                 }
 
                 Logger.Log($"AI Error - {loggingMessage}", Logger.LogTypes.Error);
-                MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                RunOnUIThread(() =>
+                {
+                    if (CanUpdateUI())
+                        MessageForm.Show(this, errorMessage, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                });
             }
         }
 
@@ -3777,32 +3880,37 @@ namespace NeoBleeper
         /// indicator.</param>
         private void SetControlsEnabledAndMakeLoadingVisible(bool enabled)
         {
-            labelCreating.Visible = !enabled;
-            if (!enabled)
-                CreateCreatingAnimation();
-            else
+            RunOnUIThread(() =>
             {
-                animationCts?.Cancel();
-                labelCreating.Text = originalCreatingLabel;
-            }
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl == labelCreating || ctrl == labelWarning)
-                    continue;
-                ctrl.Enabled = enabled;
-            }
-            if (enabled == true)
-            {
-                if (textBoxPrompt.Text != String.Empty)
-                {
-                    buttonCreate.Enabled = true;
-                }
+                if (IsDisposed || Disposing) return;
+
+                labelCreating.Visible = !enabled;
+                if (!enabled)
+                    CreateCreatingAnimation();
                 else
                 {
-                    buttonCreate.Enabled = false;
+                    animationCts?.Cancel();
+                    labelCreating.Text = originalCreatingLabel;
                 }
-                UpdateSelectedModelControls();
-            }
+                foreach (Control ctrl in Controls)
+                {
+                    if (ctrl == labelCreating || ctrl == labelWarning || ctrl.IsDisposed)
+                        continue;
+                    ctrl.Enabled = enabled;
+                }
+                if (enabled == true)
+                {
+                    if (!string.IsNullOrEmpty(textBoxPrompt.Text))
+                    {
+                        buttonCreate.Enabled = true;
+                    }
+                    else
+                    {
+                        buttonCreate.Enabled = false;
+                    }
+                    UpdateSelectedModelControls();
+                }
+            });
         }
 
         /// <summary>
@@ -3812,13 +3920,20 @@ namespace NeoBleeper
         /// After calling this method, connection monitoring will be suspended until restarted.</remarks>
         private void StopConnectionCheck() // Stop the connection check timer and cancel the task
         {
-            connectionCheckTimer.Stop(); // Stop the timer
-            connectionCts.Cancel(); // Cancel the connection check task
+            try
+            {
+                connectionCheckTimer?.Stop(); // Stop the timer
+                if (connectionCts != null && !connectionCts.IsCancellationRequested)
+                {
+                    connectionCts.Cancel(); // Cancel the connection check task
+                }
+            }
+            catch (ObjectDisposedException) { }
         }
 
         private void comboBox_ai_model_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (isLoadingModels) return;
+            if (isLoadingModels || IsDisposed || Disposing) return;
             if (comboBox_ai_model.SelectedItem is not ModelComboItem item)
                 return;
             var chosen = item.Model;
@@ -3833,18 +3948,23 @@ namespace NeoBleeper
 
         private void CreateMusicWithAI_SystemColorsChanged(object sender, EventArgs e)
         {
-            SetTheme();
+            RunOnUIThread(() =>
+            {
+                if (!IsDisposed && !Disposing)
+                    SetTheme();
+            });
         }
 
         private async void connectionCheckTimer_Tick(object sender, EventArgs e)
         {
             // No connection, no AI music generation
-            if (connectionCts == null || connectionCts.IsCancellationRequested)
+            if (!CanUpdateUI() || connectionCts == null || connectionCts.IsCancellationRequested)
             {
-                return; // If already cancelled, do nothing
+                return; // If already cancelled or closing, do nothing
             }
             if (!await IsInternetAvailable(connectionCts))
             {
+                if (!CanUpdateUI()) return;
                 if (!isCreatedAnything)
                 {
                     if (!cts.IsCancellationRequested)
@@ -3856,11 +3976,12 @@ namespace NeoBleeper
                     StopConnectionCheck(); // Stop the timer and cancel the task
                     SetControlsEnabledAndMakeLoadingVisible(true);
                     ShowNoInternetMessage();
-                    this.Close();
+                    SafeCloseForm();
                 }
             }
             else if (!await IsServerUp(connectionCts))
             {
+                if (!CanUpdateUI()) return;
                 if (!isCreatedAnything)
                 {
                     if (!cts.IsCancellationRequested)
@@ -3872,7 +3993,7 @@ namespace NeoBleeper
                     StopConnectionCheck(); // Stop the timer and cancel the task
                     SetControlsEnabledAndMakeLoadingVisible(true);
                     ShowServerDownMessage();
-                    this.Close();
+                    SafeCloseForm();
                 }
             }
         }
@@ -3885,7 +4006,11 @@ namespace NeoBleeper
         private void ShowNoInternetMessage()
         {
             Logger.Log("Internet connection is not available. Please check your connection.", Logger.LogTypes.Error);
-            MessageForm.Show(this, Resources.MessageNoInternet, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            RunOnUIThread(() =>
+            {
+                if (!IsDisposed && !Disposing && IsHandleCreated)
+                    MessageForm.Show(this, Resources.MessageNoInternet, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            });
         }
 
         /// <summary>
@@ -3896,13 +4021,17 @@ namespace NeoBleeper
         private void ShowServerDownMessage()
         {
             Logger.Log("Selected AI provider server is not reachable. Please try again later.", Logger.LogTypes.Error);
-            MessageForm.Show(this, Resources.MessageUnavailable,
-                string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            RunOnUIThread(() =>
+            {
+                if (!IsDisposed && !Disposing && IsHandleCreated)
+                    MessageForm.Show(this, Resources.MessageUnavailable,
+                        string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            });
         }
 
         private void CreateMusicWithAI_FormClosed(object sender, FormClosedEventArgs e)
         {
-            animationCts?.Cancel();
+            try { animationCts?.Cancel(); } catch (ObjectDisposedException) { }
             if (isMusicGenerationStarted && wasAnythingCreated)
             {
                 MainWindow.lastCreateTime = DateTime.Now; // Update last create time only if music generation was started
@@ -3910,10 +4039,14 @@ namespace NeoBleeper
             StopConnectionCheck(); // Stop the connection check timer and cancel the task
             if (!isCreatedAnything)
             {
-                if (!cts.IsCancellationRequested)
+                try
                 {
-                    cts.Cancel(); // Cancel any ongoing AI requests
+                    if (cts != null && !cts.IsCancellationRequested)
+                    {
+                        cts.Cancel(); // Cancel any ongoing AI requests
+                    }
                 }
+                catch (ObjectDisposedException) { }
                 generatedFilename = string.Empty; // Clear filename if the form is closed if anything aren't created properly
                 output = String.Empty; // Clear output if the form is closed if anything aren't created properly
             }
@@ -4184,6 +4317,7 @@ namespace NeoBleeper
 
         private void checkBoxExtendedThinking_CheckedChanged(object sender, EventArgs e)
         {
+            if (IsDisposed || Disposing) return;
             if (checkBoxExtendedThinking.Enabled) // Only save the setting if the checkbox is enabled 
             {
                 extendedThinking = checkBoxExtendedThinking.Checked;
