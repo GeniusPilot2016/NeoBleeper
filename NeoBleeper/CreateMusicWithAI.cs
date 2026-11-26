@@ -4181,7 +4181,7 @@ namespace NeoBleeper
                 return (Resources.TitleCancelled, Resources.MessageCancelled);
 
             // Only Resource strings go to MessageForm; error.Message stays in logs.
-            return (Resources.TextError, Resources.MessageAnErrorOccurred);
+            return (Resources.TextError, Resources.MessageAnErrorOccurred + " " + error.Message);
         }
 
         /// <summary>

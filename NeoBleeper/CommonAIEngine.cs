@@ -345,20 +345,20 @@ namespace NeoBleeper
         }
 
         /// <summary>
-        /// Contains structured provider error information without exposing a raw API
-        /// JSON response in the exception message. The form maps this to Resources.
+        /// Structured provider error information for resource mapping, with a
+        /// readable fallback message. Raw response bodies are not exposed.
         /// </summary>
         public sealed class ApiRequestException : HttpRequestException
         {
             public string Provider { get; }
             public string ApiErrorCode { get; }
             public int? HttpStatusCodeNumber { get; }
+            public string ApiErrorMessage { get; }
 
             internal ApiRequestException(
-                string provider, int? statusCode, string apiErrorCode)
-                : base(provider + " API request failed" +
-                       (statusCode.HasValue ? " (HTTP " + statusCode.Value + ")" : "") +
-                       (string.IsNullOrEmpty(apiErrorCode) ? "." : " [" + apiErrorCode + "]."),
+                string provider, int? statusCode, string apiErrorCode,
+                string apiErrorMessage = null)
+                : base(BuildMessage(provider, statusCode, apiErrorCode, apiErrorMessage),
                        null,
                        statusCode.HasValue
                            ? (System.Net.HttpStatusCode?)statusCode.Value
@@ -367,54 +367,79 @@ namespace NeoBleeper
                 Provider = provider;
                 ApiErrorCode = apiErrorCode ?? string.Empty;
                 HttpStatusCodeNumber = statusCode;
+                ApiErrorMessage = string.IsNullOrWhiteSpace(apiErrorMessage)
+                    ? Message : apiErrorMessage.Trim();
+            }
+
+            private static string BuildMessage(string provider, int? statusCode,
+                string apiErrorCode, string apiErrorMessage)
+            {
+                string message = (string.IsNullOrWhiteSpace(provider) ? "AI provider" : provider)
+                    + " API request failed";
+                if (statusCode.HasValue)
+                    message += " (HTTP " + statusCode.Value + ")";
+                if (!string.IsNullOrWhiteSpace(apiErrorCode))
+                    message += " [" + apiErrorCode.Trim() + "]";
+                return message + (string.IsNullOrWhiteSpace(apiErrorMessage)
+                    ? ". The provider did not supply an error description."
+                    : ": " + apiErrorMessage.Trim());
             }
         }
 
-        /// <summary>
-        /// Extracts the provider's error status for resource mapping. The raw JSON
-        /// is intentionally not included in the UI-facing exception message.
-        /// </summary>
         private static ApiRequestException CreateApiRequestException(
             string provider, int? httpStatusCode, string responseBody)
         {
             string errorCode = string.Empty;
+            string errorMessage = string.Empty;
             int? embeddedStatus = null;
-            try
+            if (!string.IsNullOrWhiteSpace(responseBody))
             {
-                using JsonDocument json = JsonDocument.Parse(responseBody);
-                JsonElement error = json.RootElement;
-                if (TryGetObject(error, "response", out JsonElement response) &&
-                    TryGetObject(response, "error", out JsonElement responseError))
-                    error = responseError;
-                else if (TryGetObject(error, "error", out JsonElement nestedError))
-                    error = nestedError;
+                try
+                {
+                    using JsonDocument json = JsonDocument.Parse(responseBody);
+                    JsonElement root = json.RootElement;
+                    JsonElement error = root;
+                    if (TryGetObject(root, "response", out JsonElement response))
+                        error = response;
+                    if (TryGetObject(error, "error", out JsonElement nestedError))
+                        error = nestedError;
 
-                errorCode = GetString(error, "status");
-                if (string.IsNullOrWhiteSpace(errorCode))
-                    errorCode = GetString(error, "type");
-                if (string.IsNullOrWhiteSpace(errorCode))
-                    errorCode = GetString(error, "code");
-                if (string.IsNullOrWhiteSpace(errorCode))
-                    errorCode = GetString(json.RootElement, "type");
-
-                if (error.ValueKind == JsonValueKind.Object &&
-                    error.TryGetProperty("code", out JsonElement numericCode) &&
-                    numericCode.ValueKind == JsonValueKind.Number &&
-                    numericCode.TryGetInt32(out int code) && code >= 400 && code <= 599)
-                    embeddedStatus = code;
-                if (json.RootElement.ValueKind == JsonValueKind.Object &&
-                    json.RootElement.TryGetProperty("status_code", out JsonElement status) &&
-                    status.ValueKind == JsonValueKind.Number &&
-                    status.TryGetInt32(out int statusCode) && statusCode >= 400 && statusCode <= 599)
-                    embeddedStatus = statusCode;
-            }
-            catch (JsonException)
-            {
-                // Non-JSON error pages are common during outages. Keep HTTP status.
+                    errorCode = FirstNonBlank(GetString(error, "status"),
+                        GetString(error, "type"), GetString(error, "code"));
+                    if (error.ValueKind == JsonValueKind.Object &&
+                        error.TryGetProperty("code", out JsonElement numericCode) &&
+                        numericCode.ValueKind == JsonValueKind.Number)
+                    {
+                        errorCode = FirstNonBlank(errorCode, numericCode.GetRawText());
+                        if (numericCode.TryGetInt32(out int code) && code >= 400 && code <= 599)
+                            embeddedStatus = code;
+                    }
+                    errorCode = FirstNonBlank(errorCode, GetString(root, "type"));
+                    errorMessage = FirstNonBlank(GetString(error, "message"),
+                        GetString(error, "detail"), GetString(error, "error"),
+                        GetString(root, "message"), GetString(root, "detail"));
+                    if (root.ValueKind == JsonValueKind.String)
+                        errorMessage = FirstNonBlank(errorMessage, root.GetString());
+                    if (TryGetObject(error, "incomplete_details", out JsonElement incomplete))
+                        errorMessage = FirstNonBlank(errorMessage, GetString(incomplete, "reason"));
+                    if (root.ValueKind == JsonValueKind.Object &&
+                        root.TryGetProperty("status_code", out JsonElement status) &&
+                        status.ValueKind == JsonValueKind.Number &&
+                        status.TryGetInt32(out int statusCode) && statusCode >= 400 && statusCode <= 599)
+                        embeddedStatus = statusCode;
+                }
+                catch (JsonException)
+                {
+                    // Do not expose raw HTML or other unstructured response bodies.
+                }
             }
             return new ApiRequestException(provider, httpStatusCode ?? embeddedStatus,
-                errorCode);
+                errorCode, errorMessage);
         }
+
+        private static string FirstNonBlank(params string[] values)
+            => values.FirstOrDefault(value => !string.IsNullOrWhiteSpace(value))?.Trim()
+                ?? string.Empty;
 
         /// <summary>
         /// Generates text using SSE streaming for all providers. Retains the old method signature.
@@ -615,7 +640,7 @@ namespace NeoBleeper
                 string kind = GetString(root, "type");
                 if (kind == "error" || currentEvent == "error" ||
                     kind == "response.failed" || kind == "response.incomplete" ||
-                    (provider == "OpenRouter" && TryGetObject(root, "error", out _)))
+                    TryGetObject(root, "error", out _))
                     throw CreateApiRequestException(provider, null, data);
 
                 if (provider == "OpenRouter" &&
